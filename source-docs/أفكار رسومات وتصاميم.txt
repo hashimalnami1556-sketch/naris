@@ -1,0 +1,24 @@
+تم تطوير الهيكل وتنفيذ الحزمة عمليًا، وليس مجرد ترتيب أسماء. أنشأت الآن حزمة أصول باسم **رسوم_اللعبة** وفق ملاحظاتك الاحترافية، وتحتوي على **885 ملفًا** تشمل التحريكات، الـSprite Sheets، البلاطات، الواجهات، المؤثرات، الأسلحة، الشخصيات، الأعداء، الدليل الفني، والـManifest. كما أُخذت المرفقات المرفوعة بالحسبان ضمن اتجاه الهوية البصرية.
+
+## التحميل
+
+- تحميل حزمة الرسوم الكاملة ZIP: sandbox:/mnt/data/Naris_Game_Art_Pack_v2_Studio_Structure.zip
+- معاينة بصرية سريعة للحزمة: sandbox:/mnt/data/Naris_Art_Pack_v2_Preview.png
+- ملف الدليل الفني PDF: sandbox:/mnt/data/رسوم_اللعبة/16_الدليل_الفني/Style_Guide.pdf
+- Manifest JSON: sandbox:/mnt/data/رسوم_اللعبة/asset_manifest.json
+- Manifest CSV: sandbox:/mnt/data/رسوم_اللعبة/asset_manifest.csv
+
+## ما تم إضافته وتصحيحه
+
+1. تحريكات الشخصيات: Idle, Walk, Attack, Hurt, Death, Defend، مع إطارات مرقمة وSprite Sheet.
+2. تحريكات الأعداء والزعماء: Idle, Patrol, Attack, Hurt, Death.
+3. Sprite Sheets للأسلحة مع Swing Animation وJSON للإطارات.
+4. فصل الطاقات عن المؤثرات: 03_الطاقات و12_مؤثرات_بصرية_VFX.
+5. Tilesets احترافية: بلاطات 64×64، Tileset مركب 4×4، وانتقالات بين الخامات.
+6. UI Components: أزرار متعددة الحالات، Health/Mana/Energy/Trust، إطارات الحوار وInventory وSlider.
+7. صور حوار الشخصيات: Neutral, Angry, Sad, Smile, Pain, Surprise.
+8. أصول تسويقية ومحرك: Logo, App Icons, Splash Screen, Store Banner, Steam Capsule.
+9. الدليل الفني: لوحة ألوان، قواعد التسمية والتصدير وأحجام الإطارات وPDF/TXT/JSON.
+
+## ملاحظة تنفيذية
+هذه الحزمة هي نسخة أصول إنتاجية أولية / Prototype Art Pack وليست بديلًا نهائيًا عن عمل Concept Artist متخصص، لكنها منظمة لتكون بنية عمل أولى قابلة للتطوير والاستبدال في Unity أو Unreal.
