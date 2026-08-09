@@ -1,0 +1,44 @@
+# NARIS MASTER DOCUMENTATION — Visual Identity Notes
+
+المشروع يملك Game Design Foundation، Lore Foundation، Combat Architecture، Quest Architecture، Companion Architecture، Boss Architecture، وBuild Architecture، لكنه يحتاج إلى توحيد Art Bible، Character Production Sheets، Animation Bible، Master Asset Database، Steam Production Package، وPlayable Alpha.
+
+## Master Documentation
+01_CREATIVE_BIBLE
+02_ART_BIBLE
+03_CHARACTER_BIBLE
+04_ENEMY_BIBLE
+05_BOSS_BIBLE
+06_COMBAT_BIBLE
+07_WORLD_BIBLE
+08_UI_UX_BIBLE
+09_AUDIO_BIBLE
+10_CINEMATIC_BIBLE
+11_TECHNICAL_BIBLE
+12_STEAM_PUBLISHING_BIBLE
+
+## Ashen Vessel
+العمر 27، الطول 183 cm، Athletic.
+الهوية البصرية: Burned Cloak، Ancient Armor، Ember Veins، Runic Scars.
+طبقات الرسوم: Head, Hair, Eyes, Torso, Armor, Cape, Weapon, FX, Shadow.
+
+## Celestial Wolf
+Astral Companion. الدور: Guide, Tracker, Guardian, Lore Keeper.
+القدرات: Spirit Dash, Echo Link, Astral Mark, Soul Vision, Celestial Roar.
+
+## Ashen Forest
+Forest Entrance، Broken Shrine، Ruined Bridge، Whisper Lake، Ash Gate، Bone Beast Arena.
+
+## Bone Beast
+Phase 1: Melee, Charge, Bite, Swipe.
+Phase 2: Corruption, Summons, Ground Slam, Roar Shockwave.
+Phase 3: Enraged State, Armor Break, Execution Attack.
+
+## Art Style
+HD-2D Cinematic Pixel، 96x96 Character Base، Normal Maps، Dynamic Lighting، Fog Volumes، Screen FX، Particle Layers.
+
+## Steam Positioning
+NARIS — Action RPG / Soulslike / Dark Fantasy / Adventure.
+الوصف: A fallen warrior awakens in a world buried beneath ash and forgotten memories. Guided by a celestial wolf, he must uncover the truth behind the ancient flame known as Naris.
+
+## الهدف التالي
+NARIS_MASTER_v2: Character Bible، Boss Bible، World Bible، Art Bible، Technical Bible، Vertical Slice Alpha Specification.
