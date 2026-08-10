@@ -21,6 +21,9 @@ public:
     void StartEncounter();
 
     UFUNCTION(BlueprintCallable, Category="NARIS|Boss")
+    void ResetEncounter();
+
+    UFUNCTION(BlueprintCallable, Category="NARIS|Boss")
     void ApplyDamageToEncounter(float Damage);
 
     UFUNCTION(BlueprintCallable, Category="NARIS|Boss")
@@ -31,6 +34,9 @@ public:
 
     UFUNCTION(BlueprintPure, Category="NARIS|Boss")
     float GetCurrentHealth() const { return CurrentHealth; }
+
+    UFUNCTION(BlueprintPure, Category="NARIS|Boss")
+    bool IsEncounterActive() const { return bEncounterActive; }
 
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="NARIS|Boss")
     TObjectPtr<UBoneBeastDataAsset> BossData;
@@ -44,6 +50,12 @@ protected:
 
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="NARIS|Boss")
     ENarisBossPhase CurrentPhase = ENarisBossPhase::Phase1;
+
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="NARIS|Boss")
+    bool bEncounterActive = false;
+
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="NARIS|Boss")
+    bool bEncounterComplete = false;
 
 private:
     void EvaluatePhase();
