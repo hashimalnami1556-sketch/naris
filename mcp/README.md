@@ -1,23 +1,21 @@
-# NARIS MCP
+# NARIS MCP v0.1.0
 
-MCP orchestration layer for CALL OF NARIS.
+Runnable read-only MCP orchestration server for CALL OF NARIS.
 
-## Architecture
+## Tools
+- `naris_project_status`
+- `naris_asset_validate`
+- `naris_vertical_slice_status`
+- `naris_qa_report`
+- `naris_build_status`
 
-`ChatGPT / MCP Client -> NARIS MCP -> GitHub / project files / QA metadata -> Unreal production runtime`
+## Local run
 
-## First tool surface
+```bash
+cd mcp
+npm install
+npm run build
+NARIS_REPO=/path/to/naris npm start
+```
 
-The initial implementation contract is defined in `mcp/SPEC.md`.
-
-### Read-only tools
-
-- `naris_project_status` — repository and milestone status
-- `naris_asset_validate` — canonical Asset ID/name validation
-- `naris_vertical_slice_status` — W04 Ashen Forest progression gates
-- `naris_qa_report` — evidence-backed QA checklist/report
-- `naris_build_status` — build/release gate status
-
-## Production rule
-
-MCP is not the game engine. Unreal Engine remains the production runtime. MCP coordinates inspection, validation and controlled project operations.
+MCP is the project/QA orchestration layer. Unreal Engine remains the production runtime. The server deliberately does not claim Unreal build or playtest success without evidence.
