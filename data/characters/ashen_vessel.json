@@ -1,0 +1,49 @@
+{
+  "asset_id": "NARIS-CHR-ASHEN-VESSEL-0001",
+  "name": "Ashen Vessel",
+  "role": "primary_hero",
+  "archetype": "battle_hardened_noble",
+  "status": "design_direction_locked",
+  "version": "V001",
+  "world": "W10",
+  "domains": ["CHR"],
+  "visual_identity": {
+    "hair": "long silver-white, naturally wavy, swept back, shoulder to shoulder-blade length",
+    "face": "strong square jaw, defined cheekbones, straight nose, clean-shaven, calm intelligent expression",
+    "skin": "pale healthy",
+    "tunic": "deep rust-red/crimson damask-jacquard botanical pattern",
+    "leather": "dark rich brown, subtly weathered, fine stitching",
+    "metal": "weathered polished steel with restrained bronze/gold details",
+    "boots": "tall dark-brown rugged riding boots",
+    "read": "heroic, noble, courageous, protective"
+  },
+  "primary_weapon": {
+    "asset_id": "NARIS-W10-WPN-SWD-0001",
+    "name": "Flame Relic Sword",
+    "total_length_cm": 150,
+    "blade_length_cm": 115,
+    "grip": "two-handed-capable",
+    "blade": "straight polished steel with subtle forged Damascus texture and central fuller",
+    "guard": "slightly curved engraved crossguard",
+    "pommel": "round decorated",
+    "energy": "restrained warm ember accent",
+    "silhouette_rule": "must read as a long heroic legendary sword; never short sword or dagger"
+  },
+  "secondary_weapon": {
+    "asset_id": "NARIS-W10-WPN-SWD-0002",
+    "type": "slender sword",
+    "placement": "left-side leather scabbard"
+  },
+  "required_views": ["front", "three_quarter", "side", "rear", "face_closeup", "sword_profile", "material_closeups", "turntable"],
+  "production_gates": ["concept", "approved_concept", "asset_id", "source_art", "high_poly", "retopo", "uv", "texture", "material", "rig", "skin", "animation", "unreal_integration", "optimization", "qa", "approved", "release"],
+  "external_systems": {
+    "higgsfield": "concept_and_cinematic_reference",
+    "adobe": "source_art_and_texture_reference",
+    "figma": "reference_boards_and_design_dependencies",
+    "blender": "3d_asset_preparation",
+    "unreal": "runtime_and_gameplay_integration",
+    "github": "canonical_versioned_record",
+    "mcp": "orchestration_and_validation"
+  },
+  "negative_constraints": ["evil_face", "demon", "horns", "skulls", "excessive_spikes", "cursed_sword", "corrupted_black_armor", "sinister_glowing_eyes", "short_primary_sword", "dagger_primary_weapon"]
+}
