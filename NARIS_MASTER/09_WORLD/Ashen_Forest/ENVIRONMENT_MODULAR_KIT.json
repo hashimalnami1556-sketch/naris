@@ -1,0 +1,11 @@
+{
+  "terrain": ["ground_tile_4m","ground_tile_8m","slope_8m","cliff_4m","cliff_8m"],
+  "rocks": ["rock_small","rock_medium","rock_large","boulder_cluster"],
+  "trees": ["ash_tree_small","ash_tree_medium","ash_tree_dead"],
+  "ruins": ["shrine_wall","shrine_pillar","bridge_segment","gate_arch","rubble_pile"],
+  "props": ["memory_crystal","lantern","bone_pile","altar","broken_cart","dead_branch"],
+  "foliage": ["ash_grass","dead_shrub","mist_moss"],
+  "fx_emitters": ["ash_fall","ground_mist","ember_drift","echo_particles"],
+  "material_layers": ["BaseTerrain","AshOverlay","Wetness","Moss","VertexBlend","RubbleBlend","EmissiveRunes"],
+  "nanite_candidates": ["cliffs","ruins","large rocks","hero props"]
+}
