@@ -1,0 +1,33 @@
+# Unreal Engine generated files
+**/Binaries/
+**/DerivedDataCache/
+**/Intermediate/
+**/Saved/
+**/.vs/
+**/.idea/
+
+# Unreal local/editor files
+*.sln
+*.suo
+*.opensdf
+*.sdf
+*.VC.db
+*.VC.opendb
+
+# OS/editor noise
+.DS_Store
+Thumbs.db
+.vscode/
+
+# Node
+mcp/node_modules/
+mcp/dist/
+
+# Local secrets
+.env
+.env.*
+!.env.example
+
+# Build outputs
+builds/local/
+artifacts/local/
