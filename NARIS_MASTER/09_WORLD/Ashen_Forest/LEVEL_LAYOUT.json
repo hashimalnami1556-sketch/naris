@@ -1,0 +1,14 @@
+{
+  "region": "Ashen Forest",
+  "purpose": "Vertical Slice Production Level",
+  "bounds_m": {"x": 1600, "y": 1200, "z": 350},
+  "zones": [
+    {"id":"Z01_FOREST_ENTRANCE","name":"Forest Entrance","role":"tutorial","center":[-650,420,0],"size":[420,300]},
+    {"id":"Z02_BROKEN_SHRINE","name":"Broken Shrine","role":"lore/combat","center":[-250,280,10],"size":[360,300]},
+    {"id":"Z03_RUINED_BRIDGE","name":"Ruined Bridge","role":"traversal/gating","center":[80,80,25],"size":[280,220]},
+    {"id":"Z04_WHISPER_LAKE","name":"Whisper Lake","role":"companion reveal","center":[360,260,-5],"size":[420,360]},
+    {"id":"Z05_ASH_GATE","name":"Ash Gate","role":"major_gate","center":[610,-40,15],"size":[260,240]},
+    {"id":"Z06_BONE_BEAST_ARENA","name":"Bone Beast Arena","role":"boss","center":[700,-400,0],"size":[500,420]}
+  ],
+  "critical_path": ["Z01_FOREST_ENTRANCE","Z02_BROKEN_SHRINE","Z03_RUINED_BRIDGE","Z04_WHISPER_LAKE","Z05_ASH_GATE","Z06_BONE_BEAST_ARENA"]
+}
