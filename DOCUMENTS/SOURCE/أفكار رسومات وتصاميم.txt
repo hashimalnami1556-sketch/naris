@@ -1,5 +1,26 @@
-# SOURCE IMPORT
+تم تطوير الهيكل وتنفيذ الحزمة عمليًا، وليس مجرد ترتيب أسماء. أنشأت الآن حزمة أصول باسم **رسوم_اللعبة** وفق ملاحظاتك الاحترافية، وتحتوي على **885 ملفًا** تشمل التحريكات، الـSprite Sheets، البلاطات، الواجهات، المؤثرات، الأسلحة، الشخصيات، الأعداء، الدليل الفني، والـManifest. كما أُخذت المرفقات المرفوعة بالحسبان ضمن اتجاه الهوية البصرية.
 
-This file is preserved as provided in the NARIS project source set.
+## التحميل
 
-[Original source text is maintained in the project workspace and represented in the repository inventory.]
+- [تحميل حزمة الرسوم الكاملة ZIP](sandbox:/mnt/data/Naris_Game_Art_Pack_v2_Studio_Structure.zip)
+- [معاينة بصرية سريعة للحزمة](sandbox:/mnt/data/Naris_Art_Pack_v2_Preview.png)
+- [ملف الدليل الفني PDF](sandbox:/mnt/data/رسوم_اللعبة/16_الدليل_الفني/Style_Guide.pdf)
+- [Manifest بصيغة JSON](sandbox:/mnt/data/رسوم_اللعبة/asset_manifest.json)
+- [Manifest بصيغة CSV](sandbox:/mnt/data/رسوم_اللعبة/asset_manifest.csv)
+
+## ما تم إضافته وتصحيحه
+
+أدخلت العناصر التالية:
+1. تحريكات الشخصيات: Idle / Walk / Attack / Hurt / Death / Defend، مع إطارات مرقمة وSprite Sheet لكل حركة.
+2. تحريكات الأعداء والزعماء: Idle / Patrol / Attack / Hurt / Death.
+3. Sprite Sheets للأسلحة مع Swing Animation وملفات JSON للإطارات.
+4. فصل الطاقات عن المؤثرات: `03_الطاقات` للرموز الثابتة و`12_مؤثرات_بصرية_VFX` للتسلسلات.
+5. Tilesets احترافية وبلاطات انتقال بين الخامات.
+6. UI Components بحالات normal / pressed / disabled / hover، وأشرطة Health / Mana / Energy / Trust، وإطارات الحوار وInventory Slot وSlider.
+7. صور حوار الشخصيات: Neutral / Angry / Sad / Smile / Pain / Surprise.
+8. أصول تسويقية ومحرك: Logo / App Icons / Splash Screen / Store Banner / Steam Capsule.
+9. الدليل الفني: لوحة ألوان، قواعد التسمية، قواعد التصدير، أحجام الإطارات، PDF + TXT + JSON.
+
+## ملاحظة تنفيذية
+
+هذه الحزمة هي نسخة أصول إنتاجية أولية / Prototype Art Pack وليست بديلًا نهائيًا عن عمل رسام Concept Artist متخصص. لكنها منظمة كبنية عمل قابلة للتطوير والاستبدال.
