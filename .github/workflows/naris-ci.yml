@@ -1,0 +1,91 @@
+name: NARIS CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: naris-ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  repository-validation:
+    name: Repository + JSON validation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Validate NARIS repository
+        run: python tools/ci/validate_naris.py
+
+  mcp-build:
+    name: MCP TypeScript build
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: mcp
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: mcp/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build MCP server
+        run: npm run build
+
+  unreal-project-check:
+    name: Unreal project integrity
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validate .uproject JSON
+        run: python -c "import json; json.load(open('unreal/NARIS_W04/NARIS_W04.uproject', encoding='utf-8')); print('Unreal .uproject JSON OK')"
+
+  unreal-build-self-hosted:
+    name: Unreal build (self-hosted runner)
+    if: ${{ github.event_name == 'workflow_dispatch' }}
+    runs-on: [self-hosted, windows, unreal]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Verify Unreal Engine path
+        shell: powershell
+        run: |
+          if (-not $env:UNREAL_ENGINE_ROOT) { throw 'UNREAL_ENGINE_ROOT runner variable is not configured.' }
+          if (-not (Test-Path $env:UNREAL_ENGINE_ROOT)) { throw "UNREAL_ENGINE_ROOT does not exist: $env:UNREAL_ENGINE_ROOT" }
+
+      - name: Generate project files
+        shell: powershell
+        run: |
+          $uproject = Join-Path $env:GITHUB_WORKSPACE 'unreal/NARIS_W04/NARIS_W04.uproject'
+          $uprojectTools = Join-Path $env:UNREAL_ENGINE_ROOT 'Engine/Build/BatchFiles/GenerateProjectFiles.bat'
+          & $uprojectTools $uproject
+
+      - name: Build Development Editor
+        shell: powershell
+        run: |
+          $buildBat = Join-Path $env:UNREAL_ENGINE_ROOT 'Engine/Build/BatchFiles/Build.bat'
+          & $buildBat 'NARIS_W04Editor' 'Win64' 'Development' (Join-Path $env:GITHUB_WORKSPACE 'unreal/NARIS_W04/NARIS_W04.uproject') '-WaitMutex'
