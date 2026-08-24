@@ -1,0 +1,12 @@
+AssetFamily,NominalSize,Grid,Pivot
+Floor_2M,2x2m,2m,Bottom-Center
+Floor_4M,4x4m,2m,Bottom-Center
+Wall_2M,2x2m,2m,Bottom-Center
+Wall_4M,4x2m,2m,Bottom-Center
+Corner_2M,2x2m,2m,Bottom-Corner
+Column,0.5x0.5x2m,2m,Bottom-Center
+Arch_4M,4x4m,2m,Bottom-Center
+Stairs_2M,2x4m,2m,Bottom-Center
+Ramp_4M,4x4m,2m,Bottom-Center
+Bridge_4M,4x8m,2m,Bottom-Center
+PlayerReference,0.6x0.4x1.83m,N/A,Bottom-Center

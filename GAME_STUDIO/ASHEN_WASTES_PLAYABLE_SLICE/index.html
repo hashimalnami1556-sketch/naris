@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>CALL OF NARIS — Ashen Wastes</title>
+  <style>
+    html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#050407;color:#eee;font-family:Inter,system-ui,sans-serif}
+    #game{position:fixed;inset:0}
+    #hud{position:fixed;left:24px;top:20px;z-index:5;pointer-events:none;text-shadow:0 2px 8px #000}
+    #title{font-weight:800;letter-spacing:.14em;font-size:14px}
+    #area{font-size:12px;opacity:.7;margin-top:4px}
+    #bar{margin-top:14px;width:230px;height:8px;background:#221e23;border:1px solid #4b4148}
+    #hp{height:100%;width:100%;background:#d66b3d}
+    #status{margin-top:8px;font-size:12px}
+    #help{position:fixed;right:20px;bottom:18px;z-index:5;font-size:12px;opacity:.7;text-align:right}
+    #boss{position:fixed;left:50%;top:22px;transform:translateX(-50%);z-index:5;text-align:center;display:none}
+    #bossName{font-weight:700;letter-spacing:.12em;font-size:12px}
+    #bossBar{width:360px;height:7px;background:#21151b;border:1px solid #58313c;margin-top:7px}
+    #bossHp{height:100%;width:100%;background:#7b4b9e}
+  </style>
+</head>
+<body>
+<div id="game"></div>
+<div id="hud">
+  <div id="title">CALL OF NARIS</div>
+  <div id="area">ASHEN WASTES — PLAYABLE SLICE</div>
+  <div id="bar"><div id="hp"></div></div>
+  <div id="status">Explore the ash bridge.</div>
+</div>
+<div id="boss">
+  <div id="bossName">BONE BEAST</div>
+  <div id="bossBar"><div id="bossHp"></div></div>
+</div>
+<div id="help">WASD / Arrows — Move<br>Shift — Dash · Space — Strike · R — Reset</div>
+<script type="module" src="/src/main.js"></script>
+</body>
+</html>
