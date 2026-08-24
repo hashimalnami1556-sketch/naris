@@ -1,0 +1,13 @@
+{
+  "project": "CALL OF NARIS",
+  "status": "MASTER_FOUNDATION_STARTED",
+  "version": "MASTER-0.2",
+  "engine": "Unreal Engine 5",
+  "vertical_slice": "Ashen Forest",
+  "core_characters": ["Ashen Vessel", "Celestial Wolf"],
+  "first_boss": "Bone Beast",
+  "world_package": "Ashen Forest",
+  "source_basis": ["تصميم هوية بصرية.txt", "أفكار رسومات وتصاميم.txt"],
+  "repository": "hashimalnami1556-sketch/naris",
+  "integration_branch": "integration/naris-master-0-2"
+}
