@@ -1,0 +1,56 @@
+name: NARIS Codex PR Check
+
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pull-requests: read
+
+concurrency:
+  group: naris-codex-pr-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  preflight:
+    name: Codex PR preflight
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Verify required project files
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f README.md
+          test -f unreal/NARIS_W04/NARIS_W04.uproject
+          test -f mcp/package.json
+          test -f tools/ci/validate_naris.py
+          echo "NARIS project preflight OK"
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Run repository validation
+        run: python tools/ci/validate_naris.py
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: mcp/package-lock.json
+
+      - name: Build MCP
+        working-directory: mcp
+        run: |
+          npm ci
+          npm run build
+
+      - name: Validate Unreal project descriptor
+        run: python -c "import json; json.load(open('unreal/NARIS_W04/NARIS_W04.uproject', encoding='utf-8')); print('NARIS_W04.uproject OK')"
