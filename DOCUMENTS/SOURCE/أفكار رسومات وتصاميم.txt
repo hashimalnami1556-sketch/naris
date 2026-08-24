@@ -1,0 +1,5 @@
+# SOURCE IMPORT
+
+This file is preserved as provided in the NARIS project source set.
+
+[Original source text is maintained in the project workspace and represented in the repository inventory.]
