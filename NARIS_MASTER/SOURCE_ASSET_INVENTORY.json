@@ -1,0 +1,33 @@
+{
+  "inventory_scope": "current NARIS project source files available in the active workspace",
+  "note": "This inventory records source assets; binary import is tracked separately and must be validated before marked complete.",
+  "status_flow": ["SOURCE_FOUND", "IMPORTED", "INTEGRATED", "VALIDATED"],
+  "source_files": [
+    {"file":"8F4E91E1-9E25-4467-BAAC-1645CB0DDDD5.PNG","sha256":"789a9d01500b338ec4b252c0ac34e442e7c49fd24b365f3ce0ee2a7680c56696","bytes":2285352,"destination":"ASSETS/CONCEPTS/REFERENCES/8F4E91E1-9E25-4467-BAAC-1645CB0DDDD5.PNG"},
+    {"file":"C7345319-AB11-4D05-BA19-85E8F35DDEE3.PNG","sha256":"55e9457d1f754fca22351403d57c03d5d5e5b685d5d093515940f9364f3969f8","bytes":1627645,"destination":"ASSETS/CONCEPTS/REFERENCES/C7345319-AB11-4D05-BA19-85E8F35DDEE3.PNG"},
+    {"file":"IMG_3619.jpeg","sha256":"91d7056501936b2163aac1339bbdf6009cd6c05518b15b1f2a0f2233dc73812a","bytes":501764,"destination":"ASSETS/CHARACTERS/REFERENCES/IMG_3619.jpeg"},
+    {"file":"IMG_3776.jpeg","sha256":"8859991d83a1312c10526139dd1adc39c89677dd90e81bb719819a451e64206c","bytes":518622,"destination":"ASSETS/CHARACTERS/REFERENCES/IMG_3776.jpeg"},
+    {"file":"IMG_3846.jpeg","sha256":"9a8c5bdc6513f582978c2be15b62169e29bc716d2686cb409daefc6ae86d2279","bytes":61673,"destination":"ASSETS/CHARACTERS/REFERENCES/IMG_3846.jpeg"},
+    {"file":"IMG_3892.jpeg","sha256":"2cb1173287db940e784414d31534910e05c85d833cda5b55b426871515fac2fd","bytes":256431,"destination":"ASSETS/CHARACTERS/REFERENCES/IMG_3892.jpeg"},
+    {"file":"IMG_3893.jpeg","sha256":"534afcec546a6767a150d047209958aba325739fe92faba613d81fc61ea67d15","bytes":293823,"destination":"ASSETS/CHARACTERS/REFERENCES/IMG_3893.jpeg"},
+    {"file":"IMG_3896.jpeg","sha256":"b3df8ec05416b264a8c14bf9399da382a275de366c534d952a533b4dc05c3127","bytes":241694,"destination":"ASSETS/CHARACTERS/REFERENCES/IMG_3896.jpeg"},
+    {"file":"IMG_3897.jpeg","sha256":"7919affd733ca65c4a127cd8744ed92511f8dd5366b1bb2e6a1a926b91a2fba4","bytes":211610,"destination":"ASSETS/CHARACTERS/REFERENCES/IMG_3897.jpeg"},
+    {"file":"IMG_3898.jpeg","sha256":"b5b466f5e9dffa5d70d5c2bdba3fe0ea855828fe2cde873d61640f10c7a78682","bytes":162008,"destination":"ASSETS/CHARACTERS/REFERENCES/IMG_3898.jpeg"},
+    {"file":"IMG_3899.jpeg","sha256":"bf1bab328a9b380495e09c41abc9d0ae5367a976f3c11381708002feb7bbbadf","bytes":192537,"destination":"ASSETS/CHARACTERS/REFERENCES/IMG_3899.jpeg"},
+    {"file":"IMG_4134.jpeg","sha256":"a5d67a51f71aa104deb234ee6dfa5f00794377a58e1dfd498aebe1b5cede4c5e","bytes":406026,"destination":"ASSETS/CONCEPTS/REFERENCES/IMG_4134.jpeg"},
+    {"file":"IMG_4137.jpeg","sha256":"36ad258b38cb19b14ff21970bffac6f8ba3bbd9ade1ba75d5b9076fff070b871","bytes":370647,"destination":"ASSETS/CONCEPTS/REFERENCES/IMG_4137.jpeg"},
+    {"file":"IMG_4142.jpg","sha256":"f2566910f84aa45946ea155ae2e51bd580d0817e77b4e6d1866888cd4cdcc561","bytes":851736,"destination":"ASSETS/CONCEPTS/REFERENCES/IMG_4142.jpg"},
+    {"file":"Image to PDF 20250720152556.pdf","sha256":"7679dfcc351f973e151a403225d0f402269460b588084a944e19408d86e8a066","bytes":720333,"destination":"DOCUMENTS/REFERENCE_PDF/Image_to_PDF_20250720152556.pdf"},
+    {"file":"a_wide_high_detail_game_concept_art_design_sheet.png","sha256":"80d07816feaef19450ff15e5756e796c075382ffa8d41ba3250868a1d571ad23","bytes":2539609,"destination":"ASSETS/CONCEPTS/MASTER/a_wide_high_detail_game_concept_art_design_sheet.png"},
+    {"file":"gemini_generated_video_7C03F426.MP4","sha256":"faed55f2d7c0de70a74e332390dc9a2ab73ac9542f06fb155314bf52613545bb","bytes":2358939,"destination":"ASSETS/CINEMATICS/REFERENCES/gemini_generated_video_7C03F426.MP4"},
+    {"file":"gemini_generated_video_DFF0B0F4.MP4","sha256":"559b32703dfa94d6ba1985c4871745e0e75f14c45b13eb1082ef9bea7b5ad65c","bytes":2271195,"destination":"ASSETS/CINEMATICS/REFERENCES/gemini_generated_video_DFF0B0F4.MP4"},
+    {"file":"أفكار رسومات وتصاميم.txt","sha256":"3ec35e7e9c7a0c8b706cdd3824221e5957f2469ba50463815e4e3e87d8ce2cba","bytes":3286,"destination":"DOCUMENTS/SOURCE/أفكار رسومات وتصاميم.txt"},
+    {"file":"إعلان تشويقي HVM NARIS.txt","sha256":"20c1434b42269386c2301bc57effd6eb75ee67cda4f1b18253ceb5b35888200a","bytes":8215,"destination":"DOCUMENTS/SOURCE/إعلان تشويقي HVM NARIS.txt"},
+    {"file":"تصميم لعبة Naris.txt","sha256":"3b9ceed467683c91d79bde40b4d4a5665adb853ea47fdab90f5baa8961baf457","bytes":2087,"destination":"DOCUMENTS/SOURCE/تصميم لعبة Naris.txt"},
+    {"file":"تصميم هوية بصرية.txt","sha256":"73b0a776eae5beb07f4e96924ec0adaf0e45c3aa0427e4e7073fdd1ff65a89cf","bytes":3735,"destination":"DOCUMENTS/SOURCE/تصميم هوية بصرية.txt"},
+    {"file":"جمع صور المشروع.txt","sha256":"d86f1acf50e7bee1f8ed9a555f431d26d0b35581004200a1880defc6c7f783b2","bytes":1186,"destination":"DOCUMENTS/SOURCE/جمع صور المشروع.txt"},
+    {"file":"حزمة الشخصيات الرئيسية.txt","sha256":"08da6bd9c2edf812b5a62e44bad01354bf092a6e09de185901a060ed6934175c","bytes":1238,"destination":"DOCUMENTS/SOURCE/حزمة الشخصيات الرئيسية.txt"},
+    {"file":"فيديو تسويقي احترافي.txt","sha256":"c969688a0daebaabd0663c5abc1b788f13960bfe06677f89834acad3d7ff2d51","bytes":8348,"destination":"DOCUMENTS/SOURCE/فيديو تسويقي احترافي.txt"},
+    {"file":"مجلد اللعبة الكامل.txt","sha256":"26089fc05ff92d794baa2de3a3941886afa357a1e8ebac5cf019e77ffe1b33cb","bytes":654,"destination":"DOCUMENTS/SOURCE/مجلد اللعبة الكامل.txt"}
+  ]
+}
