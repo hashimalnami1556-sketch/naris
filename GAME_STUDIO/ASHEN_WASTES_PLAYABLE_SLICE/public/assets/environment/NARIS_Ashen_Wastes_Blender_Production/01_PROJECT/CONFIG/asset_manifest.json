@@ -1,0 +1,10 @@
+{
+  "project": "CALL OF NARIS",
+  "environment": "ASHEN WASTES",
+  "dcc": "Blender 4.x",
+  "engine_target": "Unreal Engine 5",
+  "unit_scale": "1 BU = 1 meter",
+  "primary_grid_m": 2,
+  "player_height_m": 1.83,
+  "status": "Production scaffold ready for modeling"
+}
