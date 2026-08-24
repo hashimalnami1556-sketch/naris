@@ -1,0 +1,10 @@
+{
+  "encounters": [
+    {"id":"E01","zone":"Z01_FOREST_ENTRANCE","type":"tutorial","enemies":["Ash Wraith"],"count":2,"objective":"Teach dodge and light attack"},
+    {"id":"E02","zone":"Z02_BROKEN_SHRINE","type":"combat","enemies":["Echo Husk"],"count":3,"objective":"Teach stagger and interaction"},
+    {"id":"E03","zone":"Z03_RUINED_BRIDGE","type":"ambush","enemies":["Mist Stalker"],"count":2,"objective":"Teach environmental awareness"},
+    {"id":"E04","zone":"Z04_WHISPER_LAKE","type":"companion","enemies":[],"count":0,"objective":"Reveal Celestial Wolf and unlock Echo Link"},
+    {"id":"E05","zone":"Z05_ASH_GATE","type":"gate","enemies":["Ashbound Knight"],"count":1,"objective":"Use Echo ability to open the gate"},
+    {"id":"E06","zone":"Z06_BONE_BEAST_ARENA","type":"boss","enemies":["Bone Beast"],"count":1,"objective":"Three-phase boss encounter"}
+  ]
+}
