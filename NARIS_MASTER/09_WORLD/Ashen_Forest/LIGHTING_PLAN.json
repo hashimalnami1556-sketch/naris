@@ -1,0 +1,9 @@
+{
+  "day_state":"permanent late-dusk",
+  "key_light":"low-angle warm directional",
+  "fill":"cool mist skylight",
+  "volumetric":"dense localized fog",
+  "hero_accents":["Naris Fire","Mist Cyan","Ancient Gold"],
+  "boss_arena":"higher contrast with controlled orange/violet emissive sources",
+  "rule":"Gameplay readability overrides cinematic darkness."
+}
