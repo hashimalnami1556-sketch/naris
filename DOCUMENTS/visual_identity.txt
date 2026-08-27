@@ -1,0 +1,9 @@
+NARIS MASTER DOCUMENTATION: Creative Bible, Art Bible, Character Bible, Enemy Bible, Boss Bible, Combat Bible, World Bible, UI/UX Bible, Audio Bible, Cinematic Bible, Technical Bible, Steam Publishing Bible.
+
+Ashen Vessel: 27 سنة، 183 سم، Athletic، Burned Cloak، Ancient Armor، Ember Veins، Runic Scars.
+Celestial Wolf: Astral Companion؛ Guide, Tracker, Guardian, Lore Keeper.
+Ashen Forest: Forest Entrance, Broken Shrine, Ruined Bridge, Whisper Lake, Ash Gate, Bone Beast Arena.
+Bone Beast: Melee, Charge, Bite, Swipe؛ ثم Corruption, Summons, Ground Slam, Roar Shockwave؛ ثم Enraged State, Armor Break, Execution Attack.
+
+Art direction: HD-2D Cinematic Pixel، 96x96 Character Base، Normal Maps، Dynamic Lighting، Fog Volumes، Screen FX، Particle Layers.
+Steam classification: Action RPG / Soulslike / Dark Fantasy / Adventure.
