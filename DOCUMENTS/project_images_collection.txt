@@ -1,0 +1,1 @@
+NARIS project image collection: 13 directly uploaded PNG/JPEG images plus 6 PNG pages extracted from the uploaded PDF. Historical art packs are referenced in project documentation, including a package described as 885 assets, but those historical ZIP binaries are not currently present as accessible binary files in this workspace.
