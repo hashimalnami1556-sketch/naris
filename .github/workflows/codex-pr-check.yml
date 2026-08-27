@@ -44,7 +44,7 @@ jobs:
         with:
           node-version: '22'
           cache: npm
-          cache-dependency-path: mcp/package-lock.json
+          cache-dependency-path: mcp/package.json
 
       - name: Build MCP
         working-directory: mcp
