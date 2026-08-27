@@ -1,0 +1,15 @@
+NARIS MASTER DOCUMENTATION
+
+المشروع كان متشعبًا عبر نسخ v1.3 إلى v1.8، والهدف هو تحويله إلى Master Production Build موحد.
+
+المستندات الأساسية: 01_CREATIVE_BIBLE، 02_ART_BIBLE، 03_CHARACTER_BIBLE، 04_ENEMY_BIBLE، 05_BOSS_BIBLE، 06_COMBAT_BIBLE، 07_WORLD_BIBLE، 08_UI_UX_BIBLE، 09_AUDIO_BIBLE، 10_CINEMATIC_BIBLE، 11_TECHNICAL_BIBLE، 12_STEAM_PUBLISHING_BIBLE.
+
+البطل الرسمي: ASHEN VESSEL، العمر 27، الطول 183cm، Athletic، Burned Cloak، Ancient Armor، Ember Veins، Runic Scars.
+
+الذئب: CELESTIAL WOLF، Astral Companion، Guide/Tracker/Guardian/Lore Keeper، وقدرات Spirit Dash وEcho Link وAstral Mark وSoul Vision وCelestial Roar.
+
+المنطقة الأولى: ASHEN FOREST، وتشمل Forest Entrance وBroken Shrine وRuined Bridge وWhisper Lake وAsh Gate وBone Beast Arena.
+
+الزعيم الأول: BONE BEAST، بثلاث مراحل تشمل Melee/Charge/Bite/Swipe ثم Corruption/Summons/Ground Slam/Roar Shockwave ثم Enraged State/Armor Break/Execution Attack.
+
+الأسلوب: HD-2D Cinematic Pixel، 96x96 Character Base، Normal Maps، Dynamic Lighting، Fog Volumes، Screen FX، Particle Layers.
