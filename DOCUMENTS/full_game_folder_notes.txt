@@ -1,0 +1,1 @@
+Historical note: image generation limit previously prevented creating a single merged collage of all project images. This document records that status; it does not replace the original binary assets.
