@@ -1,0 +1,41 @@
+{
+  "schema_version": "1.0.0",
+  "project": "CALL OF NARIS",
+  "status": "production-seed",
+  "worlds": [
+    {"id":"W01","name":"Frozen Peaks"},
+    {"id":"W02","name":"Forge of Flame"},
+    {"id":"W03","name":"Echoes Desert"},
+    {"id":"W04","name":"Ashen Forest"},
+    {"id":"W05","name":"Silent Abyss"},
+    {"id":"W06","name":"Inverted Towers"},
+    {"id":"W07","name":"Lost Souls Swamp"},
+    {"id":"W08","name":"Astral Fortress"},
+    {"id":"W09","name":"Forgotten Canals"},
+    {"id":"W10","name":"Throne of Naris"}
+  ],
+  "characters": [
+    {"asset_id":"NARIS-W04-CHR-HERO-0001","name":"Ashen Vessel","role":"player_character"},
+    {"asset_id":"NARIS-W04-CHR-COMPANION-0001","name":"Celestial Wolf","role":"companion"},
+    {"asset_id":"NARIS-W04-ENM-BONEBEAST-0001","name":"Bone Beast","role":"enemy"},
+    {"asset_id":"NARIS-W04-ENM-FALLENWARDEN-0001","name":"Fallen Warden","role":"elite"},
+    {"asset_id":"NARIS-W10-BOS-VEILMOTHER-0001","name":"Veil Mother","role":"boss"},
+    {"asset_id":"NARIS-W02-ENM-ASHGIANT-0001","name":"Ash Giant","role":"elite"},
+    {"asset_id":"NARIS-W05-ENM-MISTGUARDIAN-0001","name":"Mist Guardian","role":"enemy"}
+  ],
+  "weapons": [
+    {"asset_id":"NARIS-W04-WPN-SWORD-0001","name":"Sword of Poem","class":"sword"},
+    {"asset_id":"NARIS-W04-WPN-SWORD-0002","name":"Flame Relic Sword","class":"greatsword"},
+    {"asset_id":"NARIS-W05-WPN-BOW-0001","name":"Mist Bow","class":"bow"},
+    {"asset_id":"NARIS-W05-WPN-DAGGER-0001","name":"Aether Dagger","class":"dagger"},
+    {"asset_id":"NARIS-W05-WPN-SCYTHE-0001","name":"Void Scythe","class":"scythe"},
+    {"asset_id":"NARIS-W02-WPN-SPEAR-0001","name":"Ash Spear","class":"spear"},
+    {"asset_id":"NARIS-W10-WPN-HAMMER-0001","name":"Naris Hammer","class":"hammer"},
+    {"asset_id":"NARIS-W04-WPN-MACE-0001","name":"Infernal Mace","class":"mace"}
+  ],
+  "production_domains": [
+    "environment", "character", "enemy", "boss", "weapon", "prop", "material", "vfx", "sfx", "ui", "cinematic", "quest", "map"
+  ],
+  "required_formats": ["blend", "fbx", "glb", "gltf", "png", "jpg", "tga", "json"],
+  "required_gates": ["concept", "approved_concept", "blockout", "high_poly", "retopo", "uv", "texture", "material", "unreal_integration", "optimization", "qa", "approved"]
+}
