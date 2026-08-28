@@ -9,11 +9,18 @@ Production repository for **CALL OF NARIS**, a dark-fantasy action RPG built aro
 - `data/` — machine-readable registries and metadata.
 - `tools/` — future pipeline utilities and automation.
 
-## Core production principle
+## Canonical production record
 
-Every production asset receives one immutable NARIS Asset ID and is traceable from concept/design through source art, registry, Unreal integration, QA, and approval.
+GitHub is the versioned source of truth for production specifications, schemas, manifests, automation definitions, and release history. Every production asset receives one immutable NARIS Asset ID and is traceable from concept/design through source art, engine integration, QA, and approval.
 
-## Current environment scope
+See:
+
+- `docs/INTEGRATION_ARCHITECTURE.md`
+- `docs/MASTER_PRODUCTION_PIPELINE.md`
+- `docs/ASSET_NAMING.md`
+- `data/MASTER_ASSET_REGISTRY.json`
+
+## Current world scope
 
 1. Frozen Peaks
 2. Forge of Flame
@@ -26,14 +33,28 @@ Every production asset receives one immutable NARIS Asset ID and is traceable fr
 9. Forgotten Canals
 10. Throne of Naris
 
+## Production domains
+
+Characters, enemies, bosses, weapons, props, environments, materials, VFX, UI/UX, maps, cinematics, audio, quests/content, marketing.
+
 ## External production systems
 
 - **Figma / Product Design** — UX, UI, design systems, gameplay-flow specifications.
 - **Adobe / Adobe Express** — concept art, visual assets, marketing creative, texture references.
-- **Adobe Acrobat** — production bibles and controlled PDF documentation.
+- **Adobe Acrobat** — controlled production PDFs and bibles.
 - **Adalo** — operational asset registry and production tracking.
 - **GitHub** — source control, documentation, automation, review, and release history.
 - **Unreal Engine** — runtime, world building, materials, Niagara VFX, lighting, streaming, and final game build.
 - **PostHog** — telemetry and product/gameplay analytics during playable testing.
+- **CreativeClaw / Apixel / OpenArt / Higgsfield** — controlled concept, character, environment, key-art and cinematic generation.
+- **to3D** — approved 2D concept to 3D starting-asset conversion.
+- **Visla / VideoZero** — marketing and motion-graphics production where applicable.
+- **Slack** — production coordination and decision log.
 
-See `docs/INTEGRATION_ARCHITECTURE.md` for the integration contract and `docs/ASSET_NAMING.md` for the canonical asset-ID system.
+## Visual standard
+
+Dark Fantasy + High Fantasy + Cinematic AAA presentation, with rich color contrast. Primary accents are Naris Fire, Aether Violet, Mist Cyan, and Ancient Gold. Final assets must not rely on gray-only presentation.
+
+## Current character revision
+
+The supplied horned enemy reference is being developed as a controlled variant with substantially shorter horns, a heavy demonic tail, and a brutal mace/club while preserving the established armor language, anatomy, materials, and silhouette.
