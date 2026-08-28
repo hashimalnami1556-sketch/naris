@@ -1,0 +1,47 @@
+name: NARIS Content Validation
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  validate-production-data:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validate JSON registries
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          files = [Path('data/MASTER_ASSET_CATALOG.json')]
+          for p in files:
+              with p.open(encoding='utf-8') as f:
+                  json.load(f)
+              print(f'VALID JSON: {p}')
+          PY
+
+      - name: Validate required production folders
+        shell: bash
+        run: |
+          set -euo pipefail
+          for p in docs data tools worlds; do
+            test -d "$p" || { echo "Missing production directory: $p"; exit 1; }
+          done
+
+      - name: Validate canonical documents
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f docs/INTEGRATION_ARCHITECTURE.md
+          test -f docs/MASTER_PRODUCTION_PIPELINE.md
+          test -f docs/CONNECTOR_INTEGRATION_MATRIX.md
+          test -f docs/COMBAT_AND_ENEMY_PRODUCTION.md
+          test -f docs/WORLD_MAP_PRODUCTION.md
+          echo 'NARIS production contract: VALID'
