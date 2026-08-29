@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://naris.game/schemas/naris-asset-manifest.schema.json",
+  "title": "NARIS Asset Manifest",
+  "type": "object",
+  "required": ["schemaVersion", "generatedAt", "assets"],
+  "properties": {
+    "schemaVersion": {"type": "string", "const": "1.0.0"},
+    "generatedAt": {"type": "string", "format": "date-time"},
+    "assets": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["assetId", "name", "type", "sourcePath", "status"],
+        "properties": {
+          "assetId": {"type": "string", "pattern": "^NARIS-[A-Z0-9]+-[A-Z0-9-]+$"},
+          "name": {"type": "string", "minLength": 1},
+          "type": {"type": "string", "enum": ["character", "weapon", "environment", "prop", "vfx", "ui", "audio", "scene", "animation", "material", "texture", "data"]},
+          "sourcePath": {"type": "string", "minLength": 1},
+          "status": {"type": "string", "enum": ["planned", "source", "processing", "validated", "integrated", "blocked"]},
+          "owner": {"type": "string"},
+          "linearIssue": {"type": "string"},
+          "runtimePath": {"type": "string"},
+          "validation": {"type": "object"}
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}
