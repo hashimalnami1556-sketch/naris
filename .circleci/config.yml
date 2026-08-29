@@ -1,0 +1,16 @@
+version: 2.1
+
+jobs:
+  validate-manifest:
+    docker:
+      - image: cimg/python:3.12
+    steps:
+      - checkout
+      - run:
+          name: Validate canonical NARIS asset manifest
+          command: python tools/validate_manifest.py
+
+workflows:
+  naris-production-gates:
+    jobs:
+      - validate-manifest
