@@ -1,0 +1,13 @@
+{
+  "version": "1.0.0",
+  "language": "en",
+  "visual_standard": "Premium AAA dark fantasy + high fantasy, saturated color contrast, cinematic lighting, rich materials",
+  "palette": ["Naris Fire", "Aether Violet", "Mist Cyan", "Ancient Gold", "Obsidian Shadow"],
+  "assets": [
+    {"asset_id":"CHR_HERO_LOST_MEMORY","type":"character","prompt":"Lost Memory hero, imposing mysterious warrior, weathered dark armor, ancient-gold filigree, torn mantle, one eye Aether Violet, Naris Fire embers through armor cracks, Mist Cyan rim light, Ashen Forest, cinematic AAA game concept art, saturated color, rich materials, no text, no watermark."},
+    {"asset_id":"WPN_SWORD_OF_POEM","type":"weapon","prompt":"Sword of Poem, obsidian volcanic glass blade, central fracture emitting Naris Fire and Aether Violet ash, ancient-gold guard, elegant brutal silhouette, cinematic studio lighting, production-ready AAA fantasy weapon concept, no text."},
+    {"asset_id":"ENV_ASHEN_FOREST","type":"environment","prompt":"Ashen Forest, petrified black trees, cracked ash ground, cyan ground mist, violet runes, orange ember pockets, ancient-gold relic fragments, layered depth, cinematic volumetric lighting, rich saturated dark fantasy environment, no text."},
+    {"asset_id":"BOSS_CELESTIAL_WOLF","type":"boss","prompt":"Celestial Wolf, spectral cosmic predator, dark mist body, luminous cyan edges, deep violet stellar markings, ancient-gold celestial sigils, powerful readable silhouette, starfield energy, cinematic AAA boss concept art, saturated color, no text."},
+    {"asset_id":"VFX_STELLAR_HOWL","type":"vfx","prompt":"Stellar Howl VFX, concentric cyan and violet shockwave rings, white-blue stellar particles, subtle Naris Fire sparks, transparent-background visual effect design, sharp readable gameplay silhouette, premium AAA VFX reference, no text."}
+  ]
+}
