@@ -1,0 +1,313 @@
+{
+  "state_machine_id": "NARIS-SME-BONE-HOUND-0001",
+  "name": "Bone Hound State Machine",
+  "version": "V001",
+  "character_id": "NARIS-CHR-BONE-HOUND-0001",
+  "batch": "07",
+
+  "parameters": {
+    "float": [
+      {"name": "speed", "default": 0.0}
+    ],
+    "bool": [
+      {"name": "is_moving", "default": false},
+      {"name": "is_sprinting", "default": false},
+      {"name": "is_attacking", "default": false},
+      {"name": "is_dead", "default": false},
+      {"name": "is_hit", "default": false},
+      {"name": "is_howling", "default": false},
+      {"name": "is_charging", "default": false}
+    ],
+    "int": [
+      {"name": "ai_state", "default": 0},
+      {"name": "pack_formation", "default": 0}
+    ]
+  },
+
+  "states": [
+    {
+      "name": "Idle",
+      "type": "state",
+      "animation": "Idle",
+      "animation_blend_in": 0.2,
+      "animation_blend_out": 0.2,
+      "loop": true,
+      "events": []
+    },
+    {
+      "name": "Walk",
+      "type": "state",
+      "animation": "Walk",
+      "animation_blend_in": 0.3,
+      "animation_blend_out": 0.3,
+      "loop": true,
+      "motion_type": "locomotion",
+      "speed_parameter": "speed",
+      "events": [
+        {"trigger": "footstep_left", "effect": "play_sfx", "sound": "sfx_bone_clatter_light"},
+        {"trigger": "footstep_right", "effect": "play_sfx", "sound": "sfx_bone_clatter_light"}
+      ]
+    },
+    {
+      "name": "Sprint",
+      "type": "state",
+      "animation": "Sprint",
+      "animation_blend_in": 0.2,
+      "animation_blend_out": 0.3,
+      "loop": true,
+      "motion_type": "locomotion",
+      "speed_parameter": "speed",
+      "speed_multiplier": 2.0,
+      "events": [
+        {"trigger": "footstep_left", "effect": "play_sfx", "sound": "sfx_bone_clatter_heavy"},
+        {"trigger": "footstep_right", "effect": "play_sfx", "sound": "sfx_bone_clatter_heavy"}
+      ]
+    },
+    {
+      "name": "Bite",
+      "type": "state",
+      "animation": "Bite",
+      "animation_blend_in": 0.1,
+      "animation_blend_out": 0.2,
+      "loop": false,
+      "events": [
+        {"trigger": "ability_start", "effect": "apply_invulnerability_window", "duration": 0.2},
+        {"trigger": "bite_impact", "effect": "apply_damage", "damage": 35, "hit_animation": "HitLight"},
+        {"trigger": "bite_impact", "effect": "apply_status", "status": "bleed", "damage_per_tick": 8, "duration": 6},
+        {"trigger": "bite_impact", "effect": "play_sfx", "sound": "sfx_bone_hound_bite"},
+        {"trigger": "jaw_deformation_peak", "effect": "vfx_jaw_deform"},
+        {"trigger": "ability_end", "effect": "start_cooldown", "cooldown": 3.0}
+      ]
+    },
+    {
+      "name": "Howl",
+      "type": "state",
+      "animation": "Howl",
+      "animation_blend_in": 0.15,
+      "animation_blend_out": 0.2,
+      "loop": false,
+      "events": [
+        {"trigger": "howl_sound", "effect": "play_sfx", "sound": "sfx_bone_hound_howl"},
+        {"trigger": "buff_apply", "effect": "apply_buff", "buff": "pack_damage_increase", "multiplier": 1.15, "duration": 8, "radius": 30},
+        {"trigger": "animation_end", "effect": "start_cooldown", "cooldown": 12.0}
+      ]
+    },
+    {
+      "name": "Charge",
+      "type": "state",
+      "animation": "Charge",
+      "animation_blend_in": 0.1,
+      "animation_blend_out": 0.3,
+      "loop": false,
+      "events": [
+        {"trigger": "charge_start", "effect": "apply_movement", "forward_multiplier": 3.0},
+        {"trigger": "charge_impact", "effect": "apply_damage", "damage": 45},
+        {"trigger": "charge_impact", "effect": "apply_knockback", "knockback": 3.0},
+        {"trigger": "charge_impact", "effect": "play_sfx", "sound": "sfx_bone_hound_charge_impact"},
+        {"trigger": "charge_end", "effect": "start_cooldown", "cooldown": 8.0}
+      ]
+    },
+    {
+      "name": "HitLight",
+      "type": "state",
+      "animation": "HitLight",
+      "animation_blend_in": 0.05,
+      "animation_blend_out": 0.1,
+      "loop": false,
+      "events": [
+        {"trigger": "hit_reaction_start", "effect": "play_sfx", "sound": "sfx_hit_impact"}
+      ]
+    },
+    {
+      "name": "HitHeavy",
+      "type": "state",
+      "animation": "HitHeavy",
+      "animation_blend_in": 0.05,
+      "animation_blend_out": 0.15,
+      "loop": false,
+      "events": [
+        {"trigger": "knockdown_start", "effect": "disable_movement", "duration": 0.8},
+        {"trigger": "recovery_start", "effect": "enable_movement"}
+      ]
+    },
+    {
+      "name": "Death",
+      "type": "state",
+      "animation": "Death",
+      "animation_blend_in": 0.1,
+      "animation_blend_out": 0.0,
+      "loop": false,
+      "events": [
+        {"trigger": "death_start", "effect": "play_sfx", "sound": "sfx_bone_hound_death"},
+        {"trigger": "ragdoll_enable", "effect": "enable_ragdoll", "duration": 5.0},
+        {"trigger": "loot_drop", "effect": "spawn_loot"}
+      ]
+    }
+  ],
+
+  "transitions": [
+    {
+      "from": "Idle",
+      "to": "Walk",
+      "condition": "is_moving == true && is_sprinting == false",
+      "ordered": true
+    },
+    {
+      "from": "Idle",
+      "to": "Sprint",
+      "condition": "is_sprinting == true",
+      "ordered": true
+    },
+    {
+      "from": "Idle",
+      "to": "Bite",
+      "condition": "is_attacking == true",
+      "ordered": true
+    },
+    {
+      "from": "Idle",
+      "to": "Howl",
+      "condition": "is_howling == true",
+      "ordered": true
+    },
+    {
+      "from": "Idle",
+      "to": "Death",
+      "condition": "is_dead == true",
+      "ordered": true
+    },
+    {
+      "from": "Walk",
+      "to": "Idle",
+      "condition": "is_moving == false",
+      "ordered": true
+    },
+    {
+      "from": "Walk",
+      "to": "Sprint",
+      "condition": "is_sprinting == true",
+      "ordered": true
+    },
+    {
+      "from": "Walk",
+      "to": "Bite",
+      "condition": "is_attacking == true",
+      "ordered": true
+    },
+    {
+      "from": "Sprint",
+      "to": "Walk",
+      "condition": "is_sprinting == false && is_moving == true",
+      "ordered": true
+    },
+    {
+      "from": "Sprint",
+      "to": "Idle",
+      "condition": "is_moving == false",
+      "ordered": true
+    },
+    {
+      "from": "Sprint",
+      "to": "Charge",
+      "condition": "is_charging == true",
+      "ordered": true
+    },
+    {
+      "from": "Bite",
+      "to": "Idle",
+      "condition": "animation_finished == true && is_moving == false",
+      "ordered": true
+    },
+    {
+      "from": "Bite",
+      "to": "Walk",
+      "condition": "animation_finished == true && is_moving == true",
+      "ordered": true
+    },
+    {
+      "from": "Howl",
+      "to": "Idle",
+      "condition": "animation_finished == true",
+      "ordered": true
+    },
+    {
+      "from": "Charge",
+      "to": "Walk",
+      "condition": "animation_finished == true",
+      "ordered": true
+    },
+    {
+      "from": "HitLight",
+      "to": "Idle",
+      "condition": "animation_finished == true",
+      "ordered": true
+    },
+    {
+      "from": "HitHeavy",
+      "to": "Idle",
+      "condition": "animation_finished == true",
+      "ordered": true
+    },
+    {
+      "any_state",
+      "to": "HitLight",
+      "condition": "is_hit == true",
+      "priority": 10,
+      "ordered": true
+    },
+    {
+      "any_state",
+      "to": "Death",
+      "condition": "is_dead == true",
+      "priority": 100,
+      "ordered": true
+    }
+  ],
+
+  "ik_setup": {
+    "legs": {
+      "enabled": true,
+      "type": "2_bone_ik",
+      "target_bones": ["LeftFrontPaw", "RightFrontPaw", "LeftBackPaw", "RightBackPaw"]
+    },
+    "head": {
+      "enabled": true,
+      "type": "aim_constraint",
+      "target_bone": "Head",
+      "look_at_weight": 0.5
+    }
+  },
+
+  "pack_behavior": {
+    "enabled": true,
+    "formations": [
+      {
+        "formation_id": 0,
+        "name": "aggressive_triangle",
+        "positions": [
+          {"offset": [0, 0], "role": "lead"},
+          {"offset": [-1.5, -1.0], "role": "flank_left"},
+          {"offset": [1.5, -1.0], "role": "flank_right"}
+        ]
+      },
+      {
+        "formation_id": 1,
+        "name": "defensive_line",
+        "positions": [
+          {"offset": [0, 0], "role": "center"},
+          {"offset": [-2.0, 0], "role": "left"},
+          {"offset": [2.0, 0], "role": "right"}
+        ]
+      }
+    ]
+  },
+
+  "acceptance_criteria": [
+    "All states transition correctly",
+    "Blend times are smooth (0.1-0.3 seconds)",
+    "Pack behavior coordinates 3 hounds",
+    "IK handles uneven terrain",
+    "Abilities have proper cooldowns and resource costs",
+    "Death properly triggers loot and ragdoll"
+  ]
+}

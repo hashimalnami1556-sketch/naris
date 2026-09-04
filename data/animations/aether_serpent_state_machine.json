@@ -1,0 +1,328 @@
+{
+  "state_machine_id": "NARIS-SME-AETHER-SERPENT-0001",
+  "name": "Aether Serpent State Machine",
+  "version": "V001",
+  "character_id": "NARIS-CHR-AETHER-SERPENT-0001",
+  "batch": "07",
+
+  "parameters": {
+    "float": [
+      {"name": "speed", "default": 0.0},
+      {"name": "hover_height", "default": 1.2}
+    ],
+    "bool": [
+      {"name": "is_moving", "default": false},
+      {"name": "is_attacking", "default": false},
+      {"name": "is_dead", "default": false},
+      {"name": "is_hit", "default": false},
+      {"name": "is_coiled", "default": false},
+      {"name": "is_hooded", "default": false},
+      {"name": "is_concealed", "default": false}
+    ],
+    "int": [
+      {"name": "ai_state", "default": 0}
+    ]
+  },
+
+  "states": [
+    {
+      "name": "Idle",
+      "type": "state",
+      "animation": "Idle",
+      "animation_blend_in": 0.3,
+      "animation_blend_out": 0.3,
+      "loop": true,
+      "events": [
+        {"trigger": "breathing_idle", "effect": "play_ambient_sfx", "sound": "sfx_aether_serpent_ambient"},
+        {"trigger": "energy_pulse", "effect": "vfx_aether_pulse", "intensity": 0.8}
+      ]
+    },
+    {
+      "name": "Slither",
+      "type": "state",
+      "animation": "Slither",
+      "animation_blend_in": 0.3,
+      "animation_blend_out": 0.3,
+      "loop": true,
+      "motion_type": "locomotion",
+      "speed_parameter": "speed",
+      "events": [
+        {"trigger": "spine_chain_wave_start", "effect": "vfx_spine_glow", "intensity": 1.0},
+        {"trigger": "spine_chain_wave_mid", "effect": "vfx_spine_glow", "intensity": 1.2},
+        {"trigger": "spine_chain_wave_end", "effect": "vfx_spine_glow", "intensity": 1.0},
+        {"trigger": "spine_chain_wave_mid", "effect": "play_sfx", "sound": "sfx_aether_serpent_slither"}
+      ]
+    },
+    {
+      "name": "Coil",
+      "type": "state",
+      "animation": "Coil",
+      "animation_blend_in": 0.2,
+      "animation_blend_out": 0.2,
+      "loop": false,
+      "events": [
+        {"trigger": "coil_start", "effect": "disable_movement", "duration": 4.0},
+        {"trigger": "defensive_stance_active", "effect": "apply_buff", "buff": "armor_boost", "amount": 5, "duration": 4.0},
+        {"trigger": "defensive_stance_active", "effect": "play_sfx", "sound": "sfx_aether_serpent_coil"},
+        {"trigger": "coil_ready", "effect": "vfx_defensive_aura", "radius": 3.0}
+      ]
+    },
+    {
+      "name": "Strike",
+      "type": "state",
+      "animation": "Strike",
+      "animation_blend_in": 0.1,
+      "animation_blend_out": 0.2,
+      "loop": false,
+      "events": [
+        {"trigger": "strike_prepare", "effect": "apply_invulnerability_window", "duration": 0.3},
+        {"trigger": "strike_impact", "effect": "apply_damage", "damage": 40, "hit_animation": "HitLight"},
+        {"trigger": "strike_impact", "effect": "play_sfx", "sound": "sfx_aether_serpent_strike"},
+        {"trigger": "poison_inject", "effect": "apply_status", "status": "poison", "damage_per_tick": 15, "duration": 5},
+        {"trigger": "strike_end", "effect": "start_cooldown", "cooldown": 2.5}
+      ]
+    },
+    {
+      "name": "HoodFlare",
+      "type": "state",
+      "animation": "HoodFlare",
+      "animation_blend_in": 0.15,
+      "animation_blend_out": 0.2,
+      "loop": false,
+      "events": [
+        {"trigger": "hood_flare_start", "effect": "vfx_hood_expansion", "radius": 3.0, "intensity": 1.8},
+        {"trigger": "area_damage_apply", "effect": "apply_damage_radius", "damage": 25, "radius": 3.0},
+        {"trigger": "area_damage_apply", "effect": "play_sfx", "sound": "sfx_aether_serpent_hood_flare"},
+        {"trigger": "hood_flare_end", "effect": "start_cooldown", "cooldown": 6.0}
+      ]
+    },
+    {
+      "name": "Blink",
+      "type": "state",
+      "animation": "Blink",
+      "animation_blend_in": 0.05,
+      "animation_blend_out": 0.05,
+      "loop": false,
+      "events": [
+        {"trigger": "blink_fadeout", "effect": "vfx_teleport_fadeout", "duration": 0.15},
+        {"trigger": "teleport", "effect": "apply_movement_teleport", "distance": 8.0},
+        {"trigger": "blink_fadein", "effect": "vfx_teleport_fadein", "duration": 0.15},
+        {"trigger": "animation_end", "effect": "start_cooldown", "cooldown": 5.0}
+      ]
+    },
+    {
+      "name": "Concealed",
+      "type": "state",
+      "animation": "Idle",
+      "animation_blend_in": 0.2,
+      "animation_blend_out": 0.2,
+      "loop": true,
+      "special_state": "concealment",
+      "events": [
+        {"trigger": "state_enter", "effect": "apply_concealment", "type": "ash_cloud", "visibility": 0.2},
+        {"trigger": "state_enter", "effect": "vfx_ash_cloud", "intensity": 1.2},
+        {"trigger": "state_exit", "effect": "remove_concealment"},
+        {"trigger": "state_exit", "effect": "vfx_cloud_dissipate"}
+      ]
+    },
+    {
+      "name": "HitLight",
+      "type": "state",
+      "animation": "HitLight",
+      "animation_blend_in": 0.05,
+      "animation_blend_out": 0.1,
+      "loop": false,
+      "events": [
+        {"trigger": "hit_reaction_start", "effect": "play_sfx", "sound": "sfx_hit_impact"}
+      ]
+    },
+    {
+      "name": "HitHeavy",
+      "type": "state",
+      "animation": "HitHeavy",
+      "animation_blend_in": 0.05,
+      "animation_blend_out": 0.15,
+      "loop": false,
+      "events": [
+        {"trigger": "knockback_start", "effect": "apply_knockback", "distance": 2.0},
+        {"trigger": "recovery_start", "effect": "enable_movement"}
+      ]
+    },
+    {
+      "name": "DeathDissolve",
+      "type": "state",
+      "animation": "DeathDissolve",
+      "animation_blend_in": 0.1,
+      "animation_blend_out": 0.0,
+      "loop": false,
+      "events": [
+        {"trigger": "death_start", "effect": "disable_combat"},
+        {"trigger": "dissolve_vfx_start", "effect": "vfx_ethereal_dissolve_begin", "duration": 1.0},
+        {"trigger": "dissolve_mid", "effect": "vfx_ethereal_dissolve_mid", "duration": 1.0},
+        {"trigger": "dissolve_complete", "effect": "vfx_ethereal_dissolve_end", "duration": 0.5},
+        {"trigger": "dissolve_complete", "effect": "play_sfx", "sound": "sfx_aether_serpent_death"},
+        {"trigger": "loot_drop", "effect": "spawn_loot"}
+      ]
+    }
+  ],
+
+  "transitions": [
+    {
+      "from": "Idle",
+      "to": "Slither",
+      "condition": "is_moving == true",
+      "ordered": true
+    },
+    {
+      "from": "Idle",
+      "to": "Strike",
+      "condition": "is_attacking == true",
+      "ordered": true
+    },
+    {
+      "from": "Idle",
+      "to": "Concealed",
+      "condition": "is_concealed == true",
+      "ordered": true
+    },
+    {
+      "from": "Idle",
+      "to": "DeathDissolve",
+      "condition": "is_dead == true",
+      "ordered": true
+    },
+    {
+      "from": "Slither",
+      "to": "Idle",
+      "condition": "is_moving == false",
+      "ordered": true
+    },
+    {
+      "from": "Slither",
+      "to": "Strike",
+      "condition": "is_attacking == true",
+      "ordered": true
+    },
+    {
+      "from": "Slither",
+      "to": "HoodFlare",
+      "condition": "is_hooded == true",
+      "ordered": true
+    },
+    {
+      "from": "Slither",
+      "to": "Concealed",
+      "condition": "is_concealed == true",
+      "ordered": true
+    },
+    {
+      "from": "Coil",
+      "to": "Idle",
+      "condition": "animation_finished == true",
+      "ordered": true
+    },
+    {
+      "from": "Strike",
+      "to": "Idle",
+      "condition": "animation_finished == true && is_moving == false",
+      "ordered": true
+    },
+    {
+      "from": "Strike",
+      "to": "Slither",
+      "condition": "animation_finished == true && is_moving == true",
+      "ordered": true
+    },
+    {
+      "from": "HoodFlare",
+      "to": "Idle",
+      "condition": "animation_finished == true",
+      "ordered": true
+    },
+    {
+      "from": "Blink",
+      "to": "Idle",
+      "condition": "animation_finished == true",
+      "ordered": true
+    },
+    {
+      "from": "Concealed",
+      "to": "Slither",
+      "condition": "is_moving == true && is_concealed == false",
+      "ordered": true
+    },
+    {
+      "from": "Concealed",
+      "to": "Strike",
+      "condition": "is_attacking == true",
+      "ordered": true
+    },
+    {
+      "from": "HitLight",
+      "to": "Idle",
+      "condition": "animation_finished == true",
+      "ordered": true
+    },
+    {
+      "from": "HitHeavy",
+      "to": "Idle",
+      "condition": "animation_finished == true",
+      "ordered": true
+    },
+    {
+      "any_state",
+      "to": "HitLight",
+      "condition": "is_hit == true",
+      "priority": 10,
+      "ordered": true
+    },
+    {
+      "any_state",
+      "to": "DeathDissolve",
+      "condition": "is_dead == true",
+      "priority": 100,
+      "ordered": true
+    }
+  ],
+
+  "ik_setup": {
+    "spine_chain": {
+      "enabled": true,
+      "type": "spine_ik",
+      "spine_bones": 14,
+      "look_ahead": 1.0
+    },
+    "hood": {
+      "enabled": true,
+      "type": "aim_constraint",
+      "target_bones": ["LeftHood", "RightHood", "TopHood"],
+      "look_at_weight": 0.7
+    }
+  },
+
+  "levitation_system": {
+    "enabled": true,
+    "hover_height": 1.2,
+    "hover_range": 0.5,
+    "bob_speed": 2.0,
+    "bob_amount": 0.2
+  },
+
+  "concealment_zones": {
+    "enabled": true,
+    "types": ["ash_cloud", "shadow"],
+    "visibility_reduction": 0.8,
+    "aggro_range_reduction": 0.6
+  },
+
+  "acceptance_criteria": [
+    "All states transition correctly",
+    "Spine chain drives wave motion during Slither",
+    "Levitation maintains 1.2m height with bob motion",
+    "Poison DoT applies 15 damage/sec for 5 seconds",
+    "Hood Flare creates 3m radius area damage",
+    "Death: ethereal dissolve VFX with loot",
+    "Concealment: visibility reduced to 20% in ash clouds",
+    "Coil: armor bonus of 5 for 4 seconds"
+  ]
+}
