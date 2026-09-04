@@ -1,23 +1,22 @@
 {
-  "schema_version": "2.0.0",
+  "schema_version": "2.1.0",
   "project": "CALL OF NARIS",
   "asset_id_format": "NARIS-W<world>-<domain>-<type>-<sequence>",
   "status_flow": ["brief", "concept", "approved_concept", "blockout", "high_poly", "retopo", "uv", "texture", "material", "rig", "animation", "engine", "optimization", "qa", "approved", "release"],
   "worlds": [
-    {"id":"W01","name":"Frozen Peaks"},
-    {"id":"W02","name":"Forge of Flame"},
-    {"id":"W03","name":"Echoes Desert"},
-    {"id":"W04","name":"Ashen Forest"},
-    {"id":"W05","name":"Silent Abyss"},
-    {"id":"W06","name":"Inverted Towers"},
-    {"id":"W07","name":"Lost Souls Swamp"},
-    {"id":"W08","name":"Astral Fortress"},
-    {"id":"W09","name":"Forgotten Canals"},
-    {"id":"W10","name":"Throne of Naris"}
+    {"id":"W01","name":"Frozen Peaks"}, {"id":"W02","name":"Forge of Flame"}, {"id":"W03","name":"Echoes Desert"}, {"id":"W04","name":"Ashen Forest"}, {"id":"W05","name":"Silent Abyss"}, {"id":"W06","name":"Inverted Towers"}, {"id":"W07","name":"Lost Souls Swamp"}, {"id":"W08","name":"Astral Fortress"}, {"id":"W09","name":"Forgotten Canals"}, {"id":"W10","name":"Throne of Naris"}
   ],
   "assets": [
     {"id":"NARIS-W04-CHR-HERO-0001","name":"Ashen Vessel","domain":"CHR","type":"HERO","world":"W04","status":"concept","source":"character_bible","engine_target":"Unreal","notes":"Primary player character"},
     {"id":"NARIS-W04-CHR-COMPANION-0001","name":"Celestial Wolf","domain":"CHR","type":"COMPANION","world":"W04","status":"concept","source":"character_bible","engine_target":"Unreal","notes":"Astral companion"},
+    {"id":"NARIS-W04-CHR-ASHWANDERER-0001","name":"Ash Wanderer","domain":"CHR","type":"PLAYABLE_ARCHETYPE","world":"W04","status":"concept","source":"asset_pack_2026-09-04","engine_target":"Unreal","preview_engine":"Babylon.js","notes":"DPS / Explorer"},
+    {"id":"NARIS-W07-CHR-MARSHSEER-0001","name":"Marsh Seer","domain":"CHR","type":"PLAYABLE_ARCHETYPE","world":"W07","status":"concept","source":"asset_pack_2026-09-04","engine_target":"Unreal","preview_engine":"Babylon.js","notes":"Support / Caster"},
+    {"id":"NARIS-W08-CHR-CASTLEWARDEN-0001","name":"Castle Warden","domain":"CHR","type":"PLAYABLE_ARCHETYPE","world":"W08","status":"concept","source":"asset_pack_2026-09-04","engine_target":"Unreal","preview_engine":"Babylon.js","notes":"Tank / Guardian"},
+    {"id":"NARIS-W04-CHR-HERO-TRANSLUCENT-0001","name":"Translucent Hero","domain":"CHR","type":"ETHEREAL_VARIANT","world":"W04","status":"blockout","source":"asset_pack_2026-09-04","engine_target":"Unreal","preview_engine":"Babylon.js","notes":"Spirit/echo state"},
+    {"id":"NARIS-W04-ENM-GATEGUARDIAN-0001","name":"Gate Guardian","domain":"ENM","type":"ELITE","world":"W04","status":"blockout","source":"asset_pack_2026-09-04","engine_target":"Unreal","preview_engine":"Babylon.js","notes":"Ash Gate guardian"},
+    {"id":"NARIS-W04-PRP-WAYSTONE-0001","name":"Waystone","domain":"PRP","type":"SAVE_POINT","world":"W04","status":"blockout","source":"asset_pack_2026-09-04","engine_target":"Unreal","preview_engine":"Babylon.js","notes":"Save / respawn / fast travel"},
+    {"id":"NARIS-W04-PRP-HOLYPORTAL-0001","name":"Holy Portal","domain":"PRP","type":"TRANSITION_GATE","world":"W04","status":"blockout","source":"asset_pack_2026-09-04","engine_target":"Unreal","preview_engine":"Babylon.js","notes":"World transition / quest gate"},
+    {"id":"NARIS-W04-MAT-STONETILE-0001","name":"Ashen Stone Tile","domain":"MAT","type":"TILEABLE_PBR","world":"W04","status":"blockout","source":"asset_pack_2026-09-04","engine_target":"Unreal","preview_engine":"Babylon.js","notes":"4K PBR target; repeatable stone surface"},
     {"id":"NARIS-W04-ENM-BONEBEAST-0001","name":"Bone Beast","domain":"ENM","type":"BOSS","world":"W04","status":"concept","source":"enemy_bible","engine_target":"Unreal","notes":"Early boss encounter"},
     {"id":"NARIS-W04-ENM-FALLENWARDEN-0001","name":"Fallen Warden","domain":"ENM","type":"ELITE","world":"W04","status":"concept","source":"enemy_bible","engine_target":"Unreal","notes":"Ancient guardian archetype"},
     {"id":"NARIS-W10-BOS-VEILMOTHER-0001","name":"Veil Mother","domain":"BOS","type":"FINAL_TIER","world":"W10","status":"concept","source":"boss_bible","engine_target":"Unreal","notes":"Memory and mist entity"},
