@@ -1,0 +1,24 @@
+{
+  "schema_version": "1.0.0",
+  "batch": "09",
+  "status": "production_ready",
+  "world": "W04",
+  "assets": [
+    {"id":"NARIS-W04-CHR-ASHWANDERER-0001","type":"character","role":"dps_explorer","engine":"unreal","formats":["fbx","glb"]},
+    {"id":"NARIS-W07-CHR-MARSHSEER-0001","type":"character","role":"support_caster","engine":"unreal","formats":["fbx","glb"]},
+    {"id":"NARIS-W08-CHR-CASTLEWARDEN-0001","type":"character","role":"tank_guardian","engine":"unreal","formats":["fbx","glb"]},
+    {"id":"NARIS-W04-CHR-HERO-TRANSLUCENT-0001","type":"character_variant","role":"spectral_hero","engine":"unreal","formats":["fbx","glb"]},
+    {"id":"NARIS-W04-ENM-GATEGUARDIAN-0001","type":"enemy","role":"gate_guardian","engine":"unreal","formats":["fbx","glb"]},
+    {"id":"NARIS-W04-PRP-WAYSTONE-0001","type":"prop","role":"save_point","engine":"multi","formats":["blend","glb","fbx"]},
+    {"id":"NARIS-W04-PRP-HOLYPORTAL-0001","type":"prop","role":"world_transition","engine":"multi","formats":["blend","glb","fbx"]},
+    {"id":"NARIS-W04-PRP-RUINARCH-0001","type":"prop","role":"modular_ruin","engine":"multi","formats":["blend","glb","fbx"]},
+    {"id":"NARIS-W04-MAT-STONE-TILE-0001","type":"material","role":"tileable_stone","engine":"multi","formats":["png","tga","exr"]},
+    {"id":"NARIS-W04-ENV-KIT-0002","type":"environment_kit","role":"ashen_forest_expansion","engine":"unreal","formats":["blend","glb","fbx"]}
+  ],
+  "storage_policy": {
+    "source": "assets/source/",
+    "game_ready": "assets/game_ready/",
+    "preview": "assets/previews/",
+    "metadata": "data/asset_registry/"
+  }
+}
