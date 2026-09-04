@@ -1,0 +1,44 @@
+{
+  "batch": "10-W2",
+  "world": "W04_Ashen_Forest",
+  "status": "PRODUCTION_READY_SPEC",
+  "units": "meters",
+  "grid": 2.0,
+  "asset_families": {
+    "terrain": ["terrain_tile_2m", "terrain_tile_4m", "cliff_2m", "cliff_4m", "ravine_edge", "ash_mound", "root_ground_breaker"],
+    "architecture": ["ruin_wall_straight", "ruin_wall_corner", "ruin_wall_broken", "gothic_arch", "shrine_base", "collapsed_tower", "buttress", "stone_step", "bridge_segment", "bridge_broken"],
+    "caves": ["cave_mouth_small", "cave_mouth_large", "cave_column", "cave_root_cluster", "cave_ceiling_break", "cave_pool"],
+    "vegetation": ["burnt_tree_small", "burnt_tree_medium", "burnt_tree_hero", "ash_shrub", "dead_fern", "ember_moss", "aether_flower", "hanging_root"],
+    "dressing": ["bone_pile_small", "bone_pile_large", "broken_cart", "fallen_banner", "rusted_weapon_cluster", "rubble_small", "rubble_large", "charred_log", "ash_crater"],
+    "landmarks": ["waystone_01", "waystone_02", "holy_portal_01", "broken_shrine_01", "ash_gate_01", "ritual_arena_01", "spirit_crossing"],
+    "water": ["whisper_lake_shore", "whisper_lake_rock", "shallow_water_tile", "waterfall_small", "waterfall_hero"],
+    "fx_dressing": ["ember_vent", "ashfall_emitter", "aether_mote_cluster", "ground_corruption_patch", "rune_ground_marker"]
+  },
+  "hero_assets": {
+    "ritual_arena_01": {"budget_triangles": 18000, "lod": [0,1,2], "collision": "complex_simple_hybrid"},
+    "holy_portal_01": {"budget_triangles": 14000, "lod": [0,1,2], "collision": "simple"},
+    "ash_gate_01": {"budget_triangles": 22000, "lod": [0,1,2], "collision": "simple_plus_trigger"}
+  },
+  "material_families": [
+    "ash_stone",
+    "moss_stone",
+    "ruined_brick",
+    "burnt_wood",
+    "ancient_metal",
+    "wet_stone",
+    "corrupted_ground",
+    "aether_crystal"
+  ],
+  "streaming": {
+    "cell_size": 32,
+    "hero_radius_cells": 2,
+    "preload_radius_cells": 3,
+    "unload_radius_cells": 5
+  },
+  "readability": {
+    "combat_clearance_min": 3.5,
+    "main_path_width_min": 2.2,
+    "portal_visibility_priority": 1.0,
+    "waystone_visibility_priority": 0.95
+  }
+}
