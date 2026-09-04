@@ -1,0 +1,53 @@
+{
+  "schema_version":"2.1.0",
+  "asset_pack":"NARIS-W04-ENV-FACTORY-0002",
+  "world":"W04",
+  "name":"Ashen Forest Environment Factory v2",
+  "engine_targets":["Unreal Engine 5","Babylon.js","Unity 6"],
+  "grid_m":1.0,
+  "modular_units":{
+    "floor":4.0,
+    "wall":4.0,
+    "height":3.5,
+    "door_width":2.0,
+    "stair_step":0.25
+  },
+  "zones":[
+    {"id":"W04_Z01","name":"Forest Entrance","biome":"burned_forest","mood":"ominous_dawn","landmarks":["Waystone_01","Broken_Arch_01"]},
+    {"id":"W04_Z02","name":"Broken Shrine","biome":"corrupted_ruins","mood":"ritual_decay","landmarks":["Shrine_Core","Rune_Altar"]},
+    {"id":"W04_Z03","name":"Ruined Bridge","biome":"mist_ravine","mood":"vertical_dread","landmarks":["Bridge_Main","Cliff_Anchor"]},
+    {"id":"W04_Z04","name":"Whisper Lake","biome":"aether_marsh","mood":"quiet_supernatural","landmarks":["Lake_Ritual_Island","Aether_Reeds"]},
+    {"id":"W04_Z05","name":"Ash Gate","biome":"fortified_ruin","mood":"hostile_transition","landmarks":["Ash_Gate_Main","Gate_Guardian_Altar"]},
+    {"id":"W04_Z06","name":"Bone Beast Arena","biome":"bone_ceremonial_arena","mood":"boss_reveal","landmarks":["Arena_Core","Bone_Ring","Boss_Platform"]}
+  ],
+  "kit":{
+    "floors":["Floor_AshStone_4x4","Floor_MossStone_4x4","Floor_Rubble_4x4","Floor_Rune_4x4","Floor_WoodRuined_4x4"],
+    "walls":["Wall_AshStone_A","Wall_AshStone_B","Wall_Ruined_A","Wall_Ruined_B","Wall_Mossy_A"],
+    "arches":["Arch_Small","Arch_Medium","Arch_Gothic","Arch_Broken"],
+    "pillars":["Pillar_Square","Pillar_Rune","Pillar_Broken","Column_Gothic"],
+    "bridges":["Bridge_Segment_4m","Bridge_Broken_4m","Bridge_Railing"],
+    "stairs":["Stair_8Step","Stair_Broken","Stair_Wide"],
+    "terrain":["Cliff_A","Cliff_B","RockCluster_A","RockCluster_B","AshMound","RootWall"],
+    "dressing":["Tree_Burned_A","Tree_Burned_B","Tree_Dead_A","Fern_A","AetherPlant_A","Mushroom_A","BonePile_A","Debris_A","BrokenCart_A"],
+    "props":["Waystone","HolyPortal","AshLantern","Chest","Signpost","RitualStone","RuneAltar"]
+  },
+  "materials":[
+    {"id":"MAT_AshStone","maps":["basecolor","normal","roughness","ao","height"],"tiling":4.0},
+    {"id":"MAT_MossStone","maps":["basecolor","normal","roughness","ao","height"],"tiling":3.0},
+    {"id":"MAT_AshGround","maps":["basecolor","normal","roughness","ao","height"],"tiling":6.0},
+    {"id":"MAT_RuinedBrick","maps":["basecolor","normal","roughness","ao","height"],"tiling":3.0},
+    {"id":"MAT_BurnedWood","maps":["basecolor","normal","roughness","ao"],"tiling":2.0},
+    {"id":"MAT_AetherCrystal","maps":["basecolor","normal","emissive","roughness"],"tiling":1.0}
+  ],
+  "atmosphere":{
+    "fog":"volumetric_ash_fog",
+    "particles":["ash_drift","ember_float","aether_motes"],
+    "weather":["light_ashfall","heavy_ashfall","corrupted_sporefall"],
+    "lighting_presets":["dawn","overcast","night_moon","ash_storm","ritual_aether"]
+  },
+  "streaming":{"cell_size_m":128,"preload_radius_m":256,"lod_hysteresis_m":32},
+  "collision":{"floor":"simple","wall":"box_or_convex","cliff":"convex","hero_blocker":"invisible_nav_blocker","portal":"trigger_volume"},
+  "lod":{"lod0":"hero","lod1":"gameplay","lod2":"distance","lod3":"impostor_or_hidden"},
+  "performance":{"draw_call_budget_zone":1800,"material_slots_max_per_mesh":4,"texture_max":"4K","shadow_distance_m":80},
+  "acceptance":["snap_grid","seam_free_modular","walkable_collision","navmesh_ready","lod_validated","streaming_validated","night_dawn_lighting_validated","PBR_validated"]
+}
