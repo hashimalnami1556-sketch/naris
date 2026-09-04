@@ -1,0 +1,24 @@
+{
+  "schema_version":"1.0.0",
+  "world":"W04",
+  "name":"Ashen Forest Modular Kit v2",
+  "grid_m":1.0,
+  "kit_rules":{"pivot":"bottom_center","scale":"metric_1cm","snap":1.0,"forward_axis":"+X"},
+  "modules":[
+    "ground_1x1","ground_2x2","ground_4x4","cliff_straight","cliff_corner","cliff_cap","cliff_transition",
+    "ruin_wall_short","ruin_wall_tall","ruin_wall_damaged","ruin_doorway","arch_intact","arch_broken",
+    "bridge_straight","bridge_collapsed","bridge_rail","stairs_1m","stairs_2m","stairs_4m",
+    "platform_small","platform_large","ledge_low","ledge_high","gate_frame","portal_socket",
+    "collision_blocker","cover_half","cover_full"
+  ],
+  "locations":{
+    "forest_entrance":{"mood":"ashen_dawn","modules":["ground_4x4","ruin_wall_damaged","dead_oak","ash_grass"]},
+    "broken_shrine":{"mood":"forgotten_sacred","modules":["ruin_wall_tall","arch_broken","ritual_stone","aether_flora"]},
+    "ruined_bridge":{"mood":"mist_depth","modules":["bridge_straight","bridge_collapsed","cliff_transition"]},
+    "whisper_lake":{"mood":"aether_mist","modules":["ground_2x2","water_edge","crystal_cluster","fern"]},
+    "ash_gate":{"mood":"threatening_ember","modules":["gate_frame","portal_socket","ash_pile","bone_debris"]},
+    "bone_beast_arena":{"mood":"boss_arena","modules":["ground_4x4","cover_full","ruin_wall_tall","bone_pile"]}
+  },
+  "dressing":{"dead_oak":12,"burned_root":28,"fern":42,"ash_grass":80,"red_black_shrub":24,"fallen_branch":36,"aether_flora":18,"bone_debris":45,"ash_pile":30},
+  "performance":{"max_material_slots":4,"target_draw_distance_m":120,"lod_distances_m":[25,60,120],"nanite_candidate":true,"instancing":true}
+}
