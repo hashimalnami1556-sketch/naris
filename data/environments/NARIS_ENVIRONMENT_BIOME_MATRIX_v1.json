@@ -1,0 +1,23 @@
+{
+  "factory": "NARIS_ENVIRONMENT_BIOME_MATRIX_v1",
+  "worlds": {
+    "W01_Frozen_Peaks": {"language":"frosted_gothic","primary":"ice_stone","accent":"pale_aether","weather":["snow","blizzard"],"landmarks":["frozen_shrine","sky_bridge","ice_temple"]},
+    "W02_Forge_of_Flame": {"language":"volcanic_industrial_gothic","primary":"obsidian","accent":"ember","weather":["ash_storm","heat_haze"],"landmarks":["forge_core","chain_bridge","magma_gate"]},
+    "W03_Echoes_Desert": {"language":"buried_ruins","primary":"sandstone","accent":"violet_rune","weather":["sandstorm","mirage"],"landmarks":["buried_city","echo_obelisk","sunken_temple"]},
+    "W04_Ashen_Forest": {"language":"burnt_gothic_nature","primary":"ash_stone","accent":"ember_and_aether","weather":["ashfall","fog","rain"],"landmarks":["whisper_lake","ash_gate","bone_arena"]},
+    "W05_Silent_Abyss": {"language":"abyssal_ruin","primary":"black_stone","accent":"void_blue","weather":["void_fog","gravity_dust"],"landmarks":["abyss_lift","void_cathedral","fallen_platforms"]},
+    "W06_Inverted_Towers": {"language":"impossible_gothic","primary":"aged_marble","accent":"royal_violet","weather":["floating_ash","aether_rain"],"landmarks":["inverted_keep","gravity_court","sky_archive"]},
+    "W07_Lost_Souls_Swamp": {"language":"haunted_bog","primary":"wet_wood_stone","accent":"toxic_teal","weather":["mist","rain","spore_fog"],"landmarks":["witch_hut","sunken_chapel","soul_bog"]},
+    "W08_Astral_Fortress": {"language":"celestial_gothic","primary":"silver_stone","accent":"astral_cyan","weather":["starfall","cosmic_fog"],"landmarks":["astral_gate","constellation_hall","celestial_bridge"]},
+    "W09_Forgotten_Canals": {"language":"decayed_water_city","primary":"wet_brick","accent":"sickly_gold","weather":["rain","canal_fog"],"landmarks":["flooded_market","canal_palace","lock_gate"]},
+    "W10_Throne_of_Naris": {"language":"final_royal_ruin","primary":"black_marble","accent":"divine_gold","weather":["eclipse","ember_rain"],"landmarks":["throne_gate","naris_citadel","final_arena"]}
+  },
+  "shared_rules": {
+    "modular_grid": 2.0,
+    "texel_density_target": "consistent_per_biome",
+    "hero_landmark_lod_count": 3,
+    "distant_dressing": "impostor_or_lod2",
+    "navigation": "gameplay_authoritative",
+    "combat_readability": "mandatory"
+  }
+}
