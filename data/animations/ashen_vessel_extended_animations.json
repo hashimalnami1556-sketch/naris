@@ -1,0 +1,358 @@
+{
+  "animation_set_id": "NARIS-ASE-ASHEN-VESSEL-EXT-0001",
+  "name": "Ashen Vessel Extended Animation Set",
+  "character_id": "NARIS-CHR-ASHEN-VESSEL-0001",
+  "version": "V001",
+  "batch": "07",
+  "animation_count": 10,
+
+  "animations": [
+    {
+      "index": 1,
+      "name": "DodgeRoll",
+      "animation_file": "ashen_vessel_dodge_roll",
+      "duration_seconds": 1.2,
+      "loop": false,
+      "blend_in_seconds": 0.1,
+      "blend_out_seconds": 0.15,
+      "category": "defensive",
+      "events": [
+        {"frame": 0.0, "event": "dodge_start", "effect": "invulnerability", "duration": 0.6},
+        {"frame": 0.3, "event": "roll_motion", "effect": "apply_movement", "distance": 4.0},
+        {"frame": 0.6, "event": "roll_complete"},
+        {"frame": 1.2, "event": "animation_end"}
+      ],
+      "ik_constraints": {
+        "enabled": true,
+        "maintain_foot_contact": true
+      },
+      "vfx": {
+        "name": "dodge_roll_dust",
+        "type": "particle_trail",
+        "color": "#8B7355",
+        "intensity": 0.8
+      },
+      "sfx": {
+        "name": "sfx_dodge_roll",
+        "trigger_frame": 0.3
+      }
+    },
+    {
+      "index": 2,
+      "name": "Parry",
+      "animation_file": "ashen_vessel_parry",
+      "duration_seconds": 0.8,
+      "loop": false,
+      "blend_in_seconds": 0.05,
+      "blend_out_seconds": 0.1,
+      "category": "defensive",
+      "events": [
+        {"frame": 0.0, "event": "parry_start", "effect": "block", "reduction": 0.8},
+        {"frame": 0.15, "event": "weapon_contact", "effect": "weapon_clash_vfx"},
+        {"frame": 0.4, "event": "parry_recovery"},
+        {"frame": 0.8, "event": "animation_end"}
+      ],
+      "ik_constraints": {
+        "enabled": true,
+        "hand_ik": "parry_position"
+      },
+      "vfx": {
+        "name": "parry_spark",
+        "type": "impact_sparks",
+        "color": "#FFD700",
+        "intensity": 1.0
+      },
+      "sfx": {
+        "name": "sfx_weapon_parry",
+        "trigger_frame": 0.15
+      },
+      "perfect_parry_window": {
+        "enabled": true,
+        "start_frame": 0.05,
+        "end_frame": 0.35,
+        "bonus_damage_multiplier": 1.5
+      }
+    },
+    {
+      "index": 3,
+      "name": "Combo01",
+      "animation_file": "ashen_vessel_combo_01",
+      "duration_seconds": 1.5,
+      "loop": false,
+      "blend_in_seconds": 0.1,
+      "blend_out_seconds": 0.15,
+      "category": "offensive",
+      "combo_chain": 1,
+      "events": [
+        {"frame": 0.0, "event": "combo_start", "effect": "apply_invulnerability_window", "duration": 0.2},
+        {"frame": 0.3, "event": "first_strike", "effect": "apply_damage", "damage": 35},
+        {"frame": 0.5, "event": "hit_confirm", "effect": "play_hit_stop", "duration": 0.05},
+        {"frame": 0.7, "event": "second_strike", "effect": "apply_damage", "damage": 40},
+        {"frame": 0.9, "event": "combo_end_point", "effect": "allow_next_combo"},
+        {"frame": 1.5, "event": "animation_end"}
+      ],
+      "ik_constraints": {
+        "enabled": true,
+        "hand_ik": "attack_position"
+      },
+      "vfx": {
+        "name": "combo01_slash_trails",
+        "type": "slash_trails",
+        "color": "#FF7A00",
+        "intensity": 1.2
+      },
+      "sfx": [
+        {"name": "sfx_sword_swing_01", "trigger_frame": 0.3},
+        {"name": "sfx_sword_swing_02", "trigger_frame": 0.7}
+      ],
+      "next_combo": "Combo02"
+    },
+    {
+      "index": 4,
+      "name": "Combo02",
+      "animation_file": "ashen_vessel_combo_02",
+      "duration_seconds": 1.8,
+      "loop": false,
+      "blend_in_seconds": 0.05,
+      "blend_out_seconds": 0.15,
+      "category": "offensive",
+      "combo_chain": 2,
+      "requires_previous": "Combo01",
+      "events": [
+        {"frame": 0.0, "event": "combo_continue"},
+        {"frame": 0.2, "event": "third_strike", "effect": "apply_damage", "damage": 45},
+        {"frame": 0.4, "event": "hit_confirm"},
+        {"frame": 0.7, "event": "spin_attack", "effect": "apply_damage_radius", "damage": 50, "radius": 2.5},
+        {"frame": 1.0, "event": "final_strike", "effect": "apply_damage", "damage": 55},
+        {"frame": 1.2, "event": "hit_confirm"},
+        {"frame": 1.8, "event": "combo_end"}
+      ],
+      "ik_constraints": {
+        "enabled": true,
+        "full_body_ik": true
+      },
+      "vfx": {
+        "name": "combo02_spinning_slash",
+        "type": "spin_vfx",
+        "color": "#FF7A00",
+        "intensity": 1.5
+      },
+      "sfx": [
+        {"name": "sfx_sword_swing_03", "trigger_frame": 0.2},
+        {"name": "sfx_sword_swing_spin", "trigger_frame": 0.7},
+        {"name": "sfx_sword_swing_04", "trigger_frame": 1.0}
+      ],
+      "launches_next": false
+    },
+    {
+      "index": 5,
+      "name": "RuneSlash",
+      "animation_file": "ashen_vessel_rune_slash",
+      "duration_seconds": 1.5,
+      "loop": false,
+      "blend_in_seconds": 0.1,
+      "blend_out_seconds": 0.15,
+      "category": "ability",
+      "ability_id": "emberedge_runeslash",
+      "events": [
+        {"frame": 0.0, "event": "ability_start", "effect": "consume_stamina", "amount": 35},
+        {"frame": 0.3, "event": "rune_charge", "effect": "vfx_rune_charge"},
+        {"frame": 0.6, "event": "rune_activate", "effect": "vfx_rune_glow", "intensity": 1.8},
+        {"frame": 0.8, "event": "slash_impact", "effect": "apply_damage", "damage": 80, "damage_type": "slash_fire"},
+        {"frame": 0.8, "event": "area_effect", "effect": "apply_damage_radius", "damage": 50, "radius": 2.5},
+        {"frame": 1.0, "event": "hit_confirm"},
+        {"frame": 1.5, "event": "ability_end"}
+      ],
+      "ik_constraints": {
+        "enabled": true,
+        "full_body_ik": true
+      },
+      "vfx": [
+        {"name": "rune_slash_blade_trail", "type": "slash_trail", "color": "#FF7A00"},
+        {"name": "rune_slash_impact", "type": "impact_explosion", "color": "#FFD700"}
+      ],
+      "sfx": [
+        {"name": "sfx_rune_charge", "trigger_frame": 0.3},
+        {"name": "sfx_rune_slash_impact", "trigger_frame": 0.8}
+      ],
+      "cooldown_seconds": 6.0
+    },
+    {
+      "index": 6,
+      "name": "AetherStep",
+      "animation_file": "ashen_vessel_aether_step",
+      "duration_seconds": 0.6,
+      "loop": false,
+      "blend_in_seconds": 0.05,
+      "blend_out_seconds": 0.1,
+      "category": "mobility",
+      "ability_id": "aether_spear_step",
+      "events": [
+        {"frame": 0.0, "event": "ability_start", "effect": "consume_mana", "amount": 20},
+        {"frame": 0.2, "event": "blink_fadeout"},
+        {"frame": 0.3, "event": "teleport", "effect": "apply_movement", "distance": 5.0},
+        {"frame": 0.4, "event": "blink_fadein"},
+        {"frame": 0.6, "event": "ability_end"}
+      ],
+      "vfx": [
+        {"name": "aether_step_fadeout", "type": "dissolve", "color": "#00BFFF"},
+        {"name": "aether_step_fadein", "type": "coalesce", "color": "#00BFFF"}
+      ],
+      "sfx": {
+        "name": "sfx_aether_step_blink",
+        "trigger_frame": 0.3
+      },
+      "cooldown_seconds": 3.0
+    },
+    {
+      "index": 7,
+      "name": "HitHeavy",
+      "animation_file": "ashen_vessel_hit_heavy",
+      "duration_seconds": 1.2,
+      "loop": false,
+      "blend_in_seconds": 0.05,
+      "blend_out_seconds": 0.1,
+      "category": "hit_reaction",
+      "priority": 5,
+      "events": [
+        {"frame": 0.0, "event": "hit_start"},
+        {"frame": 0.3, "event": "knockback_apply"},
+        {"frame": 0.6, "event": "recovery_start"},
+        {"frame": 1.2, "event": "animation_end"}
+      ],
+      "recovery": {
+        "stun_duration": 0.6,
+        "knockback_distance": 2.0
+      },
+      "vfx": {
+        "name": "hit_reaction_dust",
+        "type": "impact_dust",
+        "color": "#8B7355"
+      },
+      "sfx": {
+        "name": "sfx_character_hit_heavy",
+        "trigger_frame": 0.0
+      }
+    },
+    {
+      "index": 8,
+      "name": "Stagger",
+      "animation_file": "ashen_vessel_stagger",
+      "duration_seconds": 0.9,
+      "loop": false,
+      "blend_in_seconds": 0.05,
+      "blend_out_seconds": 0.1,
+      "category": "hit_reaction",
+      "priority": 3,
+      "events": [
+        {"frame": 0.0, "event": "stagger_start"},
+        {"frame": 0.3, "event": "stagger_peak"},
+        {"frame": 0.6, "event": "recovery_start"},
+        {"frame": 0.9, "event": "animation_end"}
+      ],
+      "recovery": {
+        "stun_duration": 0.5,
+        "disable_movement": 0.3
+      },
+      "vfx": {
+        "name": "stagger_stars",
+        "type": "visual_stun",
+        "color": "#FFD700"
+      },
+      "sfx": {
+        "name": "sfx_character_stagger",
+        "trigger_frame": 0.0
+      }
+    },
+    {
+      "index": 9,
+      "name": "Interact",
+      "animation_file": "ashen_vessel_interact",
+      "duration_seconds": 1.5,
+      "loop": false,
+      "blend_in_seconds": 0.2,
+      "blend_out_seconds": 0.2,
+      "category": "interaction",
+      "events": [
+        {"frame": 0.0, "event": "interaction_start"},
+        {"frame": 0.75, "event": "interaction_middle"},
+        {"frame": 1.5, "event": "interaction_end", "effect": "trigger_world_event"}
+      ],
+      "ik_constraints": {
+        "enabled": true,
+        "hand_ik": "interact_position"
+      },
+      "vfx": {
+        "name": "interact_glow",
+        "type": "world_interaction",
+        "color": "#FFD700"
+      },
+      "sfx": {
+        "name": "sfx_interact",
+        "trigger_frame": 0.75
+      }
+    },
+    {
+      "index": 10,
+      "name": "DeathDramatic",
+      "animation_file": "ashen_vessel_death_dramatic",
+      "duration_seconds": 3.0,
+      "loop": false,
+      "blend_in_seconds": 0.1,
+      "blend_out_seconds": 0.0,
+      "category": "death",
+      "priority": 100,
+      "events": [
+        {"frame": 0.0, "event": "death_start", "effect": "disable_combat"},
+        {"frame": 0.5, "event": "ragdoll_enable", "effect": "enable_ragdoll_physics"},
+        {"frame": 1.0, "event": "death_camera_pan"},
+        {"frame": 2.0, "event": "fade_to_black"},
+        {"frame": 3.0, "event": "death_animation_complete", "effect": "show_death_screen"}
+      ],
+      "vfx": {
+        "name": "death_aether_dissolve",
+        "type": "character_dissolve",
+        "color": "#4169E1",
+        "duration": 1.0
+      },
+      "sfx": {
+        "name": "sfx_character_death",
+        "trigger_frame": 0.0
+      }
+    }
+  ],
+
+  "animation_tags": {
+    "offensive": ["Combo01", "Combo02", "RuneSlash"],
+    "defensive": ["DodgeRoll", "Parry"],
+    "mobility": ["AetherStep"],
+    "hit_reaction": ["HitHeavy", "Stagger"],
+    "interaction": ["Interact"],
+    "death": ["DeathDramatic"]
+  },
+
+  "combos": [
+    {
+      "combo_id": 1,
+      "name": "Basic Combo",
+      "sequence": ["Combo01", "Combo02"],
+      "input_buffer_time": 0.5,
+      "damage_total": 215,
+      "stamina_cost": 40
+    }
+  ],
+
+  "production_gates": ["design", "animation_capture", "retopology", "rigging", "vfx_setup", "sfx_integration", "combat_events", "qa", "approved"],
+
+  "acceptance_criteria": [
+    "10 animations all present and looping/sequencing correctly",
+    "Dodge Roll provides 0.6s invulnerability",
+    "Parry has perfect parry window (0.05-0.35s)",
+    "Combo01 + Combo02 chain together properly",
+    "RuneSlash deals 80 damage + 50 area damage",
+    "AetherStep teleports 5m distance",
+    "HitHeavy and Stagger have correct recovery times",
+    "Interact triggers world events",
+    "DeathDramatic enables ragdoll and shows death screen"
+  ]
+}
