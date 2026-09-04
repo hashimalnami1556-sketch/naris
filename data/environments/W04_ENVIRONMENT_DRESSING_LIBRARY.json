@@ -1,0 +1,19 @@
+{
+  "schema":"naris.environment.dressing_library.v1",
+  "families": {
+    "forest": ["burnt_tree_small","burnt_tree_medium","burnt_tree_hero","giant_root","ember_fern","aether_flower"],
+    "ruin": ["broken_column","fallen_arch","cracked_wall","collapsed_roof","stone_debris","ritual_banner"],
+    "combat": ["arena_pillar","broken_weapon","bone_pile","impact_scar","bloodless_ash_mark"],
+    "story": ["prayer_cloth_burned","chain_fragment","claw_mark_cluster","ancient_tablet","naris_rune_marker"],
+    "underground": ["root_ceiling_cluster","cave_stalagmite","cave_stalactite","aether_pool","submerged_stone","fungal_ash_cluster"],
+    "traversal": ["wood_bridge_broken","stone_stair_ruined","ledge_anchor","rope_anchor","vertical_root_grip"]
+  },
+  "rules": [
+    {"name":"hero_clearance","rule":"Keep a 3.5m minimum readable combat footprint around boss and major encounter anchors."},
+    {"name":"navigation","rule":"Use landmark silhouettes and repeated rune markers to communicate route direction."},
+    {"name":"story_density","rule":"Story props cluster near meaningful locations and thin out on traversal corridors."},
+    {"name":"repetition","rule":"Rotate, scale and variant-swap repeated dressing while preserving biome consistency."},
+    {"name":"performance","rule":"Instance repeated dressing and assign LOD2/impostor policy beyond the gameplay read distance."}
+  ],
+  "material_decals": ["ash_streak","water_stain","ancient_crack","rune_fade","burn_scorch","claw_scratch","aether_corruption"]
+}
