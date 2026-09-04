@@ -1,0 +1,31 @@
+{
+  "schema": "naris.environment.hero_locations.v1",
+  "world": "W04_Ashen_Forest",
+  "grid_m": 2.0,
+  "streaming_cell_m": 32,
+  "locations": [
+    {"id":"LOC_W04_OUTER_RING","type":"exploration","size_m":[96,96],"vertical_layers":2,"landmark":"waystone_outer"},
+    {"id":"LOC_W04_BURIED_TEMPLE","type":"dungeon","size_m":[64,72],"vertical_layers":4,"landmark":"buried_temple_sanctum"},
+    {"id":"LOC_W04_ASH_GATE_INTERIOR","type":"transition","size_m":[48,36],"vertical_layers":2,"landmark":"ash_gate_core"},
+    {"id":"LOC_W04_RITUAL_ARENA","type":"boss_arena","size_m":[44,44],"vertical_layers":1,"landmark":"ritual_circle"},
+    {"id":"LOC_W04_WHISPER_LAKE_UNDERCRYPT","type":"underground","size_m":[72,56],"vertical_layers":3,"landmark":"aether_waterfall"},
+    {"id":"LOC_W04_ROOTBOUND_TUNNELS","type":"traversal","size_m":[80,28],"vertical_layers":2,"landmark":"giant_root"},
+    {"id":"LOC_W04_FORGOTTEN_WATCHTOWER","type":"vertical_landmark","size_m":[24,24],"vertical_layers":6,"landmark":"watchtower_beacon"},
+    {"id":"LOC_W04_BONE_BEAST_DEN","type":"enemy_ecosystem","size_m":[52,40],"vertical_layers":1,"landmark":"bone_nest"},
+    {"id":"LOC_W04_HIDDEN_RELIQUARY","type":"secret_reward","size_m":[18,18],"vertical_layers":1,"landmark":"sealed_reliquary"},
+    {"id":"LOC_W04_AETHER_FAULT","type":"supernatural","size_m":[36,36],"vertical_layers":3,"landmark":"fractured_aether"}
+  ],
+  "traversal": {
+    "main_route": ["LOC_W04_OUTER_RING","LOC_W04_BURIED_TEMPLE","LOC_W04_ASH_GATE_INTERIOR","LOC_W04_RITUAL_ARENA"],
+    "secondary_route": ["LOC_W04_OUTER_RING","LOC_W04_ROOTBOUND_TUNNELS","LOC_W04_WHISPER_LAKE_UNDERCRYPT","LOC_W04_AETHER_FAULT"],
+    "vertical_route": ["LOC_W04_OUTER_RING","LOC_W04_FORGOTTEN_WATCHTOWER","LOC_W04_BURIED_TEMPLE"],
+    "secret_route": ["LOC_W04_BONE_BEAST_DEN","LOC_W04_HIDDEN_RELIQUARY"]
+  },
+  "anchors": {
+    "waystone": ["waystone_outer"],
+    "boss": ["ritual_circle"],
+    "enemy": ["bone_nest","root_ambush_01","root_ambush_02"],
+    "lore": ["temple_inscription_01","watchtower_log_01","reliquary_tablet_01"],
+    "loot": ["reliquary_reward_01","den_reward_01"]
+  }
+}
