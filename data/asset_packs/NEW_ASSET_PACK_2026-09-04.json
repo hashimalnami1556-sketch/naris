@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.0.0",
+  "pack_id": "NARIS-ASSET-PACK-2026-09-04",
+  "project": "CALL OF NARIS",
+  "batch": "07-08-ASSET-EXPANSION",
+  "status": "production_locked",
+  "world": "W04",
+  "engine_preview": "Babylon.js",
+  "final_engine": "Unreal Engine",
+  "visual_reference": "artboards/new_asset_pack_2026-09-04.png",
+  "characters": [
+    {"id":"NARIS-W04-CHR-ASHWANDERER-0001","name":"Ash Wanderer","role":"DPS / Explorer","archetype":"mobile_melee","primary":"aether_blade","palette":["Naris Fire","Obsidian","Steel Silver"],"status":"concept_reference"},
+    {"id":"NARIS-W07-CHR-MARSHSEER-0001","name":"Marsh Seer","role":"Support / Caster","archetype":"healer_controller","primary":"marsh_aether_staff","palette":["Mist Cyan","Aether Violet","Nature Emerald"],"status":"concept_reference"},
+    {"id":"NARIS-W08-CHR-CASTLEWARDEN-0001","name":"Castle Warden","role":"Tank / Guardian","archetype":"heavy_guardian","primary":"warden_shield","palette":["Ancient Gold","Steel Silver","Aether Violet"],"status":"concept_reference"}
+  ],
+  "translucent_assets": [
+    {"id":"NARIS-W04-CHR-HERO-TRANSLUCENT-0001","name":"Translucent Hero","type":"character","material":"fresnel_ethereal","use":"vision_echoes, spirit_state, cinematic silhouette"},
+    {"id":"NARIS-W04-ENM-GATEGUARDIAN-0001","name":"Gate Guardian","type":"enemy","material":"fresnel_ember_ghost","use":"Ash Gate encounter, elite telegraph, boss intro"},
+    {"id":"NARIS-W04-PRP-WAYSTONE-0001","name":"Waystone","type":"save_point","material":"crystal_aether","use":"save, respawn, fast travel"},
+    {"id":"NARIS-W04-PRP-HOLYPORTAL-0001","name":"Holy Portal","type":"transition_gate","material":"fresnel_radiant","use":"world transition, quest gate, cinematic portal"}
+  ],
+  "materials": [
+    {"id":"NARIS-W04-MAT-STONETILE-0001","name":"Ashen Stone Tile","type":"tileable_pbr","resolution":"4096","maps":["basecolor","normal","roughness","ao","height"],"tiling":"repeat"}
+  ],
+  "preview": {"character_switching":true,"scene_preview":true,"lod_preview":true,"material_preview":true,"transparent_mode":true,"asset_validation":true},
+  "delivery": {"formats":["glb","fbx","png","jpg","json"],"storage":"GitHub versioned source + external binary storage","qa_gate":["silhouette","materials","scale","rig readiness","performance","scene integration"]}
+}
