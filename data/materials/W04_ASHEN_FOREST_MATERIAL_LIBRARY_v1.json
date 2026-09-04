@@ -1,0 +1,163 @@
+{
+  "schema_version": "naris.material_library.v1",
+  "project": "CALL OF NARIS",
+  "world": "W04_Ashen_Forest",
+  "status": "ACTIVE_PRODUCTION",
+  "authoring": {
+    "source": "procedural_node_materials",
+    "target_engines": ["Blender 4.x", "Unreal Engine 5", "Unity 6", "Babylon.js"],
+    "workflow": "PBR-first, texture-ready, deterministic variants",
+    "texel_density_m_per_1k": 2.0,
+    "material_slot_budget_per_prop": 3
+  },
+  "palette": {
+    "ash": "#17151B",
+    "charcoal": "#26232B",
+    "ancient_stone": "#4A4650",
+    "wet_stone": "#343942",
+    "burnt_wood": "#211914",
+    "oxidized_metal": "#3A4144",
+    "aether": "#5FE8FF",
+    "ember": "#FF6A1A",
+    "moss": "#394C3A"
+  },
+  "materials": [
+    {
+      "id": "MAT_W04_ASH_SOIL_01",
+      "name": "Ash Soil",
+      "domain": "terrain",
+      "base_color": [0.055,0.045,0.065,1],
+      "roughness": 0.93,
+      "metallic": 0.0,
+      "normal_strength": 0.28,
+      "height_range": 0.08,
+      "detail": ["fine ash", "charcoal specks", "subtle moisture pockets"],
+      "variants": 4
+    },
+    {
+      "id": "MAT_W04_VOLCANIC_STONE_01",
+      "name": "Volcanic Ruin Stone",
+      "domain": "architecture",
+      "base_color": [0.17,0.16,0.19,1],
+      "roughness": 0.84,
+      "metallic": 0.0,
+      "normal_strength": 0.52,
+      "height_range": 0.12,
+      "detail": ["large fracture", "micro pores", "edge wear"],
+      "variants": 6
+    },
+    {
+      "id": "MAT_W04_ANCIENT_STONE_01",
+      "name": "Ancient Naris Stone",
+      "domain": "hero_architecture",
+      "base_color": [0.26,0.24,0.28,1],
+      "roughness": 0.72,
+      "metallic": 0.0,
+      "normal_strength": 0.46,
+      "height_range": 0.10,
+      "detail": ["carved strata", "worn rune channels", "dust accumulation"],
+      "variants": 5
+    },
+    {
+      "id": "MAT_W04_WET_STONE_01",
+      "name": "Whisper Lake Wet Stone",
+      "domain": "water_edge",
+      "base_color": [0.10,0.12,0.15,1],
+      "roughness": 0.34,
+      "metallic": 0.0,
+      "normal_strength": 0.38,
+      "height_range": 0.06,
+      "detail": ["wet darkening", "water film", "algae tint"],
+      "variants": 4
+    },
+    {
+      "id": "MAT_W04_BURNT_WOOD_01",
+      "name": "Burnt Forest Wood",
+      "domain": "vegetation",
+      "base_color": [0.075,0.052,0.040,1],
+      "roughness": 0.82,
+      "metallic": 0.0,
+      "normal_strength": 0.42,
+      "height_range": 0.10,
+      "detail": ["charred grain", "split bark", "ash deposits"],
+      "variants": 6
+    },
+    {
+      "id": "MAT_W04_OXIDIZED_IRON_01",
+      "name": "Ashen Iron",
+      "domain": "metal",
+      "base_color": [0.15,0.17,0.18,1],
+      "roughness": 0.58,
+      "metallic": 0.88,
+      "normal_strength": 0.24,
+      "height_range": 0.04,
+      "detail": ["oxide", "scratches", "soot"],
+      "variants": 4
+    },
+    {
+      "id": "MAT_W04_AETHER_CRYSTAL_01",
+      "name": "Aether Crystal",
+      "domain": "magic",
+      "base_color": [0.05,0.38,0.48,1],
+      "roughness": 0.18,
+      "metallic": 0.05,
+      "normal_strength": 0.18,
+      "emission_color": [0.20,0.95,1.0,1],
+      "emission_strength": 5.0,
+      "variants": 5
+    },
+    {
+      "id": "MAT_W04_AETHER_CORRUPTED_STONE_01",
+      "name": "Aether-Corrupted Stone",
+      "domain": "supernatural",
+      "base_color": [0.12,0.09,0.17,1],
+      "roughness": 0.62,
+      "metallic": 0.04,
+      "normal_strength": 0.56,
+      "height_range": 0.13,
+      "emission_color": [0.30,0.10,0.70,1],
+      "emission_strength": 2.2,
+      "detail": ["corruption veins", "fractures", "aether residue"],
+      "variants": 6
+    },
+    {
+      "id": "MAT_W04_MOSS_LICHEN_01",
+      "name": "Ash Moss and Lichen",
+      "domain": "vegetation_detail",
+      "base_color": [0.12,0.18,0.12,1],
+      "roughness": 0.96,
+      "metallic": 0.0,
+      "normal_strength": 0.34,
+      "height_range": 0.05,
+      "detail": ["moss clusters", "lichen flecks", "ash overlay"],
+      "variants": 4
+    }
+  ],
+  "decals": [
+    "DEC_W04_ASH_STREAK",
+    "DEC_W04_WATER_STAIN",
+    "DEC_W04_ANCIENT_CRACK",
+    "DEC_W04_RUNE_FADE",
+    "DEC_W04_BURN_SCORCH",
+    "DEC_W04_CLAW_SCRATCH",
+    "DEC_W04_AETHER_CORRUPTION"
+  ],
+  "water": {
+    "id": "MAT_W04_WHISPER_LAKE_01",
+    "surface": "physically_based_translucent",
+    "roughness": 0.08,
+    "refraction": 1.333,
+    "depth_fade": true,
+    "normal_layers": 2,
+    "foam_mask": true
+  },
+  "qa": {
+    "no_pure_white_basecolor": true,
+    "no_pure_black_basecolor": true,
+    "metallic_only_for_metal": true,
+    "roughness_range": [0.08,0.98],
+    "emission_reserved_for_magic": true,
+    "all_materials_need_lod_safe_detail": true,
+    "all_variants_must_preserve_world_palette": true
+  }
+}
