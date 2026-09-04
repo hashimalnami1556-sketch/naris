@@ -249,14 +249,14 @@
       "ordered": true
     },
     {
-      "any_state",
+      "from": "any_state",
       "to": "HitLight",
       "condition": "is_hit == true",
       "priority": 10,
       "ordered": true
     },
     {
-      "any_state",
+      "from": "any_state",
       "to": "Death",
       "condition": "is_dead == true",
       "priority": 100,

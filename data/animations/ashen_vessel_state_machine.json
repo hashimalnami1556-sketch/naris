@@ -395,35 +395,35 @@
       "ordered": true
     },
     {
-      "any_state",
+      "from": "any_state",
       "to": "Fall",
       "condition": "is_falling == true",
       "priority": 5,
       "ordered": true
     },
     {
-      "any_state",
+      "from": "any_state",
       "to": "HitLight",
       "condition": "stamina_level > 0 && is_hit == true",
       "priority": 10,
       "ordered": true
     },
     {
-      "any_state",
+      "from": "any_state",
       "to": "HitHeavy",
       "condition": "stamina_level <= 0 && is_hit == true",
       "priority": 10,
       "ordered": true
     },
     {
-      "any_state",
+      "from": "any_state",
       "to": "DeathDramatic",
       "condition": "is_dead == true",
       "priority": 100,
       "ordered": true
     },
     {
-      "any_state",
+      "from": "any_state",
       "to": "RuneSlash",
       "condition": "is_casting_ability == true",
       "priority": 15,
