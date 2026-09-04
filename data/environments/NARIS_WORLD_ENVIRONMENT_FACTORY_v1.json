@@ -1,0 +1,19 @@
+{
+  "schema_version":"1.0.0",
+  "project":"CALL OF NARIS",
+  "factory":"WORLD_ENVIRONMENT_FACTORY",
+  "rule":"Every world receives a distinct biome kit, hero landmark set, traversal language, material family, atmosphere preset, VFX dressing and streaming profile.",
+  "worlds":[
+    {"id":"W01","name":"Frozen Peaks","biome":"frozen_mountain","palette":"ice_blue|silver|ancient_gold","kits":["ice_floor","snow_cliff","frozen_ruin","rope_bridge","ice_cave"],"landmarks":["Frost_Gate","Ancient_Observatory","Glacier_Shrine"],"atmosphere":["snowfall","blizzard","aurora_night"]},
+    {"id":"W02","name":"Forge of Flame","biome":"volcanic_forge","palette":"ember_orange|obsidian|gold","kits":["basalt_floor","forge_wall","lava_channel","industrial_ruin","chain_bridge"],"landmarks":["Grand_Furnace","Molten_Gate","Forge_Throne"],"atmosphere":["embers","heat_haze","lava_storm"]},
+    {"id":"W03","name":"Echoes Desert","biome":"ancient_ash_desert","palette":"sand_gold|violet|black","kits":["sand_floor","eroded_temple","buried_ruin","dune_cliff","bone_marker"],"landmarks":["Echo_Obelisk","Buried_City","Singing_Canyon"],"atmosphere":["dust","mirage","red_moon"]},
+    {"id":"W04","name":"Ashen Forest","biome":"burned_aether_forest","palette":"ash_black|ember_orange|mist_cyan","kits":["ash_floor","moss_ruin","burned_tree","mist_bridge","bone_arena"],"landmarks":["Broken_Shrine","Whisper_Lake","Ash_Gate","Bone_Beast_Arena"],"atmosphere":["ashfall","heavy_fog","aether_motes","moonlight"]},
+    {"id":"W05","name":"Silent Abyss","biome":"void_cavern","palette":"obsidian|aether_violet|cyan","kits":["void_floor","floating_rock","abyss_wall","void_bridge","crystal_cluster"],"landmarks":["Abyssal_Elevator","Void_Altar","Silent_Chasm"],"atmosphere":["void_fog","gravity_dust","void_lightning"]},
+    {"id":"W06","name":"Inverted Towers","biome":"vertical_gravity_ruins","palette":"steel|violet|gold","kits":["tower_floor","inverted_arch","hanging_platform","gravity_bridge","clockwork_ruin"],"landmarks":["Inverted_Cathedral","Gravity_Core","Falling_Court"],"atmosphere":["floating_debris","storm_cloud","aether_rain"]},
+    {"id":"W07","name":"Lost Souls Swamp","biome":"haunted_swamp","palette":"swamp_green|cyan|violet","kits":["mud_floor","dead_tree","marsh_boardwalk","sunken_ruin","reed_cluster"],"landmarks":["Marsh_Sanctum","Drowned_Bell","Witch_Island"],"atmosphere":["mist","spores","will_o_wisps","rain"]},
+    {"id":"W08","name":"Astral Fortress","biome":"celestial_fortress","palette":"star_blue|ancient_gold|white","kits":["astral_floor","starstone_wall","floating_arch","celestial_bridge","crystal_window"],"landmarks":["Astral_Gate","Celestial_Throne","Star_Engine"],"atmosphere":["cosmic_dust","starfall","aurora"]},
+    {"id":"W09","name":"Forgotten Canals","biome":"ruined_water_city","palette":"moss_green|stone|cyan","kits":["canal_floor","wet_brick","collapsed_house","water_bridge","dock_ruin"],"landmarks":["Grand_Lock","Sunken_Palace","Canal_Cathedral"],"atmosphere":["rain","water_fog","lantern_reflection"]},
+    {"id":"W10","name":"Throne of Naris","biome":"final_dark_citadel","palette":"obsidian|fire|divine_gold","kits":["throne_floor","black_marble","colossal_pillar","royal_bridge","void_gate"],"landmarks":["Naris_Throne","Crown_Gate","Final_Arena"],"atmosphere":["eclipse","ash_storm","divine_beams","reality_fracture"]}
+  ],
+  "shared_rules":{"grid_m":1.0,"texture_max":"4K","lod_levels":4,"streaming_cell_m":128,"collision":"simple_or_convex","navmesh":"required","hero_landmarks_per_world":3,"lighting_presets_min":3,"tileable_material_sets_min":5}
+}
