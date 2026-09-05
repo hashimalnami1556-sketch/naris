@@ -1,0 +1,412 @@
+{
+  "batch": "07-08",
+  "vfx_pack_id": "NARIS-VFX-PARTICLE-PACK-0001",
+  "name": "VFX & Particle Systems - Batch 07-08",
+  "type": "visual_effects",
+  "version": "V001",
+  "total_systems": 12,
+
+  "particle_systems": [
+    {
+      "id": "NARIS-VFX-FIRE-0001",
+      "name": "Naris Fire",
+      "category": "elemental",
+      "element_type": "fire",
+      "color_scheme": {
+        "primary": "#FF6B1A",
+        "secondary": "#FFD700",
+        "glow": "#FF4500"
+      },
+      "usage_contexts": [
+        "weapon_effect_emberedge",
+        "ability_fire_damage",
+        "environmental_hazard"
+      ],
+      "particle_properties": {
+        "emission_rate": 500,
+        "lifetime": 2.5,
+        "velocity": "radial_expanding",
+        "size_curve": "expand_then_shrink",
+        "opacity_curve": "fade_out"
+      },
+      "vfx_features": [
+        "glow_light_source",
+        "heat_distortion",
+        "smoke_trail"
+      ],
+      "audio_sync": "fire_crackle_loop"
+    },
+
+    {
+      "id": "NARIS-VFX-ANCIENT-MAGIC-0001",
+      "name": "Ancient Magic",
+      "category": "magic",
+      "element_type": "arcane",
+      "color_scheme": {
+        "primary": "#9D4EDD",
+        "secondary": "#C77DFF",
+        "glow": "#E0AAFF"
+      },
+      "usage_contexts": [
+        "spell_casting",
+        "area_effect",
+        "buff_effect"
+      ],
+      "particle_properties": {
+        "emission_rate": 300,
+        "lifetime": 3.0,
+        "velocity": "spiral_ascend",
+        "size_curve": "uniform_shrink",
+        "opacity_curve": "soft_fade"
+      },
+      "vfx_features": [
+        "magical_aura",
+        "sparkle_accents",
+        "energy_tendrils"
+      ],
+      "audio_sync": "arcane_hum"
+    },
+
+    {
+      "id": "NARIS-VFX-SPIRIT-ENERGY-0001",
+      "name": "Spirit Energy",
+      "category": "aether",
+      "element_type": "aether",
+      "color_scheme": {
+        "primary": "#00D9FF",
+        "secondary": "#0099CC",
+        "glow": "#00FFFF"
+      },
+      "usage_contexts": [
+        "ethereal_effects",
+        "aether_weapon_glow",
+        "ability_aether_strike"
+      ],
+      "particle_properties": {
+        "emission_rate": 250,
+        "lifetime": 2.0,
+        "velocity": "directional_wave",
+        "size_curve": "pulse",
+        "opacity_curve": "flash_fade"
+      },
+      "vfx_features": [
+        "crystalline_particles",
+        "energy_waves",
+        "harmonic_resonance"
+      ],
+      "audio_sync": "aether_whoosh"
+    },
+
+    {
+      "id": "NARIS-VFX-DIVINE-LIGHT-0001",
+      "name": "Divine Light",
+      "category": "holy",
+      "element_type": "holy",
+      "color_scheme": {
+        "primary": "#FFEB3B",
+        "secondary": "#FFF9C4",
+        "glow": "#FFFF00"
+      },
+      "usage_contexts": [
+        "healing_effect",
+        "blessing_effect",
+        "purification"
+      ],
+      "particle_properties": {
+        "emission_rate": 200,
+        "lifetime": 1.5,
+        "velocity": "soft_random",
+        "size_curve": "pop_burst",
+        "opacity_curve": "gentle_fade"
+      },
+      "vfx_features": [
+        "light_beam",
+        "halo_effect",
+        "sparkle_burst"
+      ],
+      "audio_sync": "holy_resonance"
+    },
+
+    {
+      "id": "NARIS-VFX-BLEED-0001",
+      "name": "Bleed",
+      "category": "status_effect",
+      "status_type": "bleed",
+      "color_scheme": {
+        "primary": "#DC143C",
+        "secondary": "#8B0000",
+        "glow": "#FF0000"
+      },
+      "usage_contexts": [
+        "damage_over_time",
+        "status_indicator",
+        "critical_hit"
+      ],
+      "particle_properties": {
+        "emission_rate": 150,
+        "lifetime": 1.2,
+        "velocity": "dripping_down",
+        "size_curve": "drop_fall",
+        "opacity_curve": "quick_fade"
+      },
+      "vfx_features": [
+        "blood_drips",
+        "splatter_impact",
+        "stain_residue"
+      ],
+      "audio_sync": "wet_impact"
+    },
+
+    {
+      "id": "NARIS-VFX-POISON-0001",
+      "name": "Poison",
+      "category": "status_effect",
+      "status_type": "poison",
+      "color_scheme": {
+        "primary": "#00AA00",
+        "secondary": "#00FF00",
+        "glow": "#00DD00"
+      },
+      "usage_contexts": [
+        "damage_over_time",
+        "toxic_cloud",
+        "venom_effect"
+      ],
+      "particle_properties": {
+        "emission_rate": 200,
+        "lifetime": 3.0,
+        "velocity": "cloud_dispersion",
+        "size_curve": "expand_slowly",
+        "opacity_curve": "lingering_fade"
+      },
+      "vfx_features": [
+        "toxic_cloud",
+        "corrosive_aura",
+        "residue_drip"
+      ],
+      "audio_sync": "hissing_gas"
+    },
+
+    {
+      "id": "NARIS-VFX-EXPLOSION-0001",
+      "name": "Explosions",
+      "category": "impact",
+      "impact_type": "explosive",
+      "color_scheme": {
+        "primary": "#FF6B1A",
+        "secondary": "#FFD700",
+        "glow": "#FF8C00"
+      },
+      "usage_contexts": [
+        "ability_impact",
+        "environmental_explosion",
+        "area_damage"
+      ],
+      "particle_properties": {
+        "emission_rate": 800,
+        "lifetime": 1.5,
+        "velocity": "explosive_burst",
+        "size_curve": "expand_massive",
+        "opacity_curve": "fast_fade"
+      },
+      "vfx_features": [
+        "explosion_burst",
+        "shock_wave",
+        "smoke_cloud",
+        "debris_scatter"
+      ],
+      "audio_sync": "explosion_blast"
+    },
+
+    {
+      "id": "NARIS-VFX-PORTAL-FX-0001",
+      "name": "Portal FX",
+      "category": "teleport",
+      "effect_type": "dimensional_rift",
+      "color_scheme": {
+        "primary": "#7B2CBF",
+        "secondary": "#C77DFF",
+        "glow": "#E0AAFF"
+      },
+      "usage_contexts": [
+        "teleportation",
+        "fast_travel",
+        "dimensional_gateway"
+      ],
+      "particle_properties": {
+        "emission_rate": 400,
+        "lifetime": 2.5,
+        "velocity": "spiral_inward",
+        "size_curve": "converge_center",
+        "opacity_curve": "pulse_fade"
+      },
+      "vfx_features": [
+        "energy_vortex",
+        "dimensional_tears",
+        "light_column"
+      ],
+      "audio_sync": "portal_opening"
+    },
+
+    {
+      "id": "NARIS-VFX-ETHEREAL-DISSOLVE-0001",
+      "name": "Ethereal Dissolve",
+      "category": "death",
+      "effect_type": "spectral_dissipation",
+      "color_scheme": {
+        "primary": "#00D9FF",
+        "secondary": "#7B2CBF",
+        "glow": "#C77DFF"
+      },
+      "usage_contexts": [
+        "death_animation",
+        "boss_death",
+        "ethereal_entity_disappear"
+      ],
+      "particle_properties": {
+        "emission_rate": 600,
+        "lifetime": 3.0,
+        "velocity": "upward_ascend",
+        "size_curve": "fragment_burst",
+        "opacity_curve": "fade_to_nothing"
+      },
+      "vfx_features": [
+        "particle_dissolution",
+        "spectral_shimmer",
+        "ascending_fragments",
+        "light_absorption"
+      ],
+      "audio_sync": "ethereal_fade"
+    },
+
+    {
+      "id": "NARIS-VFX-HIT-STOP-0001",
+      "name": "Hit Stop / Impact Flash",
+      "category": "impact_feedback",
+      "effect_type": "combat_reaction",
+      "color_scheme": {
+        "primary": "#FFFFFF",
+        "secondary": "#FFFF00",
+        "glow": "#FFFFFF"
+      },
+      "usage_contexts": [
+        "melee_impact",
+        "critical_hit",
+        "heavy_attack"
+      ],
+      "particle_properties": {
+        "emission_rate": 100,
+        "lifetime": 0.3,
+        "velocity": "radial_burst",
+        "size_curve": "instant_expand",
+        "opacity_curve": "flash_disappear"
+      },
+      "vfx_features": [
+        "screen_flash",
+        "impact_particles",
+        "shock_lines"
+      ],
+      "frame_freeze": 0.08,
+      "audio_sync": "impact_thud"
+    },
+
+    {
+      "id": "NARIS-VFX-CAMERA-SHAKE-0001",
+      "name": "Camera Shake",
+      "category": "screen_effect",
+      "effect_type": "viewport_reaction",
+      "usage_contexts": [
+        "heavy_impact",
+        "boss_attack",
+        "ground_slam"
+      ],
+      "shake_properties": {
+        "intensity": 0.5,
+        "duration": 0.5,
+        "frequency": 25,
+        "decay": "exponential"
+      }
+    },
+
+    {
+      "id": "NARIS-VFX-SCREEN-FLASH-0001",
+      "name": "Screen Flash",
+      "category": "screen_effect",
+      "effect_type": "visual_feedback",
+      "color_scheme": {
+        "primary": "#FFFFFF",
+        "secondary": "#FFFF00"
+      },
+      "usage_contexts": [
+        "critical_hit",
+        "ability_cast",
+        "status_application"
+      ],
+      "flash_properties": {
+        "color": "#FFFFFF",
+        "intensity": 0.8,
+        "duration": 0.2,
+        "fade_curve": "linear"
+      }
+    }
+  ],
+
+  "compound_effects": [
+    {
+      "id": "NARIS-VFX-COMBO-EMBEREDGE-RUNESLASH-0001",
+      "name": "Emberedge RuneSlash Combo Effect",
+      "components": [
+        "NARIS-VFX-FIRE-0001",
+        "NARIS-VFX-EXPLOSION-0001",
+        "NARIS-VFX-HIT-STOP-0001",
+        "NARIS-VFX-CAMERA-SHAKE-0001"
+      ],
+      "timing": {
+        "fire_start": 0.0,
+        "explosion_trigger": 0.3,
+        "hit_stop": 0.25,
+        "camera_shake": 0.25
+      }
+    },
+
+    {
+      "id": "NARIS-VFX-AETHER-SERPENT-POISON-0001",
+      "name": "Aether Serpent Poison Strike",
+      "components": [
+        "NARIS-VFX-SPIRIT-ENERGY-0001",
+        "NARIS-VFX-POISON-0001",
+        "NARIS-VFX-HIT-STOP-0001"
+      ],
+      "timing": {
+        "aether_start": 0.0,
+        "poison_cloud": 0.2,
+        "hit_stop": 0.15
+      }
+    },
+
+    {
+      "id": "NARIS-VFX-BOSS-DEATH-SEQUENCE-0001",
+      "name": "Boss Death Sequence",
+      "components": [
+        "NARIS-VFX-ETHEREAL-DISSOLVE-0001",
+        "NARIS-VFX-EXPLOSION-0001",
+        "NARIS-VFX-CAMERA-SHAKE-0001"
+      ],
+      "timing": {
+        "dissolve_start": 0.0,
+        "explosion_wave": 0.5,
+        "camera_shake": 0.5
+      }
+    }
+  ],
+
+  "performance_optimization": {
+    "lod_levels": 3,
+    "max_active_particles": 5000,
+    "draw_calls_optimized": true,
+    "batching_enabled": true
+  },
+
+  "validation_status": "production_ready",
+  "notes": "Complete VFX and particle system pack with 12 core effects and 3 compound effects for combat, environmental, and cinematic use in Batch 07-08."
+}
