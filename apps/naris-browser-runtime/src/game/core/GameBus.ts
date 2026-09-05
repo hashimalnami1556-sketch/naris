@@ -3,9 +3,15 @@ export type NarisEvents = {
   'combat.playerAttack': { characterId: string };
   'combat.enemyDefeated': { enemyId: string; xp: number };
   'player.damaged': { amount: number; health: number };
+  'player.died': { lostShards: number };
   'world.waystoneActivated': { id: string };
   'world.shardCollected': { amount: number };
+  'world.gateUnlocked': { gateId: string };
+  'boss.phaseChanged': { phase: string };
+  'companion.command': { command: string };
   'quest.progress': { questId: string; objectiveId: string; current: number; required: number };
+  'quest.completed': { questId: string };
+  'inventory.changed': { itemId: string; quantity: number };
   'save.completed': { timestamp: number };
 };
 
