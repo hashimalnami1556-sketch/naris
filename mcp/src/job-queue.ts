@@ -39,6 +39,13 @@ export function getJob(jobId: string): NarisJob | undefined {
   return jobs.get(jobId);
 }
 
+export function updateJob(jobId: string, patch: Partial<Pick<NarisJob, "status" | "progress" | "startedAt" | "completedAt" | "result" | "errors" | "warnings">>): NarisJob | undefined {
+  const job = jobs.get(jobId);
+  if (!job) return undefined;
+  Object.assign(job, patch);
+  return job;
+}
+
 export function cancelJob(jobId: string): NarisJob | undefined {
   const job = jobs.get(jobId);
   if (!job) return undefined;
