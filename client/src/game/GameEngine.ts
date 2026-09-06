@@ -32,6 +32,14 @@ import {
   achievementSystem,
   InputManager,
   inputManager,
+  ParticleSystem,
+  particleSystem,
+  AnimationSystem,
+  animationSystem,
+  SoundSystem,
+  soundSystem,
+  VFXManager,
+  vfxManager,
 } from './core/index';
 import { CharacterId } from '../types/gameTypes';
 
@@ -107,6 +115,16 @@ export class GameEngine {
       this.updateProgress(50, 'Initializing Renderer');
       await this.sleep(100);
 
+      // 4.5 تهيئة نظام الجسيمات
+      const scene = gameRenderer.getScene();
+      if (scene) {
+        particleSystem.setScene(scene);
+        animationSystem.setScene(scene);
+        vfxManager.setScene(scene);
+      }
+      this.updateProgress(55, 'Initializing Particle System');
+      await this.sleep(100);
+
       // 5. تهيئة نظام الأصول
       assetLoader;
       this.updateProgress(60, 'Initializing Asset Loader');
@@ -142,12 +160,17 @@ export class GameEngine {
       this.updateProgress(85, 'Initializing Achievement System');
       await this.sleep(100);
 
+      // 11.5 تهيئة نظام الصوت
+      soundSystem;
+      this.updateProgress(90, 'Initializing Sound System');
+      await this.sleep(100);
+
       // 12. إنشاء الشخصيات الأولية
-      const scene = gameRenderer.getScene();
       if (scene) {
-        const ashCharacter = await characterFactory.createCharacter('ash', new (require('babylonjs')).Vector3(0, 0, 0));
-        const runeCharacter = await characterFactory.createCharacter('rune', new (require('babylonjs')).Vector3(5, 0, 5));
-        const korCharacter = await characterFactory.createCharacter('kor', new (require('babylonjs')).Vector3(-5, 0, 5));
+        const { Vector3 } = require('babylonjs');
+        const ashCharacter = await characterFactory.createCharacter('ash', new Vector3(0, 0, 0));
+        const runeCharacter = await characterFactory.createCharacter('rune', new Vector3(5, 0, 5));
+        const korCharacter = await characterFactory.createCharacter('kor', new Vector3(-5, 0, 5));
       }
 
       this.updateProgress(100, 'Engine Initialized Successfully');
@@ -327,9 +350,44 @@ export class GameEngine {
   }
 
   /**
+   * الحصول على إحصائيات المحرك
+   */
+  getEngineStats(): Record<string, any> {
+    const particleStats = particleSystem.getStats();
+    const animationStats = animationSystem.getStats();
+    const soundStats = soundSystem.getStats();
+    const vfxStats = vfxManager.getStats();
+
+    return {
+      engine: {
+        state: this.state,
+        progress: this.initializationProgress,
+      },
+      particles: particleStats,
+      animations: animationStats,
+      sound: soundStats,
+      vfx: vfxStats,
+      game: {
+        character: gameState.getState().currentCharacter,
+        realm: gameState.getState().currentRealm,
+        health: gameState.getState().playerState.health,
+        level: gameState.getState().playerState.level,
+      },
+      scene: {
+        characters: characterFactory.getAllCharacters().length,
+        enemies: enemyAI.getAllEnemies().length,
+      },
+    };
+  }
+
+  /**
    * طباعة معلومات المحرك
    */
   printEngineInfo(): void {
+    const soundStats = soundSystem.getStats();
+    const animationStats = animationSystem.getStats();
+    const particleStats = particleSystem.getStats();
+
     console.log(`
     🎮 GAME ENGINE INFO
     ─────────────────────
@@ -351,6 +409,10 @@ export class GameEngine {
       Weather System: ✓ Ready
       Quest System: ✓ Ready
       Achievement System: ✓ Ready
+      Particle System: ✓ Ready
+      Animation System: ✓ Ready
+      Sound System: ✓ Ready
+      VFX Manager: ✓ Ready
 
     Game State:
       Current Character: ${gameState.getState().currentCharacter}
@@ -361,6 +423,12 @@ export class GameEngine {
     Scene Statistics:
       Active Characters: ${characterFactory.getAllCharacters().length}
       Active Enemies: ${enemyAI.getAllEnemies().length}
+
+    Visual/Audio Effects:
+      Active Particles: ${particleStats.active}
+      Active Animations: ${animationStats.animationGroups}
+      Sounds Playing: ${soundStats.soundsPlaying}
+      Sound Buffers Loaded: ${soundStats.buffersLoaded}
 
     ─────────────────────
     `);
@@ -373,12 +441,16 @@ export class GameEngine {
     this.stop();
 
     // تنظيف جميع الأنظمة بترتيب معاكس للتهيئة
+    // VFX and Media Systems
+    vfxManager.dispose();
+    soundSystem.dispose();
+    particleSystem.dispose();
+    animationSystem.dispose();
+
+    // Game Systems
     enemyAI.dispose();
     characterFactory.dispose();
     gameRenderer.dispose();
-    weatherSystem;
-    questSystem;
-    achievementSystem;
 
     this.state = 'uninitialized';
     gameEvents.emit('engine_disposed', {});
