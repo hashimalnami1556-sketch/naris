@@ -30,6 +30,8 @@ import {
   questSystem,
   AchievementSystem,
   achievementSystem,
+  InputManager,
+  inputManager,
 } from './core/index';
 import { CharacterId } from '../types/gameTypes';
 
@@ -82,7 +84,12 @@ export class GameEngine {
     try {
       // 1. إنشاء مصرح الأحداث
       gameEvents;
-      this.updateProgress(10, 'Initializing Event System');
+      this.updateProgress(5, 'Initializing Event System');
+      await this.sleep(100);
+
+      // 1.5 تهيئة مدير الإدخال
+      inputManager.initialize();
+      this.updateProgress(10, 'Initializing Input Manager');
       await this.sleep(100);
 
       // 2. تهيئة مدير الحالة
@@ -331,6 +338,7 @@ export class GameEngine {
 
     Systems Status:
       Event System: ✓ Ready
+      Input Manager: ✓ Ready
       State Manager: ✓ Ready
       Config Manager: ✓ Ready
       Renderer: ${gameRenderer.isReady() ? '✓ Ready' : '✗ Not Ready'}

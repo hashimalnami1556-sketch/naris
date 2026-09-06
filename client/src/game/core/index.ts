@@ -48,3 +48,7 @@ export type { QuestTracker, QuestFilter } from './QuestSystem';
 // Achievement System
 export { AchievementSystem, achievementSystem } from './AchievementSystem';
 export type { AchievementTracker, AchievementProgress } from './AchievementSystem';
+
+// Input Manager
+export { InputManager, inputManager } from './InputManager';
+export type { InputAction, InputBinding, InputState } from './InputManager';
