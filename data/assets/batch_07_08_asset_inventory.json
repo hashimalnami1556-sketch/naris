@@ -1,0 +1,601 @@
+{
+  "batch_id": "07-08",
+  "title": "NARIS Asset Pack - Batch 07-08: Characters, Enemies, Weapons & Environments",
+  "version": "V001",
+  "created_date": "2026-09-05",
+  "status": "production",
+  "total_assets": 120,
+  "categories": {
+    "characters": {
+      "count": 4,
+      "total_variants": 12,
+      "description": "High quality 3D character models, game-ready"
+    },
+    "enemies": {
+      "count": 4,
+      "total_variants": 8,
+      "description": "Enemy and boss character models"
+    },
+    "special_assets": {
+      "count": 4,
+      "description": "Ethereal, portal, and special interactive assets"
+    },
+    "weapons": {
+      "count": 6,
+      "description": "Game-ready weapon models with distinct visual styles"
+    },
+    "items_crafting": {
+      "count": 24,
+      "rarities": ["common", "uncommon", "rare", "epic"],
+      "description": "Collectibles and crafting materials"
+    },
+    "environments": {
+      "count": 6,
+      "location": "Ashen Forest",
+      "description": "Cinematic game environment scenes"
+    },
+    "vfx_particles": {
+      "count": 12,
+      "description": "Visual effects and particle systems"
+    },
+    "ui_hud": {
+      "count": 8,
+      "description": "Game interface and HUD design elements"
+    },
+    "map_world": {
+      "count": 1,
+      "description": "World map and fast travel system"
+    },
+    "sky_backgrounds": {
+      "count": 8,
+      "description": "Atmospheric skies and background environments"
+    }
+  },
+  "production_tiers": {
+    "tier_1_characters": {
+      "category": "characters",
+      "items": [
+        {
+          "id": "NARIS-CHR-ASHEN-VESSEL-0001",
+          "name": "Ashen Vessel",
+          "role": "player_character",
+          "variants": 3,
+          "description": "Main hero character with multiple skin variants",
+          "state": "production_ready"
+        }
+      ]
+    },
+    "tier_2_support": {
+      "category": "characters",
+      "items": [
+        {
+          "id": "NARIS-CHR-MARSH-SEER-0001",
+          "name": "Marsh Seer",
+          "role": "dps_explorer",
+          "variants": 3,
+          "description": "DPS/Explorer class character",
+          "state": "production_ready"
+        },
+        {
+          "id": "NARIS-CHR-ASH-WANDERER-0001",
+          "name": "Ash Wanderer",
+          "role": "support_caster",
+          "variants": 3,
+          "description": "Support/Caster class character",
+          "state": "production_ready"
+        },
+        {
+          "id": "NARIS-CHR-CASTLE-WARDEN-0001",
+          "name": "Castle Warden",
+          "role": "tank_guardian",
+          "variants": 3,
+          "description": "Tank/Guardian class character",
+          "state": "production_ready"
+        }
+      ]
+    },
+    "tier_3_enemies": {
+      "category": "enemies",
+      "items": [
+        {
+          "id": "NARIS-ENM-BONE-HOUND-0001",
+          "name": "Bone Hound",
+          "enemy_type": "pack_enemy",
+          "variants": 2,
+          "description": "Pack-based quadrupedal enemy",
+          "behavior": "PACK_AGGRO",
+          "state": "production_ready"
+        },
+        {
+          "id": "NARIS-ENM-AETHER-SERPENT-0001",
+          "name": "Aether Serpent",
+          "enemy_type": "ambush_enemy",
+          "variants": 2,
+          "description": "Ethereal serpent with concealment mechanic",
+          "behavior": "AMBUSH_PATROL",
+          "state": "production_ready"
+        },
+        {
+          "id": "NARIS-ENM-GATE-GUARDIAN-0001",
+          "name": "Gate Guardian",
+          "enemy_type": "boss",
+          "variants": 1,
+          "description": "Elemental boss protecting sacred gate",
+          "state": "production_ready"
+        },
+        {
+          "id": "NARIS-ENM-ASH-GIANT-0001",
+          "name": "Ash Giant",
+          "enemy_type": "boss",
+          "variants": 1,
+          "description": "Colossal fire-based boss entity",
+          "state": "production_ready"
+        }
+      ]
+    },
+    "tier_4_weapons": {
+      "category": "weapons",
+      "items": [
+        {
+          "id": "NARIS-WPN-EMBEREDGE-0001",
+          "name": "Emberedge",
+          "type": "sword",
+          "damage_type": "fire",
+          "ability": "RuneSlash",
+          "state": "production_ready"
+        },
+        {
+          "id": "NARIS-WPN-AETHER-SPEAR-0001",
+          "name": "Aether Spear",
+          "type": "spear",
+          "damage_type": "aether",
+          "ability": "AetherThrust",
+          "state": "production_ready"
+        },
+        {
+          "id": "NARIS-WPN-ASH-BOW-0001",
+          "name": "Ash Bow",
+          "type": "ranged",
+          "damage_type": "aether",
+          "ability": "AetherArrowRain",
+          "state": "production_ready"
+        },
+        {
+          "id": "NARIS-WPN-AETHER-DAGGER-0001",
+          "name": "Aether Dagger",
+          "type": "dagger",
+          "damage_type": "aether",
+          "state": "production_ready"
+        },
+        {
+          "id": "NARIS-WPN-VOID-SCYTHE-0001",
+          "name": "Void Scythe",
+          "type": "polearm",
+          "damage_type": "void",
+          "state": "production_ready"
+        },
+        {
+          "id": "NARIS-WPN-NARIS-HAMMER-0001",
+          "name": "Naris Hammer",
+          "type": "heavy",
+          "damage_type": "impact",
+          "state": "production_ready"
+        }
+      ]
+    }
+  },
+  "asset_categories": {
+    "characters": {
+      "total": 4,
+      "list": [
+        {
+          "id": "NARIS-CHR-ASHEN-VESSEL-0001",
+          "name": "Ashen Vessel",
+          "type": "character",
+          "role": "player_character",
+          "model_quality": "high",
+          "variants": 3,
+          "rigged": true,
+          "animations": true,
+          "state_machine": "ashen_vessel_state_machine.json",
+          "file_path": "data/characters/ashen_vessel.json"
+        },
+        {
+          "id": "NARIS-CHR-MARSH-SEER-0001",
+          "name": "Marsh Seer",
+          "type": "character",
+          "role": "dps_explorer",
+          "model_quality": "high",
+          "variants": 3,
+          "rigged": true,
+          "animations": true,
+          "state_machine": "marsh_seer_state_machine.json"
+        },
+        {
+          "id": "NARIS-CHR-ASH-WANDERER-0001",
+          "name": "Ash Wanderer",
+          "type": "character",
+          "role": "support_caster",
+          "model_quality": "high",
+          "variants": 3,
+          "rigged": true,
+          "animations": true,
+          "state_machine": "ash_wanderer_state_machine.json"
+        },
+        {
+          "id": "NARIS-CHR-CASTLE-WARDEN-0001",
+          "name": "Castle Warden",
+          "type": "character",
+          "role": "tank_guardian",
+          "model_quality": "high",
+          "variants": 3,
+          "rigged": true,
+          "animations": true,
+          "state_machine": "castle_warden_state_machine.json"
+        }
+      ]
+    },
+    "enemies": {
+      "total": 4,
+      "list": [
+        {
+          "id": "NARIS-ENM-BONE-HOUND-0001",
+          "name": "Bone Hound",
+          "type": "enemy",
+          "enemy_type": "pack_enemy",
+          "variants": 2,
+          "rigged": true,
+          "animations": true,
+          "ai_behavior": "PACK_AGGRO",
+          "file_path": "data/characters/bone_hound.json"
+        },
+        {
+          "id": "NARIS-ENM-AETHER-SERPENT-0001",
+          "name": "Aether Serpent",
+          "type": "enemy",
+          "enemy_type": "ambush_enemy",
+          "variants": 2,
+          "rigged": true,
+          "animations": true,
+          "ai_behavior": "AMBUSH_PATROL",
+          "file_path": "data/characters/aether_serpent.json"
+        },
+        {
+          "id": "NARIS-ENM-GATE-GUARDIAN-0001",
+          "name": "Gate Guardian",
+          "type": "boss",
+          "model_quality": "cinematic",
+          "rigged": true,
+          "animations": true
+        },
+        {
+          "id": "NARIS-ENM-ASH-GIANT-0001",
+          "name": "Ash Giant",
+          "type": "boss",
+          "model_quality": "cinematic",
+          "rigged": true,
+          "animations": true
+        }
+      ]
+    },
+    "weapons": {
+      "total": 6,
+      "list": [
+        {
+          "id": "NARIS-WPN-EMBEREDGE-0001",
+          "name": "Emberedge",
+          "type": "sword",
+          "damage_type": "fire",
+          "secondary_damage": "fire_secondary",
+          "ability": "RuneSlash",
+          "file_path": "data/weapons/emberedge.json"
+        },
+        {
+          "id": "NARIS-WPN-AETHER-SPEAR-0001",
+          "name": "Aether Spear",
+          "type": "spear",
+          "damage_type": "aether",
+          "secondary_damage": "slow",
+          "ability": "AetherThrust",
+          "file_path": "data/weapons/aether_spear.json"
+        },
+        {
+          "id": "NARIS-WPN-ASH-BOW-0001",
+          "name": "Ash Bow",
+          "type": "ranged",
+          "damage_type": "aether",
+          "ability": "AetherArrowRain",
+          "file_path": "data/weapons/ash_bow.json"
+        },
+        {
+          "id": "NARIS-WPN-AETHER-DAGGER-0001",
+          "name": "Aether Dagger",
+          "type": "dagger",
+          "damage_type": "aether",
+          "quality": "rare"
+        },
+        {
+          "id": "NARIS-WPN-VOID-SCYTHE-0001",
+          "name": "Void Scythe",
+          "type": "polearm",
+          "damage_type": "void",
+          "quality": "rare"
+        },
+        {
+          "id": "NARIS-WPN-NARIS-HAMMER-0001",
+          "name": "Naris Hammer",
+          "type": "heavy",
+          "damage_type": "impact",
+          "quality": "legendary"
+        }
+      ]
+    },
+    "special_assets": {
+      "total": 4,
+      "list": [
+        {
+          "id": "NARIS-SPC-ETHEREAL-HERO-0001",
+          "name": "Ethereal Hero",
+          "type": "special",
+          "style": "ethereal",
+          "vfx_enabled": true
+        },
+        {
+          "id": "NARIS-SPC-ETHEREAL-GATE-GUARDIAN-0001",
+          "name": "Ethereal Gate Guardian",
+          "type": "special",
+          "style": "ethereal",
+          "vfx_enabled": true
+        },
+        {
+          "id": "NARIS-SPC-WAYTONE-0001",
+          "name": "Waytone / Save Point",
+          "type": "interactive",
+          "function": "waypoint_save",
+          "vfx_enabled": true
+        },
+        {
+          "id": "NARIS-SPC-HOLY-PORTAL-0001",
+          "name": "Holy Portal",
+          "type": "interactive",
+          "function": "fast_travel",
+          "vfx_enabled": true
+        }
+      ]
+    },
+    "environments": {
+      "total": 6,
+      "location": "Ashen Forest",
+      "type": "cinematic",
+      "list": [
+        {
+          "id": "NARIS-ENV-ASHEN-FOREST-ENTRANCE-0001",
+          "name": "Forest Entrance",
+          "biome": "ashen_forest",
+          "quality": "cinematic"
+        },
+        {
+          "id": "NARIS-ENV-BROKEN-SHRINE-0001",
+          "name": "Broken Shrine",
+          "biome": "ashen_forest",
+          "quality": "cinematic"
+        },
+        {
+          "id": "NARIS-ENV-RUINED-BRIDGE-0001",
+          "name": "Ruined Bridge",
+          "biome": "ashen_forest",
+          "quality": "cinematic"
+        },
+        {
+          "id": "NARIS-ENV-WHISPER-LAKE-0001",
+          "name": "Whisper Lake",
+          "biome": "ashen_forest",
+          "quality": "cinematic"
+        },
+        {
+          "id": "NARIS-ENV-ASH-GATE-0001",
+          "name": "Ash Gate",
+          "biome": "ashen_forest",
+          "quality": "cinematic"
+        },
+        {
+          "id": "NARIS-ENV-BONE-BEAST-ARENA-0001",
+          "name": "Bone Beast Arena",
+          "biome": "ashen_forest",
+          "quality": "cinematic"
+        }
+      ]
+    },
+    "vfx_particles": {
+      "total": 12,
+      "list": [
+        {
+          "id": "NARIS-VFX-FIRE-0001",
+          "name": "Naris Fire",
+          "type": "element",
+          "color_scheme": "orange_red"
+        },
+        {
+          "id": "NARIS-VFX-ANCIENT-MAGIC-0001",
+          "name": "Ancient Magic",
+          "type": "magic",
+          "color_scheme": "purple_gold"
+        },
+        {
+          "id": "NARIS-VFX-SPIRIT-ENERGY-0001",
+          "name": "Spirit Energy",
+          "type": "aether",
+          "color_scheme": "cyan_blue"
+        },
+        {
+          "id": "NARIS-VFX-DIVINE-LIGHT-0001",
+          "name": "Divine Light",
+          "type": "holy",
+          "color_scheme": "yellow_white"
+        },
+        {
+          "id": "NARIS-VFX-BLEED-0001",
+          "name": "Bleed",
+          "type": "status_effect",
+          "color_scheme": "red"
+        },
+        {
+          "id": "NARIS-VFX-POISON-0001",
+          "name": "Poison",
+          "type": "status_effect",
+          "color_scheme": "green"
+        },
+        {
+          "id": "NARIS-VFX-EXPLOSION-0001",
+          "name": "Explosions",
+          "type": "impact",
+          "color_scheme": "orange_yellow"
+        },
+        {
+          "id": "NARIS-VFX-PORTAL-FX-0001",
+          "name": "Portal FX",
+          "type": "teleport",
+          "color_scheme": "purple_blue"
+        }
+      ]
+    },
+    "ui_hud": {
+      "total": 8,
+      "list": [
+        {
+          "id": "NARIS-UI-HUD-GAME-0001",
+          "name": "Game HUD Interface",
+          "type": "hud"
+        },
+        {
+          "id": "NARIS-UI-INVENTORY-0001",
+          "name": "Inventory",
+          "type": "ui_panel"
+        },
+        {
+          "id": "NARIS-UI-JOURNAL-0001",
+          "name": "Journal",
+          "type": "ui_panel"
+        },
+        {
+          "id": "NARIS-UI-CRAFTING-0001",
+          "name": "Crafting",
+          "type": "ui_panel"
+        },
+        {
+          "id": "NARIS-UI-SETTINGS-0001",
+          "name": "Settings",
+          "type": "ui_panel"
+        },
+        {
+          "id": "NARIS-UI-PAUSE-MENU-0001",
+          "name": "Pause Menu",
+          "type": "ui_panel"
+        }
+      ]
+    },
+    "map_world": {
+      "total": 1,
+      "list": [
+        {
+          "id": "NARIS-MAP-WORLD-0001",
+          "name": "World Map & Fast Travel",
+          "type": "map",
+          "locations": 6,
+          "fast_travel_enabled": true
+        }
+      ]
+    },
+    "sky_backgrounds": {
+      "total": 8,
+      "list": [
+        {
+          "id": "NARIS-SKY-DAWN-0001",
+          "name": "Dawn Sky",
+          "type": "skybox",
+          "time_of_day": "dawn"
+        },
+        {
+          "id": "NARIS-SKY-DUSK-0001",
+          "name": "Dusk Sky",
+          "type": "skybox",
+          "time_of_day": "dusk"
+        },
+        {
+          "id": "NARIS-SKY-NIGHT-0001",
+          "name": "Night Sky",
+          "type": "skybox",
+          "time_of_day": "night"
+        },
+        {
+          "id": "NARIS-SKY-NIGHT-PURPLE-0001",
+          "name": "Night Purple Sky",
+          "type": "skybox",
+          "time_of_day": "night"
+        },
+        {
+          "id": "NARIS-BG-ASHEN-TERRAIN-0001",
+          "name": "Ashen Terrain",
+          "type": "background",
+          "biome": "ashen_forest"
+        },
+        {
+          "id": "NARIS-BG-INFERNO-0001",
+          "name": "Inferno Background",
+          "type": "background",
+          "biome": "hellscape"
+        }
+      ]
+    },
+    "items_crafting": {
+      "total": 24,
+      "rarities": ["common", "uncommon", "rare", "epic"],
+      "list": [
+        {
+          "id": "NARIS-ITEM-CRYSTAL-BLUE-0001",
+          "name": "Blue Crystal",
+          "type": "crafting_material",
+          "rarity": "rare",
+          "category": "gems"
+        },
+        {
+          "id": "NARIS-ITEM-CRYSTAL-GREEN-0001",
+          "name": "Green Crystal",
+          "type": "crafting_material",
+          "rarity": "rare",
+          "category": "gems"
+        },
+        {
+          "id": "NARIS-ITEM-CRYSTAL-AETHER-0001",
+          "name": "Aether Crystal",
+          "type": "crafting_material",
+          "rarity": "epic",
+          "category": "gems"
+        }
+      ]
+    }
+  },
+  "dependencies": {
+    "batch_07_character_data": ["ashen_vessel.json", "bone_hound.json", "aether_serpent.json"],
+    "batch_07_weapon_data": ["emberedge.json", "aether_spear.json", "ash_bow.json"],
+    "batch_07_animation_data": ["ashen_vessel_extended_animations.json", "ashen_vessel_state_machine.json", "bone_hound_state_machine.json", "aether_serpent_state_machine.json"]
+  },
+  "integration_points": {
+    "batch_08_combat_vfx": {
+      "requires": ["vfx_particles", "status_effects"],
+      "status": "awaiting_batch_08"
+    },
+    "batch_09_ui_system": {
+      "requires": ["ui_hud", "ui_panels"],
+      "status": "awaiting_batch_09"
+    },
+    "batch_10_world_system": {
+      "requires": ["environments", "map_world", "sky_backgrounds"],
+      "status": "awaiting_batch_10"
+    }
+  },
+  "validation_status": "production_ready",
+  "approval_date": "2026-09-05",
+  "owner": "NARIS_STUDIOS",
+  "notes": "Complete Batch 07-08 asset inventory covering all high-quality 3D models, game-ready characters, enemies, weapons, environments, VFX, and UI elements for the NARIS game production pipeline."
+}

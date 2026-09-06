@@ -1,0 +1,166 @@
+{
+  "asset_id": "NARIS-WPN-EMBEREDGE-0001",
+  "name": "Emberedge",
+  "type": "sword",
+  "status": "production_locked",
+  "version": "V001",
+  "world": "W10",
+  "batch": "07",
+  "domains": ["WPN"],
+
+  "skeleton": {
+    "total_bones": 7,
+    "structure": {
+      "root": "Weapon_Root",
+      "grip": "Handle",
+      "guard": "Guard",
+      "blade": "Blade",
+      "tip": "Tip",
+      "fx_bones": ["FX_EmberTrail", "FX_RuneGlow"]
+    }
+  },
+
+  "scale": {
+    "total_length_cm": 135,
+    "blade_length_cm": 95,
+    "grip_length_cm": 35,
+    "width_cm": 8,
+    "unit": "centimeters"
+  },
+
+  "visual_identity": {
+    "material_primary": "bone_with_flame",
+    "material_blade": "enchanted_steel_with_flame_core",
+    "primary_color": "#FF7A00",
+    "secondary_color": "#D9D4C5",
+    "glow": "amber_fire",
+    "glow_intensity": 1.2,
+    "surface": "weathered bone grip with flaming steel blade",
+    "special_features": ["rune_inscriptions", "ember_trail_vfx", "flame_core_glow"]
+  },
+
+  "combat": {
+    "base_damage": 45,
+    "damage_type": "slash",
+    "secondary_damage_type": "fire",
+    "secondary_damage_amount": 15,
+    "weapon_speed": 0.85,
+    "range_m": 1.8,
+    "critical_chance": 0.15,
+    "critical_multiplier": 1.5
+  },
+
+  "ability": {
+    "name": "RuneSlash",
+    "animation": "RuneSlash",
+    "damage_multiplier": 1.8,
+    "additional_damage": 30,
+    "area_effect": "cone",
+    "area_radius": 2.5,
+    "cooldown_seconds": 6.0,
+    "cast_time_seconds": 0.8,
+    "resource_cost": "stamina",
+    "stamina_cost": 35,
+    "effect": [
+      {
+        "type": "slash_trail_vfx",
+        "duration": 0.5,
+        "intensity": 1.5
+      },
+      {
+        "type": "flame_burst",
+        "damage": 25,
+        "radius": 2.5
+      },
+      {
+        "type": "stagger_enemies",
+        "distance": 2.5
+      }
+    ]
+  },
+
+  "attributes": {
+    "fire_resistance_bonus": 0.1,
+    "strength_requirement": 12,
+    "dexterity_requirement": 8
+  },
+
+  "vfx": {
+    "idle": {
+      "name": "emberedge_idle_glow",
+      "effect": "steady_glow",
+      "color": "#FF7A00",
+      "intensity": 0.8,
+      "loop": true
+    },
+    "swing": {
+      "name": "emberedge_swing_trail",
+      "effect": "slash_trail",
+      "color": "#FF7A00",
+      "duration": 0.3
+    },
+    "hit": {
+      "name": "emberedge_hit_burst",
+      "effect": "ember_burst",
+      "color": "#FFB200",
+      "radius": 1.5,
+      "duration": 0.5
+    },
+    "ability": {
+      "name": "emberedge_runeslash_effect",
+      "effect": "rune_activation_vfx",
+      "colors": ["#FF7A00", "#FFD700"],
+      "duration": 1.0
+    }
+  },
+
+  "sfx": {
+    "idle": "sfx_emberedge_idle_burn",
+    "swing": "sfx_sword_swing_whoosh",
+    "hit": "sfx_emberedge_hit_flame",
+    "ability": "sfx_emberedge_runeslash_cast"
+  },
+
+  "animations": {
+    "idle": {
+      "name": "WeaponIdle",
+      "duration_seconds": 1.0,
+      "loop": true
+    },
+    "attack": {
+      "name": "WeaponAttack",
+      "duration_seconds": 0.8,
+      "loop": false,
+      "events": [
+        {"frame": 0.2, "event": "swing_start"},
+        {"frame": 0.5, "event": "impact_frame"}
+      ]
+    },
+    "runeslash": {
+      "name": "RuneSlash",
+      "duration_seconds": 1.2,
+      "loop": false,
+      "events": [
+        {"frame": 0.0, "event": "ability_start"},
+        {"frame": 0.4, "event": "rune_activation"},
+        {"frame": 0.8, "event": "slash_impact"},
+        {"frame": 1.2, "event": "ability_end"}
+      ]
+    }
+  },
+
+  "lore": {
+    "description": "An ancient blade forged from bone and infused with eternal flame. The runes along its edge glow with amber fire, and each strike leaves embers in its wake.",
+    "origin": "The Gate's forges",
+    "enchantment": "Flame Core Enchantment"
+  },
+
+  "production_gates": ["concept", "skeleton", "rigged", "vfx_integrated", "animated", "sfx_integrated", "combat_coded", "qa", "approved", "release"],
+  "acceptance_criteria": [
+    "Skeleton: 7 bones matching specification (handle, guard, blade, tip, 2 FX bones)",
+    "Visual: bone grip with flaming steel blade",
+    "Ability: RuneSlash deals 1.8x damage + 30 base damage",
+    "VFX: ember trails on swing, flame burst on impact",
+    "Runes: visible and glowing during idle and ability cast"
+  ]
+}
