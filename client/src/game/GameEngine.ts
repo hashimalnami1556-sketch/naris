@@ -4,44 +4,39 @@
  */
 
 import {
-  EventSystem,
   gameEvents,
-  StateManager,
   gameState,
-  ConfigManager,
   config,
-  AssetLoader,
   assetLoader,
-  CharacterFactory,
   characterFactory,
-  GameRenderer,
   gameRenderer,
-  CameraController,
   cameraController,
-  CharacterController,
   characterController,
-  CombatSystem,
   combatSystem,
-  EnemyAI,
   enemyAI,
-  WeatherSystem,
   weatherSystem,
-  QuestSystem,
   questSystem,
-  AchievementSystem,
   achievementSystem,
-  InputManager,
   inputManager,
-  ParticleSystem,
   particleSystem,
-  AnimationSystem,
   animationSystem,
-  SoundSystem,
   soundSystem,
-  VFXManager,
   vfxManager,
+  saveSystem,
+  inventorySystem,
+  craftingSystem,
+  dialogueSystem,
+  checkpointSystem,
+  worldManager,
+  environmentDirector,
+  dayNightSystem,
+  lightingSystem,
+  tutorialSystem,
+  performanceMonitor,
+  debugOverlay,
+  allySystem,
+  spiritSystem,
 } from './core/index';
-import { CharacterId } from '../types/gameTypes';
 
 export interface GameEngineConfig {
   canvasId?: string;
@@ -92,85 +87,140 @@ export class GameEngine {
     try {
       // 1. إنشاء مصرح الأحداث
       gameEvents;
-      this.updateProgress(5, 'Initializing Event System');
-      await this.sleep(100);
+      this.updateProgress(2, 'Initializing Event System');
+      await this.sleep(50);
 
       // 1.5 تهيئة مدير الإدخال
       inputManager.initialize();
-      this.updateProgress(10, 'Initializing Input Manager');
-      await this.sleep(100);
+      this.updateProgress(4, 'Initializing Input Manager');
+      await this.sleep(50);
 
       // 2. تهيئة مدير الحالة
       gameState.getState();
-      this.updateProgress(20, 'Initializing State Manager');
-      await this.sleep(100);
+      this.updateProgress(6, 'Initializing State Manager');
+      await this.sleep(50);
 
       // 3. تهيئة مدير التكوين
       config.getConfig();
-      this.updateProgress(30, 'Initializing Config Manager');
-      await this.sleep(100);
+      this.updateProgress(8, 'Initializing Config Manager');
+      await this.sleep(50);
 
       // 4. تهيئة محرك العرض
       await gameRenderer.initialize(this.config.canvasId);
-      this.updateProgress(50, 'Initializing Renderer');
-      await this.sleep(100);
+      this.updateProgress(15, 'Initializing Renderer');
+      await this.sleep(50);
 
-      // 4.5 تهيئة نظام الجسيمات
+      // 4.5 تهيئة نظام الجسيمات والمؤثرات
       const scene = gameRenderer.getScene();
       if (scene) {
         particleSystem.setScene(scene);
         animationSystem.setScene(scene);
         vfxManager.setScene(scene);
+        lightingSystem.setScene(scene);
       }
-      this.updateProgress(55, 'Initializing Particle System');
-      await this.sleep(100);
+      this.updateProgress(20, 'Initializing Particle & VFX Systems');
+      await this.sleep(50);
 
       // 5. تهيئة نظام الأصول
       assetLoader;
-      this.updateProgress(60, 'Initializing Asset Loader');
-      await this.sleep(100);
+      this.updateProgress(25, 'Initializing Asset Loader');
+      await this.sleep(50);
 
       // 6. تهيئة متحكم الكاميرا
       cameraController.initialize();
-      this.updateProgress(70, 'Initializing Camera Controller');
-      await this.sleep(100);
+      this.updateProgress(30, 'Initializing Camera Controller');
+      await this.sleep(50);
 
       // 7. تهيئة متحكم الشخصية
       characterController.initialize();
-      this.updateProgress(80, 'Initializing Character Controller');
-      await this.sleep(100);
+      this.updateProgress(35, 'Initializing Character Controller');
+      await this.sleep(50);
 
       // 8. تهيئة نظام الذكاء الاصطناعي
       enemyAI.initialize();
-      this.updateProgress(70, 'Initializing Enemy AI');
-      await this.sleep(100);
+      this.updateProgress(40, 'Initializing Enemy AI');
+      await this.sleep(50);
 
       // 9. تهيئة نظام الطقس
       weatherSystem.initialize();
-      this.updateProgress(75, 'Initializing Weather System');
-      await this.sleep(100);
+      this.updateProgress(45, 'Initializing Weather System');
+      await this.sleep(50);
 
       // 10. تهيئة نظام المهام
       questSystem;
-      this.updateProgress(80, 'Initializing Quest System');
-      await this.sleep(100);
+      this.updateProgress(48, 'Initializing Quest System');
+      await this.sleep(50);
 
       // 11. تهيئة نظام الإنجازات
       achievementSystem;
-      this.updateProgress(85, 'Initializing Achievement System');
-      await this.sleep(100);
+      this.updateProgress(50, 'Initializing Achievement System');
+      await this.sleep(50);
 
-      // 11.5 تهيئة نظام الصوت
+      // 12. تهيئة أنظمة الحفظ والمخزون
+      saveSystem;
+      this.updateProgress(52, 'Initializing Save System');
+      await this.sleep(50);
+
+      inventorySystem;
+      this.updateProgress(54, 'Initializing Inventory System');
+      await this.sleep(50);
+
+      craftingSystem;
+      this.updateProgress(56, 'Initializing Crafting System');
+      await this.sleep(50);
+
+      // 13. تهيئة أنظمة العالم والبيئة
+      dialogueSystem;
+      this.updateProgress(58, 'Initializing Dialogue System');
+      await this.sleep(50);
+
+      checkpointSystem;
+      this.updateProgress(60, 'Initializing Checkpoint System');
+      await this.sleep(50);
+
+      worldManager;
+      this.updateProgress(62, 'Initializing World Manager');
+      await this.sleep(50);
+
+      environmentDirector;
+      this.updateProgress(64, 'Initializing Environment Director');
+      await this.sleep(50);
+
+      dayNightSystem.enable();
+      this.updateProgress(66, 'Initializing Day/Night System');
+      await this.sleep(50);
+
+      // 14. تهيئة أنظمة إضافية
       soundSystem;
-      this.updateProgress(90, 'Initializing Sound System');
-      await this.sleep(100);
+      this.updateProgress(68, 'Initializing Sound System');
+      await this.sleep(50);
 
-      // 12. إنشاء الشخصيات الأولية
+      allySystem;
+      this.updateProgress(70, 'Initializing Ally System');
+      await this.sleep(50);
+
+      spiritSystem;
+      this.updateProgress(72, 'Initializing Spirit System');
+      await this.sleep(50);
+
+      tutorialSystem.setEnabled(true);
+      this.updateProgress(74, 'Initializing Tutorial System');
+      await this.sleep(50);
+
+      // 15. تهيئة أنظمة المراقبة والتصحيح
+      if (this.config.debug) {
+        performanceMonitor.startMonitoring();
+        debugOverlay.show();
+      }
+      this.updateProgress(80, 'Initializing Monitoring Systems');
+      await this.sleep(50);
+
+      // 16. إنشاء الشخصيات الأولية
       if (scene) {
         const { Vector3 } = require('babylonjs');
-        const ashCharacter = await characterFactory.createCharacter('ash', new Vector3(0, 0, 0));
-        const runeCharacter = await characterFactory.createCharacter('rune', new Vector3(5, 0, 5));
-        const korCharacter = await characterFactory.createCharacter('kor', new Vector3(-5, 0, 5));
+        await characterFactory.createCharacter('ash', new Vector3(0, 0, 0));
+        await characterFactory.createCharacter('rune', new Vector3(5, 0, 5));
+        await characterFactory.createCharacter('kor', new Vector3(-5, 0, 5));
       }
 
       this.updateProgress(100, 'Engine Initialized Successfully');
@@ -178,7 +228,7 @@ export class GameEngine {
       this.state = 'ready';
       gameEvents.emit('engine_initialized', {});
 
-      console.log('✓ GameEngine initialized successfully');
+      console.log('✓ GameEngine initialized successfully with 32+ systems');
 
       if (this.config.autoStart) {
         await this.start();

@@ -3,7 +3,7 @@
  * إدارة الإنجازات والتحديات والجوائز
  */
 
-import { Achievement, AchievementType } from '../../types/gameTypes';
+import { Achievement } from '../../types/gameTypes';
 import { gameEvents } from './EventSystem';
 import { gameState } from './StateManager';
 
@@ -67,139 +67,117 @@ export class AchievementSystem {
     // إنجازات القتال
     this.registerAchievement({
       id: 'first_blood',
-      title: 'First Blood',
+      name: 'First Blood',
       description: 'Defeat your first enemy',
-      type: 'combat',
-      rarity: 'common',
       icon: '🗡️',
-      condition: 'Kill 1 enemy',
+      condition: { type: 'enemy_kills', value: 1 },
       unlocked: false,
-      reward: 50,
+      reward: { type: 'shards', value: 50 },
     });
 
     this.registerAchievement({
       id: 'slayer',
-      title: 'Slayer',
+      name: 'Slayer',
       description: 'Defeat 50 enemies',
-      type: 'combat',
-      rarity: 'uncommon',
       icon: '⚔️',
-      condition: 'Kill 50 enemies',
+      condition: { type: 'enemy_kills', value: 50 },
       unlocked: false,
-      reward: 200,
+      reward: { type: 'shards', value: 200 },
     });
 
     this.registerAchievement({
       id: 'master_slayer',
-      title: 'Master Slayer',
+      name: 'Master Slayer',
       description: 'Defeat 500 enemies',
-      type: 'combat',
-      rarity: 'rare',
       icon: '🔥',
-      condition: 'Kill 500 enemies',
+      condition: { type: 'enemy_kills', value: 500 },
       unlocked: false,
-      reward: 500,
+      reward: { type: 'shards', value: 500 },
     });
 
     // إنجازات الزعماء
     this.registerAchievement({
       id: 'boss_slayer',
-      title: 'Boss Slayer',
+      name: 'Boss Slayer',
       description: 'Defeat your first boss',
-      type: 'boss',
-      rarity: 'uncommon',
       icon: '👑',
-      condition: 'Defeat 1 boss',
+      condition: { type: 'boss_kills', value: 1 },
       unlocked: false,
-      reward: 300,
+      reward: { type: 'shards', value: 300 },
     });
 
     // إنجازات المهام
     this.registerAchievement({
       id: 'quest_master',
-      title: 'Quest Master',
+      name: 'Quest Master',
       description: 'Complete 10 quests',
-      type: 'quest',
-      rarity: 'uncommon',
       icon: '📜',
-      condition: 'Complete 10 quests',
+      condition: { type: 'quests_completed', value: 10 },
       unlocked: false,
-      reward: 250,
+      reward: { type: 'shards', value: 250 },
     });
 
     // إنجازات الاستكشاف
     this.registerAchievement({
       id: 'explorer',
-      title: 'Explorer',
+      name: 'Explorer',
       description: 'Discover all realms',
-      type: 'exploration',
-      rarity: 'uncommon',
       icon: '🗺️',
-      condition: 'Visit all 3 realms',
+      condition: { type: 'realms_visited', value: 3 },
       unlocked: false,
-      reward: 200,
+      reward: { type: 'shards', value: 200 },
     });
 
     // إنجازات الشخصيات
     this.registerAchievement({
       id: 'ash_master',
-      title: "Ash's Champion",
+      name: "Ash's Champion",
       description: 'Reach level 10 with Ash',
-      type: 'character',
-      rarity: 'uncommon',
       icon: '⚡',
-      condition: 'Reach level 10 as Ash',
+      condition: { type: 'ash_level', value: 10 },
       unlocked: false,
-      reward: 150,
+      reward: { type: 'shards', value: 150 },
     });
 
     this.registerAchievement({
       id: 'rune_master',
-      title: "Rune's Champion",
+      name: "Rune's Champion",
       description: 'Reach level 10 with Rune',
-      type: 'character',
-      rarity: 'uncommon',
       icon: '✨',
-      condition: 'Reach level 10 as Rune',
+      condition: { type: 'rune_level', value: 10 },
       unlocked: false,
-      reward: 150,
+      reward: { type: 'shards', value: 150 },
     });
 
     this.registerAchievement({
       id: 'kor_master',
-      title: "Kor's Champion",
+      name: "Kor's Champion",
       description: 'Reach level 10 with Kor',
-      type: 'character',
-      rarity: 'uncommon',
       icon: '💪',
-      condition: 'Reach level 10 as Kor',
+      condition: { type: 'kor_level', value: 10 },
       unlocked: false,
-      reward: 150,
+      reward: { type: 'shards', value: 150 },
     });
 
     // إنجازات التحديات
     this.registerAchievement({
       id: 'no_damage',
-      title: 'Untouchable',
+      name: 'Untouchable',
       description: 'Complete a level without taking damage',
-      type: 'challenge',
-      rarity: 'rare',
       icon: '🛡️',
-      condition: 'Take no damage in a level',
+      condition: { type: 'perfect_level', value: 1 },
       unlocked: false,
-      reward: 400,
+      reward: { type: 'shards', value: 400 },
     });
 
     this.registerAchievement({
       id: 'speedrun',
-      title: 'Swift',
+      name: 'Swift',
       description: 'Complete a level under 5 minutes',
-      type: 'challenge',
-      rarity: 'rare',
       icon: '⚡',
-      condition: 'Complete level in under 5 minutes',
+      condition: { type: 'speedrun', value: 1 },
       unlocked: false,
-      reward: 400,
+      reward: { type: 'shards', value: 400 },
     });
 
     console.log('✓ Achievement database initialized with 11 achievements');
@@ -299,7 +277,7 @@ export class AchievementSystem {
 
     gameEvents.emit('achievement_unlocked', {
       achievementId,
-      title: tracker.achievement.title,
+      title: tracker.achievement.name,
       reward: tracker.achievement.reward,
     });
 
