@@ -52,3 +52,19 @@ export type { AchievementTracker, AchievementProgress } from './AchievementSyste
 // Input Manager
 export { InputManager, inputManager } from './InputManager';
 export type { InputAction, InputBinding, InputState } from './InputManager';
+
+// Particle System
+export { ParticleSystem, particleSystem } from './ParticleSystem';
+export type { ParticleType, ParticleEmitterConfig } from './ParticleSystem';
+
+// Animation System
+export { AnimationSystem, animationSystem } from './AnimationSystem';
+export type { AnimationState, AnimationConfig } from './AnimationSystem';
+
+// Sound System
+export { SoundSystem, soundSystem } from './SoundSystem';
+export type { SoundType, SoundConfig } from './SoundSystem';
+
+// VFX Manager
+export { VFXManager, vfxManager } from './VFXManager';
+export type { VFXType, VFXConfig } from './VFXManager';
