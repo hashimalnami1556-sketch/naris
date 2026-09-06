@@ -36,3 +36,15 @@ export type { CombatAction, CombatLog } from './CombatSystem';
 // Enemy AI
 export { EnemyAI, enemyAI } from './EnemyAI';
 export type { EnemyInstance, AIBehavior } from './EnemyAI';
+
+// Weather System
+export { WeatherSystem, weatherSystem } from './WeatherSystem';
+export type { WeatherState, DayNightState } from './WeatherSystem';
+
+// Quest System
+export { QuestSystem, questSystem } from './QuestSystem';
+export type { QuestTracker, QuestFilter } from './QuestSystem';
+
+// Achievement System
+export { AchievementSystem, achievementSystem } from './AchievementSystem';
+export type { AchievementTracker, AchievementProgress } from './AchievementSystem';

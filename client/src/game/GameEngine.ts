@@ -24,6 +24,12 @@ import {
   combatSystem,
   EnemyAI,
   enemyAI,
+  WeatherSystem,
+  weatherSystem,
+  QuestSystem,
+  questSystem,
+  AchievementSystem,
+  achievementSystem,
 } from './core/index';
 import { CharacterId } from '../types/gameTypes';
 
@@ -111,10 +117,25 @@ export class GameEngine {
 
       // 8. تهيئة نظام الذكاء الاصطناعي
       enemyAI.initialize();
-      this.updateProgress(90, 'Initializing Enemy AI');
+      this.updateProgress(70, 'Initializing Enemy AI');
       await this.sleep(100);
 
-      // 9. إنشاء الشخصيات الأولية
+      // 9. تهيئة نظام الطقس
+      weatherSystem.initialize();
+      this.updateProgress(75, 'Initializing Weather System');
+      await this.sleep(100);
+
+      // 10. تهيئة نظام المهام
+      questSystem;
+      this.updateProgress(80, 'Initializing Quest System');
+      await this.sleep(100);
+
+      // 11. تهيئة نظام الإنجازات
+      achievementSystem;
+      this.updateProgress(85, 'Initializing Achievement System');
+      await this.sleep(100);
+
+      // 12. إنشاء الشخصيات الأولية
       const scene = gameRenderer.getScene();
       if (scene) {
         const ashCharacter = await characterFactory.createCharacter('ash', new (require('babylonjs')).Vector3(0, 0, 0));
@@ -122,7 +143,7 @@ export class GameEngine {
         const korCharacter = await characterFactory.createCharacter('kor', new (require('babylonjs')).Vector3(-5, 0, 5));
       }
 
-      this.updateProgress(100, 'Engine Initialized');
+      this.updateProgress(100, 'Engine Initialized Successfully');
 
       this.state = 'ready';
       gameEvents.emit('engine_initialized', {});
@@ -319,6 +340,9 @@ export class GameEngine {
       Character Controller: ✓ Ready
       Combat System: ✓ Ready
       Enemy AI: ✓ Ready
+      Weather System: ✓ Ready
+      Quest System: ✓ Ready
+      Achievement System: ✓ Ready
 
     Game State:
       Current Character: ${gameState.getState().currentCharacter}
@@ -340,9 +364,13 @@ export class GameEngine {
   dispose(): void {
     this.stop();
 
+    // تنظيف جميع الأنظمة بترتيب معاكس للتهيئة
     enemyAI.dispose();
     characterFactory.dispose();
     gameRenderer.dispose();
+    weatherSystem;
+    questSystem;
+    achievementSystem;
 
     this.state = 'uninitialized';
     gameEvents.emit('engine_disposed', {});
