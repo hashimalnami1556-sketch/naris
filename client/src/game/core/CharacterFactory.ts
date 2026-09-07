@@ -62,21 +62,21 @@ export class CharacterFactory {
 
     // مادة الرماد (Ash)
     const ashMaterial = new BABYLON.StandardMaterial('ashMaterial', this.scene);
-    ashMaterial.diffuse = new BABYLON.Color3(0.3, 0.3, 0.35);
+    ashMaterial.diffuseColor = new BABYLON.Color3(0.3, 0.3, 0.35);
     ashMaterial.specularColor = new BABYLON.Color3(0.2, 0.2, 0.2);
     ashMaterial.alpha = 1;
     this.materials.set('ash', ashMaterial);
 
     // مادة الرون (Rune)
     const runeMaterial = new BABYLON.StandardMaterial('runeMaterial', this.scene);
-    runeMaterial.diffuse = new BABYLON.Color3(0.25, 0.35, 0.5);
+    runeMaterial.diffuseColor = new BABYLON.Color3(0.25, 0.35, 0.5);
     runeMaterial.specularColor = new BABYLON.Color3(0.4, 0.4, 0.6);
     runeMaterial.alpha = 1;
     this.materials.set('rune', runeMaterial);
 
     // مادة كور (Kor)
     const korMaterial = new BABYLON.StandardMaterial('korMaterial', this.scene);
-    korMaterial.diffuse = new BABYLON.Color3(0.45, 0.25, 0.15);
+    korMaterial.diffuseColor = new BABYLON.Color3(0.45, 0.25, 0.15);
     korMaterial.specularColor = new BABYLON.Color3(0.3, 0.2, 0.1);
     korMaterial.alpha = 1;
     this.materials.set('kor', korMaterial);

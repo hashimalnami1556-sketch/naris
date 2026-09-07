@@ -2,9 +2,6 @@
  * World Manager - مدير العالم
  * إدارة التبديل بين البيئات والعوالم المختلفة
  */
-
-import { EventSystem, gameEvents } from './EventSystem';
-
 export interface World {
   id: string;
   name: string;
@@ -21,72 +18,60 @@ export interface World {
     temperature: number;
   };
 }
-
 export class WorldManager {
   private static instance: WorldManager;
   private worlds: Map<string, World> = new Map();
   private currentWorldId: string | null = null;
   private previousWorldId: string | null = null;
-
   private constructor() {
     this.initializeWorlds();
   }
-
   static getInstance(): WorldManager {
     if (!WorldManager.instance) {
       WorldManager.instance = new WorldManager();
     }
     return WorldManager.instance;
   }
-
   /**
    * تسجيل عالم
    */
   registerWorld(world: World): void {
     this.worlds.set(world.id, world);
   }
-
   /**
    * التبديل إلى عالم
    */
   switchToWorld(worldId: string): boolean {
     const world = this.worlds.get(worldId);
     if (!world) return false;
-
     this.previousWorldId = this.currentWorldId;
     this.currentWorldId = worldId;
-
     gameEvents.emit('world_switched', {
       worldId,
       previousWorldId: this.previousWorldId,
       world,
     });
-
     console.log(`✓ Switched to world: ${world.name}`);
     return true;
   }
-
   /**
    * الحصول على العالم الحالي
    */
   getCurrentWorld(): World | null {
     return this.currentWorldId ? this.worlds.get(this.currentWorldId) || null : null;
   }
-
   /**
    * الحصول على عالم
    */
   getWorld(worldId: string): World | undefined {
     return this.worlds.get(worldId);
   }
-
   /**
    * قائمة جميع العوالم
    */
   getAllWorlds(): World[] {
     return Array.from(this.worlds.values());
   }
-
   /**
    * العودة إلى العالم السابق
    */
@@ -94,20 +79,16 @@ export class WorldManager {
     if (!this.previousWorldId) return false;
     return this.switchToWorld(this.previousWorldId);
   }
-
   /**
    * تحديث خصائص العالم
    */
   updateWorldProperties(worldId: string, updates: Partial<World>): boolean {
     const world = this.worlds.get(worldId);
     if (!world) return false;
-
     Object.assign(world, updates);
     gameEvents.emit('world_updated', { worldId, updates });
-
     return true;
   }
-
   /**
    * تهيئة العوالم الافتراضية
    */
@@ -178,10 +159,8 @@ export class WorldManager {
         },
       },
     ];
-
     worlds.forEach((world) => this.registerWorld(world));
   }
-
   /**
    * معلومات العالم الحالي
    */
@@ -190,5 +169,4 @@ export class WorldManager {
     return world ? `${world.name} (${world.id})` : 'No world loaded';
   }
 }
-
 export const worldManager = WorldManager.getInstance();

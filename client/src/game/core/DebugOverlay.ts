@@ -3,57 +3,47 @@
  * عرض معلومات التصحيح على الشاشة
  */
 
-import { EventSystem, gameEvents } from './EventSystem';
-import { PerformanceMonitor, performanceMonitor } from './PerformanceMonitor';
+import { gameEvents } from './EventSystem';
+import { performanceMonitor } from './PerformanceMonitor';
 
 export interface DebugInfo {
   [key: string]: any;
 }
-
 export class DebugOverlay {
   private static instance: DebugOverlay;
   private debugInfo: Map<string, any> = new Map();
   private isVisible: boolean = false;
   private overlayElement: HTMLElement | null = null;
   private updateInterval: NodeJS.Timeout | null = null;
-
   private constructor() {}
-
   static getInstance(): DebugOverlay {
     if (!DebugOverlay.instance) {
       DebugOverlay.instance = new DebugOverlay();
     }
     return DebugOverlay.instance;
   }
-
   /**
    * إظهار طبقة التصحيح
    */
   show(): void {
     if (this.isVisible) return;
-
     this.isVisible = true;
     this.createOverlayElement();
     this.startUpdating();
-
     gameEvents.emit('debug_overlay_shown', {});
     console.log('✓ Debug Overlay shown');
   }
-
   /**
    * إخفاء طبقة التصحيح
    */
   hide(): void {
     if (!this.isVisible) return;
-
     this.isVisible = false;
     this.removeOverlayElement();
     this.stopUpdating();
-
     gameEvents.emit('debug_overlay_hidden', {});
     console.log('✓ Debug Overlay hidden');
   }
-
   /**
    * تبديل طبقة التصحيح
    */
@@ -64,28 +54,24 @@ export class DebugOverlay {
       this.show();
     }
   }
-
   /**
    * إضافة معلومة تصحيح
    */
   addDebugInfo(key: string, value: any): void {
     this.debugInfo.set(key, value);
   }
-
   /**
    * إزالة معلومة تصحيح
    */
   removeDebugInfo(key: string): void {
     this.debugInfo.delete(key);
   }
-
   /**
    * تحديث معلومة تصحيح
    */
   updateDebugInfo(key: string, value: any): void {
     this.debugInfo.set(key, value);
   }
-
   /**
    * الحصول على معلومات التصحيح
    */
@@ -96,20 +82,17 @@ export class DebugOverlay {
     });
     return result;
   }
-
   /**
    * مسح معلومات التصحيح
    */
   clearDebugInfo(): void {
     this.debugInfo.clear();
   }
-
   /**
    * إنشاء عنصر طبقة التصحيح
    */
   private createOverlayElement(): void {
     if (this.overlayElement) return;
-
     const overlay = document.createElement('div');
     overlay.id = 'debug-overlay';
     overlay.style.cssText = `
@@ -128,11 +111,9 @@ export class DebugOverlay {
       z-index: 10000;
       pointer-events: none;
     `;
-
     document.body.appendChild(overlay);
     this.overlayElement = overlay;
   }
-
   /**
    * إزالة عنصر طبقة التصحيح
    */
@@ -142,18 +123,15 @@ export class DebugOverlay {
       this.overlayElement = null;
     }
   }
-
   /**
    * بدء التحديث
    */
   private startUpdating(): void {
     if (this.updateInterval) return;
-
     this.updateInterval = setInterval(() => {
       this.updateOverlay();
     }, 100);
   }
-
   /**
    * إيقاف التحديث
    */
@@ -163,23 +141,18 @@ export class DebugOverlay {
       this.updateInterval = null;
     }
   }
-
   /**
    * تحديث طبقة التصحيح
    */
   private updateOverlay(): void {
     if (!this.overlayElement || !this.isVisible) return;
-
     const metrics = performanceMonitor.getMetrics();
-
     let content = '<div style="color: #ffff00; font-weight: bold; margin-bottom: 8px;">DEBUG INFO</div>';
-
     // أداء
     content += `<div>FPS: ${metrics.fps.toFixed(1)}</div>`;
     content += `<div>Frame: ${metrics.frameTime.toFixed(2)}ms</div>`;
     content += `<div>Memory: ${metrics.memoryUsed.toFixed(1)}MB</div>`;
     content += '<div style="margin-top: 8px; border-top: 1px solid #00ff00; padding-top: 8px;"></div>';
-
     // معلومات التصحيح المخصصة
     this.debugInfo.forEach((value, key) => {
       let displayValue = value;
@@ -188,9 +161,7 @@ export class DebugOverlay {
       }
       content += `<div>${key}: ${displayValue}</div>`;
     });
-
     this.overlayElement.innerHTML = content;
   }
 }
-
 export const debugOverlay = DebugOverlay.getInstance();

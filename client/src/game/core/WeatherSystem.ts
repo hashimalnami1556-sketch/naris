@@ -324,11 +324,12 @@ export class WeatherSystem {
     }
 
     // تحديث لون خلفية المشهد
-    scene.clearColor = BABYLON.Color3.Lerp(
+    const lerpedColor = BABYLON.Color3.Lerp(
       this.dayNightState.ambientColor,
       new BABYLON.Color3(0, 0, 0.1),
       1 - this.dayNightState.sunIntensity * 0.5
     );
+    scene.clearColor = new BABYLON.Color4(lerpedColor.r, lerpedColor.g, lerpedColor.b, 1.0);
   }
 
   /**

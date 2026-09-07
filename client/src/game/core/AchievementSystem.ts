@@ -68,8 +68,11 @@ export class AchievementSystem {
     this.registerAchievement({
       id: 'first_blood',
       name: 'First Blood',
+      title: 'First Blood',
+      type: 'combat',
       description: 'Defeat your first enemy',
       icon: '🗡️',
+      rarity: 'common',
       condition: { type: 'enemy_kills', value: 1 },
       unlocked: false,
       reward: { type: 'shards', value: 50 },
@@ -78,106 +81,136 @@ export class AchievementSystem {
     this.registerAchievement({
       id: 'slayer',
       name: 'Slayer',
+      title: 'Slayer',
+      type: 'combat',
       description: 'Defeat 50 enemies',
       icon: '⚔️',
       condition: { type: 'enemy_kills', value: 50 },
       unlocked: false,
       reward: { type: 'shards', value: 200 },
+      rarity: 'uncommon',
     });
 
     this.registerAchievement({
       id: 'master_slayer',
       name: 'Master Slayer',
+      title: 'Master Slayer',
+      type: 'combat',
       description: 'Defeat 500 enemies',
       icon: '🔥',
       condition: { type: 'enemy_kills', value: 500 },
       unlocked: false,
       reward: { type: 'shards', value: 500 },
+      rarity: 'epic',
     });
 
     // إنجازات الزعماء
     this.registerAchievement({
       id: 'boss_slayer',
       name: 'Boss Slayer',
+      title: 'Boss Slayer',
+      type: 'combat',
       description: 'Defeat your first boss',
       icon: '👑',
       condition: { type: 'boss_kills', value: 1 },
       unlocked: false,
       reward: { type: 'shards', value: 300 },
+      rarity: 'rare',
     });
 
     // إنجازات المهام
     this.registerAchievement({
       id: 'quest_master',
       name: 'Quest Master',
+      title: 'Quest Master',
+      type: 'story',
       description: 'Complete 10 quests',
       icon: '📜',
       condition: { type: 'quests_completed', value: 10 },
       unlocked: false,
       reward: { type: 'shards', value: 250 },
+      rarity: 'uncommon',
     });
 
     // إنجازات الاستكشاف
     this.registerAchievement({
       id: 'explorer',
       name: 'Explorer',
+      title: 'Explorer',
+      type: 'exploration',
       description: 'Discover all realms',
       icon: '🗺️',
       condition: { type: 'realms_visited', value: 3 },
       unlocked: false,
       reward: { type: 'shards', value: 200 },
+      rarity: 'uncommon',
     });
 
     // إنجازات الشخصيات
     this.registerAchievement({
       id: 'ash_master',
       name: "Ash's Champion",
+      title: "Ash's Champion",
+      type: 'skill',
       description: 'Reach level 10 with Ash',
       icon: '⚡',
       condition: { type: 'ash_level', value: 10 },
       unlocked: false,
       reward: { type: 'shards', value: 150 },
+      rarity: 'common',
     });
 
     this.registerAchievement({
       id: 'rune_master',
       name: "Rune's Champion",
+      title: "Rune's Champion",
+      type: 'skill',
       description: 'Reach level 10 with Rune',
       icon: '✨',
       condition: { type: 'rune_level', value: 10 },
       unlocked: false,
       reward: { type: 'shards', value: 150 },
+      rarity: 'common',
     });
 
     this.registerAchievement({
       id: 'kor_master',
       name: "Kor's Champion",
+      title: "Kor's Champion",
+      type: 'skill',
       description: 'Reach level 10 with Kor',
       icon: '💪',
       condition: { type: 'kor_level', value: 10 },
       unlocked: false,
       reward: { type: 'shards', value: 150 },
+      rarity: 'common',
     });
 
     // إنجازات التحديات
     this.registerAchievement({
       id: 'no_damage',
       name: 'Untouchable',
+      title: 'Untouchable',
+      type: 'skill',
       description: 'Complete a level without taking damage',
       icon: '🛡️',
       condition: { type: 'perfect_level', value: 1 },
       unlocked: false,
       reward: { type: 'shards', value: 400 },
+      rarity: 'epic',
     });
 
     this.registerAchievement({
       id: 'speedrun',
       name: 'Swift',
+      title: 'Swift',
+      type: 'skill',
       description: 'Complete a level under 5 minutes',
       icon: '⚡',
       condition: { type: 'speedrun', value: 1 },
       unlocked: false,
       reward: { type: 'shards', value: 400 },
+      rarity: 'epic',
     });
 
     console.log('✓ Achievement database initialized with 11 achievements');

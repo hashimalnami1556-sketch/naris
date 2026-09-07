@@ -2,10 +2,8 @@
  * Save System - نظام حفظ اللعبة
  * إدارة حفظ وتحميل بيانات اللعبة
  */
-
-import { EventSystem, gameEvents } from './EventSystem';
+import { gameEvents } from './EventSystem';
 import { StateManager, gameState } from './StateManager';
-
 export interface SaveData {
   timestamp: number;
   version: string;
@@ -15,24 +13,20 @@ export interface SaveData {
   achievements: any;
   worldState: any;
 }
-
 export class SaveSystem {
   private static instance: SaveSystem;
   private saves: Map<string, SaveData> = new Map();
   private currentSave: string | null = null;
   private autoSaveInterval: NodeJS.Timeout | null = null;
-
   private constructor() {
     this.loadFromLocalStorage();
   }
-
   static getInstance(): SaveSystem {
     if (!SaveSystem.instance) {
       SaveSystem.instance = new SaveSystem();
     }
     return SaveSystem.instance;
   }
-
   /**
    * حفظ اللعبة
    */
@@ -47,15 +41,12 @@ export class SaveSystem {
       achievements: state.achievements,
       worldState: state.world,
     };
-
     this.saves.set(saveName, saveData);
     this.currentSave = saveName;
     this.saveToLocalStorage();
-
     gameEvents.emit('game_saved', { saveName, timestamp: saveData.timestamp });
     console.log(`✓ Game saved: ${saveName}`);
   }
-
   /**
    * تحميل اللعبة
    */
@@ -65,7 +56,6 @@ export class SaveSystem {
       console.warn(`Save file not found: ${saveName}`);
       return false;
     }
-
     try {
       gameState.setState({
         player: saveData.playerState,
@@ -74,7 +64,6 @@ export class SaveSystem {
         achievements: saveData.achievements,
         world: saveData.worldState,
       });
-
       this.currentSave = saveName;
       gameEvents.emit('game_loaded', { saveName });
       console.log(`✓ Game loaded: ${saveName}`);
@@ -85,7 +74,6 @@ export class SaveSystem {
       return false;
     }
   }
-
   /**
    * حذف ملف الحفظ
    */
@@ -93,19 +81,15 @@ export class SaveSystem {
     if (!this.saves.has(saveName)) {
       return false;
     }
-
     this.saves.delete(saveName);
     this.saveToLocalStorage();
-
     if (this.currentSave === saveName) {
       this.currentSave = null;
     }
-
     gameEvents.emit('save_deleted', { saveName });
     console.log(`✓ Save deleted: ${saveName}`);
     return true;
   }
-
   /**
    * الحصول على قائمة الحفظات
    */
@@ -115,7 +99,6 @@ export class SaveSystem {
       timestamp: data.timestamp,
     }));
   }
-
   /**
    * حفظ تلقائي
    */
@@ -123,14 +106,11 @@ export class SaveSystem {
     if (this.autoSaveInterval) {
       clearInterval(this.autoSaveInterval);
     }
-
     this.autoSaveInterval = setInterval(() => {
       this.save('autosave');
     }, intervalMs);
-
     console.log(`✓ Auto-save enabled (${intervalMs}ms interval)`);
   }
-
   /**
    * إيقاف الحفظ التلقائي
    */
@@ -139,10 +119,8 @@ export class SaveSystem {
       clearInterval(this.autoSaveInterval);
       this.autoSaveInterval = null;
     }
-
     console.log('✓ Auto-save disabled');
   }
-
   /**
    * حفظ إلى LocalStorage
    */
@@ -154,7 +132,6 @@ export class SaveSystem {
       console.error('Failed to save to localStorage:', error);
     }
   }
-
   /**
    * تحميل من LocalStorage
    */
@@ -169,7 +146,6 @@ export class SaveSystem {
       console.error('Failed to load from localStorage:', error);
     }
   }
-
   /**
    * مسح جميع الحفظات
    */
@@ -181,5 +157,4 @@ export class SaveSystem {
     console.log('✓ All saves cleared');
   }
 }
-
 export const saveSystem = SaveSystem.getInstance();

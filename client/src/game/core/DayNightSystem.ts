@@ -3,16 +3,16 @@
  * محاكاة دورة اليوم والليل مع تغيير الإضاءة
  */
 
-import { EventSystem, gameEvents } from './EventSystem';
+import * as BABYLON from 'babylonjs';
+import { gameEvents } from './EventSystem';
+import { gameRenderer } from './GameRenderer';
 
 export type TimeOfDay = 'dawn' | 'morning' | 'noon' | 'evening' | 'dusk' | 'night' | 'midnight';
-
 export interface TimeConfig {
   dayDuration: number; // ms
   nightDuration: number; // ms
   transitionDuration: number; // ms
 }
-
 export class DayNightSystem {
   private static instance: DayNightSystem;
   private currentTime: number = 0; // 0-1 (0 = midnight, 0.5 = noon)
@@ -24,71 +24,57 @@ export class DayNightSystem {
     transitionDuration: 30000, // 30 seconds
   };
   private updateInterval: NodeJS.Timeout | null = null;
-
   private constructor() {}
-
   static getInstance(): DayNightSystem {
     if (!DayNightSystem.instance) {
       DayNightSystem.instance = new DayNightSystem();
     }
     return DayNightSystem.instance;
   }
-
   /**
    * تشغيل النظام
    */
   enable(): void {
     if (this.isEnabled) return;
-
     this.isEnabled = true;
     this.startCycle();
-
     gameEvents.emit('day_night_system_enabled', {});
     console.log('✓ Day/Night System enabled');
   }
-
   /**
    * إيقاف النظام
    */
   disable(): void {
     if (!this.isEnabled) return;
-
     this.isEnabled = false;
     if (this.updateInterval) {
       clearInterval(this.updateInterval);
       this.updateInterval = null;
     }
-
     gameEvents.emit('day_night_system_disabled', {});
     console.log('✓ Day/Night System disabled');
   }
-
   /**
    * بدء الدورة
    */
   private startCycle(): void {
     const fullCycle = this.config.dayDuration + this.config.nightDuration;
-
     this.updateInterval = setInterval(() => {
       this.currentTime = (this.currentTime + 0.01) % 1;
-
       const newTimeOfDay = this.getTimeOfDay(this.currentTime);
       if (newTimeOfDay !== this.timeOfDay) {
         this.timeOfDay = newTimeOfDay;
-
         gameEvents.emit('time_of_day_changed', {
           timeOfDay: this.timeOfDay,
           time: this.currentTime,
         });
       }
-
       gameEvents.emit('game_time_updated', {
         time: this.currentTime,
         timeOfDay: this.timeOfDay,
       });
     }, 100);
   }
-
   /**
    * تحديد وقت اليوم من القيمة الرقمية
    */
@@ -101,61 +87,52 @@ export class DayNightSystem {
     if (time >= 0.7 && time < 0.8) return 'dusk';
     return 'night';
   }
-
   /**
    * الحصول على وقت اليوم الحالي
    */
   getCurrentTimeOfDay(): TimeOfDay {
     return this.timeOfDay;
   }
-
   /**
    * الحصول على الوقت كنسبة (0-1)
    */
   getTimeAsRatio(): number {
     return this.currentTime;
   }
-
   /**
    * تعيين الوقت
    */
   setTime(time: number): void {
     this.currentTime = Math.max(0, Math.min(1, time));
     this.timeOfDay = this.getTimeOfDay(this.currentTime);
-
     gameEvents.emit('game_time_set', {
       time: this.currentTime,
       timeOfDay: this.timeOfDay,
     });
   }
-
   /**
    * تقدم الوقت
    */
   advanceTime(amount: number): void {
     this.currentTime = (this.currentTime + amount) % 1;
     this.timeOfDay = this.getTimeOfDay(this.currentTime);
-
     gameEvents.emit('game_time_advanced', {
       time: this.currentTime,
       timeOfDay: this.timeOfDay,
     });
   }
-
   /**
    * هل هو نهار
    */
   isDay(): boolean {
     return this.currentTime >= 0.25 && this.currentTime < 0.75;
   }
-
   /**
    * هل هو ليل
    */
   isNight(): boolean {
     return !this.isDay();
   }
-
   /**
    * شدة الإضاءة
    */
@@ -174,7 +151,6 @@ export class DayNightSystem {
       return 0.2;
     }
   }
-
   /**
    * تعيين إعدادات الدورة
    */
@@ -182,5 +158,4 @@ export class DayNightSystem {
     this.config = { ...this.config, ...config };
   }
 }
-
 export const dayNightSystem = DayNightSystem.getInstance();

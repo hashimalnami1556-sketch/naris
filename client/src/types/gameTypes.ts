@@ -65,6 +65,7 @@ export interface WeaponData {
   name: string;
   type: string;
   baseDamage: number;
+  damage?: number;
   damageType: 'physical' | 'fire' | 'arcane' | 'void';
   secondaryDamage?: number;
   secondaryType?: string;
@@ -90,6 +91,7 @@ export interface Enemy {
   damage: number;
   speed: number;
   position: Vector3;
+  attackRange?: number;
   weaknesses: DamageType[];
   resistances: DamageType[];
   abilities: EnemyAbility[];
@@ -103,6 +105,7 @@ export interface EnemyAbility {
   range: number;
   cooldown: number;
   currentCooldown: number;
+  energyCost?: number;
   effect: string;
 }
 
@@ -154,6 +157,8 @@ export interface RealmData {
 }
 
 export type EnvironmentType = 'ruins' | 'swamp' | 'castle';
+export type WeatherType = 'clear' | 'rain' | 'storm' | 'sand_storm' | 'snow' | 'fog';
+export type DayNightCyclePhase = 'dawn' | 'day' | 'dusk' | 'night';
 
 export interface WeatherSystem {
   currentWeather: WeatherState;
@@ -259,14 +264,17 @@ export interface Crafting {
 // 📋 أنواع المهام والإنجازات (Quest & Achievement Types)
 // ─────────────────────────────────────────────────────────────
 
+export type QuestStatus = 'available' | 'active' | 'completed' | 'failed';
+
 export interface Quest {
   id: string;
   title: string;
   description: string;
   objectives: QuestObjective[];
   rewards: Reward[];
-  status: 'available' | 'active' | 'completed' | 'failed';
+  status: QuestStatus;
   type: 'main' | 'side' | 'daily';
+  difficulty?: 'easy' | 'normal' | 'hard' | 'extreme';
   giver: string;
   giverLocation: string;
 }
@@ -276,16 +284,22 @@ export interface QuestObjective {
   description: string;
   type: 'kill' | 'collect' | 'reach' | 'interact' | 'discover';
   target: string;
+  targetCount?: number;
   current: number;
   required: number;
   completed: boolean;
 }
 
+export type AchievementType = 'combat' | 'exploration' | 'collection' | 'skill' | 'story';
+
 export interface Achievement {
   id: string;
   name: string;
+  title: string;
+  type: AchievementType;
   description: string;
   icon: string;
+  rarity: 'common' | 'uncommon' | 'rare' | 'epic' | 'legendary';
   condition: AchievementCondition;
   unlocked: boolean;
   unlockedAt?: number;
@@ -301,6 +315,9 @@ export interface Reward {
   type: 'shards' | 'item' | 'experience' | 'ability';
   value: number;
   itemId?: string;
+  experience?: number;
+  shards?: number;
+  items?: Array<{ itemId: string; quantity: number }>;
 }
 
 // ─────────────────────────────────────────────────────────────
@@ -333,6 +350,8 @@ export interface PlayerGameState {
   unlockedAbilities: string[];
   currentQuests: string[];
   completedQuests: string[];
+  questsCompleted: number;
+  combatKills: number;
   allies: string[];
 }
 
@@ -364,6 +383,8 @@ export interface GameState {
   currentRealm: RealmId;
   currentCharacter: CharacterId;
   playerState: PlayerGameState;
+  player?: PlayerGameState;
+  world?: any;
   inventory: InventoryItem[];
   quests: Quest[];
   achievements: Achievement[];

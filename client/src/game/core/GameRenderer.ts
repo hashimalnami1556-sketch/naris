@@ -146,12 +146,12 @@ export class GameRenderer {
     if (!this.scene) return;
 
     // لون السماء
-    this.scene.clearColor = new BABYLON.Color3(0.15, 0.15, 0.2);
+    this.scene.clearColor = new BABYLON.Color4(0.15, 0.15, 0.2, 1.0);
 
     // إنشاء أرضية بسيطة
     const ground = BABYLON.MeshBuilder.CreateGround('ground', { width: 200, height: 200 }, this.scene);
     const groundMaterial = new BABYLON.StandardMaterial('groundMaterial', this.scene);
-    groundMaterial.diffuse = new BABYLON.Color3(0.3, 0.3, 0.35);
+    groundMaterial.diffuseColor = new BABYLON.Color3(0.3, 0.3, 0.35);
     groundMaterial.specularColor = new BABYLON.Color3(0.1, 0.1, 0.1);
     ground.material = groundMaterial;
     ground.checkCollisions = true;
@@ -289,7 +289,7 @@ export class GameRenderer {
    * التقاط لقطة شاشة
    */
   async takeScreenshot(filename: string = 'screenshot'): Promise<void> {
-    if (!this.engine) return;
+    if (!this.engine || !this.camera) return;
 
     try {
       BABYLON.Tools.CreateScreenshot(this.engine, this.camera, 1920, 1080, filename);
