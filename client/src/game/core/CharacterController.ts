@@ -150,7 +150,7 @@ export class CharacterController {
     if (!character || !character.mesh) return;
 
     const deltaTime = 0.016; // ~60fps
-    const scene = gameRenderer.getInstance().getScene();
+    const scene = gameRenderer.getScene();
     if (!scene) return;
 
     // حساب اتجاه الحركة
@@ -186,16 +186,16 @@ export class CharacterController {
 
     // حساب المدخلات النسبية للكاميرا
     if (this.input.forward) {
-      this.characterMovement.addInPlace(BABYLON.Vector3.Scale(forward, 1));
+      this.characterMovement.addInPlace(forward);
     }
     if (this.input.backward) {
-      this.characterMovement.subtractInPlace(BABYLON.Vector3.Scale(forward, 1));
+      this.characterMovement.subtractInPlace(forward);
     }
     if (this.input.right) {
-      this.characterMovement.addInPlace(BABYLON.Vector3.Scale(right, 1));
+      this.characterMovement.addInPlace(right);
     }
     if (this.input.left) {
-      this.characterMovement.subtractInPlace(BABYLON.Vector3.Scale(right, 1));
+      this.characterMovement.subtractInPlace(right);
     }
 
     // تطبيع الحركة
@@ -212,7 +212,7 @@ export class CharacterController {
    */
   private applyMovement(characterRoot: BABYLON.TransformNode, deltaTime: number): void {
     const speed = this.isSprinting ? this.movementConfig.sprintSpeed : this.movementConfig.walkSpeed;
-    const targetVelocity = BABYLON.Vector3.Scale(this.characterMovement, speed);
+    const targetVelocity = this.characterMovement.scale(speed);
 
     // تطبيق التسارع والاحتكاك
     this.characterVelocity = BABYLON.Vector3.Lerp(

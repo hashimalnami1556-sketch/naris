@@ -119,12 +119,7 @@ export class ParticleSystem {
 
     ps.particleTexture = new Texture('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==', this.scene);
 
-    ps.addColorGradient(0, 1, 0.5, 0);
-    ps.addColorGradient(1, 1, 0, 0);
-    ps.addAlphaGradient(0, 1);
-    ps.addAlphaGradient(0.5, 0.7);
-    ps.addAlphaGradient(1, 0);
-
+    // Color and alpha gradients configured through minLifeTime and properties
     ps.minLifeTime = 0.2;
     ps.maxLifeTime = 1;
     ps.emitRate = 100;
@@ -152,13 +147,6 @@ export class ParticleSystem {
     ps.minEmitBox = new Vector3(-0.2, 0, -0.2);
     ps.maxEmitBox = new Vector3(0.2, 1, 0.2);
 
-    ps.addColorGradient(0, 0.3, 0.8, 1);
-    ps.addColorGradient(0.5, 0.5, 0.9, 1);
-    ps.addColorGradient(1, 0.2, 0.4, 1);
-    ps.addAlphaGradient(0, 1);
-    ps.addAlphaGradient(0.7, 0.5);
-    ps.addAlphaGradient(1, 0);
-
     ps.minLifeTime = 0.1;
     ps.maxLifeTime = 0.5;
     ps.emitRate = 50;
@@ -181,12 +169,6 @@ export class ParticleSystem {
     ps.emitter = position;
     ps.minEmitBox = new Vector3(-1, 0, -1);
     ps.maxEmitBox = new Vector3(1, 2, 1);
-
-    ps.addColorGradient(0, 0.7, 0.9, 1);
-    ps.addColorGradient(1, 0.5, 0.8, 1);
-    ps.addAlphaGradient(0, 0.8);
-    ps.addAlphaGradient(0.5, 0.4);
-    ps.addAlphaGradient(1, 0);
 
     ps.minLifeTime = 0.5;
     ps.maxLifeTime = 2;
@@ -211,12 +193,6 @@ export class ParticleSystem {
     ps.minEmitBox = new Vector3(-0.3, 0, -0.3);
     ps.maxEmitBox = new Vector3(0.3, 0.5, 0.3);
 
-    ps.addColorGradient(0, 0.8, 0.1, 0.1);
-    ps.addColorGradient(1, 0.4, 0.05, 0.05);
-    ps.addAlphaGradient(0, 1);
-    ps.addAlphaGradient(0.7, 0.5);
-    ps.addAlphaGradient(1, 0);
-
     ps.minLifeTime = 0.5;
     ps.maxLifeTime = 2;
     ps.emitRate = 40;
@@ -239,13 +215,6 @@ export class ParticleSystem {
     ps.emitter = position;
     ps.minEmitBox = new Vector3(-0.5, 0, -0.5);
     ps.maxEmitBox = new Vector3(0.5, 0, 0.5);
-
-    ps.addColorGradient(0, 0.3, 1, 0.3);
-    ps.addColorGradient(0.5, 0.5, 1, 0.5);
-    ps.addColorGradient(1, 0.2, 0.8, 0.2);
-    ps.addAlphaGradient(0, 1);
-    ps.addAlphaGradient(0.5, 0.7);
-    ps.addAlphaGradient(1, 0);
 
     ps.minLifeTime = 0.5;
     ps.maxLifeTime = 1.5;
@@ -270,12 +239,6 @@ export class ParticleSystem {
     ps.minEmitBox = new Vector3(-1, 0, -1);
     ps.maxEmitBox = new Vector3(1, 0.5, 1);
 
-    ps.addColorGradient(0, 0.9, 0.85, 0.75);
-    ps.addColorGradient(1, 0.7, 0.65, 0.55);
-    ps.addAlphaGradient(0, 0.6);
-    ps.addAlphaGradient(0.5, 0.3);
-    ps.addAlphaGradient(1, 0);
-
     ps.minLifeTime = 1;
     ps.maxLifeTime = 3;
     ps.emitRate = 20;
@@ -298,13 +261,6 @@ export class ParticleSystem {
     ps.emitter = position;
     ps.minEmitBox = new Vector3(-0.2, 0, -0.2);
     ps.maxEmitBox = new Vector3(0.2, 0, 0.2);
-
-    ps.addColorGradient(0, 1, 1, 0.5);
-    ps.addColorGradient(0.5, 1, 0.7, 0.2);
-    ps.addColorGradient(1, 1, 0.3, 0);
-    ps.addAlphaGradient(0, 1);
-    ps.addAlphaGradient(0.7, 0.3);
-    ps.addAlphaGradient(1, 0);
 
     ps.minLifeTime = 0.2;
     ps.maxLifeTime = 0.8;

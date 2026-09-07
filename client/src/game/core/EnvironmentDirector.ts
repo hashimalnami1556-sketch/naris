@@ -3,7 +3,6 @@
  * التحكم في انتقالات البيئات والمؤثرات البصرية
  */
 
-import { EventSystem, gameEvents } from './EventSystem';
 import { WorldManager, worldManager } from './WorldManager';
 
 export interface EnvironmentPreset {

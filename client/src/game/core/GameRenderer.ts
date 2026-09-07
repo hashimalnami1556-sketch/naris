@@ -4,7 +4,6 @@
  */
 
 import * as BABYLON from 'babylonjs';
-import { config } from './ConfigManager';
 import { gameState } from './StateManager';
 import { gameEvents } from './EventSystem';
 import { characterFactory } from './CharacterFactory';

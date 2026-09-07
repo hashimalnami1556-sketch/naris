@@ -57,7 +57,7 @@ export class CameraController {
    * تهيئة متحكم الكاميرا
    */
   initialize(): void {
-    const renderer = gameRenderer.getInstance();
+    const renderer = gameRenderer;
     this.camera = renderer.getCamera();
 
     if (!this.camera) {
@@ -124,7 +124,7 @@ export class CameraController {
         this.cycleCameraMode();
         break;
       case 'f':
-        gameRenderer.getInstance().takeScreenshot();
+        gameRenderer.takeScreenshot();
         break;
     }
   }
@@ -384,7 +384,7 @@ export class CameraController {
    */
   setEnabled(enabled: boolean): void {
     this.isEnabled = enabled;
-    gameRenderer.getInstance().setCameraEnabled(enabled);
+    gameRenderer.setCameraEnabled(enabled);
   }
 
   /**

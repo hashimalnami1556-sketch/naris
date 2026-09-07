@@ -12,7 +12,6 @@ import {
   gameRenderer,
   cameraController,
   characterController,
-  combatSystem,
   enemyAI,
   weatherSystem,
   questSystem,

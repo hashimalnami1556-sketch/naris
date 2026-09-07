@@ -169,7 +169,7 @@ export class EnemyAI {
     const direction = BABYLON.Vector3.Normalize(
       enemyInstance.targetPosition.subtract(enemyInstance.position)
     );
-    enemyInstance.velocity = BABYLON.Vector3.Scale(direction, enemyInstance.enemy.speed);
+    enemyInstance.velocity = direction.scale(enemyInstance.enemy.speed);
   }
 
   /**
@@ -196,7 +196,7 @@ export class EnemyAI {
 
     // الاقتراب من الهدف
     const direction = BABYLON.Vector3.Normalize(targetPos.subtract(enemyInstance.position));
-    enemyInstance.velocity = BABYLON.Vector3.Scale(direction, enemyInstance.enemy.speed);
+    enemyInstance.velocity = direction.scale(enemyInstance.enemy.speed);
   }
 
   /**
@@ -227,7 +227,7 @@ export class EnemyAI {
 
     // الزعيم يتحرك بحذر أكثر
     const direction = BABYLON.Vector3.Normalize(targetPos.subtract(enemyInstance.position));
-    enemyInstance.velocity = BABYLON.Vector3.Scale(direction, enemyInstance.enemy.speed * 0.7);
+    enemyInstance.velocity = direction.scale(enemyInstance.enemy.speed * 0.7);
   }
 
   /**
@@ -244,7 +244,7 @@ export class EnemyAI {
     const direction = BABYLON.Vector3.Normalize(
       enemyInstance.position.subtract(threatPos)
     );
-    enemyInstance.velocity = BABYLON.Vector3.Scale(direction, enemyInstance.enemy.speed * 1.5);
+    enemyInstance.velocity = direction.scale(enemyInstance.enemy.speed * 1.5);
 
     // المسافة من التهديد
     const distance = BABYLON.Vector3.Distance(enemyInstance.position, threatPos);
@@ -260,7 +260,7 @@ export class EnemyAI {
   private updateEnemyMovement(enemyInstance: EnemyInstance): void {
     const deltaTime = 0.016; // ~60fps
 
-    enemyInstance.position.addInPlace(BABYLON.Vector3.Scale(enemyInstance.velocity, deltaTime));
+    enemyInstance.position.addInPlace(enemyInstance.velocity.scale(deltaTime));
 
     // تحديث موضع الشكل الثلاثي الأبعاد
     if (enemyInstance.mesh) {

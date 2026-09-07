@@ -54,7 +54,7 @@ export class AnimationSystem {
       config.property,
       config.frames,
       Animation.ANIMATIONTYPE_FLOAT,
-      config.loopMode || Animation.LOOPMODE_CYCLE
+      config.loopMode || Animation.ANIMATIONLOOPMODE_CYCLE
     );
 
     // Add simple key frames
@@ -105,7 +105,7 @@ export class AnimationSystem {
       'position.y',
       60,
       Animation.ANIMATIONTYPE_FLOAT,
-      Animation.LOOPMODE_CLAMP
+      Animation.ANIMATIONLOOPMODE_CYCLE
     );
 
     fallAnimation.setKeys(keys);
@@ -131,7 +131,7 @@ export class AnimationSystem {
       'position.y',
       60,
       Animation.ANIMATIONTYPE_FLOAT,
-      Animation.LOOPMODE_CLAMP
+      Animation.ANIMATIONLOOPMODE_CYCLE
     );
 
     jumpAnimation.setKeys(keys);
@@ -158,7 +158,7 @@ export class AnimationSystem {
       'rotation.y',
       60,
       Animation.ANIMATIONTYPE_FLOAT,
-      Animation.LOOPMODE_CLAMP
+      Animation.ANIMATIONLOOPMODE_CYCLE
     );
 
     rotationAnimation.setKeys(keys);
@@ -186,7 +186,7 @@ export class AnimationSystem {
       'scaling.x',
       60,
       Animation.ANIMATIONTYPE_FLOAT,
-      Animation.LOOPMODE_CLAMP
+      Animation.ANIMATIONLOOPMODE_CYCLE
     );
 
     pulseAnimation.setKeys(keys);
@@ -197,7 +197,7 @@ export class AnimationSystem {
       'scaling.y',
       60,
       Animation.ANIMATIONTYPE_FLOAT,
-      Animation.LOOPMODE_CLAMP
+      Animation.ANIMATIONLOOPMODE_CYCLE
     );
     pulseAnimY.setKeys(keys);
     target.animations.push(pulseAnimY);
@@ -207,7 +207,7 @@ export class AnimationSystem {
       'scaling.z',
       60,
       Animation.ANIMATIONTYPE_FLOAT,
-      Animation.LOOPMODE_CLAMP
+      Animation.ANIMATIONLOOPMODE_CYCLE
     );
     pulseAnimZ.setKeys(keys);
     target.animations.push(pulseAnimZ);
@@ -242,7 +242,7 @@ export class AnimationSystem {
       'position.x',
       60,
       Animation.ANIMATIONTYPE_FLOAT,
-      Animation.LOOPMODE_CLAMP
+      Animation.ANIMATIONLOOPMODE_CYCLE
     );
     shakeXAnimation.setKeys(xKeys);
     target.animations.push(shakeXAnimation);
@@ -252,7 +252,7 @@ export class AnimationSystem {
       'position.y',
       60,
       Animation.ANIMATIONTYPE_FLOAT,
-      Animation.LOOPMODE_CLAMP
+      Animation.ANIMATIONLOOPMODE_CYCLE
     );
     shakeYAnimation.setKeys(yKeys);
     target.animations.push(shakeYAnimation);
@@ -279,7 +279,7 @@ export class AnimationSystem {
       'position.x',
       60,
       Animation.ANIMATIONTYPE_FLOAT,
-      Animation.LOOPMODE_CLAMP
+      Animation.ANIMATIONLOOPMODE_CYCLE
     );
     driftXAnimation.setKeys(keys);
     target.animations.push(driftXAnimation);
@@ -294,7 +294,7 @@ export class AnimationSystem {
       'position.z',
       60,
       Animation.ANIMATIONTYPE_FLOAT,
-      Animation.LOOPMODE_CLAMP
+      Animation.ANIMATIONLOOPMODE_CYCLE
     );
     driftZAnimation.setKeys(driftZKeys);
     target.animations.push(driftZAnimation);
