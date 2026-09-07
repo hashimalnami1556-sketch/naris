@@ -35,11 +35,11 @@ export class SaveSystem {
     const saveData: SaveData = {
       timestamp: Date.now(),
       version: '1.0.0',
-      playerState: state.player,
+      playerState: state.playerState,
       questProgress: state.quests,
       inventory: state.inventory,
       achievements: state.achievements,
-      worldState: state.world,
+      worldState: {},
     };
     this.saves.set(saveName, saveData);
     this.currentSave = saveName;
@@ -58,11 +58,10 @@ export class SaveSystem {
     }
     try {
       gameState.setState({
-        player: saveData.playerState,
+        playerState: saveData.playerState,
         quests: saveData.questProgress,
         inventory: saveData.inventory,
         achievements: saveData.achievements,
-        world: saveData.worldState,
       });
       this.currentSave = saveName;
       gameEvents.emit('game_loaded', { saveName });

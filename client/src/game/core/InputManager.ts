@@ -52,6 +52,7 @@ export class InputManager {
   private inputState: InputState;
   private bindings: Map<InputAction, InputBinding[]> = new Map();
   private isEnabled: boolean = true;
+  private isInitialized: boolean = false;
   private actionListeners: Map<InputAction, Set<(pressed: boolean) => void>> = new Map();
 
   private constructor() {
@@ -129,6 +130,11 @@ export class InputManager {
    * تهيئة مدير الإدخال
    */
   initialize(): void {
+    if (this.isInitialized) {
+      console.warn('InputManager is already initialized, skipping duplicate initialization');
+      return;
+    }
+
     document.addEventListener('keydown', (e) => this.onKeyDown(e));
     document.addEventListener('keyup', (e) => this.onKeyUp(e));
     document.addEventListener('mousemove', (e) => this.onMouseMove(e));
@@ -141,6 +147,7 @@ export class InputManager {
     document.addEventListener('touchmove', (e) => this.onTouchMove(e));
     document.addEventListener('touchend', (e) => this.onTouchEnd(e));
 
+    this.isInitialized = true;
     console.log('✓ InputManager event listeners attached');
   }
 

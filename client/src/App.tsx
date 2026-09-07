@@ -96,10 +96,11 @@ export const App: React.FC = () => {
 
     initializeGame();
 
-    // Cleanup
+    // Note: Individual components that subscribe to gameEvents should
+    // unsubscribe in their own cleanup functions, not here.
+    // Clearing the entire event system would break other running systems.
     return () => {
-      // Unsubscribe all events when component unmounts
-      gameEvents.clear();
+      // Cleanup is handled by individual components
     };
   }, []);
 
