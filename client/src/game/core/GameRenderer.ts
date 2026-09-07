@@ -14,7 +14,6 @@ export class GameRenderer {
   private engine: BABYLON.Engine | null = null;
   private scene: BABYLON.Scene | null = null;
   private camera: BABYLON.ArcRotateCamera | null = null;
-  private light: BABYLON.Light | null = null;
   private isInitialized: boolean = false;
   private lastFrameTime: number = 0;
   private frameCount: number = 0;
@@ -105,7 +104,6 @@ export class GameRenderer {
     ambientLight.intensity = 0.5;
     ambientLight.groundColor = new BABYLON.Color3(0.2, 0.2, 0.25);
 
-    this.light = sunLight;
     console.log('✓ Lighting setup complete');
   }
 
@@ -292,8 +290,14 @@ export class GameRenderer {
     if (!this.engine || !this.camera) return;
 
     try {
-      BABYLON.Tools.CreateScreenshot(this.engine, this.camera, 1920, 1080, filename);
-      console.log(`✓ Screenshot saved: ${filename}`);
+      BABYLON.Tools.CreateScreenshot(
+        this.engine,
+        this.camera,
+        { width: 1920, height: 1080 },
+        () => console.log(`✓ Screenshot saved: ${filename}`),
+        'image/png',
+        true
+      );
     } catch (error) {
       console.error('Failed to take screenshot:', error);
     }

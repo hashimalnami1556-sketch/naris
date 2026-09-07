@@ -202,7 +202,7 @@ export class CameraController {
   /**
    * معالج نهاية اللمس
    */
-  private onTouchEnd(event: TouchEvent): void {
+  private onTouchEnd(_event: TouchEvent): void {
     delete (this as any).lastTouchDistance;
   }
 

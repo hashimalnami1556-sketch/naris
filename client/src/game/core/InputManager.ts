@@ -335,7 +335,7 @@ export class InputManager {
   /**
    * معالج نهاية اللمس
    */
-  private onTouchEnd(event: TouchEvent): void {
+  private onTouchEnd(_event: TouchEvent): void {
     this.inputState.touch.active = false;
 
     gameEvents.emit('touch_end', {

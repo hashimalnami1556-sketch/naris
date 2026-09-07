@@ -3,7 +3,7 @@
  * تصنيع الأدوات والأسلحة من الشاردات والمكونات
  */
 import { gameEvents } from './EventSystem';
-import { InventorySystem, inventorySystem } from './InventorySystem';
+import { inventorySystem } from './InventorySystem';
 export interface CraftingRecipe {
   id: string;
   name: string;

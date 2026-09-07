@@ -3,7 +3,7 @@
  * إدارة حفظ وتحميل بيانات اللعبة
  */
 import { gameEvents } from './EventSystem';
-import { StateManager, gameState } from './StateManager';
+import { gameState } from './StateManager';
 export interface SaveData {
   timestamp: number;
   version: string;

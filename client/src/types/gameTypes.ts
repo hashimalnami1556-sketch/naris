@@ -27,6 +27,7 @@ export interface CharacterProfile {
   name: string;
   role: CharacterRole;
   description: string;
+  origin?: RealmId;
   stats: CharacterStats;
   abilities: Ability[];
   weaponData: WeaponData;
@@ -290,7 +291,7 @@ export interface QuestObjective {
   completed: boolean;
 }
 
-export type AchievementType = 'combat' | 'exploration' | 'collection' | 'skill' | 'story';
+export type AchievementType = 'combat' | 'boss' | 'quest' | 'exploration' | 'challenge' | 'character' | 'special' | 'skill' | 'story';
 
 export interface Achievement {
   id: string;

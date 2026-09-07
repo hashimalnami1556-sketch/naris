@@ -297,9 +297,7 @@ export class ParticleSystem {
   getActiveParticleCount(): number {
     let count = 0;
     this.activeEmitters.forEach((ps) => {
-      if (ps.isPlaying) {
-        count += ps.getCapacity();
-      }
+      count += ps.getCapacity();
     });
     return count;
   }

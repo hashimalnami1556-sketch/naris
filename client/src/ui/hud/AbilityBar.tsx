@@ -79,7 +79,6 @@ export const AbilityBar: React.FC<AbilityBarProps> = ({ characterId }) => {
   return (
     <div className="ability-bar">
       {abilities.map((ability) => {
-        const cooldownPercent = (ability.cooldown / ability.maxCooldown) * 100;
         const isOnCooldown = ability.cooldown > 0;
 
         return (

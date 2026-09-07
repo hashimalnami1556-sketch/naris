@@ -38,7 +38,6 @@ interface VFXDefinition {
 
 export class VFXManager {
   private static instance: VFXManager;
-  private scene: Scene | null = null;
   private vfxDefinitions: Record<VFXType, VFXDefinition> = {
     hit: {
       particleTypes: ['spark', 'dust'],
@@ -113,8 +112,7 @@ export class VFXManager {
   /**
    * تعيين المشهد
    */
-  setScene(scene: Scene): void {
-    this.scene = scene;
+  setScene(_scene: Scene): void {
     console.log('✓ Scene assigned to VFXManager');
   }
 

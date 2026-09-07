@@ -6,7 +6,6 @@
 import {
   DamageType,
   DamageCalculation,
-  Enemy,
   EnemyAbility,
   CharacterProfile,
 } from '../../types/gameTypes';
@@ -26,9 +25,10 @@ export interface CombatLog {
   action: CombatAction;
   result: {
     baseDamage: number;
+    weaponDamage: number;
     multiplier: number;
-    weakness: boolean;
-    resistance: boolean;
+    weakness: number;
+    resistance: number;
     finalDamage: number;
     targetHealthAfter: number;
   };
@@ -100,9 +100,10 @@ export class CombatSystem {
 
     return {
       baseDamage,
+      weaponDamage: attacker.weaponData?.baseDamage || 0,
       multiplier: abilityMultiplier,
-      weakness: hasWeakness,
-      resistance: hasResistance,
+      weakness: weaknessMultiplier,
+      resistance: resistanceMultiplier,
       finalDamage: Math.max(1, finalDamage), // الحد الأدنى 1 ضرر
     };
   }
@@ -189,17 +190,18 @@ export class CombatSystem {
   ): void {
     // فحص الطاقة
     const currentEnergy = gameState.getState().playerState.energy;
-    if (currentEnergy < ability.energyCost) {
+    const energyCost = ability.energyCost || 0;
+    if (currentEnergy < energyCost) {
       console.warn('Not enough energy for ability');
       return;
     }
 
     // استهلاك الطاقة
-    gameState.updateEnergy(-ability.energyCost);
+    gameState.updateEnergy(-energyCost);
 
     // حساب الضرر
     const multiplier = ability.damage / 100;
-    const damageCalc = this.calculateDamage(attacker, defender, ability.effect.type, multiplier);
+    const damageCalc = this.calculateDamage(attacker, defender, 'physical', multiplier);
 
     // تطبيق الضرر
     if (defender.health !== undefined) {
@@ -216,7 +218,7 @@ export class CombatSystem {
         targetId,
         actionType: 'ability',
         damage: damageCalc.finalDamage,
-        damageType: ability.effect.type,
+        damageType: 'physical',
         timestamp: Date.now(),
       },
       damageCalc,

@@ -3,9 +3,7 @@
  * محاكاة دورة اليوم والليل مع تغيير الإضاءة
  */
 
-import * as BABYLON from 'babylonjs';
 import { gameEvents } from './EventSystem';
-import { gameRenderer } from './GameRenderer';
 
 export type TimeOfDay = 'dawn' | 'morning' | 'noon' | 'evening' | 'dusk' | 'night' | 'midnight';
 export interface TimeConfig {
@@ -58,7 +56,6 @@ export class DayNightSystem {
    * بدء الدورة
    */
   private startCycle(): void {
-    const fullCycle = this.config.dayDuration + this.config.nightDuration;
     this.updateInterval = setInterval(() => {
       this.currentTime = (this.currentTime + 0.01) % 1;
       const newTimeOfDay = this.getTimeOfDay(this.currentTime);

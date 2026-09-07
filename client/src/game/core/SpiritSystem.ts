@@ -19,7 +19,6 @@ export class SpiritSystem {
   private static instance: SpiritSystem;
   private spirits: Map<string, Spirit> = new Map();
   private activeSpirits: Set<string> = new Set();
-  private totalPowerAvailable: number = 100;
   private constructor() {
     this.initializeSpirits();
   }

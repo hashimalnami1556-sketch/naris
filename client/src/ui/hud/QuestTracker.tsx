@@ -55,10 +55,10 @@ export const QuestTracker: React.FC = () => {
     gameEvents.subscribe('objective_updated', updateQuests);
 
     return () => {
-      gameEvents.unsubscribe('quest_started');
-      gameEvents.unsubscribe('quest_completed');
-      gameEvents.unsubscribe('quest_failed');
-      gameEvents.unsubscribe('objective_updated');
+      gameEvents.unsubscribe('quest_started', updateQuests);
+      gameEvents.unsubscribe('quest_completed', updateQuests);
+      gameEvents.unsubscribe('quest_failed', updateQuests);
+      gameEvents.unsubscribe('objective_updated', updateQuests);
     };
   }, []);
 

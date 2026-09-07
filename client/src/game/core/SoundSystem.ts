@@ -19,7 +19,7 @@ export class SoundSystem {
   private static instance: SoundSystem;
   private audioContext: AudioContext | null = null;
   private audioBuffers: Map<string, AudioBuffer> = new Map();
-  private audioSources: Map<string, AudioBufferSource> = new Map();
+  private audioSources: Map<string, AudioBufferSourceNode> = new Map();
   private masterVolume: number = 1;
   private typeVolumes: Record<SoundType, number> = {
     music: 0.7,
@@ -147,7 +147,7 @@ export class SoundSystem {
    * إيقاف جميع الأصوات
    */
   stopAllSounds(): void {
-    this.audioSources.forEach((source, soundId) => {
+    this.audioSources.forEach((_source, soundId) => {
       this.stopSound(soundId);
     });
   }

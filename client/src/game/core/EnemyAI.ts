@@ -4,9 +4,8 @@
  */
 
 import * as BABYLON from 'babylonjs';
-import { Enemy, CharacterId } from '../../types/gameTypes';
+import { Enemy } from '../../types/gameTypes';
 import { gameEvents } from './EventSystem';
-import { combatSystem } from './CombatSystem';
 
 export type AIBehavior = 'idle' | 'patrol' | 'aggressive' | 'boss' | 'flee';
 

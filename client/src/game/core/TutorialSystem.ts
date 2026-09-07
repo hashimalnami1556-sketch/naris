@@ -2,6 +2,9 @@
  * Tutorial System - نظام البرنامج التعليمي
  * إدارة التلميحات والدروس الأساسية
  */
+
+import { gameEvents } from './EventSystem';
+
 export interface Hint {
   id: string;
   title: string;

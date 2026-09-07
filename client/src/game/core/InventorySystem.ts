@@ -2,6 +2,9 @@
  * Inventory System - نظام الحقيبة
  * إدارة أشياء اللاعب والأسلحة والشاردات
  */
+
+import { gameEvents } from './EventSystem';
+
 export interface InventoryItem {
   id: string;
   name: string;

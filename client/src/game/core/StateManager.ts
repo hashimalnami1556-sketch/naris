@@ -66,6 +66,8 @@ export class StateManager {
       unlockedAbilities: [],
       currentQuests: [],
       completedQuests: [],
+      questsCompleted: 0,
+      combatKills: 0,
       allies: [],
     };
 

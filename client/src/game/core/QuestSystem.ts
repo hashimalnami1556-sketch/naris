@@ -3,7 +3,7 @@
  * إدارة المهام والأهداف والمكافآت
  */
 
-import { Quest, QuestObjective, QuestStatus, InventoryItem } from '../../types/gameTypes';
+import { Quest } from '../../types/gameTypes';
 import { gameEvents } from './EventSystem';
 import { gameState } from './StateManager';
 
@@ -21,7 +21,6 @@ export type QuestFilter = 'active' | 'completed' | 'failed' | 'all';
 export class QuestSystem {
   private static instance: QuestSystem;
   private questTrackers: Map<string, QuestTracker> = new Map();
-  private questIdCounter: number = 0;
   private questDatabase: Map<string, Quest> = new Map();
 
   private constructor() {
@@ -49,29 +48,36 @@ export class QuestSystem {
       title: 'Awaken in the Ash',
       description: 'Escape the Ash Gate and discover the truth',
       type: 'main',
-      difficulty: 1,
+      difficulty: 'normal',
       status: 'available',
+      giver: 'Elder Toren',
+      giverLocation: 'ash_gate',
       objectives: [
         {
           id: 'obj_1',
           description: 'Defeat corrupted guardians',
           type: 'kill',
+          target: 'corrupted_guardian',
           targetCount: 5,
+          current: 0,
+          required: 5,
           completed: false,
         },
         {
           id: 'obj_2',
           description: 'Reach the Ash Gate exit',
-          type: 'location',
+          type: 'reach',
+          target: 'ash_gate_exit',
           targetCount: 1,
+          current: 0,
+          required: 1,
           completed: false,
         },
       ],
-      rewards: {
-        experience: 500,
-        shards: 100,
-        items: [],
-      },
+      rewards: [
+        { type: 'experience', value: 500 },
+        { type: 'shards', value: 100 },
+      ],
     });
 
     this.registerQuest({
@@ -79,36 +85,37 @@ export class QuestSystem {
       title: 'Help the Lost Traveler',
       description: 'A traveler in Bell Marsh needs assistance',
       type: 'side',
-      difficulty: 1,
+      difficulty: 'easy',
       status: 'available',
+      giver: 'Traveler',
+      giverLocation: 'bell_marsh',
       objectives: [
         {
           id: 'obj_1',
           description: 'Gather 5 healing herbs',
           type: 'collect',
+          target: 'healing_herb',
           targetCount: 5,
+          current: 0,
+          required: 5,
           completed: false,
         },
         {
           id: 'obj_2',
           description: 'Return to the traveler',
-          type: 'dialogue',
+          type: 'interact',
+          target: 'traveler',
           targetCount: 1,
+          current: 0,
+          required: 1,
           completed: false,
         },
       ],
-      rewards: {
-        experience: 100,
-        shards: 50,
-        items: [
-          {
-            itemId: 'healing_potion',
-            quantity: 3,
-            slot: 'inventory',
-            equipped: false,
-          },
-        ],
-      },
+      rewards: [
+        { type: 'experience', value: 100 },
+        { type: 'shards', value: 50 },
+        { type: 'item', value: 0, itemId: 'healing_potion', items: [{ itemId: 'healing_potion', quantity: 3 }] },
+      ],
     });
 
     this.registerQuest({
@@ -116,22 +123,26 @@ export class QuestSystem {
       title: 'Daily Hunt',
       description: 'Hunt and defeat enemies for rewards',
       type: 'daily',
-      difficulty: 2,
+      difficulty: 'normal',
       status: 'available',
+      giver: 'Guild Master',
+      giverLocation: 'ash_gate',
       objectives: [
         {
           id: 'obj_1',
           description: 'Defeat 10 enemies',
           type: 'kill',
+          target: 'enemy',
           targetCount: 10,
+          current: 0,
+          required: 10,
           completed: false,
         },
       ],
-      rewards: {
-        experience: 250,
-        shards: 75,
-        items: [],
-      },
+      rewards: [
+        { type: 'experience', value: 250 },
+        { type: 'shards', value: 75 },
+      ],
     });
 
     console.log('✓ Quest database initialized with 3 quests');
@@ -197,7 +208,6 @@ export class QuestSystem {
       return;
     }
 
-    const currentProgress = tracker.objectives.get(objectiveId) || 0;
     tracker.objectives.set(objectiveId, Math.min(progress, 100));
 
     // فحص اكتمال المهمة
@@ -240,18 +250,23 @@ export class QuestSystem {
     tracker.completedAt = Date.now();
 
     // إضافة المكافآت
-    const rewards = tracker.quest.rewards;
-    if (rewards.experience) {
-      gameState.addExperience(rewards.experience);
-    }
-    if (rewards.shards) {
-      gameState.addShards(rewards.shards);
-    }
-    if (rewards.items) {
-      rewards.items.forEach((item) => {
-        gameState.addToInventory(item);
-      });
-    }
+    tracker.quest.rewards.forEach((reward) => {
+      switch (reward.type) {
+        case 'experience':
+          gameState.addExperience(reward.value);
+          break;
+        case 'shards':
+          gameState.addShards(reward.value);
+          break;
+        case 'item':
+          if (reward.items) {
+            reward.items.forEach((item) => {
+              gameState.addToInventory(item);
+            });
+          }
+          break;
+      }
+    });
 
     // تحديث حالة اللعبة
     gameState.completeQuest(questId);
@@ -259,7 +274,7 @@ export class QuestSystem {
     gameEvents.emit('quest_completed', {
       questId,
       questTitle: tracker.quest.title,
-      rewards,
+      rewards: tracker.quest.rewards,
     });
 
     console.log(`🎉 Quest completed: ${tracker.quest.title}`);
@@ -325,7 +340,7 @@ export class QuestSystem {
   /**
    * الحصول على مهام حسب الصعوبة
    */
-  getQuestsByDifficulty(difficulty: number): QuestTracker[] {
+  getQuestsByDifficulty(difficulty: 'easy' | 'normal' | 'hard' | 'extreme'): QuestTracker[] {
     return Array.from(this.questTrackers.values()).filter((tracker) => tracker.quest.difficulty === difficulty);
   }
 
@@ -388,9 +403,18 @@ export class QuestSystem {
       .join('\n')}
 
     Rewards:
-      Experience: ${tracker.quest.rewards.experience}
-      Shards: ${tracker.quest.rewards.shards}
-      Items: ${tracker.quest.rewards.items?.length || 0}
+      ${tracker.quest.rewards.map((r) => {
+        switch (r.type) {
+          case 'experience':
+            return `Experience: ${r.value}`;
+          case 'shards':
+            return `Shards: ${r.value}`;
+          case 'item':
+            return `Items: ${r.items?.length || 0}`;
+          default:
+            return '';
+        }
+      }).join('\n      ')}
 
     ─────────────────────
     `);

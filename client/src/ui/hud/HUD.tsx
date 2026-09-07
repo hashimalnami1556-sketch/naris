@@ -6,7 +6,6 @@
 import React, { useEffect, useState } from 'react';
 import { gameEvents } from '../../game/core/EventSystem';
 import { gameState } from '../../game/core/StateManager';
-import { characterController } from '../../game/core/CharacterController';
 import { CharacterInfoPanel } from './CharacterInfoPanel';
 import { AbilityBar } from './AbilityBar';
 import { Minimap } from './Minimap';

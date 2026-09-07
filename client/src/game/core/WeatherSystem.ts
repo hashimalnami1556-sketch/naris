@@ -35,7 +35,6 @@ export class WeatherSystem {
   private cycleIndex: number = 0;
   private elapsedTime: number = 0;
   private dayNightCycleSpeed: number = 1; // تسريع دورة اليوم
-  private particleSystem: BABYLON.ParticleSystem | null = null;
 
   private constructor() {
     this.weatherState = this.getDefaultWeatherState();
@@ -95,7 +94,7 @@ export class WeatherSystem {
    * تهيئة دورة الطقس
    */
   private initializeWeatherCycle(): void {
-    this.weatherCycle = ['clear', 'cloudy', 'rain', 'thunderstorm', 'clear'];
+    this.weatherCycle = ['clear', 'fog', 'rain', 'storm', 'clear'];
     this.cycleIndex = 0;
   }
 
@@ -220,7 +219,7 @@ export class WeatherSystem {
         this.weatherState.visibility = 1;
         break;
 
-      case 'cloudy':
+      case 'fog':
         this.weatherState.precipitation = 0;
         this.weatherState.visibility = 0.9;
         break;
@@ -234,7 +233,7 @@ export class WeatherSystem {
         this.weatherState.visibility = 0.7;
         break;
 
-      case 'thunderstorm':
+      case 'storm':
         this.weatherState.precipitation = 1;
         this.weatherState.visibility = 0.5;
         break;

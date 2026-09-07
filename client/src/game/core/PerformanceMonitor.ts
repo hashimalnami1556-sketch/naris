@@ -2,6 +2,9 @@
  * Performance Monitor - مراقب الأداء
  * تتبع الأداء والإطارات والذاكرة
  */
+
+import { gameEvents } from './EventSystem';
+
 export interface PerformanceMetrics {
   fps: number;
   frameTime: number;

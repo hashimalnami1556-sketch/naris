@@ -3,7 +3,7 @@
  * إدارة الإنجازات والتحديات والجوائز
  */
 
-import { Achievement } from '../../types/gameTypes';
+import { Achievement, AchievementType } from '../../types/gameTypes';
 import { gameEvents } from './EventSystem';
 import { gameState } from './StateManager';
 
@@ -302,7 +302,7 @@ export class AchievementSystem {
 
     // إضافة الجائزة
     if (tracker.achievement.reward) {
-      gameState.addShards(tracker.achievement.reward);
+      gameState.addShards(tracker.achievement.reward.value);
     }
 
     // إضافة إلى حالة اللعبة
@@ -365,7 +365,7 @@ export class AchievementSystem {
    * الحصول على إجمالي الشظايا المكتسبة من الإنجازات
    */
   getTotalRewards(): number {
-    return this.getUnlockedAchievements().reduce((sum, tracker) => sum + (tracker.achievement.reward || 0), 0);
+    return this.getUnlockedAchievements().reduce((sum, tracker) => sum + (tracker.achievement.reward?.value || 0), 0);
   }
 
   /**
@@ -426,6 +426,8 @@ export class AchievementSystem {
       challenge: this.getAchievementsByType('challenge').length,
       character: this.getAchievementsByType('character').length,
       special: this.getAchievementsByType('special').length,
+      skill: this.getAchievementsByType('skill').length,
+      story: this.getAchievementsByType('story').length,
     };
 
     console.log(`

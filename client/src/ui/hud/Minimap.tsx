@@ -31,9 +31,10 @@ export const Minimap: React.FC<MinimapProps> = ({ realm }) => {
     const SCALE = CANVAS_SIZE / MAP_SIZE;
 
     // Subscribe to position updates
-    gameEvents.subscribe('character_moved', (data: any) => {
+    const handleCharacterMoved = (data: any) => {
       playerPosRef.current = { x: data.position.x, y: data.position.z };
-    });
+    };
+    gameEvents.subscribe('character_moved', handleCharacterMoved);
 
     // Draw minimap
     const drawMinimap = () => {
@@ -85,7 +86,7 @@ export const Minimap: React.FC<MinimapProps> = ({ realm }) => {
     drawMinimap();
 
     return () => {
-      gameEvents.unsubscribe('character_moved');
+      gameEvents.unsubscribe('character_moved', handleCharacterMoved);
     };
   }, []);
 

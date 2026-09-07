@@ -2,6 +2,9 @@
  * World Manager - مدير العالم
  * إدارة التبديل بين البيئات والعوالم المختلفة
  */
+
+import { gameEvents } from './EventSystem';
+
 export interface World {
   id: string;
   name: string;
