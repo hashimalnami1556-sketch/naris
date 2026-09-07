@@ -280,7 +280,7 @@ export class WeatherSystem {
    * تطبيق التأثيرات البصرية للطقس
    */
   private applyWeatherEffects(): void {
-    const scene = gameRenderer.getInstance().getScene();
+    const scene = gameRenderer.getScene();
     if (!scene) return;
 
     // تحديث حالة الضباب
@@ -305,7 +305,7 @@ export class WeatherSystem {
    * تطبيق تأثيرات الإضاءة (اليوم والليل)
    */
   private applyLightingEffects(): void {
-    const renderer = gameRenderer.getInstance();
+    const renderer = gameRenderer;
     const scene = renderer.getScene();
     if (!scene) return;
 
