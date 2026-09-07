@@ -222,7 +222,7 @@ export class CharacterController {
     );
 
     // تطبيق السرعة على الموضع
-    characterRoot.position.addInPlace(BABYLON.Vector3.Scale(this.characterVelocity, deltaTime));
+    characterRoot.position.addInPlace(this.characterVelocity.scale(deltaTime));
 
     // تدوير الشخصية نحو اتجاه الحركة
     if (this.characterMovement.length() > 0.1) {
