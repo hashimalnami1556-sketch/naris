@@ -1,0 +1,307 @@
+{
+  "batch": "07-08",
+  "map_system_id": "NARIS-MAP-SYSTEM-0001",
+  "name": "NARIS World Map & Fast Travel System",
+  "type": "world_system",
+  "version": "V001",
+
+  "world_map": {
+    "title": "World of NARIS",
+    "subtitle": "A World Beyond the Ashes",
+    "current_region": "ashen_forest",
+    "total_regions": 1,
+    "explored_percentage": 0,
+
+    "map_visual": {
+      "style": "hand_painted_parchment",
+      "scale": "1:1000",
+      "fog_of_war": true,
+      "discovery_based_reveal": true,
+      "map_markers": {
+        "player_position": true,
+        "discovered_locations": true,
+        "quest_markers": true,
+        "fast_travel_points": true,
+        "discovered_secrets": true
+      }
+    }
+  },
+
+  "regions": [
+    {
+      "id": "NARIS-REGION-ASHEN-FOREST-0001",
+      "name": "Ashen Forest",
+      "type": "starting_region",
+      "area_size": "large",
+      "biome_type": "corrupted_forest",
+      "weather": "eternal_dusk",
+      "description": "The cursed forest where ash falls eternally, where ancient magic has corrupted nature itself.",
+
+      "discoveries": {
+        "total_locations": 6,
+        "total_secrets": 12,
+        "discovered": false
+      },
+
+      "fast_travel_points": [
+        {
+          "id": "NARIS-WAYPOINT-ENTRANCE-0001",
+          "name": "Forest Entrance",
+          "location": "ashen_forest_entrance",
+          "waypoint_type": "primary_hub",
+          "discovered": false,
+          "accessible": false,
+          "coordinate": {
+            "x": 100,
+            "y": 100
+          }
+        },
+        {
+          "id": "NARIS-WAYPOINT-SHRINE-0001",
+          "name": "Broken Shrine",
+          "location": "broken_shrine",
+          "waypoint_type": "shrine",
+          "discovered": false,
+          "accessible": false,
+          "coordinate": {
+            "x": 150,
+            "y": 200
+          }
+        },
+        {
+          "id": "NARIS-WAYPOINT-BRIDGE-0001",
+          "name": "Ruined Bridge",
+          "location": "ruined_bridge",
+          "waypoint_type": "location",
+          "discovered": false,
+          "accessible": false,
+          "coordinate": {
+            "x": 200,
+            "y": 150
+          }
+        },
+        {
+          "id": "NARIS-WAYPOINT-LAKE-0001",
+          "name": "Whisper Lake",
+          "location": "whisper_lake",
+          "waypoint_type": "safe_zone",
+          "discovered": false,
+          "accessible": false,
+          "coordinate": {
+            "x": 300,
+            "y": 250
+          }
+        },
+        {
+          "id": "NARIS-WAYPOINT-GATE-0001",
+          "name": "Ash Gate",
+          "location": "ash_gate",
+          "waypoint_type": "boss_gate",
+          "discovered": false,
+          "accessible": false,
+          "coordinate": {
+            "x": 250,
+            "y": 350
+          }
+        },
+        {
+          "id": "NARIS-WAYPOINT-ARENA-0001",
+          "name": "Bone Beast Arena",
+          "location": "bone_beast_arena",
+          "waypoint_type": "boss_arena",
+          "discovered": false,
+          "accessible": false,
+          "coordinate": {
+            "x": 350,
+            "y": 300
+          }
+        }
+      ],
+
+      "secrets_and_collectibles": {
+        "hidden_treasures": 4,
+        "lore_fragments": 6,
+        "achievement_objectives": 2,
+        "total": 12
+      },
+
+      "enemy_encounters": {
+        "common_enemies": ["Bone Hound", "Aether Serpent"],
+        "boss_encounters": ["Gate Guardian", "Ash Giant"],
+        "world_bosses": 0
+      },
+
+      "npcs_and_interactions": {
+        "quest_givers": 3,
+        "merchants": 1,
+        "lore_keepers": 2
+      }
+    }
+  ],
+
+  "fast_travel_system": {
+    "enabled": true,
+    "unlock_method": "waypoint_discovery",
+    "travel_speed": "instant",
+    "travel_cost": {
+      "type": "none",
+      "currency": null,
+      "health_penalty": false
+    },
+
+    "restrictions": [
+      "cannot_fast_travel_in_combat",
+      "cannot_fast_travel_while_falling",
+      "cannot_fast_travel_during_boss_fight"
+    ],
+
+    "waypoint_categories": {
+      "primary_hub": {
+        "count": 1,
+        "description": "Main starting point and convergence location"
+      },
+      "shrine": {
+        "count": 2,
+        "description": "Religious/rest locations with lore significance"
+      },
+      "location": {
+        "count": 2,
+        "description": "Notable exploration locations"
+      },
+      "safe_zone": {
+        "count": 1,
+        "description": "Enemy-free rest areas"
+      },
+      "boss_gate": {
+        "count": 1,
+        "description": "Entry points to major boss encounters"
+      },
+      "boss_arena": {
+        "count": 1,
+        "description": "Final boss arena locations"
+      }
+    }
+  },
+
+  "exploration_mechanics": {
+    "fog_of_war": {
+      "enabled": true,
+      "reveal_method": "proximity_and_waypoint",
+      "reveal_radius": 500
+    },
+
+    "discovery_tracking": {
+      "locations_discovered": 0,
+      "waypoints_discovered": 0,
+      "secrets_found": 0,
+      "lore_fragments_collected": 0,
+      "completion_percentage": 0
+    },
+
+    "exploration_rewards": {
+      "waypoint_discovery": {
+        "experience": 100,
+        "lore_unlock": true
+      },
+      "location_completion": {
+        "experience": 250,
+        "achievement": true
+      },
+      "secret_discovery": {
+        "experience": 150,
+        "unique_item": true
+      }
+    }
+  },
+
+  "navigation_features": {
+    "quest_markers": {
+      "enabled": true,
+      "auto_mark_objectives": true,
+      "player_can_customize": true,
+      "custom_waypoints": true
+    },
+
+    "pathfinding": {
+      "ai_calculated": false,
+      "player_manual_navigation": true,
+      "difficulty_indicator": true
+    },
+
+    "map_annotations": {
+      "player_notes": true,
+      "location_descriptions": true,
+      "difficulty_levels": true,
+      "enemy_warnings": true
+    }
+  },
+
+  "regional_progression": {
+    "unlocks": {
+      "ashen_forest": {
+        "unlock_method": "game_start",
+        "prerequisite": "none",
+        "primary_waypoint": "NARIS-WAYPOINT-ENTRANCE-0001"
+      }
+    },
+
+    "progression_gates": [
+      {
+        "gate_name": "Ash Gate",
+        "requirement": "defeat_gate_guardian",
+        "unlocks": "advanced_areas"
+      },
+      {
+        "gate_name": "Bone Beast Arena",
+        "requirement": "defeat_ash_giant",
+        "unlocks": "end_game_content"
+      }
+    ]
+  },
+
+  "future_regions": {
+    "planned": [
+      {
+        "name": "Crystalline Caverns",
+        "biome": "underground_crystal_formation",
+        "estimated_batch": "10"
+      },
+      {
+        "name": "Ethereal Citadel",
+        "biome": "arcane_fortress",
+        "estimated_batch": "11"
+      },
+      {
+        "name": "Obsidian Wastes",
+        "biome": "volcanic_badlands",
+        "estimated_batch": "12"
+      }
+    ]
+  },
+
+  "world_state_variables": {
+    "ashen_forest_cleared": false,
+    "gate_guardian_defeated": false,
+    "ash_giant_defeated": false,
+    "all_secrets_found": false,
+    "world_completion_percentage": 0
+  },
+
+  "integration_points": {
+    "quest_system": {
+      "objective_markers": true,
+      "waypoint_objectives": true
+    },
+    "player_progression": {
+      "level_gated_areas": false,
+      "story_gated_areas": true
+    },
+    "achievement_system": {
+      "exploration_achievements": true,
+      "completion_tracking": true
+    }
+  },
+
+  "validation_status": "production_ready",
+  "notes": "Complete world map and fast travel system for Batch 07-08 with one fully developed region (Ashen Forest) and infrastructure for future region expansion."
+}

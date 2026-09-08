@@ -1,0 +1,215 @@
+{
+  "asset_id": "NARIS-WPN-ASH-BOW-0001",
+  "name": "Ash Bow",
+  "type": "ranged_bow",
+  "status": "production_locked",
+  "version": "V001",
+  "world": "W10",
+  "batch": "07",
+  "domains": ["WPN"],
+
+  "skeleton": {
+    "total_bones": 13,
+    "structure": {
+      "root": "Weapon_Root",
+      "left_limb": ["LeftLimbUpper", "LeftLimbLower", "LeftLimbTip"],
+      "right_limb": ["RightLimbUpper", "RightLimbLower", "RightLimbTip"],
+      "string": ["StringUpper", "StringMid", "StringLower"],
+      "arrow_nock": "ArrowNock",
+      "fx_bones": ["FX_AetherGlow"]
+    }
+  },
+
+  "scale": {
+    "bow_height_cm": 160,
+    "bow_width_cm": 45,
+    "draw_length_cm": 70,
+    "unit": "centimeters"
+  },
+
+  "visual_identity": {
+    "material_primary": "bone_and_ash",
+    "material_limbs": "weathered_bone",
+    "material_string": "aether_woven",
+    "primary_color": "#8B7355",
+    "secondary_color": "#00BFFF",
+    "glow": "aether_string_glow",
+    "glow_intensity": 0.9,
+    "surface": "ashen bone limbs with ethereal string",
+    "special_features": ["aether_string", "shimmer_effect", "arrow_trail_vfx"]
+  },
+
+  "combat": {
+    "base_damage": 40,
+    "damage_type": "pierce",
+    "secondary_damage_type": "aether",
+    "secondary_damage_amount": 10,
+    "weapon_speed": 1.1,
+    "range_m": 30.0,
+    "critical_chance": 0.20,
+    "critical_multiplier": 1.6,
+    "projectile_type": "arrow"
+  },
+
+  "projectile": {
+    "name": "aether_arrow",
+    "damage": 40,
+    "speed_ms": 25.0,
+    "range_m": 30.0,
+    "flight_time_seconds": 1.2,
+    "trail_vfx": "aether_arrow_trail",
+    "impact_vfx": "aether_arrow_impact"
+  },
+
+  "ability": {
+    "name": "AetherArrowRain",
+    "animation": "ArrowRain",
+    "damage_multiplier": 1.5,
+    "arrow_count": 8,
+    "area_effect": "circular",
+    "area_radius": 5.0,
+    "arrow_fall_time": 2.0,
+    "cooldown_seconds": 8.0,
+    "cast_time_seconds": 0.8,
+    "resource_cost": "stamina",
+    "stamina_cost": 50,
+    "effect": [
+      {
+        "type": "multiple_projectiles",
+        "count": 8,
+        "spread": 360,
+        "delay": 0.1
+      },
+      {
+        "type": "area_damage",
+        "damage": 35,
+        "radius": 5.0
+      },
+      {
+        "type": "stun_on_hit",
+        "stun_duration": 1.0,
+        "chance": 0.5
+      }
+    ]
+  },
+
+  "attributes": {
+    "dexterity_requirement": 16,
+    "strength_requirement": 8,
+    "dexterity_bonus": 0.2,
+    "attack_speed_bonus": 0.15
+  },
+
+  "vfx": {
+    "idle": {
+      "name": "ash_bow_idle_shimmer",
+      "effect": "aether_shimmer",
+      "color": "#00BFFF",
+      "intensity": 0.7,
+      "loop": true
+    },
+    "draw": {
+      "name": "ash_bow_draw_glow",
+      "effect": "string_glow_intensify",
+      "color": "#00BFFF",
+      "intensity": 1.2,
+      "duration": 0.5
+    },
+    "shot": {
+      "name": "ash_bow_shot_release",
+      "effect": "arrow_trail_vfx",
+      "color": "#4169E1",
+      "duration": 0.3
+    },
+    "ability": {
+      "name": "ash_bow_arrow_rain_effect",
+      "effect": "rain_vfx_multiple_arrows",
+      "colors": ["#00BFFF", "#4169E1"],
+      "duration": 2.0
+    }
+  },
+
+  "sfx": {
+    "idle": "sfx_bow_idle_creak",
+    "draw": "sfx_bow_draw_string",
+    "shot": "sfx_arrow_shot_whoosh",
+    "impact": "sfx_arrow_impact_aether",
+    "ability": "sfx_ash_bow_arrow_rain_cast"
+  },
+
+  "animations": {
+    "idle": {
+      "name": "WeaponIdle",
+      "duration_seconds": 1.0,
+      "loop": true
+    },
+    "draw": {
+      "name": "BowDraw",
+      "duration_seconds": 0.6,
+      "loop": false,
+      "events": [
+        {"frame": 0.3, "event": "draw_complete"},
+        {"frame": 0.6, "event": "ready_to_fire"}
+      ]
+    },
+    "shot": {
+      "name": "BowShot",
+      "duration_seconds": 0.4,
+      "loop": false,
+      "events": [
+        {"frame": 0.1, "event": "arrow_release"},
+        {"frame": 0.4, "event": "shot_complete"}
+      ]
+    },
+    "arrow_rain": {
+      "name": "ArrowRain",
+      "duration_seconds": 1.5,
+      "loop": false,
+      "events": [
+        {"frame": 0.0, "event": "ability_start"},
+        {"frame": 0.2, "event": "arrow_charge"},
+        {"frame": 0.8, "event": "arrows_fire"},
+        {"frame": 1.5, "event": "ability_end"}
+      ]
+    }
+  },
+
+  "arrow_variants": {
+    "standard": {
+      "name": "Aether Arrow",
+      "damage": 40,
+      "type": "pierce",
+      "special_effect": "none"
+    },
+    "heavy": {
+      "name": "Heavy Ash Arrow",
+      "damage": 60,
+      "type": "pierce",
+      "knockback": 2.0,
+      "special_effect": "knockback"
+    },
+    "explosive": {
+      "name": "Explosive Aether Arrow",
+      "damage": 50,
+      "type": "pierce_and_aoe",
+      "aoe_radius": 3.0,
+      "special_effect": "explosion"
+    }
+  },
+
+  "lore": {
+    "description": "An ancient bow crafted from ashen bone with a string woven from pure aether. Each arrow fired shimmers with ethereal energy and can rain down in devastating volleys.",
+    "origin": "Forged in the ash wastes",
+    "enchantment": "Aether String Enchantment"
+  },
+
+  "production_gates": ["concept", "skeleton", "rigged", "vfx_integrated", "animated", "sfx_integrated", "combat_coded", "qa", "approved", "release"],
+  "acceptance_criteria": [
+    "Skeleton: 13 bones (3 limbs, 3 string, nock, FX bone)",
+    "Projectile: fires arrows at 25 m/s to 30m range",
+    "Ability: AetherArrowRain fires 8 arrows in circular pattern",
+    "VFX: aether string glow on draw, arrow trails visible",
+    "Accuracy: multiple arrow variants available",
+    "Stamina Cost: 50 with 8 second cooldown"
+  ]
+}

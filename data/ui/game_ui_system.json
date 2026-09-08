@@ -1,0 +1,440 @@
+{
+  "batch": "07-08",
+  "ui_system_id": "NARIS-UI-SYSTEM-0001",
+  "name": "NARIS Game UI System",
+  "type": "user_interface",
+  "version": "V001",
+
+  "design_philosophy": {
+    "style": "dark_fantasy_immersive",
+    "accessibility": "high",
+    "responsiveness": "full_screen_support",
+    "theme_colors": {
+      "primary": "#1a1a1a",
+      "secondary": "#2d2d2d",
+      "accent": "#FFD700",
+      "danger": "#FF0000",
+      "success": "#00FF00"
+    }
+  },
+
+  "ui_panels": [
+    {
+      "id": "NARIS-UI-INVENTORY-0001",
+      "name": "Inventory",
+      "type": "inventory_management",
+      "access_key": "i",
+      "layout": "grid_based",
+
+      "sections": {
+        "weapons": {
+          "slots": 3,
+          "current_equipped": 1,
+          "description": "Equipped and stored weapons"
+        },
+        "armor": {
+          "slots": 5,
+          "areas": ["head", "chest", "hands", "legs", "feet"],
+          "description": "Armor pieces and protective gear"
+        },
+        "consumables": {
+          "slots": 12,
+          "stackable": true,
+          "quick_access": true,
+          "description": "Potions, elixirs, and consumable items"
+        },
+        "crafting_materials": {
+          "slots": 24,
+          "stackable": true,
+          "sort_options": ["rarity", "type", "name"],
+          "description": "Ingredients and components for crafting"
+        },
+        "quest_items": {
+          "slots": 8,
+          "unsellable": true,
+          "description": "Quest-related items and key items"
+        },
+        "miscellaneous": {
+          "slots": 16,
+          "description": "General items and collectibles"
+        }
+      },
+
+      "features": {
+        "drag_and_drop": true,
+        "item_comparison": true,
+        "filtering": true,
+        "sorting": true,
+        "item_preview": true,
+        "description_panels": true
+      }
+    },
+
+    {
+      "id": "NARIS-UI-JOURNAL-0001",
+      "name": "Journal",
+      "type": "quest_documentation",
+      "access_key": "j",
+      "layout": "tabbed_interface",
+
+      "sections": {
+        "active_quests": {
+          "display": "list_with_objectives",
+          "tracking": true,
+          "waypoint_markers": true,
+          "description": "Currently active quests and missions"
+        },
+        "completed_quests": {
+          "display": "archived_list",
+          "reward_tracking": true,
+          "description": "Finished quests with completion rewards"
+        },
+        "quest_log": {
+          "display": "full_narrative",
+          "story_context": true,
+          "character_notes": true,
+          "description": "Detailed quest narratives and lore"
+        },
+        "world_lore": {
+          "display": "knowledge_database",
+          "categories": true,
+          "discovery_based": true,
+          "description": "Discovered world lore and references"
+        },
+        "character_profiles": {
+          "display": "npc_database",
+          "relationship_tracking": true,
+          "dialogue_history": true,
+          "description": "NPCs and character information"
+        }
+      }
+    },
+
+    {
+      "id": "NARIS-UI-CRAFTING-0001",
+      "name": "Crafting",
+      "type": "crafting_system",
+      "access_key": "c",
+      "layout": "recipe_based",
+
+      "sections": {
+        "recipe_list": {
+          "display": "filterable_list",
+          "filters": ["weapon", "armor", "consumable", "accessory"],
+          "search": true,
+          "crafting_level_requirement": true
+        },
+        "crafting_interface": {
+          "display": "material_selection",
+          "ingredient_slots": 6,
+          "recipe_details": true,
+          "material_requirements": true,
+          "crafting_time": true,
+          "success_chance": true
+        },
+        "crafted_items": {
+          "display": "production_queue",
+          "batch_crafting": true,
+          "auto_collect": false,
+          "time_tracking": true
+        },
+        "mastery_levels": {
+          "categories": ["smithing", "alchemy", "enchanting"],
+          "progression": true,
+          "unlock_recipes": true
+        }
+      },
+
+      "crafting_mechanics": {
+        "min_level": 1,
+        "experience_gain": true,
+        "critical_success": true,
+        "failure_chance": true,
+        "resource_waste_on_failure": true
+      }
+    },
+
+    {
+      "id": "NARIS-UI-SETTINGS-0001",
+      "name": "Settings",
+      "type": "configuration",
+      "access_key": "esc",
+      "layout": "categorical_tabs",
+
+      "sections": {
+        "video": {
+          "options": [
+            {
+              "id": "resolution",
+              "name": "Resolution",
+              "type": "dropdown",
+              "values": ["1920x1080", "2560x1440", "3840x2160"]
+            },
+            {
+              "id": "graphics_quality",
+              "name": "Graphics Quality",
+              "type": "slider",
+              "values": ["low", "medium", "high", "ultra"]
+            },
+            {
+              "id": "framerate_cap",
+              "name": "FPS Cap",
+              "type": "number",
+              "min": 30,
+              "max": 240
+            },
+            {
+              "id": "v_sync",
+              "name": "V-Sync",
+              "type": "toggle"
+            }
+          ]
+        },
+        "audio": {
+          "options": [
+            {
+              "id": "master_volume",
+              "name": "Master Volume",
+              "type": "slider",
+              "min": 0,
+              "max": 100
+            },
+            {
+              "id": "music_volume",
+              "name": "Music Volume",
+              "type": "slider",
+              "min": 0,
+              "max": 100
+            },
+            {
+              "id": "sfx_volume",
+              "name": "SFX Volume",
+              "type": "slider",
+              "min": 0,
+              "max": 100
+            },
+            {
+              "id": "ambient_volume",
+              "name": "Ambient Volume",
+              "type": "slider",
+              "min": 0,
+              "max": 100
+            }
+          ]
+        },
+        "gameplay": {
+          "options": [
+            {
+              "id": "difficulty",
+              "name": "Difficulty",
+              "type": "dropdown",
+              "values": ["story", "normal", "hard", "extreme"]
+            },
+            {
+              "id": "hud_scale",
+              "name": "HUD Scale",
+              "type": "slider",
+              "min": 0.75,
+              "max": 1.5
+            },
+            {
+              "id": "subtitle_display",
+              "name": "Subtitles",
+              "type": "toggle"
+            }
+          ]
+        },
+        "keybinds": {
+          "customizable": true,
+          "profiles": true,
+          "reset_to_default": true
+        }
+      }
+    },
+
+    {
+      "id": "NARIS-UI-PAUSE-MENU-0001",
+      "name": "Pause Menu",
+      "type": "main_menu",
+      "access_key": "esc",
+      "layout": "vertical_stack",
+
+      "menu_items": [
+        {
+          "id": "resume",
+          "label": "Resume Game",
+          "action": "resume_gameplay"
+        },
+        {
+          "id": "inventory",
+          "label": "Inventory",
+          "action": "open_inventory"
+        },
+        {
+          "id": "journal",
+          "label": "Journal",
+          "action": "open_journal"
+        },
+        {
+          "id": "crafting",
+          "label": "Crafting",
+          "action": "open_crafting"
+        },
+        {
+          "id": "settings",
+          "label": "Settings",
+          "action": "open_settings"
+        },
+        {
+          "id": "save_game",
+          "label": "Save Game",
+          "action": "save_checkpoint"
+        },
+        {
+          "id": "load_game",
+          "label": "Load Game",
+          "action": "load_checkpoint"
+        },
+        {
+          "id": "main_menu",
+          "label": "Main Menu",
+          "action": "return_to_main_menu"
+        },
+        {
+          "id": "quit",
+          "label": "Quit to Desktop",
+          "action": "quit_application"
+        }
+      ]
+    },
+
+    {
+      "id": "NARIS-UI-HUD-GAME-0001",
+      "name": "Game HUD",
+      "type": "heads_up_display",
+      "always_visible": true,
+      "layout": "screen_anchored",
+
+      "hud_elements": {
+        "top_left": {
+          "player_health": {
+            "display": "bar_numeric",
+            "current_hp": 0,
+            "max_hp": 0,
+            "bar_color": "#FF0000",
+            "text_format": "{current}/{max}"
+          },
+          "stamina_bar": {
+            "display": "bar_numeric",
+            "current": 0,
+            "max": 100,
+            "bar_color": "#FFD700",
+            "regenerating": true
+          }
+        },
+        "top_center": {
+          "objective_tracker": {
+            "display": "text_list",
+            "active_quest": true,
+            "current_objective": true,
+            "progress_percentage": true
+          },
+          "mini_map": {
+            "display": "circular_minimap",
+            "player_position": true,
+            "enemy_markers": true,
+            "waypoint_markers": true,
+            "zoom_levels": 3
+          }
+        },
+        "top_right": {
+          "resource_indicators": {
+            "mana": {
+              "display": "bar_numeric",
+              "current": 0,
+              "max": 150,
+              "bar_color": "#00FFFF"
+            }
+          },
+          "time_display": {
+            "display": "text",
+            "game_time": true
+          }
+        },
+        "bottom_left": {
+          "quick_slots": {
+            "display": "action_bar",
+            "slots": 6,
+            "consumable_quick_access": true,
+            "hotkey_display": true
+          }
+        },
+        "bottom_center": {
+          "weapon_display": {
+            "display": "large_icon",
+            "current_weapon": true,
+            "weapon_stats": true,
+            "ability_ready_indicator": true
+          }
+        },
+        "bottom_right": {
+          "status_effects": {
+            "display": "icon_array",
+            "active_buffs": true,
+            "active_debuffs": true,
+            "duration_timers": true
+          }
+        },
+        "center_screen": {
+          "enemy_health_bar": {
+            "display": "conditional_bar",
+            "appears_on_target": true,
+            "shows_name": true,
+            "shows_hp_numeric": true,
+            "shows_level": true
+          },
+          "damage_numbers": {
+            "display": "floating_text",
+            "color_by_damage_type": true,
+            "critical_hit_highlight": true,
+            "float_animation": true
+          },
+          "status_notifications": {
+            "display": "toast_messages",
+            "important_events": true,
+            "fade_out": 3.0
+          }
+        }
+      }
+    }
+  ],
+
+  "input_system": {
+    "control_schemes": ["keyboard", "gamepad", "mouse"],
+    "customizable_keybinds": true,
+    "gamepad_support": {
+      "standard": "xbox_layout",
+      "features": ["rumble", "adaptive_triggers"]
+    }
+  },
+
+  "accessibility_features": {
+    "colorblind_modes": ["deuteranopia", "protanopia", "tritanopia"],
+    "font_scaling": true,
+    "high_contrast_mode": true,
+    "screen_reader_support": true,
+    "remappable_controls": true
+  },
+
+  "visual_style": {
+    "theme": "dark_fantasy",
+    "font_family": "custom_gothic",
+    "ui_scale": 1.0,
+    "animation_enabled": true,
+    "transition_duration": 0.3,
+    "shadow_effects": true
+  },
+
+  "validation_status": "production_ready",
+  "notes": "Complete NARIS game UI system with all panels, menus, HUD elements, and accessibility features for Batch 07-08."
+}
