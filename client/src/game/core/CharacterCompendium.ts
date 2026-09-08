@@ -232,9 +232,9 @@ export const CHARACTER_REN_ASHWALKER: CharacterSpec = {
     speakingStyle: 'Smooth and persuasive, underlaid with bitter edge',
   },
   voicelines: [
-    'They picked you. Empty-handed, memory-less you. I've bled for this. Move.',
+    "They picked you. Empty-handed, memory-less you. I've bled for this. Move.",
     'We could rule both wounds together. Why do you resist?',
-    'You're slow. Slower than I expected. Slower than you should be.',
+    "You're slow. Slower than I expected. Slower than you should be.",
   ],
   gameplayRole:
     'Recurring rival. Encountered in both zones as an escalating threat. Foreshadows final confrontation beyond the teaser. Can be defeated multiple times, returns stronger.',

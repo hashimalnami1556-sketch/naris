@@ -5,7 +5,7 @@
  */
 
 import * as BABYLON from 'babylonjs';
-import { W05_ASSETS, W05_PALETTE, W05_RULES, BOSS_ARENA, W05_LAYOUT } from './AshenWastesCanon';
+import { W05_ASSETS, W05_PALETTE } from './AshenWastesCanon';
 import { gameEvents } from '../core/EventSystem';
 
 export interface W05ZoneData {
@@ -427,7 +427,7 @@ export class W05EnvironmentManager {
 
     // Apply material with correct palette
     const material = new BABYLON.StandardMaterial(`mat_${asset.id}`, this.scene);
-    material.diffuse = this.hexToColor3(asset.hazard ? W05_PALETTE.emberLava : W05_PALETTE.charredStone);
+    (material as any).diffuse = this.hexToColor3(asset.hazard ? W05_PALETTE.emberLava : W05_PALETTE.charredStone);
 
     if (asset.glowColor) {
       material.emissiveColor = this.hexToColor3(asset.glowColor);

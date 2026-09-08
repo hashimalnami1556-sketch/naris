@@ -299,11 +299,6 @@ export class BlenderParticleEffectLoader {
     particleSystem.addColorGradient(0, new BABYLON.Color4(0.2, 0.55, 0.9, 0.6));
     particleSystem.addColorGradient(1, new BABYLON.Color4(0.1, 0.35, 1.0, 0));
 
-    // Material
-    const rainMaterial = new BABYLON.StandardMaterial('rain_material', this.scene);
-    rainMaterial.emissiveColor = new BABYLON.Color3(0.1, 0.35, 1.0);
-    particleSystem.material = rainMaterial;
-
     this.particleSystems.set('rain', particleSystem);
     return particleSystem;
   }
@@ -333,10 +328,6 @@ export class BlenderParticleEffectLoader {
     fogSystem.addColorGradient(0, new BABYLON.Color4(0.15, 0.12, 0.1, 0.3));
     fogSystem.addColorGradient(0.5, new BABYLON.Color4(0.2, 0.15, 0.12, 0.5));
     fogSystem.addColorGradient(1, new BABYLON.Color4(0.1, 0.1, 0.1, 0));
-
-    const fogMaterial = new BABYLON.StandardMaterial('fog_material', this.scene);
-    fogMaterial.emissiveColor = new BABYLON.Color3(0.2, 0.15, 0.12);
-    fogSystem.material = fogMaterial;
 
     this.particleSystems.set('fog', fogSystem);
     return fogSystem;
@@ -369,10 +360,6 @@ export class BlenderParticleEffectLoader {
     sparkSystem.addColorGradient(0, new BABYLON.Color4(1.0, 0.025, 0.001, 1));
     sparkSystem.addColorGradient(0.7, new BABYLON.Color4(1.0, 0.45, 0.1, 0.8));
     sparkSystem.addColorGradient(1, new BABYLON.Color4(1.0, 0.1, 0.001, 0));
-
-    const sparkMaterial = new BABYLON.StandardMaterial('spark_material', this.scene);
-    sparkMaterial.emissiveColor = new BABYLON.Color3(1.0, 0.45, 0.1);
-    sparkSystem.material = sparkMaterial;
 
     this.particleSystems.set('fire_sparks', sparkSystem);
     return sparkSystem;

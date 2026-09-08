@@ -7,7 +7,7 @@
 export interface W05Asset {
   id: string;
   name: string;
-  dimensions: { width: number; height: number; depth?: number; radius?: number };
+  dimensions: { width?: number; height: number; depth?: number; radius?: number };
   hazard: boolean;
   glowColor?: string;
   glowIntensity?: number;
