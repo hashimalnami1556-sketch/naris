@@ -1,0 +1,59 @@
+{
+  "schema_version": "1.0.0",
+  "project": "NARIS",
+  "pipeline": "reference -> concept -> generation -> cleanup -> optimization -> integration -> validation",
+  "runtime_format": "GLB/glTF 2.0",
+  "source_formats": ["BLEND", "FBX", "OBJ"],
+  "asset_families": [
+    {
+      "id": "CHR",
+      "name": "Characters",
+      "examples": ["CHR_Hero_AshenVessel", "CHR_Enemy_BoneBeast"],
+      "required_outputs": ["mesh", "pbr", "rig", "collision", "lods", "runtime_glb"]
+    },
+    {
+      "id": "ENV",
+      "name": "Environment",
+      "examples": ["ENV_AshenForest_Rock_Cliff_A01", "ENV_AshenForest_Tree_Trunk_A01"],
+      "required_outputs": ["modular_mesh", "pbr", "collision", "lods", "runtime_glb"]
+    },
+    {
+      "id": "PROP",
+      "name": "Props and narrative objects",
+      "examples": ["PROP_Relic_AncientGold_A01"],
+      "required_outputs": ["mesh", "pbr", "collision", "runtime_glb"]
+    },
+    {
+      "id": "FX",
+      "name": "Effects",
+      "examples": ["FX_NarisFire_Burst_A01"],
+      "required_outputs": ["vfx_reference", "runtime_parameters"]
+    },
+    {
+      "id": "UI",
+      "name": "Game UI",
+      "examples": ["UI_Ability_Ring_A01", "UI_HUD_Core_A01"],
+      "required_outputs": ["component_spec", "states", "accessibility", "implementation_notes"]
+    }
+  ],
+  "status_flow": ["CONCEPT", "APPROVED", "PRODUCTION", "INTEGRATED", "VALIDATED"],
+  "quality_gates": [
+    "visual_identity",
+    "silhouette_readability",
+    "topology_and_uv_quality",
+    "material_reuse",
+    "pivot_and_units",
+    "collision_proxy",
+    "lod_strategy",
+    "texture_budget",
+    "glb_validation",
+    "runtime_memory_and_draw_call_review"
+  ],
+  "reference_sources": {
+    "repository_inventory": "NARIS_MASTER/SOURCE_ASSET_INVENTORY.json",
+    "character_bible": "docs/characters/ASHEN_VESSEL_CHARACTER_BIBLE.md",
+    "character_pipeline": "docs/characters/CHARACTER_PIPELINE_INTEGRATION.md",
+    "vertical_slice": "docs/W04_VERTICAL_SLICE/README.md",
+    "architecture": "docs/INTEGRATION_ARCHITECTURE.md"
+  }
+}

@@ -1,0 +1,73 @@
+{
+  "schema_version": "1.0.0",
+  "project": "NARIS",
+  "default_status": "CONCEPT",
+  "status_flow": ["CONCEPT", "APPROVED", "PRODUCTION", "INTEGRATED", "VALIDATED"],
+  "items": [
+    {
+      "id": "CHR_Hero_AshenVessel",
+      "family": "CHR",
+      "priority": "P0",
+      "deliverables": ["reference_sheet", "hero_mesh", "pbr", "rig", "lods", "collision", "runtime_glb"],
+      "integration_target": "player-character",
+      "status": "CONCEPT"
+    },
+    {
+      "id": "CHR_Enemy_BoneBeast",
+      "family": "CHR",
+      "priority": "P0",
+      "deliverables": ["silhouette", "combat_mesh", "pbr", "rig", "lods", "collision", "runtime_glb"],
+      "integration_target": "enemy-system",
+      "status": "CONCEPT"
+    },
+    {
+      "id": "ENV_AshenForest_Rock_Cliff_A01",
+      "family": "ENV",
+      "priority": "P0",
+      "deliverables": ["modular_mesh", "pbr", "collision", "lods", "runtime_glb"],
+      "integration_target": "ashen-forest",
+      "status": "CONCEPT"
+    },
+    {
+      "id": "ENV_AshenForest_Tree_Trunk_A01",
+      "family": "ENV",
+      "priority": "P0",
+      "deliverables": ["modular_mesh", "pbr", "collision", "lods", "runtime_glb"],
+      "integration_target": "ashen-forest",
+      "status": "CONCEPT"
+    },
+    {
+      "id": "PROP_Relic_AncientGold_A01",
+      "family": "PROP",
+      "priority": "P1",
+      "deliverables": ["mesh", "pbr", "collision", "runtime_glb"],
+      "integration_target": "reward-and-narrative-system",
+      "status": "CONCEPT"
+    },
+    {
+      "id": "FX_NarisFire_Burst_A01",
+      "family": "FX",
+      "priority": "P1",
+      "deliverables": ["vfx_reference", "runtime_parameters"],
+      "integration_target": "combat-fx",
+      "status": "CONCEPT"
+    },
+    {
+      "id": "UI_HUD_Core_A01",
+      "family": "UI",
+      "priority": "P0",
+      "deliverables": ["component_spec", "states", "accessibility", "implementation_notes"],
+      "integration_target": "runtime-hud",
+      "status": "CONCEPT"
+    },
+    {
+      "id": "UI_Ability_Ring_A01",
+      "family": "UI",
+      "priority": "P1",
+      "deliverables": ["component_spec", "states", "accessibility", "implementation_notes"],
+      "integration_target": "ability-system",
+      "status": "CONCEPT"
+    }
+  ],
+  "approval_rule": "An item cannot move to INTEGRATED without design approval and documented runtime requirements; it cannot move to VALIDATED without runtime validation."
+}
