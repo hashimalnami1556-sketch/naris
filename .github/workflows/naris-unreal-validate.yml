@@ -1,0 +1,27 @@
+name: NARIS Unreal Validate
+
+on:
+  pull_request:
+    paths:
+      - "unreal/**"
+      - ".github/workflows/naris-unreal-validate.yml"
+  push:
+    branches: [main, feature/naris-md-components-integration]
+    paths:
+      - "unreal/**"
+
+jobs:
+  static-contract-validation:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate Unreal project files
+        shell: bash
+        run: |
+          test -s unreal/NARIS_W04/NARIS_W04.uproject
+          test -s unreal/NARIS_W04/Config/DefaultEngine.ini
+          test -s unreal/NARIS_W04/Source/NARIS_W04/NARIS_W04.Build.cs
+          find unreal/NARIS_W04/Source -type f -size 0 -print -quit | grep -q . && exit 1 || true
+          test -s unreal/NARIS_W04/Content/NARIS/W04/Data/W04_VerticalSliceManifest.json
+          test -s unreal/NARIS_W04/Content/NARIS/W04/QA/W04_ACCEPTANCE_TESTS.md
+          echo "NARIS Unreal repository contracts are non-empty and present."
