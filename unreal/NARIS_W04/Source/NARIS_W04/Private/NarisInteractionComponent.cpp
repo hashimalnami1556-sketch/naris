@@ -1,5 +1,6 @@
 #include "NarisInteractionComponent.h"
 #include "Engine/World.h"
+#include "EngineUtils.h"
 #include "GameFramework/Actor.h"
 UNarisInteractionComponent::UNarisInteractionComponent(){PrimaryComponentTick.bCanEverTick=false;}
 bool UNarisInteractionComponent::Interact()
