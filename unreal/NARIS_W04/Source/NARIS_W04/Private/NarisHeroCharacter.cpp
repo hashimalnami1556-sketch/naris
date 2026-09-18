@@ -23,7 +23,7 @@ void ANarisHeroCharacter::Tick(float D){Super::Tick(D);if(Combat&&Combat->Health
 void ANarisHeroCharacter::SetupPlayerInputComponent(UInputComponent* I)
 {
  Super::SetupPlayerInputComponent(I);
- if(UInputSettings* S=GetDefault<UInputSettings>()){for(const FInputActionKeyMapping& K:S->GetActionMappingByName(TEXT("MoveForward")))I->BindAction(K.ActionName,EInputEvent::IE_Pressed,this,&ANarisHeroCharacter::MoveForward).bConsumeInput=true;}
+
  I->BindAxis(TEXT("MoveForward"),this,&ANarisHeroCharacter::MoveForward); I->BindAxis(TEXT("MoveRight"),this,&ANarisHeroCharacter::MoveRight); I->BindAxis(TEXT("LookYaw"),this,&ANarisHeroCharacter::LookYaw); I->BindAxis(TEXT("LookPitch"),this,&ANarisHeroCharacter::LookPitch);
  I->BindAction(TEXT("LightAttack"),IE_Pressed,this,&ANarisHeroCharacter::LightAttack); I->BindAction(TEXT("HeavyAttack"),IE_Pressed,this,&ANarisHeroCharacter::HeavyAttack); I->BindAction(TEXT("Dodge"),IE_Pressed,this,&ANarisHeroCharacter::Dodge); I->BindAction(TEXT("Parry"),IE_Pressed,this,&ANarisHeroCharacter::Parry); I->BindAction(TEXT("ResonanceBurst"),IE_Pressed,this,&ANarisHeroCharacter::ResonanceBurst);
 }
