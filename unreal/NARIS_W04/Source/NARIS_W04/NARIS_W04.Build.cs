@@ -11,7 +11,11 @@ public class NARIS_W04 : ModuleRules
             "Core",
             "CoreUObject",
             "Engine",
-            "GameplayTags"
+            "GameplayTags",
+            "EnhancedInput",
+            "AIModule",
+            "NavigationSystem",
+            "UMG"
         });
     }
 }
