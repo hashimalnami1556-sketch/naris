@@ -1,6 +1,6 @@
 #include "NarisLockOnComponent.h"
 #include "Engine/World.h"
-#include "Kismet/GameplayStatics.h"
+#include "EngineUtils.h"
 #include "GameFramework/Pawn.h"
 #include "NarisCombatComponent.h"
 UNarisLockOnComponent::UNarisLockOnComponent(){PrimaryComponentTick.bCanEverTick=false;}
