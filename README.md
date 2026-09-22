@@ -6,38 +6,50 @@
 
 - **Default branch:** `main`
 - **Production source of truth:** GitHub
+- **Primary engine target:** Unreal Engine 5.4+
+- **Primary platform target:** Windows PC
+- **Primary vertical slice:** W04 — Ashen Forest
 - **Canonical asset registry:** `data/MASTER_ASSET_REGISTRY.json`
 - **Canonical pipeline:** `docs/MASTER_PRODUCTION_PIPELINE.md`
 - **Repository map:** `docs/REPOSITORY_MAP.md`
 - **Production status:** `docs/PRODUCTION_STATUS.md`
+- **Master integration spec:** `docs/production/NARIS_MASTER_INTEGRATION_v1_9.md`
+- **World generation tool:** `tools/assetforge/world_generator.py`
+
+## Current integration level — 2026-09-22
+
+The repository has moved beyond isolated prototype packages. The current production baseline is **v1.9 Master Integration**, with Unreal/W04 as the canonical implementation path.
+
+| Layer | Scope |
+|---|---|
+| v1.3 | Visual identity, branding, English-first production baseline |
+| v1.4 | Combat, energy, abilities, poise, HUD contracts |
+| v1.5 | World interaction, quests, inventory, dialogue |
+| v1.6 | Companion, crafting, map, AI director, factions, world events |
+| v1.7 | Bosses, cinematics, localization, settings, build/QA contracts |
+| v1.8 | GameRoot/demo loop, save slots, achievements, release gates |
+| v1.9 | Master merge, platform packaging, playtest, validation, PC-first consolidation |
+
+The public demo gate remains closed until the playable W04 loop passes engine, performance and QA acceptance.
 
 ## Canonical structure
 
-```text
-naris/
-├── .github/                         # CI/CD and repository automation
-├── docs/                            # Canonical production documentation
-│   ├── architecture/                # System and technical architecture
-│   ├── production/                  # Pipeline, standards and gates
-│   ├── worlds/                      # World bibles and world specifications
-│   ├── characters/                  # Character specifications
-│   ├── environments/                # Environment production specifications
-│   ├── ui/                          # UI/UX specifications
-│   └── release/                     # Release notes and checklists
-├── data/                            # Machine-readable registries and manifests
-│   ├── MASTER_ASSET_REGISTRY.json   # Asset IDs, status and ownership metadata
-│   └── manifests/                   # Batch and delivery manifests
-├── GAME_STUDIO/                     # Playable slices and game prototypes
-├── NARIS_MASTER/                    # Master production workspace
-├── assets/                          # Approved/source asset packages
-├── apps/                            # Supporting applications/tools
-├── source/                          # Runtime/source code
-├── schemas/                         # JSON/schema contracts
-├── mcp/                             # MCP integration layer
-├── migration/                       # Migration and normalization utilities
-├── generated_designs/               # Generated visual/design references
-└── DOCUMENTS/                       # Historical/source material; not canonical
-```
+    naris/
+    ├── .github/                         # CI/CD and repository automation
+    ├── docs/                            # Canonical production documentation
+    ├── data/                            # Machine-readable registries and manifests
+    ├── GAME_STUDIO/                     # Playable slices and game prototypes
+    ├── NARIS_MASTER/                    # Master production workspace
+    ├── unreal/                          # Unreal Engine bootstrap/runtime project
+    ├── assets/                          # Approved/source asset packages
+    ├── apps/                            # Supporting applications/tools
+    ├── source/                          # Runtime/source code
+    ├── tools/                           # Production automation and AssetForge
+    ├── schemas/                         # JSON/schema contracts
+    ├── mcp/                             # MCP integration layer
+    ├── migration/                       # Migration and normalization utilities
+    ├── generated_designs/               # Generated visual/design references
+    └── DOCUMENTS/                       # Historical/source material; not canonical
 
 ## Production rule
 
@@ -45,7 +57,7 @@ The repository is organized around a single traceability chain:
 
 `BRIEF → CONCEPT → APPROVAL → ASSET_ID → SOURCE → MODEL/ART → MATERIAL → RIG/ANIMATION → ENGINE → OPTIMIZATION → QA → APPROVED → RELEASE`
 
-A generated image is a **reference**, not a finished game asset. Assets become release candidates only after technical-art, engine, performance, and QA gates are satisfied.
+A generated image is a **reference**, not a finished game asset. Assets become release candidates only after technical-art, engine, performance, gameplay and QA gates are satisfied.
 
 ## Asset identity
 
@@ -79,21 +91,57 @@ Examples:
 
 `CHR` Characters · `ENM` Enemies · `BOS` Bosses · `WPN` Weapons · `PRP` Props · `ENV` Environment · `MAT` Materials · `VFX` Visual Effects · `UI` Interface · `MAP` Maps · `CINE` Cinematics · `AUD` Audio · `QST` Quests/Content
 
-## External production systems
+## AssetForge world layer
 
-Figma, Adobe, Adobe Acrobat, Adalo, Unreal Engine, PostHog, CreativeClaw, Apixel, OpenArt, Higgsfield, to3D, Visla, VideoZero and Slack are treated as specialized production systems. GitHub remains the versioned source of truth for specifications, schemas, manifests, automation definitions, review history and release records.
+`tools/assetforge/world_generator.py` is the deterministic engine-neutral world-data generator. It currently provides:
+
+- 99 biome identifiers
+- heightmap generation
+- moisture/temperature fields
+- biome assignment
+- downhill river guides
+- settlement placement
+- deterministic road guides
+- streaming chunk metadata
+- JSON export for Unreal import tooling
+
+Fast validation:
+
+    cd tools/assetforge
+    python -m unittest test_world_generator.py
+
+Generate a sample:
+
+    python world_generator.py --size 256 --chunk-size 32 --output build/worldgen/naris_world.json
+
+## Unreal / Windows PC target
+
+Canonical bootstrap project:
+
+`unreal/NARIS_W04/NARIS_W04.uproject`
+
+The next executable milestone is a 10–15 minute W04 PC vertical slice:
+
+`Main Menu → Intro → Wake Area → Movement/Combat → Memory Crystal → First Whisper → Ash Gate → Celestial Wolf → Bone Beast → Demo End`
 
 ## Visual standard
 
-Dark Fantasy + High Fantasy + Cinematic AAA presentation with deliberate color contrast. Core visual accents: Naris Fire, Aether Violet, Mist Cyan and Ancient Gold.
+Dark Fantasy + High Fantasy + Cinematic AAA presentation with deliberate color contrast.
 
-## Current revision
+Core visual accents:
 
-The horned enemy variant is being developed with substantially shorter horns, a heavy demonic tail, and a brutal mace/club while preserving the established armor language, anatomy, materials and silhouette.
+- Naris Fire — Ember Orange
+- Aether — Royal Violet
+- Spirit Energy — Mist Cyan
+- Ancient Power — Ancient Gold
+- Base world tone — Ash Blue / Obsidian
 
 ## Documentation entry points
 
 - `docs/MASTER_PRODUCTION_PIPELINE.md`
 - `docs/REPOSITORY_MAP.md`
 - `docs/PRODUCTION_STATUS.md`
+- `docs/production/NARIS_MASTER_INTEGRATION_v1_9.md`
+- `docs/production/ASSETFORGE_WORLDGEN.md`
 - `data/MASTER_ASSET_REGISTRY.json`
+- `data/manifests/MASTER_INTEGRATION_2026-09-22.json`
