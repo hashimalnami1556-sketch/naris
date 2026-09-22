@@ -1,6 +1,10 @@
 # CALL OF NARIS — Production Status
 
-**Snapshot:** 2026-09-04
+**Snapshot:** 2026-09-22  
+**Canonical engine path:** Unreal Engine 5.4+  
+**Primary target:** Windows PC  
+**Primary vertical slice:** W04 — Ashen Forest  
+**Release gate:** Internal playtest only
 
 ## Repository baseline
 
@@ -8,58 +12,125 @@
 - Asset registry: `data/MASTER_ASSET_REGISTRY.json`
 - Production pipeline: `docs/MASTER_PRODUCTION_PIPELINE.md`
 - Repository governance: `docs/REPOSITORY_MAP.md`
+- Unreal bootstrap: `unreal/NARIS_W04/NARIS_W04.uproject`
+- Master integration: `docs/production/NARIS_MASTER_INTEGRATION_v1_9.md`
+- AssetForge world generator: `tools/assetforge/world_generator.py`
 
-## Current asset registry snapshot
+## Integration status
 
-The registry currently tracks characters, enemies, bosses, weapons, environment kits, materials, VFX, UI, maps and cinematics across the ten worlds.
+| Layer | Status | Canonical role |
+|---|---|---|
+| v1.3 | Integrated as design baseline | Visual identity, branding, color system |
+| v1.4 | Contracted into Unreal path | Combat, energy, abilities, poise |
+| v1.5 | Contracted into Unreal path | Quests, inventory, dialogue, interaction |
+| v1.6 | Contracted into Unreal path | Companion, crafting, map, AI director |
+| v1.7 | Contracted into Unreal path | Boss, cinematic, localization, settings, build/QA |
+| v1.8 | Consolidated | GameRoot, demo loop, save slots, achievements |
+| v1.9 | Active | Master merge, PC packaging, playtest, validation |
 
-## Active production focus
+Earlier Godot-oriented packages remain useful as design/system provenance, but **Unreal Engine W04 is the canonical implementation target**.
 
-### W04 — Ashen Forest
+## Active production focus — W04 Ashen Forest
 
-Primary playable-slice focus. Current tracked items include:
+### Playable loop
 
-- Ashen Vessel
-- Celestial Wolf
-- Ash Wanderer
-- Translucent Hero variant
-- Gate Guardian
-- Bone Beast
-- Fallen Warden
-- Ashen Forest Modular Kit
-- Waystone
-- Holy Portal
-- Ashen Stone Tile
-- Naris Fire Ember System
-- Celestial Spirit FX
-- Combat HUD
-- Ashen Forest Region Map
-- The Gate Remembers teaser
+1. Main Menu
+2. Intro cinematic
+3. Wake Area
+4. Movement/combat tutorial
+5. Memory Crystal pickup
+6. Naris First Whisper dialogue
+7. Ash Gate interaction
+8. Celestial Wolf encounter/link
+9. Bone Beast boss encounter
+10. Demo End screen
 
-### Cross-world production
+### Runtime systems required for acceptance
 
-Modular environment kits are defined for W01–W10. Core weapon and enemy families are also registered across the relevant worlds.
+- Third-person player controller
+- Enhanced Input
+- camera + lock-on
+- health / poise / stagger / execution
+- five-essence runtime
+- weapon hit detection
+- companion commands + Echo Link
+- quest/inventory/dialogue state
+- checkpoint/save/load
+- boss phase controller
+- UMG HUD
+- audio buses
+- localization (EN/AR)
+- Windows packaging
+- automated smoke/validation tests
+
+## World / AssetForge layer
+
+A deterministic world-data generator is now part of the repository.
+
+Current output layers:
+
+- heightmap
+- 99-biome catalog and biome grid
+- river guide splines
+- settlement points
+- road guide splines
+- streaming chunk metadata
+
+The generator is engine-neutral; Unreal remains authoritative for final Landscape, PCG, splines, World Partition and authored gameplay spaces.
+
+## Art status
+
+The registry still intentionally distinguishes concept/blockout from release-ready assets.
+
+Priority final-art replacements:
+
+- Ashen Vessel final production model
+- Celestial Wolf final production model
+- Bone Beast final boss model
+- Ashen Forest modular kit
+- final HUD/UI
+- final weapon set
+- final Niagara VFX
+- production animation set
+- music/SFX/voiceover
 
 ## Gate policy
 
-Current registry states are intentionally conservative. `concept`, `brief`, and `blockout` do **not** mean production-ready.
+`concept`, `brief`, and `blockout` do **not** mean production-ready.
 
 An asset can enter `approved` only after:
 
 1. Visual approval
 2. Technical-art validation
 3. Engine integration
-4. Collision/LOD validation
-5. Performance validation
-6. Gameplay validation where applicable
+4. collision/LOD validation
+5. performance validation
+6. gameplay validation where applicable
 7. QA sign-off
-8. Registry update
+8. registry update
 
-## Next organization pass
+## Public demo gate
 
-1. Move new documentation into the `docs/` taxonomy.
-2. Add batch manifests under `data/manifests/` for each production batch.
-3. Keep `DOCUMENTS/` as provenance/archive rather than a second source of truth.
-4. Keep generated visual references separated from approved runtime assets.
-5. Require Asset IDs for new production deliveries.
-6. Keep CI validation enabled for registry/schema integrity.
+Public distribution remains disabled until all blocking conditions pass:
+
+- W04 loop playable end-to-end
+- no blocking crashes
+- input + controller profile stable
+- save/load round-trip verified
+- boss encounter completable
+- EN/AR text pass complete
+- Windows package validated
+- performance budget accepted
+- asset licensing/provenance recorded
+- QA release checklist green
+
+## Next production pass
+
+1. Finish Unreal player/companion/boss actor wiring.
+2. Import AssetForge W04 world data into PCG/Landscape test tooling.
+3. Build one complete W04 level rather than disconnected test scenes.
+4. Replace combat placeholders with real montages/hit windows.
+5. Complete UMG HUD and menu flow.
+6. Add Windows Development/Shipping build automation.
+7. Run 10–15 minute internal playtest and log defects.
+8. Promote only verified assets/statuses in the master registry.
