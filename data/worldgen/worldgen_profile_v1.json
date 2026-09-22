@@ -1,0 +1,41 @@
+{
+  "schema_version": "1.0.0",
+  "project": "CALL OF NARIS",
+  "generator": "tools/assetforge/world_generator.py",
+  "primary_target": "Unreal Engine 5.4 / Windows PC",
+  "defaults": {
+    "seed": 9042026,
+    "size": 256,
+    "chunk_size": 32,
+    "sea_level": 0.33,
+    "settlement_count": 12,
+    "river_count": 8
+  },
+  "catalog": {
+    "biome_count": 99,
+    "families": 11,
+    "variants_per_family": 9
+  },
+  "worlds": [
+    {"id": "W01", "name": "Frozen Peaks", "bias": "frost"},
+    {"id": "W02", "name": "Forge of Flame", "bias": "volcanic"},
+    {"id": "W03", "name": "Echoes Desert", "bias": "desert"},
+    {"id": "W04", "name": "Ashen Forest", "bias": "ashen"},
+    {"id": "W05", "name": "Silent Abyss", "bias": "abyss"},
+    {"id": "W06", "name": "Inverted Towers", "bias": "royal"},
+    {"id": "W07", "name": "Lost Souls Swamp", "bias": "swamp"},
+    {"id": "W08", "name": "Astral Fortress", "bias": "astral"},
+    {"id": "W09", "name": "Forgotten Canals", "bias": "canal"},
+    {"id": "W10", "name": "Throne of Naris", "bias": "royal"}
+  ],
+  "output_contract": {
+    "format": "JSON",
+    "layers": ["heightmap", "biomes", "rivers", "settlements", "roads", "chunks"],
+    "unreal_usage": [
+      "Landscape import bridge",
+      "PCG biome masks",
+      "Spline rivers/roads",
+      "World Partition chunk metadata"
+    ]
+  }
+}
