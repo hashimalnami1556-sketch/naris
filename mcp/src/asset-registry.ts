@@ -44,7 +44,8 @@ export async function registryStatus() {
   const duplicateIds = manifest.assets.map(a => a.id).filter((id, i, all) => all.indexOf(id) !== i);
   const statuses = [...new Set(manifest.assets.map(a => a.status ?? "unknown"))].sort();
   const byStatus = Object.fromEntries(statuses.map(s => [s, manifest.assets.filter(a => (a.status ?? "unknown") === s).length]));
-  const byWorld = Object.fromEntries([..."01020304050607080910"].matchAll(/../g)].map(m => `W${m[0]}`).map(w => [w, manifest.assets.filter(a => a.world === w).length]));
+  const worlds = Array.from({ length: 10 }, (_, i) => `W${String(i + 1).padStart(2, "0")}`);
+  const byWorld = Object.fromEntries(worlds.map(w => [w, manifest.assets.filter(a => a.world === w).length]));
   return { path: "data/MASTER_ASSET_REGISTRY.json", schemaVersion: manifest.schema_version, count: manifest.assets.length, byStatus, byWorld, invalidIds: [...new Set(invalidIds)], duplicateIds: [...new Set(duplicateIds)], healthy: invalidIds.length === 0 && duplicateIds.length === 0 };
 }
 
