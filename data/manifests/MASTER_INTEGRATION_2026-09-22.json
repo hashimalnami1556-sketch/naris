@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.0.0",
+  "project": "CALL OF NARIS",
+  "batch": "MASTER_INTEGRATION_2026-09-22",
+  "date": "2026-09-22",
+  "canonical_branch": "main",
+  "engine": "Unreal Engine 5.4+",
+  "primary_platform": "Windows PC",
+  "primary_slice": "W04 Ashen Forest",
+  "integration_level": "v1.9",
+  "public_demo_allowed": false,
+  "changes": [
+    {"path":"README.md","type":"update","purpose":"Promote v1.9/Unreal-PC canonical status and AssetForge entry points"},
+    {"path":"docs/PRODUCTION_STATUS.md","type":"update","purpose":"Refresh production snapshot and public-demo gates"},
+    {"path":"NARIS_MASTER/00_PROJECT/ROADMAP.md","type":"update","purpose":"Define v1.9 through v2.4 execution roadmap"},
+    {"path":"docs/production/NARIS_MASTER_INTEGRATION_v1_9.md","type":"add","purpose":"Canonical integration and merge specification"},
+    {"path":"docs/production/ASSETFORGE_WORLDGEN.md","type":"add","purpose":"World generator contract and Unreal bridge"},
+    {"path":"data/worldgen/worldgen_profile_v1.json","type":"add","purpose":"Machine-readable worldgen profile"},
+    {"path":"tools/assetforge/world_generator.py","type":"add","purpose":"Deterministic engine-neutral world data generator"},
+    {"path":"tools/assetforge/test_world_generator.py","type":"add","purpose":"Regression tests for worldgen"}
+  ],
+  "validation": {
+    "worldgen_tests": {
+      "command": "python -m unittest test_world_generator.py",
+      "result": "PASS",
+      "tests": 4
+    },
+    "biome_catalog_count": 99,
+    "standard_library_only": true
+  },
+  "next_blockers": [
+    "Unreal player actor and Enhanced Input wiring",
+    "real weapon hit detection and montage hit windows",
+    "Bone Beast end-to-end boss encounter",
+    "UMG HUD/menu flow",
+    "W04 quest/inventory/dialogue wiring in one map",
+    "AssetForge-to-Unreal import bridge",
+    "Windows Development/Shipping package automation"
+  ]
+}
