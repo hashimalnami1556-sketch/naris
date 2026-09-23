@@ -383,7 +383,9 @@ int32 ANarisPlayerController::GetVisibleMenuItemCount() const
     switch (PauseMenuPage)
     {
         case ENarisPauseMenuPage::Main:
-            return MainMenuCount;
+            return MenuContext == ENarisMenuContext::FrontEnd
+                ? FrontEndMainMenuCount
+                : PauseMainMenuCount;
         case ENarisPauseMenuPage::Settings:
             return SettingsMenuCount;
         case ENarisPauseMenuPage::Controls:
@@ -412,6 +414,25 @@ FText ANarisPlayerController::GetMenuItemLabel(int32 Index) const
 {
     if (PauseMenuPage == ENarisPauseMenuPage::Main)
     {
+        if (MenuContext == ENarisMenuContext::FrontEnd)
+        {
+            switch (Index)
+            {
+                case 0:
+                    return NSLOCTEXT("NARIS", "FrontEndNewGame", "New Game");
+                case 1:
+                    return NSLOCTEXT("NARIS", "FrontEndContinue", "Continue");
+                case 2:
+                    return NSLOCTEXT("NARIS", "PauseSettings", "Settings");
+                case 3:
+                    return NSLOCTEXT("NARIS", "PauseControls", "Controller Remap");
+                case 4:
+                    return NSLOCTEXT("NARIS", "FrontEndQuit", "Quit");
+                default:
+                    return FText::GetEmpty();
+            }
+        }
+
         switch (Index)
         {
             case 0:
@@ -494,6 +515,13 @@ FText ANarisPlayerController::GetMenuItemValue(int32 Index) const
 {
     if (PauseMenuPage == ENarisPauseMenuPage::Main)
     {
+        if (MenuContext == ENarisMenuContext::FrontEnd
+            && Index == 1
+            && !CanContinueGame())
+        {
+            return NSLOCTEXT("NARIS", "FrontEndNoSave", "No Save Data");
+        }
+
         return FText::GetEmpty();
     }
 
