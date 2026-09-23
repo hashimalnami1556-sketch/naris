@@ -11,6 +11,7 @@ def validate_source(source: Path) -> list[str]:
     targets = defaultdict(list)
     modules = defaultdict(list)
     reflected_enums = defaultdict(list)
+    reflected_delegates = defaultdict(list)
     for path in sorted(source.rglob('*')):
         if not path.is_file():
             continue
@@ -30,6 +31,12 @@ def validate_source(source: Path) -> list[str]:
             flags=re.S
         ):
             reflected_enums[name].append(path.relative_to(source))
+        for name in re.findall(
+            r'\bDECLARE_DYNAMIC_(?:MULTICAST_)?DELEGATE(?:_\w+)?\s*\(\s*(\w+)\b',
+            text,
+            flags=re.S
+        ):
+            reflected_delegates[name].append(path.relative_to(source))
         if path.suffix == '.cpp':
             for name in re.findall(
                 r'\bIMPLEMENT_(?:PRIMARY_GAME_MODULE|GAME_MODULE|MODULE)\s*\(\s*\w+\s*,\s*(\w+)', text
@@ -43,4 +50,7 @@ def validate_source(source: Path) -> list[str]:
     for name, paths in sorted(reflected_enums.items()):
         if len(paths) > 1:
             errors.append(f"Duplicate reflected enum {name}: {paths}")
+    for name, paths in sorted(reflected_delegates.items()):
+        if len(paths) > 1:
+            errors.append(f"Duplicate dynamic delegate {name}: {paths}")
     return errors
