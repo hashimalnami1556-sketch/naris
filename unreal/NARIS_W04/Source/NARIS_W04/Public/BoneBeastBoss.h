@@ -97,7 +97,7 @@ public:
     float FallbackPhase3HealthPercent = 0.33f;
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="NARIS|Boss|SmokeFallback")
-    FName FallbackQuestCompletionId = TEXT("W04_CorruptedHeart");
+    FName FallbackQuestCompletionId = TEXT("Quest.W04.CorruptedHeart");
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="NARIS|Boss")
     FString BossProgressId = TEXT("BoneBeast");
