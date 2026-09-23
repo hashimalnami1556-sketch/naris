@@ -11,17 +11,6 @@ ANarisMemoryCrystal::ANarisMemoryCrystal()
 {
     PrimaryActorTick.bCanEverTick = false;
 
-    SubtitleSpeaker = NSLOCTEXT(
-        "NARIS",
-        "FirstWhisperSpeaker",
-        "The First Whisper"
-    );
-    SubtitleLine = NSLOCTEXT(
-        "NARIS",
-        "FirstWhisperLine",
-        "The gate remembers what the ash tried to bury."
-    );
-
     SceneRoot = CreateDefaultSubobject<USceneComponent>(TEXT("SceneRoot"));
     SetRootComponent(SceneRoot);
 
