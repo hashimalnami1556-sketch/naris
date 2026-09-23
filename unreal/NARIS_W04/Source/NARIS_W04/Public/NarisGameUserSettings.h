@@ -71,6 +71,12 @@ public:
     UFUNCTION(BlueprintPure, Category="NARIS|Settings|Audio")
     float GetPresentationSFXScale() const;
 
+    UFUNCTION(BlueprintPure, Category="NARIS|Settings|Audio")
+    float GetPresentationMusicScale() const;
+
+    UFUNCTION(BlueprintPure, Category="NARIS|Settings|Audio")
+    float GetPresentationVoiceScale() const;
+
     UFUNCTION(BlueprintPure, Category="NARIS|Settings|Accessibility")
     float GetEffectiveCameraShakeScale() const;
 
