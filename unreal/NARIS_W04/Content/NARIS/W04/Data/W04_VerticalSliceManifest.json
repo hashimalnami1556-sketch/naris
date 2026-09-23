@@ -128,7 +128,27 @@
       "ABoneBeastBoss.CommitAttackImpact",
       "ABoneBeastBoss.CancelAttack"
     ],
-    "presentation_authority": "Gameplay state is authoritative; presentation cues do not mutate phase/progression."
+    "presentation_authority": "Gameplay state is authoritative; presentation cues do not mutate phase/progression.",
+    "celestial_wolf_command_cycle": [
+      "Follow",
+      "Guard",
+      "Attack",
+      "Track",
+      "EchoLink"
+    ],
+    "celestial_wolf_command_input": "CompanionMode",
+    "bone_beast_phase_attacks": {
+      "Phase1": "ClawSweep",
+      "Phase2": "BoneCharge",
+      "Phase3": "AshRupture"
+    },
+    "bone_beast_impact_notify": "UBoneBeastAttackImpactNotify",
+    "presentation_bridge": "UNarisPresentationComponent",
+    "presentation_channels": [
+      "Niagara",
+      "Audio",
+      "CameraShake"
+    ]
   },
   "progression_beats": [
     "MemoryCrystal",
