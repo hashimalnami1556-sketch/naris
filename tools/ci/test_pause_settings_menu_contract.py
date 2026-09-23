@@ -52,7 +52,7 @@ class PauseSettingsMenuContractTests(unittest.TestCase):
         ):
             self.assertIn(token, header)
 
-        self.assertIn("constexpr int32 MainMenuCount = 2", source)
+        self.assertIn("constexpr int32 MainMenuCount = 3", source)
         self.assertIn("constexpr int32 SettingsMenuCount = 17", source)
         self.assertIn("UGameplayStatics::SetGamePaused(this, true)", source)
         self.assertIn("UGameplayStatics::SetGamePaused(this, false)", source)
@@ -136,6 +136,7 @@ class PauseSettingsMenuContractTests(unittest.TestCase):
         )
         for key in (
             "PauseResume",
+            "PauseControls",
             "SettingsMenuTitle",
             "SettingsQuality",
             "SettingsMasterVolume",
