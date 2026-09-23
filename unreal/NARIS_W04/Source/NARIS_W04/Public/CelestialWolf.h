@@ -61,6 +61,9 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Companion|Combat")
     float AttackCooldownSeconds = 1.25f;
 
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Companion|Combat")
+    bool bImmediateSmokeAttackImpact = true;
+
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Companion|Track")
     float TrackAcceptanceRadius = 120.f;
 
@@ -100,6 +103,15 @@ public:
     UFUNCTION(BlueprintCallable, Category="NARIS|Companion")
     void EchoLink();
 
+    UFUNCTION(BlueprintCallable, Category="NARIS|Companion|Combat")
+    bool CommitAttackImpact();
+
+    UFUNCTION(BlueprintCallable, Category="NARIS|Companion|Combat")
+    void CancelAttack();
+
+    UFUNCTION(BlueprintImplementableEvent, Category="NARIS|Companion|Combat")
+    void OnAttackRequested();
+
     UFUNCTION(BlueprintCallable, Category="NARIS|Companion")
     void CycleMode();
 
@@ -119,9 +131,11 @@ private:
     FVector GuardAnchor = FVector::ZeroVector;
     float LastAttackTime = -1000.f;
     float LastEchoPulseTime = -1000.f;
+    TObjectPtr<ABoneBeastBoss> PendingAttackTarget = nullptr;
 
     void MoveTowards(const FVector& Destination, float AcceptanceRadius);
     ABoneBeastBoss* FindAttackTarget() const;
+    bool RequestAttack(ABoneBeastBoss* Target);
     void TickFollow();
     void TickGuard();
     void TickAttack();
