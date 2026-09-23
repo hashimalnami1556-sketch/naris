@@ -10,7 +10,22 @@
       "unreal_object_path": null
     },
     {
+      "asset_id": "NARIS-W04-AUD-ASHRUPTURE-0001",
+      "kind": "audio",
+      "unreal_object_path": null
+    },
+    {
       "asset_id": "NARIS-W04-AUD-BONEATTACK-0001",
+      "kind": "audio",
+      "unreal_object_path": null
+    },
+    {
+      "asset_id": "NARIS-W04-AUD-BONECHARGE-0001",
+      "kind": "audio",
+      "unreal_object_path": null
+    },
+    {
+      "asset_id": "NARIS-W04-AUD-BONECLAW-0001",
       "kind": "audio",
       "unreal_object_path": null
     },
@@ -101,6 +116,21 @@
     },
     {
       "asset_id": "NARIS-W04-VFX-ARENAUNLOCK-0001",
+      "kind": "vfx",
+      "unreal_object_path": null
+    },
+    {
+      "asset_id": "NARIS-W04-VFX-ASHRUPTURE-0001",
+      "kind": "vfx",
+      "unreal_object_path": null
+    },
+    {
+      "asset_id": "NARIS-W04-VFX-BONECHARGE-0001",
+      "kind": "vfx",
+      "unreal_object_path": null
+    },
+    {
+      "asset_id": "NARIS-W04-VFX-BONECLAW-0001",
       "kind": "vfx",
       "unreal_object_path": null
     },
