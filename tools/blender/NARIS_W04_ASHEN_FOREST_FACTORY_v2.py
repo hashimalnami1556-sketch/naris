@@ -1,13 +1,27 @@
 import bpy
+import json
 import math
+from pathlib import Path
 from mathutils import Vector
 
 # CALL OF NARIS - W04 Ashen Forest procedural environment factory
 # Blender 4.x. Generates a clean modular blockout/dressing foundation.
+# Canonical dimensions come from the checked-in environment factory contract.
 
 COLLECTION = "NARIS_W04_FACTORY"
-GRID = 4.0
-HEIGHT = 3.5
+REPO_ROOT = Path(__file__).resolve().parents[2]
+CONFIG_PATH = (
+    REPO_ROOT
+    / "data"
+    / "environments"
+    / "W04_AshenForest_environment_factory_v2.json"
+)
+CONFIG = json.loads(CONFIG_PATH.read_text(encoding="utf-8"))
+
+SNAP_GRID = float(CONFIG["grid_m"])
+FLOOR_MODULE = float(CONFIG["modular_units"]["floor"])
+HEIGHT = float(CONFIG["modular_units"]["height"])
+STREAMING_CELL_M = float(CONFIG["streaming"]["cell_size_m"])
 
 def get_collection():
     col = bpy.data.collections.get(COLLECTION)
@@ -63,7 +77,13 @@ def arch(name, loc, width=3.0, height=3.5, depth=0.45, material=None):
     cube(name+"_TOP", (loc[0], loc[1], loc[2]+height-0.45), (width/2, depth, 0.45), material)
 
 def floor_tile(name, x, y, material):
-    return cube(name, (x, y, -0.10), (GRID/2, GRID/2, 0.10), material, 0.03)
+    return cube(
+        name,
+        (x, y, -0.10),
+        (FLOOR_MODULE / 2, FLOOR_MODULE / 2, 0.10),
+        material,
+        0.03,
+    )
 
 def tree(name, loc, trunk_mat, leaf_mat, scale=1.0):
     cylinder(name+"_TRUNK", (loc[0],loc[1],2.0*scale), 0.32*scale, 4.0*scale, trunk_mat, 10)
@@ -77,10 +97,16 @@ def rock(name, loc, scale, material):
     o=bpy.context.object; o.name=name; o.scale=scale; bpy.ops.object.transform_apply(location=False,rotation=False,scale=True)
     o.data.materials.append(material); move_to_collection(o,get_collection()); return o
 
-def make_lod_marker(source, distance):
+def make_lod_marker(source, lod_level):
     # Metadata-only empty used by import scripts to pair generated meshes with LOD policy.
-    e=bpy.data.objects.new(f"{source.name}__LOD{distance}", None); get_collection().objects.link(e); e.empty_display_type='CUBE'; e.empty_display_size=0.15
-    e["source_asset"]=source.name; e["lod_level"]=distance; e["distance_policy"]="32/80/160m"; return e
+    e = bpy.data.objects.new(f"{source.name}__LOD{lod_level}", None)
+    get_collection().objects.link(e)
+    e.empty_display_type = "CUBE"
+    e.empty_display_size = 0.15
+    e["source_asset"] = source.name
+    e["lod_level"] = lod_level
+    e["lod_policy"] = json.dumps(CONFIG["lod"], sort_keys=True)
+    return e
 
 def build():
     # Materials
@@ -95,11 +121,11 @@ def build():
     # 8x8 foundation
     for ix in range(-4,4):
         for iy in range(-4,4):
-            floor_tile(f"W04_Floor_{ix+4:02d}_{iy+4:02d}",ix*GRID,iy*GRID, ash if (ix+iy)%3 else stone)
+            floor_tile(f"W04_Floor_{ix+4:02d}_{iy+4:02d}",ix*FLOOR_MODULE,iy*FLOOR_MODULE, ash if (ix+iy)%3 else stone)
 
     # Modular ruin walls / arches
     for i in range(5):
-        cube(f"W04_Wall_A_{i:02d}",(i*4-8,8,1.75),(2,0.3,1.75),stone)
+        cube(f"W04_Wall_A_{i:02d}",(i*FLOOR_MODULE-8,8,1.75),(2,0.3,1.75),stone)
     for i in range(3):
         arch(f"W04_Arch_{i:02d}",(i*6-6,-6,0),3.5,4.5,0.5,moss)
     for i in range(4):
@@ -127,10 +153,15 @@ def build():
 
     # Metadata root
     root=bpy.data.objects.new("NARIS_W04_ENVIRONMENT_ROOT",None); get_collection().objects.link(root)
-    root["asset_pack"]="NARIS-W04-ENV-FACTORY-0002"
-    root["world"]="W04"; root["grid_m"]=GRID; root["engine_targets"]="Unreal5|Babylon.js|Unity6"
-    root["collision_policy"]="simple_floor|box_wall|convex_cliff|trigger_portal"
-    root["lod_policy"]="LOD0 hero|LOD1 gameplay|LOD2 distance|LOD3 impostor"
+    root["asset_pack"] = CONFIG["asset_pack"]
+    root["world"] = CONFIG["world"]
+    root["grid_m"] = SNAP_GRID
+    root["floor_module_m"] = FLOOR_MODULE
+    root["height_m"] = HEIGHT
+    root["streaming_cell_m"] = STREAMING_CELL_M
+    root["engine_targets"] = "|".join(CONFIG["engine_targets"])
+    root["collision_policy"] = json.dumps(CONFIG["collision"], sort_keys=True)
+    root["lod_policy"] = json.dumps(CONFIG["lod"], sort_keys=True)
 
     for o in list(get_collection().objects):
         if o.type=='MESH' and not o.name.endswith("_CRYSTAL"):
