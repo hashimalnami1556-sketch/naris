@@ -15,3 +15,7 @@ T12 Arabic/English localization.
 T13 HUD reflects runtime values.
 T14 Pause/resume.
 T15 No public release until all tests pass.
+T16 Packaged runtime progression smoke drives Waystone -> MemoryCrystal -> AshGate -> CelestialWolf -> BoneBeast -> DemoEnd.
+T17 Runtime smoke Save -> New Game -> Load restores checkpoint, lore, narrative, gate, companion, quest, boss and DemoEnd.
+T18 Windows BuildCookRun package launches successfully in en and ar cultures.
+T19 Windows Development package emits package-smoke report and requested CSV/GPU/LLM profiling evidence.
