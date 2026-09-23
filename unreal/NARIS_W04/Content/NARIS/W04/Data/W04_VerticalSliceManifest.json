@@ -148,7 +148,11 @@
       "Niagara",
       "Audio",
       "CameraShake"
-    ]
+    ],
+    "wolf_attack_notify": "UNarisWolfAttackImpactNotify",
+    "wolf_smoke_attack_fallback": "ACelestialWolf.bImmediateSmokeAttackImpact",
+    "boss_arena_entry_trigger": "ANarisBossArenaController.EncounterTrigger",
+    "release_candidate_gate": "tools/windows/Invoke-NarisWindowsReleaseCandidate.ps1"
   },
   "progression_beats": [
     "MemoryCrystal",
