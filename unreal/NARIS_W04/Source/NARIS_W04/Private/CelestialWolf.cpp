@@ -200,6 +200,11 @@ bool ACelestialWolf::BondWithPlayer(AActor* InstigatorActor)
         return false;
     }
 
+    if (!Runtime->SetQuestStep(QuestId, QuestStep))
+    {
+        return false;
+    }
+
     if (bAutoSave && !Runtime->SaveState(AutoSaveSlot))
     {
         return false;
