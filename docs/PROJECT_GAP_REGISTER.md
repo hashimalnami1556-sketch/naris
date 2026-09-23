@@ -39,16 +39,21 @@ Presence is not proof of successful compilation or correct gameplay. Historical 
 - Added explicit SFX/Music/Voice presentation audio routing; every audio cue must declare a bus and runtime volume is Master × selected bus.
 - Registered 10 required production W04 AnimMontages and added Unreal animation validation for class, required hit/impact notifies and Hero hit-window duration; strict Shipping RC rejects unresolved/invalid animations.
 - Added Windows launch log/crash QA that rejects new fatal errors, unhandled exceptions, assertions, low-level fatals, ensures and crash artifacts from the smoke window.
+- Added a core production-asset gate for Hero/Wolf/Bone Beast/Waystone/Memory Crystal/Ash Gate/Sword of Poem: deterministic Unreal targets plus materials, LODs, Skeleton/PhysicsAsset, collision, Nanite/triangle evidence and documented material/triangle budgets.
+- Separated Development maps from Shipping. W04_Prototype remains runtime-smoke only; W04_AshenForest_Blockout is an automatically authored six-zone production assembly map; Shipping must validate and cook W04_AshenForest with no DEV_/BLOCKOUT_/RuntimeSmokeDirector actors.
+- Added the canonical Ashen Forest environment runtime contract and corrected Blender Factory v2 to read snap grid/module/height/streaming/collision/LOD policy directly from its JSON source. The factory can now UV unwrap, save the canonical .blend and run through the existing registry-gated Blender->Unreal bridge.
+- Added canonical registry identities and deterministic Unreal MaterialInstance targets for all ten W04 material-library entries. Master-material capabilities/blend modes and PBR instance values are validated; instances can be authored automatically after approved M_MASTER_SURFACE/M_MASTER_WATER assets exist, but simplified masters are not fabricated.
 
 ## Remaining work, ordered by dependency
 
 | Priority | Gap | Evidence required to close |
 |---|---|---|
 | P0 | Unreal compilation after source repairs | Passing Windows UnrealBuildTool log for NARIS_W04Editor |
-| P0 | Actual W04 map and binary game assets | The bootstrap can generate smoke .umap/.uasset files after an editor build, but no successful generated/editor-loaded binaries are committed evidence; production-authored assets remain required |
+| P0 | Actual W04 production map and binary game assets | W04_Prototype and W04_AshenForest_Blockout authoring are scripted, but no successful editor-generated binaries are runtime evidence here. Shipping specifically requires a validated /Game/NARIS/W04/Maps/W04_AshenForest plus the gated core production assets |
 | P0 | Complete W04 gameplay loop | Recorded end-to-end editor playtest, including boss completion and demo end |
 | P1 | Save/load and checkpoint recovery | Runtime smoke now also verifies quest steps and checkpoint world location; hero respawn is implemented. Close only after packaged Windows save/restart/load/respawn evidence |
-| P1 | Animation/presentation/HUD/localization | Front-end/pause/settings/controls, data-driven subtitles, Hero/Wolf/Boss impact hooks, explicit audio buses and localized HUD exist. 5 camera payloads are bound; 16 Audio + 14 Niagara VFX + 10 production AnimMontages remain unresolved. EN/AR/RTL runtime QA remains required |
+| P1 | Animation/presentation/material/HUD/localization | Front-end/pause/settings/controls, data-driven subtitles, combat impact hooks, explicit audio buses and localized HUD exist. 5 camera payloads are bound; 16 Audio + 14 Niagara VFX + 10 production AnimMontages remain unresolved. Ten material-instance targets are defined, but approved surface/water masters and runtime-authored instances still need Windows evidence. EN/AR/RTL runtime QA remains required |
+| P1 | Core art/technical assets | Seven W04 core meshes have deterministic technical gates but remain unresolved production content until actual Skeletal/Static Mesh assets pass LOD/material/skeleton/physics/collision/Nanite/triangle validation |
 | P1 | Windows packaging and performance | BuildCookRun/launch/fatal-log+crash QA/CSV-GPU-LLM pipeline is scripted; close only with a successful Windows artifact, bilingual launch result, clean runtime logs and measured hardware evidence |
 | P1 | Shared host verification | Actual Claude Code startup and continuation using the committed state; adapter presence is not execution |
 | P2 | AssetForge export/import, erosion and masks | See the [worldgen contract](production/ASSETFORGE_WORLDGEN.md) |
