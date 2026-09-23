@@ -24,7 +24,6 @@ class WindowsPackagePipelineContractTests(unittest.TestCase):
             'NARIS_W04.exe',
             '[NARIS] Runtime progression + save/load smoke',
             '-NarisRuntimeSmoke',
-            'naris_runtime_smoke.json',
             '[NARIS] Runtime progression smoke PASSED',
             '[NARIS] Launch smoke:',
             '-culture=en',
@@ -37,9 +36,11 @@ class WindowsPackagePipelineContractTests(unittest.TestCase):
         )
         cursor = -1
         for token in ordered_tokens:
-            index = source.find(token)
+            index = source.find(token, cursor + 1)
             self.assertGreater(index, cursor, token)
             cursor = index
+
+        self.assertIn("naris_runtime_smoke.json", source)
 
     def test_bootstrap_creates_expected_runtime_assets(self) -> None:
         source = read(
