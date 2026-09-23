@@ -11,9 +11,10 @@ if (-not $UnrealEngineRoot -or -not (Test-Path $UnrealEngineRoot)) {
 
 $UProject = Join-Path $RepoRoot "unreal\NARIS_W04\NARIS_W04.uproject"
 $Script = Join-Path $RepoRoot "unreal\NARIS_W04\Content\Python\naris_bootstrap_w04_smoke.py"
+$PresentationScript = Join-Path $RepoRoot "unreal\NARIS_W04\Content\Python\naris_build_presentation_profile.py"
 $UnrealCmd = Join-Path $UnrealEngineRoot "Engine\Binaries\Win64\UnrealEditor-Cmd.exe"
 
-foreach ($path in @($UProject, $Script, $UnrealCmd)) {
+foreach ($path in @($UProject, $Script, $PresentationScript, $UnrealCmd)) {
     if (-not (Test-Path $path)) {
         throw "Required path missing: $path"
     }
@@ -23,6 +24,12 @@ Write-Host "[NARIS] Creating/loading W04_Prototype editor smoke map"
 & $UnrealCmd $UProject "-ExecutePythonScript=$Script" -unattended -nop4 -nosplash -stdout -FullStdOutLogOutput
 if ($LASTEXITCODE -ne 0) {
     throw "W04 editor bootstrap failed with exit code $LASTEXITCODE"
+}
+
+Write-Host "[NARIS] Building/loading shared W04 presentation profile"
+& $UnrealCmd $UProject "-ExecutePythonScript=$PresentationScript" -unattended -nop4 -nosplash -stdout -FullStdOutLogOutput
+if ($LASTEXITCODE -ne 0) {
+    throw "W04 presentation authoring failed with exit code $LASTEXITCODE"
 }
 
 Write-Host "[NARIS] W04 editor bootstrap completed"
