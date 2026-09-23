@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.3",
+  "schema_version": "1.4",
   "project": "CALL OF NARIS",
   "slice": "W04_AshenForest",
   "systems": [
@@ -34,7 +34,8 @@
     "AshGate"
   ],
   "release": {
-    "public_demo_allowed": false
+    "public_demo_allowed": false,
+    "runtime_completion_contract": "BoneBeastDefeat -> DemoEnd"
   },
   "interactables": [
     "Waystone",
@@ -56,12 +57,20 @@
     "celestial_wolf_actor": "ACelestialWolf",
     "celestial_wolf_requirement": "W04_AshGate",
     "celestial_wolf_state": "FNarisSaveState.UnlockedCompanions",
-    "echo_link_mode": "ENarisWolfMode.EchoLink"
+    "echo_link_mode": "ENarisWolfMode.EchoLink",
+    "bone_beast_actor": "ABoneBeastBoss",
+    "bone_beast_requirement": "CelestialWolf",
+    "bone_beast_state": "FNarisSaveState.DefeatedBosses",
+    "demo_completion_state": "FNarisSaveState.bDemoCompleted",
+    "demo_end_event": "ABoneBeastBoss.OnBossEvent:DemoEnd"
   },
   "progression_beats": [
     "MemoryCrystal",
     "FirstWhisper",
     "AshGate",
-    "CelestialWolfBond"
+    "CelestialWolfBond",
+    "BoneBeastEncounter",
+    "BoneBeastDefeat",
+    "DemoEnd"
   ]
 }
