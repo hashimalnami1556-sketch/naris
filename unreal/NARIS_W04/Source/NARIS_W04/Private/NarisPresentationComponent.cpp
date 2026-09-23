@@ -133,15 +133,29 @@ bool UNarisPresentationComponent::TriggerCueAtLocation(
     {
         const UNarisGameUserSettings* Settings =
             UNarisGameUserSettings::GetNarisGameUserSettings();
-        const float SFXScale = Settings
-            ? Settings->GetPresentationSFXScale()
-            : 1.f;
+        float AudioBusScale = 1.f;
+        if (Settings)
+        {
+            switch (Cue->AudioBus)
+            {
+                case ENarisPresentationAudioBus::MUSIC:
+                    AudioBusScale = Settings->GetPresentationMusicScale();
+                    break;
+                case ENarisPresentationAudioBus::VOICE:
+                    AudioBusScale = Settings->GetPresentationVoiceScale();
+                    break;
+                case ENarisPresentationAudioBus::SFX:
+                default:
+                    AudioBusScale = Settings->GetPresentationSFXScale();
+                    break;
+            }
+        }
 
         UGameplayStatics::PlaySoundAtLocation(
             this,
             Cue->Sound,
             WorldLocation,
-            Cue->VolumeMultiplier * SFXScale,
+            Cue->VolumeMultiplier * AudioBusScale,
             Cue->PitchMultiplier,
             0.f,
             nullptr,
