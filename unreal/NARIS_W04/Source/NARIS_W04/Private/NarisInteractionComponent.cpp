@@ -1,12 +1,65 @@
 #include "NarisInteractionComponent.h"
+
 #include "Engine/World.h"
 #include "EngineUtils.h"
 #include "GameFramework/Actor.h"
-UNarisInteractionComponent::UNarisInteractionComponent(){PrimaryComponentTick.bCanEverTick=false;}
+#include "NarisInteractable.h"
+
+UNarisInteractionComponent::UNarisInteractionComponent()
+{
+    PrimaryComponentTick.bCanEverTick = false;
+}
+
+AActor* UNarisInteractionComponent::FindNearestInteractable() const
+{
+    if (!GetOwner() || !GetWorld())
+    {
+        return nullptr;
+    }
+
+    const FVector Origin = GetOwner()->GetActorLocation();
+    float BestDistanceSq = Radius * Radius;
+    AActor* BestActor = nullptr;
+
+    for (TActorIterator<AActor> It(GetWorld()); It; ++It)
+    {
+        AActor* Candidate = *It;
+        if (!Candidate || Candidate == GetOwner())
+        {
+            continue;
+        }
+
+        if (!Candidate->GetClass()->ImplementsInterface(UNarisInteractable::StaticClass()))
+        {
+            continue;
+        }
+
+        const float DistanceSq =
+            FVector::DistSquared(Candidate->GetActorLocation(), Origin);
+
+        if (DistanceSq < BestDistanceSq)
+        {
+            BestDistanceSq = DistanceSq;
+            BestActor = Candidate;
+        }
+    }
+
+    return BestActor;
+}
+
 bool UNarisInteractionComponent::Interact()
 {
-    if(!GetOwner()||!GetWorld()) return false;
-    FVector O=GetOwner()->GetActorLocation(); float Best=Radius*Radius; AActor* Hit=nullptr;
-    for(TActorIterator<AActor> It(GetWorld());It;++It){AActor* A=*It;if(!A||A==GetOwner())continue;float D=(A->GetActorLocation()-O).SizeSquared();if(D<Best){Best=D;Hit=A;}}
-    if(Hit){OnInteracted.Broadcast(Hit);return true;} return false;
+    AActor* Target = FindNearestInteractable();
+    if (!Target)
+    {
+        return false;
+    }
+
+    const bool bHandled = INarisInteractable::Execute_Interact(Target, GetOwner());
+    if (bHandled)
+    {
+        OnInteracted.Broadcast(Target);
+    }
+
+    return bHandled;
 }
