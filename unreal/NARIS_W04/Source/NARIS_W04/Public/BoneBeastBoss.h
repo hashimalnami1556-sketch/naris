@@ -17,6 +17,8 @@ class NARIS_W04_API ABoneBeastBoss : public ACharacter
 public:
     ABoneBeastBoss();
 
+    virtual void BeginPlay() override;
+
     UFUNCTION(BlueprintCallable, Category="NARIS|Boss")
     void StartEncounter();
 
@@ -38,8 +40,26 @@ public:
     UFUNCTION(BlueprintPure, Category="NARIS|Boss")
     bool IsEncounterActive() const { return bEncounterActive; }
 
+    UFUNCTION(BlueprintPure, Category="NARIS|Boss")
+    bool IsEncounterComplete() const { return bEncounterComplete; }
+
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="NARIS|Boss")
     TObjectPtr<UBoneBeastDataAsset> BossData;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="NARIS|Boss")
+    FString BossProgressId = TEXT("BoneBeast");
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="NARIS|Boss")
+    FString RequiredCompanionId = TEXT("CelestialWolf");
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="NARIS|Boss")
+    FString AutoSaveSlot = TEXT("NARIS_Auto");
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="NARIS|Boss")
+    bool bAutoSave = true;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="NARIS|Boss")
+    bool bCompleteDemoOnDefeat = true;
 
     UPROPERTY(BlueprintAssignable, Category="NARIS|Boss")
     FNarisBossEvent OnBossEvent;
