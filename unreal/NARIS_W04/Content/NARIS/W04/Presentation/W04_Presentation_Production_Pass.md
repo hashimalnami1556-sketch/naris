@@ -17,7 +17,14 @@ Authoritative phase attack requests:
 - Phase 3: `AshRupture`
 
 `RequestPhaseAttack()` records the gameplay attack and emits `Boss.Attack.<AttackId>`.
-The authored montage owns timing. Add `NARIS Bone Beast Attack Impact` at the contact frame; it calls `CommitAttackImpact()`, which applies damage through Unreal's damage pipeline so hero Parry/Dodge rules remain authoritative.
+
+Autonomous runtime:
+- Bone Beast ticks only while the encounter is active.
+- Player must be inside `AttackRange`.
+- `AttackIntervalSeconds` gates repeated requests.
+- Current phase selects ClawSweep / BoneCharge / AshRupture.
+- Smoke fallback can immediately commit through the normal Unreal damage pipeline.
+- Production Blueprint sets `bImmediateSmokeAttackImpact=false`; the authored montage owns timing. Add `NARIS Bone Beast Attack Impact` at the contact frame; it calls `CommitAttackImpact()`, which applies damage through Unreal's damage pipeline so hero Parry/Dodge rules remain authoritative.
 
 ## Presentation profile
 `UNarisPresentationComponent` is the common runtime bridge for:
