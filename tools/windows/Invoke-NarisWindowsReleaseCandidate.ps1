@@ -23,6 +23,7 @@ $ShippingMapValidationScript = Join-Path $RepoRoot "unreal\NARIS_W04\Content\Pyt
 $UnrealCmd = Join-Path $UnrealEngineRoot "Engine\Binaries\Win64\UnrealEditor-Cmd.exe"
 $AnimationReport = Join-Path $RepoRoot "unreal\NARIS_W04\Saved\TestReports\naris_animation_validation.json"
 $ProductionAssetReport = Join-Path $RepoRoot "unreal\NARIS_W04\Saved\TestReports\naris_production_asset_validation.json"
+$MaterialReport = Join-Path $RepoRoot "unreal\NARIS_W04\Saved\TestReports\naris_material_validation.json"
 $PresentationReport = Join-Path $RepoRoot "unreal\NARIS_W04\Saved\TestReports\naris_presentation_authoring.json"
 $ShippingMapReport = Join-Path $RepoRoot "unreal\NARIS_W04\Saved\TestReports\naris_shipping_map_validation.json"
 
@@ -43,6 +44,7 @@ if ($LASTEXITCODE -ne 0) {
 $env:NARIS_PRESENTATION_STRICT = "1"
 $env:NARIS_ANIMATION_STRICT = "1"
 $env:NARIS_PRODUCTION_ASSETS_STRICT = "1"
+$env:NARIS_MATERIALS_STRICT = "1"
 try {
     Write-Host "[NARIS RC] Authoring W04 with strict presentation bindings"
     & $Bootstrap -RepoRoot $RepoRoot -UnrealEngineRoot $UnrealEngineRoot
@@ -54,6 +56,7 @@ finally {
     Remove-Item Env:NARIS_PRESENTATION_STRICT -ErrorAction SilentlyContinue
     Remove-Item Env:NARIS_ANIMATION_STRICT -ErrorAction SilentlyContinue
     Remove-Item Env:NARIS_PRODUCTION_ASSETS_STRICT -ErrorAction SilentlyContinue
+    Remove-Item Env:NARIS_MATERIALS_STRICT -ErrorAction SilentlyContinue
 }
 
 if (-not (Test-Path $AnimationReport)) {
@@ -61,6 +64,9 @@ if (-not (Test-Path $AnimationReport)) {
 }
 if (-not (Test-Path $ProductionAssetReport)) {
     throw "Strict production asset report missing: $ProductionAssetReport"
+}
+if (-not (Test-Path $MaterialReport)) {
+    throw "Strict material report missing: $MaterialReport"
 }
 if (-not (Test-Path $PresentationReport)) {
     throw "Strict presentation report missing: $PresentationReport"
@@ -86,6 +92,20 @@ if (@($ProductionAssets.unresolved_asset_ids).Count -ne 0) {
 }
 if (@($ProductionAssets.errors).Count -ne 0) {
     throw "Release candidate production asset validation contains errors"
+}
+
+$Materials = Get-Content $MaterialReport -Raw | ConvertFrom-Json
+if ($Materials.status -ne "pass") {
+    throw "Strict material validation did not pass"
+}
+if (@($Materials.unresolved_asset_ids).Count -ne 0) {
+    throw "Release candidate has unresolved W04 material instances"
+}
+if (@($Materials.unresolved_master_paths).Count -ne 0) {
+    throw "Release candidate has unresolved W04 master materials"
+}
+if (@($Materials.errors).Count -ne 0) {
+    throw "Release candidate material validation contains errors"
 }
 
 $Presentation = Get-Content $PresentationReport -Raw | ConvertFrom-Json
@@ -161,6 +181,10 @@ $Report = [ordered]@{
     production_asset_validated_count = @($ProductionAssets.validated_asset_ids).Count
     production_asset_unresolved_count = @($ProductionAssets.unresolved_asset_ids).Count
     production_asset_error_count = @($ProductionAssets.errors).Count
+    material_validated_count = @($Materials.validated_asset_ids).Count
+    material_unresolved_count = @($Materials.unresolved_asset_ids).Count
+    material_unresolved_master_count = @($Materials.unresolved_master_paths).Count
+    material_error_count = @($Materials.errors).Count
     animation_unresolved_count = @($Animation.unresolved_asset_ids).Count
     animation_error_count = @($Animation.errors).Count
     presentation_bound_count = @($Presentation.bound_asset_ids).Count
