@@ -1,13 +1,18 @@
 #include "NarisPlayerController.h"
 
 #include "Components/InputComponent.h"
+#include "GameFramework/InputSettings.h"
+#include "GameFramework/PlayerInput.h"
+#include "InputCoreTypes.h"
 #include "Kismet/GameplayStatics.h"
 #include "NarisGameUserSettings.h"
 
 namespace
 {
-    constexpr int32 MainMenuCount = 2;
+    constexpr int32 MainMenuCount = 3;
     constexpr int32 SettingsMenuCount = 17;
+    constexpr int32 ControlActionCount = 11;
+    constexpr int32 ControlsMenuCount = ControlActionCount + 2;
 
     enum ENarisSettingsRow : int32
     {
@@ -29,6 +34,134 @@ namespace
         ResetDefaults,
         Back
     };
+
+
+    FName ControlActionName(int32 Index)
+    {
+        static const TArray<FName> Actions = {
+            TEXT("LightAttack"),
+            TEXT("HeavyAttack"),
+            TEXT("Dodge"),
+            TEXT("Parry"),
+            TEXT("ResonanceBurst"),
+            TEXT("LockOn"),
+            TEXT("Interact"),
+            TEXT("Sprint"),
+            TEXT("EssenceNext"),
+            TEXT("EssencePrevious"),
+            TEXT("CompanionMode")
+        };
+
+        return Actions.IsValidIndex(Index)
+            ? Actions[Index]
+            : NAME_None;
+    }
+
+    FKey DefaultGamepadKey(FName ActionName)
+    {
+        if (ActionName == TEXT("LightAttack"))
+        {
+            return EKeys::Gamepad_RightShoulder;
+        }
+        if (ActionName == TEXT("HeavyAttack"))
+        {
+            return EKeys::Gamepad_RightTrigger;
+        }
+        if (ActionName == TEXT("Dodge"))
+        {
+            return EKeys::Gamepad_FaceButton_Bottom;
+        }
+        if (ActionName == TEXT("Parry"))
+        {
+            return EKeys::Gamepad_LeftShoulder;
+        }
+        if (ActionName == TEXT("ResonanceBurst"))
+        {
+            return EKeys::Gamepad_FaceButton_Top;
+        }
+        if (ActionName == TEXT("LockOn"))
+        {
+            return EKeys::Gamepad_RightThumbstick;
+        }
+        if (ActionName == TEXT("Interact"))
+        {
+            return EKeys::Gamepad_FaceButton_Left;
+        }
+        if (ActionName == TEXT("Sprint"))
+        {
+            return EKeys::Gamepad_LeftThumbstick;
+        }
+        if (ActionName == TEXT("EssenceNext"))
+        {
+            return EKeys::Gamepad_DPad_Right;
+        }
+        if (ActionName == TEXT("EssencePrevious"))
+        {
+            return EKeys::Gamepad_DPad_Left;
+        }
+        if (ActionName == TEXT("CompanionMode"))
+        {
+            return EKeys::Gamepad_DPad_Up;
+        }
+
+        return EKeys::Invalid;
+    }
+
+    FText ControlActionLabel(FName ActionName)
+    {
+        if (ActionName == TEXT("LightAttack"))
+        {
+            return NSLOCTEXT("NARIS", "ControlLightAttack", "Light Attack");
+        }
+        if (ActionName == TEXT("HeavyAttack"))
+        {
+            return NSLOCTEXT("NARIS", "ControlHeavyAttack", "Heavy Attack");
+        }
+        if (ActionName == TEXT("Dodge"))
+        {
+            return NSLOCTEXT("NARIS", "ControlDodge", "Dodge");
+        }
+        if (ActionName == TEXT("Parry"))
+        {
+            return NSLOCTEXT("NARIS", "ControlParry", "Parry");
+        }
+        if (ActionName == TEXT("ResonanceBurst"))
+        {
+            return NSLOCTEXT("NARIS", "ControlResonanceBurst", "Resonance Burst");
+        }
+        if (ActionName == TEXT("LockOn"))
+        {
+            return NSLOCTEXT("NARIS", "ControlLockOn", "Lock On");
+        }
+        if (ActionName == TEXT("Interact"))
+        {
+            return NSLOCTEXT("NARIS", "ControlInteract", "Interact");
+        }
+        if (ActionName == TEXT("Sprint"))
+        {
+            return NSLOCTEXT("NARIS", "ControlSprint", "Sprint");
+        }
+        if (ActionName == TEXT("EssenceNext"))
+        {
+            return NSLOCTEXT("NARIS", "ControlEssenceNext", "Next Essence");
+        }
+        if (ActionName == TEXT("EssencePrevious"))
+        {
+            return NSLOCTEXT("NARIS", "ControlEssencePrevious", "Previous Essence");
+        }
+        if (ActionName == TEXT("CompanionMode"))
+        {
+            return NSLOCTEXT("NARIS", "ControlCompanionMode", "Companion Mode");
+        }
+
+        return FText::GetEmpty();
+    }
+
+    bool IsReservedGamepadMenuKey(const FKey& Key)
+    {
+        return Key == EKeys::Gamepad_Special_Right
+            || Key == EKeys::Gamepad_FaceButton_Right;
+    }
 
     float StepFrameRate(float Current, int32 Direction)
     {
