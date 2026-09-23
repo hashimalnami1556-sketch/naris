@@ -438,13 +438,11 @@ void ANarisPlayerController::AdjustCurrentSetting(int32 Direction)
         }
         case VSync:
             Settings->SetVSyncEnabled(!Settings->IsVSyncEnabled());
-            Settings->RequestUIUpdate();
             break;
         case FrameRate:
             Settings->SetFrameRateLimit(
                 StepFrameRate(Settings->GetFrameRateLimit(), Direction)
             );
-            Settings->RequestUIUpdate();
             break;
         case MasterVolume:
             Settings->SetMasterVolume(Settings->MasterVolume + FloatStep * Direction);
