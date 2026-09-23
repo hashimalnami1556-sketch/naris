@@ -23,6 +23,10 @@ REQUIRED = [
     ROOT / "tools" / "windows" / "Invoke-NarisBlenderUnrealSmoke.ps1",
     ROOT / "tools" / "windows" / "Invoke-NarisW04AuthoringBootstrap.ps1",
     ROOT / "unreal" / "NARIS_W04" / "Content" / "Python" / "naris_bootstrap_w04_smoke.py",
+    ROOT / "unreal" / "NARIS_W04" / "Config" / "Localization" / "NARIS_Game.ini",
+    ROOT / "unreal" / "NARIS_W04" / "Content" / "Localization" / "NARIS_Game" / "en" / "NARIS_Game.po",
+    ROOT / "unreal" / "NARIS_W04" / "Content" / "Localization" / "NARIS_Game" / "ar" / "NARIS_Game.po",
+    ROOT / "tools" / "windows" / "Invoke-NarisLocalization.ps1",
 ]
 
 errors: list[str] = []
@@ -130,6 +134,63 @@ if engine_ini.exists():
         if token not in engine_text:
             errors.append(f"DefaultEngine.ini missing W04 runtime setting: {token}")
 
+# NARIS localization catalogs must cover every C++ NSLOCTEXT key in the NARIS namespace.
+loc_root = ROOT / "unreal" / "NARIS_W04"
+source_root = loc_root / "Source" / "NARIS_W04"
+loc_pattern = re.compile(
+    r'NSLOCTEXT\(\s*"NARIS"\s*,\s*"([^"]+)"\s*,\s*"([^"]*)"\s*\)'
+)
+source_entries = {}
+for source_file in list(source_root.rglob("*.h")) + list(source_root.rglob("*.cpp")):
+    source_text = source_file.read_text(encoding="utf-8")
+    for key, source_string in loc_pattern.findall(source_text):
+        existing = source_entries.get(key)
+        if existing is not None and existing != source_string:
+            errors.append(
+                f"Localization key {key} has conflicting source strings: "
+                f"{existing!r} vs {source_string!r}"
+            )
+        source_entries[key] = source_string
+
+for culture in ("en", "ar"):
+    po_path = (
+        loc_root / "Content" / "Localization" / "NARIS_Game"
+        / culture / "NARIS_Game.po"
+    )
+    if po_path.exists():
+        po_text = po_path.read_text(encoding="utf-8")
+        for key, source_string in sorted(source_entries.items()):
+            context = f'msgctxt "NARIS,{key}"'
+            msgid = f'msgid "{source_string}"'
+            if context not in po_text:
+                errors.append(
+                    f"NARIS localization catalog {culture} missing key: {key}"
+                )
+            if msgid not in po_text:
+                errors.append(
+                    f"NARIS localization catalog {culture} source mismatch: {key}"
+                )
+
+loc_config = loc_root / "Config" / "Localization" / "NARIS_Game.ini"
+if loc_config.exists():
+    loc_config_text = loc_config.read_text(encoding="utf-8")
+    for token in (
+        "NativeCulture=en",
+        "CulturesToGenerate=en",
+        "CulturesToGenerate=ar",
+        "CommandletClass=GatherTextFromSource",
+        "CommandletClass=GenerateTextLocalizationResource",
+    ):
+        if token not in loc_config_text:
+            errors.append(f"NARIS localization config missing: {token}")
+
+default_game = loc_root / "Config" / "DefaultGame.ini"
+if default_game.exists():
+    default_game_text = default_game.read_text(encoding="utf-8")
+    for token in ("+CulturesToStage=en", "+CulturesToStage=ar"):
+        if token not in default_game_text:
+            errors.append(f"DefaultGame.ini missing localization staging: {token}")
+
 # Neon migration contract: verify the core tables are declared and no connection secret is embedded.
 neon_schema = ROOT / "backend" / "neon" / "schema" / "001_core.sql"
 if neon_schema.exists():
@@ -171,3 +232,4 @@ print("Validated Neon schema contract: backend/neon/schema/001_core.sql")
 print("Validated Figma handoff contract: integrations/figma/README.md")
 print("Validated Blender exchange schema and Unreal import bridge")
 print("Validated W04 Unreal editor bootstrap and runtime map settings")
+print("Validated NARIS localization catalogs and EN/AR staging")
