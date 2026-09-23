@@ -1,0 +1,86 @@
+{
+  "schema": "naris.w04.production-map-requirements.v1",
+  "world": "W04",
+  "production_map": "/Game/NARIS/W04/Maps/W04_AshenForest",
+  "source_layout": "NARIS_MASTER/09_WORLD/Ashen_Forest/LEVEL_LAYOUT.json",
+  "bounds_m": {
+    "x": 1600,
+    "y": 1200,
+    "z": 350
+  },
+  "zones": [
+    {
+      "id": "Z01_FOREST_ENTRANCE",
+      "label": "ZONE_Z01_FOREST_ENTRANCE",
+      "name": "Forest Entrance",
+      "role": "tutorial"
+    },
+    {
+      "id": "Z02_BROKEN_SHRINE",
+      "label": "ZONE_Z02_BROKEN_SHRINE",
+      "name": "Broken Shrine",
+      "role": "lore/combat"
+    },
+    {
+      "id": "Z03_RUINED_BRIDGE",
+      "label": "ZONE_Z03_RUINED_BRIDGE",
+      "name": "Ruined Bridge",
+      "role": "traversal/gating"
+    },
+    {
+      "id": "Z04_WHISPER_LAKE",
+      "label": "ZONE_Z04_WHISPER_LAKE",
+      "name": "Whisper Lake",
+      "role": "companion reveal"
+    },
+    {
+      "id": "Z05_ASH_GATE",
+      "label": "ZONE_Z05_ASH_GATE",
+      "name": "Ash Gate",
+      "role": "major_gate"
+    },
+    {
+      "id": "Z06_BONE_BEAST_ARENA",
+      "label": "ZONE_Z06_BONE_BEAST_ARENA",
+      "name": "Bone Beast Arena",
+      "role": "boss"
+    }
+  ],
+  "critical_path": [
+    "Z01_FOREST_ENTRANCE",
+    "Z02_BROKEN_SHRINE",
+    "Z03_RUINED_BRIDGE",
+    "Z04_WHISPER_LAKE",
+    "Z05_ASH_GATE",
+    "Z06_BONE_BEAST_ARENA"
+  ],
+  "required_actor_labels": [
+    "PlayerStart",
+    "NARIS_Waystone_0001",
+    "NARIS_MemoryCrystal_0001",
+    "NARIS_AshGate_0001",
+    "NARIS_CelestialWolf_0001",
+    "NARIS_BoneBeastBoss_0001",
+    "NARIS_BossArenaController"
+  ],
+  "required_actor_classes": [
+    "DirectionalLight",
+    "SkyLight",
+    "ExponentialHeightFog",
+    "NavMeshBoundsVolume"
+  ],
+  "forbidden_actor_labels": [
+    "NARIS_RuntimeSmokeDirector"
+  ],
+  "forbidden_label_prefixes": [
+    "DEV_",
+    "BLOCKOUT_"
+  ],
+  "lighting": {
+    "day_state": "permanent late-dusk",
+    "key_light": "low-angle warm directional",
+    "fill": "cool mist skylight",
+    "volumetric": "dense localized fog",
+    "readability_rule": "Gameplay readability overrides cinematic darkness."
+  }
+}
