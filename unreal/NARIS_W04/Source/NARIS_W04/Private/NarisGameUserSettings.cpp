@@ -174,6 +174,16 @@ float UNarisGameUserSettings::GetPresentationSFXScale() const
     return FMath::Clamp(MasterVolume * SFXVolume, 0.f, 1.f);
 }
 
+float UNarisGameUserSettings::GetPresentationMusicScale() const
+{
+    return FMath::Clamp(MasterVolume * MusicVolume, 0.f, 1.f);
+}
+
+float UNarisGameUserSettings::GetPresentationVoiceScale() const
+{
+    return FMath::Clamp(MasterVolume * VoiceVolume, 0.f, 1.f);
+}
+
 float UNarisGameUserSettings::GetEffectiveCameraShakeScale() const
 {
     const float AuthoredScale = FMath::Clamp(CameraShakeIntensity, 0.f, 1.5f);
