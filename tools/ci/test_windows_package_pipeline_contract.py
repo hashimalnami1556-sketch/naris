@@ -26,6 +26,9 @@ class WindowsPackagePipelineContractTests(unittest.TestCase):
             "-package",
             "NARIS_W04.exe",
             "Start-Process",
+            "-csvCaptureFrames=600",
+            "-csvGpuStats",
+            "-LLMCSV",
             "naris_windows_package_smoke.json",
         )
         cursor = -1
