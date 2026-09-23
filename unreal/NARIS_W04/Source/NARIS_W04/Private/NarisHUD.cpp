@@ -2,6 +2,7 @@
 
 #include "BoneBeastBoss.h"
 #include "BoneBeastDataAsset.h"
+#include "CelestialWolf.h"
 #include "Engine/GameInstance.h"
 #include "Engine/World.h"
 #include "EngineUtils.h"
@@ -124,13 +125,31 @@ void ANarisHUD::DrawHUD()
             false
         );
 
+        if (Runtime->IsCompanionUnlocked(TEXT("CelestialWolf")))
+        {
+            for (TActorIterator<ACelestialWolf> WolfIt(GetWorld()); WolfIt; ++WolfIt)
+            {
+                ACelestialWolf* Wolf = *WolfIt;
+                if (Wolf)
+                {
+                    const FString ModeText = FString::Printf(
+                        TEXT("%s: %s"),
+                        *NSLOCTEXT("NARIS", "HUDWolfMode", "Wolf Mode").ToString(),
+                        *Wolf->GetModeDisplayName().ToString()
+                    );
+                    DrawText(ModeText, Cyan, 40.f, 320.f, nullptr, 0.85f, false);
+                    break;
+                }
+            }
+        }
+
         if (Runtime->IsDemoCompleted())
         {
             DrawText(
                 NSLOCTEXT("NARIS", "HUDDemoComplete", "W04 DEMO COMPLETE").ToString(),
                 Gold,
                 40.f,
-                335.f,
+                360.f,
                 nullptr,
                 1.25f,
                 false
@@ -152,7 +171,7 @@ void ANarisHUD::DrawHUD()
                 NSLOCTEXT("NARIS", "HUDBoneBeastDefeated", "Bone Beast Defeated").ToString(),
                 Gold,
                 40.f,
-                395.f,
+                420.f,
                 nullptr,
                 1.0f,
                 false
@@ -166,7 +185,7 @@ void ANarisHUD::DrawHUD()
                 Boss->GetCurrentHealth(),
                 MaxHealth,
                 40.f,
-                380.f,
+                405.f,
                 Ember
             );
         }
