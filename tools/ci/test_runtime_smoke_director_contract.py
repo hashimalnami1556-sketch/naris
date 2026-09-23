@@ -67,6 +67,16 @@ class RuntimeSmokeDirectorContractTests(unittest.TestCase):
         self.assertIn("FJsonSerializer::Serialize", source)
         self.assertIn("NarisSmokeReport=", source)
 
+    def test_runtime_smoke_bypasses_default_autoload(self) -> None:
+        source = read(
+            "unreal/NARIS_W04/Source/NARIS_W04/Private/NarisRuntimeSubsystem.cpp"
+        )
+        self.assertIn(
+            'FParse::Param(FCommandLine::Get(), TEXT("NarisRuntimeSmoke"))',
+            source,
+        )
+        self.assertIn("BeginNewGame();", source)
+
     def test_windows_package_requires_runtime_smoke_pass(self) -> None:
         source = read("tools/windows/Invoke-NarisWindowsPackage.ps1")
         for token in (
