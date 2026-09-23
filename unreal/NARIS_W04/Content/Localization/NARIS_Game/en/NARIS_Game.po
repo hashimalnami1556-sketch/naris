@@ -121,3 +121,27 @@ msgstr "Echo Link"
 msgctxt "NARIS,WolfModeUnknown"
 msgid "Unknown"
 msgstr "Unknown"
+
+msgctxt "NARIS,HUDQuestCorruptedHeart"
+msgid "Corrupted Heart"
+msgstr "Corrupted Heart"
+
+msgctxt "NARIS,HUDQuestCorruptedHeartUnknown"
+msgid "Follow the Corrupted Heart."
+msgstr "Follow the Corrupted Heart."
+
+msgctxt "NARIS,HUDQuestCorruptedHeartComplete"
+msgid "Corrupted Heart cleansed."
+msgstr "Corrupted Heart cleansed."
+
+msgctxt "NARIS,HUDQuestCorruptedHeartStep1"
+msgid "Follow the First Whisper."
+msgstr "Follow the First Whisper."
+
+msgctxt "NARIS,HUDQuestCorruptedHeartStep2"
+msgid "Pass through the Ash Gate."
+msgstr "Pass through the Ash Gate."
+
+msgctxt "NARIS,HUDQuestCorruptedHeartStep3"
+msgid "Enter the Bone Beast arena."
+msgstr "Enter the Bone Beast arena."
