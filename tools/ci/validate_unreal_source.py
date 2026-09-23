@@ -10,6 +10,7 @@ def validate_source(source: Path) -> list[str]:
         return [f"Missing Unreal Source directory: {source}"]
     targets = defaultdict(list)
     modules = defaultdict(list)
+    reflected_enums = defaultdict(list)
     for path in sorted(source.rglob('*')):
         if not path.is_file():
             continue
@@ -23,6 +24,12 @@ def validate_source(source: Path) -> list[str]:
         if path.name.endswith('.Target.cs'):
             for name in re.findall(r'\bclass\s+(\w+)\s*:\s*TargetRules\b', text):
                 targets[name].append(path.relative_to(source))
+        for name in re.findall(
+            r'\bUENUM\s*\([^)]*\)\s*enum\s+class\s+(\w+)\b',
+            text,
+            flags=re.S
+        ):
+            reflected_enums[name].append(path.relative_to(source))
         if path.suffix == '.cpp':
             for name in re.findall(
                 r'\bIMPLEMENT_(?:PRIMARY_GAME_MODULE|GAME_MODULE|MODULE)\s*\(\s*\w+\s*,\s*(\w+)', text
@@ -33,4 +40,7 @@ def validate_source(source: Path) -> list[str]:
             errors.append(f"Expected one {name} definition; found {len(targets[name])}: {targets[name]}")
     if len(modules['NARIS_W04']) != 1:
         errors.append(f"Expected one NARIS_W04 module registration; found {len(modules['NARIS_W04'])}: {modules['NARIS_W04']}")
+    for name, paths in sorted(reflected_enums.items()):
+        if len(paths) > 1:
+            errors.append(f"Duplicate reflected enum {name}: {paths}")
     return errors
