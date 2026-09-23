@@ -1,9 +1,118 @@
+void ANarisHUD::DrawPauseMenu()
+{
+    ANarisPlayerController* Controller =
+        Cast<ANarisPlayerController>(PlayerOwner);
+    if (!Controller || !Controller->IsPauseMenuOpen() || !Canvas)
+    {
+        return;
+    }
+
+    const float Width = Canvas->ClipX;
+    const float Height = Canvas->ClipY;
+    const float PanelWidth = FMath::Min(760.f, Width * 0.72f);
+    const float PanelHeight = FMath::Min(860.f, Height * 0.84f);
+    const float X = (Width - PanelWidth) * 0.5f;
+    const float Y = (Height - PanelHeight) * 0.5f;
+
+    const FLinearColor Overlay(0.01f, 0.015f, 0.025f, 0.82f);
+    const FLinearColor Panel(0.035f, 0.05f, 0.075f, 0.96f);
+    const FLinearColor Gold(0.82f, 0.65f, 0.18f, 1.f);
+    const FLinearColor Cyan(0.36f, 0.86f, 0.92f, 1.f);
+    const FLinearColor Muted(0.65f, 0.69f, 0.75f, 1.f);
+
+    DrawRect(Overlay, 0.f, 0.f, Width, Height);
+    DrawRect(Panel, X, Y, PanelWidth, PanelHeight);
+
+    DrawText(
+        Controller->GetMenuTitle().ToString(),
+        Gold,
+        X + 44.f,
+        Y + 36.f,
+        nullptr,
+        1.45f,
+        false
+    );
+
+    const int32 Count = Controller->GetVisibleMenuItemCount();
+    const int32 Selected = Controller->GetSelectedMenuIndex();
+    const float RowHeight = Controller->GetPauseMenuPage()
+        == ENarisPauseMenuPage::Main
+            ? 64.f
+            : 42.f;
+    const float StartY = Y + 110.f;
+
+    for (int32 Index = 0; Index < Count; ++Index)
+    {
+        const bool bSelected = Index == Selected;
+        const float RowY = StartY + Index * RowHeight;
+
+        if (bSelected)
+        {
+            DrawRect(
+                FLinearColor(0.16f, 0.12f, 0.035f, 0.78f),
+                X + 28.f,
+                RowY - 8.f,
+                PanelWidth - 56.f,
+                RowHeight - 4.f
+            );
+        }
+
+        DrawText(
+            Controller->GetMenuItemLabel(Index).ToString(),
+            bSelected ? Gold : FLinearColor::White,
+            X + 48.f,
+            RowY,
+            nullptr,
+            bSelected ? 1.0f : 0.9f,
+            false
+        );
+
+        const FText Value = Controller->GetMenuItemValue(Index);
+        if (!Value.IsEmpty())
+        {
+            DrawText(
+                Value.ToString(),
+                bSelected ? Cyan : Muted,
+                X + PanelWidth * 0.58f,
+                RowY,
+                nullptr,
+                bSelected ? 0.95f : 0.86f,
+                false
+            );
+        }
+    }
+
+    const FString Hint = Controller->GetPauseMenuPage()
+        == ENarisPauseMenuPage::Main
+            ? NSLOCTEXT(
+                "NARIS",
+                "PauseMenuHint",
+                "Navigate: W/S or D-Pad   Confirm: Enter/A   Back: Esc/B"
+              ).ToString()
+            : NSLOCTEXT(
+                "NARIS",
+                "SettingsMenuHint",
+                "Adjust: A/D or Left/Right   Confirm: Enter/A   Back: Esc/B"
+              ).ToString();
+
+    DrawText(
+        Hint,
+        Muted,
+        X + 44.f,
+        Y + PanelHeight - 52.f,
+        nullptr,
+        0.78f,
+        false
+    );
+}
+
 #include "NarisHUD.h"
 
 #include "BoneBeastBoss.h"
 #include "BoneBeastDataAsset.h"
 #include "CelestialWolf.h"
 #include "Engine/GameInstance.h"
+#include "Engine/Canvas.h"
 #include "Engine/World.h"
 #include "EngineUtils.h"
 #include "GameFramework/PlayerController.h"
@@ -13,6 +122,7 @@
 #include "NarisGameUserSettings.h"
 #include "NarisInteractable.h"
 #include "NarisInteractionComponent.h"
+#include "NarisPlayerController.h"
 #include "NarisRuntimeSubsystem.h"
 
 void ANarisHUD::DrawBar(
@@ -273,4 +383,6 @@ void ANarisHUD::DrawHUD()
         }
         break;
     }
+
+    DrawPauseMenu();
 }
