@@ -32,7 +32,9 @@ class PresentationProductionContractTests(unittest.TestCase):
             self.assertIn(token, header)
         self.assertIn("UNiagaraFunctionLibrary::SpawnSystemAtLocation", source)
         self.assertIn("UGameplayStatics::PlaySoundAtLocation", source)
-        self.assertIn("UGameplayStatics::PlayWorldCameraShake", source)
+        self.assertIn("CameraManager->StartCameraShake", source)
+        self.assertIn("GetEffectiveCameraShakeScale()", source)
+        self.assertIn("GetPresentationSFXScale()", source)
 
     def test_hero_emits_combat_feedback_cues(self) -> None:
         source = read(
