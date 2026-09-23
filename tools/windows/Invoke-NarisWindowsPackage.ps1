@@ -1,0 +1,115 @@
+param(
+    [Parameter(Mandatory=$true)][string]$RepoRoot,
+    [string]$UnrealEngineRoot = $env:UNREAL_ENGINE_ROOT,
+    [string]$ArchiveDir = "",
+    [int]$LaunchSmokeSeconds = 20
+)
+
+$ErrorActionPreference = "Stop"
+
+if (-not $UnrealEngineRoot -or -not (Test-Path $UnrealEngineRoot)) {
+    throw "UNREAL_ENGINE_ROOT is not configured or does not exist."
+}
+
+if (-not $ArchiveDir) {
+    $ArchiveDir = Join-Path $RepoRoot "artifacts\windows\NARIS_W04"
+}
+
+$UProject = Join-Path $RepoRoot "unreal\NARIS_W04\NARIS_W04.uproject"
+$BuildBat = Join-Path $UnrealEngineRoot "Engine\Build\BatchFiles\Build.bat"
+$RunUAT = Join-Path $UnrealEngineRoot "Engine\Build\BatchFiles\RunUAT.bat"
+$Bootstrap = Join-Path $RepoRoot "tools\windows\Invoke-NarisW04AuthoringBootstrap.ps1"
+$GeneratedMap = Join-Path $RepoRoot "unreal\NARIS_W04\Content\NARIS\W04\Maps\W04_Prototype.umap"
+$GeneratedBossData = Join-Path $RepoRoot "unreal\NARIS_W04\Content\NARIS\W04\Data\DA_BoneBeast_Smoke.uasset"
+
+foreach ($path in @($UProject, $BuildBat, $RunUAT, $Bootstrap)) {
+    if (-not (Test-Path $path)) {
+        throw "Required path missing: $path"
+    }
+}
+
+New-Item -ItemType Directory -Force -Path $ArchiveDir | Out-Null
+
+Write-Host "[NARIS] Building NARIS_W04Editor"
+& $BuildBat "NARIS_W04Editor" "Win64" "Development" $UProject "-WaitMutex"
+if ($LASTEXITCODE -ne 0) {
+    throw "NARIS_W04Editor build failed with exit code $LASTEXITCODE"
+}
+
+Write-Host "[NARIS] Generating W04 runtime-smoke map/assets"
+& $Bootstrap -RepoRoot $RepoRoot -UnrealEngineRoot $UnrealEngineRoot
+if ($LASTEXITCODE -ne 0) {
+    throw "W04 authoring bootstrap failed with exit code $LASTEXITCODE"
+}
+
+foreach ($generated in @($GeneratedMap, $GeneratedBossData)) {
+    if (-not (Test-Path $generated)) {
+        throw "Expected generated Unreal asset is missing: $generated"
+    }
+}
+
+Write-Host "[NARIS] BuildCookRun Win64 Development"
+$UatArgs = @(
+    "BuildCookRun",
+    "-project=$UProject",
+    "-noP4",
+    "-platform=Win64",
+    "-clientconfig=Development",
+    "-build",
+    "-cook",
+    "-map=W04_Prototype",
+    "-stage",
+    "-pak",
+    "-package",
+    "-archive",
+    "-archivedirectory=$ArchiveDir",
+    "-utf8output"
+)
+& $RunUAT @UatArgs
+
+if ($LASTEXITCODE -ne 0) {
+    throw "BuildCookRun failed with exit code $LASTEXITCODE"
+}
+
+$Executable = Get-ChildItem -Path $ArchiveDir -Filter "NARIS_W04.exe" -Recurse -File |
+    Select-Object -First 1
+
+if (-not $Executable) {
+    throw "Packaged NARIS_W04.exe was not found under $ArchiveDir"
+}
+
+Write-Host "[NARIS] Launch smoke: $($Executable.FullName)"
+$Process = Start-Process -FilePath $Executable.FullName -ArgumentList @(
+    "-nosplash",
+    "-windowed",
+    "-ResX=1280",
+    "-ResY=720",
+    "-log"
+) -PassThru
+
+Start-Sleep -Seconds $LaunchSmokeSeconds
+
+if ($Process.HasExited) {
+    throw "Packaged game exited during launch smoke with code $($Process.ExitCode)"
+}
+
+Stop-Process -Id $Process.Id -Force
+
+$Report = [ordered]@{
+    schema = "naris.windows.package-smoke.v1"
+    status = "pass"
+    configuration = "Development"
+    platform = "Win64"
+    archive = $ArchiveDir
+    executable = $Executable.FullName
+    launch_smoke_seconds = $LaunchSmokeSeconds
+    generated_map = $GeneratedMap
+    generated_boss_data = $GeneratedBossData
+    completed_at_utc = [DateTime]::UtcNow.ToString("o")
+}
+
+$ReportPath = Join-Path $ArchiveDir "naris_windows_package_smoke.json"
+$Report | ConvertTo-Json -Depth 5 | Set-Content -Path $ReportPath -Encoding UTF8
+
+Write-Host "[NARIS] Windows package + launch smoke PASSED"
+Write-Host "[NARIS] Report: $ReportPath"
