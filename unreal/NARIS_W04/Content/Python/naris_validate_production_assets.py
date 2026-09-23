@@ -67,13 +67,39 @@ def main():
                 errors.append(f"{aid}: expected StaticMesh"); continue
             lods=asset.get_num_lods()
             mats=material_count(asset,kind)
+            triangles=asset.get_num_triangles(0) if lods > 0 else 0
             convex=static_subsystem.get_convex_collision_count(asset)
             customized=bool(asset.get_editor_property("customized_collision"))
-            if lods < int(item.get("min_lods",1)): errors.append(f"{aid}: LOD count {lods} below minimum")
-            if item.get("require_materials") and mats < 1: errors.append(f"{aid}: no assigned materials")
+            nanite_settings=asset.get_editor_property("nanite_settings")
+            nanite_enabled=bool(
+                nanite_settings.get_editor_property("enabled")
+            )
+            if lods < int(item.get("min_lods",1)):
+                errors.append(f"{aid}: LOD count {lods} below minimum")
+            if item.get("require_materials") and mats < 1:
+                errors.append(f"{aid}: no assigned materials")
+            max_material_slots=item.get("max_material_slots")
+            if max_material_slots is not None and mats > int(max_material_slots):
+                errors.append(
+                    f"{aid}: material slot count {mats} exceeds "
+                    f"budget {int(max_material_slots)}"
+                )
+            max_triangles=item.get("max_triangles_lod0")
+            if max_triangles is not None and triangles > int(max_triangles):
+                errors.append(
+                    f"{aid}: LOD0 triangles {triangles} exceed "
+                    f"budget {int(max_triangles)}"
+                )
             if item.get("require_collision") and convex <= 0 and not customized:
                 errors.append(f"{aid}: no authored/simple collision evidence")
-            details[aid]={"lod_count":lods,"material_count":mats,"convex_collision_count":convex,"customized_collision":customized}
+            details[aid]={
+                "lod_count":lods,
+                "material_count":mats,
+                "triangle_count_lod0":triangles,
+                "convex_collision_count":convex,
+                "customized_collision":customized,
+                "nanite_enabled":nanite_enabled,
+            }
         else:
             errors.append(f"{aid}: unsupported kind {kind!r}"); continue
 
