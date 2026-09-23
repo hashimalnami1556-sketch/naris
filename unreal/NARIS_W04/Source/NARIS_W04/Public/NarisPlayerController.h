@@ -8,8 +8,11 @@ UENUM(BlueprintType)
 enum class ENarisPauseMenuPage : uint8
 {
     Main,
-    Settings
+    Settings,
+    Controls
 };
+
+struct FInputKeyParams;
 
 UCLASS()
 class NARIS_W04_API ANarisPlayerController : public APlayerController
@@ -20,6 +23,7 @@ public:
     ANarisPlayerController();
 
     virtual void SetupInputComponent() override;
+    virtual bool InputKey(const FInputKeyParams& Params) override;
 
     UFUNCTION(BlueprintCallable, Category="NARIS|Menu")
     void TogglePauseMenu();
@@ -38,6 +42,12 @@ public:
 
     UFUNCTION(BlueprintPure, Category="NARIS|Menu")
     int32 GetSelectedMenuIndex() const { return SelectedMenuIndex; }
+
+    UFUNCTION(BlueprintPure, Category="NARIS|Menu|Controls")
+    bool IsWaitingForGamepadRemap() const
+    {
+        return bWaitingForGamepadRemap;
+    }
 
     UFUNCTION(BlueprintPure, Category="NARIS|Menu")
     int32 GetVisibleMenuItemCount() const;
