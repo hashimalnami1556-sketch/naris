@@ -48,7 +48,8 @@
         "prompt_influence": 0.55,
         "output_format": "pcm_48000",
         "note": "Generation spends external credits. Generate only through an explicitly authorized production run; importer still validates the WAV master before Unreal binding."
-      }
+      },
+      "audio_bus": "sfx"
     },
     {
       "asset_id": "NARIS-W04-AUD-ASHRUPTURE-0001",
@@ -80,7 +81,8 @@
         "prompt_influence": 0.55,
         "output_format": "pcm_48000",
         "note": "Generation spends external credits. Generate only through an explicitly authorized production run; importer still validates the WAV master before Unreal binding."
-      }
+      },
+      "audio_bus": "sfx"
     },
     {
       "asset_id": "NARIS-W04-AUD-BONEATTACK-0001",
@@ -112,7 +114,8 @@
         "prompt_influence": 0.55,
         "output_format": "pcm_48000",
         "note": "Generation spends external credits. Generate only through an explicitly authorized production run; importer still validates the WAV master before Unreal binding."
-      }
+      },
+      "audio_bus": "sfx"
     },
     {
       "asset_id": "NARIS-W04-AUD-BONECHARGE-0001",
@@ -144,7 +147,8 @@
         "prompt_influence": 0.55,
         "output_format": "pcm_48000",
         "note": "Generation spends external credits. Generate only through an explicitly authorized production run; importer still validates the WAV master before Unreal binding."
-      }
+      },
+      "audio_bus": "sfx"
     },
     {
       "asset_id": "NARIS-W04-AUD-BONECLAW-0001",
@@ -176,7 +180,8 @@
         "prompt_influence": 0.55,
         "output_format": "pcm_48000",
         "note": "Generation spends external credits. Generate only through an explicitly authorized production run; importer still validates the WAV master before Unreal binding."
-      }
+      },
+      "audio_bus": "sfx"
     },
     {
       "asset_id": "NARIS-W04-AUD-BONEDEATH-0001",
@@ -208,7 +213,8 @@
         "prompt_influence": 0.55,
         "output_format": "pcm_48000",
         "note": "Generation spends external credits. Generate only through an explicitly authorized production run; importer still validates the WAV master before Unreal binding."
-      }
+      },
+      "audio_bus": "sfx"
     },
     {
       "asset_id": "NARIS-W04-AUD-BONEHIT-0001",
@@ -240,7 +246,8 @@
         "prompt_influence": 0.55,
         "output_format": "pcm_48000",
         "note": "Generation spends external credits. Generate only through an explicitly authorized production run; importer still validates the WAV master before Unreal binding."
-      }
+      },
+      "audio_bus": "sfx"
     },
     {
       "asset_id": "NARIS-W04-AUD-BONEINTRO-0001",
@@ -272,7 +279,8 @@
         "prompt_influence": 0.55,
         "output_format": "pcm_48000",
         "note": "Generation spends external credits. Generate only through an explicitly authorized production run; importer still validates the WAV master before Unreal binding."
-      }
+      },
+      "audio_bus": "sfx"
     },
     {
       "asset_id": "NARIS-W04-AUD-BONEPHASE-0001",
@@ -304,7 +312,8 @@
         "prompt_influence": 0.55,
         "output_format": "pcm_48000",
         "note": "Generation spends external credits. Generate only through an explicitly authorized production run; importer still validates the WAV master before Unreal binding."
-      }
+      },
+      "audio_bus": "sfx"
     },
     {
       "asset_id": "NARIS-W04-AUD-DODGE-0001",
@@ -336,7 +345,8 @@
         "prompt_influence": 0.55,
         "output_format": "pcm_48000",
         "note": "Generation spends external credits. Generate only through an explicitly authorized production run; importer still validates the WAV master before Unreal binding."
-      }
+      },
+      "audio_bus": "sfx"
     },
     {
       "asset_id": "NARIS-W04-AUD-ESSENCE-0001",
@@ -368,7 +378,8 @@
         "prompt_influence": 0.55,
         "output_format": "pcm_48000",
         "note": "Generation spends external credits. Generate only through an explicitly authorized production run; importer still validates the WAV master before Unreal binding."
-      }
+      },
+      "audio_bus": "sfx"
     },
     {
       "asset_id": "NARIS-W04-AUD-HEROIMPACT-0001",
@@ -401,7 +412,8 @@
         "prompt_influence": 0.55,
         "output_format": "pcm_48000",
         "note": "Generation spends external credits. Generate only through an explicitly authorized production run; importer still validates the WAV master before Unreal binding."
-      }
+      },
+      "audio_bus": "sfx"
     },
     {
       "asset_id": "NARIS-W04-AUD-PARRY-0001",
@@ -433,7 +445,8 @@
         "prompt_influence": 0.55,
         "output_format": "pcm_48000",
         "note": "Generation spends external credits. Generate only through an explicitly authorized production run; importer still validates the WAV master before Unreal binding."
-      }
+      },
+      "audio_bus": "sfx"
     },
     {
       "asset_id": "NARIS-W04-AUD-WOLFATTACK-0001",
@@ -465,7 +478,8 @@
         "prompt_influence": 0.55,
         "output_format": "pcm_48000",
         "note": "Generation spends external credits. Generate only through an explicitly authorized production run; importer still validates the WAV master before Unreal binding."
-      }
+      },
+      "audio_bus": "sfx"
     },
     {
       "asset_id": "NARIS-W04-AUD-WOLFBOND-0001",
@@ -497,7 +511,8 @@
         "prompt_influence": 0.55,
         "output_format": "pcm_48000",
         "note": "Generation spends external credits. Generate only through an explicitly authorized production run; importer still validates the WAV master before Unreal binding."
-      }
+      },
+      "audio_bus": "sfx"
     },
     {
       "asset_id": "NARIS-W04-AUD-WOLFECHO-0001",
@@ -529,7 +544,8 @@
         "prompt_influence": 0.55,
         "output_format": "pcm_48000",
         "note": "Generation spends external credits. Generate only through an explicitly authorized production run; importer still validates the WAV master before Unreal binding."
-      }
+      },
+      "audio_bus": "sfx"
     },
     {
       "asset_id": "NARIS-W04-CINE-SHAKEDEATH-0001",
@@ -973,5 +989,14 @@
         ]
       }
     }
-  ]
+  ],
+  "audio_bus_policy": {
+    "allowed": [
+      "sfx",
+      "music",
+      "voice"
+    ],
+    "current_audio_assets": "All currently registered W04 presentation audio source assets are SFX.",
+    "routing_authority": "W04_PresentationCueManifest.json"
+  }
 }
