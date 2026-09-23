@@ -7,8 +7,8 @@ T04 Light/Heavy damage commits through an authored attack hit window and impact 
 T05 Parry window prevents damage only when an incoming hit lands during the window, then raises resonance.
 T06 Poise reaches zero and opens execution window.
 T07 Five-Essence cycling plus energy spend/restore works from keyboard and gamepad.
-T08 Celestial Wolf follow/guard/attack/track contract.
-T09 Bone Beast phases P1/P2/P3.
+T08 Celestial Wolf Follow/Guard/Attack/Track/EchoLink modes execute their distinct runtime behavior and emit presentation cues.
+T09 Bone Beast phases P1/P2/P3 remain authoritative in ABoneBeastBoss, mirror into PhasePresentation, and fan out through presentation cues.
 T10 Quest Corrupted Heart progression.
 T11 Save/Load restores checkpoint, quest, lore and waystones.
 T12 Arabic/English localization.
@@ -19,3 +19,6 @@ T16 Packaged runtime progression smoke drives Waystone -> MemoryCrystal -> AshGa
 T17 Runtime smoke Save -> New Game -> Load restores checkpoint, lore, narrative, gate, companion, quest, boss and DemoEnd.
 T18 Windows BuildCookRun package launches successfully in en and ar cultures.
 T19 Windows Development package emits package-smoke report and requested CSV/GPU/LLM profiling evidence.
+T20 Presentation cue bus fans authoritative gameplay events into optional Niagara, Audio/MetaSound and CameraShake payloads without mutating gameplay state.
+T21 Bone Beast arena blocker closes on EncounterStarted and reopens on EncounterComplete; packaged runtime smoke verifies the lock cycle.
+T22 Every W04 presentation VFX/AUD/Camera asset ID referenced by the cue manifest exists exactly once in MASTER_ASSET_REGISTRY.json.
