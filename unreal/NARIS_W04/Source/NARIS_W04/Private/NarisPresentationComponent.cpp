@@ -6,6 +6,26 @@
 #include "NiagaraSystem.h"
 #include "Sound/SoundBase.h"
 
+namespace
+{
+    bool PresentationCueMatches(FName Pattern, FName Actual)
+    {
+        if (Pattern == Actual)
+        {
+            return true;
+        }
+
+        const FString PatternString = Pattern.ToString();
+        if (!PatternString.EndsWith(TEXT(".*")))
+        {
+            return false;
+        }
+
+        const FString Prefix = PatternString.LeftChop(1);
+        return Actual.ToString().StartsWith(Prefix);
+    }
+}
+
 UNarisPresentationComponent::UNarisPresentationComponent()
 {
     PrimaryComponentTick.bCanEverTick = false;
@@ -38,7 +58,7 @@ const FNarisPresentationCue* UNarisPresentationComponent::FindCue(FName CueId) c
     const FNarisPresentationCue* LocalCue = Cues.FindByPredicate(
         [CueId](const FNarisPresentationCue& Cue)
         {
-            return Cue.CueId == CueId;
+            return PresentationCueMatches(Cue.CueId, CueId);
         }
     );
 
@@ -52,7 +72,7 @@ const FNarisPresentationCue* UNarisPresentationComponent::FindCue(FName CueId) c
         return Profile->Cues.FindByPredicate(
             [CueId](const FNarisPresentationCue& Cue)
             {
-                return Cue.CueId == CueId;
+                return PresentationCueMatches(Cue.CueId, CueId);
             }
         );
     }
