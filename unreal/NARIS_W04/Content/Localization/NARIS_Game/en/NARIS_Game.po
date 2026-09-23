@@ -377,3 +377,23 @@ msgstr "The First Whisper"
 msgctxt "NARIS,FirstWhisperLine"
 msgid "The gate remembers what the ash tried to bury."
 msgstr "The gate remembers what the ash tried to bury."
+
+msgctxt "NARIS,FrontEndNewGame"
+msgid "New Game"
+msgstr "New Game"
+
+msgctxt "NARIS,FrontEndContinue"
+msgid "Continue"
+msgstr "Continue"
+
+msgctxt "NARIS,FrontEndQuit"
+msgid "Quit"
+msgstr "Quit"
+
+msgctxt "NARIS,FrontEndNoSave"
+msgid "No Save Data"
+msgstr "No Save Data"
+
+msgctxt "NARIS,FrontEndMenuHint"
+msgid "Navigate: W/S or D-Pad   Confirm: Enter/A"
+msgstr "Navigate: W/S or D-Pad   Confirm: Enter/A"
