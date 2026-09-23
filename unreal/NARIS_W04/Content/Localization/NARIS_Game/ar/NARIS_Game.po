@@ -93,3 +93,31 @@ msgstr "النور"
 msgctxt "NARIS,EssenceUnknown"
 msgid "Unknown"
 msgstr "غير معروف"
+
+msgctxt "NARIS,HUDWolfMode"
+msgid "Wolf Mode"
+msgstr "وضع الذئب"
+
+msgctxt "NARIS,WolfModeFollow"
+msgid "Follow"
+msgstr "اتباع"
+
+msgctxt "NARIS,WolfModeGuard"
+msgid "Guard"
+msgstr "حراسة"
+
+msgctxt "NARIS,WolfModeAttack"
+msgid "Attack"
+msgstr "هجوم"
+
+msgctxt "NARIS,WolfModeTrack"
+msgid "Track"
+msgstr "تتبع"
+
+msgctxt "NARIS,WolfModeEchoLink"
+msgid "Echo Link"
+msgstr "رابط الصدى"
+
+msgctxt "NARIS,WolfModeUnknown"
+msgid "Unknown"
+msgstr "غير معروف"
