@@ -1,3 +1,22 @@
+#include "NarisHUD.h"
+
+#include "BoneBeastBoss.h"
+#include "BoneBeastDataAsset.h"
+#include "CelestialWolf.h"
+#include "Engine/GameInstance.h"
+#include "Engine/Canvas.h"
+#include "Engine/World.h"
+#include "EngineUtils.h"
+#include "GameFramework/PlayerController.h"
+#include "NarisCombatComponent.h"
+#include "NarisEnergyComponent.h"
+#include "NarisHeroCharacter.h"
+#include "NarisGameUserSettings.h"
+#include "NarisInteractable.h"
+#include "NarisInteractionComponent.h"
+#include "NarisPlayerController.h"
+#include "NarisRuntimeSubsystem.h"
+
 void ANarisHUD::DrawPauseMenu()
 {
     ANarisPlayerController* Controller =
@@ -105,25 +124,6 @@ void ANarisHUD::DrawPauseMenu()
         false
     );
 }
-
-#include "NarisHUD.h"
-
-#include "BoneBeastBoss.h"
-#include "BoneBeastDataAsset.h"
-#include "CelestialWolf.h"
-#include "Engine/GameInstance.h"
-#include "Engine/Canvas.h"
-#include "Engine/World.h"
-#include "EngineUtils.h"
-#include "GameFramework/PlayerController.h"
-#include "NarisCombatComponent.h"
-#include "NarisEnergyComponent.h"
-#include "NarisHeroCharacter.h"
-#include "NarisGameUserSettings.h"
-#include "NarisInteractable.h"
-#include "NarisInteractionComponent.h"
-#include "NarisPlayerController.h"
-#include "NarisRuntimeSubsystem.h"
 
 void ANarisHUD::DrawBar(
     const FString& Label,
