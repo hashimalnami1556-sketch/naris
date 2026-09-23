@@ -19,6 +19,12 @@ public:
     UFUNCTION(BlueprintCallable, Category="NARIS|Runtime")
     void BeginNewGame();
 
+    UFUNCTION(BlueprintCallable, Category="NARIS|Runtime|FrontEnd")
+    void RequestFrontEndBypassOnce();
+
+    UFUNCTION(BlueprintCallable, Category="NARIS|Runtime|FrontEnd")
+    bool ConsumeFrontEndBypassOnce();
+
     UFUNCTION(BlueprintCallable, Category="NARIS|Runtime")
     bool SaveState(const FString& SlotName);
 
@@ -91,4 +97,5 @@ public:
 
 private:
     FNarisSaveState State;
+    bool bFrontEndBypassOnce = false;
 };
