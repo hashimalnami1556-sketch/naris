@@ -297,3 +297,75 @@ msgstr "تنقل: W/S أو لوحة الاتجاهات   تأكيد: Enter/A   �
 msgctxt "NARIS,SettingsMenuHint"
 msgid "Adjust: A/D or Left/Right   Confirm: Enter/A   Back: Esc/B"
 msgstr "تعديل: A/D أو يمين/يسار   تأكيد: Enter/A   رجوع: Esc/B"
+
+msgctxt "NARIS,PauseControls"
+msgid "Controller Remap"
+msgstr "إعادة تعيين أزرار التحكم"
+
+msgctxt "NARIS,ControlsMenuTitle"
+msgid "Controller Remap"
+msgstr "إعادة تعيين أزرار التحكم"
+
+msgctxt "NARIS,ControlLightAttack"
+msgid "Light Attack"
+msgstr "هجوم خفيف"
+
+msgctxt "NARIS,ControlHeavyAttack"
+msgid "Heavy Attack"
+msgstr "هجوم ثقيل"
+
+msgctxt "NARIS,ControlDodge"
+msgid "Dodge"
+msgstr "مراوغة"
+
+msgctxt "NARIS,ControlParry"
+msgid "Parry"
+msgstr "صد مثالي"
+
+msgctxt "NARIS,ControlResonanceBurst"
+msgid "Resonance Burst"
+msgstr "انفجار الرنين"
+
+msgctxt "NARIS,ControlLockOn"
+msgid "Lock On"
+msgstr "تثبيت الهدف"
+
+msgctxt "NARIS,ControlInteract"
+msgid "Interact"
+msgstr "تفاعل"
+
+msgctxt "NARIS,ControlSprint"
+msgid "Sprint"
+msgstr "ركض سريع"
+
+msgctxt "NARIS,ControlEssenceNext"
+msgid "Next Essence"
+msgstr "الجوهر التالي"
+
+msgctxt "NARIS,ControlEssencePrevious"
+msgid "Previous Essence"
+msgstr "الجوهر السابق"
+
+msgctxt "NARIS,ControlCompanionMode"
+msgid "Companion Mode"
+msgstr "وضع الرفيق"
+
+msgctxt "NARIS,ControlsResetDefaults"
+msgid "Reset Controller Defaults"
+msgstr "استعادة أزرار التحكم الافتراضية"
+
+msgctxt "NARIS,ControlsPressButton"
+msgid "Press a gamepad button..."
+msgstr "اضغط زرًا في يد التحكم..."
+
+msgctxt "NARIS,ControlsUnbound"
+msgid "Unbound"
+msgstr "غير معيّن"
+
+msgctxt "NARIS,ControlsCaptureHint"
+msgid "Press a gamepad button. Start/B cancels capture."
+msgstr "اضغط زرًا في يد التحكم. زر Start أو B يلغي الالتقاط."
+
+msgctxt "NARIS,ControlsMenuHint"
+msgid "Select an action and press Confirm to remap. Back: Esc/B"
+msgstr "اختر أمرًا واضغط تأكيد لإعادة تعيينه. رجوع: Esc/B"
