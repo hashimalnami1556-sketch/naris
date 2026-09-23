@@ -1,15 +1,66 @@
 #include "BoneBeastBoss.h"
+
 #include "BoneBeastDataAsset.h"
+#include "Engine/GameInstance.h"
+#include "Engine/World.h"
+#include "NarisRuntimeSubsystem.h"
 
 ABoneBeastBoss::ABoneBeastBoss()
 {
     PrimaryActorTick.bCanEverTick = false;
 }
 
+void ABoneBeastBoss::BeginPlay()
+{
+    Super::BeginPlay();
+
+    if (!GetWorld())
+    {
+        return;
+    }
+
+    UGameInstance* GameInstance = GetWorld()->GetGameInstance();
+    UNarisRuntimeSubsystem* Runtime =
+        GameInstance ? GameInstance->GetSubsystem<UNarisRuntimeSubsystem>() : nullptr;
+
+    if (Runtime && Runtime->IsBossDefeated(BossProgressId))
+    {
+        CurrentHealth = 0.f;
+        CurrentPhase = ENarisBossPhase::Dead;
+        bEncounterActive = false;
+        bEncounterComplete = true;
+        EmitBossEvent(TEXT("EncounterRestoredComplete"));
+    }
+}
+
 void ABoneBeastBoss::StartEncounter()
 {
-    if (!BossData || BossData->MaxHealth <= 0.f || bEncounterActive)
+    if (!BossData || BossData->MaxHealth <= 0.f || bEncounterActive || bEncounterComplete)
     {
+        return;
+    }
+
+    if (!GetWorld())
+    {
+        return;
+    }
+
+    UGameInstance* GameInstance = GetWorld()->GetGameInstance();
+    UNarisRuntimeSubsystem* Runtime =
+        GameInstance ? GameInstance->GetSubsystem<UNarisRuntimeSubsystem>() : nullptr;
+
+    if (!Runtime || !Runtime->IsCompanionUnlocked(RequiredCompanionId))
+    {
+        EmitBossEvent(TEXT("EncounterLocked"));
+        return;
+    }
+
+    if (Runtime->IsBossDefeated(BossProgressId))
+    {
+        CurrentHealth = 0.f;
+        CurrentPhase = ENarisBossPhase::Dead;
+        bEncounterComplete = true;
+        EmitBossEvent(TEXT("EncounterRestoredComplete"));
         return;
     }
 
@@ -22,7 +73,7 @@ void ABoneBeastBoss::StartEncounter()
 
 void ABoneBeastBoss::ResetEncounter()
 {
-    if (!BossData)
+    if (!BossData || bEncounterComplete)
     {
         return;
     }
@@ -30,7 +81,6 @@ void ABoneBeastBoss::ResetEncounter()
     CurrentHealth = BossData->MaxHealth;
     CurrentPhase = ENarisBossPhase::Phase1;
     bEncounterActive = false;
-    bEncounterComplete = false;
     EmitBossEvent(TEXT("EncounterReset"));
 }
 
@@ -50,6 +100,7 @@ void ABoneBeastBoss::ApplyDamageToEncounter(float Damage)
         CurrentPhase = ENarisBossPhase::Dead;
         bEncounterActive = false;
         EmitBossEvent(TEXT("Death"));
+        CompleteEncounter();
         return;
     }
 
@@ -58,13 +109,44 @@ void ABoneBeastBoss::ApplyDamageToEncounter(float Damage)
 
 void ABoneBeastBoss::CompleteEncounter()
 {
-    if (bEncounterComplete || CurrentPhase != ENarisBossPhase::Dead)
+    if (bEncounterComplete || CurrentPhase != ENarisBossPhase::Dead || !GetWorld())
     {
+        return;
+    }
+
+    UGameInstance* GameInstance = GetWorld()->GetGameInstance();
+    UNarisRuntimeSubsystem* Runtime =
+        GameInstance ? GameInstance->GetSubsystem<UNarisRuntimeSubsystem>() : nullptr;
+
+    if (!Runtime || !Runtime->MarkBossDefeated(BossProgressId))
+    {
+        EmitBossEvent(TEXT("CompletionStateFailed"));
+        return;
+    }
+
+    if (BossData && !BossData->QuestCompletionId.IsNone())
+    {
+        Runtime->CompleteQuest(BossData->QuestCompletionId.ToString());
+    }
+
+    if (bCompleteDemoOnDefeat)
+    {
+        Runtime->CompleteDemo();
+    }
+
+    if (bAutoSave && !Runtime->SaveState(AutoSaveSlot))
+    {
+        EmitBossEvent(TEXT("AutoSaveFailed"));
         return;
     }
 
     bEncounterComplete = true;
     EmitBossEvent(TEXT("EncounterComplete"));
+
+    if (bCompleteDemoOnDefeat)
+    {
+        EmitBossEvent(TEXT("DemoEnd"));
+    }
 }
 
 void ABoneBeastBoss::EvaluatePhase()
