@@ -48,6 +48,18 @@ public:
     UFUNCTION(BlueprintPure, Category="NARIS|Runtime")
     bool IsCompanionUnlocked(const FString& CompanionId) const;
 
+    UFUNCTION(BlueprintCallable, Category="NARIS|Runtime")
+    bool MarkBossDefeated(const FString& BossId);
+
+    UFUNCTION(BlueprintPure, Category="NARIS|Runtime")
+    bool IsBossDefeated(const FString& BossId) const;
+
+    UFUNCTION(BlueprintCallable, Category="NARIS|Runtime")
+    bool CompleteDemo();
+
+    UFUNCTION(BlueprintPure, Category="NARIS|Runtime")
+    bool IsDemoCompleted() const { return State.bDemoCompleted; }
+
     UFUNCTION(BlueprintPure, Category="NARIS|Runtime")
     FNarisSaveState GetState() const { return State; }
 
