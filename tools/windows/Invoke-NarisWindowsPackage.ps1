@@ -23,6 +23,7 @@ $Localization = Join-Path $RepoRoot "tools\windows\Invoke-NarisLocalization.ps1"
 $GeneratedMap = Join-Path $RepoRoot "unreal\NARIS_W04\Content\NARIS\W04\Maps\W04_Prototype.umap"
 $GeneratedBossData = Join-Path $RepoRoot "unreal\NARIS_W04\Content\NARIS\W04\Data\DA_BoneBeast_Smoke.uasset"
 $GeneratedPresentationProfile = Join-Path $RepoRoot "unreal\NARIS_W04\Content\NARIS\W04\Presentation\DA_W04_Presentation.uasset"
+$PresentationAudioReport = Join-Path $RepoRoot "unreal\NARIS_W04\Saved\TestReports\naris_presentation_audio_import.json"
 $PresentationBindingReport = Join-Path $RepoRoot "unreal\NARIS_W04\Saved\TestReports\naris_presentation_binding_resolution.json"
 $PresentationAuthoringReport = Join-Path $RepoRoot "unreal\NARIS_W04\Saved\TestReports\naris_presentation_authoring.json"
 
@@ -52,11 +53,19 @@ foreach ($generated in @($GeneratedMap, $GeneratedBossData, $GeneratedPresentati
     }
 }
 
+if (-not (Test-Path $PresentationAudioReport)) {
+    throw "Presentation audio import report was not produced: $PresentationAudioReport"
+}
 if (-not (Test-Path $PresentationBindingReport)) {
     throw "Presentation binding resolution report was not produced: $PresentationBindingReport"
 }
 if (-not (Test-Path $PresentationAuthoringReport)) {
     throw "Presentation authoring report was not produced: $PresentationAuthoringReport"
+}
+
+$PresentationAudioData = Get-Content $PresentationAudioReport -Raw | ConvertFrom-Json
+if ($PresentationAudioData.status -ne "pass") {
+    throw "Presentation audio import failed: $PresentationAudioReport"
 }
 
 $PresentationBindingData = Get-Content $PresentationBindingReport -Raw | ConvertFrom-Json
@@ -69,6 +78,7 @@ if ($PresentationAuthoringData.status -ne "pass") {
     throw "Presentation authoring failed: $PresentationAuthoringReport"
 }
 
+Copy-Item $PresentationAudioReport (Join-Path $ArchiveDir "naris_presentation_audio_import.json") -Force
 Copy-Item $PresentationBindingReport (Join-Path $ArchiveDir "naris_presentation_binding_resolution.json") -Force
 Copy-Item $PresentationAuthoringReport (Join-Path $ArchiveDir "naris_presentation_authoring.json") -Force
 
@@ -218,6 +228,9 @@ $Report = [ordered]@{
     generated_map = $GeneratedMap
     generated_boss_data = $GeneratedBossData
     generated_presentation_profile = $GeneratedPresentationProfile
+    presentation_audio_import_status = $PresentationAudioData.status
+    presentation_audio_imported_asset_ids = @($PresentationAudioData.imported_asset_ids)
+    presentation_audio_missing_asset_ids = @($PresentationAudioData.skipped_missing_asset_ids)
     presentation_binding_resolution_status = $PresentationBindingData.status
     presentation_resolved_asset_ids = @($PresentationBindingData.resolved_asset_ids)
     presentation_already_bound_asset_ids = @($PresentationBindingData.already_bound_asset_ids)
