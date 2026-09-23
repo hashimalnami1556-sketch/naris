@@ -22,6 +22,7 @@ public:
     ABoneBeastBoss();
 
     virtual void BeginPlay() override;
+    virtual void Tick(float DeltaSeconds) override;
 
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="NARIS|Boss")
     TObjectPtr<UBoneBeastCombatComponent> CombatPresentation;
@@ -122,6 +123,18 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="NARIS|Boss|Attack")
     float Phase3AttackDamage = 34.f;
 
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="NARIS|Boss|Attack")
+    bool bAutoAttack = true;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="NARIS|Boss|Attack")
+    float AttackIntervalSeconds = 2.4f;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="NARIS|Boss|Attack")
+    float AttackRange = 520.f;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="NARIS|Boss|SmokeFallback")
+    bool bImmediateSmokeAttackImpact = true;
+
     UPROPERTY(BlueprintAssignable, Category="NARIS|Boss")
     FNarisBossEvent OnBossEvent;
 
@@ -141,6 +154,7 @@ protected:
 private:
     FName PendingAttackId = NAME_None;
     float PendingAttackDamage = 0.f;
+    float LastAttackRequestTime = -1000.f;
 
     void EvaluatePhase();
     void EmitBossEvent(FName EventName);
