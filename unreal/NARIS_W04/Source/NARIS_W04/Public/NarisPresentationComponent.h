@@ -9,6 +9,14 @@ class UNiagaraSystem;
 class USoundBase;
 class UCameraShakeBase;
 
+UENUM(BlueprintType)
+enum class ENarisPresentationAudioBus : uint8
+{
+    SFX UMETA(DisplayName="SFX"),
+    MUSIC UMETA(DisplayName="Music"),
+    VOICE UMETA(DisplayName="Voice")
+};
+
 USTRUCT(BlueprintType)
 struct FNarisPresentationCue
 {
@@ -22,6 +30,9 @@ struct FNarisPresentationCue
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="NARIS|Presentation")
     TObjectPtr<USoundBase> Sound = nullptr;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="NARIS|Presentation")
+    ENarisPresentationAudioBus AudioBus = ENarisPresentationAudioBus::SFX;
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="NARIS|Presentation")
     TSubclassOf<UCameraShakeBase> CameraShake;
