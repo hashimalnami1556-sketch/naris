@@ -67,5 +67,11 @@ struct FNarisSaveState
     TArray<FString> UnlockedCompanions;
 
     UPROPERTY(BlueprintReadWrite)
+    TArray<FString> DefeatedBosses;
+
+    UPROPERTY(BlueprintReadWrite)
+    bool bDemoCompleted = false;
+
+    UPROPERTY(BlueprintReadWrite)
     int32 ResonanceLevel = 0;
 };
