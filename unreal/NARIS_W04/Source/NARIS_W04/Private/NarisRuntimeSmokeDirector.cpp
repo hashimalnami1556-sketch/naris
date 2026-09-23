@@ -41,8 +41,10 @@ void ANarisRuntimeSmokeDirector::BeginPlay()
     }
 
     GetWorldTimerManager().SetTimerForNextTick(
-        this,
-        &ANarisRuntimeSmokeDirector::RunSmoke
+        FTimerDelegate::CreateUObject(
+            this,
+            &ANarisRuntimeSmokeDirector::RunSmoke
+        )
     );
 }
 
