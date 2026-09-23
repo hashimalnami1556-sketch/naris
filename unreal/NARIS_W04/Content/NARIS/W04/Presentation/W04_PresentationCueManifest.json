@@ -77,6 +77,22 @@
       "cue": "Arena.Unlock",
       "vfx": "NARIS-W04-VFX-ARENAUNLOCK-0001",
       "audio": "NARIS-W04-AUD-ARENA-0001"
+    },
+    {
+      "cue": "Boss.Attack.ClawSweep",
+      "vfx": "NARIS-W04-VFX-BONECLAW-0001",
+      "audio": "NARIS-W04-AUD-BONECLAW-0001"
+    },
+    {
+      "cue": "Boss.Attack.BoneCharge",
+      "vfx": "NARIS-W04-VFX-BONECHARGE-0001",
+      "audio": "NARIS-W04-AUD-BONECHARGE-0001"
+    },
+    {
+      "cue": "Boss.Attack.AshRupture",
+      "vfx": "NARIS-W04-VFX-ASHRUPTURE-0001",
+      "audio": "NARIS-W04-AUD-ASHRUPTURE-0001",
+      "camera": "NARIS-W04-CINE-SHAKEPHASE-0001"
     }
   ],
   "dynamic_cues": [
@@ -84,7 +100,7 @@
       "pattern": "Boss.Attack.<AttackId>",
       "source": "ABoneBeastBoss::RequestAttack",
       "audio": "NARIS-W04-AUD-BONEATTACK-0001",
-      "note": "AttackId remains data-driven by FNarisBossAttackDefinition; no unsupported attack names are invented here.",
+      "note": "Fallback presentation for any data-driven AttackId not given an explicit cue. Current source-supported phase attacks are ClawSweep, BoneCharge and AshRupture.",
       "runtime_cue": "Boss.Attack.*"
     }
   ]
