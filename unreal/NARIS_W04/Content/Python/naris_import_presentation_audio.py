@@ -61,9 +61,9 @@ def parse_expected_path(expected: str) -> tuple[str, str]:
     if not expected.startswith("/Game/") or "." not in expected:
         raise ValueError(f"Expected Unreal asset path is invalid: {expected}")
 
-    package_and_name = expected.rsplit("/", 1)
-    asset_name = package_and_name.split(".", 1)[0]
-    return package_and_name, asset_name
+    destination_path, object_name = expected.rsplit("/", 1)
+    asset_name = object_name.split(".", 1)[0]
+    return destination_path, asset_name
 
 
 def main() -> None:
