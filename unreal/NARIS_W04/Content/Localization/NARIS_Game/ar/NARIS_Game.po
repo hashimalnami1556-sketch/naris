@@ -121,3 +121,27 @@ msgstr "رابط الصدى"
 msgctxt "NARIS,WolfModeUnknown"
 msgid "Unknown"
 msgstr "غير معروف"
+
+msgctxt "NARIS,HUDQuestCorruptedHeart"
+msgid "Corrupted Heart"
+msgstr "القلب الفاسد"
+
+msgctxt "NARIS,HUDQuestCorruptedHeartUnknown"
+msgid "Follow the Corrupted Heart."
+msgstr "اتبع أثر القلب الفاسد."
+
+msgctxt "NARIS,HUDQuestCorruptedHeartComplete"
+msgid "Corrupted Heart cleansed."
+msgstr "تم تطهير القلب الفاسد."
+
+msgctxt "NARIS,HUDQuestCorruptedHeartStep1"
+msgid "Follow the First Whisper."
+msgstr "اتبع الهمسة الأولى."
+
+msgctxt "NARIS,HUDQuestCorruptedHeartStep2"
+msgid "Pass through the Ash Gate."
+msgstr "اعبر بوابة الرماد."
+
+msgctxt "NARIS,HUDQuestCorruptedHeartStep3"
+msgid "Enter the Bone Beast arena."
+msgstr "ادخل ساحة وحش العظام."
