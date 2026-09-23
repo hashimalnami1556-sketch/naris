@@ -10,6 +10,7 @@
 #include "NarisCombatComponent.h"
 #include "NarisEnergyComponent.h"
 #include "NarisHeroCharacter.h"
+#include "NarisGameUserSettings.h"
 #include "NarisInteractable.h"
 #include "NarisInteractionComponent.h"
 #include "NarisRuntimeSubsystem.h"
@@ -97,9 +98,22 @@ void ANarisHUD::DrawHUD()
         AActor* Target = Hero->Interaction->FindNearestInteractable();
         if (Target && Target->GetClass()->ImplementsInterface(UNarisInteractable::StaticClass()))
         {
+            const UNarisGameUserSettings* Settings =
+                UNarisGameUserSettings::GetNarisGameUserSettings();
+            const bool bHighContrast =
+                Settings && Settings->bHighContrastInteractions;
+
             const FText Prompt = INarisInteractable::Execute_GetInteractionPrompt(Target);
             const FString PromptText = FString::Printf(TEXT("[E] %s"), *Prompt.ToString());
-            DrawText(PromptText, Gold, 40.f, 240.f, nullptr, 1.05f, false);
+            DrawText(
+                PromptText,
+                bHighContrast ? FLinearColor::White : Gold,
+                40.f,
+                240.f,
+                nullptr,
+                bHighContrast ? 1.2f : 1.05f,
+                false
+            );
         }
     }
 
