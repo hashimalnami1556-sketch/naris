@@ -42,6 +42,12 @@ public:
     UFUNCTION(BlueprintPure, Category="NARIS|Runtime")
     bool IsGateUnlocked(const FString& GateId) const;
 
+    UFUNCTION(BlueprintCallable, Category="NARIS|Runtime")
+    bool UnlockCompanion(const FString& CompanionId);
+
+    UFUNCTION(BlueprintPure, Category="NARIS|Runtime")
+    bool IsCompanionUnlocked(const FString& CompanionId) const;
+
     UFUNCTION(BlueprintPure, Category="NARIS|Runtime")
     FNarisSaveState GetState() const { return State; }
 
