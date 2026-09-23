@@ -13,13 +13,14 @@ $UProject = Join-Path $RepoRoot "unreal\NARIS_W04\NARIS_W04.uproject"
 $Script = Join-Path $RepoRoot "unreal\NARIS_W04\Content\Python\naris_bootstrap_w04_smoke.py"
 $AnimationValidationScript = Join-Path $RepoRoot "unreal\NARIS_W04\Content\Python\naris_validate_animation_bindings.py"
 $ProductionAssetValidationScript = Join-Path $RepoRoot "unreal\NARIS_W04\Content\Python\naris_validate_production_assets.py"
+$MaterialAuthoringScript = Join-Path $RepoRoot "unreal\NARIS_W04\Content\Python\naris_author_material_instances.py"
 $MaterialValidationScript = Join-Path $RepoRoot "unreal\NARIS_W04\Content\Python\naris_validate_material_bindings.py"
 $AudioImportScript = Join-Path $RepoRoot "unreal\NARIS_W04\Content\Python\naris_import_presentation_audio.py"
 $PresentationResolver = Join-Path $RepoRoot "unreal\NARIS_W04\Content\Python\naris_resolve_presentation_bindings.py"
 $PresentationScript = Join-Path $RepoRoot "unreal\NARIS_W04\Content\Python\naris_build_presentation_profile.py"
 $UnrealCmd = Join-Path $UnrealEngineRoot "Engine\Binaries\Win64\UnrealEditor-Cmd.exe"
 
-foreach ($path in @($UProject, $Script, $AnimationValidationScript, $ProductionAssetValidationScript, $MaterialValidationScript, $AudioImportScript, $PresentationResolver, $PresentationScript, $UnrealCmd)) {
+foreach ($path in @($UProject, $Script, $AnimationValidationScript, $ProductionAssetValidationScript, $MaterialAuthoringScript, $MaterialValidationScript, $AudioImportScript, $PresentationResolver, $PresentationScript, $UnrealCmd)) {
     if (-not (Test-Path $path)) {
         throw "Required path missing: $path"
     }
@@ -41,6 +42,12 @@ Write-Host "[NARIS] Validating core production meshes/materials/LOD/collision"
 & $UnrealCmd $UProject "-ExecutePythonScript=$ProductionAssetValidationScript" -unattended -nop4 -nosplash -stdout -FullStdOutLogOutput
 if ($LASTEXITCODE -ne 0) {
     throw "W04 production asset validation failed with exit code $LASTEXITCODE"
+}
+
+Write-Host "[NARIS] Authoring W04 material instances from approved master materials"
+& $UnrealCmd $UProject "-ExecutePythonScript=$MaterialAuthoringScript" -unattended -nop4 -nosplash -stdout -FullStdOutLogOutput
+if ($LASTEXITCODE -ne 0) {
+    throw "W04 material instance authoring failed with exit code $LASTEXITCODE"
 }
 
 Write-Host "[NARIS] Validating W04 master/material-instance PBR bindings"
