@@ -11,7 +11,9 @@ Updated: 2026-09-23
 - Work navigation: [work index](docs/production/work/index.md).
 - Integration contract: [Figma, Blender and Neon](docs/production/INTEGRATIONS_FIGMA_BLENDER_NEON.md).
 - Figma: live file created and structured at https://www.figma.com/design/lYSmWwGHXCEXODKpG9bpJH.
-- Blender: deterministic validation/export helper is checked in; runtime execution is pending because the registered AsusRog host is offline.
+- Blender: deterministic validation/export helper is checked in and the export path is gated by the canonical asset registry; runtime execution is still pending because the registered AsusRog host is offline.
+- Blender -> Unreal bridge: exchange schema, Unreal Python importer, and Windows smoke-test script are checked in.
+- Static evidence: NARIS CI run 35855364699 passed MCP TypeScript build, Unreal project integrity, repository validation and PowerShell bridge parsing.
 - Neon: core PostgreSQL schema contract is checked in; no remote project/branch is bound yet, so no migration has been applied.
 - Next action: when the Windows runner/AsusRog host is online, run NARIS_W04Editor build with Unreal 5.4, retain the log, then run Blender export/import smoke tests and editor asset validation.
 - Blockers: registered AsusRog remote host is offline; no bound Neon project ID; no Claude Code session available here; the 18 announced attachment paths were absent. No Unreal engine build or playtest has been executed in this pass.
