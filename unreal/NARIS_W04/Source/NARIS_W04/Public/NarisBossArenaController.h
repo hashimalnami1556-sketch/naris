@@ -6,7 +6,9 @@
 
 class ABoneBeastBoss;
 class UBoxComponent;
+class UPrimitiveComponent;
 class USceneComponent;
+struct FHitResult;
 class UNarisPresentationComponent;
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(
@@ -31,6 +33,9 @@ public:
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="NARIS|Arena")
     TObjectPtr<UBoxComponent> EntryBlocker;
 
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="NARIS|Arena")
+    TObjectPtr<UBoxComponent> EncounterTrigger;
+
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="NARIS|Presentation")
     TObjectPtr<UNarisPresentationComponent> Presentation;
 
@@ -52,6 +57,16 @@ public:
 private:
     UFUNCTION()
     void HandleBossEvent(FName EventName);
+
+    UFUNCTION()
+    void HandleEncounterOverlap(
+        UPrimitiveComponent* OverlappedComponent,
+        AActor* OtherActor,
+        UPrimitiveComponent* OtherComp,
+        int32 OtherBodyIndex,
+        bool bFromSweep,
+        const FHitResult& SweepResult
+    );
 
     void BindBoss();
 };
