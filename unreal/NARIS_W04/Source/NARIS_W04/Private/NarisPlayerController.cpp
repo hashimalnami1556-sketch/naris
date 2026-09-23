@@ -288,6 +288,51 @@ bool ANarisPlayerController::InputKey(const FInputKeyParams& Params)
     return Super::InputKey(Params);
 }
 
+void ANarisPlayerController::OpenFrontEndMenu()
+{
+    bFrontEndMenuOpen = true;
+    bPauseMenuOpen = false;
+    MenuContext = ENarisMenuContext::FrontEnd;
+    PauseMenuPage = ENarisPauseMenuPage::Main;
+    SelectedMenuIndex = 0;
+    CancelGamepadRemap();
+
+    UGameplayStatics::SetGamePaused(this, true);
+    ApplyMenuInputMode(true);
+}
+
+void ANarisPlayerController::CloseFrontEndMenu()
+{
+    if (!bFrontEndMenuOpen)
+    {
+        return;
+    }
+
+    bFrontEndMenuOpen = false;
+    PauseMenuPage = ENarisPauseMenuPage::Main;
+    SelectedMenuIndex = 0;
+    CancelGamepadRemap();
+
+    UGameplayStatics::SetGamePaused(this, false);
+    ApplyMenuInputMode(false);
+}
+
+void ANarisPlayerController::ApplyMenuInputMode(bool bOpen)
+{
+    bShowMouseCursor = bOpen;
+
+    if (bOpen)
+    {
+        FInputModeGameAndUI Mode;
+        Mode.SetHideCursorDuringCapture(false);
+        SetInputMode(Mode);
+    }
+    else
+    {
+        SetInputMode(FInputModeGameOnly());
+    }
+}
+
 void ANarisPlayerController::TogglePauseMenu()
 {
     if (bPauseMenuOpen)
@@ -302,21 +347,19 @@ void ANarisPlayerController::TogglePauseMenu()
 
 void ANarisPlayerController::OpenPauseMenu()
 {
-    if (bPauseMenuOpen)
+    if (bPauseMenuOpen || bFrontEndMenuOpen)
     {
         return;
     }
 
     bPauseMenuOpen = true;
+    MenuContext = ENarisMenuContext::Pause;
     PauseMenuPage = ENarisPauseMenuPage::Main;
     SelectedMenuIndex = 0;
+    CancelGamepadRemap();
 
     UGameplayStatics::SetGamePaused(this, true);
-
-    bShowMouseCursor = true;
-    FInputModeGameAndUI Mode;
-    Mode.SetHideCursorDuringCapture(false);
-    SetInputMode(Mode);
+    ApplyMenuInputMode(true);
 }
 
 void ANarisPlayerController::ClosePauseMenu()
@@ -332,9 +375,7 @@ void ANarisPlayerController::ClosePauseMenu()
     CancelGamepadRemap();
 
     UGameplayStatics::SetGamePaused(this, false);
-
-    bShowMouseCursor = false;
-    SetInputMode(FInputModeGameOnly());
+    ApplyMenuInputMode(false);
 }
 
 int32 ANarisPlayerController::GetVisibleMenuItemCount() const
