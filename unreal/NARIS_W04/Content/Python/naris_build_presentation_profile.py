@@ -83,11 +83,30 @@ def load_binding(binding: dict, kind: str, errors: list[str]):
             )
             return None
 
-        if kind == "vfx" and not isinstance(loaded, unreal.NiagaraSystem):
-            errors.append(
-                f"Expected NiagaraSystem for {binding['asset_id']}, got {type(loaded).__name__}"
+        if kind == "vfx":
+            if not isinstance(loaded, unreal.NiagaraSystem):
+                errors.append(
+                    f"Expected NiagaraSystem for {binding['asset_id']}, "
+                    f"got {type(loaded).__name__}"
+                )
+                return None
+
+            validator = getattr(
+                unreal,
+                "NarisPresentationValidationLibrary",
+                None,
             )
-            return None
+            if validator is None:
+                errors.append(
+                    "NarisPresentationValidationLibrary is unavailable"
+                )
+                return None
+
+            if not validator.is_niagara_system_non_empty(loaded):
+                errors.append(
+                    f"NiagaraSystem has no emitters: {binding['asset_id']}"
+                )
+                return None
 
         if kind == "audio" and not isinstance(loaded, unreal.SoundBase):
             errors.append(
