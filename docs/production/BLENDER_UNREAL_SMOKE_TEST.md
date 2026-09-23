@@ -27,3 +27,22 @@ $env:BLENDER_EXE = "C:\Program Files\Blender Foundation\Blender 4.5\blender.exe"
 ```
 
 A passing script is DCC/export/import evidence only. Material parity, collision quality, skeletal correctness, animation, Nanite/LOD policy and in-level gameplay still require editor QA.
+
+
+## First canonical smoke asset
+
+The first production smoke-test target is:
+
+`NARIS-W04-PRP-WAYSTONE-0001` — Waystone — W04 — PRP — SAVE_POINT.
+
+Why this asset is first:
+- it is already present exactly once in `data/MASTER_ASSET_REGISTRY.json`;
+- it is a static prop, so the first DCC/import gate is not blocked by skeletal rigging;
+- it exercises UV, material-slot, transform, collision-helper and asset-metadata checks;
+- it has gameplay relevance as a save/respawn/fast-travel object, so it can later be promoted into an interaction test.
+
+CI fixtures:
+- `tools/ci/fixtures/waystone_valid_manifest.json` — expected registry-approved contract.
+- `tools/ci/fixtures/unregistered_manifest.json` — expected rejection path.
+
+A fixture passing CI is not evidence that a real Waystone mesh exists or that Blender/Unreal executed. Runtime evidence requires the Windows smoke command against an actual `.blend` source.
