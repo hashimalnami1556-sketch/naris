@@ -14,9 +14,10 @@ last_updated: 2026-09-23
 - Completed Blender bridge work: registry-gated Blender export, exchange schema, Unreal 5.4 Python importer, and Windows Blender-to-Unreal smoke-test script are checked in.
 - Static validation evidence: GitHub Actions run 35855364699 passed MCP TypeScript build, Unreal project integrity, repository validation, and PowerShell bridge parsing.
 - Source progression completed in this pass: interaction dispatch; Waystone save/checkpoint; Memory Crystal -> FirstWhisper; Ash Gate persistence; Celestial Wolf bond/follow/EchoLink; keyboard/mouse + Xbox-style input; lock-on melee damage; Bone Beast completion/quest/DemoEnd; native smoke HUD; automatic save recovery.
+- Combat production readiness: hero TakeDamage routes through defense resolution; Parry rewards only resolved parries; Dodge has timed invulnerability; five-Essence cycling and Pause are input-bound; native AnimNotifyState/AnimNotify hooks own production hit timing while smoke mode reuses the same Open -> Commit -> Close path.
 - Unreal Python bridge prerequisites enabled: PythonScriptPlugin + EditorScriptingUtilities.
-- Windows packaging readiness: authoring bootstrap generates W04_Prototype + smoke boss data; package launcher compiles EN/AR localization, runs BuildCookRun, performs bilingual launch smoke, and requests CSV/GPU/LLM captures. This is scripted readiness, not execution evidence.
-- CI evidence: NARIS CI run 35862798300 success; Content Validation run 35862798286 success; Unreal Validate run 35862798403 success. Manual Windows execution remains unperformed.
+- Windows packaging readiness: authoring bootstrap generates W04_Prototype + smoke boss data; package launcher compiles EN/AR localization, runs BuildCookRun, runs a packaged progression/save-load runtime smoke, performs bilingual launch smoke, and requests CSV/GPU/LLM captures. This is scripted readiness, not execution evidence.
+- CI evidence: NARIS CI run 35865086464 success; Content Validation run 35865086371 success; Unreal Validate run 35865086330 success. Manual Windows execution remains unperformed.
 - Confirmed constraint: Unreal descriptor currently selects 5.4; Windows PC remains primary.
 - Runtime blocker: registered AsusRog remote host is offline, so neither Blender nor Unreal can be executed from this session yet.
 - Backend blocker: Neon connector requires a concrete project ID and the repository has no bound .neon/neon.json project metadata; no migration was applied.
