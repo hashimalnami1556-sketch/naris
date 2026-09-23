@@ -2,9 +2,11 @@
 
 #include "BoneBeastBoss.h"
 #include "Camera/CameraComponent.h"
+#include "Components/InputComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/Controller.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "Kismet/GameplayStatics.h"
 #include "NarisCombatComponent.h"
 #include "NarisEnergyComponent.h"
 #include "NarisInteractionComponent.h"
@@ -43,6 +45,25 @@ void ANarisHeroCharacter::Tick(float DeltaSeconds)
     }
 }
 
+float ANarisHeroCharacter::TakeDamage(
+    float DamageAmount,
+    FDamageEvent const& DamageEvent,
+    AController* EventInstigator,
+    AActor* DamageCauser
+)
+{
+    if (!Combat || DamageAmount <= 0.f)
+    {
+        return 0.f;
+    }
+
+    const float PoiseDamage = DamageAmount * 0.5f;
+    const FNarisCombatResult Result =
+        Combat->ResolveIncomingHit(DamageAmount, PoiseDamage, false);
+
+    return Result.Damage;
+}
+
 void ANarisHeroCharacter::SetupPlayerInputComponent(UInputComponent* Input)
 {
     Super::SetupPlayerInputComponent(Input);
@@ -58,9 +79,15 @@ void ANarisHeroCharacter::SetupPlayerInputComponent(UInputComponent* Input)
     Input->BindAction(TEXT("Parry"), IE_Pressed, this, &ANarisHeroCharacter::Parry);
     Input->BindAction(TEXT("ResonanceBurst"), IE_Pressed, this, &ANarisHeroCharacter::ResonanceBurst);
     Input->BindAction(TEXT("LockOn"), IE_Pressed, this, &ANarisHeroCharacter::ToggleLockOn);
+    Input->BindAction(TEXT("EssenceNext"), IE_Pressed, this, &ANarisHeroCharacter::NextEssence);
+    Input->BindAction(TEXT("EssencePrevious"), IE_Pressed, this, &ANarisHeroCharacter::PreviousEssence);
     Input->BindAction(TEXT("Interact"), IE_Pressed, this, &ANarisHeroCharacter::Interact);
     Input->BindAction(TEXT("Sprint"), IE_Pressed, this, &ANarisHeroCharacter::StartSprinting);
     Input->BindAction(TEXT("Sprint"), IE_Released, this, &ANarisHeroCharacter::StopSprinting);
+
+    FInputActionBinding& PauseBinding =
+        Input->BindAction(TEXT("Pause"), IE_Pressed, this, &ANarisHeroCharacter::TogglePause);
+    PauseBinding.bExecuteWhenPaused = true;
 }
 
 void ANarisHeroCharacter::MoveForward(float Value)
@@ -159,14 +186,29 @@ void ANarisHeroCharacter::HeavyAttack()
 
 void ANarisHeroCharacter::Dodge()
 {
+    if (Energy && !Energy->Spend(DodgeEnergyCost))
+    {
+        return;
+    }
+
+    if (Combat)
+    {
+        Combat->OpenInvulnerabilityWindow(DodgeInvulnerabilitySeconds);
+    }
+
     GetCharacterMovement()->Velocity += GetActorForwardVector() * 650.f;
 }
 
 void ANarisHeroCharacter::Parry()
 {
+    if (Energy && !Energy->Spend(ParryEnergyCost))
+    {
+        return;
+    }
+
     if (Combat)
     {
-        Combat->AddResonance(15.f);
+        Combat->OpenParryWindow(ParryWindowSeconds);
     }
 }
 
@@ -175,6 +217,11 @@ void ANarisHeroCharacter::ResonanceBurst()
     if (Combat && Combat->Resonance >= Combat->MaxResonance)
     {
         Combat->Resonance = 0.f;
+
+        if (Energy)
+        {
+            Energy->Restore(25.f);
+        }
     }
 }
 
@@ -195,6 +242,22 @@ void ANarisHeroCharacter::ToggleLockOn()
     }
 }
 
+void ANarisHeroCharacter::NextEssence()
+{
+    if (Energy)
+    {
+        Energy->CycleEssence(1);
+    }
+}
+
+void ANarisHeroCharacter::PreviousEssence()
+{
+    if (Energy)
+    {
+        Energy->CycleEssence(-1);
+    }
+}
+
 void ANarisHeroCharacter::Interact()
 {
     if (Interaction)
@@ -206,6 +269,12 @@ void ANarisHeroCharacter::Interact()
 void ANarisHeroCharacter::SetSprinting(bool bSprint)
 {
     GetCharacterMovement()->MaxWalkSpeed = bSprint ? SprintSpeed : WalkSpeed;
+}
+
+void ANarisHeroCharacter::TogglePause()
+{
+    const bool bPaused = UGameplayStatics::IsGamePaused(this);
+    UGameplayStatics::SetGamePaused(this, !bPaused);
 }
 
 void ANarisHeroCharacter::StartSprinting()
