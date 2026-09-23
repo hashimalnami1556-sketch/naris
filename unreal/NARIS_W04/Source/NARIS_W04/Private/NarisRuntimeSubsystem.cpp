@@ -143,6 +143,66 @@ bool UNarisRuntimeSubsystem::IsCompanionUnlocked(const FString& CompanionId) con
     return !CompanionId.IsEmpty() && State.UnlockedCompanions.Contains(CompanionId);
 }
 
+bool UNarisRuntimeSubsystem::StartQuest(
+    const FString& QuestId,
+    int32 InitialStep
+)
+{
+    if (QuestId.IsEmpty() || InitialStep < 0)
+    {
+        return false;
+    }
+
+    if (State.CompletedQuests.Contains(QuestId))
+    {
+        return true;
+    }
+
+    State.ActiveQuests.AddUnique(QuestId);
+
+    int32& CurrentStep = State.QuestSteps.FindOrAdd(QuestId);
+    CurrentStep = FMath::Max(CurrentStep, InitialStep);
+    return true;
+}
+
+bool UNarisRuntimeSubsystem::SetQuestStep(
+    const FString& QuestId,
+    int32 Step
+)
+{
+    if (QuestId.IsEmpty() || Step < 0 || State.CompletedQuests.Contains(QuestId))
+    {
+        return false;
+    }
+
+    State.ActiveQuests.AddUnique(QuestId);
+    int32& CurrentStep = State.QuestSteps.FindOrAdd(QuestId);
+    CurrentStep = FMath::Max(CurrentStep, Step);
+    return true;
+}
+
+bool UNarisRuntimeSubsystem::IsQuestActive(const FString& QuestId) const
+{
+    return !QuestId.IsEmpty()
+        && State.ActiveQuests.Contains(QuestId)
+        && !State.CompletedQuests.Contains(QuestId);
+}
+
+int32 UNarisRuntimeSubsystem::GetQuestStep(const FString& QuestId) const
+{
+    if (QuestId.IsEmpty())
+    {
+        return 0;
+    }
+
+    if (const int32* Step = State.QuestSteps.Find(QuestId))
+    {
+        return *Step;
+    }
+
+    return 0;
+}
+
 bool UNarisRuntimeSubsystem::CompleteQuest(const FString& QuestId)
 {
     if (QuestId.IsEmpty())
@@ -151,6 +211,7 @@ bool UNarisRuntimeSubsystem::CompleteQuest(const FString& QuestId)
     }
 
     State.CompletedQuests.AddUnique(QuestId);
+    State.ActiveQuests.Remove(QuestId);
     return true;
 }
 
