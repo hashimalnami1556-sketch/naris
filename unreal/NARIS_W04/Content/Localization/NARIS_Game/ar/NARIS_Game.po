@@ -145,3 +145,155 @@ msgstr "اعبر بوابة الرماد."
 msgctxt "NARIS,HUDQuestCorruptedHeartStep3"
 msgid "Enter the Bone Beast arena."
 msgstr "ادخل ساحة وحش العظام."
+
+msgctxt "NARIS,SettingsOn"
+msgid "On"
+msgstr "تشغيل"
+
+msgctxt "NARIS,SettingsOff"
+msgid "Off"
+msgstr "إيقاف"
+
+msgctxt "NARIS,SettingsPercentFormat"
+msgid "{0}%"
+msgstr "{0}%"
+
+msgctxt "NARIS,PauseMenuTitle"
+msgid "CALL OF NARIS"
+msgstr "نداء نارس"
+
+msgctxt "NARIS,SettingsMenuTitle"
+msgid "Settings"
+msgstr "الإعدادات"
+
+msgctxt "NARIS,PauseResume"
+msgid "Resume"
+msgstr "متابعة"
+
+msgctxt "NARIS,PauseSettings"
+msgid "Settings"
+msgstr "الإعدادات"
+
+msgctxt "NARIS,SettingsQuality"
+msgid "Quality Preset"
+msgstr "جودة الرسومات"
+
+msgctxt "NARIS,SettingsVSync"
+msgid "VSync"
+msgstr "المزامنة الرأسية"
+
+msgctxt "NARIS,SettingsFrameRate"
+msgid "Frame Rate Limit"
+msgstr "حد معدل الإطارات"
+
+msgctxt "NARIS,SettingsMasterVolume"
+msgid "Master Volume"
+msgstr "مستوى الصوت العام"
+
+msgctxt "NARIS,SettingsMusicVolume"
+msgid "Music Volume"
+msgstr "مستوى الموسيقى"
+
+msgctxt "NARIS,SettingsSFXVolume"
+msgid "SFX Volume"
+msgstr "مستوى المؤثرات الصوتية"
+
+msgctxt "NARIS,SettingsVoiceVolume"
+msgid "Voice Volume"
+msgstr "مستوى الأصوات"
+
+msgctxt "NARIS,SettingsCameraShake"
+msgid "Camera Shake"
+msgstr "اهتزاز الكاميرا"
+
+msgctxt "NARIS,SettingsReduceCameraShake"
+msgid "Reduce Camera Shake"
+msgstr "تقليل اهتزاز الكاميرا"
+
+msgctxt "NARIS,SettingsSubtitles"
+msgid "Subtitles"
+msgstr "الترجمة النصية"
+
+msgctxt "NARIS,SettingsSubtitleScale"
+msgid "Subtitle Scale"
+msgstr "حجم الترجمة النصية"
+
+msgctxt "NARIS,SettingsHighContrast"
+msgid "High Contrast Interactions"
+msgstr "تباين عالٍ للتفاعلات"
+
+msgctxt "NARIS,SettingsColorVision"
+msgid "Color Vision Mode"
+msgstr "نمط رؤية الألوان"
+
+msgctxt "NARIS,SettingsColorVisionSeverity"
+msgid "Color Vision Severity"
+msgstr "شدة تصحيح الألوان"
+
+msgctxt "NARIS,SettingsApplySave"
+msgid "Apply & Save"
+msgstr "تطبيق وحفظ"
+
+msgctxt "NARIS,SettingsResetDefaults"
+msgid "Reset Defaults"
+msgstr "استعادة الافتراضي"
+
+msgctxt "NARIS,SettingsBack"
+msgid "Back"
+msgstr "رجوع"
+
+msgctxt "NARIS,QualityLow"
+msgid "Low"
+msgstr "منخفض"
+
+msgctxt "NARIS,QualityMedium"
+msgid "Medium"
+msgstr "متوسط"
+
+msgctxt "NARIS,QualityHigh"
+msgid "High"
+msgstr "عالٍ"
+
+msgctxt "NARIS,QualityEpic"
+msgid "Epic"
+msgstr "ملحمي"
+
+msgctxt "NARIS,QualityCinematic"
+msgid "Cinematic"
+msgstr "سينمائي"
+
+msgctxt "NARIS,QualityCustom"
+msgid "Custom"
+msgstr "مخصص"
+
+msgctxt "NARIS,FrameRateUnlimited"
+msgid "Unlimited"
+msgstr "غير محدود"
+
+msgctxt "NARIS,FrameRateFormat"
+msgid "{0} FPS"
+msgstr "{0} إطار/ث"
+
+msgctxt "NARIS,ColorVisionDeuteranopia"
+msgid "Deuteranopia"
+msgstr "عمى الأخضر"
+
+msgctxt "NARIS,ColorVisionProtanopia"
+msgid "Protanopia"
+msgstr "عمى الأحمر"
+
+msgctxt "NARIS,ColorVisionTritanopia"
+msgid "Tritanopia"
+msgstr "عمى الأزرق"
+
+msgctxt "NARIS,ColorVisionNormal"
+msgid "Normal"
+msgstr "طبيعي"
+
+msgctxt "NARIS,PauseMenuHint"
+msgid "Navigate: W/S or D-Pad   Confirm: Enter/A   Back: Esc/B"
+msgstr "تنقل: W/S أو لوحة الاتجاهات   تأكيد: Enter/A   رجوع: Esc/B"
+
+msgctxt "NARIS,SettingsMenuHint"
+msgid "Adjust: A/D or Left/Right   Confirm: Enter/A   Back: Esc/B"
+msgstr "تعديل: A/D أو يمين/يسار   تأكيد: Enter/A   رجوع: Esc/B"
