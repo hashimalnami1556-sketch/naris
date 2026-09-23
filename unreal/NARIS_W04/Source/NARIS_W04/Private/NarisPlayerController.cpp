@@ -796,3 +796,176 @@ void ANarisPlayerController::ResetCurrentSettings()
         Settings->ApplyAndSave(true);
     }
 }
+
+
+FKey ANarisPlayerController::GetCurrentGamepadKey(FName ActionName) const
+{
+    if (ActionName.IsNone())
+    {
+        return EKeys::Invalid;
+    }
+
+    const UInputSettings* InputSettings = UInputSettings::GetInputSettings();
+    if (!InputSettings)
+    {
+        return DefaultGamepadKey(ActionName);
+    }
+
+    TArray<FInputActionKeyMapping> Mappings;
+    InputSettings->GetActionMappingByName(ActionName, Mappings);
+
+    for (const FInputActionKeyMapping& Mapping : Mappings)
+    {
+        if (Mapping.Key.IsGamepadKey())
+        {
+            return Mapping.Key;
+        }
+    }
+
+    return DefaultGamepadKey(ActionName);
+}
+
+void ANarisPlayerController::BeginGamepadRemap(FName ActionName)
+{
+    if (ActionName.IsNone())
+    {
+        return;
+    }
+
+    bWaitingForGamepadRemap = true;
+    PendingRemapAction = ActionName;
+}
+
+void ANarisPlayerController::CancelGamepadRemap()
+{
+    bWaitingForGamepadRemap = false;
+    PendingRemapAction = NAME_None;
+}
+
+bool ANarisPlayerController::ApplyGamepadActionRemap(
+    FName ActionName,
+    FKey NewKey,
+    bool bPersist
+)
+{
+    if (ActionName.IsNone()
+        || !NewKey.IsValid()
+        || !NewKey.IsGamepadKey()
+        || IsReservedGamepadMenuKey(NewKey))
+    {
+        return false;
+    }
+
+    UInputSettings* InputSettings = UInputSettings::GetInputSettings();
+    if (!InputSettings)
+    {
+        return false;
+    }
+
+    const TArray<FInputActionKeyMapping>& AllMappings =
+        InputSettings->GetActionMappings();
+
+    for (const FInputActionKeyMapping& Mapping : AllMappings)
+    {
+        if (Mapping.Key != NewKey
+            || Mapping.ActionName == ActionName
+            || !Mapping.Key.IsGamepadKey())
+        {
+            continue;
+        }
+
+        bool bOtherGameplayAction = false;
+        for (int32 Index = 0; Index < ControlActionCount; ++Index)
+        {
+            if (ControlActionName(Index) == Mapping.ActionName)
+            {
+                bOtherGameplayAction = true;
+                break;
+            }
+        }
+
+        if (bOtherGameplayAction)
+        {
+            return false;
+        }
+    }
+
+    TArray<FInputActionKeyMapping> CurrentMappings;
+    InputSettings->GetActionMappingByName(ActionName, CurrentMappings);
+
+    for (const FInputActionKeyMapping& Mapping : CurrentMappings)
+    {
+        if (Mapping.Key.IsGamepadKey())
+        {
+            InputSettings->RemoveActionMapping(Mapping, false);
+        }
+    }
+
+    InputSettings->AddActionMapping(
+        FInputActionKeyMapping(
+            ActionName,
+            NewKey,
+            false,
+            false,
+            false,
+            false
+        ),
+        false
+    );
+
+    if (bPersist)
+    {
+        InputSettings->SaveKeyMappings();
+        InputSettings->ForceRebuildKeymaps();
+    }
+
+    return true;
+}
+
+void ANarisPlayerController::ResetGamepadActionRemaps()
+{
+    UInputSettings* InputSettings = UInputSettings::GetInputSettings();
+    if (!InputSettings)
+    {
+        return;
+    }
+
+    for (int32 Index = 0; Index < ControlActionCount; ++Index)
+    {
+        const FName ActionName = ControlActionName(Index);
+
+        TArray<FInputActionKeyMapping> CurrentMappings;
+        InputSettings->GetActionMappingByName(ActionName, CurrentMappings);
+        for (const FInputActionKeyMapping& Mapping : CurrentMappings)
+        {
+            if (Mapping.Key.IsGamepadKey())
+            {
+                InputSettings->RemoveActionMapping(Mapping, false);
+            }
+        }
+    }
+
+    for (int32 Index = 0; Index < ControlActionCount; ++Index)
+    {
+        const FName ActionName = ControlActionName(Index);
+        const FKey DefaultKey = DefaultGamepadKey(ActionName);
+        if (!ActionName.IsNone() && DefaultKey.IsValid())
+        {
+            InputSettings->AddActionMapping(
+                FInputActionKeyMapping(
+                    ActionName,
+                    DefaultKey,
+                    false,
+                    false,
+                    false,
+                    false
+                ),
+                false
+            );
+        }
+    }
+
+    InputSettings->SaveKeyMappings();
+    InputSettings->ForceRebuildKeymaps();
+    CancelGamepadRemap();
+}
