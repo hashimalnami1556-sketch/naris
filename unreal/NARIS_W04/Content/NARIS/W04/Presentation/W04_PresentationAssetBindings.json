@@ -1,183 +1,224 @@
 {
-  "schema": "naris.w04.presentation-bindings.v1",
+  "schema": "naris.w04.presentation-bindings.v2",
   "profile_asset": "/Game/NARIS/W04/Presentation/DA_W04_Presentation",
   "strict_default": false,
-  "note": "Fill unreal_object_path only after the corresponding Unreal asset exists. Null means explicitly unbound, not missing data.",
+  "note": "unreal_object_path remains null until a real Unreal asset exists. expected_unreal_object_path is the deterministic target contract and is not runtime evidence.",
   "assets": [
     {
       "asset_id": "NARIS-W04-AUD-ARENA-0001",
       "kind": "audio",
-      "unreal_object_path": null
+      "unreal_object_path": null,
+      "expected_unreal_object_path": "/Game/NARIS/W04/Presentation/Audio/NARIS_W04_AUD_ARENA_0001.NARIS_W04_AUD_ARENA_0001"
     },
     {
       "asset_id": "NARIS-W04-AUD-ASHRUPTURE-0001",
       "kind": "audio",
-      "unreal_object_path": null
+      "unreal_object_path": null,
+      "expected_unreal_object_path": "/Game/NARIS/W04/Presentation/Audio/NARIS_W04_AUD_ASHRUPTURE_0001.NARIS_W04_AUD_ASHRUPTURE_0001"
     },
     {
       "asset_id": "NARIS-W04-AUD-BONEATTACK-0001",
       "kind": "audio",
-      "unreal_object_path": null
+      "unreal_object_path": null,
+      "expected_unreal_object_path": "/Game/NARIS/W04/Presentation/Audio/NARIS_W04_AUD_BONEATTACK_0001.NARIS_W04_AUD_BONEATTACK_0001"
     },
     {
       "asset_id": "NARIS-W04-AUD-BONECHARGE-0001",
       "kind": "audio",
-      "unreal_object_path": null
+      "unreal_object_path": null,
+      "expected_unreal_object_path": "/Game/NARIS/W04/Presentation/Audio/NARIS_W04_AUD_BONECHARGE_0001.NARIS_W04_AUD_BONECHARGE_0001"
     },
     {
       "asset_id": "NARIS-W04-AUD-BONECLAW-0001",
       "kind": "audio",
-      "unreal_object_path": null
+      "unreal_object_path": null,
+      "expected_unreal_object_path": "/Game/NARIS/W04/Presentation/Audio/NARIS_W04_AUD_BONECLAW_0001.NARIS_W04_AUD_BONECLAW_0001"
     },
     {
       "asset_id": "NARIS-W04-AUD-BONEDEATH-0001",
       "kind": "audio",
-      "unreal_object_path": null
+      "unreal_object_path": null,
+      "expected_unreal_object_path": "/Game/NARIS/W04/Presentation/Audio/NARIS_W04_AUD_BONEDEATH_0001.NARIS_W04_AUD_BONEDEATH_0001"
     },
     {
       "asset_id": "NARIS-W04-AUD-BONEHIT-0001",
       "kind": "audio",
-      "unreal_object_path": null
+      "unreal_object_path": null,
+      "expected_unreal_object_path": "/Game/NARIS/W04/Presentation/Audio/NARIS_W04_AUD_BONEHIT_0001.NARIS_W04_AUD_BONEHIT_0001"
     },
     {
       "asset_id": "NARIS-W04-AUD-BONEINTRO-0001",
       "kind": "audio",
-      "unreal_object_path": null
+      "unreal_object_path": null,
+      "expected_unreal_object_path": "/Game/NARIS/W04/Presentation/Audio/NARIS_W04_AUD_BONEINTRO_0001.NARIS_W04_AUD_BONEINTRO_0001"
     },
     {
       "asset_id": "NARIS-W04-AUD-BONEPHASE-0001",
       "kind": "audio",
-      "unreal_object_path": null
+      "unreal_object_path": null,
+      "expected_unreal_object_path": "/Game/NARIS/W04/Presentation/Audio/NARIS_W04_AUD_BONEPHASE_0001.NARIS_W04_AUD_BONEPHASE_0001"
     },
     {
       "asset_id": "NARIS-W04-AUD-DODGE-0001",
       "kind": "audio",
-      "unreal_object_path": null
+      "unreal_object_path": null,
+      "expected_unreal_object_path": "/Game/NARIS/W04/Presentation/Audio/NARIS_W04_AUD_DODGE_0001.NARIS_W04_AUD_DODGE_0001"
     },
     {
       "asset_id": "NARIS-W04-AUD-ESSENCE-0001",
       "kind": "audio",
-      "unreal_object_path": null
+      "unreal_object_path": null,
+      "expected_unreal_object_path": "/Game/NARIS/W04/Presentation/Audio/NARIS_W04_AUD_ESSENCE_0001.NARIS_W04_AUD_ESSENCE_0001"
     },
     {
       "asset_id": "NARIS-W04-AUD-HEROIMPACT-0001",
       "kind": "audio",
-      "unreal_object_path": null
+      "unreal_object_path": null,
+      "expected_unreal_object_path": "/Game/NARIS/W04/Presentation/Audio/NARIS_W04_AUD_HEROIMPACT_0001.NARIS_W04_AUD_HEROIMPACT_0001"
     },
     {
       "asset_id": "NARIS-W04-AUD-PARRY-0001",
       "kind": "audio",
-      "unreal_object_path": null
+      "unreal_object_path": null,
+      "expected_unreal_object_path": "/Game/NARIS/W04/Presentation/Audio/NARIS_W04_AUD_PARRY_0001.NARIS_W04_AUD_PARRY_0001"
     },
     {
       "asset_id": "NARIS-W04-AUD-WOLFATTACK-0001",
       "kind": "audio",
-      "unreal_object_path": null
+      "unreal_object_path": null,
+      "expected_unreal_object_path": "/Game/NARIS/W04/Presentation/Audio/NARIS_W04_AUD_WOLFATTACK_0001.NARIS_W04_AUD_WOLFATTACK_0001"
     },
     {
       "asset_id": "NARIS-W04-AUD-WOLFBOND-0001",
       "kind": "audio",
-      "unreal_object_path": null
+      "unreal_object_path": null,
+      "expected_unreal_object_path": "/Game/NARIS/W04/Presentation/Audio/NARIS_W04_AUD_WOLFBOND_0001.NARIS_W04_AUD_WOLFBOND_0001"
     },
     {
       "asset_id": "NARIS-W04-AUD-WOLFECHO-0001",
       "kind": "audio",
-      "unreal_object_path": null
+      "unreal_object_path": null,
+      "expected_unreal_object_path": "/Game/NARIS/W04/Presentation/Audio/NARIS_W04_AUD_WOLFECHO_0001.NARIS_W04_AUD_WOLFECHO_0001"
     },
     {
       "asset_id": "NARIS-W04-CINE-SHAKEDEATH-0001",
       "kind": "camera",
-      "unreal_object_path": null
+      "unreal_object_path": null,
+      "expected_unreal_object_path": "/Game/NARIS/W04/Presentation/Camera/BP_NARIS_W04_CINE_SHAKEDEATH_0001.BP_NARIS_W04_CINE_SHAKEDEATH_0001_C"
     },
     {
       "asset_id": "NARIS-W04-CINE-SHAKEHEAVY-0001",
       "kind": "camera",
-      "unreal_object_path": null
+      "unreal_object_path": null,
+      "expected_unreal_object_path": "/Game/NARIS/W04/Presentation/Camera/BP_NARIS_W04_CINE_SHAKEHEAVY_0001.BP_NARIS_W04_CINE_SHAKEHEAVY_0001_C"
     },
     {
       "asset_id": "NARIS-W04-CINE-SHAKEHIT-0001",
       "kind": "camera",
-      "unreal_object_path": null
+      "unreal_object_path": null,
+      "expected_unreal_object_path": "/Game/NARIS/W04/Presentation/Camera/BP_NARIS_W04_CINE_SHAKEHIT_0001.BP_NARIS_W04_CINE_SHAKEHIT_0001_C"
     },
     {
       "asset_id": "NARIS-W04-CINE-SHAKEPARRY-0001",
       "kind": "camera",
-      "unreal_object_path": null
+      "unreal_object_path": null,
+      "expected_unreal_object_path": "/Game/NARIS/W04/Presentation/Camera/BP_NARIS_W04_CINE_SHAKEPARRY_0001.BP_NARIS_W04_CINE_SHAKEPARRY_0001_C"
     },
     {
       "asset_id": "NARIS-W04-CINE-SHAKEPHASE-0001",
       "kind": "camera",
-      "unreal_object_path": null
+      "unreal_object_path": null,
+      "expected_unreal_object_path": "/Game/NARIS/W04/Presentation/Camera/BP_NARIS_W04_CINE_SHAKEPHASE_0001.BP_NARIS_W04_CINE_SHAKEPHASE_0001_C"
     },
     {
       "asset_id": "NARIS-W04-VFX-ARENALOCK-0001",
       "kind": "vfx",
-      "unreal_object_path": null
+      "unreal_object_path": null,
+      "expected_unreal_object_path": "/Game/NARIS/W04/Presentation/VFX/NARIS_W04_VFX_ARENALOCK_0001.NARIS_W04_VFX_ARENALOCK_0001"
     },
     {
       "asset_id": "NARIS-W04-VFX-ARENAUNLOCK-0001",
       "kind": "vfx",
-      "unreal_object_path": null
+      "unreal_object_path": null,
+      "expected_unreal_object_path": "/Game/NARIS/W04/Presentation/VFX/NARIS_W04_VFX_ARENAUNLOCK_0001.NARIS_W04_VFX_ARENAUNLOCK_0001"
     },
     {
       "asset_id": "NARIS-W04-VFX-ASHRUPTURE-0001",
       "kind": "vfx",
-      "unreal_object_path": null
+      "unreal_object_path": null,
+      "expected_unreal_object_path": "/Game/NARIS/W04/Presentation/VFX/NARIS_W04_VFX_ASHRUPTURE_0001.NARIS_W04_VFX_ASHRUPTURE_0001"
     },
     {
       "asset_id": "NARIS-W04-VFX-BONECHARGE-0001",
       "kind": "vfx",
-      "unreal_object_path": null
+      "unreal_object_path": null,
+      "expected_unreal_object_path": "/Game/NARIS/W04/Presentation/VFX/NARIS_W04_VFX_BONECHARGE_0001.NARIS_W04_VFX_BONECHARGE_0001"
     },
     {
       "asset_id": "NARIS-W04-VFX-BONECLAW-0001",
       "kind": "vfx",
-      "unreal_object_path": null
+      "unreal_object_path": null,
+      "expected_unreal_object_path": "/Game/NARIS/W04/Presentation/VFX/NARIS_W04_VFX_BONECLAW_0001.NARIS_W04_VFX_BONECLAW_0001"
     },
     {
       "asset_id": "NARIS-W04-VFX-BONEDEATH-0001",
       "kind": "vfx",
-      "unreal_object_path": null
+      "unreal_object_path": null,
+      "expected_unreal_object_path": "/Game/NARIS/W04/Presentation/VFX/NARIS_W04_VFX_BONEDEATH_0001.NARIS_W04_VFX_BONEDEATH_0001"
     },
     {
       "asset_id": "NARIS-W04-VFX-BONEHIT-0001",
       "kind": "vfx",
-      "unreal_object_path": null
+      "unreal_object_path": null,
+      "expected_unreal_object_path": "/Game/NARIS/W04/Presentation/VFX/NARIS_W04_VFX_BONEHIT_0001.NARIS_W04_VFX_BONEHIT_0001"
     },
     {
       "asset_id": "NARIS-W04-VFX-BONEPHASE-0001",
       "kind": "vfx",
-      "unreal_object_path": null
+      "unreal_object_path": null,
+      "expected_unreal_object_path": "/Game/NARIS/W04/Presentation/VFX/NARIS_W04_VFX_BONEPHASE_0001.NARIS_W04_VFX_BONEPHASE_0001"
     },
     {
       "asset_id": "NARIS-W04-VFX-HERODODGE-0001",
       "kind": "vfx",
-      "unreal_object_path": null
+      "unreal_object_path": null,
+      "expected_unreal_object_path": "/Game/NARIS/W04/Presentation/VFX/NARIS_W04_VFX_HERODODGE_0001.NARIS_W04_VFX_HERODODGE_0001"
     },
     {
       "asset_id": "NARIS-W04-VFX-HEROIMPACT-0001",
       "kind": "vfx",
-      "unreal_object_path": null
+      "unreal_object_path": null,
+      "expected_unreal_object_path": "/Game/NARIS/W04/Presentation/VFX/NARIS_W04_VFX_HEROIMPACT_0001.NARIS_W04_VFX_HEROIMPACT_0001"
     },
     {
       "asset_id": "NARIS-W04-VFX-HEROPARRY-0001",
       "kind": "vfx",
-      "unreal_object_path": null
+      "unreal_object_path": null,
+      "expected_unreal_object_path": "/Game/NARIS/W04/Presentation/VFX/NARIS_W04_VFX_HEROPARRY_0001.NARIS_W04_VFX_HEROPARRY_0001"
     },
     {
       "asset_id": "NARIS-W04-VFX-SPIRIT-0001",
       "kind": "vfx",
-      "unreal_object_path": null
+      "unreal_object_path": null,
+      "expected_unreal_object_path": "/Game/NARIS/W04/Presentation/VFX/NARIS_W04_VFX_SPIRIT_0001.NARIS_W04_VFX_SPIRIT_0001"
     },
     {
       "asset_id": "NARIS-W04-VFX-WOLFECHO-0001",
       "kind": "vfx",
-      "unreal_object_path": null
+      "unreal_object_path": null,
+      "expected_unreal_object_path": "/Game/NARIS/W04/Presentation/VFX/NARIS_W04_VFX_WOLFECHO_0001.NARIS_W04_VFX_WOLFECHO_0001"
     },
     {
       "asset_id": "NARIS-W04-VFX-WOLFIMPACT-0001",
       "kind": "vfx",
-      "unreal_object_path": null
+      "unreal_object_path": null,
+      "expected_unreal_object_path": "/Game/NARIS/W04/Presentation/VFX/NARIS_W04_VFX_WOLFIMPACT_0001.NARIS_W04_VFX_WOLFIMPACT_0001"
     }
-  ]
+  ],
+  "path_policy": {
+    "audio": "/Game/NARIS/W04/Presentation/Audio/<ASSET_ID_SANITIZED>",
+    "vfx": "/Game/NARIS/W04/Presentation/VFX/<ASSET_ID_SANITIZED>",
+    "camera": "/Game/NARIS/W04/Presentation/Camera/BP_<ASSET_ID_SANITIZED>_C",
+    "sanitization": "replace '-' with '_'"
+  }
 }
