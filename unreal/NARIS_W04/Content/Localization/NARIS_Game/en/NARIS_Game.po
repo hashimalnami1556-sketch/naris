@@ -370,13 +370,7 @@ msgctxt "NARIS,ControlsMenuHint"
 msgid "Select an action and press Confirm to remap. Back: Esc/B"
 msgstr "Select an action and press Confirm to remap. Back: Esc/B"
 
-msgctxt "NARIS,FirstWhisperSpeaker"
-msgid "The First Whisper"
-msgstr "The First Whisper"
 
-msgctxt "NARIS,FirstWhisperLine"
-msgid "The gate remembers what the ash tried to bury."
-msgstr "The gate remembers what the ash tried to bury."
 
 msgctxt "NARIS,FrontEndNewGame"
 msgid "New Game"
