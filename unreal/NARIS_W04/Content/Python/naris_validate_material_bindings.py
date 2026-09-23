@@ -61,13 +61,70 @@ def main() -> None:
     library_ids.add(library["water"]["id"])
 
     unresolved_master_paths: list[str] = []
-    for path in bindings.get("masters", {}).values():
-        if not unreal.EditorAssetLibrary.does_asset_exist(path):
-            unresolved_master_paths.append(path)
+    master_details: dict[str, dict] = {}
+    errors: list[str] = []
+
+    for profile, requirement in bindings.get("master_requirements", {}).items():
+        path = requirement.get("path")
+        if not path or not unreal.EditorAssetLibrary.does_asset_exist(path):
+            if path:
+                unresolved_master_paths.append(path)
+            continue
+
+        master = unreal.load_asset(path)
+        if not isinstance(master, unreal.Material):
+            errors.append(f"{profile}: expected base Material at {path}")
+            continue
+
+        scalar_names = {
+            str(name)
+            for name in unreal.MaterialEditingLibrary.get_scalar_parameter_names(master)
+        }
+        vector_names = {
+            str(name)
+            for name in unreal.MaterialEditingLibrary.get_vector_parameter_names(master)
+        }
+
+        required_scalars = set(requirement.get("scalar_parameters", []))
+        required_vectors = set(requirement.get("vector_parameters", []))
+        missing_scalars = sorted(required_scalars - scalar_names)
+        missing_vectors = sorted(required_vectors - vector_names)
+
+        expected_blend_name = requirement.get("blend_mode")
+        expected_blend = getattr(unreal.BlendMode, expected_blend_name, None)
+        actual_blend = master.get_blend_mode()
+
+        if expected_blend is None:
+            errors.append(
+                f"{profile}: unsupported expected blend mode {expected_blend_name!r}"
+            )
+        elif actual_blend != expected_blend:
+            errors.append(
+                f"{profile}: blend mode {actual_blend} != {expected_blend}"
+            )
+
+        if missing_scalars:
+            errors.append(
+                f"{profile}: master missing scalar parameters "
+                + ", ".join(missing_scalars)
+            )
+        if missing_vectors:
+            errors.append(
+                f"{profile}: master missing vector parameters "
+                + ", ".join(missing_vectors)
+            )
+
+        master_details[profile] = {
+            "path": path,
+            "blend_mode": str(actual_blend),
+            "scalar_parameters": sorted(scalar_names),
+            "vector_parameters": sorted(vector_names),
+            "missing_scalar_parameters": missing_scalars,
+            "missing_vector_parameters": missing_vectors,
+        }
 
     unresolved_asset_ids: list[str] = []
     validated_asset_ids: list[str] = []
-    errors: list[str] = []
     details: dict[str, dict] = {}
 
     for item in bindings.get("assets", []):
@@ -175,6 +232,7 @@ def main() -> None:
         "validated_asset_ids": sorted(set(validated_asset_ids)),
         "unresolved_asset_ids": sorted(set(unresolved_asset_ids)),
         "unresolved_master_paths": sorted(set(unresolved_master_paths)),
+        "master_details": master_details,
         "details": details,
         "errors": errors,
     }
