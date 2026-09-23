@@ -238,6 +238,21 @@ void ABoneBeastBoss::CompleteEncounter()
     }
 }
 
+bool ABoneBeastBoss::RequestPhaseAttack()
+{
+    switch (CurrentPhase)
+    {
+        case ENarisBossPhase::Phase1:
+            return RequestAttack(TEXT("ClawSweep"), Phase1AttackDamage);
+        case ENarisBossPhase::Phase2:
+            return RequestAttack(TEXT("BoneCharge"), Phase2AttackDamage);
+        case ENarisBossPhase::Phase3:
+            return RequestAttack(TEXT("AshRupture"), Phase3AttackDamage);
+        default:
+            return false;
+    }
+}
+
 bool ABoneBeastBoss::RequestAttack(FName AttackId, float Damage)
 {
     if (!bEncounterActive
