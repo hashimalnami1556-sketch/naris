@@ -60,6 +60,12 @@ struct FNarisSaveState
     FString CheckpointId = TEXT("WakeArea");
 
     UPROPERTY(BlueprintReadWrite)
+    FVector CheckpointLocation = FVector::ZeroVector;
+
+    UPROPERTY(BlueprintReadWrite)
+    bool bHasCheckpointLocation = false;
+
+    UPROPERTY(BlueprintReadWrite)
     TArray<FString> UnlockedLore;
 
     UPROPERTY(BlueprintReadWrite)
