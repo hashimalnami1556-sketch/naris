@@ -1,11 +1,19 @@
 #include "NarisRuntimeSubsystem.h"
 
 #include "Kismet/GameplayStatics.h"
+#include "Misc/CommandLine.h"
+#include "Misc/Parse.h"
 #include "NarisSaveGame.h"
 
 void UNarisRuntimeSubsystem::Initialize(FSubsystemCollectionBase& Collection)
 {
     Super::Initialize(Collection);
+
+    if (FParse::Param(FCommandLine::Get(), TEXT("NarisRuntimeSmoke")))
+    {
+        BeginNewGame();
+        return;
+    }
 
     if (!LoadState(DefaultAutoSaveSlot))
     {
