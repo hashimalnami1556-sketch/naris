@@ -13,7 +13,7 @@ T10 Corrupted Heart persists step 1 at Memory Crystal, step 2 at Ash Gate, step 
 T11 Save/Load restores checkpoint ID/location, active/completed quest state and step, lore, narrative, gate, companion, boss and waystones.
 T12 Arabic/English localization.
 T13 HUD reflects health/resonance/energy/essence, interaction prompt, Celestial Wolf state/mode, Corrupted Heart objective, boss state and DemoEnd.
-T14 Pause/resume works from keyboard and gamepad, including input execution while paused.
+T14 Pause/resume opens the native pause menu; keyboard/gamepad navigation remains executable while paused and can enter/leave Settings.
 T15 No public release until all tests pass.
 T16 Packaged runtime progression smoke drives Waystone -> MemoryCrystal -> AshGate -> CelestialWolf -> BoneBeast -> DemoEnd.
 T17 Runtime smoke Save -> New Game -> Load restores checkpoint, lore, narrative, gate, companion, quest, boss and DemoEnd.
@@ -25,3 +25,4 @@ T22 Every W04 presentation VFX/AUD/Camera asset ID referenced by the cue manifes
 T23 Boss arena entry trigger automatically starts Bone Beast only for the local player and disables itself after encounter start/completion.
 T24 Shipping Release Candidate gate rejects any unbound presentation VFX/AUD/Camera asset before Shipping BuildCookRun.
 T25 Hero death disables control, then respawns at the saved Waystone location with restored health, poise, energy, movement and input.
+T26 Graphics/audio/accessibility settings persist through NarisGameUserSettings, including quality, VSync/FPS, master/music/SFX/voice, subtitles/scale, camera-shake reduction/intensity, high-contrast interactions and color-vision correction; Apply & Save and Reset Defaults are reachable from the pause menu.
