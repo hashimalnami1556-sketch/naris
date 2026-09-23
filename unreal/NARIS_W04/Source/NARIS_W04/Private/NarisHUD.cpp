@@ -82,6 +82,13 @@ void ANarisHUD::DrawHUD()
             180.f,
             Cyan
         );
+
+        const FString EssenceText = FString::Printf(
+            TEXT("%s: %s"),
+            *NSLOCTEXT("NARIS", "HUDEssence", "Essence").ToString(),
+            *Hero->Energy->GetActiveEssenceDisplayName().ToString()
+        );
+        DrawText(EssenceText, Cyan, 40.f, 215.f, nullptr, 0.9f, false);
     }
 
     if (Hero->Interaction)
@@ -111,7 +118,7 @@ void ANarisHUD::DrawHUD()
             CompanionState,
             Runtime->IsCompanionUnlocked(TEXT("CelestialWolf")) ? Cyan : FLinearColor::Gray,
             40.f,
-            280.f,
+            295.f,
             nullptr,
             0.9f,
             false
@@ -123,7 +130,7 @@ void ANarisHUD::DrawHUD()
                 NSLOCTEXT("NARIS", "HUDDemoComplete", "W04 DEMO COMPLETE").ToString(),
                 Gold,
                 40.f,
-                320.f,
+                335.f,
                 nullptr,
                 1.25f,
                 false
@@ -145,7 +152,7 @@ void ANarisHUD::DrawHUD()
                 NSLOCTEXT("NARIS", "HUDBoneBeastDefeated", "Bone Beast Defeated").ToString(),
                 Gold,
                 40.f,
-                380.f,
+                395.f,
                 nullptr,
                 1.0f,
                 false
@@ -153,8 +160,7 @@ void ANarisHUD::DrawHUD()
         }
         else
         {
-            const float MaxHealth =
-                Boss->BossData ? FMath::Max(Boss->BossData->MaxHealth, 1.f) : 1.f;
+            const float MaxHealth = Boss->GetConfiguredMaxHealth();
             DrawBar(
                 NSLOCTEXT("NARIS", "HUDBoneBeast", "Bone Beast").ToString(),
                 Boss->GetCurrentHealth(),
