@@ -84,7 +84,8 @@
       "pattern": "Boss.Attack.<AttackId>",
       "source": "ABoneBeastBoss::RequestAttack",
       "audio": "NARIS-W04-AUD-BONEATTACK-0001",
-      "note": "AttackId remains data-driven by FNarisBossAttackDefinition; no unsupported attack names are invented here."
+      "note": "AttackId remains data-driven by FNarisBossAttackDefinition; no unsupported attack names are invented here.",
+      "runtime_cue": "Boss.Attack.*"
     }
   ]
 }
