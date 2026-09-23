@@ -55,7 +55,9 @@ class PresentationProductionPassContractTests(unittest.TestCase):
         for token in (
             "UNiagaraFunctionLibrary::SpawnSystemAtLocation",
             "UGameplayStatics::PlaySoundAtLocation",
-            "UGameplayStatics::PlayWorldCameraShake",
+            "CameraManager->StartCameraShake",
+            "GetEffectiveCameraShakeScale()",
+            "GetPresentationSFXScale()",
         ):
             self.assertIn(token, source)
 
