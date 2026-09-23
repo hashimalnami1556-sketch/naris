@@ -3,6 +3,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "NarisW04Types.h"
+#include "NarisInteractable.h"
 #include "BoneBeastBoss.generated.h"
 
 class UBoneBeastDataAsset;
@@ -10,7 +11,7 @@ class UBoneBeastDataAsset;
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FNarisBossEvent, FName, EventName);
 
 UCLASS()
-class NARIS_W04_API ABoneBeastBoss : public ACharacter
+class NARIS_W04_API ABoneBeastBoss : public ACharacter, public INarisInteractable
 {
     GENERATED_BODY()
 
@@ -21,6 +22,12 @@ public:
 
     UFUNCTION(BlueprintCallable, Category="NARIS|Boss")
     void StartEncounter();
+
+    UFUNCTION(BlueprintCallable, Category="NARIS|Boss")
+    bool TryStartEncounter(AActor* InstigatorActor);
+
+    virtual bool Interact_Implementation(AActor* InstigatorActor) override;
+    virtual FText GetInteractionPrompt_Implementation() const override;
 
     UFUNCTION(BlueprintCallable, Category="NARIS|Boss")
     void ResetEncounter();
