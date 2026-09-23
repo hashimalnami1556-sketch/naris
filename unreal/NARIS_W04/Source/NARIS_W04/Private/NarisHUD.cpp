@@ -1,6 +1,8 @@
 #include "NarisHUD.h"
 
 #include "BoneBeastBoss.h"
+#include "BoneBeastDataAsset.h"
+#include "Engine/GameInstance.h"
 #include "Engine/World.h"
 #include "EngineUtils.h"
 #include "GameFramework/PlayerController.h"
