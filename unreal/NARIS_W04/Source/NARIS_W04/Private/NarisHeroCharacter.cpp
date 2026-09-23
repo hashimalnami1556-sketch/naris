@@ -2,6 +2,8 @@
 
 #include "BoneBeastBoss.h"
 #include "Camera/CameraComponent.h"
+#include "CelestialWolf.h"
+#include "EngineUtils.h"
 #include "Components/InputComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/Controller.h"
@@ -99,6 +101,7 @@ void ANarisHeroCharacter::SetupPlayerInputComponent(UInputComponent* Input)
     Input->BindAction(TEXT("LockOn"), IE_Pressed, this, &ANarisHeroCharacter::ToggleLockOn);
     Input->BindAction(TEXT("EssenceNext"), IE_Pressed, this, &ANarisHeroCharacter::NextEssence);
     Input->BindAction(TEXT("EssencePrevious"), IE_Pressed, this, &ANarisHeroCharacter::PreviousEssence);
+    Input->BindAction(TEXT("CompanionMode"), IE_Pressed, this, &ANarisHeroCharacter::CycleCompanionMode);
     Input->BindAction(TEXT("Interact"), IE_Pressed, this, &ANarisHeroCharacter::Interact);
     Input->BindAction(TEXT("Sprint"), IE_Pressed, this, &ANarisHeroCharacter::StartSprinting);
     Input->BindAction(TEXT("Sprint"), IE_Released, this, &ANarisHeroCharacter::StopSprinting);
@@ -376,6 +379,23 @@ void ANarisHeroCharacter::PreviousEssence()
         if (Presentation)
         {
             Presentation->TriggerCue(TEXT("Hero.EssenceSwitch"));
+        }
+    }
+}
+
+void ANarisHeroCharacter::CycleCompanionMode()
+{
+    if (!GetWorld())
+    {
+        return;
+    }
+
+    for (TActorIterator<ACelestialWolf> It(GetWorld()); It; ++It)
+    {
+        if (ACelestialWolf* Wolf = *It)
+        {
+            Wolf->CycleMode();
+            break;
         }
     }
 }
