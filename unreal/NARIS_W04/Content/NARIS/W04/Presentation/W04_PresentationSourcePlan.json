@@ -536,7 +536,8 @@
       "kind": "camera",
       "status": "bound",
       "used_by_cues": [
-        "Boss.Death"
+        "Boss.Death",
+        "Hero.Death"
       ],
       "unreal_object_path": "/Script/NARIS_W04.NarisDeathCameraShake",
       "expected_unreal_object_path": "/Script/NARIS_W04.NarisDeathCameraShake",
