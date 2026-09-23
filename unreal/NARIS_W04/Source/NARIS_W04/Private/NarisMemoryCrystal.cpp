@@ -5,6 +5,7 @@
 #include "Engine/GameInstance.h"
 #include "Engine/World.h"
 #include "NarisRuntimeSubsystem.h"
+#include "NarisSubtitleSubsystem.h"
 
 ANarisMemoryCrystal::ANarisMemoryCrystal()
 {
@@ -62,6 +63,19 @@ bool ANarisMemoryCrystal::ActivateMemory(AActor* InstigatorActor)
     if (!Runtime->StartQuest(QuestId, QuestStep))
     {
         return false;
+    }
+
+    if (!SubtitleLine.IsEmpty())
+    {
+        if (UNarisSubtitleSubsystem* Subtitles =
+                GameInstance->GetSubsystem<UNarisSubtitleSubsystem>())
+        {
+            Subtitles->ShowSubtitle(
+                SubtitleSpeaker,
+                SubtitleLine,
+                SubtitleDurationSeconds
+            );
+        }
     }
 
     if (bAutoSave && !Runtime->SaveState(AutoSaveSlot))
