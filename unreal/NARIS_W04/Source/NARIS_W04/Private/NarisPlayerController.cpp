@@ -279,6 +279,11 @@ void ANarisPlayerController::SetupInputComponent()
 
 bool ANarisPlayerController::InputKey(const FInputKeyParams& Params)
 {
+    if (Params.Event == IE_Pressed || Params.Event == IE_Repeat)
+    {
+        bLastInputWasGamepad = Params.IsGamepad();
+    }
+
     if (IsSystemMenuOpen()
         && PauseMenuPage == ENarisPauseMenuPage::Controls
         && bWaitingForGamepadRemap
@@ -954,6 +959,41 @@ void ANarisPlayerController::ResetCurrentSettings()
     }
 }
 
+
+FText ANarisPlayerController::GetActionKeyDisplayName(
+    FName ActionName
+) const
+{
+    if (ActionName.IsNone())
+    {
+        return FText::GetEmpty();
+    }
+
+    if (bLastInputWasGamepad)
+    {
+        const FKey GamepadKey = GetCurrentGamepadKey(ActionName);
+        return GamepadKey.IsValid()
+            ? GamepadKey.GetDisplayName()
+            : FText::FromName(ActionName);
+    }
+
+    const UInputSettings* InputSettings = UInputSettings::GetInputSettings();
+    if (InputSettings)
+    {
+        TArray<FInputActionKeyMapping> Mappings;
+        InputSettings->GetActionMappingByName(ActionName, Mappings);
+
+        for (const FInputActionKeyMapping& Mapping : Mappings)
+        {
+            if (Mapping.Key.IsValid() && !Mapping.Key.IsGamepadKey())
+            {
+                return Mapping.Key.GetDisplayName();
+            }
+        }
+    }
+
+    return FText::FromName(ActionName);
+}
 
 FKey ANarisPlayerController::GetCurrentGamepadKey(FName ActionName) const
 {
