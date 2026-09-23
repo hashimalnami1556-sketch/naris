@@ -2,6 +2,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "NarisGameplayTypes.h"
 #include "NarisHeroCharacter.generated.h"
 
 class AController;
@@ -81,6 +82,9 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="NARIS|Combat|Energy")
     float ParryEnergyCost = 8.f;
 
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="NARIS|Combat|Animation")
+    bool bImmediateSmokeAttackHit = true;
+
     UFUNCTION(BlueprintCallable, Category="NARIS|Combat")
     void LightAttack();
 
@@ -98,6 +102,21 @@ public:
 
     UFUNCTION(BlueprintCallable, Category="NARIS|Combat")
     void ToggleLockOn();
+
+    UFUNCTION(BlueprintCallable, Category="NARIS|Combat|Animation")
+    void OpenAttackHitWindow();
+
+    UFUNCTION(BlueprintCallable, Category="NARIS|Combat|Animation")
+    void CloseAttackHitWindow();
+
+    UFUNCTION(BlueprintCallable, Category="NARIS|Combat|Animation")
+    bool CommitPendingAttackHit();
+
+    UFUNCTION(BlueprintCallable, Category="NARIS|Combat|Animation")
+    void CancelPendingAttack();
+
+    UFUNCTION(BlueprintImplementableEvent, Category="NARIS|Combat|Animation")
+    void OnAttackRequested(ENarisAttackKind AttackKind);
 
     UFUNCTION(BlueprintCallable, Category="NARIS|Energy")
     void NextEssence();
@@ -124,4 +143,9 @@ protected:
 
 private:
     bool ApplyAttackToLockedTarget(float Damage, float PoiseDamage);
+    void QueueAttack(ENarisAttackKind AttackKind);
+
+    ENarisAttackKind PendingAttack = ENarisAttackKind::None;
+    bool bAttackHitWindowOpen = false;
+    bool bAttackHitConsumed = false;
 };
