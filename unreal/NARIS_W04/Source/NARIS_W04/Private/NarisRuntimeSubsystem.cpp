@@ -108,3 +108,19 @@ bool UNarisRuntimeSubsystem::IsGateUnlocked(const FString& GateId) const
 {
     return !GateId.IsEmpty() && State.UnlockedGates.Contains(GateId);
 }
+
+bool UNarisRuntimeSubsystem::UnlockCompanion(const FString& CompanionId)
+{
+    if (CompanionId.IsEmpty())
+    {
+        return false;
+    }
+
+    State.UnlockedCompanions.AddUnique(CompanionId);
+    return true;
+}
+
+bool UNarisRuntimeSubsystem::IsCompanionUnlocked(const FString& CompanionId) const
+{
+    return !CompanionId.IsEmpty() && State.UnlockedCompanions.Contains(CompanionId);
+}
