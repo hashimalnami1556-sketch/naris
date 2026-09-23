@@ -1,5 +1,6 @@
 #include "NarisHeroCharacter.h"
 
+#include "BoneBeastBoss.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/Controller.h"
@@ -90,9 +91,59 @@ void ANarisHeroCharacter::LookPitch(float Value)
     AddControllerPitchInput(Value);
 }
 
+bool ANarisHeroCharacter::ApplyAttackToLockedTarget(float Damage, float PoiseDamage)
+{
+    if (!LockOn || Damage <= 0.f)
+    {
+        return false;
+    }
+
+    if (!LockOn->HasTarget() && !LockOn->AcquireTarget())
+    {
+        return false;
+    }
+
+    AActor* TargetActor = LockOn->Target;
+    if (!IsValid(TargetActor))
+    {
+        return false;
+    }
+
+    if (FVector::DistSquared(GetActorLocation(), TargetActor->GetActorLocation())
+        > FMath::Square(MeleeRange))
+    {
+        return false;
+    }
+
+    if (ABoneBeastBoss* Boss = Cast<ABoneBeastBoss>(TargetActor))
+    {
+        if (!Boss->IsEncounterActive() || Boss->IsEncounterComplete())
+        {
+            return false;
+        }
+
+        Boss->ApplyDamageToEncounter(Damage);
+        return true;
+    }
+
+    if (UNarisCombatComponent* TargetCombat =
+            TargetActor->FindComponentByClass<UNarisCombatComponent>())
+    {
+        if (TargetCombat->Health <= 0.f)
+        {
+            return false;
+        }
+
+        TargetCombat->ResolveHit(Damage, PoiseDamage, false, false);
+        return true;
+    }
+
+    return false;
+}
+
 void ANarisHeroCharacter::LightAttack()
 {
-    if (Combat)
+    if (Combat && ApplyAttackToLockedTarget(LightAttackDamage, LightAttackPoiseDamage))
     {
         Combat->AddResonance(5.f);
     }
@@ -100,7 +151,7 @@ void ANarisHeroCharacter::LightAttack()
 
 void ANarisHeroCharacter::HeavyAttack()
 {
-    if (Combat)
+    if (Combat && ApplyAttackToLockedTarget(HeavyAttackDamage, HeavyAttackPoiseDamage))
     {
         Combat->AddResonance(10.f);
     }
