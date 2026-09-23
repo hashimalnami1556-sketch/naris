@@ -1,0 +1,68 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: NARIS_Game\n"
+"Language: ar\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgctxt "NARIS,WaystoneInteractPrompt"
+msgid "Attune Waystone"
+msgstr "فعّل حجر الطريق"
+
+msgctxt "NARIS,MemoryCrystalInteractPrompt"
+msgid "Read Memory"
+msgstr "اقرأ الذكرى"
+
+msgctxt "NARIS,AshGateInteractPrompt"
+msgid "Open Ash Gate"
+msgstr "افتح بوابة الرماد"
+
+msgctxt "NARIS,CelestialWolfBondedPrompt"
+msgid "Celestial Wolf"
+msgstr "الذئب السماوي"
+
+msgctxt "NARIS,CelestialWolfBondPrompt"
+msgid "Bond with Celestial Wolf"
+msgstr "ارتبط بالذئب السماوي"
+
+msgctxt "NARIS,BoneBeastDefeatedPrompt"
+msgid "Bone Beast Defeated"
+msgstr "هُزم وحش العظام"
+
+msgctxt "NARIS,BoneBeastStartPrompt"
+msgid "Enter Bone Beast Arena"
+msgstr "ادخل ساحة وحش العظام"
+
+msgctxt "NARIS,HUDHealth"
+msgid "Health"
+msgstr "الصحة"
+
+msgctxt "NARIS,HUDResonance"
+msgid "Resonance"
+msgstr "الرنين"
+
+msgctxt "NARIS,HUDEnergy"
+msgid "Energy"
+msgstr "الطاقة"
+
+msgctxt "NARIS,HUDWolfBonded"
+msgid "Celestial Wolf: Bonded"
+msgstr "الذئب السماوي: مرتبط"
+
+msgctxt "NARIS,HUDWolfUnbonded"
+msgid "Celestial Wolf: Unbonded"
+msgstr "الذئب السماوي: غير مرتبط"
+
+msgctxt "NARIS,HUDDemoComplete"
+msgid "W04 DEMO COMPLETE"
+msgstr "اكتمل عرض W04"
+
+msgctxt "NARIS,HUDBoneBeastDefeated"
+msgid "Bone Beast Defeated"
+msgstr "هُزم وحش العظام"
+
+msgctxt "NARIS,HUDBoneBeast"
+msgid "Bone Beast"
+msgstr "وحش العظام"
+
