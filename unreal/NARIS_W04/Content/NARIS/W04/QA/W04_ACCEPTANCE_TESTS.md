@@ -9,10 +9,10 @@ T06 Poise reaches zero and opens execution window.
 T07 Five-Essence cycling plus energy spend/restore works from keyboard and gamepad.
 T08 Celestial Wolf Follow/Guard/Attack/Track/EchoLink modes execute their distinct runtime behavior and emit presentation cues.
 T09 Bone Beast phases P1/P2/P3 remain authoritative in ABoneBeastBoss, mirror into PhasePresentation, and fan out through presentation cues.
-T10 Quest Corrupted Heart progression.
-T11 Save/Load restores checkpoint, quest, lore and waystones.
+T10 Corrupted Heart persists step 1 at Memory Crystal, step 2 at Ash Gate, step 3 at Celestial Wolf bond, and step 4/completion at Bone Beast defeat.
+T11 Save/Load restores checkpoint, active/completed quest state and step, lore, narrative, gate, companion, boss and waystones.
 T12 Arabic/English localization.
-T13 HUD reflects runtime values.
+T13 HUD reflects health/resonance/energy/essence, interaction prompt, Celestial Wolf state/mode, Corrupted Heart objective, boss state and DemoEnd.
 T14 Pause/resume works from keyboard and gamepad, including input execution while paused.
 T15 No public release until all tests pass.
 T16 Packaged runtime progression smoke drives Waystone -> MemoryCrystal -> AshGate -> CelestialWolf -> BoneBeast -> DemoEnd.
@@ -22,3 +22,5 @@ T19 Windows Development package emits package-smoke report and requested CSV/GPU
 T20 Presentation cue bus fans authoritative gameplay events into optional Niagara, Audio/MetaSound and CameraShake payloads without mutating gameplay state.
 T21 Bone Beast arena blocker closes on EncounterStarted and reopens on EncounterComplete; packaged runtime smoke verifies the lock cycle.
 T22 Every W04 presentation VFX/AUD/Camera asset ID referenced by the cue manifest exists exactly once in MASTER_ASSET_REGISTRY.json.
+T23 Boss arena entry trigger automatically starts Bone Beast only for the local player and disables itself after encounter start/completion.
+T24 Shipping Release Candidate gate rejects any unbound presentation VFX/AUD/Camera asset before Shipping BuildCookRun.
