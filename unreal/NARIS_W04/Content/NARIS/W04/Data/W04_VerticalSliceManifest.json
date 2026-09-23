@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.5",
+  "schema_version": "1.6",
   "project": "CALL OF NARIS",
   "slice": "W04_AshenForest",
   "systems": [
@@ -73,6 +73,18 @@
       "InteractionPrompt",
       "CelestialWolfState",
       "BoneBeastState",
+      "DemoComplete"
+    ],
+    "auto_save_slot": "NARIS_Auto",
+    "auto_load_phase": "UNarisRuntimeSubsystem.Initialize",
+    "save_recovery_scope": [
+      "Checkpoint",
+      "Lore",
+      "Narratives",
+      "Gates",
+      "Companions",
+      "Quests",
+      "Bosses",
       "DemoComplete"
     ]
   },
