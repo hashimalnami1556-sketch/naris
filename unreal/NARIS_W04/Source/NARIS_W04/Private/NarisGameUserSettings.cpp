@@ -127,6 +127,24 @@ void UNarisGameUserSettings::SetVoiceVolume(float Value)
     RequestUIUpdate();
 }
 
+void UNarisGameUserSettings::SetSubtitlesEnabled(bool bEnabled)
+{
+    bSubtitlesEnabled = bEnabled;
+    RequestUIUpdate();
+}
+
+void UNarisGameUserSettings::SetReduceCameraShake(bool bEnabled)
+{
+    bReduceCameraShake = bEnabled;
+    RequestUIUpdate();
+}
+
+void UNarisGameUserSettings::SetHighContrastInteractions(bool bEnabled)
+{
+    bHighContrastInteractions = bEnabled;
+    RequestUIUpdate();
+}
+
 void UNarisGameUserSettings::SetCameraShakeIntensity(float Value)
 {
     CameraShakeIntensity = FMath::Clamp(Value, 0.f, 1.5f);
