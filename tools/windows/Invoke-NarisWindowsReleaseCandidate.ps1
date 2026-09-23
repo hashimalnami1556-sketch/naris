@@ -19,11 +19,14 @@ $BuildBat = Join-Path $UnrealEngineRoot "Engine\Build\BatchFiles\Build.bat"
 $RunUAT = Join-Path $UnrealEngineRoot "Engine\Build\BatchFiles\RunUAT.bat"
 $Bootstrap = Join-Path $RepoRoot "tools\windows\Invoke-NarisW04AuthoringBootstrap.ps1"
 $Localization = Join-Path $RepoRoot "tools\windows\Invoke-NarisLocalization.ps1"
+$ShippingMapValidationScript = Join-Path $RepoRoot "unreal\NARIS_W04\Content\Python\naris_validate_shipping_map.py"
+$UnrealCmd = Join-Path $UnrealEngineRoot "Engine\Binaries\Win64\UnrealEditor-Cmd.exe"
 $AnimationReport = Join-Path $RepoRoot "unreal\NARIS_W04\Saved\TestReports\naris_animation_validation.json"
 $ProductionAssetReport = Join-Path $RepoRoot "unreal\NARIS_W04\Saved\TestReports\naris_production_asset_validation.json"
 $PresentationReport = Join-Path $RepoRoot "unreal\NARIS_W04\Saved\TestReports\naris_presentation_authoring.json"
+$ShippingMapReport = Join-Path $RepoRoot "unreal\NARIS_W04\Saved\TestReports\naris_shipping_map_validation.json"
 
-foreach ($path in @($UProject, $BuildBat, $RunUAT, $Bootstrap, $Localization)) {
+foreach ($path in @($UProject, $BuildBat, $RunUAT, $Bootstrap, $Localization, $ShippingMapValidationScript, $UnrealCmd)) {
     if (-not (Test-Path $path)) {
         throw "Required path missing: $path"
     }
@@ -96,6 +99,19 @@ if (@($Presentation.errors).Count -ne 0) {
     throw "Release candidate presentation authoring contains errors"
 }
 
+Write-Host "[NARIS RC] Validating production Ashen Forest map"
+& $UnrealCmd $UProject "-ExecutePythonScript=$ShippingMapValidationScript" -unattended -nop4 -nosplash -stdout -FullStdOutLogOutput
+if ($LASTEXITCODE -ne 0) {
+    throw "Production Ashen Forest map validation failed with exit code $LASTEXITCODE"
+}
+if (-not (Test-Path $ShippingMapReport)) {
+    throw "Shipping map validation report missing: $ShippingMapReport"
+}
+$ShippingMap = Get-Content $ShippingMapReport -Raw | ConvertFrom-Json
+if ($ShippingMap.status -ne "pass") {
+    throw "Shipping map validation did not pass"
+}
+
 Write-Host "[NARIS RC] Compiling localization"
 & $Localization -RepoRoot $RepoRoot -UnrealEngineRoot $UnrealEngineRoot
 if ($LASTEXITCODE -ne 0) {
@@ -111,7 +127,7 @@ $UatArgs = @(
     "-clientconfig=Shipping",
     "-build",
     "-cook",
-    "-map=W04_Prototype",
+    "-map=W04_AshenForest",
     "-stage",
     "-pak",
     "-package",
@@ -136,6 +152,11 @@ $Report = [ordered]@{
     platform = "Win64"
     configuration = "Shipping"
     executable = $Executable.FullName
+    shipping_map = "/Game/NARIS/W04/Maps/W04_AshenForest"
+    shipping_map_validation_status = $ShippingMap.status
+    shipping_map_missing_labels = @($ShippingMap.missing_labels)
+    shipping_map_forbidden_labels = @($ShippingMap.forbidden_labels_found)
+    shipping_map_forbidden_prefix_labels = @($ShippingMap.forbidden_prefix_labels_found)
     animation_validated_count = @($Animation.validated_asset_ids).Count
     production_asset_validated_count = @($ProductionAssets.validated_asset_ids).Count
     production_asset_unresolved_count = @($ProductionAssets.unresolved_asset_ids).Count
