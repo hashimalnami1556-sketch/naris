@@ -131,6 +131,7 @@ private:
     FVector GuardAnchor = FVector::ZeroVector;
     float LastAttackTime = -1000.f;
     float LastEchoPulseTime = -1000.f;
+    UPROPERTY(Transient)
     TObjectPtr<ABoneBeastBoss> PendingAttackTarget = nullptr;
 
     void MoveTowards(const FVector& Destination, float AcceptanceRadius);
