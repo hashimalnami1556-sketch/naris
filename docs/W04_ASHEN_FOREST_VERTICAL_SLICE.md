@@ -8,17 +8,21 @@ Role: First complete vertical-slice world
 
 ## Player flow
 
-1. Forest Entrance
-2. Wake Area
-3. Movement tutorial
-4. Combat tutorial
-5. Memory Crystal
-6. Naris first whisper
-7. Bone Beast encounter
-8. Ash Gate
-9. Celestial Wolf acquisition
-10. Ash Giant / Mist Guardian encounter
-11. Demo End
+1. Main Menu / Intro
+2. Forest Entrance / Wake Area
+3. Movement + light-combat onboarding
+4. Waystone checkpoint
+5. Broken Shrine / Memory Crystal
+6. First Whisper narrative trigger — Corrupted Heart step 1
+7. Ruined Bridge traversal
+8. Whisper Lake companion reveal space
+9. Ash Gate progression — Corrupted Heart step 2
+10. Celestial Wolf bond — Corrupted Heart step 3
+11. Bone Beast Arena — three-phase boss encounter
+12. Bone Beast defeat — Corrupted Heart step 4/completion
+13. Demo End
+
+**Current slice authority:** Bone Beast is the final boss/completion gate of the implemented W04 vertical slice. Additional Ash Giant / Mist Guardian concepts are not part of the current Shipping acceptance path unless separately integrated and tested.
 
 ## Required encounter states
 
@@ -39,9 +43,10 @@ Role: First complete vertical-slice world
 - Quest progression
 
 ### Ash Gate
-- Locked state before Bone Beast
-- Unlock condition after required quest state
-- Cinematic transition
+- Locked before the First Whisper / required quest state.
+- Progression through the gate advances Corrupted Heart to step 2.
+- The Celestial Wolf bond follows the gate progression condition.
+- Cinematic/presentation transition remains optional until authored assets are bound.
 
 ### Celestial Wolf
 - Spawn/acquisition sequence
@@ -50,14 +55,16 @@ Role: First complete vertical-slice world
 - Guardian behavior
 - Bond state
 
-### Major boss
-- Intro cinematic
-- Phase state machine
-- Telegraphs
-- Damage windows
-- Phase transition
-- Defeat state
-- Demo completion trigger
+### Bone Beast — current major boss
+- Encounter auto-start / arena lock.
+- Three-phase state machine.
+- Telegraphs and data-driven attacks.
+- Animation-owned impact timing.
+- Damage windows / hit reactions.
+- Phase transition.
+- Defeat state.
+- Corrupted Heart completion.
+- Demo completion trigger.
 
 ## World asset requirements
 
