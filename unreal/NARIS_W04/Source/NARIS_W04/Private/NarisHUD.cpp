@@ -323,7 +323,16 @@ void ANarisHUD::DrawHUD()
                 Settings && Settings->bHighContrastInteractions;
 
             const FText Prompt = INarisInteractable::Execute_GetInteractionPrompt(Target);
-            const FString PromptText = FString::Printf(TEXT("[E] %s"), *Prompt.ToString());
+            const ANarisPlayerController* NarisController =
+                Cast<ANarisPlayerController>(PlayerOwner);
+            const FText ActionKey = NarisController
+                ? NarisController->GetActionKeyDisplayName(TEXT("Interact"))
+                : FText::FromString(TEXT("E"));
+            const FString PromptText = FString::Printf(
+                TEXT("[%s] %s"),
+                *ActionKey.ToString(),
+                *Prompt.ToString()
+            );
             DrawText(
                 PromptText,
                 bHighContrast ? FLinearColor::White : Gold,
