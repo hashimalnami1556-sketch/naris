@@ -84,6 +84,18 @@ bool UNarisRuntimeSubsystem::ActivateWaystone(
     return true;
 }
 
+bool UNarisRuntimeSubsystem::SetCheckpointLocation(FVector WorldLocation)
+{
+    if (!WorldLocation.IsFinite())
+    {
+        return false;
+    }
+
+    State.CheckpointLocation = WorldLocation;
+    State.bHasCheckpointLocation = true;
+    return true;
+}
+
 bool UNarisRuntimeSubsystem::UnlockLore(const FString& LoreId)
 {
     if (LoreId.IsEmpty())
