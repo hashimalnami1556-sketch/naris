@@ -10,6 +10,14 @@ def read(rel: str) -> str:
     return (ROOT/rel).read_text(encoding="utf-8")
 
 class W04EnvironmentFactoryContractTests(unittest.TestCase):
+    def test_blender_factory_python_syntax_compiles(self):
+        source=read("tools/blender/NARIS_W04_ASHEN_FOREST_FACTORY_v2.py")
+        compile(
+            source,
+            "tools/blender/NARIS_W04_ASHEN_FOREST_FACTORY_v2.py",
+            "exec",
+        )
+
     def test_factory_asset_is_registered(self):
         registry=json.loads(read("data/MASTER_ASSET_REGISTRY.json"))
         by_id={x.get("id"):x for x in registry.get("assets",[]) if isinstance(x,dict)}
