@@ -283,5 +283,32 @@
         "surface": "physically_based_translucent"
       }
     }
-  ]
+  ],
+  "master_requirements": {
+    "surface": {
+      "path": "/Game/NARIS/Materials/M_MASTER_SURFACE.M_MASTER_SURFACE",
+      "blend_mode": "BLEND_OPAQUE",
+      "scalar_parameters": [
+        "Roughness",
+        "Metallic",
+        "NormalStrength",
+        "HeightRange",
+        "EmissiveStrength"
+      ],
+      "vector_parameters": [
+        "BaseColor",
+        "EmissiveColor"
+      ]
+    },
+    "water": {
+      "path": "/Game/NARIS/Materials/M_MASTER_WATER.M_MASTER_WATER",
+      "blend_mode": "BLEND_TRANSLUCENT",
+      "scalar_parameters": [
+        "Roughness",
+        "Refraction",
+        "NormalLayers"
+      ],
+      "vector_parameters": []
+    }
+  }
 }
