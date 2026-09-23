@@ -56,6 +56,35 @@ class MaterialProductionGateContractTests(unittest.TestCase):
                 )
             )
 
+    def test_master_material_capabilities_are_explicit(self) -> None:
+        requirements = self.bindings["master_requirements"]
+        self.assertEqual(
+            requirements["surface"]["blend_mode"],
+            "BLEND_OPAQUE",
+        )
+        self.assertEqual(
+            set(requirements["surface"]["scalar_parameters"]),
+            {
+                "Roughness",
+                "Metallic",
+                "NormalStrength",
+                "HeightRange",
+                "EmissiveStrength",
+            },
+        )
+        self.assertEqual(
+            set(requirements["surface"]["vector_parameters"]),
+            {"BaseColor", "EmissiveColor"},
+        )
+        self.assertEqual(
+            requirements["water"]["blend_mode"],
+            "BLEND_TRANSLUCENT",
+        )
+        self.assertEqual(
+            set(requirements["water"]["scalar_parameters"]),
+            {"Roughness", "Refraction", "NormalLayers"},
+        )
+
     def test_surface_and_water_parent_contracts_are_explicit(self) -> None:
         assets = self.bindings["assets"]
         surface = [item for item in assets if item["profile"] == "surface"]
@@ -99,17 +128,50 @@ class MaterialProductionGateContractTests(unittest.TestCase):
             "get_material_instance_vector_parameter_value",
             "TOLERANCE = 0.02",
             "material parameters do not match library",
+            "get_scalar_parameter_names",
+            "get_vector_parameter_names",
+            "master missing scalar parameters",
+            "master missing vector parameters",
+            "get_blend_mode()",
             "NARIS_MATERIALS_STRICT",
             "naris_material_validation.json",
         ):
             self.assertIn(token, source)
+
+    def test_material_instance_authoring_never_fabricates_master_materials(self) -> None:
+        source = read(
+            "unreal/NARIS_W04/Content/Python/"
+            "naris_author_material_instances.py"
+        )
+        compile(
+            source,
+            "unreal/NARIS_W04/Content/Python/"
+            "naris_author_material_instances.py",
+            "exec",
+        )
+        for token in (
+            "MaterialInstanceConstantFactoryNew",
+            "set_material_instance_parent",
+            "set_material_instance_scalar_parameter_value",
+            "set_material_instance_vector_parameter_value",
+            "naris_material_authoring.json",
+            "does NOT fabricate M_MASTER_SURFACE or M_MASTER_WATER",
+        ):
+            self.assertIn(token, source)
+        self.assertNotIn("MaterialFactoryNew", source)
 
     def test_bootstrap_development_and_shipping_wire_material_gate(self) -> None:
         bootstrap = read("tools/windows/Invoke-NarisW04AuthoringBootstrap.ps1")
         package = read("tools/windows/Invoke-NarisWindowsPackage.ps1")
         rc = read("tools/windows/Invoke-NarisWindowsReleaseCandidate.ps1")
 
+        self.assertIn("naris_author_material_instances.py", bootstrap)
         self.assertIn("naris_validate_material_bindings.py", bootstrap)
+        self.assertLess(
+            bootstrap.index("naris_author_material_instances.py"),
+            bootstrap.index("naris_validate_material_bindings.py"),
+        )
+        self.assertIn("naris_material_authoring.json", package)
         self.assertIn("naris_material_validation.json", package)
         self.assertIn("material_validation_status", package)
 
