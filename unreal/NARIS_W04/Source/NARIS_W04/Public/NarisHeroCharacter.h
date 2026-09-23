@@ -89,6 +89,15 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="NARIS|Combat|Animation")
     bool bImmediateSmokeAttackHit = true;
 
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="NARIS|Respawn")
+    float RespawnDelaySeconds = 2.f;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="NARIS|Respawn")
+    float CheckpointRespawnZOffset = 100.f;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="NARIS|Respawn")
+    bool bRespawnAtCheckpoint = true;
+
     UFUNCTION(BlueprintCallable, Category="NARIS|Combat")
     void LightAttack();
 
@@ -140,6 +149,9 @@ public:
     UFUNCTION(BlueprintCallable, Category="NARIS|System")
     void TogglePause();
 
+    UFUNCTION(BlueprintCallable, Category="NARIS|Respawn")
+    void RespawnAtCheckpoint();
+
 protected:
     void MoveForward(float Value);
     void MoveRight(float Value);
@@ -151,8 +163,10 @@ protected:
 private:
     bool ApplyAttackToLockedTarget(float Damage, float PoiseDamage);
     void QueueAttack(ENarisAttackKind AttackKind);
+    void HandleDeath();
 
     ENarisAttackKind PendingAttack = ENarisAttackKind::None;
     bool bAttackHitWindowOpen = false;
     bool bAttackHitConsumed = false;
+    bool bDeathHandled = false;
 };
