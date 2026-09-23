@@ -128,6 +128,7 @@ if (-not $Executable) {
     throw "Packaged NARIS_W04.exe was not found under $ArchiveDir"
 }
 
+$SmokeStartedAtUtc = [DateTime]::UtcNow
 $RuntimeSmokeReport = Join-Path $ArchiveDir "naris_runtime_smoke.json"
 if (Test-Path $RuntimeSmokeReport) {
     Remove-Item $RuntimeSmokeReport -Force
@@ -202,6 +203,79 @@ if ($ArabicProcess.HasExited) {
 Stop-Process -Id $ArabicProcess.Id -Force
 Start-Sleep -Seconds 2
 
+$RuntimeEvidenceRoots = @(
+    $ArchiveDir,
+    (Join-Path $env:LOCALAPPDATA "NARIS_W04\Saved")
+)
+
+$RuntimeLogFiles = @()
+$CrashArtifacts = @()
+foreach ($root in $RuntimeEvidenceRoots) {
+    if (-not (Test-Path $root)) {
+        continue
+    }
+
+    $RuntimeLogFiles += @(
+        Get-ChildItem -Path $root -Filter "*.log" -Recurse -File -ErrorAction SilentlyContinue |
+        Where-Object { $_.LastWriteTimeUtc -ge $SmokeStartedAtUtc } |
+        Select-Object -ExpandProperty FullName
+    )
+
+    $CrashRoot = Join-Path $root "Crashes"
+    if (Test-Path $CrashRoot) {
+        $CrashArtifacts += @(
+            Get-ChildItem -Path $CrashRoot -Recurse -ErrorAction SilentlyContinue |
+            Where-Object { $_.LastWriteTimeUtc -ge $SmokeStartedAtUtc } |
+            Select-Object -ExpandProperty FullName
+        )
+    }
+}
+
+$FatalPatterns = @(
+    "Fatal error:",
+    "Unhandled Exception",
+    "Assertion failed:",
+    "LowLevelFatalError",
+    "Ensure condition failed:"
+)
+
+$FatalFindings = @()
+foreach ($logPath in @($RuntimeLogFiles | Select-Object -Unique)) {
+    foreach ($pattern in $FatalPatterns) {
+        $matches = Select-String -Path $logPath -Pattern $pattern -SimpleMatch -ErrorAction SilentlyContinue
+        foreach ($match in $matches) {
+            $FatalFindings += [ordered]@{
+                file = $logPath
+                line = $match.LineNumber
+                pattern = $pattern
+                text = $match.Line.Trim()
+            }
+        }
+    }
+}
+
+$RuntimeLogQaStatus = if (
+    $FatalFindings.Count -eq 0 -and $CrashArtifacts.Count -eq 0
+) { "pass" } else { "fail" }
+
+$RuntimeLogQaReport = [ordered]@{
+    schema = "naris.windows.runtime-log-qa.v1"
+    status = $RuntimeLogQaStatus
+    smoke_started_at_utc = $SmokeStartedAtUtc.ToString("o")
+    log_files = @($RuntimeLogFiles | Select-Object -Unique)
+    crash_artifacts = @($CrashArtifacts | Select-Object -Unique)
+    fatal_findings = @($FatalFindings)
+}
+
+$RuntimeLogQaReportPath = Join-Path $ArchiveDir "naris_runtime_log_qa.json"
+$RuntimeLogQaReport |
+    ConvertTo-Json -Depth 7 |
+    Set-Content -Path $RuntimeLogQaReportPath -Encoding UTF8
+
+if ($RuntimeLogQaStatus -ne "pass") {
+    throw "Runtime log/crash QA failed. See $RuntimeLogQaReportPath"
+}
+
 $ProfilingRoots = @(
     (Join-Path $ArchiveDir "Saved\Profiling"),
     (Join-Path $env:LOCALAPPDATA "NARIS_W04\Saved\Profiling")
@@ -254,6 +328,10 @@ $Report = [ordered]@{
     presentation_unbound_expected_paths = $PresentationAuthoringData.unbound_expected_paths
     csv_capture_files = @($CsvCaptures)
     llm_capture_files = @($LlmCaptures)
+    runtime_log_qa_status = $RuntimeLogQaStatus
+    runtime_log_qa_report = $RuntimeLogQaReportPath
+    runtime_log_files = @($RuntimeLogFiles | Select-Object -Unique)
+    crash_artifacts = @($CrashArtifacts | Select-Object -Unique)
     profiling_note = "CSV/LLM capture paths are evidence only when files are emitted by the packaged Development build."
     completed_at_utc = [DateTime]::UtcNow.ToString("o")
 }
