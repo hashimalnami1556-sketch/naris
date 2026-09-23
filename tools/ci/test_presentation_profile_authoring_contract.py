@@ -43,6 +43,7 @@ class PresentationProfileAuthoringContractTests(unittest.TestCase):
             "naris_presentation_authoring.json",
             "bound_asset_ids",
             "unbound_asset_ids",
+            "unbound_expected_paths",
         ):
             self.assertIn(token, source)
 
@@ -54,6 +55,7 @@ class PresentationProfileAuthoringContractTests(unittest.TestCase):
         self.assertIn("return None", source)
         self.assertIn("unbound.append(asset_id)", source)
         self.assertIn("if strict_mode() and unbound:", source)
+        self.assertIn("expected_unreal_object_path", source)
 
     def test_windows_bootstrap_runs_presentation_authoring(self) -> None:
         source = read("tools/windows/Invoke-NarisW04AuthoringBootstrap.ps1")
