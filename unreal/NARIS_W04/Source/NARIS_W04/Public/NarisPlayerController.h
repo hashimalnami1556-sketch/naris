@@ -90,6 +90,22 @@ private:
     UPROPERTY(VisibleAnywhere, Category="NARIS|Menu")
     int32 SelectedMenuIndex = 0;
 
+    UPROPERTY(VisibleAnywhere, Category="NARIS|Menu|Controls")
+    bool bWaitingForGamepadRemap = false;
+
+    UPROPERTY(VisibleAnywhere, Category="NARIS|Menu|Controls")
+    FName PendingRemapAction = NAME_None;
+
+    FKey GetCurrentGamepadKey(FName ActionName) const;
+    void BeginGamepadRemap(FName ActionName);
+    void CancelGamepadRemap();
+    bool ApplyGamepadActionRemap(
+        FName ActionName,
+        FKey NewKey,
+        bool bPersist
+    );
+    void ResetGamepadActionRemaps();
+
     void AdjustCurrentSetting(int32 Direction);
     void ApplyCurrentSettings();
     void ResetCurrentSettings();
