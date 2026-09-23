@@ -91,7 +91,7 @@ void ANarisHUD::DrawPauseMenu()
 {
     ANarisPlayerController* Controller =
         Cast<ANarisPlayerController>(PlayerOwner);
-    if (!Controller || !Controller->IsPauseMenuOpen() || !Canvas)
+    if (!Controller || !Controller->IsSystemMenuOpen() || !Canvas)
     {
         return;
     }
@@ -178,11 +178,17 @@ void ANarisHUD::DrawPauseMenu()
     FString Hint;
     if (Controller->GetPauseMenuPage() == ENarisPauseMenuPage::Main)
     {
-        Hint = NSLOCTEXT(
-            "NARIS",
-            "PauseMenuHint",
-            "Navigate: W/S or D-Pad   Confirm: Enter/A   Back: Esc/B"
-        ).ToString();
+        Hint = Controller->GetMenuContext() == ENarisMenuContext::FrontEnd
+            ? NSLOCTEXT(
+                "NARIS",
+                "FrontEndMenuHint",
+                "Navigate: W/S or D-Pad   Confirm: Enter/A"
+              ).ToString()
+            : NSLOCTEXT(
+                "NARIS",
+                "PauseMenuHint",
+                "Navigate: W/S or D-Pad   Confirm: Enter/A   Back: Esc/B"
+              ).ToString();
     }
     else if (Controller->GetPauseMenuPage() == ENarisPauseMenuPage::Controls)
     {
@@ -244,6 +250,16 @@ void ANarisHUD::DrawHUD()
     if (!PlayerOwner)
     {
         return;
+    }
+
+    if (ANarisPlayerController* Controller =
+            Cast<ANarisPlayerController>(PlayerOwner))
+    {
+        if (Controller->IsFrontEndMenuOpen())
+        {
+            DrawPauseMenu();
+            return;
+        }
     }
 
     ANarisHeroCharacter* Hero = Cast<ANarisHeroCharacter>(PlayerOwner->GetPawn());
