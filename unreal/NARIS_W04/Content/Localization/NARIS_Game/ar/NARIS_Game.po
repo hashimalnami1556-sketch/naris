@@ -377,3 +377,23 @@ msgstr "الهمسة الأولى"
 msgctxt "NARIS,FirstWhisperLine"
 msgid "The gate remembers what the ash tried to bury."
 msgstr "البوابة تتذكر ما حاول الرماد أن يدفنه."
+
+msgctxt "NARIS,FrontEndNewGame"
+msgid "New Game"
+msgstr "لعبة جديدة"
+
+msgctxt "NARIS,FrontEndContinue"
+msgid "Continue"
+msgstr "متابعة"
+
+msgctxt "NARIS,FrontEndQuit"
+msgid "Quit"
+msgstr "خروج"
+
+msgctxt "NARIS,FrontEndNoSave"
+msgid "No Save Data"
+msgstr "لا توجد بيانات حفظ"
+
+msgctxt "NARIS,FrontEndMenuHint"
+msgid "Navigate: W/S or D-Pad   Confirm: Enter/A"
+msgstr "تنقل: W/S أو لوحة الاتجاهات   تأكيد: Enter/A"
