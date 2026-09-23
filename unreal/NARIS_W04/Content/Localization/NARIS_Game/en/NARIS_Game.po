@@ -93,3 +93,31 @@ msgstr "Radiant"
 msgctxt "NARIS,EssenceUnknown"
 msgid "Unknown"
 msgstr "Unknown"
+
+msgctxt "NARIS,HUDWolfMode"
+msgid "Wolf Mode"
+msgstr "Wolf Mode"
+
+msgctxt "NARIS,WolfModeFollow"
+msgid "Follow"
+msgstr "Follow"
+
+msgctxt "NARIS,WolfModeGuard"
+msgid "Guard"
+msgstr "Guard"
+
+msgctxt "NARIS,WolfModeAttack"
+msgid "Attack"
+msgstr "Attack"
+
+msgctxt "NARIS,WolfModeTrack"
+msgid "Track"
+msgstr "Track"
+
+msgctxt "NARIS,WolfModeEchoLink"
+msgid "Echo Link"
+msgstr "Echo Link"
+
+msgctxt "NARIS,WolfModeUnknown"
+msgid "Unknown"
+msgstr "Unknown"
