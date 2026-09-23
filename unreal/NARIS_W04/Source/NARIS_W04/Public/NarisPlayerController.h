@@ -73,6 +73,12 @@ public:
     UFUNCTION(BlueprintPure, Category="NARIS|Menu")
     int32 GetSelectedMenuIndex() const { return SelectedMenuIndex; }
 
+    UFUNCTION(BlueprintPure, Category="NARIS|Input")
+    bool IsUsingGamepadInput() const { return bLastInputWasGamepad; }
+
+    UFUNCTION(BlueprintPure, Category="NARIS|Input")
+    FText GetActionKeyDisplayName(FName ActionName) const;
+
     UFUNCTION(BlueprintPure, Category="NARIS|Menu|Controls")
     bool IsWaitingForGamepadRemap() const
     {
@@ -118,6 +124,9 @@ private:
 
     UPROPERTY(VisibleAnywhere, Category="NARIS|Menu")
     int32 SelectedMenuIndex = 0;
+
+    UPROPERTY(VisibleAnywhere, Category="NARIS|Input")
+    bool bLastInputWasGamepad = false;
 
     UPROPERTY(VisibleAnywhere, Category="NARIS|Menu|Controls")
     bool bWaitingForGamepadRemap = false;
