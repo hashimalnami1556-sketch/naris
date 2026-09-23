@@ -80,7 +80,9 @@ class GameUserSettingsAccessibilityContractTests(unittest.TestCase):
         )
         self.assertIn("MasterVolume * SFXVolume", settings)
         self.assertIn("GetPresentationSFXScale()", presentation)
-        self.assertIn("Cue->VolumeMultiplier * SFXScale", presentation)
+        self.assertIn("GetPresentationMusicScale()", presentation)
+        self.assertIn("GetPresentationVoiceScale()", presentation)
+        self.assertIn("Cue->VolumeMultiplier * AudioBusScale", presentation)
 
     def test_camera_shake_respects_reduction_and_user_intensity(self) -> None:
         settings = read(
