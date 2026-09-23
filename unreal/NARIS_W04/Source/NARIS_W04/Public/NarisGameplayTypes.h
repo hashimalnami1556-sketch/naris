@@ -31,6 +31,9 @@ struct FNarisCombatResult
     bool bParried = false;
 
     UPROPERTY(BlueprintReadOnly)
+    bool bEvaded = false;
+
+    UPROPERTY(BlueprintReadOnly)
     bool bStaggered = false;
 
     UPROPERTY(BlueprintReadOnly)
