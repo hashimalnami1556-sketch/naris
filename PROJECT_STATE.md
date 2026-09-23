@@ -13,12 +13,14 @@ Updated: 2026-09-23
 - Figma: live file created and structured at https://www.figma.com/design/lYSmWwGHXCEXODKpG9bpJH.
 - Blender: deterministic validation/export helper is checked in and the export path is gated by the canonical asset registry; runtime execution is still pending because the registered AsusRog host is offline.
 - Blender -> Unreal bridge: exchange schema, Unreal Python importer, and Windows smoke-test script are checked in.
-- W04 source progression now includes INarisInteractable, Waystone autosave/checkpoint flow, Memory Crystal -> FirstWhisper narrative persistence, Ash Gate prerequisite/unlock persistence, and persistent Celestial Wolf bond/follow/EchoLink gating.
+- W04 source progression now covers interaction, Waystone checkpoint/autosave, Memory Crystal -> FirstWhisper, Ash Gate persistence, Celestial Wolf bond/follow/EchoLink, lock-on melee damage, Bone Beast defeat, quest completion and DemoEnd persistence.
 - Unreal editor scripting prerequisites are enabled in the .uproject: PythonScriptPlugin and EditorScriptingUtilities.
-- Verified CI evidence: NARIS CI run 35859108616 success; Content Validation run 35859108587 success; Unreal Validate run 35859108583 success. Self-hosted Windows Unreal build remains skipped on normal pushes.
+- Windows authoring bootstrap can generate the smoke W04_Prototype.umap and DA_BoneBeast_Smoke.uasset after a successful editor build; these binaries are not currently committed evidence.
+- Windows package pipeline: Build Editor -> generate smoke assets -> compile EN/AR localization -> BuildCookRun Win64 Development -> launch EN and AR smoke -> CSV/GPU/LLM profiling -> package artifact/report.
+- Verified CI evidence: NARIS CI run 35862798300 success; Content Validation run 35862798286 success; Unreal Validate run 35862798403 success. The manual self-hosted Windows package job remains skipped on push events.
 - Static evidence: NARIS CI run 35855364699 passed MCP TypeScript build, Unreal project integrity, repository validation and PowerShell bridge parsing.
 - Neon: core PostgreSQL schema contract is checked in; no remote project/branch is bound yet, so no migration has been applied.
-- Next action: close the Bone Beast encounter and Demo End source contracts, then run NARIS_W04Editor and Blender->Unreal runtime verification on the Windows host when AsusRog is online.
-- Blockers: registered AsusRog remote host is offline; no bound Neon project ID; no Claude Code session available here; the 18 announced attachment paths were absent. No Unreal engine build or playtest has been executed in this pass.
+- Next action: bring the Windows self-hosted runner/AsusRog online and manually dispatch NARIS CI to execute the build/bootstrap/package/launch-smoke gate, then run the Blender->Unreal registered-asset smoke test and editor playtest.
+- Blockers: registered AsusRog remote host is offline; no Windows UnrealBuildTool/package/playtest evidence yet; no bound Neon project ID; no Claude Code session available here; the 18 announced attachment paths were absent.
 
 Do not treat static validation, Figma design, Blender source/export contracts or Neon schema files as engine/runtime evidence. The checked-in Unreal descriptor selects 5.4; changing that baseline needs an explicit migration and build evidence.
