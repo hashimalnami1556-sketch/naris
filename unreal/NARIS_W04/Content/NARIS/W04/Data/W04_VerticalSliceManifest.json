@@ -1,9 +1,53 @@
 {
-  "schema_version":"1.0",
-  "project":"CALL OF NARIS",
-  "slice":"W04_AshenForest",
-  "systems":["RuntimeSubsystem","Combat","Poise","Resonance","FiveEssenceEnergy","CompanionCelestialWolf","QuestCorruptedHeart","Inventory","Crafting","MapFastTravel","WorldEvents","BossPhases","Cinematics","Localization","Accessibility","SaveLoad","QA"],
-  "entities":["HeroLostMemory","CelestialWolf","BoneBeast"],
-  "locations":["WakeArea","FirstFlame","WhisperLake","BoneGrove","AshGate"],
-  "release":{"public_demo_allowed":false}
+  "schema_version": "1.1",
+  "project": "CALL OF NARIS",
+  "slice": "W04_AshenForest",
+  "systems": [
+    "RuntimeSubsystem",
+    "Combat",
+    "Poise",
+    "Resonance",
+    "FiveEssenceEnergy",
+    "CompanionCelestialWolf",
+    "QuestCorruptedHeart",
+    "Inventory",
+    "Crafting",
+    "MapFastTravel",
+    "WorldEvents",
+    "BossPhases",
+    "Cinematics",
+    "Localization",
+    "Accessibility",
+    "SaveLoad",
+    "QA"
+  ],
+  "entities": [
+    "HeroLostMemory",
+    "CelestialWolf",
+    "BoneBeast"
+  ],
+  "locations": [
+    "WakeArea",
+    "FirstFlame",
+    "WhisperLake",
+    "BoneGrove",
+    "AshGate"
+  ],
+  "release": {
+    "public_demo_allowed": false
+  },
+  "interactables": [
+    "Waystone",
+    "MemoryCrystal"
+  ],
+  "narrative_beats": [
+    "FirstWhisper"
+  ],
+  "runtime_contracts": {
+    "interaction_interface": "INarisInteractable",
+    "waystone_actor": "ANarisWaystone",
+    "memory_crystal_actor": "ANarisMemoryCrystal",
+    "save_runtime": "UNarisRuntimeSubsystem",
+    "first_whisper_state": "FNarisSaveState.TriggeredNarratives"
+  }
 }
