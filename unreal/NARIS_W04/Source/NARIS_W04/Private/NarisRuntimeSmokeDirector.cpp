@@ -16,7 +16,6 @@
 #include "NarisBossArenaController.h"
 #include "NarisMemoryCrystal.h"
 #include "NarisRuntimeSubsystem.h"
-#include "NarisSubtitleSubsystem.h"
 #include "NarisWaystone.h"
 #include "Serialization/JsonSerializer.h"
 #include "Serialization/JsonWriter.h"
@@ -164,15 +163,6 @@ void ANarisRuntimeSmokeDirector::RunSmoke()
     const bool bMemory = MemoryCrystal->ActivateMemory(this);
     Steps.Add(TEXT("memory_crystal_activate"), bMemory);
 
-    UNarisSubtitleSubsystem* Subtitles =
-        GameInstance->GetSubsystem<UNarisSubtitleSubsystem>();
-    Steps.Add(
-        TEXT("first_whisper_subtitle"),
-        Subtitles
-            && Subtitles->IsSubtitleActive()
-            && !Subtitles->GetSpeaker().IsEmpty()
-            && !Subtitles->GetLine().IsEmpty()
-    );
     Steps.Add(
         TEXT("quest_step_1_memory"),
         Runtime->IsQuestActive(TEXT("Quest.W04.CorruptedHeart"))
