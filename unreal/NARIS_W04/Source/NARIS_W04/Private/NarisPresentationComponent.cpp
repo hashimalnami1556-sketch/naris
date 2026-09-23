@@ -9,6 +9,23 @@
 UNarisPresentationComponent::UNarisPresentationComponent()
 {
     PrimaryComponentTick.bCanEverTick = false;
+    DefaultProfilePath = FSoftObjectPath(
+        TEXT("/Game/NARIS/W04/Presentation/DA_W04_Presentation.DA_W04_Presentation")
+    );
+}
+
+void UNarisPresentationComponent::BeginPlay()
+{
+    Super::BeginPlay();
+
+    if (!Profile
+        && bAutoLoadDefaultProfile
+        && DefaultProfilePath.IsValid())
+    {
+        Profile = Cast<UNarisPresentationProfile>(
+            DefaultProfilePath.TryLoad()
+        );
+    }
 }
 
 const FNarisPresentationCue* UNarisPresentationComponent::FindCue(FName CueId) const
@@ -18,12 +35,29 @@ const FNarisPresentationCue* UNarisPresentationComponent::FindCue(FName CueId) c
         return nullptr;
     }
 
-    return Cues.FindByPredicate(
+    const FNarisPresentationCue* LocalCue = Cues.FindByPredicate(
         [CueId](const FNarisPresentationCue& Cue)
         {
             return Cue.CueId == CueId;
         }
     );
+
+    if (LocalCue)
+    {
+        return LocalCue;
+    }
+
+    if (Profile)
+    {
+        return Profile->Cues.FindByPredicate(
+            [CueId](const FNarisPresentationCue& Cue)
+            {
+                return Cue.CueId == CueId;
+            }
+        );
+    }
+
+    return nullptr;
 }
 
 bool UNarisPresentationComponent::HasCue(FName CueId) const
@@ -53,8 +87,6 @@ bool UNarisPresentationComponent::TriggerCueAtLocation(
     const FNarisPresentationCue* Cue = FindCue(CueId);
     if (!Cue)
     {
-        // A missing authored payload is valid for smoke/source builds.
-        // The cue delegate remains the stable Blueprint/Sequencer integration point.
         return true;
     }
 
