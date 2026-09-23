@@ -6,6 +6,7 @@ No audio is generated or fabricated by this script.
 from __future__ import annotations
 
 import json
+import math
 import wave
 from pathlib import Path
 
@@ -15,7 +16,31 @@ PLAN_RELATIVE = Path("NARIS") / "W04" / "Presentation" / "W04_PresentationSource
 REPORT_SCHEMA = "naris.w04.presentation-audio-import.v1"
 
 
-def validate_wav(path: Path) -> tuple[dict, list[str]]:
+def measure_pcm24_peak_dbfs(path: Path) -> float:
+    max_abs = 0
+    full_scale = float((1 << 23) - 1)
+
+    with wave.open(str(path), "rb") as wav:
+        while True:
+            data = wav.readframes(4096)
+            if not data:
+                break
+
+            for offset in range(0, len(data) - 2, 3):
+                sample = int.from_bytes(
+                    data[offset : offset + 3],
+                    byteorder="little",
+                    signed=True,
+                )
+                max_abs = max(max_abs, abs(sample))
+
+    if max_abs <= 0:
+        return float("-inf")
+
+    return 20.0 * math.log10(max_abs / full_scale)
+
+
+def validate_wav(path: Path, contract: dict) -> tuple[dict, list[str]]:
     errors: list[str] = []
     info: dict = {}
 
@@ -30,6 +55,13 @@ def validate_wav(path: Path) -> tuple[dict, list[str]]:
         return info, [f"{path}: unreadable WAV: {exc}"]
 
     duration = frames / sample_rate if sample_rate > 0 else 0.0
+    target_duration = float(contract.get("target_duration_seconds", 0.0) or 0.0)
+    peak_ceiling_dbfs = float(contract.get("peak_ceiling_dbfs", -1.0))
+
+    peak_dbfs = None
+    if sample_width == 3 and compression == "NONE":
+        peak_dbfs = measure_pcm24_peak_dbfs(path)
+
     info = {
         "channels": channels,
         "sample_width_bytes": sample_width,
@@ -37,6 +69,14 @@ def validate_wav(path: Path) -> tuple[dict, list[str]]:
         "frames": frames,
         "duration_seconds": round(duration, 6),
         "compression": compression,
+        "peak_dbfs": None if peak_dbfs is None or math.isinf(peak_dbfs) else round(peak_dbfs, 3),
+        "peak_ceiling_dbfs": peak_ceiling_dbfs,
+        "target_duration_seconds": target_duration,
+        "duration_delta_seconds": (
+            round(duration - target_duration, 6)
+            if target_duration > 0.0
+            else None
+        ),
     }
 
     if sample_rate != 48000:
@@ -53,6 +93,17 @@ def validate_wav(path: Path) -> tuple[dict, list[str]]:
         errors.append(f"{path}: audio duration must be positive")
     if duration > 30.0:
         errors.append(f"{path}: presentation one-shot exceeds 30 seconds")
+
+    if peak_dbfs is not None:
+        if math.isinf(peak_dbfs):
+            errors.append(
+                f"{path}: digital silence is not a valid production master"
+            )
+        elif peak_dbfs > peak_ceiling_dbfs + 0.01:
+            errors.append(
+                f"{path}: peak {peak_dbfs:.2f} dBFS exceeds "
+                f"{peak_ceiling_dbfs:.2f} dBFS ceiling"
+            )
 
     return info, errors
 
@@ -113,7 +164,8 @@ def main() -> None:
             skipped_missing.append(asset_id)
             continue
 
-        info, source_errors = validate_wav(source_path)
+        source_contract = item.get("source_contract") or {}
+        info, source_errors = validate_wav(source_path, source_contract)
         wav_info[asset_id] = info
         if source_errors:
             errors.extend(source_errors)
