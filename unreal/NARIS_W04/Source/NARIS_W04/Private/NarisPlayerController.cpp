@@ -227,7 +227,20 @@ void ANarisPlayerController::BeginPlay()
     const bool bSkipFrontEnd =
         FParse::Param(FCommandLine::Get(), TEXT("NarisSkipFrontEnd"));
 
-    if (!bRuntimeSmoke && !bSkipFrontEnd)
+    bool bBypassOnce = false;
+    if (GetWorld())
+    {
+        if (UGameInstance* GameInstance = GetWorld()->GetGameInstance())
+        {
+            if (UNarisRuntimeSubsystem* Runtime =
+                    GameInstance->GetSubsystem<UNarisRuntimeSubsystem>())
+            {
+                bBypassOnce = Runtime->ConsumeFrontEndBypassOnce();
+            }
+        }
+    }
+
+    if (!bRuntimeSmoke && !bSkipFrontEnd && !bBypassOnce)
     {
         OpenFrontEndMenu();
     }
@@ -376,6 +389,27 @@ void ANarisPlayerController::ClosePauseMenu()
 
     UGameplayStatics::SetGamePaused(this, false);
     ApplyMenuInputMode(false);
+}
+
+bool ANarisPlayerController::CanContinueGame() const
+{
+    if (!GetWorld())
+    {
+        return false;
+    }
+
+    UGameInstance* GameInstance = GetWorld()->GetGameInstance();
+    const UNarisRuntimeSubsystem* Runtime =
+        GameInstance
+            ? GameInstance->GetSubsystem<UNarisRuntimeSubsystem>()
+            : nullptr;
+
+    return Runtime
+        && !Runtime->DefaultAutoSaveSlot.IsEmpty()
+        && UGameplayStatics::DoesSaveGameExist(
+            Runtime->DefaultAutoSaveSlot,
+            0
+        );
 }
 
 int32 ANarisPlayerController::GetVisibleMenuItemCount() const
@@ -690,6 +724,33 @@ void ANarisPlayerController::MenuConfirm()
 
     if (PauseMenuPage == ENarisPauseMenuPage::Main)
     {
+        if (MenuContext == ENarisMenuContext::FrontEnd)
+        {
+            switch (SelectedMenuIndex)
+            {
+                case 0:
+                    StartNewGameFromMenu();
+                    break;
+                case 1:
+                    ContinueGameFromMenu();
+                    break;
+                case 2:
+                    PauseMenuPage = ENarisPauseMenuPage::Settings;
+                    SelectedMenuIndex = 0;
+                    break;
+                case 3:
+                    PauseMenuPage = ENarisPauseMenuPage::Controls;
+                    SelectedMenuIndex = 0;
+                    break;
+                case 4:
+                    QuitGameFromMenu();
+                    break;
+                default:
+                    break;
+            }
+            return;
+        }
+
         if (SelectedMenuIndex == 0)
         {
             ClosePauseMenu();
@@ -772,6 +833,11 @@ void ANarisPlayerController::MenuBack()
     {
         PauseMenuPage = ENarisPauseMenuPage::Main;
         SelectedMenuIndex = 0;
+        return;
+    }
+
+    if (MenuContext == ENarisMenuContext::FrontEnd)
+    {
         return;
     }
 
