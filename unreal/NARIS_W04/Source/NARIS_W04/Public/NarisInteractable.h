@@ -4,6 +4,8 @@
 #include "UObject/Interface.h"
 #include "NarisInteractable.generated.h"
 
+class AActor;
+
 UINTERFACE(BlueprintType)
 class NARIS_W04_API UNarisInteractable : public UInterface
 {
