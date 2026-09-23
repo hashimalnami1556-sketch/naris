@@ -49,6 +49,12 @@ public:
     bool IsCompanionUnlocked(const FString& CompanionId) const;
 
     UFUNCTION(BlueprintCallable, Category="NARIS|Runtime")
+    bool CompleteQuest(const FString& QuestId);
+
+    UFUNCTION(BlueprintPure, Category="NARIS|Runtime")
+    bool IsQuestCompleted(const FString& QuestId) const;
+
+    UFUNCTION(BlueprintCallable, Category="NARIS|Runtime")
     bool MarkBossDefeated(const FString& BossId);
 
     UFUNCTION(BlueprintPure, Category="NARIS|Runtime")
