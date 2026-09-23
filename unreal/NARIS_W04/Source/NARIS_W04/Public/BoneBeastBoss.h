@@ -54,6 +54,12 @@ public:
     bool RequestAttack(FName AttackId, float Damage);
 
     UFUNCTION(BlueprintCallable, Category="NARIS|Boss|Attack")
+    bool RequestPhaseAttack();
+
+    UFUNCTION(BlueprintPure, Category="NARIS|Boss|Attack")
+    float GetPendingAttackDamage() const { return PendingAttackDamage; }
+
+    UFUNCTION(BlueprintCallable, Category="NARIS|Boss|Attack")
     bool CommitAttackImpact(AActor* TargetActor);
 
     UFUNCTION(BlueprintCallable, Category="NARIS|Boss|Attack")
@@ -106,6 +112,15 @@ public:
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="NARIS|Boss")
     bool bCompleteDemoOnDefeat = true;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="NARIS|Boss|Attack")
+    float Phase1AttackDamage = 18.f;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="NARIS|Boss|Attack")
+    float Phase2AttackDamage = 26.f;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="NARIS|Boss|Attack")
+    float Phase3AttackDamage = 34.f;
 
     UPROPERTY(BlueprintAssignable, Category="NARIS|Boss")
     FNarisBossEvent OnBossEvent;
