@@ -17,6 +17,7 @@
 #include "NarisInteractionComponent.h"
 #include "NarisLockOnComponent.h"
 #include "NarisPresentationComponent.h"
+#include "NarisPlayerController.h"
 #include "NarisRuntimeSubsystem.h"
 #include "TimerManager.h"
 
@@ -420,6 +421,13 @@ void ANarisHeroCharacter::SetSprinting(bool bSprint)
 
 void ANarisHeroCharacter::TogglePause()
 {
+    if (ANarisPlayerController* PlayerController =
+            Cast<ANarisPlayerController>(Controller))
+    {
+        PlayerController->TogglePauseMenu();
+        return;
+    }
+
     const bool bPaused = UGameplayStatics::IsGamePaused(this);
     UGameplayStatics::SetGamePaused(this, !bPaused);
 }
