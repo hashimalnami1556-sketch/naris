@@ -4,12 +4,14 @@
 #include "GameFramework/Character.h"
 #include "NarisHeroCharacter.generated.h"
 
+class AController;
 class UNarisCombatComponent;
 class UNarisEnergyComponent;
 class UNarisLockOnComponent;
 class UNarisInteractionComponent;
 class USpringArmComponent;
 class UCameraComponent;
+struct FDamageEvent;
 
 UCLASS(Blueprintable)
 class NARIS_W04_API ANarisHeroCharacter : public ACharacter
@@ -21,6 +23,12 @@ public:
 
     virtual void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) override;
     virtual void Tick(float DeltaSeconds) override;
+    virtual float TakeDamage(
+        float DamageAmount,
+        FDamageEvent const& DamageEvent,
+        AController* EventInstigator,
+        AActor* DamageCauser
+    ) override;
 
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
     TObjectPtr<UNarisCombatComponent> Combat;
@@ -61,6 +69,18 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="NARIS|Combat|Tuning")
     float HeavyAttackPoiseDamage = 30.f;
 
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="NARIS|Combat|Defense")
+    float ParryWindowSeconds = 0.18f;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="NARIS|Combat|Defense")
+    float DodgeInvulnerabilitySeconds = 0.28f;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="NARIS|Combat|Energy")
+    float DodgeEnergyCost = 15.f;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="NARIS|Combat|Energy")
+    float ParryEnergyCost = 8.f;
+
     UFUNCTION(BlueprintCallable, Category="NARIS|Combat")
     void LightAttack();
 
@@ -79,11 +99,20 @@ public:
     UFUNCTION(BlueprintCallable, Category="NARIS|Combat")
     void ToggleLockOn();
 
+    UFUNCTION(BlueprintCallable, Category="NARIS|Energy")
+    void NextEssence();
+
+    UFUNCTION(BlueprintCallable, Category="NARIS|Energy")
+    void PreviousEssence();
+
     UFUNCTION(BlueprintCallable, Category="NARIS|Interaction")
     void Interact();
 
     UFUNCTION(BlueprintCallable, Category="NARIS|Movement")
     void SetSprinting(bool bSprint);
+
+    UFUNCTION(BlueprintCallable, Category="NARIS|System")
+    void TogglePause();
 
 protected:
     void MoveForward(float Value);
