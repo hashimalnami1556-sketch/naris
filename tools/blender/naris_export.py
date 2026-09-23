@@ -1,23 +1,26 @@
 """NARIS Blender validation/export helper.
 
 Run inside Blender:
-  blender --background asset.blend --python tools/blender/naris_export.py -- --out <dir>
+  blender --background asset.blend --python tools/blender/naris_export.py -- \
+    --out <dir> --asset-id <NARIS-ID> --registry data/MASTER_ASSET_REGISTRY.json
 
-The script validates selected mesh/armature objects and exports deterministic FBX/glTF
-exchange files plus a JSON manifest. It does not modify source geometry.
+The script validates selected mesh/armature/empty objects, verifies the immutable
+asset ID against the canonical registry, and exports FBX/glTF exchange files plus
+a JSON manifest. It does not modify source geometry.
 """
 from __future__ import annotations
 
 import argparse
 import json
-import math
 import re
 import sys
 from pathlib import Path
 
 import bpy
 
-ASSET_ID = re.compile(r"^NARIS-W\d{2}-(CHR|ENM|BOS|WPN|PRP|ENV|MAT|VFX|UI|MAP|CINE|AUD|QST)-[A-Z0-9_]+-\d{4}$")
+ASSET_ID = re.compile(
+    r"^NARIS-W\d{2}-(CHR|ENM|BOS|WPN|PRP|ENV|MAT|VFX|UI|MAP|CINE|AUD|QST)-[A-Z0-9_]+-\d{4}$"
+)
 ALLOWED_TYPES = {"MESH", "ARMATURE", "EMPTY"}
 EPS = 1e-4
 
@@ -27,7 +30,8 @@ def parse_args() -> argparse.Namespace:
     argv = argv[argv.index("--") + 1 :] if "--" in argv else []
     p = argparse.ArgumentParser()
     p.add_argument("--out", required=True)
-    p.add_argument("--asset-id", default="")
+    p.add_argument("--asset-id", required=True)
+    p.add_argument("--registry", required=True)
     p.add_argument("--no-fbx", action="store_true")
     p.add_argument("--no-gltf", action="store_true")
     return p.parse_args(argv)
@@ -50,10 +54,15 @@ def validate_object(obj: bpy.types.Object) -> list[str]:
             issues.append(f"{obj.name}: mesh has no UV map")
 
     if not all(near(v, 1.0) for v in obj.scale):
-        issues.append(f"{obj.name}: unapplied/non-unit scale {tuple(round(v, 5) for v in obj.scale)}")
+        issues.append(
+            f"{obj.name}: unapplied/non-unit scale "
+            f"{tuple(round(v, 5) for v in obj.scale)}"
+        )
 
     if any(abs(v) > EPS for v in obj.rotation_euler):
-        issues.append(f"{obj.name}: non-zero Euler rotation; apply transforms before final export")
+        issues.append(
+            f"{obj.name}: non-zero Euler rotation; apply transforms before final export"
+        )
 
     if obj.name.startswith("UCX_") and obj.type != "MESH":
         issues.append(f"{obj.name}: UCX collision helper must be a mesh")
@@ -61,11 +70,51 @@ def validate_object(obj: bpy.types.Object) -> list[str]:
     return issues
 
 
-def collect_manifest(asset_id: str, objects: list[bpy.types.Object], issues: list[str]) -> dict:
+def load_registry_entry(registry_path: Path, asset_id: str) -> tuple[dict | None, list[str]]:
+    issues: list[str] = []
+    if not registry_path.is_file():
+        return None, [f"Registry does not exist: {registry_path}"]
+
+    try:
+        registry = json.loads(registry_path.read_text(encoding="utf-8"))
+    except Exception as exc:
+        return None, [f"Registry is invalid JSON: {exc}"]
+
+    matches = [
+        item for item in registry.get("assets", [])
+        if isinstance(item, dict) and item.get("id") == asset_id
+    ]
+    if len(matches) == 0:
+        issues.append(f"Asset ID is not present in canonical registry: {asset_id}")
+        return None, issues
+    if len(matches) > 1:
+        issues.append(f"Asset ID appears more than once in canonical registry: {asset_id}")
+        return None, issues
+
+    entry = matches[0]
+    expected_world = asset_id.split("-")[1]
+    if entry.get("world") != expected_world:
+        issues.append(
+            f"Registry world mismatch for {asset_id}: "
+            f"{entry.get('world')!r} != {expected_world!r}"
+        )
+    return entry, issues
+
+
+def collect_manifest(
+    asset_id: str,
+    objects: list[bpy.types.Object],
+    issues: list[str],
+    registry_entry: dict | None,
+    registry_path: Path,
+) -> dict:
     return {
         "schema": "naris.blender.exchange.v1",
         "asset_id": asset_id,
         "blend_file": bpy.data.filepath,
+        "registry_file": str(registry_path),
+        "registry_status": "registered" if registry_entry is not None else "unregistered",
+        "registry_entry": registry_entry,
         "objects": [
             {
                 "name": o.name,
@@ -86,13 +135,14 @@ def collect_manifest(asset_id: str, objects: list[bpy.types.Object], issues: lis
 def main() -> int:
     args = parse_args()
     out = Path(args.out).resolve()
+    registry_path = Path(args.registry).resolve()
     out.mkdir(parents=True, exist_ok=True)
 
     selected = [o for o in bpy.context.selected_objects if o.type in ALLOWED_TYPES]
     if not selected:
         selected = [o for o in bpy.context.scene.objects if o.type in ALLOWED_TYPES]
 
-    asset_id = args.asset_id.strip() or (selected[0].name if selected else "")
+    asset_id = args.asset_id.strip()
     issues: list[str] = []
     if not ASSET_ID.match(asset_id):
         issues.append(
@@ -100,23 +150,37 @@ def main() -> int:
             f"received: {asset_id!r}"
         )
 
+    registry_entry, registry_issues = load_registry_entry(registry_path, asset_id)
+    issues.extend(registry_issues)
+
+    if not selected:
+        issues.append("Scene contains no exportable MESH, ARMATURE or EMPTY objects")
+
     for obj in selected:
         issues.extend(validate_object(obj))
 
-    manifest = collect_manifest(asset_id, selected, issues)
+    manifest = collect_manifest(
+        asset_id,
+        selected,
+        issues,
+        registry_entry,
+        registry_path,
+    )
     manifest_path = out / f"{asset_id or 'UNNAMED'}_blender_manifest.json"
-    manifest_path.write_text(json.dumps(manifest, indent=2), encoding="utf-8")
+    manifest_path.write_text(
+        json.dumps(manifest, indent=2, ensure_ascii=False),
+        encoding="utf-8",
+    )
 
     if issues:
-        print(json.dumps(manifest, indent=2))
+        print(json.dumps(manifest, indent=2, ensure_ascii=False))
         return 2
 
-    for o in bpy.context.selected_objects:
-        o.select_set(False)
-    for o in selected:
-        o.select_set(True)
-    if selected:
-        bpy.context.view_layer.objects.active = selected[0]
+    for obj in bpy.context.selected_objects:
+        obj.select_set(False)
+    for obj in selected:
+        obj.select_set(True)
+    bpy.context.view_layer.objects.active = selected[0]
 
     if not args.no_fbx:
         bpy.ops.export_scene.fbx(
@@ -139,7 +203,7 @@ def main() -> int:
             export_yup=True,
         )
 
-    print(json.dumps(manifest, indent=2))
+    print(json.dumps(manifest, indent=2, ensure_ascii=False))
     return 0
 
 
