@@ -56,7 +56,10 @@ void ANarisHeroCharacter::SetupPlayerInputComponent(UInputComponent* Input)
     Input->BindAction(TEXT("Dodge"), IE_Pressed, this, &ANarisHeroCharacter::Dodge);
     Input->BindAction(TEXT("Parry"), IE_Pressed, this, &ANarisHeroCharacter::Parry);
     Input->BindAction(TEXT("ResonanceBurst"), IE_Pressed, this, &ANarisHeroCharacter::ResonanceBurst);
+    Input->BindAction(TEXT("LockOn"), IE_Pressed, this, &ANarisHeroCharacter::ToggleLockOn);
     Input->BindAction(TEXT("Interact"), IE_Pressed, this, &ANarisHeroCharacter::Interact);
+    Input->BindAction(TEXT("Sprint"), IE_Pressed, this, &ANarisHeroCharacter::StartSprinting);
+    Input->BindAction(TEXT("Sprint"), IE_Released, this, &ANarisHeroCharacter::StopSprinting);
 }
 
 void ANarisHeroCharacter::MoveForward(float Value)
@@ -124,6 +127,23 @@ void ANarisHeroCharacter::ResonanceBurst()
     }
 }
 
+void ANarisHeroCharacter::ToggleLockOn()
+{
+    if (!LockOn)
+    {
+        return;
+    }
+
+    if (LockOn->HasTarget())
+    {
+        LockOn->ClearTarget();
+    }
+    else
+    {
+        LockOn->AcquireTarget();
+    }
+}
+
 void ANarisHeroCharacter::Interact()
 {
     if (Interaction)
@@ -135,4 +155,14 @@ void ANarisHeroCharacter::Interact()
 void ANarisHeroCharacter::SetSprinting(bool bSprint)
 {
     GetCharacterMovement()->MaxWalkSpeed = bSprint ? SprintSpeed : WalkSpeed;
+}
+
+void ANarisHeroCharacter::StartSprinting()
+{
+    SetSprinting(true);
+}
+
+void ANarisHeroCharacter::StopSprinting()
+{
+    SetSprinting(false);
 }
