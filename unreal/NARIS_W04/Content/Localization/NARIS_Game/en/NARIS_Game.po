@@ -145,3 +145,155 @@ msgstr "Pass through the Ash Gate."
 msgctxt "NARIS,HUDQuestCorruptedHeartStep3"
 msgid "Enter the Bone Beast arena."
 msgstr "Enter the Bone Beast arena."
+
+msgctxt "NARIS,SettingsOn"
+msgid "On"
+msgstr "On"
+
+msgctxt "NARIS,SettingsOff"
+msgid "Off"
+msgstr "Off"
+
+msgctxt "NARIS,SettingsPercentFormat"
+msgid "{0}%"
+msgstr "{0}%"
+
+msgctxt "NARIS,PauseMenuTitle"
+msgid "CALL OF NARIS"
+msgstr "CALL OF NARIS"
+
+msgctxt "NARIS,SettingsMenuTitle"
+msgid "Settings"
+msgstr "Settings"
+
+msgctxt "NARIS,PauseResume"
+msgid "Resume"
+msgstr "Resume"
+
+msgctxt "NARIS,PauseSettings"
+msgid "Settings"
+msgstr "Settings"
+
+msgctxt "NARIS,SettingsQuality"
+msgid "Quality Preset"
+msgstr "Quality Preset"
+
+msgctxt "NARIS,SettingsVSync"
+msgid "VSync"
+msgstr "VSync"
+
+msgctxt "NARIS,SettingsFrameRate"
+msgid "Frame Rate Limit"
+msgstr "Frame Rate Limit"
+
+msgctxt "NARIS,SettingsMasterVolume"
+msgid "Master Volume"
+msgstr "Master Volume"
+
+msgctxt "NARIS,SettingsMusicVolume"
+msgid "Music Volume"
+msgstr "Music Volume"
+
+msgctxt "NARIS,SettingsSFXVolume"
+msgid "SFX Volume"
+msgstr "SFX Volume"
+
+msgctxt "NARIS,SettingsVoiceVolume"
+msgid "Voice Volume"
+msgstr "Voice Volume"
+
+msgctxt "NARIS,SettingsCameraShake"
+msgid "Camera Shake"
+msgstr "Camera Shake"
+
+msgctxt "NARIS,SettingsReduceCameraShake"
+msgid "Reduce Camera Shake"
+msgstr "Reduce Camera Shake"
+
+msgctxt "NARIS,SettingsSubtitles"
+msgid "Subtitles"
+msgstr "Subtitles"
+
+msgctxt "NARIS,SettingsSubtitleScale"
+msgid "Subtitle Scale"
+msgstr "Subtitle Scale"
+
+msgctxt "NARIS,SettingsHighContrast"
+msgid "High Contrast Interactions"
+msgstr "High Contrast Interactions"
+
+msgctxt "NARIS,SettingsColorVision"
+msgid "Color Vision Mode"
+msgstr "Color Vision Mode"
+
+msgctxt "NARIS,SettingsColorVisionSeverity"
+msgid "Color Vision Severity"
+msgstr "Color Vision Severity"
+
+msgctxt "NARIS,SettingsApplySave"
+msgid "Apply & Save"
+msgstr "Apply & Save"
+
+msgctxt "NARIS,SettingsResetDefaults"
+msgid "Reset Defaults"
+msgstr "Reset Defaults"
+
+msgctxt "NARIS,SettingsBack"
+msgid "Back"
+msgstr "Back"
+
+msgctxt "NARIS,QualityLow"
+msgid "Low"
+msgstr "Low"
+
+msgctxt "NARIS,QualityMedium"
+msgid "Medium"
+msgstr "Medium"
+
+msgctxt "NARIS,QualityHigh"
+msgid "High"
+msgstr "High"
+
+msgctxt "NARIS,QualityEpic"
+msgid "Epic"
+msgstr "Epic"
+
+msgctxt "NARIS,QualityCinematic"
+msgid "Cinematic"
+msgstr "Cinematic"
+
+msgctxt "NARIS,QualityCustom"
+msgid "Custom"
+msgstr "Custom"
+
+msgctxt "NARIS,FrameRateUnlimited"
+msgid "Unlimited"
+msgstr "Unlimited"
+
+msgctxt "NARIS,FrameRateFormat"
+msgid "{0} FPS"
+msgstr "{0} FPS"
+
+msgctxt "NARIS,ColorVisionDeuteranopia"
+msgid "Deuteranopia"
+msgstr "Deuteranopia"
+
+msgctxt "NARIS,ColorVisionProtanopia"
+msgid "Protanopia"
+msgstr "Protanopia"
+
+msgctxt "NARIS,ColorVisionTritanopia"
+msgid "Tritanopia"
+msgstr "Tritanopia"
+
+msgctxt "NARIS,ColorVisionNormal"
+msgid "Normal"
+msgstr "Normal"
+
+msgctxt "NARIS,PauseMenuHint"
+msgid "Navigate: W/S or D-Pad   Confirm: Enter/A   Back: Esc/B"
+msgstr "Navigate: W/S or D-Pad   Confirm: Enter/A   Back: Esc/B"
+
+msgctxt "NARIS,SettingsMenuHint"
+msgid "Adjust: A/D or Left/Right   Confirm: Enter/A   Back: Esc/B"
+msgstr "Adjust: A/D or Left/Right   Confirm: Enter/A   Back: Esc/B"
