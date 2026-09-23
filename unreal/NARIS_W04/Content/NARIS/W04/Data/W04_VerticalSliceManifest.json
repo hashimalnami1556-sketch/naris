@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.2",
+  "schema_version": "1.3",
   "project": "CALL OF NARIS",
   "slice": "W04_AshenForest",
   "systems": [
@@ -52,6 +52,16 @@
     "first_whisper_state": "FNarisSaveState.TriggeredNarratives",
     "ash_gate_actor": "ANarisAshGate",
     "ash_gate_requirement": "W04_FirstWhisper",
-    "ash_gate_state": "FNarisSaveState.UnlockedGates"
-  }
+    "ash_gate_state": "FNarisSaveState.UnlockedGates",
+    "celestial_wolf_actor": "ACelestialWolf",
+    "celestial_wolf_requirement": "W04_AshGate",
+    "celestial_wolf_state": "FNarisSaveState.UnlockedCompanions",
+    "echo_link_mode": "ENarisWolfMode.EchoLink"
+  },
+  "progression_beats": [
+    "MemoryCrystal",
+    "FirstWhisper",
+    "AshGate",
+    "CelestialWolfBond"
+  ]
 }
