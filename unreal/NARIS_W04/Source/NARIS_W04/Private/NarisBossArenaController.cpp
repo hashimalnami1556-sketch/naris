@@ -5,6 +5,7 @@
 #include "Components/SceneComponent.h"
 #include "Engine/World.h"
 #include "EngineUtils.h"
+#include "Kismet/GameplayStatics.h"
 #include "NarisPresentationComponent.h"
 
 ANarisBossArenaController::ANarisBossArenaController()
@@ -19,6 +20,18 @@ ANarisBossArenaController::ANarisBossArenaController()
     EntryBlocker->SetBoxExtent(FVector(90.f, 600.f, 260.f));
     EntryBlocker->SetCollisionResponseToAllChannels(ECR_Block);
     EntryBlocker->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+
+    EncounterTrigger =
+        CreateDefaultSubobject<UBoxComponent>(TEXT("EncounterTrigger"));
+    EncounterTrigger->SetupAttachment(SceneRoot);
+    EncounterTrigger->SetBoxExtent(FVector(420.f, 420.f, 220.f));
+    EncounterTrigger->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
+    EncounterTrigger->SetCollisionResponseToAllChannels(ECR_Ignore);
+    EncounterTrigger->SetCollisionResponseToChannel(ECC_Pawn, ECR_Overlap);
+    EncounterTrigger->OnComponentBeginOverlap.AddDynamic(
+        this,
+        &ANarisBossArenaController::HandleEncounterOverlap
+    );
 
     Presentation =
         CreateDefaultSubobject<UNarisPresentationComponent>(TEXT("Presentation"));
@@ -44,6 +57,11 @@ void ANarisBossArenaController::BeginPlay()
         SetArenaClosed(
             Boss->IsEncounterActive() && !Boss->IsEncounterComplete()
         );
+
+        if (Boss->IsEncounterComplete() && EncounterTrigger)
+        {
+            EncounterTrigger->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+        }
     }
 }
 
@@ -151,5 +169,42 @@ void ANarisBossArenaController::HandleBossEvent(FName EventName)
         {
             Presentation->TriggerCue(ArenaCue);
         }
+    }
+}
+
+
+void ANarisBossArenaController::HandleEncounterOverlap(
+    UPrimitiveComponent* OverlappedComponent,
+    AActor* OtherActor,
+    UPrimitiveComponent* OtherComp,
+    int32 OtherBodyIndex,
+    bool bFromSweep,
+    const FHitResult& SweepResult
+)
+{
+    if (!Boss
+        || Boss->IsEncounterActive()
+        || Boss->IsEncounterComplete()
+        || !IsValid(OtherActor))
+    {
+        return;
+    }
+
+    APawn* PlayerPawn = UGameplayStatics::GetPlayerPawn(this, 0);
+    if (!PlayerPawn || OtherActor != PlayerPawn)
+    {
+        return;
+    }
+
+    OnArenaEvent.Broadcast(TEXT("Arena.Enter"));
+    if (Presentation)
+    {
+        Presentation->TriggerCue(TEXT("Arena.Enter"));
+    }
+
+    const bool bStarted = Boss->TryStartEncounter(OtherActor);
+    if (bStarted && EncounterTrigger)
+    {
+        EncounterTrigger->SetCollisionEnabled(ECollisionEnabled::NoCollision);
     }
 }
