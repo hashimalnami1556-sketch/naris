@@ -124,3 +124,25 @@ bool UNarisRuntimeSubsystem::IsCompanionUnlocked(const FString& CompanionId) con
 {
     return !CompanionId.IsEmpty() && State.UnlockedCompanions.Contains(CompanionId);
 }
+
+bool UNarisRuntimeSubsystem::MarkBossDefeated(const FString& BossId)
+{
+    if (BossId.IsEmpty())
+    {
+        return false;
+    }
+
+    State.DefeatedBosses.AddUnique(BossId);
+    return true;
+}
+
+bool UNarisRuntimeSubsystem::IsBossDefeated(const FString& BossId) const
+{
+    return !BossId.IsEmpty() && State.DefeatedBosses.Contains(BossId);
+}
+
+bool UNarisRuntimeSubsystem::CompleteDemo()
+{
+    State.bDemoCompleted = true;
+    return true;
+}
