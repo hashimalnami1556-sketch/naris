@@ -69,6 +69,10 @@
       "camera": "NARIS-W04-CINE-SHAKEDEATH-0001"
     },
     {
+      "cue": "Arena.Enter",
+      "audio": "NARIS-W04-AUD-ARENA-0001"
+    },
+    {
       "cue": "Arena.Lock",
       "vfx": "NARIS-W04-VFX-ARENALOCK-0001",
       "audio": "NARIS-W04-AUD-ARENA-0001"
