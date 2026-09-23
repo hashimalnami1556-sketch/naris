@@ -354,9 +354,35 @@ FText ANarisPlayerController::GetMenuItemLabel(int32 Index) const
                 return NSLOCTEXT("NARIS", "PauseResume", "Resume");
             case 1:
                 return NSLOCTEXT("NARIS", "PauseSettings", "Settings");
+            case 2:
+                return NSLOCTEXT("NARIS", "PauseControls", "Controller Remap");
             default:
                 return FText::GetEmpty();
         }
+    }
+
+    if (PauseMenuPage == ENarisPauseMenuPage::Controls)
+    {
+        if (Index >= 0 && Index < ControlActionCount)
+        {
+            return ControlActionLabel(ControlActionName(Index));
+        }
+
+        if (Index == ControlActionCount)
+        {
+            return NSLOCTEXT(
+                "NARIS",
+                "ControlsResetDefaults",
+                "Reset Controller Defaults"
+            );
+        }
+
+        if (Index == ControlActionCount + 1)
+        {
+            return NSLOCTEXT("NARIS", "SettingsBack", "Back");
+        }
+
+        return FText::GetEmpty();
     }
 
     switch (Index)
@@ -404,6 +430,31 @@ FText ANarisPlayerController::GetMenuItemValue(int32 Index) const
 {
     if (PauseMenuPage == ENarisPauseMenuPage::Main)
     {
+        return FText::GetEmpty();
+    }
+
+    if (PauseMenuPage == ENarisPauseMenuPage::Controls)
+    {
+        if (Index >= 0 && Index < ControlActionCount)
+        {
+            const FName ActionName = ControlActionName(Index);
+            if (bWaitingForGamepadRemap
+                && PendingRemapAction == ActionName
+                && SelectedMenuIndex == Index)
+            {
+                return NSLOCTEXT(
+                    "NARIS",
+                    "ControlsPressButton",
+                    "Press a gamepad button..."
+                );
+            }
+
+            const FKey Key = GetCurrentGamepadKey(ActionName);
+            return Key.IsValid()
+                ? Key.GetDisplayName()
+                : NSLOCTEXT("NARIS", "ControlsUnbound", "Unbound");
+        }
+
         return FText::GetEmpty();
     }
 
