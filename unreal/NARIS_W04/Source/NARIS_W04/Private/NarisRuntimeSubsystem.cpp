@@ -125,6 +125,22 @@ bool UNarisRuntimeSubsystem::IsCompanionUnlocked(const FString& CompanionId) con
     return !CompanionId.IsEmpty() && State.UnlockedCompanions.Contains(CompanionId);
 }
 
+bool UNarisRuntimeSubsystem::CompleteQuest(const FString& QuestId)
+{
+    if (QuestId.IsEmpty())
+    {
+        return false;
+    }
+
+    State.CompletedQuests.AddUnique(QuestId);
+    return true;
+}
+
+bool UNarisRuntimeSubsystem::IsQuestCompleted(const FString& QuestId) const
+{
+    return !QuestId.IsEmpty() && State.CompletedQuests.Contains(QuestId);
+}
+
 bool UNarisRuntimeSubsystem::MarkBossDefeated(const FString& BossId)
 {
     if (BossId.IsEmpty())
