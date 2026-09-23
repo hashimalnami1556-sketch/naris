@@ -55,6 +55,11 @@ class PresentationAudioIntakeContractTests(unittest.TestCase):
             "channels not in (1, 2)",
             'compression != "NONE"',
             "duration > 30.0",
+            "measure_pcm24_peak_dbfs",
+            "peak_ceiling_dbfs",
+            "digital silence is not a valid production master",
+            "peak {peak_dbfs:.2f} dBFS exceeds",
+            "duration_delta_seconds",
         ):
             self.assertIn(token, source)
 
