@@ -128,6 +128,9 @@ public:
     UFUNCTION(BlueprintCallable, Category="NARIS|Energy")
     void PreviousEssence();
 
+    UFUNCTION(BlueprintCallable, Category="NARIS|Companion")
+    void CycleCompanionMode();
+
     UFUNCTION(BlueprintCallable, Category="NARIS|Interaction")
     void Interact();
 
