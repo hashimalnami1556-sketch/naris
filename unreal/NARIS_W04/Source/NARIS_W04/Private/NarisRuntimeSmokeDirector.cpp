@@ -56,6 +56,7 @@ FString ANarisRuntimeSmokeDirector::ResolveReportPath() const
         )
         && !ExplicitPath.IsEmpty())
     {
+        ExplicitPath.TrimQuotesInline();
         return FPaths::ConvertRelativePathToFull(ExplicitPath);
     }
 
