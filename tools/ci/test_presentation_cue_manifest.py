@@ -114,9 +114,12 @@ class PresentationCueManifestTests(unittest.TestCase):
         self.assertEqual(dynamic[0]["pattern"], "Boss.Attack.<AttackId>")
         self.assertEqual(dynamic[0]["runtime_cue"], "Boss.Attack.*")
         self.assertIn(
-            "FNarisBossAttackDefinition",
+            "data-driven AttackId",
             dynamic[0]["note"],
         )
+        self.assertIn("ClawSweep", dynamic[0]["note"])
+        self.assertIn("BoneCharge", dynamic[0]["note"])
+        self.assertIn("AshRupture", dynamic[0]["note"])
 
 
 if __name__ == "__main__":
