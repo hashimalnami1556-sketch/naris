@@ -10,6 +10,7 @@ class UNarisCombatComponent;
 class UNarisEnergyComponent;
 class UNarisLockOnComponent;
 class UNarisInteractionComponent;
+class UNarisPresentationComponent;
 class USpringArmComponent;
 class UCameraComponent;
 struct FDamageEvent;
@@ -42,6 +43,9 @@ public:
 
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
     TObjectPtr<UNarisInteractionComponent> Interaction;
+
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="NARIS|Presentation")
+    TObjectPtr<UNarisPresentationComponent> Presentation;
 
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
     TObjectPtr<USpringArmComponent> CameraBoom;
