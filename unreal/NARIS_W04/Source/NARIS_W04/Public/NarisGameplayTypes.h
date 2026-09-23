@@ -61,5 +61,8 @@ struct FNarisSaveState
     TArray<FString> TriggeredNarratives;
 
     UPROPERTY(BlueprintReadWrite)
+    TArray<FString> UnlockedGates;
+
+    UPROPERTY(BlueprintReadWrite)
     int32 ResonanceLevel = 0;
 };
