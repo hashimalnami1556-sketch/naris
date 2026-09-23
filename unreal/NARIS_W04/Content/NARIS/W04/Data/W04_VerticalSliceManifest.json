@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.7",
+  "schema_version": "1.8",
   "project": "CALL OF NARIS",
   "slice": "W04_AshenForest",
   "systems": [
@@ -88,7 +88,8 @@
       "DemoComplete"
     ],
     "bone_beast_start": "INarisInteractable -> ABoneBeastBoss.TryStartEncounter",
-    "smoke_combat_damage": "LockOn -> MeleeRange -> ResolveHit/ApplyDamageToEncounter"
+    "smoke_combat_damage": "LockOn -> MeleeRange -> ResolveHit/ApplyDamageToEncounter",
+    "localization_pipeline": "GatherText -> PO import/export -> LocRes"
   },
   "progression_beats": [
     "MemoryCrystal",
@@ -114,5 +115,15 @@
       "Interact",
       "Sprint"
     ]
+  },
+  "localization": {
+    "target": "NARIS_Game",
+    "native_culture": "en",
+    "cultures": [
+      "en",
+      "ar"
+    ],
+    "source_macro": "NSLOCTEXT",
+    "runtime_rendering_qa_verified": false
   }
 }
