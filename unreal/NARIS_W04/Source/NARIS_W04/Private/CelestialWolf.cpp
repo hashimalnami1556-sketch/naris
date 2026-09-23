@@ -306,10 +306,52 @@ void ACelestialWolf::TickAttack()
     }
 
     LastAttackTime = Now;
+    RequestAttack(Target);
+}
+
+bool ACelestialWolf::RequestAttack(ABoneBeastBoss* Target)
+{
+    if (!bBonded
+        || !IsValid(Target)
+        || !Target->IsEncounterActive()
+        || Target->IsEncounterComplete())
+    {
+        return false;
+    }
+
+    PendingAttackTarget = Target;
 
     if (Presentation)
     {
         Presentation->TriggerCue(TEXT("Wolf.Attack"));
+    }
+
+    OnAttackRequested();
+
+    if (bImmediateSmokeAttackImpact)
+    {
+        return CommitAttackImpact();
+    }
+
+    return true;
+}
+
+bool ACelestialWolf::CommitAttackImpact()
+{
+    ABoneBeastBoss* Target = PendingAttackTarget;
+    if (!IsValid(Target)
+        || !Target->IsEncounterActive()
+        || Target->IsEncounterComplete())
+    {
+        CancelAttack();
+        return false;
+    }
+
+    if (FVector::DistSquared(GetActorLocation(), Target->GetActorLocation())
+        > FMath::Square(FMath::Max(AttackRange * 1.5f, 1.f)))
+    {
+        CancelAttack();
+        return false;
     }
 
     Target->ApplyDamageToEncounter(AttackDamage);
@@ -321,6 +363,14 @@ void ACelestialWolf::TickAttack()
             Target->GetActorLocation()
         );
     }
+
+    CancelAttack();
+    return true;
+}
+
+void ACelestialWolf::CancelAttack()
+{
+    PendingAttackTarget = nullptr;
 }
 
 void ACelestialWolf::TickTrack()
