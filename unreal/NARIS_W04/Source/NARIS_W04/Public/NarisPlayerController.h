@@ -6,6 +6,13 @@
 #include "NarisPlayerController.generated.h"
 
 UENUM(BlueprintType)
+enum class ENarisMenuContext : uint8
+{
+    FrontEnd,
+    Pause
+};
+
+UENUM(BlueprintType)
 enum class ENarisPauseMenuPage : uint8
 {
     Main,
@@ -23,8 +30,15 @@ class NARIS_W04_API ANarisPlayerController : public APlayerController
 public:
     ANarisPlayerController();
 
+    virtual void BeginPlay() override;
     virtual void SetupInputComponent() override;
     virtual bool InputKey(const FInputKeyParams& Params) override;
+
+    UFUNCTION(BlueprintCallable, Category="NARIS|Menu")
+    void OpenFrontEndMenu();
+
+    UFUNCTION(BlueprintCallable, Category="NARIS|Menu")
+    void CloseFrontEndMenu();
 
     UFUNCTION(BlueprintCallable, Category="NARIS|Menu")
     void TogglePauseMenu();
@@ -37,6 +51,21 @@ public:
 
     UFUNCTION(BlueprintPure, Category="NARIS|Menu")
     bool IsPauseMenuOpen() const { return bPauseMenuOpen; }
+
+    UFUNCTION(BlueprintPure, Category="NARIS|Menu")
+    bool IsFrontEndMenuOpen() const { return bFrontEndMenuOpen; }
+
+    UFUNCTION(BlueprintPure, Category="NARIS|Menu")
+    bool IsSystemMenuOpen() const
+    {
+        return bPauseMenuOpen || bFrontEndMenuOpen;
+    }
+
+    UFUNCTION(BlueprintPure, Category="NARIS|Menu")
+    ENarisMenuContext GetMenuContext() const { return MenuContext; }
+
+    UFUNCTION(BlueprintPure, Category="NARIS|Menu")
+    bool CanContinueGame() const;
 
     UFUNCTION(BlueprintPure, Category="NARIS|Menu")
     ENarisPauseMenuPage GetPauseMenuPage() const { return PauseMenuPage; }
