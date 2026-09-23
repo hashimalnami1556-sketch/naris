@@ -1,6 +1,8 @@
+import argparse
 import bpy
 import json
 import math
+import sys
 from pathlib import Path
 from mathutils import Vector
 
@@ -22,6 +24,31 @@ SNAP_GRID = float(CONFIG["grid_m"])
 FLOOR_MODULE = float(CONFIG["modular_units"]["floor"])
 HEIGHT = float(CONFIG["modular_units"]["height"])
 STREAMING_CELL_M = float(CONFIG["streaming"]["cell_size_m"])
+
+
+def parse_args():
+    argv = sys.argv
+    argv = argv[argv.index("--") + 1:] if "--" in argv else []
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--out-blend")
+    return parser.parse_args(argv)
+
+
+def ensure_uv(obj):
+    if obj.type != "MESH" or len(obj.data.uv_layers) > 0:
+        return
+
+    for selected in bpy.context.selected_objects:
+        selected.select_set(False)
+
+    obj.select_set(True)
+    bpy.context.view_layer.objects.active = obj
+    obj.data.uv_layers.new(name="UVMap")
+    bpy.ops.object.mode_set(mode="EDIT")
+    bpy.ops.mesh.select_all(action="SELECT")
+    bpy.ops.uv.smart_project(angle_limit=math.radians(66.0), island_margin=0.02)
+    bpy.ops.object.mode_set(mode="OBJECT")
+
 
 def get_collection():
     col = bpy.data.collections.get(COLLECTION)
@@ -58,6 +85,7 @@ def cube(name, loc, scale, material=None, bevel=0.08):
         mod.segments = 2
     if material:
         o.data.materials.append(material)
+    ensure_uv(o)
     move_to_collection(o, get_collection())
     return o
 
@@ -67,6 +95,7 @@ def cylinder(name, loc, radius, depth, material=None, vertices=16):
     o.name = name
     if material:
         o.data.materials.append(material)
+    ensure_uv(o)
     move_to_collection(o, get_collection())
     return o
 
@@ -90,12 +119,12 @@ def tree(name, loc, trunk_mat, leaf_mat, scale=1.0):
     for i, z in enumerate((3.0,4.0,4.8)):
         bpy.ops.mesh.primitive_ico_sphere_add(subdivisions=1, radius=1.25*scale, location=(loc[0]+(i-1)*0.35*scale, loc[1], z*scale))
         o=bpy.context.object; o.name=f"{name}_CANOPY_{i:02d}"; o.scale=(1.2,0.9,0.75); bpy.ops.object.transform_apply(location=False,rotation=False,scale=True)
-        o.data.materials.append(leaf_mat); move_to_collection(o,get_collection())
+        o.data.materials.append(leaf_mat); ensure_uv(o); move_to_collection(o,get_collection())
 
 def rock(name, loc, scale, material):
     bpy.ops.mesh.primitive_ico_sphere_add(subdivisions=1, radius=1.0, location=loc)
     o=bpy.context.object; o.name=name; o.scale=scale; bpy.ops.object.transform_apply(location=False,rotation=False,scale=True)
-    o.data.materials.append(material); move_to_collection(o,get_collection()); return o
+    o.data.materials.append(material); ensure_uv(o); move_to_collection(o,get_collection()); return o
 
 def make_lod_marker(source, lod_level):
     # Metadata-only empty used by import scripts to pair generated meshes with LOD policy.
@@ -169,4 +198,10 @@ def build():
     print("CALL OF NARIS W04 environment factory generated.")
 
 if __name__ == "__main__":
+    args = parse_args()
     build()
+    if args.out_blend:
+        out_blend = Path(args.out_blend).resolve()
+        out_blend.parent.mkdir(parents=True, exist_ok=True)
+        bpy.ops.wm.save_as_mainfile(filepath=str(out_blend))
+        print(f"NARIS_W04_FACTORY_BLEND={out_blend}")
