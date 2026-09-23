@@ -34,6 +34,13 @@ class UnrealSourceValidationTests(unittest.TestCase):
         (self.root / 'Comment.cpp').write_text('// IMPLEMENT_MODULE(FDefaultModuleImpl, NARIS_W04)\n/* IMPLEMENT_MODULE(FDefaultModuleImpl, NARIS_W04) */')
         self.assertEqual([], validate_source(self.root))
 
+    def test_duplicate_reflected_enum_is_detected(self):
+        enum_text = 'UENUM(BlueprintType) enum class ENarisBossPhase : uint8 { P1, P2 };'
+        (self.root / 'BossA.h').write_text(enum_text)
+        (self.root / 'BossB.h').write_text(enum_text)
+        errors = validate_source(self.root)
+        self.assertTrue(any('Duplicate reflected enum ENarisBossPhase' in e for e in errors))
+
 
 if __name__ == '__main__':
     unittest.main()
