@@ -11,6 +11,11 @@ class NARIS_W04_API UNarisRuntimeSubsystem : public UGameInstanceSubsystem
     GENERATED_BODY()
 
 public:
+    virtual void Initialize(FSubsystemCollectionBase& Collection) override;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="NARIS|Runtime")
+    FString DefaultAutoSaveSlot = TEXT("NARIS_Auto");
+
     UFUNCTION(BlueprintCallable, Category="NARIS|Runtime")
     void BeginNewGame();
 
