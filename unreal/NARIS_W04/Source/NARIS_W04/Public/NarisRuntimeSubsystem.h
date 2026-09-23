@@ -54,6 +54,18 @@ public:
     bool IsCompanionUnlocked(const FString& CompanionId) const;
 
     UFUNCTION(BlueprintCallable, Category="NARIS|Runtime")
+    bool StartQuest(const FString& QuestId, int32 InitialStep);
+
+    UFUNCTION(BlueprintCallable, Category="NARIS|Runtime")
+    bool SetQuestStep(const FString& QuestId, int32 Step);
+
+    UFUNCTION(BlueprintPure, Category="NARIS|Runtime")
+    bool IsQuestActive(const FString& QuestId) const;
+
+    UFUNCTION(BlueprintPure, Category="NARIS|Runtime")
+    int32 GetQuestStep(const FString& QuestId) const;
+
+    UFUNCTION(BlueprintCallable, Category="NARIS|Runtime")
     bool CompleteQuest(const FString& QuestId);
 
     UFUNCTION(BlueprintPure, Category="NARIS|Runtime")
