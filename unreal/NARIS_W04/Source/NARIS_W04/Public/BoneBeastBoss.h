@@ -7,6 +7,9 @@
 #include "BoneBeastBoss.generated.h"
 
 class UBoneBeastDataAsset;
+class UBoneBeastCombatComponent;
+class UBoneBeastPhaseComponent;
+class UNarisPresentationComponent;
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FNarisBossEvent, FName, EventName);
 
@@ -19,6 +22,15 @@ public:
     ABoneBeastBoss();
 
     virtual void BeginPlay() override;
+
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="NARIS|Boss")
+    TObjectPtr<UBoneBeastCombatComponent> CombatPresentation;
+
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="NARIS|Boss")
+    TObjectPtr<UBoneBeastPhaseComponent> PhasePresentation;
+
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="NARIS|Presentation")
+    TObjectPtr<UNarisPresentationComponent> Presentation;
 
     UFUNCTION(BlueprintCallable, Category="NARIS|Boss")
     void StartEncounter();
@@ -38,6 +50,15 @@ public:
     UFUNCTION(BlueprintCallable, Category="NARIS|Boss")
     void CompleteEncounter();
 
+    UFUNCTION(BlueprintCallable, Category="NARIS|Boss|Attack")
+    bool RequestAttack(FName AttackId, float Damage);
+
+    UFUNCTION(BlueprintCallable, Category="NARIS|Boss|Attack")
+    bool CommitAttackImpact(AActor* TargetActor);
+
+    UFUNCTION(BlueprintCallable, Category="NARIS|Boss|Attack")
+    void CancelAttack();
+
     UFUNCTION(BlueprintPure, Category="NARIS|Boss")
     ENarisBossPhase GetPhase() const { return CurrentPhase; }
 
@@ -53,10 +74,12 @@ public:
     UFUNCTION(BlueprintPure, Category="NARIS|Boss")
     bool IsEncounterComplete() const { return bEncounterComplete; }
 
+    UFUNCTION(BlueprintPure, Category="NARIS|Boss|Attack")
+    FName GetPendingAttackId() const { return PendingAttackId; }
+
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="NARIS|Boss")
     TObjectPtr<UBoneBeastDataAsset> BossData;
 
-    // Smoke/runtime fallback used only when no authored BoneBeastDataAsset is assigned.
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="NARIS|Boss|SmokeFallback")
     float FallbackMaxHealth = 1800.f;
 
@@ -101,6 +124,9 @@ protected:
     bool bEncounterComplete = false;
 
 private:
+    FName PendingAttackId = NAME_None;
+    float PendingAttackDamage = 0.f;
+
     void EvaluatePhase();
     void EmitBossEvent(FName EventName);
 };
