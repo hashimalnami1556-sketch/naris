@@ -1126,3 +1126,60 @@ void ANarisPlayerController::ResetGamepadActionRemaps()
     InputSettings->ForceRebuildKeymaps();
     CancelGamepadRemap();
 }
+
+
+void ANarisPlayerController::StartNewGameFromMenu()
+{
+    if (!GetWorld())
+    {
+        return;
+    }
+
+    UGameInstance* GameInstance = GetWorld()->GetGameInstance();
+    UNarisRuntimeSubsystem* Runtime =
+        GameInstance
+            ? GameInstance->GetSubsystem<UNarisRuntimeSubsystem>()
+            : nullptr;
+
+    if (!Runtime)
+    {
+        return;
+    }
+
+    Runtime->BeginNewGame();
+    if (!Runtime->SaveState(Runtime->DefaultAutoSaveSlot))
+    {
+        return;
+    }
+
+    Runtime->RequestFrontEndBypassOnce();
+
+    const FString CurrentLevel =
+        UGameplayStatics::GetCurrentLevelName(this, true);
+    if (CurrentLevel.IsEmpty())
+    {
+        return;
+    }
+
+    UGameplayStatics::OpenLevel(this, FName(*CurrentLevel));
+}
+
+void ANarisPlayerController::ContinueGameFromMenu()
+{
+    if (!CanContinueGame())
+    {
+        return;
+    }
+
+    CloseFrontEndMenu();
+}
+
+void ANarisPlayerController::QuitGameFromMenu()
+{
+    UKismetSystemLibrary::QuitGame(
+        this,
+        this,
+        EQuitPreference::Quit,
+        false
+    );
+}
