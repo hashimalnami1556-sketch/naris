@@ -1,0 +1,816 @@
+{
+  "schema": "naris.w04.presentation-source-plan.v1",
+  "world": "W04",
+  "purpose": "Production intake contract; does not prove that unbound payloads exist.",
+  "quality_rules": {
+    "audio": "48 kHz / 24-bit PCM masters; transient readability before loudness; no clipped masters.",
+    "vfx": "Niagara systems must preserve combat silhouettes and telegraphs, include scalability tiers, and avoid unbounded translucent overdraw.",
+    "camera": "Camera feedback must remain brief, readable and optional through the shared presentation cue bus."
+  },
+  "counts": {
+    "total": 35,
+    "bound": 5,
+    "required": 30,
+    "audio_required": 16,
+    "vfx_required": 14,
+    "camera_bound": 5
+  },
+  "assets": [
+    {
+      "asset_id": "NARIS-W04-AUD-ARENA-0001",
+      "kind": "audio",
+      "status": "required",
+      "used_by_cues": [
+        "Arena.Enter",
+        "Arena.Lock",
+        "Arena.Unlock"
+      ],
+      "unreal_object_path": null,
+      "expected_unreal_object_path": "/Game/NARIS/W04/Presentation/Audio/NARIS_W04_AUD_ARENA_0001.NARIS_W04_AUD_ARENA_0001",
+      "brief": "Ancient arena seal response with restrained gold/aether energy.",
+      "source_contract": {
+        "preferred_source": "WAV",
+        "sample_rate_hz": 48000,
+        "bit_depth": 24,
+        "encoding": "PCM",
+        "channels": "mono_preferred_for_3d_one_shots",
+        "peak_ceiling_dbfs": -1,
+        "target_duration_seconds": 2.2,
+        "trim_leading_silence": true,
+        "preserve_natural_tail": true
+      }
+    },
+    {
+      "asset_id": "NARIS-W04-AUD-ASHRUPTURE-0001",
+      "kind": "audio",
+      "status": "required",
+      "used_by_cues": [
+        "Boss.Attack.AshRupture"
+      ],
+      "unreal_object_path": null,
+      "expected_unreal_object_path": "/Game/NARIS/W04/Presentation/Audio/NARIS_W04_AUD_ASHRUPTURE_0001.NARIS_W04_AUD_ASHRUPTURE_0001",
+      "brief": "Violent ash-and-ember rupture with readable ground danger.",
+      "source_contract": {
+        "preferred_source": "WAV",
+        "sample_rate_hz": 48000,
+        "bit_depth": 24,
+        "encoding": "PCM",
+        "channels": "mono_preferred_for_3d_one_shots",
+        "peak_ceiling_dbfs": -1,
+        "target_duration_seconds": 1.6,
+        "trim_leading_silence": true,
+        "preserve_natural_tail": true
+      }
+    },
+    {
+      "asset_id": "NARIS-W04-AUD-BONEATTACK-0001",
+      "kind": "audio",
+      "status": "required",
+      "used_by_cues": [
+        "Boss.Attack.*"
+      ],
+      "unreal_object_path": null,
+      "expected_unreal_object_path": "/Game/NARIS/W04/Presentation/Audio/NARIS_W04_AUD_BONEATTACK_0001.NARIS_W04_AUD_BONEATTACK_0001",
+      "brief": "Fallback Bone Beast attack cue when a phase attack lacks a dedicated payload.",
+      "source_contract": {
+        "preferred_source": "WAV",
+        "sample_rate_hz": 48000,
+        "bit_depth": 24,
+        "encoding": "PCM",
+        "channels": "mono_preferred_for_3d_one_shots",
+        "peak_ceiling_dbfs": -1,
+        "target_duration_seconds": 1,
+        "trim_leading_silence": true,
+        "preserve_natural_tail": true
+      }
+    },
+    {
+      "asset_id": "NARIS-W04-AUD-BONECHARGE-0001",
+      "kind": "audio",
+      "status": "required",
+      "used_by_cues": [
+        "Boss.Attack.BoneCharge"
+      ],
+      "unreal_object_path": null,
+      "expected_unreal_object_path": "/Game/NARIS/W04/Presentation/Audio/NARIS_W04_AUD_BONECHARGE_0001.NARIS_W04_AUD_BONECHARGE_0001",
+      "brief": "Heavy bone-beast charge telegraph and impact identity.",
+      "source_contract": {
+        "preferred_source": "WAV",
+        "sample_rate_hz": 48000,
+        "bit_depth": 24,
+        "encoding": "PCM",
+        "channels": "mono_preferred_for_3d_one_shots",
+        "peak_ceiling_dbfs": -1,
+        "target_duration_seconds": 1.2,
+        "trim_leading_silence": true,
+        "preserve_natural_tail": true
+      }
+    },
+    {
+      "asset_id": "NARIS-W04-AUD-BONECLAW-0001",
+      "kind": "audio",
+      "status": "required",
+      "used_by_cues": [
+        "Boss.Attack.ClawSweep"
+      ],
+      "unreal_object_path": null,
+      "expected_unreal_object_path": "/Game/NARIS/W04/Presentation/Audio/NARIS_W04_AUD_BONECLAW_0001.NARIS_W04_AUD_BONECLAW_0001",
+      "brief": "Fast bone-claw swipe/contact identity.",
+      "source_contract": {
+        "preferred_source": "WAV",
+        "sample_rate_hz": 48000,
+        "bit_depth": 24,
+        "encoding": "PCM",
+        "channels": "mono_preferred_for_3d_one_shots",
+        "peak_ceiling_dbfs": -1,
+        "target_duration_seconds": 0.8,
+        "trim_leading_silence": true,
+        "preserve_natural_tail": true
+      }
+    },
+    {
+      "asset_id": "NARIS-W04-AUD-BONEDEATH-0001",
+      "kind": "audio",
+      "status": "required",
+      "used_by_cues": [
+        "Boss.Death"
+      ],
+      "unreal_object_path": null,
+      "expected_unreal_object_path": "/Game/NARIS/W04/Presentation/Audio/NARIS_W04_AUD_BONEDEATH_0001.NARIS_W04_AUD_BONEDEATH_0001",
+      "brief": "Boss death collapse/release with ash, bone dust and corrupted energy dissipation.",
+      "source_contract": {
+        "preferred_source": "WAV",
+        "sample_rate_hz": 48000,
+        "bit_depth": 24,
+        "encoding": "PCM",
+        "channels": "mono_preferred_for_3d_one_shots",
+        "peak_ceiling_dbfs": -1,
+        "target_duration_seconds": 3.2,
+        "trim_leading_silence": true,
+        "preserve_natural_tail": true
+      }
+    },
+    {
+      "asset_id": "NARIS-W04-AUD-BONEHIT-0001",
+      "kind": "audio",
+      "status": "required",
+      "used_by_cues": [
+        "Boss.DamageTaken"
+      ],
+      "unreal_object_path": null,
+      "expected_unreal_object_path": "/Game/NARIS/W04/Presentation/Audio/NARIS_W04_AUD_BONEHIT_0001.NARIS_W04_AUD_BONEHIT_0001",
+      "brief": "Short hard bone/ash hit response.",
+      "source_contract": {
+        "preferred_source": "WAV",
+        "sample_rate_hz": 48000,
+        "bit_depth": 24,
+        "encoding": "PCM",
+        "channels": "mono_preferred_for_3d_one_shots",
+        "peak_ceiling_dbfs": -1,
+        "target_duration_seconds": 0.5,
+        "trim_leading_silence": true,
+        "preserve_natural_tail": true
+      }
+    },
+    {
+      "asset_id": "NARIS-W04-AUD-BONEINTRO-0001",
+      "kind": "audio",
+      "status": "required",
+      "used_by_cues": [
+        "Boss.EncounterStarted"
+      ],
+      "unreal_object_path": null,
+      "expected_unreal_object_path": "/Game/NARIS/W04/Presentation/Audio/NARIS_W04_AUD_BONEINTRO_0001.NARIS_W04_AUD_BONEINTRO_0001",
+      "brief": "Bone Beast encounter reveal/intro sting.",
+      "source_contract": {
+        "preferred_source": "WAV",
+        "sample_rate_hz": 48000,
+        "bit_depth": 24,
+        "encoding": "PCM",
+        "channels": "mono_preferred_for_3d_one_shots",
+        "peak_ceiling_dbfs": -1,
+        "target_duration_seconds": 4,
+        "trim_leading_silence": true,
+        "preserve_natural_tail": true
+      }
+    },
+    {
+      "asset_id": "NARIS-W04-AUD-BONEPHASE-0001",
+      "kind": "audio",
+      "status": "required",
+      "used_by_cues": [
+        "Boss.PhaseTransition"
+      ],
+      "unreal_object_path": null,
+      "expected_unreal_object_path": "/Game/NARIS/W04/Presentation/Audio/NARIS_W04_AUD_BONEPHASE_0001.NARIS_W04_AUD_BONEPHASE_0001",
+      "brief": "Boss phase escalation with corrupted ash/aether surge.",
+      "source_contract": {
+        "preferred_source": "WAV",
+        "sample_rate_hz": 48000,
+        "bit_depth": 24,
+        "encoding": "PCM",
+        "channels": "mono_preferred_for_3d_one_shots",
+        "peak_ceiling_dbfs": -1,
+        "target_duration_seconds": 2,
+        "trim_leading_silence": true,
+        "preserve_natural_tail": true
+      }
+    },
+    {
+      "asset_id": "NARIS-W04-AUD-DODGE-0001",
+      "kind": "audio",
+      "status": "required",
+      "used_by_cues": [
+        "Hero.Dodge"
+      ],
+      "unreal_object_path": null,
+      "expected_unreal_object_path": "/Game/NARIS/W04/Presentation/Audio/NARIS_W04_AUD_DODGE_0001.NARIS_W04_AUD_DODGE_0001",
+      "brief": "Fast hero displacement accent; low visual/audio tail.",
+      "source_contract": {
+        "preferred_source": "WAV",
+        "sample_rate_hz": 48000,
+        "bit_depth": 24,
+        "encoding": "PCM",
+        "channels": "mono_preferred_for_3d_one_shots",
+        "peak_ceiling_dbfs": -1,
+        "target_duration_seconds": 0.45,
+        "trim_leading_silence": true,
+        "preserve_natural_tail": true
+      }
+    },
+    {
+      "asset_id": "NARIS-W04-AUD-ESSENCE-0001",
+      "kind": "audio",
+      "status": "required",
+      "used_by_cues": [
+        "Hero.EssenceSwitch"
+      ],
+      "unreal_object_path": null,
+      "expected_unreal_object_path": "/Game/NARIS/W04/Presentation/Audio/NARIS_W04_AUD_ESSENCE_0001.NARIS_W04_AUD_ESSENCE_0001",
+      "brief": "Clean essence-switch confirmation without masking combat.",
+      "source_contract": {
+        "preferred_source": "WAV",
+        "sample_rate_hz": 48000,
+        "bit_depth": 24,
+        "encoding": "PCM",
+        "channels": "mono_preferred_for_3d_one_shots",
+        "peak_ceiling_dbfs": -1,
+        "target_duration_seconds": 0.55,
+        "trim_leading_silence": true,
+        "preserve_natural_tail": true
+      }
+    },
+    {
+      "asset_id": "NARIS-W04-AUD-HEROIMPACT-0001",
+      "kind": "audio",
+      "status": "required",
+      "used_by_cues": [
+        "Hero.AttackHit.Heavy",
+        "Hero.AttackHit.Light"
+      ],
+      "unreal_object_path": null,
+      "expected_unreal_object_path": "/Game/NARIS/W04/Presentation/Audio/NARIS_W04_AUD_HEROIMPACT_0001.NARIS_W04_AUD_HEROIMPACT_0001",
+      "brief": "Hero weapon impact with NARIS energy accent.",
+      "source_contract": {
+        "preferred_source": "WAV",
+        "sample_rate_hz": 48000,
+        "bit_depth": 24,
+        "encoding": "PCM",
+        "channels": "mono_preferred_for_3d_one_shots",
+        "peak_ceiling_dbfs": -1,
+        "target_duration_seconds": 0.45,
+        "trim_leading_silence": true,
+        "preserve_natural_tail": true
+      }
+    },
+    {
+      "asset_id": "NARIS-W04-AUD-PARRY-0001",
+      "kind": "audio",
+      "status": "required",
+      "used_by_cues": [
+        "Hero.ParrySuccess"
+      ],
+      "unreal_object_path": null,
+      "expected_unreal_object_path": "/Game/NARIS/W04/Presentation/Audio/NARIS_W04_AUD_PARRY_0001.NARIS_W04_AUD_PARRY_0001",
+      "brief": "Crisp successful parry flash/sting with high readability.",
+      "source_contract": {
+        "preferred_source": "WAV",
+        "sample_rate_hz": 48000,
+        "bit_depth": 24,
+        "encoding": "PCM",
+        "channels": "mono_preferred_for_3d_one_shots",
+        "peak_ceiling_dbfs": -1,
+        "target_duration_seconds": 0.65,
+        "trim_leading_silence": true,
+        "preserve_natural_tail": true
+      }
+    },
+    {
+      "asset_id": "NARIS-W04-AUD-WOLFATTACK-0001",
+      "kind": "audio",
+      "status": "required",
+      "used_by_cues": [
+        "Wolf.AttackImpact"
+      ],
+      "unreal_object_path": null,
+      "expected_unreal_object_path": "/Game/NARIS/W04/Presentation/Audio/NARIS_W04_AUD_WOLFATTACK_0001.NARIS_W04_AUD_WOLFATTACK_0001",
+      "brief": "Celestial Wolf attack motion/impact identity.",
+      "source_contract": {
+        "preferred_source": "WAV",
+        "sample_rate_hz": 48000,
+        "bit_depth": 24,
+        "encoding": "PCM",
+        "channels": "mono_preferred_for_3d_one_shots",
+        "peak_ceiling_dbfs": -1,
+        "target_duration_seconds": 0.8,
+        "trim_leading_silence": true,
+        "preserve_natural_tail": true
+      }
+    },
+    {
+      "asset_id": "NARIS-W04-AUD-WOLFBOND-0001",
+      "kind": "audio",
+      "status": "required",
+      "used_by_cues": [
+        "Wolf.Bonded"
+      ],
+      "unreal_object_path": null,
+      "expected_unreal_object_path": "/Game/NARIS/W04/Presentation/Audio/NARIS_W04_AUD_WOLFBOND_0001.NARIS_W04_AUD_WOLFBOND_0001",
+      "brief": "Celestial spirit bond bloom using cyan/aether language.",
+      "source_contract": {
+        "preferred_source": "WAV",
+        "sample_rate_hz": 48000,
+        "bit_depth": 24,
+        "encoding": "PCM",
+        "channels": "mono_preferred_for_3d_one_shots",
+        "peak_ceiling_dbfs": -1,
+        "target_duration_seconds": 2,
+        "trim_leading_silence": true,
+        "preserve_natural_tail": true
+      }
+    },
+    {
+      "asset_id": "NARIS-W04-AUD-WOLFECHO-0001",
+      "kind": "audio",
+      "status": "required",
+      "used_by_cues": [
+        "Wolf.EchoLink.Pulse"
+      ],
+      "unreal_object_path": null,
+      "expected_unreal_object_path": "/Game/NARIS/W04/Presentation/Audio/NARIS_W04_AUD_WOLFECHO_0001.NARIS_W04_AUD_WOLFECHO_0001",
+      "brief": "Echo Link pulse with subtle expanding spirit wave.",
+      "source_contract": {
+        "preferred_source": "WAV",
+        "sample_rate_hz": 48000,
+        "bit_depth": 24,
+        "encoding": "PCM",
+        "channels": "mono_preferred_for_3d_one_shots",
+        "peak_ceiling_dbfs": -1,
+        "target_duration_seconds": 1.3,
+        "trim_leading_silence": true,
+        "preserve_natural_tail": true
+      }
+    },
+    {
+      "asset_id": "NARIS-W04-CINE-SHAKEDEATH-0001",
+      "kind": "camera",
+      "status": "bound",
+      "used_by_cues": [
+        "Boss.Death"
+      ],
+      "unreal_object_path": "/Script/NARIS_W04.NarisDeathCameraShake",
+      "expected_unreal_object_path": "/Script/NARIS_W04.NarisDeathCameraShake",
+      "brief": "W04 presentation payload.",
+      "source_contract": {
+        "unreal_class": "UCameraShakeBase",
+        "implementation": "native_cpp"
+      }
+    },
+    {
+      "asset_id": "NARIS-W04-CINE-SHAKEHEAVY-0001",
+      "kind": "camera",
+      "status": "bound",
+      "used_by_cues": [
+        "Hero.AttackHit.Heavy"
+      ],
+      "unreal_object_path": "/Script/NARIS_W04.NarisHeavyCameraShake",
+      "expected_unreal_object_path": "/Script/NARIS_W04.NarisHeavyCameraShake",
+      "brief": "W04 presentation payload.",
+      "source_contract": {
+        "unreal_class": "UCameraShakeBase",
+        "implementation": "native_cpp"
+      }
+    },
+    {
+      "asset_id": "NARIS-W04-CINE-SHAKEHIT-0001",
+      "kind": "camera",
+      "status": "bound",
+      "used_by_cues": [
+        "Hero.AttackHit.Light"
+      ],
+      "unreal_object_path": "/Script/NARIS_W04.NarisHitCameraShake",
+      "expected_unreal_object_path": "/Script/NARIS_W04.NarisHitCameraShake",
+      "brief": "W04 presentation payload.",
+      "source_contract": {
+        "unreal_class": "UCameraShakeBase",
+        "implementation": "native_cpp"
+      }
+    },
+    {
+      "asset_id": "NARIS-W04-CINE-SHAKEPARRY-0001",
+      "kind": "camera",
+      "status": "bound",
+      "used_by_cues": [
+        "Hero.ParrySuccess"
+      ],
+      "unreal_object_path": "/Script/NARIS_W04.NarisParryCameraShake",
+      "expected_unreal_object_path": "/Script/NARIS_W04.NarisParryCameraShake",
+      "brief": "Crisp successful parry flash/sting with high readability.",
+      "source_contract": {
+        "unreal_class": "UCameraShakeBase",
+        "implementation": "native_cpp"
+      }
+    },
+    {
+      "asset_id": "NARIS-W04-CINE-SHAKEPHASE-0001",
+      "kind": "camera",
+      "status": "bound",
+      "used_by_cues": [
+        "Boss.Attack.AshRupture",
+        "Boss.PhaseTransition"
+      ],
+      "unreal_object_path": "/Script/NARIS_W04.NarisPhaseCameraShake",
+      "expected_unreal_object_path": "/Script/NARIS_W04.NarisPhaseCameraShake",
+      "brief": "W04 presentation payload.",
+      "source_contract": {
+        "unreal_class": "UCameraShakeBase",
+        "implementation": "native_cpp"
+      }
+    },
+    {
+      "asset_id": "NARIS-W04-VFX-ARENALOCK-0001",
+      "kind": "vfx",
+      "status": "required",
+      "used_by_cues": [
+        "Arena.Lock"
+      ],
+      "unreal_object_path": null,
+      "expected_unreal_object_path": "/Game/NARIS/W04/Presentation/VFX/NARIS_W04_VFX_ARENALOCK_0001.NARIS_W04_VFX_ARENALOCK_0001",
+      "brief": "Ancient arena seal response with restrained gold/aether energy.",
+      "source_contract": {
+        "unreal_class": "NiagaraSystem",
+        "one_shot": true,
+        "target_duration_seconds": 1.2,
+        "scalability": "must_define_low_medium_high",
+        "collision": "only_when_gameplay_readability_requires_it",
+        "material_policy": "translucency_overdraw_budgeted",
+        "palette": [
+          "obsidian_ash",
+          "spirit_cyan",
+          "aether_violet",
+          "ember_orange",
+          "ancient_gold"
+        ]
+      }
+    },
+    {
+      "asset_id": "NARIS-W04-VFX-ARENAUNLOCK-0001",
+      "kind": "vfx",
+      "status": "required",
+      "used_by_cues": [
+        "Arena.Unlock"
+      ],
+      "unreal_object_path": null,
+      "expected_unreal_object_path": "/Game/NARIS/W04/Presentation/VFX/NARIS_W04_VFX_ARENAUNLOCK_0001.NARIS_W04_VFX_ARENAUNLOCK_0001",
+      "brief": "Ancient arena seal response with restrained gold/aether energy.",
+      "source_contract": {
+        "unreal_class": "NiagaraSystem",
+        "one_shot": true,
+        "target_duration_seconds": 1,
+        "scalability": "must_define_low_medium_high",
+        "collision": "only_when_gameplay_readability_requires_it",
+        "material_policy": "translucency_overdraw_budgeted",
+        "palette": [
+          "obsidian_ash",
+          "spirit_cyan",
+          "aether_violet",
+          "ember_orange",
+          "ancient_gold"
+        ]
+      }
+    },
+    {
+      "asset_id": "NARIS-W04-VFX-ASHRUPTURE-0001",
+      "kind": "vfx",
+      "status": "required",
+      "used_by_cues": [
+        "Boss.Attack.AshRupture"
+      ],
+      "unreal_object_path": null,
+      "expected_unreal_object_path": "/Game/NARIS/W04/Presentation/VFX/NARIS_W04_VFX_ASHRUPTURE_0001.NARIS_W04_VFX_ASHRUPTURE_0001",
+      "brief": "Violent ash-and-ember rupture with readable ground danger.",
+      "source_contract": {
+        "unreal_class": "NiagaraSystem",
+        "one_shot": true,
+        "target_duration_seconds": 1.8,
+        "scalability": "must_define_low_medium_high",
+        "collision": "only_when_gameplay_readability_requires_it",
+        "material_policy": "translucency_overdraw_budgeted",
+        "palette": [
+          "obsidian_ash",
+          "spirit_cyan",
+          "aether_violet",
+          "ember_orange",
+          "ancient_gold"
+        ]
+      }
+    },
+    {
+      "asset_id": "NARIS-W04-VFX-BONECHARGE-0001",
+      "kind": "vfx",
+      "status": "required",
+      "used_by_cues": [
+        "Boss.Attack.BoneCharge"
+      ],
+      "unreal_object_path": null,
+      "expected_unreal_object_path": "/Game/NARIS/W04/Presentation/VFX/NARIS_W04_VFX_BONECHARGE_0001.NARIS_W04_VFX_BONECHARGE_0001",
+      "brief": "Heavy bone-beast charge telegraph and impact identity.",
+      "source_contract": {
+        "unreal_class": "NiagaraSystem",
+        "one_shot": true,
+        "target_duration_seconds": 1.1,
+        "scalability": "must_define_low_medium_high",
+        "collision": "only_when_gameplay_readability_requires_it",
+        "material_policy": "translucency_overdraw_budgeted",
+        "palette": [
+          "obsidian_ash",
+          "spirit_cyan",
+          "aether_violet",
+          "ember_orange",
+          "ancient_gold"
+        ]
+      }
+    },
+    {
+      "asset_id": "NARIS-W04-VFX-BONECLAW-0001",
+      "kind": "vfx",
+      "status": "required",
+      "used_by_cues": [
+        "Boss.Attack.ClawSweep"
+      ],
+      "unreal_object_path": null,
+      "expected_unreal_object_path": "/Game/NARIS/W04/Presentation/VFX/NARIS_W04_VFX_BONECLAW_0001.NARIS_W04_VFX_BONECLAW_0001",
+      "brief": "Fast bone-claw swipe/contact identity.",
+      "source_contract": {
+        "unreal_class": "NiagaraSystem",
+        "one_shot": true,
+        "target_duration_seconds": 0.65,
+        "scalability": "must_define_low_medium_high",
+        "collision": "only_when_gameplay_readability_requires_it",
+        "material_policy": "translucency_overdraw_budgeted",
+        "palette": [
+          "obsidian_ash",
+          "spirit_cyan",
+          "aether_violet",
+          "ember_orange",
+          "ancient_gold"
+        ]
+      }
+    },
+    {
+      "asset_id": "NARIS-W04-VFX-BONEDEATH-0001",
+      "kind": "vfx",
+      "status": "required",
+      "used_by_cues": [
+        "Boss.Death"
+      ],
+      "unreal_object_path": null,
+      "expected_unreal_object_path": "/Game/NARIS/W04/Presentation/VFX/NARIS_W04_VFX_BONEDEATH_0001.NARIS_W04_VFX_BONEDEATH_0001",
+      "brief": "Boss death collapse/release with ash, bone dust and corrupted energy dissipation.",
+      "source_contract": {
+        "unreal_class": "NiagaraSystem",
+        "one_shot": true,
+        "target_duration_seconds": 3,
+        "scalability": "must_define_low_medium_high",
+        "collision": "only_when_gameplay_readability_requires_it",
+        "material_policy": "translucency_overdraw_budgeted",
+        "palette": [
+          "obsidian_ash",
+          "spirit_cyan",
+          "aether_violet",
+          "ember_orange",
+          "ancient_gold"
+        ]
+      }
+    },
+    {
+      "asset_id": "NARIS-W04-VFX-BONEHIT-0001",
+      "kind": "vfx",
+      "status": "required",
+      "used_by_cues": [
+        "Boss.DamageTaken"
+      ],
+      "unreal_object_path": null,
+      "expected_unreal_object_path": "/Game/NARIS/W04/Presentation/VFX/NARIS_W04_VFX_BONEHIT_0001.NARIS_W04_VFX_BONEHIT_0001",
+      "brief": "Short hard bone/ash hit response.",
+      "source_contract": {
+        "unreal_class": "NiagaraSystem",
+        "one_shot": true,
+        "target_duration_seconds": 0.45,
+        "scalability": "must_define_low_medium_high",
+        "collision": "only_when_gameplay_readability_requires_it",
+        "material_policy": "translucency_overdraw_budgeted",
+        "palette": [
+          "obsidian_ash",
+          "spirit_cyan",
+          "aether_violet",
+          "ember_orange",
+          "ancient_gold"
+        ]
+      }
+    },
+    {
+      "asset_id": "NARIS-W04-VFX-BONEPHASE-0001",
+      "kind": "vfx",
+      "status": "required",
+      "used_by_cues": [
+        "Boss.PhaseTransition"
+      ],
+      "unreal_object_path": null,
+      "expected_unreal_object_path": "/Game/NARIS/W04/Presentation/VFX/NARIS_W04_VFX_BONEPHASE_0001.NARIS_W04_VFX_BONEPHASE_0001",
+      "brief": "Boss phase escalation with corrupted ash/aether surge.",
+      "source_contract": {
+        "unreal_class": "NiagaraSystem",
+        "one_shot": true,
+        "target_duration_seconds": 1.8,
+        "scalability": "must_define_low_medium_high",
+        "collision": "only_when_gameplay_readability_requires_it",
+        "material_policy": "translucency_overdraw_budgeted",
+        "palette": [
+          "obsidian_ash",
+          "spirit_cyan",
+          "aether_violet",
+          "ember_orange",
+          "ancient_gold"
+        ]
+      }
+    },
+    {
+      "asset_id": "NARIS-W04-VFX-HERODODGE-0001",
+      "kind": "vfx",
+      "status": "required",
+      "used_by_cues": [
+        "Hero.Dodge"
+      ],
+      "unreal_object_path": null,
+      "expected_unreal_object_path": "/Game/NARIS/W04/Presentation/VFX/NARIS_W04_VFX_HERODODGE_0001.NARIS_W04_VFX_HERODODGE_0001",
+      "brief": "Fast hero displacement accent; low visual/audio tail.",
+      "source_contract": {
+        "unreal_class": "NiagaraSystem",
+        "one_shot": true,
+        "target_duration_seconds": 0.45,
+        "scalability": "must_define_low_medium_high",
+        "collision": "only_when_gameplay_readability_requires_it",
+        "material_policy": "translucency_overdraw_budgeted",
+        "palette": [
+          "obsidian_ash",
+          "spirit_cyan",
+          "aether_violet",
+          "ember_orange",
+          "ancient_gold"
+        ]
+      }
+    },
+    {
+      "asset_id": "NARIS-W04-VFX-HEROIMPACT-0001",
+      "kind": "vfx",
+      "status": "required",
+      "used_by_cues": [
+        "Hero.AttackHit.Heavy",
+        "Hero.AttackHit.Light"
+      ],
+      "unreal_object_path": null,
+      "expected_unreal_object_path": "/Game/NARIS/W04/Presentation/VFX/NARIS_W04_VFX_HEROIMPACT_0001.NARIS_W04_VFX_HEROIMPACT_0001",
+      "brief": "Hero weapon impact with NARIS energy accent.",
+      "source_contract": {
+        "unreal_class": "NiagaraSystem",
+        "one_shot": true,
+        "target_duration_seconds": 0.35,
+        "scalability": "must_define_low_medium_high",
+        "collision": "only_when_gameplay_readability_requires_it",
+        "material_policy": "translucency_overdraw_budgeted",
+        "palette": [
+          "obsidian_ash",
+          "spirit_cyan",
+          "aether_violet",
+          "ember_orange",
+          "ancient_gold"
+        ]
+      }
+    },
+    {
+      "asset_id": "NARIS-W04-VFX-HEROPARRY-0001",
+      "kind": "vfx",
+      "status": "required",
+      "used_by_cues": [
+        "Hero.ParrySuccess"
+      ],
+      "unreal_object_path": null,
+      "expected_unreal_object_path": "/Game/NARIS/W04/Presentation/VFX/NARIS_W04_VFX_HEROPARRY_0001.NARIS_W04_VFX_HEROPARRY_0001",
+      "brief": "Crisp successful parry flash/sting with high readability.",
+      "source_contract": {
+        "unreal_class": "NiagaraSystem",
+        "one_shot": true,
+        "target_duration_seconds": 0.55,
+        "scalability": "must_define_low_medium_high",
+        "collision": "only_when_gameplay_readability_requires_it",
+        "material_policy": "translucency_overdraw_budgeted",
+        "palette": [
+          "obsidian_ash",
+          "spirit_cyan",
+          "aether_violet",
+          "ember_orange",
+          "ancient_gold"
+        ]
+      }
+    },
+    {
+      "asset_id": "NARIS-W04-VFX-SPIRIT-0001",
+      "kind": "vfx",
+      "status": "required",
+      "used_by_cues": [
+        "Wolf.Bonded"
+      ],
+      "unreal_object_path": null,
+      "expected_unreal_object_path": "/Game/NARIS/W04/Presentation/VFX/NARIS_W04_VFX_SPIRIT_0001.NARIS_W04_VFX_SPIRIT_0001",
+      "brief": "Celestial spirit bond bloom using cyan/aether language.",
+      "source_contract": {
+        "unreal_class": "NiagaraSystem",
+        "one_shot": true,
+        "target_duration_seconds": 1.8,
+        "scalability": "must_define_low_medium_high",
+        "collision": "only_when_gameplay_readability_requires_it",
+        "material_policy": "translucency_overdraw_budgeted",
+        "palette": [
+          "obsidian_ash",
+          "spirit_cyan",
+          "aether_violet",
+          "ember_orange",
+          "ancient_gold"
+        ]
+      }
+    },
+    {
+      "asset_id": "NARIS-W04-VFX-WOLFECHO-0001",
+      "kind": "vfx",
+      "status": "required",
+      "used_by_cues": [
+        "Wolf.EchoLink.Pulse"
+      ],
+      "unreal_object_path": null,
+      "expected_unreal_object_path": "/Game/NARIS/W04/Presentation/VFX/NARIS_W04_VFX_WOLFECHO_0001.NARIS_W04_VFX_WOLFECHO_0001",
+      "brief": "Echo Link pulse with subtle expanding spirit wave.",
+      "source_contract": {
+        "unreal_class": "NiagaraSystem",
+        "one_shot": true,
+        "target_duration_seconds": 1.3,
+        "scalability": "must_define_low_medium_high",
+        "collision": "only_when_gameplay_readability_requires_it",
+        "material_policy": "translucency_overdraw_budgeted",
+        "palette": [
+          "obsidian_ash",
+          "spirit_cyan",
+          "aether_violet",
+          "ember_orange",
+          "ancient_gold"
+        ]
+      }
+    },
+    {
+      "asset_id": "NARIS-W04-VFX-WOLFIMPACT-0001",
+      "kind": "vfx",
+      "status": "required",
+      "used_by_cues": [
+        "Wolf.AttackImpact"
+      ],
+      "unreal_object_path": null,
+      "expected_unreal_object_path": "/Game/NARIS/W04/Presentation/VFX/NARIS_W04_VFX_WOLFIMPACT_0001.NARIS_W04_VFX_WOLFIMPACT_0001",
+      "brief": "Compact spirit-claw impact.",
+      "source_contract": {
+        "unreal_class": "NiagaraSystem",
+        "one_shot": true,
+        "target_duration_seconds": 0.4,
+        "scalability": "must_define_low_medium_high",
+        "collision": "only_when_gameplay_readability_requires_it",
+        "material_policy": "translucency_overdraw_budgeted",
+        "palette": [
+          "obsidian_ash",
+          "spirit_cyan",
+          "aether_violet",
+          "ember_orange",
+          "ancient_gold"
+        ]
+      }
+    }
+  ]
+}
