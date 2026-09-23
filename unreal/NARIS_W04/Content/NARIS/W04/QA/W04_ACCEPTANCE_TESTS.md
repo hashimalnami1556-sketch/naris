@@ -26,3 +26,4 @@ T23 Boss arena entry trigger automatically starts Bone Beast only for the local 
 T24 Shipping Release Candidate gate rejects any unbound presentation VFX/AUD/Camera asset before Shipping BuildCookRun.
 T25 Hero death disables control, then respawns at the saved Waystone location with restored health, poise, energy, movement and input.
 T26 Graphics/audio/accessibility settings persist through NarisGameUserSettings, including quality, VSync/FPS, master/music/SFX/voice, subtitles/scale, camera-shake reduction/intensity, high-contrast interactions and color-vision correction; Apply & Save and Reset Defaults are reachable from the pause menu.
+T27 Every bound W04 Niagara presentation payload must be a real NiagaraSystem with at least one emitter handle; empty placeholder systems are rejected by binding resolution/profile authoring and cannot pass Shipping RC.
