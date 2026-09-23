@@ -1,0 +1,97 @@
+{
+  "schema": "naris.w04.animation-bindings.v1",
+  "world": "W04",
+  "note": "Expected production animation assets. Null/missing assets are unresolved work, not fabricated content. Shipping RC must validate required assets and notifies.",
+  "assets": [
+    {
+      "asset_id": "NARIS-W04-CHR-ANIMLIGHT-0001",
+      "role": "hero_light_attack",
+      "expected_unreal_object_path": "/Game/NARIS/W04/Characters/Hero/Animations/AM_Hero_LightAttack.AM_Hero_LightAttack",
+      "expected_class": "AnimMontage",
+      "required_notify_classes": [
+        "NarisAttackWindowNotifyState",
+        "NarisAttackImpactNotify"
+      ],
+      "require_positive_state_duration": [
+        "NarisAttackWindowNotifyState"
+      ]
+    },
+    {
+      "asset_id": "NARIS-W04-CHR-ANIMHEAVY-0001",
+      "role": "hero_heavy_attack",
+      "expected_unreal_object_path": "/Game/NARIS/W04/Characters/Hero/Animations/AM_Hero_HeavyAttack.AM_Hero_HeavyAttack",
+      "expected_class": "AnimMontage",
+      "required_notify_classes": [
+        "NarisAttackWindowNotifyState",
+        "NarisAttackImpactNotify"
+      ],
+      "require_positive_state_duration": [
+        "NarisAttackWindowNotifyState"
+      ]
+    },
+    {
+      "asset_id": "NARIS-W04-CHR-ANIMDODGE-0001",
+      "role": "hero_dodge",
+      "expected_unreal_object_path": "/Game/NARIS/W04/Characters/Hero/Animations/AM_Hero_Dodge.AM_Hero_Dodge",
+      "expected_class": "AnimMontage",
+      "required_notify_classes": []
+    },
+    {
+      "asset_id": "NARIS-W04-CHR-ANIMPARRY-0001",
+      "role": "hero_parry",
+      "expected_unreal_object_path": "/Game/NARIS/W04/Characters/Hero/Animations/AM_Hero_Parry.AM_Hero_Parry",
+      "expected_class": "AnimMontage",
+      "required_notify_classes": []
+    },
+    {
+      "asset_id": "NARIS-W04-CHR-ANIMWOLFATTACK-0001",
+      "role": "celestial_wolf_attack",
+      "expected_unreal_object_path": "/Game/NARIS/W04/Characters/CelestialWolf/Animations/AM_CelestialWolf_Attack.AM_CelestialWolf_Attack",
+      "expected_class": "AnimMontage",
+      "required_notify_classes": [
+        "NarisWolfAttackImpactNotify"
+      ]
+    },
+    {
+      "asset_id": "NARIS-W04-BOS-ANIMCLAW-0001",
+      "role": "bone_beast_claw_sweep",
+      "expected_unreal_object_path": "/Game/NARIS/W04/Bosses/BoneBeast/Animations/AM_BoneBeast_ClawSweep.AM_BoneBeast_ClawSweep",
+      "expected_class": "AnimMontage",
+      "required_notify_classes": [
+        "BoneBeastAttackImpactNotify"
+      ]
+    },
+    {
+      "asset_id": "NARIS-W04-BOS-ANIMCHARGE-0001",
+      "role": "bone_beast_bone_charge",
+      "expected_unreal_object_path": "/Game/NARIS/W04/Bosses/BoneBeast/Animations/AM_BoneBeast_BoneCharge.AM_BoneBeast_BoneCharge",
+      "expected_class": "AnimMontage",
+      "required_notify_classes": [
+        "BoneBeastAttackImpactNotify"
+      ]
+    },
+    {
+      "asset_id": "NARIS-W04-BOS-ANIMASHRUPTURE-0001",
+      "role": "bone_beast_ash_rupture",
+      "expected_unreal_object_path": "/Game/NARIS/W04/Bosses/BoneBeast/Animations/AM_BoneBeast_AshRupture.AM_BoneBeast_AshRupture",
+      "expected_class": "AnimMontage",
+      "required_notify_classes": [
+        "BoneBeastAttackImpactNotify"
+      ]
+    },
+    {
+      "asset_id": "NARIS-W04-BOS-ANIMPHASE-0001",
+      "role": "bone_beast_phase_transition",
+      "expected_unreal_object_path": "/Game/NARIS/W04/Bosses/BoneBeast/Animations/AM_BoneBeast_PhaseTransition.AM_BoneBeast_PhaseTransition",
+      "expected_class": "AnimMontage",
+      "required_notify_classes": []
+    },
+    {
+      "asset_id": "NARIS-W04-BOS-ANIMDEATH-0001",
+      "role": "bone_beast_death",
+      "expected_unreal_object_path": "/Game/NARIS/W04/Bosses/BoneBeast/Animations/AM_BoneBeast_Death.AM_BoneBeast_Death",
+      "expected_class": "AnimMontage",
+      "required_notify_classes": []
+    }
+  ]
+}
