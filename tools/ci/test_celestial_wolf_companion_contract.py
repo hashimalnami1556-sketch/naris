@@ -41,12 +41,11 @@ class CelestialWolfCompanionContractTests(unittest.TestCase):
             "unreal/NARIS_W04/Source/NARIS_W04/Private/CelestialWolf.cpp"
         )
         self.assertIn("if (!bBonded)", source)
-        self.assertIn("if (bBonded)", source)
-        self.assertIn("Mode = ENarisWolfMode::EchoLink", source)
-        self.assertIn(
-            "if (!bBonded || Mode != ENarisWolfMode::Follow)",
-            source,
-        )
+        self.assertIn("NewMode = ENarisWolfMode::Guard", source)
+        self.assertIn("SetMode(ENarisWolfMode::EchoLink)", source)
+        self.assertIn("switch (Mode)", source)
+        self.assertIn("case ENarisWolfMode::Follow", source)
+        self.assertIn("case ENarisWolfMode::EchoLink", source)
 
     def test_wolf_bond_autosaves_and_restores_on_begin_play(self) -> None:
         source = read(
