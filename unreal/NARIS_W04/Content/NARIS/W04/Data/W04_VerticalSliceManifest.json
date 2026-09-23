@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.1",
+  "schema_version": "1.2",
   "project": "CALL OF NARIS",
   "slice": "W04_AshenForest",
   "systems": [
@@ -38,7 +38,8 @@
   },
   "interactables": [
     "Waystone",
-    "MemoryCrystal"
+    "MemoryCrystal",
+    "AshGate"
   ],
   "narrative_beats": [
     "FirstWhisper"
@@ -48,6 +49,9 @@
     "waystone_actor": "ANarisWaystone",
     "memory_crystal_actor": "ANarisMemoryCrystal",
     "save_runtime": "UNarisRuntimeSubsystem",
-    "first_whisper_state": "FNarisSaveState.TriggeredNarratives"
+    "first_whisper_state": "FNarisSaveState.TriggeredNarratives",
+    "ash_gate_actor": "ANarisAshGate",
+    "ash_gate_requirement": "W04_FirstWhisper",
+    "ash_gate_state": "FNarisSaveState.UnlockedGates"
   }
 }
