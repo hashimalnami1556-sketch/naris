@@ -37,6 +37,7 @@ class PresentationAudioIntakeContractTests(unittest.TestCase):
                 item["source_file"],
                 f"assets/source/presentation/audio/{item['asset_id']}.wav",
             )
+            self.assertEqual(item["audio_bus"], "sfx")
             contract = item["source_contract"]
             self.assertEqual(contract["preferred_source"], "WAV")
             self.assertEqual(contract["sample_rate_hz"], 48000)
