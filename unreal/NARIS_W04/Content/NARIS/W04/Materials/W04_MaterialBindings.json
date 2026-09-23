@@ -1,0 +1,287 @@
+{
+  "schema": "naris.w04.material-bindings.v1",
+  "world": "W04",
+  "library": "data/materials/W04_ASHEN_FOREST_MATERIAL_LIBRARY_v1.json",
+  "masters": {
+    "surface": "/Game/NARIS/Materials/M_MASTER_SURFACE.M_MASTER_SURFACE",
+    "water": "/Game/NARIS/Materials/M_MASTER_WATER.M_MASTER_WATER"
+  },
+  "parameter_schema": {
+    "vector": [
+      "BaseColor",
+      "EmissiveColor"
+    ],
+    "scalar": [
+      "Roughness",
+      "Metallic",
+      "NormalStrength",
+      "HeightRange",
+      "EmissiveStrength",
+      "Refraction",
+      "NormalLayers"
+    ]
+  },
+  "qa": {
+    "no_pure_white_basecolor": true,
+    "no_pure_black_basecolor": true,
+    "metallic_only_for_metal": true,
+    "roughness_range": [
+      0.08,
+      0.98
+    ],
+    "emission_reserved_for_magic": true,
+    "all_materials_need_lod_safe_detail": true,
+    "all_variants_must_preserve_world_palette": true
+  },
+  "assets": [
+    {
+      "asset_id": "NARIS-W04-MAT-ASHSOIL-0001",
+      "material_library_id": "MAT_W04_ASH_SOIL_01",
+      "profile": "surface",
+      "expected_unreal_object_path": "/Game/NARIS/W04/Materials/MI_W04_ASH_SOIL_01.MI_W04_ASH_SOIL_01",
+      "expected_class": "MaterialInstanceConstant",
+      "expected_parent": "/Game/NARIS/Materials/M_MASTER_SURFACE.M_MASTER_SURFACE",
+      "parameters": {
+        "vector": {
+          "BaseColor": [
+            0.055,
+            0.045,
+            0.065,
+            1
+          ]
+        },
+        "scalar": {
+          "Roughness": 0.93,
+          "Metallic": 0,
+          "NormalStrength": 0.28,
+          "HeightRange": 0.08
+        }
+      }
+    },
+    {
+      "asset_id": "NARIS-W04-MAT-VOLCANICSTONE-0001",
+      "material_library_id": "MAT_W04_VOLCANIC_STONE_01",
+      "profile": "surface",
+      "expected_unreal_object_path": "/Game/NARIS/W04/Materials/MI_W04_VOLCANIC_STONE_01.MI_W04_VOLCANIC_STONE_01",
+      "expected_class": "MaterialInstanceConstant",
+      "expected_parent": "/Game/NARIS/Materials/M_MASTER_SURFACE.M_MASTER_SURFACE",
+      "parameters": {
+        "vector": {
+          "BaseColor": [
+            0.17,
+            0.16,
+            0.19,
+            1
+          ]
+        },
+        "scalar": {
+          "Roughness": 0.84,
+          "Metallic": 0,
+          "NormalStrength": 0.52,
+          "HeightRange": 0.12
+        }
+      }
+    },
+    {
+      "asset_id": "NARIS-W04-MAT-ANCIENTSTONE-0001",
+      "material_library_id": "MAT_W04_ANCIENT_STONE_01",
+      "profile": "surface",
+      "expected_unreal_object_path": "/Game/NARIS/W04/Materials/MI_W04_ANCIENT_STONE_01.MI_W04_ANCIENT_STONE_01",
+      "expected_class": "MaterialInstanceConstant",
+      "expected_parent": "/Game/NARIS/Materials/M_MASTER_SURFACE.M_MASTER_SURFACE",
+      "parameters": {
+        "vector": {
+          "BaseColor": [
+            0.26,
+            0.24,
+            0.28,
+            1
+          ]
+        },
+        "scalar": {
+          "Roughness": 0.72,
+          "Metallic": 0,
+          "NormalStrength": 0.46,
+          "HeightRange": 0.1
+        }
+      }
+    },
+    {
+      "asset_id": "NARIS-W04-MAT-WETSTONE-0001",
+      "material_library_id": "MAT_W04_WET_STONE_01",
+      "profile": "surface",
+      "expected_unreal_object_path": "/Game/NARIS/W04/Materials/MI_W04_WET_STONE_01.MI_W04_WET_STONE_01",
+      "expected_class": "MaterialInstanceConstant",
+      "expected_parent": "/Game/NARIS/Materials/M_MASTER_SURFACE.M_MASTER_SURFACE",
+      "parameters": {
+        "vector": {
+          "BaseColor": [
+            0.1,
+            0.12,
+            0.15,
+            1
+          ]
+        },
+        "scalar": {
+          "Roughness": 0.34,
+          "Metallic": 0,
+          "NormalStrength": 0.38,
+          "HeightRange": 0.06
+        }
+      }
+    },
+    {
+      "asset_id": "NARIS-W04-MAT-BURNTWOOD-0001",
+      "material_library_id": "MAT_W04_BURNT_WOOD_01",
+      "profile": "surface",
+      "expected_unreal_object_path": "/Game/NARIS/W04/Materials/MI_W04_BURNT_WOOD_01.MI_W04_BURNT_WOOD_01",
+      "expected_class": "MaterialInstanceConstant",
+      "expected_parent": "/Game/NARIS/Materials/M_MASTER_SURFACE.M_MASTER_SURFACE",
+      "parameters": {
+        "vector": {
+          "BaseColor": [
+            0.075,
+            0.052,
+            0.04,
+            1
+          ]
+        },
+        "scalar": {
+          "Roughness": 0.82,
+          "Metallic": 0,
+          "NormalStrength": 0.42,
+          "HeightRange": 0.1
+        }
+      }
+    },
+    {
+      "asset_id": "NARIS-W04-MAT-OXIDIZEDIRON-0001",
+      "material_library_id": "MAT_W04_OXIDIZED_IRON_01",
+      "profile": "surface",
+      "expected_unreal_object_path": "/Game/NARIS/W04/Materials/MI_W04_OXIDIZED_IRON_01.MI_W04_OXIDIZED_IRON_01",
+      "expected_class": "MaterialInstanceConstant",
+      "expected_parent": "/Game/NARIS/Materials/M_MASTER_SURFACE.M_MASTER_SURFACE",
+      "parameters": {
+        "vector": {
+          "BaseColor": [
+            0.15,
+            0.17,
+            0.18,
+            1
+          ]
+        },
+        "scalar": {
+          "Roughness": 0.58,
+          "Metallic": 0.88,
+          "NormalStrength": 0.24,
+          "HeightRange": 0.04
+        }
+      }
+    },
+    {
+      "asset_id": "NARIS-W04-MAT-AETHERCRYSTAL-0001",
+      "material_library_id": "MAT_W04_AETHER_CRYSTAL_01",
+      "profile": "surface",
+      "expected_unreal_object_path": "/Game/NARIS/W04/Materials/MI_W04_AETHER_CRYSTAL_01.MI_W04_AETHER_CRYSTAL_01",
+      "expected_class": "MaterialInstanceConstant",
+      "expected_parent": "/Game/NARIS/Materials/M_MASTER_SURFACE.M_MASTER_SURFACE",
+      "parameters": {
+        "vector": {
+          "BaseColor": [
+            0.05,
+            0.38,
+            0.48,
+            1
+          ],
+          "EmissiveColor": [
+            0.2,
+            0.95,
+            1,
+            1
+          ]
+        },
+        "scalar": {
+          "Roughness": 0.18,
+          "Metallic": 0.05,
+          "NormalStrength": 0.18,
+          "EmissiveStrength": 5
+        }
+      }
+    },
+    {
+      "asset_id": "NARIS-W04-MAT-CORRUPTEDSTONE-0001",
+      "material_library_id": "MAT_W04_AETHER_CORRUPTED_STONE_01",
+      "profile": "surface",
+      "expected_unreal_object_path": "/Game/NARIS/W04/Materials/MI_W04_AETHER_CORRUPTED_STONE_01.MI_W04_AETHER_CORRUPTED_STONE_01",
+      "expected_class": "MaterialInstanceConstant",
+      "expected_parent": "/Game/NARIS/Materials/M_MASTER_SURFACE.M_MASTER_SURFACE",
+      "parameters": {
+        "vector": {
+          "BaseColor": [
+            0.12,
+            0.09,
+            0.17,
+            1
+          ],
+          "EmissiveColor": [
+            0.3,
+            0.1,
+            0.7,
+            1
+          ]
+        },
+        "scalar": {
+          "Roughness": 0.62,
+          "Metallic": 0.04,
+          "NormalStrength": 0.56,
+          "HeightRange": 0.13,
+          "EmissiveStrength": 2.2
+        }
+      }
+    },
+    {
+      "asset_id": "NARIS-W04-MAT-MOSSLICHEN-0001",
+      "material_library_id": "MAT_W04_MOSS_LICHEN_01",
+      "profile": "surface",
+      "expected_unreal_object_path": "/Game/NARIS/W04/Materials/MI_W04_MOSS_LICHEN_01.MI_W04_MOSS_LICHEN_01",
+      "expected_class": "MaterialInstanceConstant",
+      "expected_parent": "/Game/NARIS/Materials/M_MASTER_SURFACE.M_MASTER_SURFACE",
+      "parameters": {
+        "vector": {
+          "BaseColor": [
+            0.12,
+            0.18,
+            0.12,
+            1
+          ]
+        },
+        "scalar": {
+          "Roughness": 0.96,
+          "Metallic": 0,
+          "NormalStrength": 0.34,
+          "HeightRange": 0.05
+        }
+      }
+    },
+    {
+      "asset_id": "NARIS-W04-MAT-WHISPERLAKE-0001",
+      "material_library_id": "MAT_W04_WHISPER_LAKE_01",
+      "profile": "water",
+      "expected_unreal_object_path": "/Game/NARIS/W04/Materials/MI_W04_WHISPER_LAKE_01.MI_W04_WHISPER_LAKE_01",
+      "expected_class": "MaterialInstanceConstant",
+      "expected_parent": "/Game/NARIS/Materials/M_MASTER_WATER.M_MASTER_WATER",
+      "parameters": {
+        "scalar": {
+          "Roughness": 0.08,
+          "Refraction": 1.333,
+          "NormalLayers": 2
+        }
+      },
+      "notes": {
+        "depth_fade": true,
+        "foam_mask": true,
+        "surface": "physically_based_translucent"
+      }
+    }
+  ]
+}
