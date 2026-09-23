@@ -16,6 +16,16 @@ MANIFEST = (
     / "Presentation"
     / "W04_PresentationCueManifest.json"
 )
+BINDINGS = (
+    ROOT
+    / "unreal"
+    / "NARIS_W04"
+    / "Content"
+    / "NARIS"
+    / "W04"
+    / "Presentation"
+    / "W04_PresentationAssetBindings.json"
+)
 
 
 class PresentationCueManifestTests(unittest.TestCase):
@@ -23,6 +33,7 @@ class PresentationCueManifestTests(unittest.TestCase):
     def setUpClass(cls) -> None:
         cls.registry = json.loads(REGISTRY.read_text(encoding="utf-8"))
         cls.manifest = json.loads(MANIFEST.read_text(encoding="utf-8"))
+        cls.bindings = json.loads(BINDINGS.read_text(encoding="utf-8"))
         cls.by_id = {
             item["id"]: item
             for item in cls.registry.get("assets", [])
@@ -82,10 +93,26 @@ class PresentationCueManifestTests(unittest.TestCase):
                     "CINE",
                 )
 
+    def test_every_referenced_asset_has_explicit_binding_record(self) -> None:
+        binding_ids = [
+            item["asset_id"]
+            for item in self.bindings.get("assets", [])
+            if isinstance(item, dict) and item.get("asset_id")
+        ]
+        refs: set[str] = set()
+        for cue in self.manifest.get("cues", []) + self.manifest.get("dynamic_cues", []):
+            for key in ("vfx", "audio", "camera"):
+                if cue.get(key):
+                    refs.add(cue[key])
+
+        for asset_id in sorted(refs):
+            self.assertEqual(binding_ids.count(asset_id), 1, asset_id)
+
     def test_dynamic_boss_attack_cue_remains_data_driven(self) -> None:
         dynamic = self.manifest.get("dynamic_cues", [])
         self.assertEqual(len(dynamic), 1)
         self.assertEqual(dynamic[0]["pattern"], "Boss.Attack.<AttackId>")
+        self.assertEqual(dynamic[0]["runtime_cue"], "Boss.Attack.*")
         self.assertIn(
             "FNarisBossAttackDefinition",
             dynamic[0]["note"],
