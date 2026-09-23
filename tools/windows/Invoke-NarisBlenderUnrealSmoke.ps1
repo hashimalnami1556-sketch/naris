@@ -40,7 +40,7 @@ foreach ($path in @($BlenderScript, $UnrealScript, $UProject, $UnrealCmd)) {
 New-Item -ItemType Directory -Force -Path $OutDir | Out-Null
 
 Write-Host "[NARIS] Blender validation/export: $AssetId"
-& $BlenderExe --background $BlendFile --python $BlenderScript -- --out $OutDir --asset-id $AssetId
+& $BlenderExe --background $BlendFile --python $BlenderScript -- --out $OutDir --asset-id $AssetId --registry (Join-Path $RepoRoot "data\MASTER_ASSET_REGISTRY.json")
 if ($LASTEXITCODE -ne 0) { throw "Blender validation/export failed with exit code $LASTEXITCODE" }
 if (-not (Test-Path $Manifest)) { throw "Expected manifest was not produced: $Manifest" }
 
