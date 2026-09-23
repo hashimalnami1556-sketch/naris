@@ -80,7 +80,7 @@ jobs:
         run: python -c "import json; json.load(open('unreal/NARIS_W04/NARIS_W04.uproject', encoding='utf-8')); print('Unreal .uproject JSON OK')"
 
   unreal-build-self-hosted:
-    name: Unreal build (self-hosted runner)
+    name: Unreal Windows build + package + launch smoke
     if: ${{ github.event_name == 'workflow_dispatch' }}
     runs-on: [self-hosted, windows, unreal]
     steps:
@@ -91,9 +91,15 @@ jobs:
         run: |
           if (-not $env:UNREAL_ENGINE_ROOT) { throw 'UNREAL_ENGINE_ROOT runner variable is not configured.' }
           if (-not (Test-Path $env:UNREAL_ENGINE_ROOT)) { throw "UNREAL_ENGINE_ROOT does not exist: $env:UNREAL_ENGINE_ROOT" }
-      - name: Build Development Editor
+      - name: Build, bootstrap, package, and launch smoke
         shell: powershell
         run: |
-          $buildBat = Join-Path $env:UNREAL_ENGINE_ROOT 'Engine/Build/BatchFiles/Build.bat'
-          $uproject = Join-Path $env:GITHUB_WORKSPACE 'unreal/NARIS_W04/NARIS_W04.uproject'
-          & $buildBat 'NARIS_W04Editor' 'Win64' 'Development' $uproject '-WaitMutex'
+          $script = Join-Path $env:GITHUB_WORKSPACE 'tools/windows/Invoke-NarisWindowsPackage.ps1'
+          & $script -RepoRoot $env:GITHUB_WORKSPACE -UnrealEngineRoot $env:UNREAL_ENGINE_ROOT
+      - name: Upload packaged Windows smoke build
+        uses: actions/upload-artifact@v4
+        with:
+          name: NARIS_W04-Windows-Development
+          path: artifacts/windows/NARIS_W04
+          retention-days: 7
+          compression-level: 0
