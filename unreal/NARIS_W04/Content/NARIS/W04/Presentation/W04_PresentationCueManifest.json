@@ -97,6 +97,13 @@
       "vfx": "NARIS-W04-VFX-ASHRUPTURE-0001",
       "audio": "NARIS-W04-AUD-ASHRUPTURE-0001",
       "camera": "NARIS-W04-CINE-SHAKEPHASE-0001"
+    },
+    {
+      "cue": "Hero.Death",
+      "camera": "NARIS-W04-CINE-SHAKEDEATH-0001"
+    },
+    {
+      "cue": "Hero.Respawn"
     }
   ],
   "dynamic_cues": [
