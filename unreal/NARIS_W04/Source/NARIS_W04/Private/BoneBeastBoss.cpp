@@ -37,6 +37,29 @@ void ABoneBeastBoss::BeginPlay()
     }
 }
 
+bool ABoneBeastBoss::Interact_Implementation(AActor* InstigatorActor)
+{
+    return TryStartEncounter(InstigatorActor);
+}
+
+FText ABoneBeastBoss::GetInteractionPrompt_Implementation() const
+{
+    return bEncounterComplete
+        ? NSLOCTEXT("NARIS", "BoneBeastDefeatedPrompt", "Bone Beast Defeated")
+        : NSLOCTEXT("NARIS", "BoneBeastStartPrompt", "Enter Bone Beast Arena");
+}
+
+bool ABoneBeastBoss::TryStartEncounter(AActor* InstigatorActor)
+{
+    if (bEncounterComplete)
+    {
+        return false;
+    }
+
+    StartEncounter();
+    return bEncounterActive;
+}
+
 void ABoneBeastBoss::StartEncounter()
 {
     if (!BossData || BossData->MaxHealth <= 0.f || bEncounterActive || bEncounterComplete)
