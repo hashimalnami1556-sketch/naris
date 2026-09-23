@@ -26,6 +26,18 @@ void UNarisRuntimeSubsystem::BeginNewGame()
     State = FNarisSaveState();
 }
 
+void UNarisRuntimeSubsystem::RequestFrontEndBypassOnce()
+{
+    bFrontEndBypassOnce = true;
+}
+
+bool UNarisRuntimeSubsystem::ConsumeFrontEndBypassOnce()
+{
+    const bool bBypass = bFrontEndBypassOnce;
+    bFrontEndBypassOnce = false;
+    return bBypass;
+}
+
 bool UNarisRuntimeSubsystem::SaveState(const FString& SlotName)
 {
     if (SlotName.IsEmpty())
