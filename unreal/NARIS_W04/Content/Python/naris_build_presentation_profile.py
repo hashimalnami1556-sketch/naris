@@ -120,6 +120,30 @@ def load_binding(binding: dict, kind: str, errors: list[str]):
         return None
 
 
+def resolve_audio_bus(value: str):
+    enum_class = getattr(unreal, "NarisPresentationAudioBus", None)
+    if enum_class is None:
+        raise RuntimeError(
+            "NarisPresentationAudioBus is unavailable. Build the C++ module first."
+        )
+
+    mapping = {
+        "sfx": "SFX",
+        "music": "MUSIC",
+        "voice": "VOICE",
+    }
+    enum_name = mapping.get((value or "").strip().lower())
+    if not enum_name:
+        raise ValueError(f"Unsupported presentation audio bus: {value!r}")
+
+    resolved = getattr(enum_class, enum_name, None)
+    if resolved is None:
+        raise RuntimeError(
+            f"NarisPresentationAudioBus has no reflected value {enum_name}"
+        )
+    return resolved
+
+
 def collect_runtime_cues(manifest: dict) -> list[dict]:
     cues = list(manifest.get("cues", []))
     for dynamic in manifest.get("dynamic_cues", []):
@@ -127,7 +151,7 @@ def collect_runtime_cues(manifest: dict) -> list[dict]:
         if not runtime_cue:
             continue
         entry = {"cue": runtime_cue}
-        for key in ("vfx", "audio", "camera"):
+        for key in ("vfx", "audio", "camera", "audio_bus"):
             if dynamic.get(key):
                 entry[key] = dynamic[key]
         cues.append(entry)
@@ -180,6 +204,28 @@ def main() -> None:
 
         cue = cue_struct_class()
         cue.set_editor_property("cue_id", unreal.Name(cue_id))
+
+        audio_asset_id = cue_def.get("audio")
+        audio_bus_value = cue_def.get("audio_bus")
+        if audio_asset_id:
+            if not audio_bus_value:
+                errors.append(
+                    f"Presentation cue {cue_id} has audio but no audio_bus"
+                )
+            else:
+                try:
+                    cue.set_editor_property(
+                        "audio_bus",
+                        resolve_audio_bus(audio_bus_value),
+                    )
+                except Exception as exc:
+                    errors.append(
+                        f"Presentation cue {cue_id} has invalid audio_bus: {exc}"
+                    )
+        elif audio_bus_value:
+            errors.append(
+                f"Presentation cue {cue_id} declares audio_bus without audio"
+            )
 
         for source_key, property_name, kind in (
             ("vfx", "niagara_system", "vfx"),
