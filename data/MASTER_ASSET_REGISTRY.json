@@ -1013,6 +1013,116 @@
       "source": "data/environments/W04_AshenForest_environment_factory_v2.json",
       "engine_target": "Blender -> Unreal",
       "notes": "Canonical v2 environment generation contract. Snap grid 1m; floor module 4m; streaming cell 128m."
+    },
+    {
+      "id": "NARIS-W04-MAT-ASHSOIL-0001",
+      "name": "Ash Soil",
+      "domain": "MAT",
+      "type": "ASHSOIL",
+      "world": "W04",
+      "status": "brief",
+      "source": "data/materials/W04_ASHEN_FOREST_MATERIAL_LIBRARY_v1.json",
+      "engine_target": "Unreal Material Instance",
+      "notes": "Material library id: MAT_W04_ASH_SOIL_01"
+    },
+    {
+      "id": "NARIS-W04-MAT-VOLCANICSTONE-0001",
+      "name": "Volcanic Ruin Stone",
+      "domain": "MAT",
+      "type": "VOLCANICSTONE",
+      "world": "W04",
+      "status": "brief",
+      "source": "data/materials/W04_ASHEN_FOREST_MATERIAL_LIBRARY_v1.json",
+      "engine_target": "Unreal Material Instance",
+      "notes": "Material library id: MAT_W04_VOLCANIC_STONE_01"
+    },
+    {
+      "id": "NARIS-W04-MAT-ANCIENTSTONE-0001",
+      "name": "Ancient Naris Stone",
+      "domain": "MAT",
+      "type": "ANCIENTSTONE",
+      "world": "W04",
+      "status": "brief",
+      "source": "data/materials/W04_ASHEN_FOREST_MATERIAL_LIBRARY_v1.json",
+      "engine_target": "Unreal Material Instance",
+      "notes": "Material library id: MAT_W04_ANCIENT_STONE_01"
+    },
+    {
+      "id": "NARIS-W04-MAT-WETSTONE-0001",
+      "name": "Whisper Lake Wet Stone",
+      "domain": "MAT",
+      "type": "WETSTONE",
+      "world": "W04",
+      "status": "brief",
+      "source": "data/materials/W04_ASHEN_FOREST_MATERIAL_LIBRARY_v1.json",
+      "engine_target": "Unreal Material Instance",
+      "notes": "Material library id: MAT_W04_WET_STONE_01"
+    },
+    {
+      "id": "NARIS-W04-MAT-BURNTWOOD-0001",
+      "name": "Burnt Forest Wood",
+      "domain": "MAT",
+      "type": "BURNTWOOD",
+      "world": "W04",
+      "status": "brief",
+      "source": "data/materials/W04_ASHEN_FOREST_MATERIAL_LIBRARY_v1.json",
+      "engine_target": "Unreal Material Instance",
+      "notes": "Material library id: MAT_W04_BURNT_WOOD_01"
+    },
+    {
+      "id": "NARIS-W04-MAT-OXIDIZEDIRON-0001",
+      "name": "Ashen Iron",
+      "domain": "MAT",
+      "type": "OXIDIZEDIRON",
+      "world": "W04",
+      "status": "brief",
+      "source": "data/materials/W04_ASHEN_FOREST_MATERIAL_LIBRARY_v1.json",
+      "engine_target": "Unreal Material Instance",
+      "notes": "Material library id: MAT_W04_OXIDIZED_IRON_01"
+    },
+    {
+      "id": "NARIS-W04-MAT-AETHERCRYSTAL-0001",
+      "name": "Aether Crystal",
+      "domain": "MAT",
+      "type": "AETHERCRYSTAL",
+      "world": "W04",
+      "status": "brief",
+      "source": "data/materials/W04_ASHEN_FOREST_MATERIAL_LIBRARY_v1.json",
+      "engine_target": "Unreal Material Instance",
+      "notes": "Material library id: MAT_W04_AETHER_CRYSTAL_01"
+    },
+    {
+      "id": "NARIS-W04-MAT-CORRUPTEDSTONE-0001",
+      "name": "Aether-Corrupted Stone",
+      "domain": "MAT",
+      "type": "CORRUPTEDSTONE",
+      "world": "W04",
+      "status": "brief",
+      "source": "data/materials/W04_ASHEN_FOREST_MATERIAL_LIBRARY_v1.json",
+      "engine_target": "Unreal Material Instance",
+      "notes": "Material library id: MAT_W04_AETHER_CORRUPTED_STONE_01"
+    },
+    {
+      "id": "NARIS-W04-MAT-MOSSLICHEN-0001",
+      "name": "Ash Moss and Lichen",
+      "domain": "MAT",
+      "type": "MOSSLICHEN",
+      "world": "W04",
+      "status": "brief",
+      "source": "data/materials/W04_ASHEN_FOREST_MATERIAL_LIBRARY_v1.json",
+      "engine_target": "Unreal Material Instance",
+      "notes": "Material library id: MAT_W04_MOSS_LICHEN_01"
+    },
+    {
+      "id": "NARIS-W04-MAT-WHISPERLAKE-0001",
+      "name": "Whisper Lake Water",
+      "domain": "MAT",
+      "type": "WHISPERLAKE",
+      "world": "W04",
+      "status": "brief",
+      "source": "data/materials/W04_ASHEN_FOREST_MATERIAL_LIBRARY_v1.json",
+      "engine_target": "Unreal Material Instance",
+      "notes": "Material library id: MAT_W04_WHISPER_LAKE_01"
     }
   ]
 }
