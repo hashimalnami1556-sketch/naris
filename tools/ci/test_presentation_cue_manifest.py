@@ -108,6 +108,25 @@ class PresentationCueManifestTests(unittest.TestCase):
         for asset_id in sorted(refs):
             self.assertEqual(binding_ids.count(asset_id), 1, asset_id)
 
+    def test_every_audio_reference_declares_valid_audio_bus(self) -> None:
+        allowed = {"sfx", "music", "voice"}
+        entries = (
+            self.manifest.get("cues", [])
+            + self.manifest.get("dynamic_cues", [])
+        )
+        for cue in entries:
+            if cue.get("audio"):
+                self.assertIn("audio_bus", cue, cue.get("cue") or cue.get("pattern"))
+                self.assertIn(cue["audio_bus"], allowed)
+            elif cue.get("audio_bus"):
+                self.fail(
+                    f"audio_bus without audio on {cue.get('cue') or cue.get('pattern')}"
+                )
+
+        policy = self.manifest.get("audio_bus_policy", {})
+        self.assertTrue(policy.get("required_for_audio"))
+        self.assertEqual(set(policy.get("allowed", [])), allowed)
+
     def test_dynamic_boss_attack_cue_remains_data_driven(self) -> None:
         dynamic = self.manifest.get("dynamic_cues", [])
         self.assertEqual(len(dynamic), 1)
