@@ -14,6 +14,7 @@ public:
 
 private:
     void DrawPauseMenu();
+    void DrawSubtitle();
     void DrawBar(
         const FString& Label,
         float Value,
