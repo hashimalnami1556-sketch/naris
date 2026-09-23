@@ -3,10 +3,13 @@
 #include "BoneBeastBoss.h"
 #include "Camera/CameraComponent.h"
 #include "CelestialWolf.h"
+#include "Engine/GameInstance.h"
+#include "Engine/World.h"
 #include "EngineUtils.h"
 #include "Components/InputComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/Controller.h"
+#include "GameFramework/PlayerController.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "NarisCombatComponent.h"
@@ -14,6 +17,8 @@
 #include "NarisInteractionComponent.h"
 #include "NarisLockOnComponent.h"
 #include "NarisPresentationComponent.h"
+#include "NarisRuntimeSubsystem.h"
+#include "TimerManager.h"
 
 ANarisHeroCharacter::ANarisHeroCharacter()
 {
@@ -43,9 +48,9 @@ void ANarisHeroCharacter::Tick(float DeltaSeconds)
 {
     Super::Tick(DeltaSeconds);
 
-    if (Combat && Combat->Health <= 0.f)
+    if (Combat && Combat->Health <= 0.f && !bDeathHandled)
     {
-        DisableInput(nullptr);
+        HandleDeath();
     }
 }
 
@@ -427,4 +432,85 @@ void ANarisHeroCharacter::StartSprinting()
 void ANarisHeroCharacter::StopSprinting()
 {
     SetSprinting(false);
+}
+
+
+void ANarisHeroCharacter::HandleDeath()
+{
+    bDeathHandled = true;
+
+    if (APlayerController* PlayerController = Cast<APlayerController>(Controller))
+    {
+        DisableInput(PlayerController);
+    }
+
+    if (GetCharacterMovement())
+    {
+        GetCharacterMovement()->DisableMovement();
+        GetCharacterMovement()->Velocity = FVector::ZeroVector;
+    }
+
+    if (!GetWorld())
+    {
+        return;
+    }
+
+    FTimerHandle RespawnTimer;
+    GetWorldTimerManager().SetTimer(
+        RespawnTimer,
+        this,
+        &ANarisHeroCharacter::RespawnAtCheckpoint,
+        FMath::Max(RespawnDelaySeconds, 0.01f),
+        false
+    );
+}
+
+void ANarisHeroCharacter::RespawnAtCheckpoint()
+{
+    if (GetWorld() && bRespawnAtCheckpoint)
+    {
+        if (UGameInstance* GameInstance = GetWorld()->GetGameInstance())
+        {
+            if (UNarisRuntimeSubsystem* Runtime =
+                    GameInstance->GetSubsystem<UNarisRuntimeSubsystem>())
+            {
+                const FNarisSaveState State = Runtime->GetState();
+                if (State.bHasCheckpointLocation)
+                {
+                    SetActorLocation(
+                        State.CheckpointLocation
+                            + FVector(0.f, 0.f, CheckpointRespawnZOffset),
+                        false,
+                        nullptr,
+                        ETeleportType::TeleportPhysics
+                    );
+                }
+            }
+        }
+    }
+
+    if (Combat)
+    {
+        Combat->Health = Combat->MaxHealth;
+        Combat->Poise = Combat->MaxPoise;
+        Combat->ClearDefenseWindows();
+    }
+
+    if (Energy)
+    {
+        Energy->Energy = Energy->MaxEnergy;
+    }
+
+    if (GetCharacterMovement())
+    {
+        GetCharacterMovement()->SetMovementMode(MOVE_Walking);
+        GetCharacterMovement()->Velocity = FVector::ZeroVector;
+    }
+
+    if (APlayerController* PlayerController = Cast<APlayerController>(Controller))
+    {
+        EnableInput(PlayerController);
+    }
+
+    bDeathHandled = false;
 }
