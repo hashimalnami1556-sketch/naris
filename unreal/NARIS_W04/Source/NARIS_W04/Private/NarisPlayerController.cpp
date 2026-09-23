@@ -242,6 +242,30 @@ void ANarisPlayerController::SetupInputComponent()
     BindPausedAction(TEXT("MenuBack"), &ANarisPlayerController::MenuBack);
 }
 
+bool ANarisPlayerController::InputKey(const FInputKeyParams& Params)
+{
+    if (bPauseMenuOpen
+        && PauseMenuPage == ENarisPauseMenuPage::Controls
+        && bWaitingForGamepadRemap
+        && Params.Event == IE_Pressed
+        && Params.IsGamepad())
+    {
+        if (IsReservedGamepadMenuKey(Params.Key))
+        {
+            CancelGamepadRemap();
+            return true;
+        }
+
+        if (ApplyGamepadActionRemap(PendingRemapAction, Params.Key, true))
+        {
+            CancelGamepadRemap();
+        }
+        return true;
+    }
+
+    return Super::InputKey(Params);
+}
+
 void ANarisPlayerController::TogglePauseMenu()
 {
     if (bPauseMenuOpen)
@@ -292,16 +316,32 @@ void ANarisPlayerController::ClosePauseMenu()
 
 int32 ANarisPlayerController::GetVisibleMenuItemCount() const
 {
-    return PauseMenuPage == ENarisPauseMenuPage::Main
-        ? MainMenuCount
-        : SettingsMenuCount;
+    switch (PauseMenuPage)
+    {
+        case ENarisPauseMenuPage::Main:
+            return MainMenuCount;
+        case ENarisPauseMenuPage::Settings:
+            return SettingsMenuCount;
+        case ENarisPauseMenuPage::Controls:
+            return ControlsMenuCount;
+        default:
+            return 0;
+    }
 }
 
 FText ANarisPlayerController::GetMenuTitle() const
 {
-    return PauseMenuPage == ENarisPauseMenuPage::Main
-        ? NSLOCTEXT("NARIS", "PauseMenuTitle", "CALL OF NARIS")
-        : NSLOCTEXT("NARIS", "SettingsMenuTitle", "Settings");
+    switch (PauseMenuPage)
+    {
+        case ENarisPauseMenuPage::Main:
+            return NSLOCTEXT("NARIS", "PauseMenuTitle", "CALL OF NARIS");
+        case ENarisPauseMenuPage::Settings:
+            return NSLOCTEXT("NARIS", "SettingsMenuTitle", "Settings");
+        case ENarisPauseMenuPage::Controls:
+            return NSLOCTEXT("NARIS", "ControlsMenuTitle", "Controller Remap");
+        default:
+            return FText::GetEmpty();
+    }
 }
 
 FText ANarisPlayerController::GetMenuItemLabel(int32 Index) const
