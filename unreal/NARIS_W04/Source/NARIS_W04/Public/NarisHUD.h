@@ -13,6 +13,7 @@ public:
     virtual void DrawHUD() override;
 
 private:
+    void DrawPauseMenu();
     void DrawBar(
         const FString& Label,
         float Value,
