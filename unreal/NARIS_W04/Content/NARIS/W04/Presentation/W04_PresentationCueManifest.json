@@ -9,94 +9,112 @@
       "cue": "Hero.AttackHit.Light",
       "vfx": "NARIS-W04-VFX-HEROIMPACT-0001",
       "audio": "NARIS-W04-AUD-HEROIMPACT-0001",
-      "camera": "NARIS-W04-CINE-SHAKEHIT-0001"
+      "camera": "NARIS-W04-CINE-SHAKEHIT-0001",
+      "audio_bus": "sfx"
     },
     {
       "cue": "Hero.AttackHit.Heavy",
       "vfx": "NARIS-W04-VFX-HEROIMPACT-0001",
       "audio": "NARIS-W04-AUD-HEROIMPACT-0001",
-      "camera": "NARIS-W04-CINE-SHAKEHEAVY-0001"
+      "camera": "NARIS-W04-CINE-SHAKEHEAVY-0001",
+      "audio_bus": "sfx"
     },
     {
       "cue": "Hero.ParrySuccess",
       "vfx": "NARIS-W04-VFX-HEROPARRY-0001",
       "audio": "NARIS-W04-AUD-PARRY-0001",
-      "camera": "NARIS-W04-CINE-SHAKEPARRY-0001"
+      "camera": "NARIS-W04-CINE-SHAKEPARRY-0001",
+      "audio_bus": "sfx"
     },
     {
       "cue": "Hero.Dodge",
       "vfx": "NARIS-W04-VFX-HERODODGE-0001",
-      "audio": "NARIS-W04-AUD-DODGE-0001"
+      "audio": "NARIS-W04-AUD-DODGE-0001",
+      "audio_bus": "sfx"
     },
     {
       "cue": "Hero.EssenceSwitch",
-      "audio": "NARIS-W04-AUD-ESSENCE-0001"
+      "audio": "NARIS-W04-AUD-ESSENCE-0001",
+      "audio_bus": "sfx"
     },
     {
       "cue": "Wolf.Bonded",
       "vfx": "NARIS-W04-VFX-SPIRIT-0001",
-      "audio": "NARIS-W04-AUD-WOLFBOND-0001"
+      "audio": "NARIS-W04-AUD-WOLFBOND-0001",
+      "audio_bus": "sfx"
     },
     {
       "cue": "Wolf.AttackImpact",
       "vfx": "NARIS-W04-VFX-WOLFIMPACT-0001",
-      "audio": "NARIS-W04-AUD-WOLFATTACK-0001"
+      "audio": "NARIS-W04-AUD-WOLFATTACK-0001",
+      "audio_bus": "sfx"
     },
     {
       "cue": "Wolf.EchoLink.Pulse",
       "vfx": "NARIS-W04-VFX-WOLFECHO-0001",
-      "audio": "NARIS-W04-AUD-WOLFECHO-0001"
+      "audio": "NARIS-W04-AUD-WOLFECHO-0001",
+      "audio_bus": "sfx"
     },
     {
       "cue": "Boss.EncounterStarted",
-      "audio": "NARIS-W04-AUD-BONEINTRO-0001"
+      "audio": "NARIS-W04-AUD-BONEINTRO-0001",
+      "audio_bus": "sfx"
     },
     {
       "cue": "Boss.DamageTaken",
       "vfx": "NARIS-W04-VFX-BONEHIT-0001",
-      "audio": "NARIS-W04-AUD-BONEHIT-0001"
+      "audio": "NARIS-W04-AUD-BONEHIT-0001",
+      "audio_bus": "sfx"
     },
     {
       "cue": "Boss.PhaseTransition",
       "vfx": "NARIS-W04-VFX-BONEPHASE-0001",
       "audio": "NARIS-W04-AUD-BONEPHASE-0001",
-      "camera": "NARIS-W04-CINE-SHAKEPHASE-0001"
+      "camera": "NARIS-W04-CINE-SHAKEPHASE-0001",
+      "audio_bus": "sfx"
     },
     {
       "cue": "Boss.Death",
       "vfx": "NARIS-W04-VFX-BONEDEATH-0001",
       "audio": "NARIS-W04-AUD-BONEDEATH-0001",
-      "camera": "NARIS-W04-CINE-SHAKEDEATH-0001"
+      "camera": "NARIS-W04-CINE-SHAKEDEATH-0001",
+      "audio_bus": "sfx"
     },
     {
       "cue": "Arena.Enter",
-      "audio": "NARIS-W04-AUD-ARENA-0001"
+      "audio": "NARIS-W04-AUD-ARENA-0001",
+      "audio_bus": "sfx"
     },
     {
       "cue": "Arena.Lock",
       "vfx": "NARIS-W04-VFX-ARENALOCK-0001",
-      "audio": "NARIS-W04-AUD-ARENA-0001"
+      "audio": "NARIS-W04-AUD-ARENA-0001",
+      "audio_bus": "sfx"
     },
     {
       "cue": "Arena.Unlock",
       "vfx": "NARIS-W04-VFX-ARENAUNLOCK-0001",
-      "audio": "NARIS-W04-AUD-ARENA-0001"
+      "audio": "NARIS-W04-AUD-ARENA-0001",
+      "audio_bus": "sfx"
     },
     {
       "cue": "Boss.Attack.ClawSweep",
       "vfx": "NARIS-W04-VFX-BONECLAW-0001",
-      "audio": "NARIS-W04-AUD-BONECLAW-0001"
+      "audio": "NARIS-W04-AUD-BONECLAW-0001",
+      "audio_bus": "sfx"
     },
     {
       "cue": "Boss.Attack.BoneCharge",
       "vfx": "NARIS-W04-VFX-BONECHARGE-0001",
-      "audio": "NARIS-W04-AUD-BONECHARGE-0001"
+      "audio": "NARIS-W04-AUD-BONECHARGE-0001",
+      "audio_bus": "sfx"
     },
     {
       "cue": "Boss.Attack.AshRupture",
       "vfx": "NARIS-W04-VFX-ASHRUPTURE-0001",
       "audio": "NARIS-W04-AUD-ASHRUPTURE-0001",
-      "camera": "NARIS-W04-CINE-SHAKEPHASE-0001"
+      "camera": "NARIS-W04-CINE-SHAKEPHASE-0001",
+      "audio_bus": "sfx"
     },
     {
       "cue": "Hero.Death",
@@ -112,7 +130,17 @@
       "source": "ABoneBeastBoss::RequestAttack",
       "audio": "NARIS-W04-AUD-BONEATTACK-0001",
       "note": "Fallback presentation for any data-driven AttackId not given an explicit cue. AttackId is the presentation/runtime attack key; current source-supported phase attacks are ClawSweep, BoneCharge and AshRupture.",
-      "runtime_cue": "Boss.Attack.*"
+      "runtime_cue": "Boss.Attack.*",
+      "audio_bus": "sfx"
     }
-  ]
+  ],
+  "audio_bus_policy": {
+    "required_for_audio": true,
+    "allowed": [
+      "sfx",
+      "music",
+      "voice"
+    ],
+    "current_w04_assignment": "All currently authored W04 presentation audio references are SFX until approved music/voice payloads are registered."
+  }
 }
