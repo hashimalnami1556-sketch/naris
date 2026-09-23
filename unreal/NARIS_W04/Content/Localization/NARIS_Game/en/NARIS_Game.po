@@ -297,3 +297,75 @@ msgstr "Navigate: W/S or D-Pad   Confirm: Enter/A   Back: Esc/B"
 msgctxt "NARIS,SettingsMenuHint"
 msgid "Adjust: A/D or Left/Right   Confirm: Enter/A   Back: Esc/B"
 msgstr "Adjust: A/D or Left/Right   Confirm: Enter/A   Back: Esc/B"
+
+msgctxt "NARIS,PauseControls"
+msgid "Controller Remap"
+msgstr "Controller Remap"
+
+msgctxt "NARIS,ControlsMenuTitle"
+msgid "Controller Remap"
+msgstr "Controller Remap"
+
+msgctxt "NARIS,ControlLightAttack"
+msgid "Light Attack"
+msgstr "Light Attack"
+
+msgctxt "NARIS,ControlHeavyAttack"
+msgid "Heavy Attack"
+msgstr "Heavy Attack"
+
+msgctxt "NARIS,ControlDodge"
+msgid "Dodge"
+msgstr "Dodge"
+
+msgctxt "NARIS,ControlParry"
+msgid "Parry"
+msgstr "Parry"
+
+msgctxt "NARIS,ControlResonanceBurst"
+msgid "Resonance Burst"
+msgstr "Resonance Burst"
+
+msgctxt "NARIS,ControlLockOn"
+msgid "Lock On"
+msgstr "Lock On"
+
+msgctxt "NARIS,ControlInteract"
+msgid "Interact"
+msgstr "Interact"
+
+msgctxt "NARIS,ControlSprint"
+msgid "Sprint"
+msgstr "Sprint"
+
+msgctxt "NARIS,ControlEssenceNext"
+msgid "Next Essence"
+msgstr "Next Essence"
+
+msgctxt "NARIS,ControlEssencePrevious"
+msgid "Previous Essence"
+msgstr "Previous Essence"
+
+msgctxt "NARIS,ControlCompanionMode"
+msgid "Companion Mode"
+msgstr "Companion Mode"
+
+msgctxt "NARIS,ControlsResetDefaults"
+msgid "Reset Controller Defaults"
+msgstr "Reset Controller Defaults"
+
+msgctxt "NARIS,ControlsPressButton"
+msgid "Press a gamepad button..."
+msgstr "Press a gamepad button..."
+
+msgctxt "NARIS,ControlsUnbound"
+msgid "Unbound"
+msgstr "Unbound"
+
+msgctxt "NARIS,ControlsCaptureHint"
+msgid "Press a gamepad button. Start/B cancels capture."
+msgstr "Press a gamepad button. Start/B cancels capture."
+
+msgctxt "NARIS,ControlsMenuHint"
+msgid "Select an action and press Confirm to remap. Back: Esc/B"
+msgstr "Select an action and press Confirm to remap. Back: Esc/B"
