@@ -13,6 +13,7 @@
 #include "Misc/Parse.h"
 #include "Misc/Paths.h"
 #include "NarisAshGate.h"
+#include "NarisBossArenaController.h"
 #include "NarisMemoryCrystal.h"
 #include "NarisRuntimeSubsystem.h"
 #include "NarisWaystone.h"
@@ -91,6 +92,7 @@ void ANarisRuntimeSmokeDirector::RunSmoke()
     ANarisAshGate* AshGate = nullptr;
     ACelestialWolf* Wolf = nullptr;
     ABoneBeastBoss* BoneBeast = nullptr;
+    ANarisBossArenaController* Arena = nullptr;
 
     for (TActorIterator<ANarisWaystone> It(World); It; ++It)
     {
@@ -117,14 +119,20 @@ void ANarisRuntimeSmokeDirector::RunSmoke()
         BoneBeast = *It;
         break;
     }
+    for (TActorIterator<ANarisBossArenaController> It(World); It; ++It)
+    {
+        Arena = *It;
+        break;
+    }
 
     Steps.Add(TEXT("waystone_actor"), Waystone != nullptr);
     Steps.Add(TEXT("memory_crystal_actor"), MemoryCrystal != nullptr);
     Steps.Add(TEXT("ash_gate_actor"), AshGate != nullptr);
     Steps.Add(TEXT("celestial_wolf_actor"), Wolf != nullptr);
     Steps.Add(TEXT("bone_beast_actor"), BoneBeast != nullptr);
+    Steps.Add(TEXT("boss_arena_actor"), Arena != nullptr);
 
-    if (!Waystone || !MemoryCrystal || !AshGate || !Wolf || !BoneBeast)
+    if (!Waystone || !MemoryCrystal || !AshGate || !Wolf || !BoneBeast || !Arena)
     {
         FinishSmoke(false, Steps, TEXT("Required W04 smoke actors are missing"));
         return;
@@ -153,6 +161,10 @@ void ANarisRuntimeSmokeDirector::RunSmoke()
 
     const bool bBossStarted = BoneBeast->TryStartEncounter(this);
     Steps.Add(TEXT("bone_beast_start"), bBossStarted);
+    Steps.Add(
+        TEXT("arena_closed_on_encounter"),
+        bBossStarted && Arena->bArenaClosed
+    );
 
     if (bBossStarted)
     {
@@ -161,6 +173,10 @@ void ANarisRuntimeSmokeDirector::RunSmoke()
 
     const bool bBossComplete = BoneBeast->IsEncounterComplete();
     Steps.Add(TEXT("bone_beast_complete"), bBossComplete);
+    Steps.Add(
+        TEXT("arena_open_after_completion"),
+        bBossComplete && !Arena->bArenaClosed
+    );
 
     const FNarisSaveState BeforeReload = Runtime->GetState();
 
