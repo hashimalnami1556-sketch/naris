@@ -155,6 +155,11 @@ def main():
             require_unreal_class("BoneBeastBoss"),
             unreal.Vector(3000.0, 0.0, 100.0),
         ),
+        (
+            "NARIS_RuntimeSmokeDirector",
+            require_unreal_class("NarisRuntimeSmokeDirector"),
+            unreal.Vector(-800.0, 400.0, 100.0),
+        ),
     ]
 
     for label, actor_class, location in placements:
