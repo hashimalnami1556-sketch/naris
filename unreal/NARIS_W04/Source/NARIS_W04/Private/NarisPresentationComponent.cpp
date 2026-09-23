@@ -1,6 +1,9 @@
 #include "NarisPresentationComponent.h"
 
 #include "Camera/CameraShakeBase.h"
+#include "NarisGameUserSettings.h"
+#include "GameFramework/PlayerController.h"
+#include "Camera/PlayerCameraManager.h"
 #include "Kismet/GameplayStatics.h"
 #include "NiagaraFunctionLibrary.h"
 #include "NiagaraSystem.h"
@@ -127,11 +130,17 @@ bool UNarisPresentationComponent::TriggerCueAtLocation(
 
     if (Cue->Sound)
     {
+        const UNarisGameUserSettings* Settings =
+            UNarisGameUserSettings::GetNarisGameUserSettings();
+        const float SFXScale = Settings
+            ? Settings->GetPresentationSFXScale()
+            : 1.f;
+
         UGameplayStatics::PlaySoundAtLocation(
             this,
             Cue->Sound,
             WorldLocation,
-            Cue->VolumeMultiplier,
+            Cue->VolumeMultiplier * SFXScale,
             Cue->PitchMultiplier,
             0.f,
             nullptr,
@@ -139,17 +148,60 @@ bool UNarisPresentationComponent::TriggerCueAtLocation(
         );
     }
 
-    if (Cue->CameraShake)
+    if (Cue->CameraShake && GetWorld())
     {
-        UGameplayStatics::PlayWorldCameraShake(
-            this,
-            Cue->CameraShake,
-            WorldLocation,
-            FMath::Max(0.f, Cue->ShakeInnerRadius),
-            FMath::Max(Cue->ShakeInnerRadius, Cue->ShakeOuterRadius),
-            FMath::Max(0.f, Cue->ShakeFalloff),
-            false
-        );
+        const UNarisGameUserSettings* Settings =
+            UNarisGameUserSettings::GetNarisGameUserSettings();
+        const float UserShakeScale = Settings
+            ? Settings->GetEffectiveCameraShakeScale()
+            : 1.f;
+
+        APlayerController* PlayerController =
+            GetWorld()->GetFirstPlayerController();
+        APlayerCameraManager* CameraManager =
+            PlayerController ? PlayerController->PlayerCameraManager : nullptr;
+
+        if (CameraManager && UserShakeScale > 0.f)
+        {
+            const float InnerRadius = FMath::Max(0.f, Cue->ShakeInnerRadius);
+            const float OuterRadius =
+                FMath::Max(InnerRadius, Cue->ShakeOuterRadius);
+            const float Distance = FVector::Distance(
+                CameraManager->GetCameraLocation(),
+                WorldLocation
+            );
+
+            float SpatialScale = 1.f;
+            if (Distance > InnerRadius)
+            {
+                if (OuterRadius <= InnerRadius || Distance >= OuterRadius)
+                {
+                    SpatialScale = 0.f;
+                }
+                else
+                {
+                    const float Alpha = 1.f - (
+                        (Distance - InnerRadius)
+                        / FMath::Max(OuterRadius - InnerRadius, 1.f)
+                    );
+                    SpatialScale = FMath::Pow(
+                        FMath::Clamp(Alpha, 0.f, 1.f),
+                        FMath::Max(Cue->ShakeFalloff, 0.f)
+                    );
+                }
+            }
+
+            const float EffectiveScale = UserShakeScale * SpatialScale;
+            if (EffectiveScale > KINDA_SMALL_NUMBER)
+            {
+                CameraManager->StartCameraShake(
+                    Cue->CameraShake,
+                    EffectiveScale,
+                    ECameraShakePlaySpace::CameraLocal,
+                    FRotator::ZeroRotator
+                );
+            }
+        }
     }
 
     return true;
