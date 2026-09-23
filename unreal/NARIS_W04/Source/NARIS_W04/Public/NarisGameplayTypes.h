@@ -13,6 +13,14 @@ enum class ENarisEssence : uint8
     Radiant
 };
 
+UENUM(BlueprintType)
+enum class ENarisAttackKind : uint8
+{
+    None,
+    Light,
+    Heavy
+};
+
 USTRUCT(BlueprintType)
 struct FNarisCombatResult
 {
