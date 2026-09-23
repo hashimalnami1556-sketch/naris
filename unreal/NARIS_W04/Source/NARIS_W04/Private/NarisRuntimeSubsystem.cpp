@@ -86,7 +86,7 @@ bool UNarisRuntimeSubsystem::ActivateWaystone(
 
 bool UNarisRuntimeSubsystem::SetCheckpointLocation(FVector WorldLocation)
 {
-    if (!WorldLocation.IsFinite())
+    if (WorldLocation.ContainsNaN())
     {
         return false;
     }
