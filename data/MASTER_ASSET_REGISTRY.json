@@ -892,6 +892,116 @@
       "source": "bone_beast_phase_attack_pass_2026-09-23",
       "engine_target": "Unreal Audio/MetaSounds",
       "notes": "Phase 3 AshRupture attack"
+    },
+    {
+      "id": "NARIS-W04-CHR-ANIMLIGHT-0001",
+      "name": "Hero Light Attack Montage",
+      "domain": "CHR",
+      "type": "ANIMLIGHT",
+      "world": "W04",
+      "status": "brief",
+      "source": "animation_production_gate_2026-09-23",
+      "engine_target": "Unreal AnimMontage",
+      "notes": "Hero light attack montage; must contain NarisAttackWindowNotifyState and NarisAttackImpactNotify."
+    },
+    {
+      "id": "NARIS-W04-CHR-ANIMHEAVY-0001",
+      "name": "Hero Heavy Attack Montage",
+      "domain": "CHR",
+      "type": "ANIMHEAVY",
+      "world": "W04",
+      "status": "brief",
+      "source": "animation_production_gate_2026-09-23",
+      "engine_target": "Unreal AnimMontage",
+      "notes": "Hero heavy attack montage; must contain NarisAttackWindowNotifyState and NarisAttackImpactNotify."
+    },
+    {
+      "id": "NARIS-W04-CHR-ANIMDODGE-0001",
+      "name": "Hero Dodge Montage",
+      "domain": "CHR",
+      "type": "ANIMDODGE",
+      "world": "W04",
+      "status": "brief",
+      "source": "animation_production_gate_2026-09-23",
+      "engine_target": "Unreal AnimMontage",
+      "notes": "Hero dodge presentation montage; gameplay i-frames remain C++ authoritative."
+    },
+    {
+      "id": "NARIS-W04-CHR-ANIMPARRY-0001",
+      "name": "Hero Parry Montage",
+      "domain": "CHR",
+      "type": "ANIMPARRY",
+      "world": "W04",
+      "status": "brief",
+      "source": "animation_production_gate_2026-09-23",
+      "engine_target": "Unreal AnimMontage",
+      "notes": "Hero parry presentation montage; gameplay parry window remains C++ authoritative."
+    },
+    {
+      "id": "NARIS-W04-CHR-ANIMWOLFATTACK-0001",
+      "name": "Celestial Wolf Attack Montage",
+      "domain": "CHR",
+      "type": "ANIMWOLFATTACK",
+      "world": "W04",
+      "status": "brief",
+      "source": "animation_production_gate_2026-09-23",
+      "engine_target": "Unreal AnimMontage",
+      "notes": "Celestial Wolf attack montage; must contain NarisWolfAttackImpactNotify."
+    },
+    {
+      "id": "NARIS-W04-BOS-ANIMCLAW-0001",
+      "name": "Bone Beast Claw Sweep Montage",
+      "domain": "BOS",
+      "type": "ANIMCLAW",
+      "world": "W04",
+      "status": "brief",
+      "source": "animation_production_gate_2026-09-23",
+      "engine_target": "Unreal AnimMontage",
+      "notes": "Phase 1 Bone Beast attack montage; must contain BoneBeastAttackImpactNotify."
+    },
+    {
+      "id": "NARIS-W04-BOS-ANIMCHARGE-0001",
+      "name": "Bone Beast Bone Charge Montage",
+      "domain": "BOS",
+      "type": "ANIMCHARGE",
+      "world": "W04",
+      "status": "brief",
+      "source": "animation_production_gate_2026-09-23",
+      "engine_target": "Unreal AnimMontage",
+      "notes": "Phase 2 Bone Beast attack montage; must contain BoneBeastAttackImpactNotify."
+    },
+    {
+      "id": "NARIS-W04-BOS-ANIMASHRUPTURE-0001",
+      "name": "Bone Beast Ash Rupture Montage",
+      "domain": "BOS",
+      "type": "ANIMASHRUPTURE",
+      "world": "W04",
+      "status": "brief",
+      "source": "animation_production_gate_2026-09-23",
+      "engine_target": "Unreal AnimMontage",
+      "notes": "Phase 3 Bone Beast attack montage; must contain BoneBeastAttackImpactNotify."
+    },
+    {
+      "id": "NARIS-W04-BOS-ANIMPHASE-0001",
+      "name": "Bone Beast Phase Transition Montage",
+      "domain": "BOS",
+      "type": "ANIMPHASE",
+      "world": "W04",
+      "status": "brief",
+      "source": "animation_production_gate_2026-09-23",
+      "engine_target": "Unreal AnimMontage",
+      "notes": "Bone Beast phase-transition presentation montage."
+    },
+    {
+      "id": "NARIS-W04-BOS-ANIMDEATH-0001",
+      "name": "Bone Beast Death Montage",
+      "domain": "BOS",
+      "type": "ANIMDEATH",
+      "world": "W04",
+      "status": "brief",
+      "source": "animation_production_gate_2026-09-23",
+      "engine_target": "Unreal AnimMontage",
+      "notes": "Bone Beast death presentation montage."
     }
   ]
 }
