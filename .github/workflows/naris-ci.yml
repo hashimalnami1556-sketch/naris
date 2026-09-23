@@ -6,6 +6,15 @@ on:
   pull_request:
     branches: [main]
   workflow_dispatch:
+    inputs:
+      package_mode:
+        description: Windows package gate to execute
+        required: true
+        default: development
+        type: choice
+        options:
+          - development
+          - release_candidate
 
 permissions:
   contents: read
@@ -80,7 +89,7 @@ jobs:
         run: python -c "import json; json.load(open('unreal/NARIS_W04/NARIS_W04.uproject', encoding='utf-8')); print('Unreal .uproject JSON OK')"
 
   unreal-build-self-hosted:
-    name: Unreal Windows build + package + launch smoke
+    name: Unreal Windows package gate
     if: ${{ github.event_name == 'workflow_dispatch' }}
     runs-on: [self-hosted, windows, unreal]
     steps:
@@ -91,15 +100,31 @@ jobs:
         run: |
           if (-not $env:UNREAL_ENGINE_ROOT) { throw 'UNREAL_ENGINE_ROOT runner variable is not configured.' }
           if (-not (Test-Path $env:UNREAL_ENGINE_ROOT)) { throw "UNREAL_ENGINE_ROOT does not exist: $env:UNREAL_ENGINE_ROOT" }
-      - name: Build, bootstrap, package, and launch smoke
+      - name: Development build, runtime smoke, and profiling
+        if: ${{ inputs.package_mode == 'development' }}
         shell: powershell
         run: |
           $script = Join-Path $env:GITHUB_WORKSPACE 'tools/windows/Invoke-NarisWindowsPackage.ps1'
           & $script -RepoRoot $env:GITHUB_WORKSPACE -UnrealEngineRoot $env:UNREAL_ENGINE_ROOT
-      - name: Upload packaged Windows smoke build
+      - name: Shipping release candidate gate
+        if: ${{ inputs.package_mode == 'release_candidate' }}
+        shell: powershell
+        run: |
+          $script = Join-Path $env:GITHUB_WORKSPACE 'tools/windows/Invoke-NarisWindowsReleaseCandidate.ps1'
+          & $script -RepoRoot $env:GITHUB_WORKSPACE -UnrealEngineRoot $env:UNREAL_ENGINE_ROOT
+      - name: Upload Development smoke build
+        if: ${{ inputs.package_mode == 'development' }}
         uses: actions/upload-artifact@v4
         with:
           name: NARIS_W04-Windows-Development
           path: artifacts/windows/NARIS_W04
           retention-days: 7
+          compression-level: 0
+      - name: Upload Shipping release candidate
+        if: ${{ inputs.package_mode == 'release_candidate' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: NARIS_W04-Windows-Shipping-RC
+          path: artifacts/windows/NARIS_W04_RC
+          retention-days: 14
           compression-level: 0
