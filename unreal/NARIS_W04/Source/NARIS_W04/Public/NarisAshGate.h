@@ -40,6 +40,12 @@ public:
     FString RequiredNarrativeId = TEXT("W04_FirstWhisper");
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="NARIS|AshGate")
+    FString QuestId = TEXT("Quest.W04.CorruptedHeart");
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="NARIS|AshGate")
+    int32 QuestStep = 2;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="NARIS|AshGate")
     FString AutoSaveSlot = TEXT("NARIS_Auto");
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="NARIS|AshGate")
