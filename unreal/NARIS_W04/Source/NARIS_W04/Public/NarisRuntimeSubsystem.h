@@ -33,6 +33,9 @@ public:
     );
 
     UFUNCTION(BlueprintCallable, Category="NARIS|Runtime")
+    bool SetCheckpointLocation(FVector WorldLocation);
+
+    UFUNCTION(BlueprintCallable, Category="NARIS|Runtime")
     bool UnlockLore(const FString& LoreId);
 
     UFUNCTION(BlueprintCallable, Category="NARIS|Runtime")
