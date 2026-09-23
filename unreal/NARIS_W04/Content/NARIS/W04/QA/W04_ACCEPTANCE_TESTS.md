@@ -19,14 +19,15 @@ T16 Packaged runtime progression smoke drives Waystone -> MemoryCrystal -> AshGa
 T17 Runtime smoke Save -> New Game -> Load restores checkpoint, lore, narrative, gate, companion, quest, boss and DemoEnd.
 T18 Windows BuildCookRun package launches successfully in en and ar cultures.
 T19 Windows Development package emits package-smoke report and requested CSV/GPU/LLM profiling evidence.
-T20 Presentation cue bus fans authoritative gameplay events into optional Niagara, Audio/MetaSound and CameraShake payloads without mutating gameplay state.
+T20 Presentation cue bus fans authoritative gameplay events into optional Niagara, Audio/MetaSound and CameraShake payloads without mutating gameplay state; every audio cue declares SFX/Music/Voice routing.
 T21 Bone Beast arena blocker closes on EncounterStarted and reopens on EncounterComplete; packaged runtime smoke verifies the lock cycle.
 T22 Every W04 presentation VFX/AUD/Camera asset ID referenced by the cue manifest exists exactly once in MASTER_ASSET_REGISTRY.json.
 T23 Boss arena entry trigger automatically starts Bone Beast only for the local player and disables itself after encounter start/completion.
 T24 Shipping Release Candidate gate rejects any unbound presentation VFX/AUD/Camera asset before Shipping BuildCookRun.
 T25 Hero death disables control, then respawns at the saved Waystone location with restored health, poise, energy, movement and input.
-T26 Graphics/audio/accessibility settings persist through NarisGameUserSettings, including quality, VSync/FPS, master/music/SFX/voice, subtitles/scale, camera-shake reduction/intensity, high-contrast interactions and color-vision correction; Apply & Save and Reset Defaults are reachable from the pause menu.
+T26 Graphics/audio/accessibility settings persist through NarisGameUserSettings, including quality, VSync/FPS, master/music/SFX/voice, subtitles/scale, camera-shake reduction/intensity, high-contrast interactions and color-vision correction; presentation audio applies Master × selected SFX/Music/Voice bus volume; Apply & Save and Reset Defaults are reachable from the pause menu.
 T27 Every bound W04 Niagara presentation payload must be a real NiagaraSystem with at least one emitter handle; empty placeholder systems are rejected by binding resolution/profile authoring and cannot pass Shipping RC.
 T28 Runtime subtitles are data-driven through NarisSubtitleSubsystem, respect Subtitles Enabled and Subtitle Scale, expire deterministically, and may be authored on First Whisper/Memory Crystal without hard-coded fabricated dialogue.
 T29 Controller remap exposes the 11 core W04 gameplay actions from the paused Controls page, captures a new gamepad button, rejects conflicts and reserved Start/B keys, persists through InputSettings SaveKeyMappings/ForceRebuildKeymaps, and can restore the canonical defaults.
 T30 Normal W04 boot opens the localized front-end with New Game, Continue, Settings, Controller Remap and Quit; Continue requires an existing auto-save, New Game writes clean state and reloads the current level with a one-shot front-end bypass, and packaged runtime smoke bypasses the front-end automatically.
+T30 Presentation audio routing is explicit and manifest-driven: every audio payload declares sfx/music/voice, profile authoring rejects missing or invalid buses, and runtime volume uses Master × the selected bus.
