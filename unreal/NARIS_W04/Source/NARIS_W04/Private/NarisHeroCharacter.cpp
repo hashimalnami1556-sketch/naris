@@ -447,6 +447,11 @@ void ANarisHeroCharacter::HandleDeath()
 {
     bDeathHandled = true;
 
+    if (Presentation)
+    {
+        Presentation->TriggerCue(TEXT("Hero.Death"));
+    }
+
     if (APlayerController* PlayerController = Cast<APlayerController>(Controller))
     {
         DisableInput(PlayerController);
@@ -521,4 +526,9 @@ void ANarisHeroCharacter::RespawnAtCheckpoint()
     }
 
     bDeathHandled = false;
+
+    if (Presentation)
+    {
+        Presentation->TriggerCue(TEXT("Hero.Respawn"));
+    }
 }
