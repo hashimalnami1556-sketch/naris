@@ -1,0 +1,73 @@
+{
+  "schema": "naris.w04.production-assets.v1",
+  "world": "W04",
+  "rule": "Missing assets are unresolved production work. Strict Shipping requires all listed assets to exist and pass technical validation.",
+  "assets": [
+    {
+      "asset_id": "NARIS-W04-CHR-HERO-0001",
+      "role": "hero",
+      "kind": "skeletal_mesh",
+      "expected_unreal_object_path": "/Game/NARIS/W04/Characters/Hero/SK_AshenVessel.SK_AshenVessel",
+      "min_lods": 3,
+      "require_materials": true,
+      "require_skeleton": true,
+      "require_physics_asset": true
+    },
+    {
+      "asset_id": "NARIS-W04-CHR-COMPANION-0001",
+      "role": "celestial_wolf",
+      "kind": "skeletal_mesh",
+      "expected_unreal_object_path": "/Game/NARIS/W04/Characters/CelestialWolf/SK_CelestialWolf.SK_CelestialWolf",
+      "min_lods": 3,
+      "require_materials": true,
+      "require_skeleton": true,
+      "require_physics_asset": true
+    },
+    {
+      "asset_id": "NARIS-W04-ENM-BONEBEAST-0001",
+      "role": "bone_beast",
+      "kind": "skeletal_mesh",
+      "expected_unreal_object_path": "/Game/NARIS/W04/Bosses/BoneBeast/SK_BoneBeast.SK_BoneBeast",
+      "min_lods": 3,
+      "require_materials": true,
+      "require_skeleton": true,
+      "require_physics_asset": true
+    },
+    {
+      "asset_id": "NARIS-W04-PRP-WAYSTONE-0001",
+      "role": "waystone",
+      "kind": "static_mesh",
+      "expected_unreal_object_path": "/Game/NARIS/W04/Environment/Props/Waystone/SM_Waystone.SM_Waystone",
+      "min_lods": 2,
+      "require_materials": true,
+      "require_collision": true
+    },
+    {
+      "asset_id": "NARIS-W04-PRP-MEMORYCRYSTAL-0001",
+      "role": "memory_crystal",
+      "kind": "static_mesh",
+      "expected_unreal_object_path": "/Game/NARIS/W04/Environment/Props/MemoryCrystal/SM_MemoryCrystal.SM_MemoryCrystal",
+      "min_lods": 2,
+      "require_materials": true,
+      "require_collision": true
+    },
+    {
+      "asset_id": "NARIS-W04-PRP-ASHGATE-0001",
+      "role": "ash_gate",
+      "kind": "static_mesh",
+      "expected_unreal_object_path": "/Game/NARIS/W04/Environment/Architecture/AshGate/SM_AshGate.SM_AshGate",
+      "min_lods": 3,
+      "require_materials": true,
+      "require_collision": true
+    },
+    {
+      "asset_id": "NARIS-W04-WPN-SWORD-0001",
+      "role": "sword_of_poem",
+      "kind": "static_mesh",
+      "expected_unreal_object_path": "/Game/NARIS/W04/Weapons/SwordOfPoem/SM_SwordOfPoem.SM_SwordOfPoem",
+      "min_lods": 2,
+      "require_materials": true,
+      "require_collision": true
+    }
+  ]
+}
