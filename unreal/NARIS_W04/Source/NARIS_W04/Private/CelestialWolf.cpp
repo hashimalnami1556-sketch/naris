@@ -98,6 +98,53 @@ void ACelestialWolf::EchoLink()
     SetMode(ENarisWolfMode::EchoLink);
 }
 
+void ACelestialWolf::CycleMode()
+{
+    if (!bBonded)
+    {
+        return;
+    }
+
+    switch (Mode)
+    {
+        case ENarisWolfMode::Follow:
+            SetMode(ENarisWolfMode::Guard);
+            break;
+        case ENarisWolfMode::Guard:
+            SetMode(ENarisWolfMode::Attack);
+            break;
+        case ENarisWolfMode::Attack:
+            SetMode(ENarisWolfMode::Track);
+            break;
+        case ENarisWolfMode::Track:
+            SetMode(ENarisWolfMode::EchoLink);
+            break;
+        case ENarisWolfMode::EchoLink:
+        default:
+            SetMode(ENarisWolfMode::Follow);
+            break;
+    }
+}
+
+FText ACelestialWolf::GetModeDisplayName() const
+{
+    switch (Mode)
+    {
+        case ENarisWolfMode::Follow:
+            return NSLOCTEXT("NARIS", "WolfModeFollow", "Follow");
+        case ENarisWolfMode::Guard:
+            return NSLOCTEXT("NARIS", "WolfModeGuard", "Guard");
+        case ENarisWolfMode::Attack:
+            return NSLOCTEXT("NARIS", "WolfModeAttack", "Attack");
+        case ENarisWolfMode::Track:
+            return NSLOCTEXT("NARIS", "WolfModeTrack", "Track");
+        case ENarisWolfMode::EchoLink:
+            return NSLOCTEXT("NARIS", "WolfModeEchoLink", "Echo Link");
+        default:
+            return NSLOCTEXT("NARIS", "WolfModeUnknown", "Unknown");
+    }
+}
+
 void ACelestialWolf::SetTrackTarget(AActor* NewTarget)
 {
     TrackTarget = NewTarget;
