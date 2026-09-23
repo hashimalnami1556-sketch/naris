@@ -152,12 +152,27 @@ void ANarisRuntimeSmokeDirector::RunSmoke()
 
     const bool bMemory = MemoryCrystal->ActivateMemory(this);
     Steps.Add(TEXT("memory_crystal_activate"), bMemory);
+    Steps.Add(
+        TEXT("quest_step_1_memory"),
+        Runtime->IsQuestActive(TEXT("Quest.W04.CorruptedHeart"))
+            && Runtime->GetQuestStep(TEXT("Quest.W04.CorruptedHeart")) == 1
+    );
 
     const bool bGate = AshGate->TryUnlockGate(this);
     Steps.Add(TEXT("ash_gate_unlock"), bGate);
+    Steps.Add(
+        TEXT("quest_step_2_gate"),
+        Runtime->IsQuestActive(TEXT("Quest.W04.CorruptedHeart"))
+            && Runtime->GetQuestStep(TEXT("Quest.W04.CorruptedHeart")) == 2
+    );
 
     const bool bWolf = Wolf->BondWithPlayer(this);
     Steps.Add(TEXT("celestial_wolf_bond"), bWolf);
+    Steps.Add(
+        TEXT("quest_step_3_wolf"),
+        Runtime->IsQuestActive(TEXT("Quest.W04.CorruptedHeart"))
+            && Runtime->GetQuestStep(TEXT("Quest.W04.CorruptedHeart")) == 3
+    );
 
     const bool bBossStarted = BoneBeast->TryStartEncounter(this);
     Steps.Add(TEXT("bone_beast_start"), bBossStarted);
@@ -174,6 +189,12 @@ void ANarisRuntimeSmokeDirector::RunSmoke()
     const bool bBossComplete = BoneBeast->IsEncounterComplete();
     Steps.Add(TEXT("bone_beast_complete"), bBossComplete);
     Steps.Add(
+        TEXT("quest_step_4_complete"),
+        Runtime->IsQuestCompleted(TEXT("Quest.W04.CorruptedHeart"))
+            && !Runtime->IsQuestActive(TEXT("Quest.W04.CorruptedHeart"))
+            && Runtime->GetQuestStep(TEXT("Quest.W04.CorruptedHeart")) == 4
+    );
+    Steps.Add(
         TEXT("arena_open_after_completion"),
         bBossComplete && !Arena->bArenaClosed
     );
@@ -187,6 +208,8 @@ void ANarisRuntimeSmokeDirector::RunSmoke()
         && BeforeReload.UnlockedGates.Contains(TEXT("W04_AshGate"))
         && BeforeReload.UnlockedCompanions.Contains(TEXT("CelestialWolf"))
         && BeforeReload.CompletedQuests.Contains(TEXT("Quest.W04.CorruptedHeart"))
+        && !BeforeReload.ActiveQuests.Contains(TEXT("Quest.W04.CorruptedHeart"))
+        && BeforeReload.QuestSteps.FindRef(TEXT("Quest.W04.CorruptedHeart")) == 4
         && BeforeReload.DefeatedBosses.Contains(TEXT("BoneBeast"))
         && BeforeReload.bDemoCompleted;
     Steps.Add(TEXT("progression_state_complete"), bStateComplete);
@@ -202,7 +225,10 @@ void ANarisRuntimeSmokeDirector::RunSmoke()
         && Cleared.DefeatedBosses.IsEmpty()
         && Cleared.UnlockedCompanions.IsEmpty()
         && Cleared.UnlockedGates.IsEmpty()
-        && Cleared.TriggeredNarratives.IsEmpty();
+        && Cleared.TriggeredNarratives.IsEmpty()
+        && Cleared.ActiveQuests.IsEmpty()
+        && Cleared.QuestSteps.IsEmpty()
+        && Cleared.CompletedQuests.IsEmpty();
     Steps.Add(TEXT("new_game_clears_progression"), bNewGameCleared);
 
     const bool bLoad = Runtime->LoadState(RuntimeSmokeSlot);
@@ -216,6 +242,8 @@ void ANarisRuntimeSmokeDirector::RunSmoke()
         && AfterReload.UnlockedGates.Contains(TEXT("W04_AshGate"))
         && AfterReload.UnlockedCompanions.Contains(TEXT("CelestialWolf"))
         && AfterReload.CompletedQuests.Contains(TEXT("Quest.W04.CorruptedHeart"))
+        && !AfterReload.ActiveQuests.Contains(TEXT("Quest.W04.CorruptedHeart"))
+        && AfterReload.QuestSteps.FindRef(TEXT("Quest.W04.CorruptedHeart")) == 4
         && AfterReload.DefeatedBosses.Contains(TEXT("BoneBeast"))
         && AfterReload.bDemoCompleted;
     Steps.Add(TEXT("save_load_round_trip"), bRoundTrip);
