@@ -23,6 +23,7 @@ $Localization = Join-Path $RepoRoot "tools\windows\Invoke-NarisLocalization.ps1"
 $GeneratedMap = Join-Path $RepoRoot "unreal\NARIS_W04\Content\NARIS\W04\Maps\W04_Prototype.umap"
 $GeneratedBossData = Join-Path $RepoRoot "unreal\NARIS_W04\Content\NARIS\W04\Data\DA_BoneBeast_Smoke.uasset"
 $GeneratedPresentationProfile = Join-Path $RepoRoot "unreal\NARIS_W04\Content\NARIS\W04\Presentation\DA_W04_Presentation.uasset"
+$PresentationBindingReport = Join-Path $RepoRoot "unreal\NARIS_W04\Saved\TestReports\naris_presentation_binding_resolution.json"
 $PresentationAuthoringReport = Join-Path $RepoRoot "unreal\NARIS_W04\Saved\TestReports\naris_presentation_authoring.json"
 
 foreach ($path in @($UProject, $BuildBat, $RunUAT, $Bootstrap, $Localization)) {
@@ -51,8 +52,16 @@ foreach ($generated in @($GeneratedMap, $GeneratedBossData, $GeneratedPresentati
     }
 }
 
+if (-not (Test-Path $PresentationBindingReport)) {
+    throw "Presentation binding resolution report was not produced: $PresentationBindingReport"
+}
 if (-not (Test-Path $PresentationAuthoringReport)) {
     throw "Presentation authoring report was not produced: $PresentationAuthoringReport"
+}
+
+$PresentationBindingData = Get-Content $PresentationBindingReport -Raw | ConvertFrom-Json
+if ($PresentationBindingData.status -ne "pass") {
+    throw "Presentation binding resolution failed: $PresentationBindingReport"
 }
 
 $PresentationAuthoringData = Get-Content $PresentationAuthoringReport -Raw | ConvertFrom-Json
@@ -60,6 +69,7 @@ if ($PresentationAuthoringData.status -ne "pass") {
     throw "Presentation authoring failed: $PresentationAuthoringReport"
 }
 
+Copy-Item $PresentationBindingReport (Join-Path $ArchiveDir "naris_presentation_binding_resolution.json") -Force
 Copy-Item $PresentationAuthoringReport (Join-Path $ArchiveDir "naris_presentation_authoring.json") -Force
 
 Write-Host "[NARIS] Gathering and compiling EN/AR localization"
@@ -208,6 +218,10 @@ $Report = [ordered]@{
     generated_map = $GeneratedMap
     generated_boss_data = $GeneratedBossData
     generated_presentation_profile = $GeneratedPresentationProfile
+    presentation_binding_resolution_status = $PresentationBindingData.status
+    presentation_resolved_asset_ids = @($PresentationBindingData.resolved_asset_ids)
+    presentation_already_bound_asset_ids = @($PresentationBindingData.already_bound_asset_ids)
+    presentation_unresolved_asset_ids = @($PresentationBindingData.unresolved_asset_ids)
     presentation_authoring_status = $PresentationAuthoringData.status
     presentation_bound_asset_ids = @($PresentationAuthoringData.bound_asset_ids)
     presentation_unbound_asset_ids = @($PresentationAuthoringData.unbound_asset_ids)
