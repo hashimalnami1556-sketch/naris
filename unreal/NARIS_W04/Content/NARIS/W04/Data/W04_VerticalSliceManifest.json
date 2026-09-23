@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.7",
+  "schema_version": "1.8",
   "project": "CALL OF NARIS",
   "slice": "W04_AshenForest",
   "systems": [
@@ -102,7 +102,17 @@
       "BoneBeastDefeat",
       "DemoEnd",
       "SaveLoadRoundTrip"
-    ]
+    ],
+    "hero_attack_kind": "ENarisAttackKind",
+    "hero_attack_window_notify": "UNarisAttackWindowNotifyState",
+    "hero_attack_impact_notify": "UNarisAttackImpactNotify",
+    "hero_smoke_attack_fallback": "ANarisHeroCharacter.bImmediateSmokeAttackHit",
+    "hero_defense_windows": [
+      "UNarisCombatComponent.OpenParryWindow",
+      "UNarisCombatComponent.OpenInvulnerabilityWindow"
+    ],
+    "hero_essence_cycle": "UNarisEnergyComponent.CycleEssence",
+    "hero_pause": "ANarisHeroCharacter.TogglePause"
   },
   "progression_beats": [
     "MemoryCrystal",
