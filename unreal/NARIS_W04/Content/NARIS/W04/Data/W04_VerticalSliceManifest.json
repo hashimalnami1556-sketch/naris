@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.8",
+  "schema_version": "1.9",
   "project": "CALL OF NARIS",
   "slice": "W04_AshenForest",
   "systems": [
@@ -112,7 +112,23 @@
       "UNarisCombatComponent.OpenInvulnerabilityWindow"
     ],
     "hero_essence_cycle": "UNarisEnergyComponent.CycleEssence",
-    "hero_pause": "ANarisHeroCharacter.TogglePause"
+    "hero_pause": "ANarisHeroCharacter.TogglePause",
+    "presentation_bus": "UNarisPresentationComponent",
+    "presentation_manifest": "/Game/NARIS/W04/Presentation/W04_PresentationCueManifest.json",
+    "boss_arena_controller": "ANarisBossArenaController",
+    "celestial_wolf_modes": [
+      "Follow",
+      "Guard",
+      "Attack",
+      "Track",
+      "EchoLink"
+    ],
+    "bone_beast_attack_api": [
+      "ABoneBeastBoss.RequestAttack",
+      "ABoneBeastBoss.CommitAttackImpact",
+      "ABoneBeastBoss.CancelAttack"
+    ],
+    "presentation_authority": "Gameplay state is authoritative; presentation cues do not mutate phase/progression."
   },
   "progression_beats": [
     "MemoryCrystal",
