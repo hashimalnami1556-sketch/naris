@@ -27,6 +27,10 @@ Presence is not proof of successful compilation or correct gameplay. Historical 
 - Added EN/AR localization catalog coverage checks and Windows localization compilation before cook.
 - Added packaged runtime progression/save-load smoke reporting using the actual W04 progression actors.
 - Added timed Parry/Dodge defense windows, five-Essence cycling, pause/resume, and native hero attack-window/impact animation notify hooks; smoke fallback reuses the same hit path.
+- Corrupted Heart now persists steps 1-4 across Memory Crystal, Ash Gate, Celestial Wolf and Bone Beast, with localized EN/AR HUD objectives and packaged save/load checks.
+- Waystones now persist checkpoint world location; hero death schedules respawn at the checkpoint and restores health/poise/energy/movement/input.
+- Boss arena entry now auto-starts the encounter for the local player; Celestial Wolf and Bone Beast attacks use animation-driven impact commit paths with smoke fallbacks.
+- Presentation bindings v2 defines deterministic target paths for all 35 required payloads. Current real bindings are 0/35; strict Shipping RC rejects any remaining unbound payload.
 
 ## Remaining work, ordered by dependency
 
@@ -35,8 +39,8 @@ Presence is not proof of successful compilation or correct gameplay. Historical 
 | P0 | Unreal compilation after source repairs | Passing Windows UnrealBuildTool log for NARIS_W04Editor |
 | P0 | Actual W04 map and binary game assets | The bootstrap can generate smoke .umap/.uasset files after an editor build, but no successful generated/editor-loaded binaries are committed evidence; production-authored assets remain required |
 | P0 | Complete W04 gameplay loop | Recorded end-to-end editor playtest, including boss completion and demo end |
-| P1 | Save/load and checkpoint recovery | A packaged runtime smoke now scripts an isolated Save -> New Game -> Load round-trip through real progression actors; close only after that test passes on Windows |
-| P1 | Animation hit windows, HUD, audio and localization | Native attack hit-window/impact hooks, smoke HUD and EN/AR catalogs now exist; authored animation notifies, audio assets and visual EN/AR/RTL QA still require engine/runtime evidence |
+| P1 | Save/load and checkpoint recovery | Runtime smoke now also verifies quest steps and checkpoint world location; hero respawn is implemented. Close only after packaged Windows save/restart/load/respawn evidence |
+| P1 | Animation/presentation/HUD/localization | Hero/Wolf/Boss impact hooks, localized quest HUD, cue bus and deterministic binding paths exist; 35/35 presentation payloads remain unbound and authored animation/Niagara/audio/camera + EN/AR/RTL runtime QA remain required |
 | P1 | Windows packaging and performance | BuildCookRun/launch/profiling pipeline is scripted; close only with a successful Windows package artifact, bilingual launch result and measured CSV/GPU/LLM evidence |
 | P1 | Shared host verification | Actual Claude Code startup and continuation using the committed state; adapter presence is not execution |
 | P2 | AssetForge export/import, erosion and masks | See the [worldgen contract](production/ASSETFORGE_WORLDGEN.md) |
