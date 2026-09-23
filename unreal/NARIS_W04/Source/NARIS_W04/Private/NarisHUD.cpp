@@ -16,6 +16,76 @@
 #include "NarisInteractionComponent.h"
 #include "NarisPlayerController.h"
 #include "NarisRuntimeSubsystem.h"
+#include "NarisSubtitleSubsystem.h"
+
+void ANarisHUD::DrawSubtitle()
+{
+    if (!Canvas || !GetWorld())
+    {
+        return;
+    }
+
+    const UNarisGameUserSettings* Settings =
+        UNarisGameUserSettings::GetNarisGameUserSettings();
+    if (Settings && !Settings->bSubtitlesEnabled)
+    {
+        return;
+    }
+
+    UGameInstance* GameInstance = GetWorld()->GetGameInstance();
+    UNarisSubtitleSubsystem* Subtitles =
+        GameInstance
+            ? GameInstance->GetSubsystem<UNarisSubtitleSubsystem>()
+            : nullptr;
+
+    if (!Subtitles || !Subtitles->IsSubtitleActive())
+    {
+        return;
+    }
+
+    const float UserScale = Settings
+        ? FMath::Clamp(Settings->SubtitleScale, 0.75f, 2.f)
+        : 1.f;
+
+    const float Width = Canvas->ClipX;
+    const float Height = Canvas->ClipY;
+    const float PanelWidth = FMath::Min(1100.f, Width * 0.72f);
+    const float PanelHeight = 118.f * UserScale;
+    const float X = (Width - PanelWidth) * 0.5f;
+    const float Y = Height - PanelHeight - 62.f;
+
+    DrawRect(
+        FLinearColor(0.01f, 0.015f, 0.025f, 0.88f),
+        X,
+        Y,
+        PanelWidth,
+        PanelHeight
+    );
+
+    const FText Speaker = Subtitles->GetSpeaker();
+    if (!Speaker.IsEmpty())
+    {
+        DrawText(
+            Speaker.ToString(),
+            FLinearColor(0.82f, 0.65f, 0.18f, 1.f),
+            X + 28.f,
+            Y + 18.f * UserScale,
+            nullptr,
+            0.88f * UserScale,
+            false
+        );
+    }
+
+    DrawText(
+        Subtitles->GetLine().ToString(),
+        FLinearColor::White,
+        X + 28.f,
+        Y + 58.f * UserScale,
+        nullptr,
+        0.96f * UserScale,
+        false
+    );
+}
 
 void ANarisHUD::DrawPauseMenu()
 {
@@ -388,5 +458,6 @@ void ANarisHUD::DrawHUD()
         break;
     }
 
+    DrawSubtitle();
     DrawPauseMenu();
 }
