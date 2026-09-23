@@ -85,6 +85,39 @@ if (-not $Executable) {
     throw "Packaged NARIS_W04.exe was not found under $ArchiveDir"
 }
 
+$RuntimeSmokeReport = Join-Path $ArchiveDir "naris_runtime_smoke.json"
+if (Test-Path $RuntimeSmokeReport) {
+    Remove-Item $RuntimeSmokeReport -Force
+}
+
+Write-Host "[NARIS] Runtime progression + save/load smoke"
+$RuntimeSmokeProcess = Start-Process -FilePath $Executable.FullName -ArgumentList @(
+    "-nosplash",
+    "-windowed",
+    "-ResX=1280",
+    "-ResY=720",
+    "-log",
+    "-culture=en",
+    "-NarisRuntimeSmoke",
+    "-NarisSmokeReport=`"$RuntimeSmokeReport`""
+) -PassThru
+
+if (-not $RuntimeSmokeProcess.WaitForExit(60000)) {
+    Stop-Process -Id $RuntimeSmokeProcess.Id -Force -ErrorAction SilentlyContinue
+    throw "Runtime progression smoke timed out after 60 seconds"
+}
+
+if (-not (Test-Path $RuntimeSmokeReport)) {
+    throw "Runtime smoke report was not produced: $RuntimeSmokeReport"
+}
+
+$RuntimeSmokeData = Get-Content $RuntimeSmokeReport -Raw | ConvertFrom-Json
+if ($RuntimeSmokeData.status -ne "pass") {
+    throw "Runtime progression smoke failed: $($RuntimeSmokeData.detail)"
+}
+
+Write-Host "[NARIS] Runtime progression smoke PASSED"
+
 Write-Host "[NARIS] Launch smoke: $($Executable.FullName)"
 $Process = Start-Process -FilePath $Executable.FullName -ArgumentList @(
     "-nosplash",
@@ -157,6 +190,8 @@ $Report = [ordered]@{
     executable = $Executable.FullName
     launch_smoke_seconds = $LaunchSmokeSeconds
     localization_launch_smoke = @("en", "ar")
+    runtime_progression_smoke = $RuntimeSmokeData.status
+    runtime_progression_report = $RuntimeSmokeReport
     generated_map = $GeneratedMap
     generated_boss_data = $GeneratedBossData
     csv_capture_files = @($CsvCaptures)
