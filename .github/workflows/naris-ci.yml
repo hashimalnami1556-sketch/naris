@@ -31,21 +31,26 @@ jobs:
           python -m unittest discover -s tools/ci -v
       - name: Validate NARIS repository
         run: python tools/ci/validate_naris.py
-      - name: Parse Windows Blender-Unreal smoke script
+      - name: Parse Windows production launchers
         shell: pwsh
         run: |
-          $tokens = $null
-          $errors = $null
-          [System.Management.Automation.Language.Parser]::ParseFile(
-            "tools/windows/Invoke-NarisBlenderUnrealSmoke.ps1",
-            [ref]$tokens,
-            [ref]$errors
-          ) | Out-Null
-          if ($errors.Count -gt 0) {
-            $errors | ForEach-Object { Write-Error $_.ToString() }
-            exit 1
+          $failed = $false
+          Get-ChildItem "tools/windows" -Filter "*.ps1" | ForEach-Object {
+            $tokens = $null
+            $errors = $null
+            [System.Management.Automation.Language.Parser]::ParseFile(
+              $_.FullName,
+              [ref]$tokens,
+              [ref]$errors
+            ) | Out-Null
+            if ($errors.Count -gt 0) {
+              $failed = $true
+              $errors | ForEach-Object { Write-Error "$($_.ToString()) [$($_.FullName)]" }
+            } else {
+              Write-Host "PowerShell syntax OK: $($_.Name)"
+            }
           }
-          Write-Host "PowerShell bridge syntax OK"
+          if ($failed) { exit 1 }
 
   mcp-build:
     name: MCP TypeScript build
