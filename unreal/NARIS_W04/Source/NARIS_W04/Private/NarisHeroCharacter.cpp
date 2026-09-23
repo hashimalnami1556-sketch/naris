@@ -168,20 +168,92 @@ bool ANarisHeroCharacter::ApplyAttackToLockedTarget(float Damage, float PoiseDam
     return false;
 }
 
+void ANarisHeroCharacter::QueueAttack(ENarisAttackKind AttackKind)
+{
+    PendingAttack = AttackKind;
+    bAttackHitWindowOpen = false;
+    bAttackHitConsumed = false;
+
+    OnAttackRequested(AttackKind);
+
+    if (bImmediateSmokeAttackHit)
+    {
+        OpenAttackHitWindow();
+        CommitPendingAttackHit();
+        CloseAttackHitWindow();
+    }
+}
+
 void ANarisHeroCharacter::LightAttack()
 {
-    if (Combat && ApplyAttackToLockedTarget(LightAttackDamage, LightAttackPoiseDamage))
-    {
-        Combat->AddResonance(5.f);
-    }
+    QueueAttack(ENarisAttackKind::Light);
 }
 
 void ANarisHeroCharacter::HeavyAttack()
 {
-    if (Combat && ApplyAttackToLockedTarget(HeavyAttackDamage, HeavyAttackPoiseDamage))
+    QueueAttack(ENarisAttackKind::Heavy);
+}
+
+void ANarisHeroCharacter::OpenAttackHitWindow()
+{
+    if (PendingAttack != ENarisAttackKind::None)
     {
-        Combat->AddResonance(10.f);
+        bAttackHitWindowOpen = true;
+        bAttackHitConsumed = false;
     }
+}
+
+void ANarisHeroCharacter::CloseAttackHitWindow()
+{
+    bAttackHitWindowOpen = false;
+    PendingAttack = ENarisAttackKind::None;
+}
+
+bool ANarisHeroCharacter::CommitPendingAttackHit()
+{
+    if (!bAttackHitWindowOpen
+        || bAttackHitConsumed
+        || PendingAttack == ENarisAttackKind::None)
+    {
+        return false;
+    }
+
+    bAttackHitConsumed = true;
+
+    float Damage = 0.f;
+    float PoiseDamage = 0.f;
+    float ResonanceReward = 0.f;
+
+    switch (PendingAttack)
+    {
+        case ENarisAttackKind::Light:
+            Damage = LightAttackDamage;
+            PoiseDamage = LightAttackPoiseDamage;
+            ResonanceReward = 5.f;
+            break;
+        case ENarisAttackKind::Heavy:
+            Damage = HeavyAttackDamage;
+            PoiseDamage = HeavyAttackPoiseDamage;
+            ResonanceReward = 10.f;
+            break;
+        default:
+            return false;
+    }
+
+    const bool bHit = ApplyAttackToLockedTarget(Damage, PoiseDamage);
+    if (bHit && Combat)
+    {
+        Combat->AddResonance(ResonanceReward);
+    }
+
+    return bHit;
+}
+
+void ANarisHeroCharacter::CancelPendingAttack()
+{
+    PendingAttack = ENarisAttackKind::None;
+    bAttackHitWindowOpen = false;
+    bAttackHitConsumed = false;
 }
 
 void ANarisHeroCharacter::Dodge()
