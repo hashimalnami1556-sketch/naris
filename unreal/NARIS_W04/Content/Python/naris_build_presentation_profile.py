@@ -123,7 +123,10 @@ def main() -> None:
 
     if manifest.get("schema") != "naris.w04.presentation-cues.v1":
         raise RuntimeError("Unsupported presentation cue manifest schema")
-    if bindings.get("schema") != "naris.w04.presentation-bindings.v1":
+    if bindings.get("schema") not in {
+        "naris.w04.presentation-bindings.v1",
+        "naris.w04.presentation-bindings.v2",
+    }:
         raise RuntimeError("Unsupported presentation binding schema")
 
     profile_path = bindings.get(
@@ -146,6 +149,7 @@ def main() -> None:
 
     errors: list[str] = []
     unbound: list[str] = []
+    unbound_expected_paths: dict[str, str] = {}
     bound: list[str] = []
     cue_structs = []
 
@@ -181,6 +185,9 @@ def main() -> None:
 
             if not binding.get("unreal_object_path"):
                 unbound.append(asset_id)
+                expected_path = binding.get("expected_unreal_object_path")
+                if expected_path:
+                    unbound_expected_paths[asset_id] = expected_path
                 continue
 
             loaded = load_binding(binding, kind, errors)
@@ -209,6 +216,10 @@ def main() -> None:
         "cue_count": len(cue_structs),
         "bound_asset_ids": sorted(set(bound)),
         "unbound_asset_ids": sorted(set(unbound)),
+        "unbound_expected_paths": {
+            asset_id: unbound_expected_paths[asset_id]
+            for asset_id in sorted(unbound_expected_paths)
+        },
         "errors": errors,
     }
 
