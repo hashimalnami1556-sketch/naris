@@ -63,6 +63,12 @@ struct FNarisSaveState
     TArray<FString> UnlockedLore;
 
     UPROPERTY(BlueprintReadWrite)
+    TArray<FString> ActiveQuests;
+
+    UPROPERTY(BlueprintReadWrite)
+    TMap<FString, int32> QuestSteps;
+
+    UPROPERTY(BlueprintReadWrite)
     TArray<FString> CompletedQuests;
 
     UPROPERTY(BlueprintReadWrite)
