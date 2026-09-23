@@ -369,3 +369,11 @@ msgstr "اضغط زرًا في يد التحكم. زر Start أو B يلغي ا�
 msgctxt "NARIS,ControlsMenuHint"
 msgid "Select an action and press Confirm to remap. Back: Esc/B"
 msgstr "اختر أمرًا واضغط تأكيد لإعادة تعيينه. رجوع: Esc/B"
+
+msgctxt "NARIS,FirstWhisperSpeaker"
+msgid "The First Whisper"
+msgstr "الهمسة الأولى"
+
+msgctxt "NARIS,FirstWhisperLine"
+msgid "The gate remembers what the ash tried to bury."
+msgstr "البوابة تتذكر ما حاول الرماد أن يدفنه."
