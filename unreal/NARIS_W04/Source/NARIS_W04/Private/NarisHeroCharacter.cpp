@@ -11,6 +11,7 @@
 #include "NarisEnergyComponent.h"
 #include "NarisInteractionComponent.h"
 #include "NarisLockOnComponent.h"
+#include "NarisPresentationComponent.h"
 
 ANarisHeroCharacter::ANarisHeroCharacter()
 {
@@ -20,6 +21,7 @@ ANarisHeroCharacter::ANarisHeroCharacter()
     Energy = CreateDefaultSubobject<UNarisEnergyComponent>(TEXT("Energy"));
     LockOn = CreateDefaultSubobject<UNarisLockOnComponent>(TEXT("LockOn"));
     Interaction = CreateDefaultSubobject<UNarisInteractionComponent>(TEXT("Interaction"));
+    Presentation = CreateDefaultSubobject<UNarisPresentationComponent>(TEXT("Presentation"));
 
     CameraBoom = CreateDefaultSubobject<USpringArmComponent>(TEXT("CameraBoom"));
     CameraBoom->SetupAttachment(RootComponent);
@@ -60,6 +62,22 @@ float ANarisHeroCharacter::TakeDamage(
     const float PoiseDamage = DamageAmount * 0.5f;
     const FNarisCombatResult Result =
         Combat->ResolveIncomingHit(DamageAmount, PoiseDamage, false);
+
+    if (Presentation)
+    {
+        if (Result.bEvaded)
+        {
+            Presentation->TriggerCue(TEXT("Hero.Evade"));
+        }
+        else if (Result.bParried)
+        {
+            Presentation->TriggerCue(TEXT("Hero.ParrySuccess"));
+        }
+        else if (Result.Damage > 0.f)
+        {
+            Presentation->TriggerCue(TEXT("Hero.HitReact"));
+        }
+    }
 
     return Result.Damage;
 }
@@ -244,6 +262,15 @@ bool ANarisHeroCharacter::CommitPendingAttackHit()
     if (bHit && Combat)
     {
         Combat->AddResonance(ResonanceReward);
+
+        if (Presentation)
+        {
+            const FName CueId =
+                PendingAttack == ENarisAttackKind::Heavy
+                    ? FName(TEXT("Hero.AttackHit.Heavy"))
+                    : FName(TEXT("Hero.AttackHit.Light"));
+            Presentation->TriggerCue(CueId);
+        }
     }
 
     return bHit;
@@ -269,6 +296,11 @@ void ANarisHeroCharacter::Dodge()
     }
 
     GetCharacterMovement()->Velocity += GetActorForwardVector() * 650.f;
+
+    if (Presentation)
+    {
+        Presentation->TriggerCue(TEXT("Hero.Dodge"));
+    }
 }
 
 void ANarisHeroCharacter::Parry()
@@ -282,6 +314,11 @@ void ANarisHeroCharacter::Parry()
     {
         Combat->OpenParryWindow(ParryWindowSeconds);
     }
+
+    if (Presentation)
+    {
+        Presentation->TriggerCue(TEXT("Hero.ParryWindow"));
+    }
 }
 
 void ANarisHeroCharacter::ResonanceBurst()
@@ -293,6 +330,11 @@ void ANarisHeroCharacter::ResonanceBurst()
         if (Energy)
         {
             Energy->Restore(25.f);
+        }
+
+        if (Presentation)
+        {
+            Presentation->TriggerCue(TEXT("Hero.ResonanceBurst"));
         }
     }
 }
@@ -319,6 +361,10 @@ void ANarisHeroCharacter::NextEssence()
     if (Energy)
     {
         Energy->CycleEssence(1);
+        if (Presentation)
+        {
+            Presentation->TriggerCue(TEXT("Hero.EssenceSwitch"));
+        }
     }
 }
 
@@ -327,6 +373,10 @@ void ANarisHeroCharacter::PreviousEssence()
     if (Energy)
     {
         Energy->CycleEssence(-1);
+        if (Presentation)
+        {
+            Presentation->TriggerCue(TEXT("Hero.EssenceSwitch"));
+        }
     }
 }
 
