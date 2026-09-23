@@ -150,6 +150,16 @@ void ANarisRuntimeSmokeDirector::RunSmoke()
     const bool bWaystone = Waystone->ActivateWaystone(this);
     Steps.Add(TEXT("waystone_activate"), bWaystone);
 
+    const FNarisSaveState AfterWaystone = Runtime->GetState();
+    Steps.Add(
+        TEXT("checkpoint_location_saved"),
+        AfterWaystone.bHasCheckpointLocation
+            && AfterWaystone.CheckpointLocation.Equals(
+                Waystone->GetActorLocation(),
+                0.1f
+            )
+    );
+
     const bool bMemory = MemoryCrystal->ActivateMemory(this);
     Steps.Add(TEXT("memory_crystal_activate"), bMemory);
     Steps.Add(
@@ -226,6 +236,7 @@ void ANarisRuntimeSmokeDirector::RunSmoke()
         && Cleared.UnlockedCompanions.IsEmpty()
         && Cleared.UnlockedGates.IsEmpty()
         && Cleared.TriggeredNarratives.IsEmpty()
+        && !Cleared.bHasCheckpointLocation
         && Cleared.ActiveQuests.IsEmpty()
         && Cleared.QuestSteps.IsEmpty()
         && Cleared.CompletedQuests.IsEmpty();
@@ -237,6 +248,11 @@ void ANarisRuntimeSmokeDirector::RunSmoke()
     const FNarisSaveState AfterReload = Runtime->GetState();
     const bool bRoundTrip =
         AfterReload.CheckpointId == BeforeReload.CheckpointId
+        && AfterReload.bHasCheckpointLocation
+        && AfterReload.CheckpointLocation.Equals(
+            BeforeReload.CheckpointLocation,
+            0.1f
+        )
         && AfterReload.UnlockedLore.Contains(TEXT("W04_Lore_MemoryCrystal_0001"))
         && AfterReload.TriggeredNarratives.Contains(TEXT("W04_FirstWhisper"))
         && AfterReload.UnlockedGates.Contains(TEXT("W04_AshGate"))
