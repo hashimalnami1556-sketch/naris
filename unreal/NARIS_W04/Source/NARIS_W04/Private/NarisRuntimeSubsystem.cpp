@@ -65,3 +65,30 @@ bool UNarisRuntimeSubsystem::ActivateWaystone(
     State.UnlockedWaystones.AddUnique(WaystoneId);
     return true;
 }
+
+bool UNarisRuntimeSubsystem::UnlockLore(const FString& LoreId)
+{
+    if (LoreId.IsEmpty())
+    {
+        return false;
+    }
+
+    State.UnlockedLore.AddUnique(LoreId);
+    return true;
+}
+
+bool UNarisRuntimeSubsystem::TriggerNarrative(const FString& NarrativeId)
+{
+    if (NarrativeId.IsEmpty())
+    {
+        return false;
+    }
+
+    State.TriggeredNarratives.AddUnique(NarrativeId);
+    return true;
+}
+
+bool UNarisRuntimeSubsystem::HasNarrativeTriggered(const FString& NarrativeId) const
+{
+    return !NarrativeId.IsEmpty() && State.TriggeredNarratives.Contains(NarrativeId);
+}
