@@ -59,6 +59,11 @@ bool ANarisMemoryCrystal::ActivateMemory(AActor* InstigatorActor)
         return false;
     }
 
+    if (!Runtime->StartQuest(QuestId, QuestStep))
+    {
+        return false;
+    }
+
     if (bAutoSave && !Runtime->SaveState(AutoSaveSlot))
     {
         return false;
