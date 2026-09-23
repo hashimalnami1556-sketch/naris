@@ -37,6 +37,16 @@ void ABoneBeastBoss::BeginPlay()
     }
 }
 
+float ABoneBeastBoss::GetConfiguredMaxHealth() const
+{
+    if (BossData && BossData->MaxHealth > 0.f)
+    {
+        return BossData->MaxHealth;
+    }
+
+    return FMath::Max(FallbackMaxHealth, 1.f);
+}
+
 bool ABoneBeastBoss::Interact_Implementation(AActor* InstigatorActor)
 {
     return TryStartEncounter(InstigatorActor);
@@ -62,7 +72,8 @@ bool ABoneBeastBoss::TryStartEncounter(AActor* InstigatorActor)
 
 void ABoneBeastBoss::StartEncounter()
 {
-    if (!BossData || BossData->MaxHealth <= 0.f || bEncounterActive || bEncounterComplete)
+    const float MaxHealth = GetConfiguredMaxHealth();
+    if (MaxHealth <= 0.f || bEncounterActive || bEncounterComplete)
     {
         return;
     }
@@ -91,7 +102,7 @@ void ABoneBeastBoss::StartEncounter()
         return;
     }
 
-    CurrentHealth = BossData->MaxHealth;
+    CurrentHealth = MaxHealth;
     CurrentPhase = ENarisBossPhase::Phase1;
     bEncounterActive = true;
     bEncounterComplete = false;
@@ -100,12 +111,12 @@ void ABoneBeastBoss::StartEncounter()
 
 void ABoneBeastBoss::ResetEncounter()
 {
-    if (!BossData || bEncounterComplete)
+    if (bEncounterComplete)
     {
         return;
     }
 
-    CurrentHealth = BossData->MaxHealth;
+    CurrentHealth = GetConfiguredMaxHealth();
     CurrentPhase = ENarisBossPhase::Phase1;
     bEncounterActive = false;
     EmitBossEvent(TEXT("EncounterReset"));
@@ -151,9 +162,14 @@ void ABoneBeastBoss::CompleteEncounter()
         return;
     }
 
+    FName QuestCompletionId = FallbackQuestCompletionId;
     if (BossData && !BossData->QuestCompletionId.IsNone())
     {
-        Runtime->CompleteQuest(BossData->QuestCompletionId.ToString());
+        QuestCompletionId = BossData->QuestCompletionId;
+    }
+    if (!QuestCompletionId.IsNone())
+    {
+        Runtime->CompleteQuest(QuestCompletionId.ToString());
     }
 
     if (bCompleteDemoOnDefeat)
@@ -177,31 +193,47 @@ void ABoneBeastBoss::CompleteEncounter()
 
 void ABoneBeastBoss::EvaluatePhase()
 {
-    if (!BossData || BossData->Phases.Num() == 0 || CurrentPhase == ENarisBossPhase::Dead)
+    if (CurrentPhase == ENarisBossPhase::Dead)
     {
         return;
     }
 
-    const float MaxHP = FMath::Max(BossData->MaxHealth, 1.f);
+    const float MaxHP = FMath::Max(GetConfiguredMaxHealth(), 1.f);
     const float HealthRatio = CurrentHealth / MaxHP;
-    int32 NewPhaseIndex = 0;
+    ENarisBossPhase NewPhase = ENarisBossPhase::Phase1;
+    int32 PhaseNumber = 1;
 
-    for (int32 Index = 0; Index < BossData->Phases.Num(); ++Index)
+    if (BossData && BossData->Phases.Num() > 0)
     {
-        if (HealthRatio <= BossData->Phases[Index].HealthThreshold)
+        int32 NewPhaseIndex = 0;
+        for (int32 Index = 0; Index < BossData->Phases.Num(); ++Index)
         {
-            NewPhaseIndex = Index;
+            if (HealthRatio <= BossData->Phases[Index].HealthThreshold)
+            {
+                NewPhaseIndex = Index;
+            }
         }
-    }
 
-    const int32 MaxSupportedPhaseIndex = FMath::Min(BossData->Phases.Num() - 1, 2);
-    NewPhaseIndex = FMath::Clamp(NewPhaseIndex, 0, MaxSupportedPhaseIndex);
-    const ENarisBossPhase NewPhase = static_cast<ENarisBossPhase>(NewPhaseIndex);
+        const int32 MaxSupportedPhaseIndex = FMath::Min(BossData->Phases.Num() - 1, 2);
+        NewPhaseIndex = FMath::Clamp(NewPhaseIndex, 0, MaxSupportedPhaseIndex);
+        NewPhase = static_cast<ENarisBossPhase>(NewPhaseIndex);
+        PhaseNumber = NewPhaseIndex + 1;
+    }
+    else if (HealthRatio <= FallbackPhase3HealthPercent)
+    {
+        NewPhase = ENarisBossPhase::Phase3;
+        PhaseNumber = 3;
+    }
+    else if (HealthRatio <= FallbackPhase2HealthPercent)
+    {
+        NewPhase = ENarisBossPhase::Phase2;
+        PhaseNumber = 2;
+    }
 
     if (NewPhase != CurrentPhase)
     {
         CurrentPhase = NewPhase;
-        EmitBossEvent(FName(*FString::Printf(TEXT("Phase%d"), NewPhaseIndex + 1)));
+        EmitBossEvent(FName(*FString::Printf(TEXT("Phase%d"), PhaseNumber)));
         EmitBossEvent(TEXT("PhaseTransition"));
     }
 }
