@@ -143,6 +143,27 @@ class ControllerRemapContractTests(unittest.TestCase):
         self.assertIn("ControlsCaptureHint", source)
         self.assertIn("ControlsMenuHint", source)
 
+    def test_interaction_prompt_tracks_live_device_and_remapped_key(self) -> None:
+        header = read(
+            "unreal/NARIS_W04/Source/NARIS_W04/Public/NarisPlayerController.h"
+        )
+        controller = read(
+            "unreal/NARIS_W04/Source/NARIS_W04/Private/NarisPlayerController.cpp"
+        )
+        hud = read(
+            "unreal/NARIS_W04/Source/NARIS_W04/Private/NarisHUD.cpp"
+        )
+        self.assertIn("bLastInputWasGamepad", header)
+        self.assertIn("GetActionKeyDisplayName", header)
+        self.assertIn("bLastInputWasGamepad = Params.IsGamepad()", controller)
+        self.assertIn("GetCurrentGamepadKey(ActionName)", controller)
+        self.assertIn("!Mapping.Key.IsGamepadKey()", controller)
+        self.assertIn(
+            'GetActionKeyDisplayName(TEXT("Interact"))',
+            hud,
+        )
+        self.assertNotIn('TEXT("[E] %s")', hud)
+
 
 if __name__ == "__main__":
     unittest.main()
