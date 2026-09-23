@@ -84,7 +84,10 @@ $Process = Start-Process -FilePath $Executable.FullName -ArgumentList @(
     "-windowed",
     "-ResX=1280",
     "-ResY=720",
-    "-log"
+    "-log",
+    "-csvCaptureFrames=600",
+    "-csvGpuStats",
+    "-LLMCSV"
 ) -PassThru
 
 Start-Sleep -Seconds $LaunchSmokeSeconds
@@ -94,6 +97,29 @@ if ($Process.HasExited) {
 }
 
 Stop-Process -Id $Process.Id -Force
+Start-Sleep -Seconds 2
+
+$ProfilingRoots = @(
+    (Join-Path $ArchiveDir "Saved\Profiling"),
+    (Join-Path $env:LOCALAPPDATA "NARIS_W04\Saved\Profiling")
+)
+
+$CsvCaptures = @()
+$LlmCaptures = @()
+foreach ($root in $ProfilingRoots) {
+    if (Test-Path $root) {
+        $CsvCaptures += @(
+            Get-ChildItem -Path $root -Filter "*.csv" -Recurse -File |
+            Where-Object { $_.FullName -match "[\\/]CSV[\\/]" } |
+            Select-Object -ExpandProperty FullName
+        )
+        $LlmCaptures += @(
+            Get-ChildItem -Path $root -Filter "*.csv" -Recurse -File |
+            Where-Object { $_.FullName -match "[\\/]LLM[\\/]" } |
+            Select-Object -ExpandProperty FullName
+        )
+    }
+}
 
 $Report = [ordered]@{
     schema = "naris.windows.package-smoke.v1"
@@ -105,6 +131,9 @@ $Report = [ordered]@{
     launch_smoke_seconds = $LaunchSmokeSeconds
     generated_map = $GeneratedMap
     generated_boss_data = $GeneratedBossData
+    csv_capture_files = @($CsvCaptures)
+    llm_capture_files = @($LlmCaptures)
+    profiling_note = "CSV/LLM capture paths are evidence only when files are emitted by the packaged Development build."
     completed_at_utc = [DateTime]::UtcNow.ToString("o")
 }
 
