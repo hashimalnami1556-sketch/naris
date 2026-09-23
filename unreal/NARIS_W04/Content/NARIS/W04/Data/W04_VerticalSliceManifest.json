@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.9",
+  "schema_version": "2.0",
   "project": "CALL OF NARIS",
   "slice": "W04_AshenForest",
   "systems": [
@@ -152,7 +152,16 @@
     "wolf_attack_notify": "UNarisWolfAttackImpactNotify",
     "wolf_smoke_attack_fallback": "ACelestialWolf.bImmediateSmokeAttackImpact",
     "boss_arena_entry_trigger": "ANarisBossArenaController.EncounterTrigger",
-    "release_candidate_gate": "tools/windows/Invoke-NarisWindowsReleaseCandidate.ps1"
+    "release_candidate_gate": "tools/windows/Invoke-NarisWindowsReleaseCandidate.ps1",
+    "checkpoint_location": "FNarisSaveState.CheckpointLocation",
+    "hero_respawn": "ANarisHeroCharacter.RespawnAtCheckpoint",
+    "corrupted_heart_quest": {
+      "id": "Quest.W04.CorruptedHeart",
+      "memory_step": 1,
+      "ash_gate_step": 2,
+      "celestial_wolf_step": 3,
+      "bone_beast_step": 4
+    }
   },
   "progression_beats": [
     "MemoryCrystal",
