@@ -92,6 +92,7 @@ $Process = Start-Process -FilePath $Executable.FullName -ArgumentList @(
     "-ResX=1280",
     "-ResY=720",
     "-log",
+    "-culture=en",
     "-csvCaptureFrames=600",
     "-csvGpuStats",
     "-LLMCSV"
@@ -104,6 +105,25 @@ if ($Process.HasExited) {
 }
 
 Stop-Process -Id $Process.Id -Force
+Start-Sleep -Seconds 2
+
+Write-Host "[NARIS] Arabic culture launch smoke"
+$ArabicProcess = Start-Process -FilePath $Executable.FullName -ArgumentList @(
+    "-nosplash",
+    "-windowed",
+    "-ResX=1280",
+    "-ResY=720",
+    "-log",
+    "-culture=ar"
+) -PassThru
+
+Start-Sleep -Seconds ([Math]::Min($LaunchSmokeSeconds, 10))
+
+if ($ArabicProcess.HasExited) {
+    throw "Arabic packaged game exited during launch smoke with code $($ArabicProcess.ExitCode)"
+}
+
+Stop-Process -Id $ArabicProcess.Id -Force
 Start-Sleep -Seconds 2
 
 $ProfilingRoots = @(
@@ -136,6 +156,7 @@ $Report = [ordered]@{
     archive = $ArchiveDir
     executable = $Executable.FullName
     launch_smoke_seconds = $LaunchSmokeSeconds
+    localization_launch_smoke = @("en", "ar")
     generated_map = $GeneratedMap
     generated_boss_data = $GeneratedBossData
     csv_capture_files = @($CsvCaptures)
