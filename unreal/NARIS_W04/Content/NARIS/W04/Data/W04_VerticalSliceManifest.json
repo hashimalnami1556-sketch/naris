@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.4",
+  "schema_version": "1.5",
   "project": "CALL OF NARIS",
   "slice": "W04_AshenForest",
   "systems": [
@@ -19,7 +19,8 @@
     "Localization",
     "Accessibility",
     "SaveLoad",
-    "QA"
+    "QA",
+    "NativeSmokeHUD"
   ],
   "entities": [
     "HeroLostMemory",
@@ -62,7 +63,18 @@
     "bone_beast_requirement": "CelestialWolf",
     "bone_beast_state": "FNarisSaveState.DefeatedBosses",
     "demo_completion_state": "FNarisSaveState.bDemoCompleted",
-    "demo_end_event": "ABoneBeastBoss.OnBossEvent:DemoEnd"
+    "demo_end_event": "ABoneBeastBoss.OnBossEvent:DemoEnd",
+    "smoke_hud_actor": "ANarisHUD",
+    "smoke_hud_game_mode": "ANarisGameMode.HUDClass",
+    "smoke_hud_scope": [
+      "Health",
+      "Energy",
+      "Resonance",
+      "InteractionPrompt",
+      "CelestialWolfState",
+      "BoneBeastState",
+      "DemoComplete"
+    ]
   },
   "progression_beats": [
     "MemoryCrystal",
