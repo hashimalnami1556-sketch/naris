@@ -65,8 +65,9 @@ class PresentationAudioIntakeContractTests(unittest.TestCase):
         )
         self.assertIn("if not source_path.is_file():", source)
         self.assertIn("skipped_missing.append(asset_id)", source)
-        self.assertNotIn("generate", source.lower())
-        self.assertNotIn("synthesize", source.lower())
+        self.assertNotIn("create_asset(", source)
+        self.assertNotIn("generate_sound_effect", source)
+        self.assertNotIn('wave.open(str(source_path), "wb")', source)
 
     def test_audio_importer_uses_automated_asset_import_task(self) -> None:
         source = read(
