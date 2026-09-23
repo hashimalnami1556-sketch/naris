@@ -38,6 +38,19 @@ class ProductionAssetGateContractTests(unittest.TestCase):
             self.assertTrue(item["require_materials"])
             self.assertTrue(item["require_collision"])
 
+    def test_static_mesh_budgets_are_encoded_and_validated(self):
+        manifest=json.loads(MANIFEST.read_text(encoding="utf-8"))
+        by_id={item["asset_id"]:item for item in manifest["assets"]}
+        for item in manifest["assets"]:
+            if item["kind"]=="static_mesh":
+                self.assertEqual(item["max_material_slots"],4)
+                self.assertTrue(item["report_nanite"])
+                self.assertTrue(item["report_triangles"])
+
+        ash_gate=by_id["NARIS-W04-PRP-ASHGATE-0001"]
+        self.assertEqual(ash_gate["max_triangles_lod0"],22000)
+        self.assertIn("W04_ASHEN_FOREST_WAVE2_ASSET_CATALOG.json",ash_gate["budget_source"])
+
     def test_unreal_validator_checks_real_engine_properties(self):
         s=read("unreal/NARIS_W04/Content/Python/naris_validate_production_assets.py")
         for token in ("StaticMeshEditorSubsystem","SkeletalMeshEditorSubsystem","get_lod_count","get_num_lods","physics_asset","skeleton","static_materials","customized_collision","get_convex_collision_count","NARIS_PRODUCTION_ASSETS_STRICT","naris_production_asset_validation.json"):
