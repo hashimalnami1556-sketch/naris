@@ -66,3 +66,30 @@ msgctxt "NARIS,HUDBoneBeast"
 msgid "Bone Beast"
 msgstr "Bone Beast"
 
+msgctxt "NARIS,HUDEssence"
+msgid "Essence"
+msgstr "Essence"
+
+msgctxt "NARIS,EssenceNarisFlame"
+msgid "Naris Flame"
+msgstr "Naris Flame"
+
+msgctxt "NARIS,EssenceAsh"
+msgid "Ash"
+msgstr "Ash"
+
+msgctxt "NARIS,EssenceAether"
+msgid "Aether"
+msgstr "Aether"
+
+msgctxt "NARIS,EssenceVoid"
+msgid "Void"
+msgstr "Void"
+
+msgctxt "NARIS,EssenceRadiant"
+msgid "Radiant"
+msgstr "Radiant"
+
+msgctxt "NARIS,EssenceUnknown"
+msgid "Unknown"
+msgstr "Unknown"
