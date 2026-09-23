@@ -45,6 +45,9 @@ public:
     float GetCurrentHealth() const { return CurrentHealth; }
 
     UFUNCTION(BlueprintPure, Category="NARIS|Boss")
+    float GetConfiguredMaxHealth() const;
+
+    UFUNCTION(BlueprintPure, Category="NARIS|Boss")
     bool IsEncounterActive() const { return bEncounterActive; }
 
     UFUNCTION(BlueprintPure, Category="NARIS|Boss")
@@ -52,6 +55,19 @@ public:
 
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="NARIS|Boss")
     TObjectPtr<UBoneBeastDataAsset> BossData;
+
+    // Smoke/runtime fallback used only when no authored BoneBeastDataAsset is assigned.
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="NARIS|Boss|SmokeFallback")
+    float FallbackMaxHealth = 1800.f;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="NARIS|Boss|SmokeFallback")
+    float FallbackPhase2HealthPercent = 0.66f;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="NARIS|Boss|SmokeFallback")
+    float FallbackPhase3HealthPercent = 0.33f;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="NARIS|Boss|SmokeFallback")
+    FName FallbackQuestCompletionId = TEXT("W04_CorruptedHeart");
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="NARIS|Boss")
     FString BossProgressId = TEXT("BoneBeast");
