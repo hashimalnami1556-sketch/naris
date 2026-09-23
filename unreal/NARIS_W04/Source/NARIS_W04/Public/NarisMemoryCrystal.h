@@ -33,6 +33,15 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="NARIS|Memory")
     FString NarrativeId = TEXT("W04_FirstWhisper");
 
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="NARIS|Memory|Subtitle")
+    FText SubtitleSpeaker;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="NARIS|Memory|Subtitle")
+    FText SubtitleLine;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="NARIS|Memory|Subtitle")
+    float SubtitleDurationSeconds = 4.f;
+
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="NARIS|Memory")
     FString QuestId = TEXT("Quest.W04.CorruptedHeart");
 
