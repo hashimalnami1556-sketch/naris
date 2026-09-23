@@ -307,6 +307,7 @@ void ANarisPlayerController::ClosePauseMenu()
     bPauseMenuOpen = false;
     PauseMenuPage = ENarisPauseMenuPage::Main;
     SelectedMenuIndex = 0;
+    CancelGamepadRemap();
 
     UGameplayStatics::SetGamePaused(this, false);
 
@@ -539,6 +540,11 @@ FText ANarisPlayerController::GetMenuItemValue(int32 Index) const
 
 void ANarisPlayerController::MenuUp()
 {
+    if (bWaitingForGamepadRemap)
+    {
+        return;
+    }
+
     if (!bPauseMenuOpen)
     {
         return;
@@ -550,6 +556,11 @@ void ANarisPlayerController::MenuUp()
 
 void ANarisPlayerController::MenuDown()
 {
+    if (bWaitingForGamepadRemap)
+    {
+        return;
+    }
+
     if (!bPauseMenuOpen)
     {
         return;
@@ -561,7 +572,9 @@ void ANarisPlayerController::MenuDown()
 
 void ANarisPlayerController::MenuLeft()
 {
-    if (bPauseMenuOpen && PauseMenuPage == ENarisPauseMenuPage::Settings)
+    if (!bWaitingForGamepadRemap
+        && bPauseMenuOpen
+        && PauseMenuPage == ENarisPauseMenuPage::Settings)
     {
         AdjustCurrentSetting(-1);
     }
@@ -569,7 +582,9 @@ void ANarisPlayerController::MenuLeft()
 
 void ANarisPlayerController::MenuRight()
 {
-    if (bPauseMenuOpen && PauseMenuPage == ENarisPauseMenuPage::Settings)
+    if (!bWaitingForGamepadRemap
+        && bPauseMenuOpen
+        && PauseMenuPage == ENarisPauseMenuPage::Settings)
     {
         AdjustCurrentSetting(1);
     }
@@ -591,6 +606,35 @@ void ANarisPlayerController::MenuConfirm()
         else if (SelectedMenuIndex == 1)
         {
             PauseMenuPage = ENarisPauseMenuPage::Settings;
+            SelectedMenuIndex = 0;
+        }
+        else if (SelectedMenuIndex == 2)
+        {
+            PauseMenuPage = ENarisPauseMenuPage::Controls;
+            SelectedMenuIndex = 0;
+        }
+        return;
+    }
+
+    if (PauseMenuPage == ENarisPauseMenuPage::Controls)
+    {
+        if (bWaitingForGamepadRemap)
+        {
+            return;
+        }
+
+        if (SelectedMenuIndex >= 0
+            && SelectedMenuIndex < ControlActionCount)
+        {
+            BeginGamepadRemap(ControlActionName(SelectedMenuIndex));
+        }
+        else if (SelectedMenuIndex == ControlActionCount)
+        {
+            ResetGamepadActionRemaps();
+        }
+        else if (SelectedMenuIndex == ControlActionCount + 1)
+        {
+            PauseMenuPage = ENarisPauseMenuPage::Main;
             SelectedMenuIndex = 0;
         }
         return;
@@ -626,7 +670,14 @@ void ANarisPlayerController::MenuBack()
         return;
     }
 
-    if (PauseMenuPage == ENarisPauseMenuPage::Settings)
+    if (bWaitingForGamepadRemap)
+    {
+        CancelGamepadRemap();
+        return;
+    }
+
+    if (PauseMenuPage == ENarisPauseMenuPage::Settings
+        || PauseMenuPage == ENarisPauseMenuPage::Controls)
     {
         PauseMenuPage = ENarisPauseMenuPage::Main;
         SelectedMenuIndex = 0;
