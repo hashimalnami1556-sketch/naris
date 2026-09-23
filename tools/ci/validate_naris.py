@@ -21,6 +21,8 @@ REQUIRED = [
     ROOT / "schemas" / "naris_blender_exchange.schema.json",
     ROOT / "unreal" / "NARIS_W04" / "Content" / "Python" / "naris_import_blender_exchange.py",
     ROOT / "tools" / "windows" / "Invoke-NarisBlenderUnrealSmoke.ps1",
+    ROOT / "tools" / "windows" / "Invoke-NarisW04AuthoringBootstrap.ps1",
+    ROOT / "unreal" / "NARIS_W04" / "Content" / "Python" / "naris_bootstrap_w04_smoke.py",
 ]
 
 errors: list[str] = []
@@ -98,6 +100,36 @@ if smoke_ps1.exists():
         if token not in smoke:
             errors.append(f"Blender-Unreal smoke script missing contract token: {token}")
 
+# W04 editor bootstrap must parse and target the configured prototype map.
+bootstrap_script = ROOT / "unreal" / "NARIS_W04" / "Content" / "Python" / "naris_bootstrap_w04_smoke.py"
+if bootstrap_script.exists():
+    try:
+        bootstrap_text = bootstrap_script.read_text(encoding="utf-8")
+        compile(bootstrap_text, str(bootstrap_script), "exec")
+        for token in (
+            "/Game/NARIS/W04/Maps/W04_Prototype",
+            "NarisWaystone",
+            "NarisMemoryCrystal",
+            "NarisAshGate",
+            "CelestialWolf",
+            "BoneBeastBoss",
+        ):
+            if token not in bootstrap_text:
+                errors.append(f"W04 bootstrap missing contract token: {token}")
+    except SyntaxError as exc:
+        errors.append(f"Invalid W04 bootstrap Python syntax: {exc}")
+
+engine_ini = ROOT / "unreal" / "NARIS_W04" / "Config" / "DefaultEngine.ini"
+if engine_ini.exists():
+    engine_text = engine_ini.read_text(encoding="utf-8")
+    for token in (
+        "EditorStartupMap=/Game/NARIS/W04/Maps/W04_Prototype",
+        "GameDefaultMap=/Game/NARIS/W04/Maps/W04_Prototype",
+        "GlobalDefaultGameMode=/Script/NARIS_W04.NarisGameMode",
+    ):
+        if token not in engine_text:
+            errors.append(f"DefaultEngine.ini missing W04 runtime setting: {token}")
+
 # Neon migration contract: verify the core tables are declared and no connection secret is embedded.
 neon_schema = ROOT / "backend" / "neon" / "schema" / "001_core.sql"
 if neon_schema.exists():
@@ -138,3 +170,4 @@ print("Validated Blender integration: tools/blender/naris_export.py")
 print("Validated Neon schema contract: backend/neon/schema/001_core.sql")
 print("Validated Figma handoff contract: integrations/figma/README.md")
 print("Validated Blender exchange schema and Unreal import bridge")
+print("Validated W04 Unreal editor bootstrap and runtime map settings")
