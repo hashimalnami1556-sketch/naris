@@ -22,6 +22,8 @@ $Bootstrap = Join-Path $RepoRoot "tools\windows\Invoke-NarisW04AuthoringBootstra
 $Localization = Join-Path $RepoRoot "tools\windows\Invoke-NarisLocalization.ps1"
 $GeneratedMap = Join-Path $RepoRoot "unreal\NARIS_W04\Content\NARIS\W04\Maps\W04_Prototype.umap"
 $GeneratedBossData = Join-Path $RepoRoot "unreal\NARIS_W04\Content\NARIS\W04\Data\DA_BoneBeast_Smoke.uasset"
+$GeneratedPresentationProfile = Join-Path $RepoRoot "unreal\NARIS_W04\Content\NARIS\W04\Presentation\DA_W04_Presentation.uasset"
+$PresentationAuthoringReport = Join-Path $RepoRoot "unreal\NARIS_W04\Saved\TestReports\naris_presentation_authoring.json"
 
 foreach ($path in @($UProject, $BuildBat, $RunUAT, $Bootstrap, $Localization)) {
     if (-not (Test-Path $path)) {
@@ -43,11 +45,22 @@ if ($LASTEXITCODE -ne 0) {
     throw "W04 authoring bootstrap failed with exit code $LASTEXITCODE"
 }
 
-foreach ($generated in @($GeneratedMap, $GeneratedBossData)) {
+foreach ($generated in @($GeneratedMap, $GeneratedBossData, $GeneratedPresentationProfile)) {
     if (-not (Test-Path $generated)) {
         throw "Expected generated Unreal asset is missing: $generated"
     }
 }
+
+if (-not (Test-Path $PresentationAuthoringReport)) {
+    throw "Presentation authoring report was not produced: $PresentationAuthoringReport"
+}
+
+$PresentationAuthoringData = Get-Content $PresentationAuthoringReport -Raw | ConvertFrom-Json
+if ($PresentationAuthoringData.status -ne "pass") {
+    throw "Presentation authoring failed: $PresentationAuthoringReport"
+}
+
+Copy-Item $PresentationAuthoringReport (Join-Path $ArchiveDir "naris_presentation_authoring.json") -Force
 
 Write-Host "[NARIS] Gathering and compiling EN/AR localization"
 & $Localization -RepoRoot $RepoRoot -UnrealEngineRoot $UnrealEngineRoot
@@ -194,6 +207,10 @@ $Report = [ordered]@{
     runtime_progression_report = $RuntimeSmokeReport
     generated_map = $GeneratedMap
     generated_boss_data = $GeneratedBossData
+    generated_presentation_profile = $GeneratedPresentationProfile
+    presentation_authoring_status = $PresentationAuthoringData.status
+    presentation_bound_asset_ids = @($PresentationAuthoringData.bound_asset_ids)
+    presentation_unbound_asset_ids = @($PresentationAuthoringData.unbound_asset_ids)
     csv_capture_files = @($CsvCaptures)
     llm_capture_files = @($LlmCaptures)
     profiling_note = "CSV/LLM capture paths are evidence only when files are emitted by the packaged Development build."
