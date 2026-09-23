@@ -2,6 +2,7 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
+#include "Engine/PrimaryDataAsset.h"
 #include "NarisPresentationComponent.generated.h"
 
 class UNiagaraSystem;
@@ -41,6 +42,16 @@ struct FNarisPresentationCue
     float ShakeFalloff = 1.f;
 };
 
+UCLASS(BlueprintType)
+class NARIS_W04_API UNarisPresentationProfile : public UPrimaryDataAsset
+{
+    GENERATED_BODY()
+
+public:
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="NARIS|Presentation")
+    TArray<FNarisPresentationCue> Cues;
+};
+
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(
     FNarisPresentationCueTriggered,
     FName,
@@ -56,6 +67,17 @@ class NARIS_W04_API UNarisPresentationComponent : public UActorComponent
 
 public:
     UNarisPresentationComponent();
+
+    virtual void BeginPlay() override;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="NARIS|Presentation")
+    TObjectPtr<UNarisPresentationProfile> Profile = nullptr;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="NARIS|Presentation")
+    FSoftObjectPath DefaultProfilePath;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="NARIS|Presentation")
+    bool bAutoLoadDefaultProfile = true;
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="NARIS|Presentation")
     TArray<FNarisPresentationCue> Cues;
