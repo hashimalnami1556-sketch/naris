@@ -47,6 +47,7 @@
     {"id":"NARIS-W04-UI-HUD-0001","name":"Combat HUD","domain":"UI","type":"HUD","world":"W04","status":"concept","source":"ui_bible","engine_target":"Unreal UMG"},
     {"id":"NARIS-W04-MAP-REGION-0001","name":"Ashen Forest Region Map","domain":"MAP","type":"REGION","world":"W04","status":"blockout","source":"world_bible","engine_target":"Unreal"},
     {"id":"NARIS-W04-QST-FIRSTWHISPER-0001","name":"First Whisper","domain":"QST","type":"NARRATIVE_BEAT","world":"W04","status":"brief","source":"master_integration_v1_9","engine_target":"Unreal Narrative","notes":"Narrative beat triggered by Memory Crystal before Ash Gate"},
+    {"id":"NARIS-W04-QST-DEMOEND-0001","name":"Demo End","domain":"QST","type":"VERTICAL_SLICE_MILESTONE","world":"W04","status":"brief","source":"master_integration_v1_9","engine_target":"Unreal Runtime","notes":"Persistent W04 demo completion state emitted after Bone Beast encounter completion"},
     {"id":"NARIS-W04-CINE-TEASER-0001","name":"The Gate Remembers","domain":"CINE","type":"TEASER","world":"W04","status":"concept","source":"teaser_bible","engine_target":"Unreal/Movie Render Queue"}
   ]
 }
