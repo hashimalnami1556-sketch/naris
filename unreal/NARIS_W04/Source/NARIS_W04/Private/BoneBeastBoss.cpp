@@ -1,13 +1,25 @@
 #include "BoneBeastBoss.h"
 
+#include "BoneBeastCombatComponent.h"
 #include "BoneBeastDataAsset.h"
+#include "BoneBeastPhaseComponent.h"
 #include "Engine/GameInstance.h"
 #include "Engine/World.h"
+#include "GameFramework/DamageType.h"
+#include "Kismet/GameplayStatics.h"
+#include "NarisPresentationComponent.h"
 #include "NarisRuntimeSubsystem.h"
 
 ABoneBeastBoss::ABoneBeastBoss()
 {
     PrimaryActorTick.bCanEverTick = false;
+
+    CombatPresentation =
+        CreateDefaultSubobject<UBoneBeastCombatComponent>(TEXT("CombatPresentation"));
+    PhasePresentation =
+        CreateDefaultSubobject<UBoneBeastPhaseComponent>(TEXT("PhasePresentation"));
+    Presentation =
+        CreateDefaultSubobject<UNarisPresentationComponent>(TEXT("Presentation"));
 }
 
 void ABoneBeastBoss::BeginPlay()
@@ -29,7 +41,14 @@ void ABoneBeastBoss::BeginPlay()
         CurrentPhase = ENarisBossPhase::Dead;
         bEncounterActive = false;
         bEncounterComplete = true;
+
+        if (PhasePresentation)
+        {
+            PhasePresentation->SetAuthoritativePhase(CurrentPhase);
+        }
+
         EmitBossEvent(TEXT("EncounterRestoredComplete"));
+
         if (Runtime->IsDemoCompleted())
         {
             EmitBossEvent(TEXT("DemoEnd"));
@@ -106,6 +125,14 @@ void ABoneBeastBoss::StartEncounter()
     CurrentPhase = ENarisBossPhase::Phase1;
     bEncounterActive = true;
     bEncounterComplete = false;
+    PendingAttackId = NAME_None;
+    PendingAttackDamage = 0.f;
+
+    if (PhasePresentation)
+    {
+        PhasePresentation->SetAuthoritativePhase(CurrentPhase);
+    }
+
     EmitBossEvent(TEXT("EncounterStarted"));
 }
 
@@ -119,12 +146,22 @@ void ABoneBeastBoss::ResetEncounter()
     CurrentHealth = GetConfiguredMaxHealth();
     CurrentPhase = ENarisBossPhase::Phase1;
     bEncounterActive = false;
+    CancelAttack();
+
+    if (PhasePresentation)
+    {
+        PhasePresentation->SetAuthoritativePhase(CurrentPhase);
+    }
+
     EmitBossEvent(TEXT("EncounterReset"));
 }
 
 void ABoneBeastBoss::ApplyDamageToEncounter(float Damage)
 {
-    if (!bEncounterActive || bEncounterComplete || CurrentPhase == ENarisBossPhase::Dead || Damage <= 0.f)
+    if (!bEncounterActive
+        || bEncounterComplete
+        || CurrentPhase == ENarisBossPhase::Dead
+        || Damage <= 0.f)
     {
         return;
     }
@@ -137,6 +174,13 @@ void ABoneBeastBoss::ApplyDamageToEncounter(float Damage)
         CurrentHealth = 0.f;
         CurrentPhase = ENarisBossPhase::Dead;
         bEncounterActive = false;
+        CancelAttack();
+
+        if (PhasePresentation)
+        {
+            PhasePresentation->SetAuthoritativePhase(CurrentPhase);
+        }
+
         EmitBossEvent(TEXT("Death"));
         CompleteEncounter();
         return;
@@ -147,7 +191,9 @@ void ABoneBeastBoss::ApplyDamageToEncounter(float Damage)
 
 void ABoneBeastBoss::CompleteEncounter()
 {
-    if (bEncounterComplete || CurrentPhase != ENarisBossPhase::Dead || !GetWorld())
+    if (bEncounterComplete
+        || CurrentPhase != ENarisBossPhase::Dead
+        || !GetWorld())
     {
         return;
     }
@@ -167,6 +213,7 @@ void ABoneBeastBoss::CompleteEncounter()
     {
         QuestCompletionId = BossData->QuestCompletionId;
     }
+
     if (!QuestCompletionId.IsNone())
     {
         Runtime->CompleteQuest(QuestCompletionId.ToString());
@@ -189,6 +236,81 @@ void ABoneBeastBoss::CompleteEncounter()
     {
         EmitBossEvent(TEXT("AutoSaveFailed"));
     }
+}
+
+bool ABoneBeastBoss::RequestAttack(FName AttackId, float Damage)
+{
+    if (!bEncounterActive
+        || bEncounterComplete
+        || CurrentPhase == ENarisBossPhase::Dead
+        || AttackId.IsNone()
+        || Damage <= 0.f)
+    {
+        return false;
+    }
+
+    PendingAttackId = AttackId;
+    PendingAttackDamage = Damage;
+
+    if (CombatPresentation)
+    {
+        CombatPresentation->StartAttack(AttackId);
+    }
+
+    if (Presentation)
+    {
+        Presentation->TriggerCue(
+            FName(*FString::Printf(
+                TEXT("Boss.Attack.%s"),
+                *AttackId.ToString()
+            ))
+        );
+    }
+
+    return true;
+}
+
+bool ABoneBeastBoss::CommitAttackImpact(AActor* TargetActor)
+{
+    if (!bEncounterActive
+        || bEncounterComplete
+        || PendingAttackId.IsNone()
+        || PendingAttackDamage <= 0.f
+        || !IsValid(TargetActor))
+    {
+        return false;
+    }
+
+    const float AppliedDamage = UGameplayStatics::ApplyDamage(
+        TargetActor,
+        PendingAttackDamage,
+        GetController(),
+        this,
+        UDamageType::StaticClass()
+    );
+
+    if (CombatPresentation)
+    {
+        CombatPresentation->ResolveImpact(PendingAttackDamage);
+    }
+
+    if (Presentation)
+    {
+        Presentation->TriggerCueAtLocation(
+            TEXT("Boss.AttackImpact"),
+            TargetActor->GetActorLocation()
+        );
+    }
+
+    PendingAttackId = NAME_None;
+    PendingAttackDamage = 0.f;
+    return AppliedDamage > 0.f;
+}
+
+void ABoneBeastBoss::CancelAttack()
+{
+    PendingAttackId = NAME_None;
+    PendingAttackDamage = 0.f;
 }
 
 void ABoneBeastBoss::EvaluatePhase()
@@ -214,8 +336,10 @@ void ABoneBeastBoss::EvaluatePhase()
             }
         }
 
-        const int32 MaxSupportedPhaseIndex = FMath::Min(BossData->Phases.Num() - 1, 2);
-        NewPhaseIndex = FMath::Clamp(NewPhaseIndex, 0, MaxSupportedPhaseIndex);
+        const int32 MaxSupportedPhaseIndex =
+            FMath::Min(BossData->Phases.Num() - 1, 2);
+        NewPhaseIndex =
+            FMath::Clamp(NewPhaseIndex, 0, MaxSupportedPhaseIndex);
         NewPhase = static_cast<ENarisBossPhase>(NewPhaseIndex);
         PhaseNumber = NewPhaseIndex + 1;
     }
@@ -233,7 +357,15 @@ void ABoneBeastBoss::EvaluatePhase()
     if (NewPhase != CurrentPhase)
     {
         CurrentPhase = NewPhase;
-        EmitBossEvent(FName(*FString::Printf(TEXT("Phase%d"), PhaseNumber)));
+
+        if (PhasePresentation)
+        {
+            PhasePresentation->SetAuthoritativePhase(CurrentPhase);
+        }
+
+        EmitBossEvent(
+            FName(*FString::Printf(TEXT("Phase%d"), PhaseNumber))
+        );
         EmitBossEvent(TEXT("PhaseTransition"));
     }
 }
@@ -241,4 +373,14 @@ void ABoneBeastBoss::EvaluatePhase()
 void ABoneBeastBoss::EmitBossEvent(FName EventName)
 {
     OnBossEvent.Broadcast(EventName);
+
+    if (Presentation && !EventName.IsNone())
+    {
+        Presentation->TriggerCue(
+            FName(*FString::Printf(
+                TEXT("Boss.%s"),
+                *EventName.ToString()
+            ))
+        );
+    }
 }
