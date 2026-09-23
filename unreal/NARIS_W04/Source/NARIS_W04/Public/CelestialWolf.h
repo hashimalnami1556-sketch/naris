@@ -101,6 +101,12 @@ public:
     void EchoLink();
 
     UFUNCTION(BlueprintCallable, Category="NARIS|Companion")
+    void CycleMode();
+
+    UFUNCTION(BlueprintPure, Category="NARIS|Companion")
+    FText GetModeDisplayName() const;
+
+    UFUNCTION(BlueprintCallable, Category="NARIS|Companion")
     void SetTrackTarget(AActor* NewTarget);
 
     UFUNCTION(BlueprintCallable, Category="NARIS|Companion")
