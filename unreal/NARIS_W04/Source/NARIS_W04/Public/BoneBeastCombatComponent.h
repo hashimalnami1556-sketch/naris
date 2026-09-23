@@ -4,7 +4,7 @@
 #include "Components/ActorComponent.h"
 #include "BoneBeastCombatComponent.generated.h"
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FNarisCombatEvent, FName, EventName);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FNarisBoneBeastCombatEvent, FName, EventName);
 
 UCLASS(ClassGroup=(NARIS), meta=(BlueprintSpawnableComponent))
 class NARIS_W04_API UBoneBeastCombatComponent : public UActorComponent
@@ -15,6 +15,9 @@ public:
     UFUNCTION(BlueprintCallable, Category="NARIS|Combat")
     void StartAttack(FName AttackId);
 
+    UFUNCTION(BlueprintPure, Category="NARIS|Combat")
+    FName GetCurrentAttackId() const { return CurrentAttackId; }
+
     UFUNCTION(BlueprintCallable, Category="NARIS|Combat")
     void ResolveImpact(float Damage);
 
@@ -22,5 +25,8 @@ public:
     void TriggerStagger();
 
     UPROPERTY(BlueprintAssignable, Category="NARIS|Combat")
-    FNarisCombatEvent OnCombatEvent;
+    FNarisBoneBeastCombatEvent OnCombatEvent;
+
+private:
+    FName CurrentAttackId = NAME_None;
 };
