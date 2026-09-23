@@ -1,0 +1,68 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: NARIS_Game\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgctxt "NARIS,WaystoneInteractPrompt"
+msgid "Attune Waystone"
+msgstr "Attune Waystone"
+
+msgctxt "NARIS,MemoryCrystalInteractPrompt"
+msgid "Read Memory"
+msgstr "Read Memory"
+
+msgctxt "NARIS,AshGateInteractPrompt"
+msgid "Open Ash Gate"
+msgstr "Open Ash Gate"
+
+msgctxt "NARIS,CelestialWolfBondedPrompt"
+msgid "Celestial Wolf"
+msgstr "Celestial Wolf"
+
+msgctxt "NARIS,CelestialWolfBondPrompt"
+msgid "Bond with Celestial Wolf"
+msgstr "Bond with Celestial Wolf"
+
+msgctxt "NARIS,BoneBeastDefeatedPrompt"
+msgid "Bone Beast Defeated"
+msgstr "Bone Beast Defeated"
+
+msgctxt "NARIS,BoneBeastStartPrompt"
+msgid "Enter Bone Beast Arena"
+msgstr "Enter Bone Beast Arena"
+
+msgctxt "NARIS,HUDHealth"
+msgid "Health"
+msgstr "Health"
+
+msgctxt "NARIS,HUDResonance"
+msgid "Resonance"
+msgstr "Resonance"
+
+msgctxt "NARIS,HUDEnergy"
+msgid "Energy"
+msgstr "Energy"
+
+msgctxt "NARIS,HUDWolfBonded"
+msgid "Celestial Wolf: Bonded"
+msgstr "Celestial Wolf: Bonded"
+
+msgctxt "NARIS,HUDWolfUnbonded"
+msgid "Celestial Wolf: Unbonded"
+msgstr "Celestial Wolf: Unbonded"
+
+msgctxt "NARIS,HUDDemoComplete"
+msgid "W04 DEMO COMPLETE"
+msgstr "W04 DEMO COMPLETE"
+
+msgctxt "NARIS,HUDBoneBeastDefeated"
+msgid "Bone Beast Defeated"
+msgstr "Bone Beast Defeated"
+
+msgctxt "NARIS,HUDBoneBeast"
+msgid "Bone Beast"
+msgstr "Bone Beast"
+
