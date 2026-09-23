@@ -46,6 +46,21 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Movement")
     float SprintSpeed = 700.f;
 
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="NARIS|Combat|Tuning")
+    float MeleeRange = 260.f;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="NARIS|Combat|Tuning")
+    float LightAttackDamage = 12.f;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="NARIS|Combat|Tuning")
+    float LightAttackPoiseDamage = 15.f;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="NARIS|Combat|Tuning")
+    float HeavyAttackDamage = 24.f;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="NARIS|Combat|Tuning")
+    float HeavyAttackPoiseDamage = 30.f;
+
     UFUNCTION(BlueprintCallable, Category="NARIS|Combat")
     void LightAttack();
 
@@ -77,4 +92,7 @@ protected:
     void LookPitch(float Value);
     void StartSprinting();
     void StopSprinting();
+
+private:
+    bool ApplyAttackToLockedTarget(float Damage, float PoiseDamage);
 };
