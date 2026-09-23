@@ -826,6 +826,72 @@
       "source": "presentation_production_pass_2026-09-23",
       "engine_target": "Unreal Camera Shake",
       "notes": "Boss death shake"
+    },
+    {
+      "id": "NARIS-W04-VFX-BONECLAW-0001",
+      "name": "Bone Beast Claw Sweep",
+      "domain": "VFX",
+      "type": "BOSS_ATTACK",
+      "world": "W04",
+      "status": "brief",
+      "source": "bone_beast_phase_attack_pass_2026-09-23",
+      "engine_target": "Unreal Niagara",
+      "notes": "Phase 1 ClawSweep attack"
+    },
+    {
+      "id": "NARIS-W04-VFX-BONECHARGE-0001",
+      "name": "Bone Beast Bone Charge",
+      "domain": "VFX",
+      "type": "BOSS_ATTACK",
+      "world": "W04",
+      "status": "brief",
+      "source": "bone_beast_phase_attack_pass_2026-09-23",
+      "engine_target": "Unreal Niagara",
+      "notes": "Phase 2 BoneCharge attack"
+    },
+    {
+      "id": "NARIS-W04-VFX-ASHRUPTURE-0001",
+      "name": "Bone Beast Ash Rupture",
+      "domain": "VFX",
+      "type": "BOSS_ATTACK",
+      "world": "W04",
+      "status": "brief",
+      "source": "bone_beast_phase_attack_pass_2026-09-23",
+      "engine_target": "Unreal Niagara",
+      "notes": "Phase 3 AshRupture attack"
+    },
+    {
+      "id": "NARIS-W04-AUD-BONECLAW-0001",
+      "name": "Bone Beast Claw Sweep SFX",
+      "domain": "AUD",
+      "type": "BOSS_ATTACK",
+      "world": "W04",
+      "status": "brief",
+      "source": "bone_beast_phase_attack_pass_2026-09-23",
+      "engine_target": "Unreal Audio/MetaSounds",
+      "notes": "Phase 1 ClawSweep attack"
+    },
+    {
+      "id": "NARIS-W04-AUD-BONECHARGE-0001",
+      "name": "Bone Beast Bone Charge SFX",
+      "domain": "AUD",
+      "type": "BOSS_ATTACK",
+      "world": "W04",
+      "status": "brief",
+      "source": "bone_beast_phase_attack_pass_2026-09-23",
+      "engine_target": "Unreal Audio/MetaSounds",
+      "notes": "Phase 2 BoneCharge attack"
+    },
+    {
+      "id": "NARIS-W04-AUD-ASHRUPTURE-0001",
+      "name": "Bone Beast Ash Rupture SFX",
+      "domain": "AUD",
+      "type": "BOSS_ATTACK",
+      "world": "W04",
+      "status": "brief",
+      "source": "bone_beast_phase_attack_pass_2026-09-23",
+      "engine_target": "Unreal Audio/MetaSounds",
+      "notes": "Phase 3 AshRupture attack"
     }
   ]
 }
