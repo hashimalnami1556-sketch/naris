@@ -143,13 +143,81 @@ void ANarisHUD::DrawHUD()
             }
         }
 
+        const FString QuestId = TEXT("Quest.W04.CorruptedHeart");
+        if (Runtime->IsQuestActive(QuestId) || Runtime->IsQuestCompleted(QuestId))
+        {
+            DrawText(
+                NSLOCTEXT("NARIS", "HUDQuestCorruptedHeart", "Corrupted Heart").ToString(),
+                Gold,
+                40.f,
+                345.f,
+                nullptr,
+                0.95f,
+                false
+            );
+
+            FText Objective = NSLOCTEXT(
+                "NARIS",
+                "HUDQuestCorruptedHeartUnknown",
+                "Follow the Corrupted Heart."
+            );
+
+            if (Runtime->IsQuestCompleted(QuestId))
+            {
+                Objective = NSLOCTEXT(
+                    "NARIS",
+                    "HUDQuestCorruptedHeartComplete",
+                    "Corrupted Heart cleansed."
+                );
+            }
+            else
+            {
+                switch (Runtime->GetQuestStep(QuestId))
+                {
+                    case 1:
+                        Objective = NSLOCTEXT(
+                            "NARIS",
+                            "HUDQuestCorruptedHeartStep1",
+                            "Follow the First Whisper."
+                        );
+                        break;
+                    case 2:
+                        Objective = NSLOCTEXT(
+                            "NARIS",
+                            "HUDQuestCorruptedHeartStep2",
+                            "Pass through the Ash Gate."
+                        );
+                        break;
+                    case 3:
+                        Objective = NSLOCTEXT(
+                            "NARIS",
+                            "HUDQuestCorruptedHeartStep3",
+                            "Enter the Bone Beast arena."
+                        );
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            DrawText(
+                Objective.ToString(),
+                FLinearColor::White,
+                40.f,
+                370.f,
+                nullptr,
+                0.82f,
+                false
+            );
+        }
+
         if (Runtime->IsDemoCompleted())
         {
             DrawText(
                 NSLOCTEXT("NARIS", "HUDDemoComplete", "W04 DEMO COMPLETE").ToString(),
                 Gold,
                 40.f,
-                360.f,
+                450.f,
                 nullptr,
                 1.25f,
                 false
@@ -171,7 +239,7 @@ void ANarisHUD::DrawHUD()
                 NSLOCTEXT("NARIS", "HUDBoneBeastDefeated", "Bone Beast Defeated").ToString(),
                 Gold,
                 40.f,
-                420.f,
+                465.f,
                 nullptr,
                 1.0f,
                 false
