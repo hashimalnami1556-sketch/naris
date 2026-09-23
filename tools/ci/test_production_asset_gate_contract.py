@@ -43,4 +43,23 @@ class ProductionAssetGateContractTests(unittest.TestCase):
         for token in ("StaticMeshEditorSubsystem","SkeletalMeshEditorSubsystem","get_lod_count","get_num_lods","physics_asset","skeleton","static_materials","customized_collision","get_convex_collision_count","NARIS_PRODUCTION_ASSETS_STRICT","naris_production_asset_validation.json"):
             self.assertIn(token,s)
 
+    def test_bootstrap_and_shipping_wire_the_production_asset_gate(self):
+        bootstrap=read("tools/windows/Invoke-NarisW04AuthoringBootstrap.ps1")
+        package=read("tools/windows/Invoke-NarisWindowsPackage.ps1")
+        rc=read("tools/windows/Invoke-NarisWindowsReleaseCandidate.ps1")
+        for token in (
+            "naris_validate_production_assets.py",
+            "naris_production_asset_validation.json",
+        ):
+            self.assertIn(token, bootstrap if token.endswith(".py") else package)
+        self.assertIn('NARIS_PRODUCTION_ASSETS_STRICT = "1"', rc)
+        self.assertIn(
+            "Release candidate has unresolved core production assets",
+            rc,
+        )
+        self.assertIn(
+            "production_asset_unresolved_count",
+            rc,
+        )
+
 if __name__=="__main__": unittest.main()
