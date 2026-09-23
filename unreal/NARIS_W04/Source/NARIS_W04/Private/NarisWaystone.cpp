@@ -49,6 +49,11 @@ bool ANarisWaystone::ActivateWaystone(AActor* InstigatorActor)
         return false;
     }
 
+    if (!Runtime->SetCheckpointLocation(GetActorLocation()))
+    {
+        return false;
+    }
+
     if (bAutoSave && !Runtime->SaveState(AutoSaveSlot))
     {
         return false;
