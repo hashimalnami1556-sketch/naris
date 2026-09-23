@@ -279,7 +279,7 @@ void ANarisPlayerController::SetupInputComponent()
 
 bool ANarisPlayerController::InputKey(const FInputKeyParams& Params)
 {
-    if (bPauseMenuOpen
+    if (IsSystemMenuOpen()
         && PauseMenuPage == ENarisPauseMenuPage::Controls
         && bWaitingForGamepadRemap
         && Params.Event == IE_Pressed
@@ -670,7 +670,7 @@ void ANarisPlayerController::MenuUp()
         return;
     }
 
-    if (!bPauseMenuOpen)
+    if (!IsSystemMenuOpen())
     {
         return;
     }
@@ -686,7 +686,7 @@ void ANarisPlayerController::MenuDown()
         return;
     }
 
-    if (!bPauseMenuOpen)
+    if (!IsSystemMenuOpen())
     {
         return;
     }
@@ -698,7 +698,7 @@ void ANarisPlayerController::MenuDown()
 void ANarisPlayerController::MenuLeft()
 {
     if (!bWaitingForGamepadRemap
-        && bPauseMenuOpen
+        && IsSystemMenuOpen()
         && PauseMenuPage == ENarisPauseMenuPage::Settings)
     {
         AdjustCurrentSetting(-1);
@@ -708,7 +708,7 @@ void ANarisPlayerController::MenuLeft()
 void ANarisPlayerController::MenuRight()
 {
     if (!bWaitingForGamepadRemap
-        && bPauseMenuOpen
+        && IsSystemMenuOpen()
         && PauseMenuPage == ENarisPauseMenuPage::Settings)
     {
         AdjustCurrentSetting(1);
@@ -717,7 +717,7 @@ void ANarisPlayerController::MenuRight()
 
 void ANarisPlayerController::MenuConfirm()
 {
-    if (!bPauseMenuOpen)
+    if (!IsSystemMenuOpen())
     {
         return;
     }
@@ -817,7 +817,7 @@ void ANarisPlayerController::MenuConfirm()
 
 void ANarisPlayerController::MenuBack()
 {
-    if (!bPauseMenuOpen)
+    if (!IsSystemMenuOpen())
     {
         return;
     }
