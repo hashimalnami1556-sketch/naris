@@ -36,6 +36,12 @@ public:
     UFUNCTION(BlueprintPure, Category="NARIS|Runtime")
     bool HasNarrativeTriggered(const FString& NarrativeId) const;
 
+    UFUNCTION(BlueprintCallable, Category="NARIS|Runtime")
+    bool UnlockGate(const FString& GateId);
+
+    UFUNCTION(BlueprintPure, Category="NARIS|Runtime")
+    bool IsGateUnlocked(const FString& GateId) const;
+
     UFUNCTION(BlueprintPure, Category="NARIS|Runtime")
     FNarisSaveState GetState() const { return State; }
 
