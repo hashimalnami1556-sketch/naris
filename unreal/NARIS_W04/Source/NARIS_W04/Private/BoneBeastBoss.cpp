@@ -12,7 +12,7 @@
 
 ABoneBeastBoss::ABoneBeastBoss()
 {
-    PrimaryActorTick.bCanEverTick = false;
+    PrimaryActorTick.bCanEverTick = true;
 
     CombatPresentation =
         CreateDefaultSubobject<UBoneBeastCombatComponent>(TEXT("CombatPresentation"));
@@ -53,6 +53,53 @@ void ABoneBeastBoss::BeginPlay()
         {
             EmitBossEvent(TEXT("DemoEnd"));
         }
+    }
+}
+
+void ABoneBeastBoss::Tick(float DeltaSeconds)
+{
+    Super::Tick(DeltaSeconds);
+
+    if (!bAutoAttack
+        || !bEncounterActive
+        || bEncounterComplete
+        || !PendingAttackId.IsNone()
+        || !GetWorld())
+    {
+        return;
+    }
+
+    APawn* PlayerPawn = UGameplayStatics::GetPlayerPawn(this, 0);
+    if (!IsValid(PlayerPawn))
+    {
+        return;
+    }
+
+    const float DistanceSq = FVector::DistSquared(
+        GetActorLocation(),
+        PlayerPawn->GetActorLocation()
+    );
+    if (DistanceSq > FMath::Square(FMath::Max(AttackRange, 1.f)))
+    {
+        return;
+    }
+
+    const float Now = GetWorld()->GetTimeSeconds();
+    if (Now - LastAttackRequestTime < FMath::Max(AttackIntervalSeconds, 0.1f))
+    {
+        return;
+    }
+
+    if (!RequestPhaseAttack())
+    {
+        return;
+    }
+
+    LastAttackRequestTime = Now;
+
+    if (bImmediateSmokeAttackImpact)
+    {
+        CommitAttackImpact(PlayerPawn);
     }
 }
 
@@ -127,6 +174,7 @@ void ABoneBeastBoss::StartEncounter()
     bEncounterComplete = false;
     PendingAttackId = NAME_None;
     PendingAttackDamage = 0.f;
+    LastAttackRequestTime = -1000.f;
 
     if (PhasePresentation)
     {
