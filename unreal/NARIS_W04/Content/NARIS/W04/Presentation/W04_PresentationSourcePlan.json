@@ -39,7 +39,16 @@
         "trim_leading_silence": true,
         "preserve_natural_tail": true
       },
-      "source_file": "assets/source/presentation/audio/NARIS-W04-AUD-ARENA-0001.wav"
+      "source_file": "assets/source/presentation/audio/NARIS-W04-AUD-ARENA-0001.wav",
+      "generation_contract": {
+        "provider_model": "sfx/elevenlabs-sound-v2",
+        "prompt": "Dark fantasy arena seal engaging: deep stone lock, ancient metallic resonance, restrained golden rune chime and low aether hum, powerful but not explosive, short cinematic tail, no music, no voice.",
+        "duration_seconds": 2.2,
+        "loop": false,
+        "prompt_influence": 0.55,
+        "output_format": "pcm_48000",
+        "note": "Generation spends external credits. Generate only through an explicitly authorized production run; importer still validates the WAV master before Unreal binding."
+      }
     },
     {
       "asset_id": "NARIS-W04-AUD-ASHRUPTURE-0001",
@@ -62,7 +71,16 @@
         "trim_leading_silence": true,
         "preserve_natural_tail": true
       },
-      "source_file": "assets/source/presentation/audio/NARIS-W04-AUD-ASHRUPTURE-0001.wav"
+      "source_file": "assets/source/presentation/audio/NARIS-W04-AUD-ASHRUPTURE-0001.wav",
+      "generation_contract": {
+        "provider_model": "sfx/elevenlabs-sound-v2",
+        "prompt": "Violent volcanic ash rupture from the ground: sub-heavy crack, gritty stone burst, ember hiss and corrupted energy snap, dangerous readable combat telegraph, short tail, no music, no voice.",
+        "duration_seconds": 1.6,
+        "loop": false,
+        "prompt_influence": 0.55,
+        "output_format": "pcm_48000",
+        "note": "Generation spends external credits. Generate only through an explicitly authorized production run; importer still validates the WAV master before Unreal binding."
+      }
     },
     {
       "asset_id": "NARIS-W04-AUD-BONEATTACK-0001",
@@ -85,7 +103,16 @@
         "trim_leading_silence": true,
         "preserve_natural_tail": true
       },
-      "source_file": "assets/source/presentation/audio/NARIS-W04-AUD-BONEATTACK-0001.wav"
+      "source_file": "assets/source/presentation/audio/NARIS-W04-AUD-BONEATTACK-0001.wav",
+      "generation_contract": {
+        "provider_model": "sfx/elevenlabs-sound-v2",
+        "prompt": "Generic Bone Beast attack accent: massive dry bone movement, heavy claw whoosh, dusty ash texture and low bestial impact energy, aggressive one-shot, no roar, no music.",
+        "duration_seconds": 1,
+        "loop": false,
+        "prompt_influence": 0.55,
+        "output_format": "pcm_48000",
+        "note": "Generation spends external credits. Generate only through an explicitly authorized production run; importer still validates the WAV master before Unreal binding."
+      }
     },
     {
       "asset_id": "NARIS-W04-AUD-BONECHARGE-0001",
@@ -108,7 +135,16 @@
         "trim_leading_silence": true,
         "preserve_natural_tail": true
       },
-      "source_file": "assets/source/presentation/audio/NARIS-W04-AUD-BONECHARGE-0001.wav"
+      "source_file": "assets/source/presentation/audio/NARIS-W04-AUD-BONECHARGE-0001.wav",
+      "generation_contract": {
+        "provider_model": "sfx/elevenlabs-sound-v2",
+        "prompt": "Bone Beast charging forward: heavy bone armor rattle, accelerating stone-and-ash foot impacts, low body rush and brutal stop accent, cinematic combat one-shot, no music.",
+        "duration_seconds": 1.2,
+        "loop": false,
+        "prompt_influence": 0.55,
+        "output_format": "pcm_48000",
+        "note": "Generation spends external credits. Generate only through an explicitly authorized production run; importer still validates the WAV master before Unreal binding."
+      }
     },
     {
       "asset_id": "NARIS-W04-AUD-BONECLAW-0001",
@@ -131,7 +167,16 @@
         "trim_leading_silence": true,
         "preserve_natural_tail": true
       },
-      "source_file": "assets/source/presentation/audio/NARIS-W04-AUD-BONECLAW-0001.wav"
+      "source_file": "assets/source/presentation/audio/NARIS-W04-AUD-BONECLAW-0001.wav",
+      "generation_contract": {
+        "provider_model": "sfx/elevenlabs-sound-v2",
+        "prompt": "Fast Bone Beast claw sweep: sharp bone blade whoosh, dry scrape, compact impact snap and ash grit, crisp transient for melee readability, very short tail, no music.",
+        "duration_seconds": 0.8,
+        "loop": false,
+        "prompt_influence": 0.55,
+        "output_format": "pcm_48000",
+        "note": "Generation spends external credits. Generate only through an explicitly authorized production run; importer still validates the WAV master before Unreal binding."
+      }
     },
     {
       "asset_id": "NARIS-W04-AUD-BONEDEATH-0001",
@@ -154,7 +199,16 @@
         "trim_leading_silence": true,
         "preserve_natural_tail": true
       },
-      "source_file": "assets/source/presentation/audio/NARIS-W04-AUD-BONEDEATH-0001.wav"
+      "source_file": "assets/source/presentation/audio/NARIS-W04-AUD-BONEDEATH-0001.wav",
+      "generation_contract": {
+        "provider_model": "sfx/elevenlabs-sound-v2",
+        "prompt": "Colossal Bone Beast death collapse: cracking skeletal mass, stone-weight body fall, ash cloud release, corrupted aether energy dissolving into silence, dramatic dark fantasy tail, no music.",
+        "duration_seconds": 3.2,
+        "loop": false,
+        "prompt_influence": 0.55,
+        "output_format": "pcm_48000",
+        "note": "Generation spends external credits. Generate only through an explicitly authorized production run; importer still validates the WAV master before Unreal binding."
+      }
     },
     {
       "asset_id": "NARIS-W04-AUD-BONEHIT-0001",
@@ -177,7 +231,16 @@
         "trim_leading_silence": true,
         "preserve_natural_tail": true
       },
-      "source_file": "assets/source/presentation/audio/NARIS-W04-AUD-BONEHIT-0001.wav"
+      "source_file": "assets/source/presentation/audio/NARIS-W04-AUD-BONEHIT-0001.wav",
+      "generation_contract": {
+        "provider_model": "sfx/elevenlabs-sound-v2",
+        "prompt": "Short Bone Beast hit reaction: hard weapon strike on ancient bone, dry fracture tick, dense ash puff and tiny corrupted energy crackle, punchy transient, no music.",
+        "duration_seconds": 0.5,
+        "loop": false,
+        "prompt_influence": 0.55,
+        "output_format": "pcm_48000",
+        "note": "Generation spends external credits. Generate only through an explicitly authorized production run; importer still validates the WAV master before Unreal binding."
+      }
     },
     {
       "asset_id": "NARIS-W04-AUD-BONEINTRO-0001",
@@ -200,7 +263,16 @@
         "trim_leading_silence": true,
         "preserve_natural_tail": true
       },
-      "source_file": "assets/source/presentation/audio/NARIS-W04-AUD-BONEINTRO-0001.wav"
+      "source_file": "assets/source/presentation/audio/NARIS-W04-AUD-BONEINTRO-0001.wav",
+      "generation_contract": {
+        "provider_model": "sfx/elevenlabs-sound-v2",
+        "prompt": "Bone Beast encounter reveal sting: distant subterranean bone groan, ancient stone resonance, rising corrupted ash pressure and one ominous impact, cinematic 4-second one-shot, no melody, no voice.",
+        "duration_seconds": 4,
+        "loop": false,
+        "prompt_influence": 0.55,
+        "output_format": "pcm_48000",
+        "note": "Generation spends external credits. Generate only through an explicitly authorized production run; importer still validates the WAV master before Unreal binding."
+      }
     },
     {
       "asset_id": "NARIS-W04-AUD-BONEPHASE-0001",
@@ -223,7 +295,16 @@
         "trim_leading_silence": true,
         "preserve_natural_tail": true
       },
-      "source_file": "assets/source/presentation/audio/NARIS-W04-AUD-BONEPHASE-0001.wav"
+      "source_file": "assets/source/presentation/audio/NARIS-W04-AUD-BONEPHASE-0001.wav",
+      "generation_contract": {
+        "provider_model": "sfx/elevenlabs-sound-v2",
+        "prompt": "Boss phase escalation: deep pulse, bone plates shifting, ash surge and violet corrupted energy bloom, rising intensity then hard settle, dark fantasy combat cue, no music.",
+        "duration_seconds": 2,
+        "loop": false,
+        "prompt_influence": 0.55,
+        "output_format": "pcm_48000",
+        "note": "Generation spends external credits. Generate only through an explicitly authorized production run; importer still validates the WAV master before Unreal binding."
+      }
     },
     {
       "asset_id": "NARIS-W04-AUD-DODGE-0001",
@@ -246,7 +327,16 @@
         "trim_leading_silence": true,
         "preserve_natural_tail": true
       },
-      "source_file": "assets/source/presentation/audio/NARIS-W04-AUD-DODGE-0001.wav"
+      "source_file": "assets/source/presentation/audio/NARIS-W04-AUD-DODGE-0001.wav",
+      "generation_contract": {
+        "provider_model": "sfx/elevenlabs-sound-v2",
+        "prompt": "Hero dodge movement accent: rapid cloth-and-air displacement, subtle ash sweep and tiny aether flick, clean fast transient with almost no tail, no footsteps, no music.",
+        "duration_seconds": 0.45,
+        "loop": false,
+        "prompt_influence": 0.55,
+        "output_format": "pcm_48000",
+        "note": "Generation spends external credits. Generate only through an explicitly authorized production run; importer still validates the WAV master before Unreal binding."
+      }
     },
     {
       "asset_id": "NARIS-W04-AUD-ESSENCE-0001",
@@ -269,7 +359,16 @@
         "trim_leading_silence": true,
         "preserve_natural_tail": true
       },
-      "source_file": "assets/source/presentation/audio/NARIS-W04-AUD-ESSENCE-0001.wav"
+      "source_file": "assets/source/presentation/audio/NARIS-W04-AUD-ESSENCE-0001.wav",
+      "generation_contract": {
+        "provider_model": "sfx/elevenlabs-sound-v2",
+        "prompt": "Magical essence switch confirmation: precise crystalline energy click, soft elemental shimmer and short aether tone, elegant UI-combat feedback, clean and unobtrusive, no music.",
+        "duration_seconds": 0.55,
+        "loop": false,
+        "prompt_influence": 0.55,
+        "output_format": "pcm_48000",
+        "note": "Generation spends external credits. Generate only through an explicitly authorized production run; importer still validates the WAV master before Unreal binding."
+      }
     },
     {
       "asset_id": "NARIS-W04-AUD-HEROIMPACT-0001",
@@ -293,7 +392,16 @@
         "trim_leading_silence": true,
         "preserve_natural_tail": true
       },
-      "source_file": "assets/source/presentation/audio/NARIS-W04-AUD-HEROIMPACT-0001.wav"
+      "source_file": "assets/source/presentation/audio/NARIS-W04-AUD-HEROIMPACT-0001.wav",
+      "generation_contract": {
+        "provider_model": "sfx/elevenlabs-sound-v2",
+        "prompt": "Hero weapon impact on hostile target: sharp metal strike, dense body/bone contact, ember-aether energy accent and tiny debris tail, powerful readable melee transient, no music.",
+        "duration_seconds": 0.45,
+        "loop": false,
+        "prompt_influence": 0.55,
+        "output_format": "pcm_48000",
+        "note": "Generation spends external credits. Generate only through an explicitly authorized production run; importer still validates the WAV master before Unreal binding."
+      }
     },
     {
       "asset_id": "NARIS-W04-AUD-PARRY-0001",
@@ -316,7 +424,16 @@
         "trim_leading_silence": true,
         "preserve_natural_tail": true
       },
-      "source_file": "assets/source/presentation/audio/NARIS-W04-AUD-PARRY-0001.wav"
+      "source_file": "assets/source/presentation/audio/NARIS-W04-AUD-PARRY-0001.wav",
+      "generation_contract": {
+        "provider_model": "sfx/elevenlabs-sound-v2",
+        "prompt": "Perfect parry success: bright metallic deflection, razor-sharp transient, ancient gold rune ping and compact cyan aether burst, highly readable competitive combat cue, no music.",
+        "duration_seconds": 0.65,
+        "loop": false,
+        "prompt_influence": 0.55,
+        "output_format": "pcm_48000",
+        "note": "Generation spends external credits. Generate only through an explicitly authorized production run; importer still validates the WAV master before Unreal binding."
+      }
     },
     {
       "asset_id": "NARIS-W04-AUD-WOLFATTACK-0001",
@@ -339,7 +456,16 @@
         "trim_leading_silence": true,
         "preserve_natural_tail": true
       },
-      "source_file": "assets/source/presentation/audio/NARIS-W04-AUD-WOLFATTACK-0001.wav"
+      "source_file": "assets/source/presentation/audio/NARIS-W04-AUD-WOLFATTACK-0001.wav",
+      "generation_contract": {
+        "provider_model": "sfx/elevenlabs-sound-v2",
+        "prompt": "Celestial Wolf spirit-claw impact: swift ethereal paw swipe, airy cyan energy trail, compact spectral impact and crystalline shimmer, agile supernatural one-shot, no animal vocal.",
+        "duration_seconds": 0.8,
+        "loop": false,
+        "prompt_influence": 0.55,
+        "output_format": "pcm_48000",
+        "note": "Generation spends external credits. Generate only through an explicitly authorized production run; importer still validates the WAV master before Unreal binding."
+      }
     },
     {
       "asset_id": "NARIS-W04-AUD-WOLFBOND-0001",
@@ -362,7 +488,16 @@
         "trim_leading_silence": true,
         "preserve_natural_tail": true
       },
-      "source_file": "assets/source/presentation/audio/NARIS-W04-AUD-WOLFBOND-0001.wav"
+      "source_file": "assets/source/presentation/audio/NARIS-W04-AUD-WOLFBOND-0001.wav",
+      "generation_contract": {
+        "provider_model": "sfx/elevenlabs-sound-v2",
+        "prompt": "Celestial Wolf bonding moment: warm spectral bloom, soft crystalline chimes, breathing cyan spirit energy and gentle ancient resonance, emotional but restrained, no melody, no animal vocal.",
+        "duration_seconds": 2,
+        "loop": false,
+        "prompt_influence": 0.55,
+        "output_format": "pcm_48000",
+        "note": "Generation spends external credits. Generate only through an explicitly authorized production run; importer still validates the WAV master before Unreal binding."
+      }
     },
     {
       "asset_id": "NARIS-W04-AUD-WOLFECHO-0001",
@@ -385,7 +520,16 @@
         "trim_leading_silence": true,
         "preserve_natural_tail": true
       },
-      "source_file": "assets/source/presentation/audio/NARIS-W04-AUD-WOLFECHO-0001.wav"
+      "source_file": "assets/source/presentation/audio/NARIS-W04-AUD-WOLFECHO-0001.wav",
+      "generation_contract": {
+        "provider_model": "sfx/elevenlabs-sound-v2",
+        "prompt": "Celestial Wolf Echo Link pulse: expanding spectral wave, soft sub pulse, airy cyan resonance and distant crystalline return, clean navigational feedback, no music, no animal vocal.",
+        "duration_seconds": 1.3,
+        "loop": false,
+        "prompt_influence": 0.55,
+        "output_format": "pcm_48000",
+        "note": "Generation spends external credits. Generate only through an explicitly authorized production run; importer still validates the WAV master before Unreal binding."
+      }
     },
     {
       "asset_id": "NARIS-W04-CINE-SHAKEDEATH-0001",
