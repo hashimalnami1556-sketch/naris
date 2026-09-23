@@ -52,12 +52,32 @@ def load_candidate(item: dict, object_path: str, errors: list[str]):
             )
             return None
 
-        if kind == "vfx" and not isinstance(loaded, unreal.NiagaraSystem):
-            errors.append(
-                f"{asset_id}: expected NiagaraSystem at {object_path}, "
-                f"got {type(loaded).__name__}"
+        if kind == "vfx":
+            if not isinstance(loaded, unreal.NiagaraSystem):
+                errors.append(
+                    f"{asset_id}: expected NiagaraSystem at {object_path}, "
+                    f"got {type(loaded).__name__}"
+                )
+                return None
+
+            validator = getattr(
+                unreal,
+                "NarisPresentationValidationLibrary",
+                None,
             )
-            return None
+            if validator is None:
+                errors.append(
+                    "NarisPresentationValidationLibrary is unavailable; "
+                    "build the NARIS_W04 C++ module first"
+                )
+                return None
+
+            if not validator.is_niagara_system_non_empty(loaded):
+                errors.append(
+                    f"{asset_id}: NiagaraSystem has no emitter handles: "
+                    f"{object_path}"
+                )
+                return None
 
         return loaded
     except Exception as exc:
