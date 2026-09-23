@@ -1,0 +1,90 @@
+{
+  "schema": "naris.w04.presentation-cues.v1",
+  "world": "W04",
+  "runtime_bus": "UNarisPresentationComponent",
+  "authority_rule": "Gameplay state emits presentation cues; presentation assets must not mutate gameplay phase/state.",
+  "status": "contract_only",
+  "cues": [
+    {
+      "cue": "Hero.AttackHit.Light",
+      "vfx": "NARIS-W04-VFX-HEROIMPACT-0001",
+      "audio": "NARIS-W04-AUD-HEROIMPACT-0001",
+      "camera": "NARIS-W04-CINE-SHAKEHIT-0001"
+    },
+    {
+      "cue": "Hero.AttackHit.Heavy",
+      "vfx": "NARIS-W04-VFX-HEROIMPACT-0001",
+      "audio": "NARIS-W04-AUD-HEROIMPACT-0001",
+      "camera": "NARIS-W04-CINE-SHAKEHEAVY-0001"
+    },
+    {
+      "cue": "Hero.ParrySuccess",
+      "vfx": "NARIS-W04-VFX-HEROPARRY-0001",
+      "audio": "NARIS-W04-AUD-PARRY-0001",
+      "camera": "NARIS-W04-CINE-SHAKEPARRY-0001"
+    },
+    {
+      "cue": "Hero.Dodge",
+      "vfx": "NARIS-W04-VFX-HERODODGE-0001",
+      "audio": "NARIS-W04-AUD-DODGE-0001"
+    },
+    {
+      "cue": "Hero.EssenceSwitch",
+      "audio": "NARIS-W04-AUD-ESSENCE-0001"
+    },
+    {
+      "cue": "Wolf.Bonded",
+      "vfx": "NARIS-W04-VFX-SPIRIT-0001",
+      "audio": "NARIS-W04-AUD-WOLFBOND-0001"
+    },
+    {
+      "cue": "Wolf.AttackImpact",
+      "vfx": "NARIS-W04-VFX-WOLFIMPACT-0001",
+      "audio": "NARIS-W04-AUD-WOLFATTACK-0001"
+    },
+    {
+      "cue": "Wolf.EchoLink.Pulse",
+      "vfx": "NARIS-W04-VFX-WOLFECHO-0001",
+      "audio": "NARIS-W04-AUD-WOLFECHO-0001"
+    },
+    {
+      "cue": "Boss.EncounterStarted",
+      "audio": "NARIS-W04-AUD-BONEINTRO-0001"
+    },
+    {
+      "cue": "Boss.DamageTaken",
+      "vfx": "NARIS-W04-VFX-BONEHIT-0001",
+      "audio": "NARIS-W04-AUD-BONEHIT-0001"
+    },
+    {
+      "cue": "Boss.PhaseTransition",
+      "vfx": "NARIS-W04-VFX-BONEPHASE-0001",
+      "audio": "NARIS-W04-AUD-BONEPHASE-0001",
+      "camera": "NARIS-W04-CINE-SHAKEPHASE-0001"
+    },
+    {
+      "cue": "Boss.Death",
+      "vfx": "NARIS-W04-VFX-BONEDEATH-0001",
+      "audio": "NARIS-W04-AUD-BONEDEATH-0001",
+      "camera": "NARIS-W04-CINE-SHAKEDEATH-0001"
+    },
+    {
+      "cue": "Arena.Lock",
+      "vfx": "NARIS-W04-VFX-ARENALOCK-0001",
+      "audio": "NARIS-W04-AUD-ARENA-0001"
+    },
+    {
+      "cue": "Arena.Unlock",
+      "vfx": "NARIS-W04-VFX-ARENAUNLOCK-0001",
+      "audio": "NARIS-W04-AUD-ARENA-0001"
+    }
+  ],
+  "dynamic_cues": [
+    {
+      "pattern": "Boss.Attack.<AttackId>",
+      "source": "ABoneBeastBoss::RequestAttack",
+      "audio": "NARIS-W04-AUD-BONEATTACK-0001",
+      "note": "AttackId remains data-driven by FNarisBossAttackDefinition; no unsupported attack names are invented here."
+    }
+  ]
+}
