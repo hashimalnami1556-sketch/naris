@@ -1,0 +1,29 @@
+{
+  "schema": "naris.blender.exchange.v1",
+  "asset_id": "NARIS-W04-PRP-WAYSTONE-0001",
+  "blend_file": "C:/NARIS/assets/source/blender/W04/NARIS-W04-PRP-WAYSTONE-0001/NARIS-W04-PRP-WAYSTONE-0001.blend",
+  "registry_file": "data/MASTER_ASSET_REGISTRY.json",
+  "registry_status": "registered",
+  "registry_entry": {
+    "id": "NARIS-W04-PRP-WAYSTONE-0001",
+    "name": "Waystone",
+    "domain": "PRP",
+    "type": "SAVE_POINT",
+    "world": "W04",
+    "status": "blockout",
+    "engine_target": "Unreal"
+  },
+  "objects": [
+    {
+      "name": "NARIS-W04-PRP-WAYSTONE-0001",
+      "type": "MESH",
+      "location": [0.0, 0.0, 0.0],
+      "rotation_euler": [0.0, 0.0, 0.0],
+      "scale": [1.0, 1.0, 1.0],
+      "materials": ["M_Waystone"],
+      "uv_layers": ["UVMap"]
+    }
+  ],
+  "issues": [],
+  "status": "pass"
+}
