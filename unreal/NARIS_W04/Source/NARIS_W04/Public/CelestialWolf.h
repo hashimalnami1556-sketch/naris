@@ -80,6 +80,12 @@ public:
     FString RequiredGateId = TEXT("W04_AshGate");
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Companion")
+    FString QuestId = TEXT("Quest.W04.CorruptedHeart");
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Companion")
+    int32 QuestStep = 3;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Companion")
     FString AutoSaveSlot = TEXT("NARIS_Auto");
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Companion")
