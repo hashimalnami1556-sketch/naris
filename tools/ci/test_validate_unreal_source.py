@@ -41,6 +41,13 @@ class UnrealSourceValidationTests(unittest.TestCase):
         errors = validate_source(self.root)
         self.assertTrue(any('Duplicate reflected enum ENarisBossPhase' in e for e in errors))
 
+    def test_duplicate_dynamic_delegate_is_detected(self):
+        delegate = 'DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FNarisCombatEvent, FName, EventName);'
+        (self.root / 'CombatA.h').write_text(delegate)
+        (self.root / 'CombatB.h').write_text(delegate)
+        errors = validate_source(self.root)
+        self.assertTrue(any('Duplicate dynamic delegate FNarisCombatEvent' in e for e in errors))
+
 
 if __name__ == '__main__':
     unittest.main()
