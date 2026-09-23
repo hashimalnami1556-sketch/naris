@@ -19,10 +19,11 @@ $UProject = Join-Path $RepoRoot "unreal\NARIS_W04\NARIS_W04.uproject"
 $BuildBat = Join-Path $UnrealEngineRoot "Engine\Build\BatchFiles\Build.bat"
 $RunUAT = Join-Path $UnrealEngineRoot "Engine\Build\BatchFiles\RunUAT.bat"
 $Bootstrap = Join-Path $RepoRoot "tools\windows\Invoke-NarisW04AuthoringBootstrap.ps1"
+$Localization = Join-Path $RepoRoot "tools\windows\Invoke-NarisLocalization.ps1"
 $GeneratedMap = Join-Path $RepoRoot "unreal\NARIS_W04\Content\NARIS\W04\Maps\W04_Prototype.umap"
 $GeneratedBossData = Join-Path $RepoRoot "unreal\NARIS_W04\Content\NARIS\W04\Data\DA_BoneBeast_Smoke.uasset"
 
-foreach ($path in @($UProject, $BuildBat, $RunUAT, $Bootstrap)) {
+foreach ($path in @($UProject, $BuildBat, $RunUAT, $Bootstrap, $Localization)) {
     if (-not (Test-Path $path)) {
         throw "Required path missing: $path"
     }
@@ -46,6 +47,12 @@ foreach ($generated in @($GeneratedMap, $GeneratedBossData)) {
     if (-not (Test-Path $generated)) {
         throw "Expected generated Unreal asset is missing: $generated"
     }
+}
+
+Write-Host "[NARIS] Gathering and compiling EN/AR localization"
+& $Localization -RepoRoot $RepoRoot -UnrealEngineRoot $UnrealEngineRoot
+if ($LASTEXITCODE -ne 0) {
+    throw "Localization pipeline failed with exit code $LASTEXITCODE"
 }
 
 Write-Host "[NARIS] BuildCookRun Win64 Development"
