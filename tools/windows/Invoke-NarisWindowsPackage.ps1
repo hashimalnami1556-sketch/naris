@@ -24,6 +24,7 @@ $GeneratedMap = Join-Path $RepoRoot "unreal\NARIS_W04\Content\NARIS\W04\Maps\W04
 $GeneratedBossData = Join-Path $RepoRoot "unreal\NARIS_W04\Content\NARIS\W04\Data\DA_BoneBeast_Smoke.uasset"
 $GeneratedPresentationProfile = Join-Path $RepoRoot "unreal\NARIS_W04\Content\NARIS\W04\Presentation\DA_W04_Presentation.uasset"
 $AnimationReport = Join-Path $RepoRoot "unreal\NARIS_W04\Saved\TestReports\naris_animation_validation.json"
+$ProductionAssetReport = Join-Path $RepoRoot "unreal\NARIS_W04\Saved\TestReports\naris_production_asset_validation.json"
 $PresentationAudioReport = Join-Path $RepoRoot "unreal\NARIS_W04\Saved\TestReports\naris_presentation_audio_import.json"
 $PresentationBindingReport = Join-Path $RepoRoot "unreal\NARIS_W04\Saved\TestReports\naris_presentation_binding_resolution.json"
 $PresentationAuthoringReport = Join-Path $RepoRoot "unreal\NARIS_W04\Saved\TestReports\naris_presentation_authoring.json"
@@ -57,6 +58,9 @@ foreach ($generated in @($GeneratedMap, $GeneratedBossData, $GeneratedPresentati
 if (-not (Test-Path $AnimationReport)) {
     throw "Animation validation report was not produced: $AnimationReport"
 }
+if (-not (Test-Path $ProductionAssetReport)) {
+    throw "Production asset validation report was not produced: $ProductionAssetReport"
+}
 if (-not (Test-Path $PresentationAudioReport)) {
     throw "Presentation audio import report was not produced: $PresentationAudioReport"
 }
@@ -70,6 +74,11 @@ if (-not (Test-Path $PresentationAuthoringReport)) {
 $AnimationData = Get-Content $AnimationReport -Raw | ConvertFrom-Json
 if ($AnimationData.status -ne "pass") {
     throw "Animation validation failed: $AnimationReport"
+}
+
+$ProductionAssetData = Get-Content $ProductionAssetReport -Raw | ConvertFrom-Json
+if ($ProductionAssetData.status -ne "pass") {
+    throw "Production asset validation failed: $ProductionAssetReport"
 }
 
 $PresentationAudioData = Get-Content $PresentationAudioReport -Raw | ConvertFrom-Json
@@ -88,6 +97,7 @@ if ($PresentationAuthoringData.status -ne "pass") {
 }
 
 Copy-Item $AnimationReport (Join-Path $ArchiveDir "naris_animation_validation.json") -Force
+Copy-Item $ProductionAssetReport (Join-Path $ArchiveDir "naris_production_asset_validation.json") -Force
 Copy-Item $PresentationAudioReport (Join-Path $ArchiveDir "naris_presentation_audio_import.json") -Force
 Copy-Item $PresentationBindingReport (Join-Path $ArchiveDir "naris_presentation_binding_resolution.json") -Force
 Copy-Item $PresentationAuthoringReport (Join-Path $ArchiveDir "naris_presentation_authoring.json") -Force
@@ -313,6 +323,9 @@ $Report = [ordered]@{
     generated_boss_data = $GeneratedBossData
     generated_presentation_profile = $GeneratedPresentationProfile
     animation_validation_status = $AnimationData.status
+    production_asset_validation_status = $ProductionAssetData.status
+    production_asset_validated_asset_ids = @($ProductionAssetData.validated_asset_ids)
+    production_asset_unresolved_asset_ids = @($ProductionAssetData.unresolved_asset_ids)
     animation_validated_asset_ids = @($AnimationData.validated_asset_ids)
     animation_unresolved_asset_ids = @($AnimationData.unresolved_asset_ids)
     presentation_audio_import_status = $PresentationAudioData.status
