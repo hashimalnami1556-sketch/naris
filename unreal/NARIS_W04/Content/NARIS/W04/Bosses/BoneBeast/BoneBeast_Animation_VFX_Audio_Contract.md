@@ -16,7 +16,7 @@
 - AN_Boss_Stagger
 - AN_Boss_PhaseCue
 
-Notifies emit presentation events only. They do not own encounter state.
+Gameplay state remains authoritative in `ABoneBeastBoss`. The native `NARIS Bone Beast Attack Impact` notify commits the already-requested attack at the authored contact frame through `CommitAttackImpact()`; it does not select phase, damage, quest state, or encounter completion.
 
 ## Niagara
 - NS_BoneBeast_Aura
@@ -43,3 +43,11 @@ Notifies emit presentation events only. They do not own encounter state.
 | Stagger | stagger montage | stagger burst | stagger cue |
 | PhaseTransition | transition montage | transition effect | phase cue |
 | Death | death montage | death effect | death cue |
+
+
+## Phase attack IDs
+- Phase 1: ClawSweep
+- Phase 2: BoneCharge
+- Phase 3: AshRupture
+
+Use `RequestPhaseAttack()` to select the phase attack, then let the authored montage place `NARIS Bone Beast Attack Impact` at contact.
