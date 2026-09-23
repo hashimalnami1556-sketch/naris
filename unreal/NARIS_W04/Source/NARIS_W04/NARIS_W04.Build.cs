@@ -7,7 +7,7 @@ public class NARIS_W04 : ModuleRules
         PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
         PublicDependencyModuleNames.AddRange(new string[]
         {
-            "Core","CoreUObject","Engine","GameplayTags","EnhancedInput",
+            "Core","CoreUObject","Engine","InputCore","GameplayTags","EnhancedInput",
             "AIModule","NavigationSystem","UMG","Json","Niagara","GameplayCameras"
         });
     }
