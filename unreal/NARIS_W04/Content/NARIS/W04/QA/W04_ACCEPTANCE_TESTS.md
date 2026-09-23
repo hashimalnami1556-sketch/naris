@@ -32,4 +32,5 @@ T29 Controller remap exposes the 11 core W04 gameplay actions from the paused Co
 T30 Normal W04 boot opens the localized front-end with New Game, Continue, Settings, Controller Remap and Quit; Continue requires an existing auto-save, New Game writes clean state and reloads the current level with a one-shot front-end bypass, and packaged runtime smoke bypasses the front-end automatically.
 T30 Presentation audio routing is explicit and manifest-driven: every audio payload declares sfx/music/voice, profile authoring rejects missing or invalid buses, and runtime volume uses Master × the selected bus.
 T31 Production combat animations are registry-backed AnimMontages at deterministic W04 paths; Hero Light/Heavy require hit-window + impact notifies, Wolf/Bone Beast attacks require their native impact notifies, and Shipping RC rejects missing montages, missing notifies or zero-duration hit windows.
+T32 Windows runtime log QA scans only artifacts created during the launch-smoke window and fails Development packaging on crash artifacts, Fatal error, Unhandled Exception, Assertion failed, LowLevelFatalError or Ensure condition failed.
 
