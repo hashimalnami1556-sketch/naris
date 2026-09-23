@@ -3,6 +3,7 @@
 #include "Camera/CameraShakeBase.h"
 #include "NarisGameUserSettings.h"
 #include "GameFramework/PlayerController.h"
+#include "Engine/World.h"
 #include "Camera/PlayerCameraManager.h"
 #include "Kismet/GameplayStatics.h"
 #include "NiagaraFunctionLibrary.h"
