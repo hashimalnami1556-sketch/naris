@@ -264,6 +264,7 @@ void ABoneBeastBoss::CompleteEncounter()
 
     if (!QuestCompletionId.IsNone())
     {
+        Runtime->SetQuestStep(QuestCompletionId.ToString(), 4);
         Runtime->CompleteQuest(QuestCompletionId.ToString());
     }
 
