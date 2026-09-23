@@ -61,6 +61,9 @@ public:
     UFUNCTION(BlueprintCallable, Category="NARIS|Combat")
     void ResonanceBurst();
 
+    UFUNCTION(BlueprintCallable, Category="NARIS|Combat")
+    void ToggleLockOn();
+
     UFUNCTION(BlueprintCallable, Category="NARIS|Interaction")
     void Interact();
 
@@ -72,4 +75,6 @@ protected:
     void MoveRight(float Value);
     void LookYaw(float Value);
     void LookPitch(float Value);
+    void StartSprinting();
+    void StopSprinting();
 };
