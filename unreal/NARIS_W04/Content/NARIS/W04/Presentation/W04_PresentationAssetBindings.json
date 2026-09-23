@@ -2,7 +2,7 @@
   "schema": "naris.w04.presentation-bindings.v2",
   "profile_asset": "/Game/NARIS/W04/Presentation/DA_W04_Presentation",
   "strict_default": false,
-  "note": "unreal_object_path remains null until a real Unreal asset exists. expected_unreal_object_path is the deterministic target contract and is not runtime evidence.",
+  "note": "unreal_object_path is populated only for real loadable assets/classes. Native camera shakes are bound to /Script classes; remaining null payloads use deterministic expected_unreal_object_path targets and are not runtime evidence.",
   "assets": [
     {
       "asset_id": "NARIS-W04-AUD-ARENA-0001",
@@ -103,32 +103,37 @@
     {
       "asset_id": "NARIS-W04-CINE-SHAKEDEATH-0001",
       "kind": "camera",
-      "unreal_object_path": null,
-      "expected_unreal_object_path": "/Game/NARIS/W04/Presentation/Camera/BP_NARIS_W04_CINE_SHAKEDEATH_0001.BP_NARIS_W04_CINE_SHAKEDEATH_0001_C"
+      "unreal_object_path": "/Script/NARIS_W04.NarisDeathCameraShake",
+      "expected_unreal_object_path": "/Script/NARIS_W04.NarisDeathCameraShake",
+      "binding_source": "native_cpp"
     },
     {
       "asset_id": "NARIS-W04-CINE-SHAKEHEAVY-0001",
       "kind": "camera",
-      "unreal_object_path": null,
-      "expected_unreal_object_path": "/Game/NARIS/W04/Presentation/Camera/BP_NARIS_W04_CINE_SHAKEHEAVY_0001.BP_NARIS_W04_CINE_SHAKEHEAVY_0001_C"
+      "unreal_object_path": "/Script/NARIS_W04.NarisHeavyCameraShake",
+      "expected_unreal_object_path": "/Script/NARIS_W04.NarisHeavyCameraShake",
+      "binding_source": "native_cpp"
     },
     {
       "asset_id": "NARIS-W04-CINE-SHAKEHIT-0001",
       "kind": "camera",
-      "unreal_object_path": null,
-      "expected_unreal_object_path": "/Game/NARIS/W04/Presentation/Camera/BP_NARIS_W04_CINE_SHAKEHIT_0001.BP_NARIS_W04_CINE_SHAKEHIT_0001_C"
+      "unreal_object_path": "/Script/NARIS_W04.NarisHitCameraShake",
+      "expected_unreal_object_path": "/Script/NARIS_W04.NarisHitCameraShake",
+      "binding_source": "native_cpp"
     },
     {
       "asset_id": "NARIS-W04-CINE-SHAKEPARRY-0001",
       "kind": "camera",
-      "unreal_object_path": null,
-      "expected_unreal_object_path": "/Game/NARIS/W04/Presentation/Camera/BP_NARIS_W04_CINE_SHAKEPARRY_0001.BP_NARIS_W04_CINE_SHAKEPARRY_0001_C"
+      "unreal_object_path": "/Script/NARIS_W04.NarisParryCameraShake",
+      "expected_unreal_object_path": "/Script/NARIS_W04.NarisParryCameraShake",
+      "binding_source": "native_cpp"
     },
     {
       "asset_id": "NARIS-W04-CINE-SHAKEPHASE-0001",
       "kind": "camera",
-      "unreal_object_path": null,
-      "expected_unreal_object_path": "/Game/NARIS/W04/Presentation/Camera/BP_NARIS_W04_CINE_SHAKEPHASE_0001.BP_NARIS_W04_CINE_SHAKEPHASE_0001_C"
+      "unreal_object_path": "/Script/NARIS_W04.NarisPhaseCameraShake",
+      "expected_unreal_object_path": "/Script/NARIS_W04.NarisPhaseCameraShake",
+      "binding_source": "native_cpp"
     },
     {
       "asset_id": "NARIS-W04-VFX-ARENALOCK-0001",
@@ -218,7 +223,7 @@
   "path_policy": {
     "audio": "/Game/NARIS/W04/Presentation/Audio/<ASSET_ID_SANITIZED>",
     "vfx": "/Game/NARIS/W04/Presentation/VFX/<ASSET_ID_SANITIZED>",
-    "camera": "/Game/NARIS/W04/Presentation/Camera/BP_<ASSET_ID_SANITIZED>_C",
+    "camera": "Native C++ camera shake class (/Script/NARIS_W04.<Class>) or authored Blueprint class under /Game/NARIS/W04/Presentation/Camera",
     "sanitization": "replace '-' with '_'"
   }
 }
