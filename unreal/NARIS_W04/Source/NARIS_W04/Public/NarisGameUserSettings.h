@@ -47,6 +47,15 @@ public:
     void SetVoiceVolume(float Value);
 
     UFUNCTION(BlueprintCallable, Category="NARIS|Settings|Accessibility")
+    void SetSubtitlesEnabled(bool bEnabled);
+
+    UFUNCTION(BlueprintCallable, Category="NARIS|Settings|Accessibility")
+    void SetReduceCameraShake(bool bEnabled);
+
+    UFUNCTION(BlueprintCallable, Category="NARIS|Settings|Accessibility")
+    void SetHighContrastInteractions(bool bEnabled);
+
+    UFUNCTION(BlueprintCallable, Category="NARIS|Settings|Accessibility")
     void SetCameraShakeIntensity(float Value);
 
     UFUNCTION(BlueprintCallable, Category="NARIS|Settings|Accessibility")
