@@ -211,6 +211,7 @@ $Report = [ordered]@{
     presentation_authoring_status = $PresentationAuthoringData.status
     presentation_bound_asset_ids = @($PresentationAuthoringData.bound_asset_ids)
     presentation_unbound_asset_ids = @($PresentationAuthoringData.unbound_asset_ids)
+    presentation_unbound_expected_paths = $PresentationAuthoringData.unbound_expected_paths
     csv_capture_files = @($CsvCaptures)
     llm_capture_files = @($LlmCaptures)
     profiling_note = "CSV/LLM capture paths are evidence only when files are emitted by the packaged Development build."
