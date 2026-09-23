@@ -51,9 +51,14 @@ class PresentationBindingPathPolicyTests(unittest.TestCase):
                 self.assertIn("/Presentation/VFX/", path)
                 self.assertTrue(path.endswith(f"/{sanitized}.{sanitized}"))
             elif item["kind"] == "camera":
-                self.assertIn("/Presentation/Camera/", path)
-                bp = f"BP_{sanitized}"
-                self.assertTrue(path.endswith(f"/{bp}.{bp}_C"))
+                if path.startswith("/Script/NARIS_W04."):
+                    self.assertEqual(item.get("unreal_object_path"), path)
+                    self.assertEqual(item.get("binding_source"), "native_cpp")
+                    self.assertTrue(path.endswith("CameraShake"))
+                else:
+                    self.assertIn("/Presentation/Camera/", path)
+                    bp = f"BP_{sanitized}"
+                    self.assertTrue(path.endswith(f"/{bp}.{bp}_C"))
             else:
                 self.fail(f"Unsupported presentation binding kind: {item['kind']}")
 
