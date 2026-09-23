@@ -29,7 +29,7 @@ void ANarisHUD::DrawPauseMenu()
     const float Width = Canvas->ClipX;
     const float Height = Canvas->ClipY;
     const float PanelWidth = FMath::Min(760.f, Width * 0.72f);
-    const float PanelHeight = FMath::Min(860.f, Height * 0.84f);
+    const float PanelHeight = FMath::Min(900.f, Height * 0.90f);
     const float X = (Width - PanelWidth) * 0.5f;
     const float Y = (Height - PanelHeight) * 0.5f;
 
@@ -57,7 +57,11 @@ void ANarisHUD::DrawPauseMenu()
     const float RowHeight = Controller->GetPauseMenuPage()
         == ENarisPauseMenuPage::Main
             ? 64.f
-            : 42.f;
+            : FMath::Clamp(
+                (PanelHeight - 200.f) / FMath::Max(Count, 1),
+                24.f,
+                42.f
+            );
     const float StartY = Y + 110.f;
 
     for (int32 Index = 0; Index < Count; ++Index)
