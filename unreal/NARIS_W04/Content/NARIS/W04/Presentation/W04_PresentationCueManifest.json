@@ -100,7 +100,7 @@
       "pattern": "Boss.Attack.<AttackId>",
       "source": "ABoneBeastBoss::RequestAttack",
       "audio": "NARIS-W04-AUD-BONEATTACK-0001",
-      "note": "Fallback presentation for any data-driven AttackId not given an explicit cue. Current source-supported phase attacks are ClawSweep, BoneCharge and AshRupture.",
+      "note": "Fallback presentation for any data-driven AttackId not given an explicit cue. AttackId is the presentation/runtime attack key; current source-supported phase attacks are ClawSweep, BoneCharge and AshRupture.",
       "runtime_cue": "Boss.Attack.*"
     }
   ]
