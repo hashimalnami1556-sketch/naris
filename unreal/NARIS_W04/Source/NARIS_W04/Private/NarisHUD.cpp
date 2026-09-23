@@ -175,18 +175,37 @@ void ANarisHUD::DrawPauseMenu()
         }
     }
 
-    const FString Hint = Controller->GetPauseMenuPage()
-        == ENarisPauseMenuPage::Main
+    FString Hint;
+    if (Controller->GetPauseMenuPage() == ENarisPauseMenuPage::Main)
+    {
+        Hint = NSLOCTEXT(
+            "NARIS",
+            "PauseMenuHint",
+            "Navigate: W/S or D-Pad   Confirm: Enter/A   Back: Esc/B"
+        ).ToString();
+    }
+    else if (Controller->GetPauseMenuPage() == ENarisPauseMenuPage::Controls)
+    {
+        Hint = Controller->IsWaitingForGamepadRemap()
             ? NSLOCTEXT(
                 "NARIS",
-                "PauseMenuHint",
-                "Navigate: W/S or D-Pad   Confirm: Enter/A   Back: Esc/B"
+                "ControlsCaptureHint",
+                "Press a gamepad button. Start/B cancels capture."
               ).ToString()
             : NSLOCTEXT(
                 "NARIS",
-                "SettingsMenuHint",
-                "Adjust: A/D or Left/Right   Confirm: Enter/A   Back: Esc/B"
+                "ControlsMenuHint",
+                "Select an action and press Confirm to remap. Back: Esc/B"
               ).ToString();
+    }
+    else
+    {
+        Hint = NSLOCTEXT(
+            "NARIS",
+            "SettingsMenuHint",
+            "Adjust: A/D or Left/Right   Confirm: Enter/A   Back: Esc/B"
+        ).ToString();
+    }
 
     DrawText(
         Hint,
