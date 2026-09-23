@@ -27,6 +27,15 @@ public:
         const FString& MapId
     );
 
+    UFUNCTION(BlueprintCallable, Category="NARIS|Runtime")
+    bool UnlockLore(const FString& LoreId);
+
+    UFUNCTION(BlueprintCallable, Category="NARIS|Runtime")
+    bool TriggerNarrative(const FString& NarrativeId);
+
+    UFUNCTION(BlueprintPure, Category="NARIS|Runtime")
+    bool HasNarrativeTriggered(const FString& NarrativeId) const;
+
     UFUNCTION(BlueprintPure, Category="NARIS|Runtime")
     FNarisSaveState GetState() const { return State; }
 
