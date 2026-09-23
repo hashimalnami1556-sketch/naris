@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://naris.game/schemas/naris-blender-exchange-v1.schema.json",
+  "title": "NARIS Blender Exchange Manifest",
+  "type": "object",
+  "required": ["schema", "asset_id", "blend_file", "objects", "issues", "status"],
+  "properties": {
+    "schema": { "const": "naris.blender.exchange.v1" },
+    "asset_id": {
+      "type": "string",
+      "pattern": "^NARIS-W[0-9]{2}-(CHR|ENM|BOS|WPN|PRP|ENV|MAT|VFX|UI|MAP|CINE|AUD|QST)-[A-Z0-9_]+-[0-9]{4}$"
+    },
+    "blend_file": { "type": "string" },
+    "objects": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "type", "location", "rotation_euler", "scale", "materials", "uv_layers"],
+        "properties": {
+          "name": { "type": "string", "minLength": 1 },
+          "type": { "enum": ["MESH", "ARMATURE", "EMPTY"] },
+          "location": { "$ref": "#/$defs/vec3" },
+          "rotation_euler": { "$ref": "#/$defs/vec3" },
+          "scale": { "$ref": "#/$defs/vec3" },
+          "materials": { "type": "array", "items": { "type": "string" } },
+          "uv_layers": { "type": "array", "items": { "type": "string" } }
+        },
+        "additionalProperties": true
+      }
+    },
+    "issues": { "type": "array", "items": { "type": "string" } },
+    "status": { "enum": ["pass", "fail"] }
+  },
+  "$defs": {
+    "vec3": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "items": { "type": "number" }
+    }
+  },
+  "additionalProperties": true
+}
