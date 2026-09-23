@@ -138,18 +138,17 @@ void ABoneBeastBoss::CompleteEncounter()
         Runtime->CompleteDemo();
     }
 
-    if (bAutoSave && !Runtime->SaveState(AutoSaveSlot))
-    {
-        EmitBossEvent(TEXT("AutoSaveFailed"));
-        return;
-    }
-
     bEncounterComplete = true;
     EmitBossEvent(TEXT("EncounterComplete"));
 
     if (bCompleteDemoOnDefeat)
     {
         EmitBossEvent(TEXT("DemoEnd"));
+    }
+
+    if (bAutoSave && !Runtime->SaveState(AutoSaveSlot))
+    {
+        EmitBossEvent(TEXT("AutoSaveFailed"));
     }
 }
 
