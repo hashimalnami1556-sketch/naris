@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.8",
+  "schema_version": "1.7",
   "project": "CALL OF NARIS",
   "slice": "W04_AshenForest",
   "systems": [
@@ -89,7 +89,20 @@
     ],
     "bone_beast_start": "INarisInteractable -> ABoneBeastBoss.TryStartEncounter",
     "smoke_combat_damage": "LockOn -> MeleeRange -> ResolveHit/ApplyDamageToEncounter",
-    "localization_pipeline": "GatherText -> PO import/export -> LocRes"
+    "localization_pipeline": "GatherText -> PO import/export -> LocRes",
+    "runtime_smoke_actor": "ANarisRuntimeSmokeDirector",
+    "runtime_smoke_flag": "-NarisRuntimeSmoke",
+    "runtime_smoke_report": "naris.w04.runtime-smoke.v1",
+    "runtime_smoke_scope": [
+      "Waystone",
+      "MemoryCrystal",
+      "FirstWhisper",
+      "AshGate",
+      "CelestialWolfBond",
+      "BoneBeastDefeat",
+      "DemoEnd",
+      "SaveLoadRoundTrip"
+    ]
   },
   "progression_beats": [
     "MemoryCrystal",
