@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.6",
+  "schema_version": "1.7",
   "project": "CALL OF NARIS",
   "slice": "W04_AshenForest",
   "systems": [
@@ -86,7 +86,9 @@
       "Quests",
       "Bosses",
       "DemoComplete"
-    ]
+    ],
+    "bone_beast_start": "INarisInteractable -> ABoneBeastBoss.TryStartEncounter",
+    "smoke_combat_damage": "LockOn -> MeleeRange -> ResolveHit/ApplyDamageToEncounter"
   },
   "progression_beats": [
     "MemoryCrystal",
@@ -96,5 +98,21 @@
     "BoneBeastEncounter",
     "BoneBeastDefeat",
     "DemoEnd"
-  ]
+  ],
+  "input_profiles": {
+    "keyboard_mouse": true,
+    "xbox_style_gamepad": true,
+    "actions": [
+      "Move",
+      "Look",
+      "LightAttack",
+      "HeavyAttack",
+      "Dodge",
+      "Parry",
+      "ResonanceBurst",
+      "LockOn",
+      "Interact",
+      "Sprint"
+    ]
+  }
 }
