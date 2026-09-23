@@ -36,7 +36,8 @@ class NarisHudContractTests(unittest.TestCase):
         )
         self.assertIn("FindNearestInteractable()", source)
         self.assertIn("INarisInteractable::Execute_GetInteractionPrompt", source)
-        self.assertIn('TEXT("[E] %s")', source)
+        self.assertIn('GetActionKeyDisplayName(TEXT("Interact"))', source)
+        self.assertIn('TEXT("[%s] %s")', source)
 
     def test_hud_exposes_progression_state(self) -> None:
         source = read(
