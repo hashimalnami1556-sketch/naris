@@ -44,6 +44,14 @@ if uproject.exists():
         data = json.loads(uproject.read_text(encoding="utf-8"))
         if "FileVersion" not in data:
             errors.append("Unreal project does not contain FileVersion")
+        enabled_plugins = {
+            item.get("Name")
+            for item in data.get("Plugins", [])
+            if isinstance(item, dict) and item.get("Enabled") is True
+        }
+        for plugin in ("PythonScriptPlugin", "EditorScriptingUtilities"):
+            if plugin not in enabled_plugins:
+                errors.append(f"Unreal project must enable plugin: {plugin}")
     except Exception as exc:
         errors.append(f"Invalid Unreal .uproject: {exc}")
 
