@@ -20,6 +20,7 @@ $RunUAT = Join-Path $UnrealEngineRoot "Engine\Build\BatchFiles\RunUAT.bat"
 $Bootstrap = Join-Path $RepoRoot "tools\windows\Invoke-NarisW04AuthoringBootstrap.ps1"
 $Localization = Join-Path $RepoRoot "tools\windows\Invoke-NarisLocalization.ps1"
 $AnimationReport = Join-Path $RepoRoot "unreal\NARIS_W04\Saved\TestReports\naris_animation_validation.json"
+$ProductionAssetReport = Join-Path $RepoRoot "unreal\NARIS_W04\Saved\TestReports\naris_production_asset_validation.json"
 $PresentationReport = Join-Path $RepoRoot "unreal\NARIS_W04\Saved\TestReports\naris_presentation_authoring.json"
 
 foreach ($path in @($UProject, $BuildBat, $RunUAT, $Bootstrap, $Localization)) {
@@ -38,6 +39,7 @@ if ($LASTEXITCODE -ne 0) {
 
 $env:NARIS_PRESENTATION_STRICT = "1"
 $env:NARIS_ANIMATION_STRICT = "1"
+$env:NARIS_PRODUCTION_ASSETS_STRICT = "1"
 try {
     Write-Host "[NARIS RC] Authoring W04 with strict presentation bindings"
     & $Bootstrap -RepoRoot $RepoRoot -UnrealEngineRoot $UnrealEngineRoot
@@ -48,10 +50,14 @@ try {
 finally {
     Remove-Item Env:NARIS_PRESENTATION_STRICT -ErrorAction SilentlyContinue
     Remove-Item Env:NARIS_ANIMATION_STRICT -ErrorAction SilentlyContinue
+    Remove-Item Env:NARIS_PRODUCTION_ASSETS_STRICT -ErrorAction SilentlyContinue
 }
 
 if (-not (Test-Path $AnimationReport)) {
     throw "Strict animation report missing: $AnimationReport"
+}
+if (-not (Test-Path $ProductionAssetReport)) {
+    throw "Strict production asset report missing: $ProductionAssetReport"
 }
 if (-not (Test-Path $PresentationReport)) {
     throw "Strict presentation report missing: $PresentationReport"
@@ -66,6 +72,17 @@ if (@($Animation.unresolved_asset_ids).Count -ne 0) {
 }
 if (@($Animation.errors).Count -ne 0) {
     throw "Release candidate animation validation contains errors"
+}
+
+$ProductionAssets = Get-Content $ProductionAssetReport -Raw | ConvertFrom-Json
+if ($ProductionAssets.status -ne "pass") {
+    throw "Strict production asset validation did not pass"
+}
+if (@($ProductionAssets.unresolved_asset_ids).Count -ne 0) {
+    throw "Release candidate has unresolved core production assets"
+}
+if (@($ProductionAssets.errors).Count -ne 0) {
+    throw "Release candidate production asset validation contains errors"
 }
 
 $Presentation = Get-Content $PresentationReport -Raw | ConvertFrom-Json
@@ -120,6 +137,9 @@ $Report = [ordered]@{
     configuration = "Shipping"
     executable = $Executable.FullName
     animation_validated_count = @($Animation.validated_asset_ids).Count
+    production_asset_validated_count = @($ProductionAssets.validated_asset_ids).Count
+    production_asset_unresolved_count = @($ProductionAssets.unresolved_asset_ids).Count
+    production_asset_error_count = @($ProductionAssets.errors).Count
     animation_unresolved_count = @($Animation.unresolved_asset_ids).Count
     animation_error_count = @($Animation.errors).Count
     presentation_bound_count = @($Presentation.bound_asset_ids).Count
