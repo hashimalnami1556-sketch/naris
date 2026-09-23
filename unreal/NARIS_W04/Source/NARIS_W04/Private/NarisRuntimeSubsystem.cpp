@@ -3,6 +3,16 @@
 #include "Kismet/GameplayStatics.h"
 #include "NarisSaveGame.h"
 
+void UNarisRuntimeSubsystem::Initialize(FSubsystemCollectionBase& Collection)
+{
+    Super::Initialize(Collection);
+
+    if (!LoadState(DefaultAutoSaveSlot))
+    {
+        BeginNewGame();
+    }
+}
+
 void UNarisRuntimeSubsystem::BeginNewGame()
 {
     State = FNarisSaveState();
