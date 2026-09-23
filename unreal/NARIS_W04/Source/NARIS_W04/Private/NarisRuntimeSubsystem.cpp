@@ -92,3 +92,19 @@ bool UNarisRuntimeSubsystem::HasNarrativeTriggered(const FString& NarrativeId) c
 {
     return !NarrativeId.IsEmpty() && State.TriggeredNarratives.Contains(NarrativeId);
 }
+
+bool UNarisRuntimeSubsystem::UnlockGate(const FString& GateId)
+{
+    if (GateId.IsEmpty())
+    {
+        return false;
+    }
+
+    State.UnlockedGates.AddUnique(GateId);
+    return true;
+}
+
+bool UNarisRuntimeSubsystem::IsGateUnlocked(const FString& GateId) const
+{
+    return !GateId.IsEmpty() && State.UnlockedGates.Contains(GateId);
+}
