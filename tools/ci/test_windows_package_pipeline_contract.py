@@ -29,6 +29,8 @@ class WindowsPackagePipelineContractTests(unittest.TestCase):
             "-csvCaptureFrames=600",
             "-csvGpuStats",
             "-LLMCSV",
+            "-culture=en",
+            "-culture=ar",
             "naris_windows_package_smoke.json",
         )
         cursor = -1
