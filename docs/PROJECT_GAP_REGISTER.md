@@ -34,6 +34,11 @@ Presence is not proof of successful compilation or correct gameplay. Historical 
 - Added persistent NarisGameUserSettings plus native Pause/Settings navigation and localized HUD overlay for graphics, audio and accessibility controls; SFX and camera-shake settings now affect the presentation bus.
 - Added deterministic audio source/generation contracts and WAV validation for 48 kHz/24-bit PCM, digital silence and -1 dBFS peak ceiling before automated Unreal import.
 - Added native Niagara non-empty validation; bound VFX systems with zero emitter handles are rejected during resolution/profile authoring.
+- Added native front-end, pause/settings and controller-remap flows with EN/AR localization; remapped interaction prompts read the live action key instead of a fixed keyboard label.
+- Added data-driven subtitle runtime/HUD integration; subtitle enabled/scale settings are honored and unauthored First Whisper dialogue is not fabricated in C++.
+- Added explicit SFX/Music/Voice presentation audio routing; every audio cue must declare a bus and runtime volume is Master × selected bus.
+- Registered 10 required production W04 AnimMontages and added Unreal animation validation for class, required hit/impact notifies and Hero hit-window duration; strict Shipping RC rejects unresolved/invalid animations.
+- Added Windows launch log/crash QA that rejects new fatal errors, unhandled exceptions, assertions, low-level fatals, ensures and crash artifacts from the smoke window.
 
 ## Remaining work, ordered by dependency
 
@@ -43,8 +48,8 @@ Presence is not proof of successful compilation or correct gameplay. Historical 
 | P0 | Actual W04 map and binary game assets | The bootstrap can generate smoke .umap/.uasset files after an editor build, but no successful generated/editor-loaded binaries are committed evidence; production-authored assets remain required |
 | P0 | Complete W04 gameplay loop | Recorded end-to-end editor playtest, including boss completion and demo end |
 | P1 | Save/load and checkpoint recovery | Runtime smoke now also verifies quest steps and checkpoint world location; hero respawn is implemented. Close only after packaged Windows save/restart/load/respawn evidence |
-| P1 | Animation/presentation/HUD/localization | Hero/Wolf/Boss impact hooks, localized quest + pause/settings HUD and cue bus exist; 5 camera payloads are bound while 16 Audio + 14 Niagara VFX remain. Authored animations plus EN/AR/RTL runtime QA remain required |
-| P1 | Windows packaging and performance | BuildCookRun/launch/profiling pipeline is scripted; close only with a successful Windows package artifact, bilingual launch result and measured CSV/GPU/LLM evidence |
+| P1 | Animation/presentation/HUD/localization | Front-end/pause/settings/controls, data-driven subtitles, Hero/Wolf/Boss impact hooks, explicit audio buses and localized HUD exist. 5 camera payloads are bound; 16 Audio + 14 Niagara VFX + 10 production AnimMontages remain unresolved. EN/AR/RTL runtime QA remains required |
+| P1 | Windows packaging and performance | BuildCookRun/launch/fatal-log+crash QA/CSV-GPU-LLM pipeline is scripted; close only with a successful Windows artifact, bilingual launch result, clean runtime logs and measured hardware evidence |
 | P1 | Shared host verification | Actual Claude Code startup and continuation using the committed state; adapter presence is not execution |
 | P2 | AssetForge export/import, erosion and masks | See the [worldgen contract](production/ASSETFORGE_WORLDGEN.md) |
 | P2 | Missing reference attachments | Receive and inspect the 18 announced source files; none were available in this session |
