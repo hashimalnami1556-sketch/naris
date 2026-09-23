@@ -1,6 +1,6 @@
 # CALL OF NARIS — Production Status
 
-**Snapshot:** 2026-09-22  
+**Snapshot:** 2026-09-23
 **Canonical engine path:** Unreal Engine 5.4+  
 **Primary target:** Windows PC  
 **Primary vertical slice:** W04 — Ashen Forest  
@@ -134,3 +134,7 @@ Public distribution remains disabled until all blocking conditions pass:
 6. Add Windows Development/Shipping build automation.
 7. Run 10–15 minute internal playtest and log defects.
 8. Promote only verified assets/statuses in the master registry.
+
+## Shared knowledge and source repair — 2026-09-23
+
+The shared agent entry point is [AGENTS.md](../AGENTS.md), with current work in [PROJECT_STATE.md](../PROJECT_STATE.md). Duplicate Unreal target definitions and module registration were removed, static guards were added, and AssetForge zero-count behavior was repaired. Repository validation and 10 Python tests pass locally. No Unreal compilation, Claude Code session, editor playtest or Windows package was executed here. See the [updated gap register](PROJECT_GAP_REGISTER.md).

@@ -65,6 +65,8 @@ class WorldConfig:
     climate_octaves: int = 4
 
     def validate(self) -> None:
+        if self.elevation_octaves < 1 or self.climate_octaves < 1:
+            raise ValueError("octave counts must be >= 1")
         if self.size < 16:
             raise ValueError("size must be >= 16")
         if self.chunk_size < 8 or self.size % self.chunk_size != 0:
@@ -317,6 +319,8 @@ def _downhill_path(
 
 
 def generate_rivers(config: WorldConfig, heightmap: Sequence[Sequence[float]]) -> list[River]:
+    if config.river_count == 0:
+        return []
     candidates: list[tuple[float, Point]] = []
     border = max(4, config.size // 16)
     for y in range(border, config.size - border):
@@ -347,6 +351,8 @@ def generate_settlements(
     heightmap: Sequence[Sequence[float]],
     biomes: Sequence[Sequence[str]],
 ) -> list[Settlement]:
+    if config.settlement_count == 0:
+        return []
     rng = random.Random(config.seed ^ 0xA51E)
     candidates: list[tuple[float, int, int]] = []
 

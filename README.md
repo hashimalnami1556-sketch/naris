@@ -2,6 +2,10 @@
 
 > **Canonical production repository** for *CALL OF NARIS* — a dark-fantasy action RPG built around ten fractured worlds, modular environments, cinematic storytelling, tactical combat, and a controlled AAA-style asset pipeline.
 
+## Shared agent knowledge
+
+Start with [AGENTS.md](AGENTS.md) and [PROJECT_STATE.md](PROJECT_STATE.md). Claude Code imports the same guide through [CLAUDE.md](CLAUDE.md). Both clients use the [source ownership map](docs/production/knowledge-sources.md) and shared work records.
+
 ## Repository status
 
 - **Default branch:** `main`

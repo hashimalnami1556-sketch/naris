@@ -4,6 +4,8 @@ import json
 from pathlib import Path
 import sys
 
+from validate_unreal_source import validate_source
+
 ROOT = Path(__file__).resolve().parents[2]
 REQUIRED = [
     ROOT / "README.md",
@@ -37,6 +39,8 @@ if uproject.exists():
             errors.append("Unreal project does not contain FileVersion")
     except Exception as exc:
         errors.append(f"Invalid Unreal .uproject: {exc}")
+
+errors.extend(validate_source(ROOT / "unreal" / "NARIS_W04" / "Source"))
 
 if errors:
     print("NARIS CI validation FAILED")

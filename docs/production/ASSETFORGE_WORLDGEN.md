@@ -66,3 +66,7 @@ Procedural generation is a **layout accelerator**. W04 narrative landmarks, boss
 6. Add settlement archetype tables.
 7. Add landmark exclusion/placement masks.
 8. Add deterministic regression snapshots.
+
+## Validation update — 2026-09-23
+
+Zero requested rivers or settlements now produces an empty corresponding layer; no settlements also means no roads. Both octave counts must be positive. Six Python tests cover generation and these boundaries; no Unreal import is implied. Counts are upper bounds because terrain/spacing may yield fewer suitable candidates.

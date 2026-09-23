@@ -27,6 +27,19 @@ class WorldGeneratorTests(unittest.TestCase):
         self.assertEqual(16, len(world["chunks"]))
         self.assertEqual(99, len(world["biome_catalog"]))
 
+    def test_zero_counts_produce_no_features(self):
+        world = build_world(WorldConfig(seed=42, size=32, chunk_size=8,
+                                       settlement_count=0, river_count=0))
+        for key in ("settlements", "rivers", "roads"):
+            self.assertEqual([], world[key], key)
+
+    def test_rejects_nonpositive_octaves(self):
+        for field in ("elevation_octaves", "climate_octaves"):
+            for value in (0, -1):
+                with self.subTest(field=field, value=value):
+                    with self.assertRaises(ValueError):
+                        WorldConfig(**{field: value}).validate()
+
     def test_export(self):
         cfg = WorldConfig(seed=1, size=16, chunk_size=8, settlement_count=2, river_count=1)
         world = build_world(cfg)

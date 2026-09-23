@@ -1,0 +1,30 @@
+{
+  "work_dirs": [
+    "docs/production/work/active"
+  ],
+  "decision_dirs": [
+    "docs/production/decisions/records"
+  ],
+  "archive_dirs": [
+    "docs/production/work/archive",
+    "DOCUMENTS",
+    "migration"
+  ],
+  "archive_names": [],
+  "hot_names": [
+    "AGENTS.md",
+    "CLAUDE.md",
+    "PROJECT_STATE.md"
+  ],
+  "context_names": [],
+  "required_metadata": [],
+  "decision_id_fields": [
+    "decision_id",
+    "id"
+  ],
+  "decision_id_pattern": "NARIS-ADR-[0-9]+",
+  "link_types": [
+    "markdown",
+    "wikilinks"
+  ]
+}

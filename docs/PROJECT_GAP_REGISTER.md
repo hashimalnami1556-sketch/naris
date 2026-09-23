@@ -1,25 +1,39 @@
 # NARIS Project Gap Register
 
-This register records missing implementation layers discovered during repository inspection. It distinguishes repository evidence from planned work.
+Updated: 2026-09-23. Evidence: repository source inspection and static tests. Engine execution is unverified.
 
-## Confirmed repository state
-- `README.md` documents `docs/`, `worlds/`, `data/`, `tools/`, and Unreal as the runtime target.
-- The repository currently contains `README.md`, `assets/`, and `docs/` at the top level.
-- W04 execution documentation exists under `docs/W04_VERTICAL_SLICE/`.
+## Corrections to the previous snapshot
 
-## Gaps closed in this pass
-- W04 world specification added under `worlds/W04_ASHEN_FOREST/`.
-- W04 machine-readable registry added under `data/`.
-- `tools/` pipeline contract added.
-- Bone Beast C++ scaffold implementation added to documentation.
+The earlier register incorrectly described the repository as containing only README/assets/docs and reported the Unreal project, C++ tree and Gameplay Tags as missing. These now exist:
 
-## Remaining implementation gaps
-1. A real Unreal `.uproject` and C++ `Source/` tree must exist before code can be compiled in-engine.
-2. The scaffold headers currently live in documentation and must be migrated into the Unreal module once the module name is confirmed.
-3. Gameplay Tags must be registered in Unreal's project configuration.
-4. Animation Montages, Notifies, Niagara Systems, Audio Cues and Widget Blueprints are still engine assets, not repository binaries.
-5. Numeric balance values remain TUNE until playtest.
-6. Automated CI/build validation for the Unreal project is not yet established.
+- [Unreal descriptor](../unreal/NARIS_W04/NARIS_W04.uproject), selecting EngineAssociation 5.4.
+- [C++ source](../unreal/NARIS_W04/Source/), including player, companion, combat and boss components.
+- [Registered Gameplay Tags](../unreal/NARIS_W04/Config/DefaultGameplayTags.ini).
+- [CI workflow](../.github/workflows/naris-ci.yml), including a manually invoked self-hosted Windows build job.
 
-## Rule
-Do not mark an implementation gap as DONE merely because its documentation exists.
+Presence is not proof of successful compilation or correct gameplay. Historical claims remain available in Git.
+
+## Repairs completed on 2026-09-23
+
+- Removed redundant nested Game/Editor TargetRules files; retained the equivalent Source-root definitions.
+- Removed the second NARIS_W04 module registration; retained the primary game module.
+- Added static checks for duplicate/missing targets and module registration, plus empty C++/header/rules files.
+- Fixed the Unreal workflow's empty-file check, whose final `|| true` could mask failure.
+- Added AssetForge zero-count and invalid-octave regression coverage and CI execution.
+- Added shared Codex/Claude knowledge routing and explicit handoff ownership.
+
+## Remaining work, ordered by dependency
+
+| Priority | Gap | Evidence required to close |
+|---|---|---|
+| P0 | Unreal compilation after source repairs | Passing Windows UnrealBuildTool log for NARIS_W04Editor |
+| P0 | Actual W04 map and binary game assets | Authored/imported .umap/.uasset files with provenance and successful editor loading; current Content files are contracts/data |
+| P0 | Complete W04 gameplay loop | Recorded end-to-end editor playtest, including boss completion and demo end |
+| P1 | Save/load and checkpoint recovery | Save/restart/load round-trip under runtime conditions |
+| P1 | Animation hit windows, HUD, audio and localization | Integrated assets plus gameplay and EN/AR QA evidence |
+| P1 | Windows packaging and performance | Reproducible package, launch test and measured hardware/profile results |
+| P1 | Shared host verification | Actual Claude Code startup and continuation using the committed state; adapter presence is not execution |
+| P2 | AssetForge export/import, erosion and masks | See the [worldgen contract](production/ASSETFORGE_WORLDGEN.md) |
+| P2 | Missing reference attachments | Receive and inspect the 18 announced source files; none were available in this session |
+
+No engine upgrade, new product direction, asset approval or public release is implied by these source repairs.

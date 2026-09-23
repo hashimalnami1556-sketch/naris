@@ -31,3 +31,7 @@ mcp/dist/
 # Build outputs
 builds/local/
 artifacts/local/
+
+# Python cache
+__pycache__/
+*.py[cod]
