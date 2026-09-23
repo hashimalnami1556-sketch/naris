@@ -30,6 +30,10 @@ void ABoneBeastBoss::BeginPlay()
         bEncounterActive = false;
         bEncounterComplete = true;
         EmitBossEvent(TEXT("EncounterRestoredComplete"));
+        if (Runtime->IsDemoCompleted())
+        {
+            EmitBossEvent(TEXT("DemoEnd"));
+        }
     }
 }
 
