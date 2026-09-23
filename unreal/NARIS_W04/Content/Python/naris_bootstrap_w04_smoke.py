@@ -156,6 +156,11 @@ def main():
             unreal.Vector(3000.0, 0.0, 100.0),
         ),
         (
+            "NARIS_BossArenaController",
+            require_unreal_class("NarisBossArenaController"),
+            unreal.Vector(2500.0, 0.0, 100.0),
+        ),
+        (
             "NARIS_RuntimeSmokeDirector",
             require_unreal_class("NarisRuntimeSmokeDirector"),
             unreal.Vector(-800.0, 400.0, 100.0),
@@ -172,6 +177,12 @@ def main():
         results["actors"][label] = status
         if label == "NARIS_BoneBeastBoss_0001":
             actor.set_editor_property("boss_data", boss_data)
+
+    bone_beast = actor_by_label(actor_subsystem, "NARIS_BoneBeastBoss_0001")
+    arena_controller = actor_by_label(actor_subsystem, "NARIS_BossArenaController")
+    if bone_beast is None or arena_controller is None:
+        raise RuntimeError("Boss or arena controller missing after placement")
+    arena_controller.set_editor_property("boss", bone_beast)
 
     # Basic editor lighting for smoke verification only.
     _, results["actors"]["DirectionalLight"] = ensure_actor(
