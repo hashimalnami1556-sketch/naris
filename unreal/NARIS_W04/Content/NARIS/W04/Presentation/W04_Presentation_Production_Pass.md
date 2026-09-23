@@ -52,3 +52,22 @@ Final assets should be assigned through `DA_W04_Presentation`; gameplay classes 
 
 ## Runtime evidence still required
 Source/CI contracts do not prove asset quality. Close this pass only after the Windows editor loads the final profile, montages, Niagara systems, audio and camera shakes and the encounter is playtested.
+
+
+## Celestial Wolf attack timing
+- Runtime Attack mode selects an active Bone Beast target.
+- `RequestAttack()` records the pending target and emits `OnAttackRequested`.
+- Production montage places `NARIS Celestial Wolf Attack Impact` at the contact frame.
+- The notify calls `CommitAttackImpact()`; only that commit path applies boss damage and emits `Wolf.AttackImpact`.
+- Smoke mode may set `bImmediateSmokeAttackImpact=true`, but it still uses the same commit path.
+- Final production Blueprint must set the smoke fallback to false once authored montage timing is present.
+
+## Boss arena entry
+- `ANarisBossArenaController::EncounterTrigger` begins the encounter when the local player enters the boss arena.
+- `EncounterStarted` closes the blocker and emits Arena presentation cues.
+- Completion/restored completion reopens the arena.
+- The encounter still refuses to start unless the Celestial Wolf prerequisite is satisfied.
+
+## Release-candidate rule
+Development smoke may contain explicitly unbound presentation payloads. Shipping RC may not.
+`Invoke-NarisWindowsReleaseCandidate.ps1` sets `NARIS_PRESENTATION_STRICT=1` and rejects any unbound VFX, audio or camera payload before Shipping BuildCookRun.
