@@ -5,11 +5,18 @@
 #include "GameFramework/PlayerInput.h"
 #include "InputCoreTypes.h"
 #include "Kismet/GameplayStatics.h"
+#include "NarisRuntimeSubsystem.h"
+#include "Misc/Parse.h"
+#include "Misc/CommandLine.h"
+#include "Kismet/KismetSystemLibrary.h"
+#include "Engine/World.h"
+#include "Engine/GameInstance.h"
 #include "NarisGameUserSettings.h"
 
 namespace
 {
-    constexpr int32 MainMenuCount = 3;
+    constexpr int32 PauseMainMenuCount = 3;
+    constexpr int32 FrontEndMainMenuCount = 5;
     constexpr int32 SettingsMenuCount = 17;
     constexpr int32 ControlActionCount = 11;
     constexpr int32 ControlsMenuCount = ControlActionCount + 2;
@@ -209,6 +216,21 @@ namespace
 ANarisPlayerController::ANarisPlayerController()
 {
     bShowMouseCursor = false;
+}
+
+void ANarisPlayerController::BeginPlay()
+{
+    Super::BeginPlay();
+
+    const bool bRuntimeSmoke =
+        FParse::Param(FCommandLine::Get(), TEXT("NarisRuntimeSmoke"));
+    const bool bSkipFrontEnd =
+        FParse::Param(FCommandLine::Get(), TEXT("NarisSkipFrontEnd"));
+
+    if (!bRuntimeSmoke && !bSkipFrontEnd)
+    {
+        OpenFrontEndMenu();
+    }
 }
 
 void ANarisPlayerController::SetupInputComponent()
