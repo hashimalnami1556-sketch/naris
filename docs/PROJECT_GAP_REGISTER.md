@@ -25,6 +25,8 @@ Presence is not proof of successful compilation or correct gameplay. Historical 
 - Added source-complete W04 smoke progression contracts through DemoEnd, including interaction, save recovery, companion gating, real lock-on melee damage and native smoke HUD.
 - Added Unreal Python authoring bootstrap for W04_Prototype/DA_BoneBeast_Smoke generation and a Windows BuildCookRun/package/bilingual launch-smoke pipeline with CSV/GPU/LLM capture requests.
 - Added EN/AR localization catalog coverage checks and Windows localization compilation before cook.
+- Added packaged runtime progression/save-load smoke reporting using the actual W04 progression actors.
+- Added timed Parry/Dodge defense windows, five-Essence cycling, pause/resume, and native hero attack-window/impact animation notify hooks; smoke fallback reuses the same hit path.
 
 ## Remaining work, ordered by dependency
 
@@ -33,8 +35,8 @@ Presence is not proof of successful compilation or correct gameplay. Historical 
 | P0 | Unreal compilation after source repairs | Passing Windows UnrealBuildTool log for NARIS_W04Editor |
 | P0 | Actual W04 map and binary game assets | The bootstrap can generate smoke .umap/.uasset files after an editor build, but no successful generated/editor-loaded binaries are committed evidence; production-authored assets remain required |
 | P0 | Complete W04 gameplay loop | Recorded end-to-end editor playtest, including boss completion and demo end |
-| P1 | Save/load and checkpoint recovery | Source autosave/autoload contracts exist; close only after a real save/restart/load round-trip on Windows |
-| P1 | Animation hit windows, HUD, audio and localization | Native smoke HUD + EN/AR catalogs exist; animation/audio assets and visual EN/AR/RTL QA remain runtime gaps |
+| P1 | Save/load and checkpoint recovery | A packaged runtime smoke now scripts an isolated Save -> New Game -> Load round-trip through real progression actors; close only after that test passes on Windows |
+| P1 | Animation hit windows, HUD, audio and localization | Native attack hit-window/impact hooks, smoke HUD and EN/AR catalogs now exist; authored animation notifies, audio assets and visual EN/AR/RTL QA still require engine/runtime evidence |
 | P1 | Windows packaging and performance | BuildCookRun/launch/profiling pipeline is scripted; close only with a successful Windows package artifact, bilingual launch result and measured CSV/GPU/LLM evidence |
 | P1 | Shared host verification | Actual Claude Code startup and continuation using the committed state; adapter presence is not execution |
 | P2 | AssetForge export/import, erosion and masks | See the [worldgen contract](production/ASSETFORGE_WORLDGEN.md) |
