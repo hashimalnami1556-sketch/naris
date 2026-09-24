@@ -1,0 +1,115 @@
+{
+  "source": "User attachments recovered from prior local project_sources; originals preserved outside public repository",
+  "images_reviewed": "contact sheet only; PDFs and videos not visually inspected",
+  "files": [
+    {
+      "filename": "01-IMG_3846.jpeg",
+      "bytes": 61673,
+      "sha256": "9a8c5bdc6513f582978c2be15b62169e29bc716d2686cb409daefc6ae86d2279",
+      "role": "brand_reference_not_game_geometry"
+    },
+    {
+      "filename": "02-IMG_3892.jpeg",
+      "bytes": 256431,
+      "sha256": "2cb1173287db940e784414d31534910e05c85d833cda5b55b426871515fac2fd",
+      "role": "visual_reference"
+    },
+    {
+      "filename": "03-IMG_3898.jpeg",
+      "bytes": 162008,
+      "sha256": "b5b466f5e9dffa5d70d5c2bdba3fe0ea855828fe2cde873d61640f10c7a78682",
+      "role": "visual_reference"
+    },
+    {
+      "filename": "04-IMG_3899.jpeg",
+      "bytes": 192537,
+      "sha256": "bf1bab328a9b380495e09c41abc9d0ae5367a976f3c11381708002feb7bbbadf",
+      "role": "visual_reference"
+    },
+    {
+      "filename": "05-IMG_4137.jpeg",
+      "bytes": 370647,
+      "sha256": "36ad258b38cb19b14ff21970bffac6f8ba3bbd9ade1ba75d5b9076fff070b871",
+      "role": "visual_reference"
+    },
+    {
+      "filename": "06-IMG_3897.jpeg",
+      "bytes": 211610,
+      "sha256": "7919affd733ca65c4a127cd8744ed92511f8dd5366b1bb2e6a1a926b91a2fba4",
+      "role": "visual_reference"
+    },
+    {
+      "filename": "07-IMG_3896.jpeg",
+      "bytes": 241694,
+      "sha256": "b3df8ec05416b264a8c14bf9399da382a275de366c534d952a533b4dc05c3127",
+      "role": "visual_reference"
+    },
+    {
+      "filename": "08-IMG_3893.jpeg",
+      "bytes": 293823,
+      "sha256": "534afcec546a6767a150d047209958aba325739fe92faba613d81fc61ea67d15",
+      "role": "visual_reference"
+    },
+    {
+      "filename": "09-Image-to-PDF-20250720152556.pdf",
+      "bytes": 720333,
+      "sha256": "7679dfcc351f973e151a403225d0f402269460b588084a944e19408d86e8a066",
+      "role": "unreviewed_reference"
+    },
+    {
+      "filename": "10-8F4E91E1-9E25-4467-BAAC-1645CB0DDDD5.PNG",
+      "bytes": 2285352,
+      "sha256": "789a9d01500b338ec4b252c0ac34e442e7c49fd24b365f3ce0ee2a7680c56696",
+      "role": "visual_reference"
+    },
+    {
+      "filename": "11-Image-to-PDF-20250720152556.pdf",
+      "bytes": 720333,
+      "sha256": "7679dfcc351f973e151a403225d0f402269460b588084a944e19408d86e8a066",
+      "role": "unreviewed_reference",
+      "duplicate_of": "09-Image-to-PDF-20250720152556.pdf"
+    },
+    {
+      "filename": "12-gemini_generated_video_7C03F426.MP4",
+      "bytes": 2358939,
+      "sha256": "faed55f2d7c0de70a74e332390dc9a2ab73ac9542f06fb155314bf52613545bb",
+      "role": "unreviewed_reference"
+    },
+    {
+      "filename": "13-gemini_generated_video_DFF0B0F4.MP4",
+      "bytes": 2271195,
+      "sha256": "559b32703dfa94d6ba1985c4871745e0e75f14c45b13eb1082ef9bea7b5ad65c",
+      "role": "unreviewed_reference"
+    },
+    {
+      "filename": "14-IMG_4134.jpeg",
+      "bytes": 406026,
+      "sha256": "a5d67a51f71aa104deb234ee6dfa5f00794377a58e1dfd498aebe1b5cede4c5e",
+      "role": "visual_reference"
+    },
+    {
+      "filename": "15-IMG_3776.jpeg",
+      "bytes": 518622,
+      "sha256": "8859991d83a1312c10526139dd1adc39c89677dd90e81bb719819a451e64206c",
+      "role": "visual_reference"
+    },
+    {
+      "filename": "16-IMG_3619.jpeg",
+      "bytes": 501764,
+      "sha256": "91d7056501936b2163aac1339bbdf6009cd6c05518b15b1f2a0f2233dc73812a",
+      "role": "visual_reference"
+    },
+    {
+      "filename": "17-IMG_4142.jpg",
+      "bytes": 851736,
+      "sha256": "f2566910f84aa45946ea155ae2e51bd580d0817e77b4e6d1866888cd4cdcc561",
+      "role": "visual_reference"
+    },
+    {
+      "filename": "18-C7345319-AB11-4D05-BA19-85E8F35DDEE3.PNG",
+      "bytes": 1627645,
+      "sha256": "55e9457d1f754fca22351403d57c03d5d5e5b685d5d093515940f9364f3969f8",
+      "role": "visual_reference"
+    }
+  ]
+}

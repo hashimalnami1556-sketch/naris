@@ -30,6 +30,11 @@ last_updated: 2026-09-23
 - Runtime blocker: registered AsusRog remote host is offline, so neither Blender nor Unreal can be executed from this session yet.
 - Backend blocker: Neon connector requires a concrete project ID and the repository has no bound .neon/neon.json project metadata; no migration was applied.
 - Open issues: Windows compile/package/runtime evidence; actual W04_AshenForest production map; seven core production meshes; approved surface/water master materials + generated instances; 16 Audio + 14 Niagara payloads; 10 production AnimMontages; real Blender-to-Unreal Factory v2 run; Arabic visual/RTL QA; measured hardware performance; strict Shipping RC evidence.
-- Missing sources: 18 attachment paths announced for this session were absent; no asset contents were inspected.
+- Source recovery: announced attachment paths were restored from prior local copies on 2026-09-24. Image contact sheet reviewed; PDF/video contents unreviewed. See data/manifests/SOURCE_INTAKE_2026-09-24.json.
 - Next action: when Windows is online, compile NARIS_W04Editor first, run the W04 Environment Factory bridge and production blockout authoring, retain all reports, then execute Development package/runtime smoke before attempting the strict W04_AshenForest Shipping RC.
 - Acceptance: a passing static check alone cannot close engine, DCC import, backend deployment or gameplay gates.
+
+## 2026-09-24 asset expansion claim
+Executing agent: Codex. Scope: procedural source kit, canonical registry, Blender batch adapter, attachment inventory and regression checks. Existing dirty checkout is preserved; this worktree starts from refreshed origin/main 02a59ed.
+
+Completed source expansion and static validation: see [asset expansion](../../w04-asset-expansion.md). Claim released; remaining work is Windows Blender export, Unreal import, scale/collision/LOD/material QA and existing gameplay/Shipping gates.

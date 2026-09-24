@@ -130,7 +130,8 @@ def build_w04_wave2():
 
     # Portal silhouette
     arch("HolyPortal_01", (8, 2, 0), 3.6, 5.2, 0.55)
-    cylinder("PortalCore", (8, 2, 2.7), 1.25, 0.22, AETHER, 32)
+    portal = cylinder("PortalCore", (8, 2, 2.7), 1.25, 0.22, AETHER, 32)
+    portal.rotation_euler[0] = math.pi / 2  # Face the arch opening in XZ.
 
     # Metadata custom properties for engine import.
     scene = bpy.context.scene

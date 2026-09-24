@@ -1,0 +1,881 @@
+{
+  "schema": "naris.source.blockout.v1",
+  "units": "meters",
+  "up_axis": "Z",
+  "status": "blockout",
+  "assets": [
+    {
+      "id": "NARIS-W04-ENV-FLOOR-1001",
+      "family": "FLOOR",
+      "variant": 1,
+      "mesh": "assets/w04-expansion/NARIS-W04-ENV-FLOOR-1001.mesh.json",
+      "sha256": "0b89a4c0f77412ecdae4d31f1747d85f5b9f80beb4d6504884a7cb131f19cbcc",
+      "vertices": 16,
+      "triangles": 24
+    },
+    {
+      "id": "NARIS-W04-ENV-FLOOR-1002",
+      "family": "FLOOR",
+      "variant": 2,
+      "mesh": "assets/w04-expansion/NARIS-W04-ENV-FLOOR-1002.mesh.json",
+      "sha256": "ff5aaeaf8d98a5e4de8e995c54319a942d1fcc18d63dfb740f220dd4c1ff8544",
+      "vertices": 24,
+      "triangles": 36
+    },
+    {
+      "id": "NARIS-W04-ENV-FLOOR-1003",
+      "family": "FLOOR",
+      "variant": 3,
+      "mesh": "assets/w04-expansion/NARIS-W04-ENV-FLOOR-1003.mesh.json",
+      "sha256": "8427c3750691dd8c3eaeb504a7d2b6d606400ef51fb84e15ff22ea562797b972",
+      "vertices": 32,
+      "triangles": 48
+    },
+    {
+      "id": "NARIS-W04-ENV-FLOOR-1004",
+      "family": "FLOOR",
+      "variant": 4,
+      "mesh": "assets/w04-expansion/NARIS-W04-ENV-FLOOR-1004.mesh.json",
+      "sha256": "dc1eb7ef5b33abb08c04f9ef1eaddabcce453f0ed2f7f8426f7035905afd34b5",
+      "vertices": 40,
+      "triangles": 60
+    },
+    {
+      "id": "NARIS-W04-ENV-FLOOR-1005",
+      "family": "FLOOR",
+      "variant": 5,
+      "mesh": "assets/w04-expansion/NARIS-W04-ENV-FLOOR-1005.mesh.json",
+      "sha256": "fc91db6560f8148e2f950edbae79564ad45e4d7c9cde12eb6893f3d683451e38",
+      "vertices": 48,
+      "triangles": 72
+    },
+    {
+      "id": "NARIS-W04-ENV-WALL-1001",
+      "family": "WALL",
+      "variant": 1,
+      "mesh": "assets/w04-expansion/NARIS-W04-ENV-WALL-1001.mesh.json",
+      "sha256": "f7eec6cec35a26e0e5ea4e1ddc1d0c6f8c64ce8021a1530d0ed57df7ecb3a667",
+      "vertices": 96,
+      "triangles": 144
+    },
+    {
+      "id": "NARIS-W04-ENV-WALL-1002",
+      "family": "WALL",
+      "variant": 2,
+      "mesh": "assets/w04-expansion/NARIS-W04-ENV-WALL-1002.mesh.json",
+      "sha256": "4b6a7a877845a34b31472296106c102cea315e3036bac1f1accc9adf124a726d",
+      "vertices": 128,
+      "triangles": 192
+    },
+    {
+      "id": "NARIS-W04-ENV-WALL-1003",
+      "family": "WALL",
+      "variant": 3,
+      "mesh": "assets/w04-expansion/NARIS-W04-ENV-WALL-1003.mesh.json",
+      "sha256": "0666b8c735b13d90195fae7b4e3da23d4e2074f80810cb9b5f447ebf39143623",
+      "vertices": 160,
+      "triangles": 240
+    },
+    {
+      "id": "NARIS-W04-ENV-WALL-1004",
+      "family": "WALL",
+      "variant": 4,
+      "mesh": "assets/w04-expansion/NARIS-W04-ENV-WALL-1004.mesh.json",
+      "sha256": "36e7f5564f6b1352e62ddb6c35f0ec786003fccac0ebdfa173a004cbde66994b",
+      "vertices": 192,
+      "triangles": 288
+    },
+    {
+      "id": "NARIS-W04-ENV-WALL-1005",
+      "family": "WALL",
+      "variant": 5,
+      "mesh": "assets/w04-expansion/NARIS-W04-ENV-WALL-1005.mesh.json",
+      "sha256": "e89b8246ba1ebf647c86698047bda48471193d50be500fa459b4152fbaa25dbd",
+      "vertices": 224,
+      "triangles": 336
+    },
+    {
+      "id": "NARIS-W04-ENV-ARCH-1001",
+      "family": "ARCH",
+      "variant": 1,
+      "mesh": "assets/w04-expansion/NARIS-W04-ENV-ARCH-1001.mesh.json",
+      "sha256": "fd1d7954a952410192cd4363551895e82bce7f318c1c1b9d79d33e1940696106",
+      "vertices": 88,
+      "triangles": 132
+    },
+    {
+      "id": "NARIS-W04-ENV-ARCH-1002",
+      "family": "ARCH",
+      "variant": 2,
+      "mesh": "assets/w04-expansion/NARIS-W04-ENV-ARCH-1002.mesh.json",
+      "sha256": "34a5fbcb6d061dc04c259badbff4e99a6e1ded34b2baba01728e95b1f5cdb04c",
+      "vertices": 88,
+      "triangles": 132
+    },
+    {
+      "id": "NARIS-W04-ENV-ARCH-1003",
+      "family": "ARCH",
+      "variant": 3,
+      "mesh": "assets/w04-expansion/NARIS-W04-ENV-ARCH-1003.mesh.json",
+      "sha256": "4ed3b1a0f214d6ca643f0f5d1238ca414440073121a2dc5e24010e86bc28d760",
+      "vertices": 88,
+      "triangles": 132
+    },
+    {
+      "id": "NARIS-W04-ENV-ARCH-1004",
+      "family": "ARCH",
+      "variant": 4,
+      "mesh": "assets/w04-expansion/NARIS-W04-ENV-ARCH-1004.mesh.json",
+      "sha256": "6119664fe9a51e87275615225192be185310ed7ecb04f3e96bf1e320905f0a45",
+      "vertices": 88,
+      "triangles": 132
+    },
+    {
+      "id": "NARIS-W04-ENV-ARCH-1005",
+      "family": "ARCH",
+      "variant": 5,
+      "mesh": "assets/w04-expansion/NARIS-W04-ENV-ARCH-1005.mesh.json",
+      "sha256": "0a2e69272e1722d06848b527b44432c200d6005705e6b70c1c6efee3e3792c35",
+      "vertices": 88,
+      "triangles": 132
+    },
+    {
+      "id": "NARIS-W04-ENV-PILLAR-1001",
+      "family": "PILLAR",
+      "variant": 1,
+      "mesh": "assets/w04-expansion/NARIS-W04-ENV-PILLAR-1001.mesh.json",
+      "sha256": "b55947dcde9586468d9e1e5162730f8369207a3701bc7cfcdec71321a9d0e6f0",
+      "vertices": 34,
+      "triangles": 56
+    },
+    {
+      "id": "NARIS-W04-ENV-PILLAR-1002",
+      "family": "PILLAR",
+      "variant": 2,
+      "mesh": "assets/w04-expansion/NARIS-W04-ENV-PILLAR-1002.mesh.json",
+      "sha256": "39d0fe35af59688cd8919c963c4ce6fefd053195a9f0b7bed1d61842bfddc6ea",
+      "vertices": 36,
+      "triangles": 60
+    },
+    {
+      "id": "NARIS-W04-ENV-PILLAR-1003",
+      "family": "PILLAR",
+      "variant": 3,
+      "mesh": "assets/w04-expansion/NARIS-W04-ENV-PILLAR-1003.mesh.json",
+      "sha256": "1fb841429e62379e5b66b7c894a1e54cd2012178d8988b4b2b2843d321f18f91",
+      "vertices": 38,
+      "triangles": 64
+    },
+    {
+      "id": "NARIS-W04-ENV-PILLAR-1004",
+      "family": "PILLAR",
+      "variant": 4,
+      "mesh": "assets/w04-expansion/NARIS-W04-ENV-PILLAR-1004.mesh.json",
+      "sha256": "a61b5e9a8acefddda93fa6fc161b39536cdaa8afbe7a1581a189227c062d0860",
+      "vertices": 40,
+      "triangles": 68
+    },
+    {
+      "id": "NARIS-W04-ENV-PILLAR-1005",
+      "family": "PILLAR",
+      "variant": 5,
+      "mesh": "assets/w04-expansion/NARIS-W04-ENV-PILLAR-1005.mesh.json",
+      "sha256": "c57c9f957ac690461a2b447feb92fcc0f676d860b6e4ac2d5ac860ca3fcf40fb",
+      "vertices": 42,
+      "triangles": 72
+    },
+    {
+      "id": "NARIS-W04-ENV-STAIRS-1001",
+      "family": "STAIRS",
+      "variant": 1,
+      "mesh": "assets/w04-expansion/NARIS-W04-ENV-STAIRS-1001.mesh.json",
+      "sha256": "f6086532765d6da2d3811794d9425a71e3f3bccea7c149357d55099103e3190e",
+      "vertices": 32,
+      "triangles": 48
+    },
+    {
+      "id": "NARIS-W04-ENV-STAIRS-1002",
+      "family": "STAIRS",
+      "variant": 2,
+      "mesh": "assets/w04-expansion/NARIS-W04-ENV-STAIRS-1002.mesh.json",
+      "sha256": "3d752c7f86bb085b911dd0047209f4c0165e94d7996b97a1ce274693d4e9d815",
+      "vertices": 40,
+      "triangles": 60
+    },
+    {
+      "id": "NARIS-W04-ENV-STAIRS-1003",
+      "family": "STAIRS",
+      "variant": 3,
+      "mesh": "assets/w04-expansion/NARIS-W04-ENV-STAIRS-1003.mesh.json",
+      "sha256": "38dc1be86f9a08f496eab639de864a45b5a4a4b2ce35f9bbabffb0a2816ffce9",
+      "vertices": 48,
+      "triangles": 72
+    },
+    {
+      "id": "NARIS-W04-ENV-STAIRS-1004",
+      "family": "STAIRS",
+      "variant": 4,
+      "mesh": "assets/w04-expansion/NARIS-W04-ENV-STAIRS-1004.mesh.json",
+      "sha256": "d529a59e905735b399974a8d4d124857e3767a8a20a8b6ff87de645cff6ed910",
+      "vertices": 56,
+      "triangles": 84
+    },
+    {
+      "id": "NARIS-W04-ENV-STAIRS-1005",
+      "family": "STAIRS",
+      "variant": 5,
+      "mesh": "assets/w04-expansion/NARIS-W04-ENV-STAIRS-1005.mesh.json",
+      "sha256": "cfe94d1a9db88d0f553a493e88cd770df45eb3044381277619f891054cfd88ee",
+      "vertices": 64,
+      "triangles": 96
+    },
+    {
+      "id": "NARIS-W04-ENV-BRIDGE-1001",
+      "family": "BRIDGE",
+      "variant": 1,
+      "mesh": "assets/w04-expansion/NARIS-W04-ENV-BRIDGE-1001.mesh.json",
+      "sha256": "c1fb826388d960b03ad3fb42b30b8dbc979173776b5f296fa151c03287701d53",
+      "vertices": 64,
+      "triangles": 96
+    },
+    {
+      "id": "NARIS-W04-ENV-BRIDGE-1002",
+      "family": "BRIDGE",
+      "variant": 2,
+      "mesh": "assets/w04-expansion/NARIS-W04-ENV-BRIDGE-1002.mesh.json",
+      "sha256": "a3983857f9de696802faaa4916128460df3d827eef0d6399fce99e20dab4a2db",
+      "vertices": 72,
+      "triangles": 108
+    },
+    {
+      "id": "NARIS-W04-ENV-BRIDGE-1003",
+      "family": "BRIDGE",
+      "variant": 3,
+      "mesh": "assets/w04-expansion/NARIS-W04-ENV-BRIDGE-1003.mesh.json",
+      "sha256": "7feb32c11dbed4e5814eecdf73cb91c320306ed802807103312aa2b429dd6a2d",
+      "vertices": 80,
+      "triangles": 120
+    },
+    {
+      "id": "NARIS-W04-ENV-BRIDGE-1004",
+      "family": "BRIDGE",
+      "variant": 4,
+      "mesh": "assets/w04-expansion/NARIS-W04-ENV-BRIDGE-1004.mesh.json",
+      "sha256": "2dc8f61b1115e9fb46823a318cfb5a0b98cc2c5402302ffeeddb14d661fd98be",
+      "vertices": 88,
+      "triangles": 132
+    },
+    {
+      "id": "NARIS-W04-ENV-BRIDGE-1005",
+      "family": "BRIDGE",
+      "variant": 5,
+      "mesh": "assets/w04-expansion/NARIS-W04-ENV-BRIDGE-1005.mesh.json",
+      "sha256": "90333fc41275a90906664258a08d86a9b77662e1f1074b3e39d89da47a90fb6a",
+      "vertices": 96,
+      "triangles": 144
+    },
+    {
+      "id": "NARIS-W04-ENV-FENCE-1001",
+      "family": "FENCE",
+      "variant": 1,
+      "mesh": "assets/w04-expansion/NARIS-W04-ENV-FENCE-1001.mesh.json",
+      "sha256": "e2463f421740bc9dcbadb49709a46805425dc20486017fc7e1017cc1b301fd31",
+      "vertices": 48,
+      "triangles": 72
+    },
+    {
+      "id": "NARIS-W04-ENV-FENCE-1002",
+      "family": "FENCE",
+      "variant": 2,
+      "mesh": "assets/w04-expansion/NARIS-W04-ENV-FENCE-1002.mesh.json",
+      "sha256": "fcbd4ddd16a5bdd6cce077e2e566f19a17c15974770f2d0a5f4f446a084ca63a",
+      "vertices": 56,
+      "triangles": 84
+    },
+    {
+      "id": "NARIS-W04-ENV-FENCE-1003",
+      "family": "FENCE",
+      "variant": 3,
+      "mesh": "assets/w04-expansion/NARIS-W04-ENV-FENCE-1003.mesh.json",
+      "sha256": "27cac47e35e5012e253ce7a1bfead78e7a0c37a2b27722584cfb8bea007eca12",
+      "vertices": 64,
+      "triangles": 96
+    },
+    {
+      "id": "NARIS-W04-ENV-FENCE-1004",
+      "family": "FENCE",
+      "variant": 4,
+      "mesh": "assets/w04-expansion/NARIS-W04-ENV-FENCE-1004.mesh.json",
+      "sha256": "d8ed5174997ce9452518ecdb177d444afd79cc15fcd2601b5865daefb07e4e1e",
+      "vertices": 72,
+      "triangles": 108
+    },
+    {
+      "id": "NARIS-W04-ENV-FENCE-1005",
+      "family": "FENCE",
+      "variant": 5,
+      "mesh": "assets/w04-expansion/NARIS-W04-ENV-FENCE-1005.mesh.json",
+      "sha256": "de380cfb5be1453b9dca044582b508d7717c8882da943e989c301286c6ed5cc3",
+      "vertices": 80,
+      "triangles": 120
+    },
+    {
+      "id": "NARIS-W04-ENV-ALTAR-1001",
+      "family": "ALTAR",
+      "variant": 1,
+      "mesh": "assets/w04-expansion/NARIS-W04-ENV-ALTAR-1001.mesh.json",
+      "sha256": "08d7b1e8517568d4d1576dc7b3236837475e95f827e6dfba2a36e91edd3f1907",
+      "vertices": 38,
+      "triangles": 60
+    },
+    {
+      "id": "NARIS-W04-ENV-ALTAR-1002",
+      "family": "ALTAR",
+      "variant": 2,
+      "mesh": "assets/w04-expansion/NARIS-W04-ENV-ALTAR-1002.mesh.json",
+      "sha256": "1c5da801ccdf6fa3c4d67de718a9042e578816af6debdf4927c6caaf73df8623",
+      "vertices": 40,
+      "triangles": 64
+    },
+    {
+      "id": "NARIS-W04-ENV-ALTAR-1003",
+      "family": "ALTAR",
+      "variant": 3,
+      "mesh": "assets/w04-expansion/NARIS-W04-ENV-ALTAR-1003.mesh.json",
+      "sha256": "efe9710902f8ddf3483e41df01d6d46b4a244537251804a4471a7ebc2468c798",
+      "vertices": 42,
+      "triangles": 68
+    },
+    {
+      "id": "NARIS-W04-ENV-ALTAR-1004",
+      "family": "ALTAR",
+      "variant": 4,
+      "mesh": "assets/w04-expansion/NARIS-W04-ENV-ALTAR-1004.mesh.json",
+      "sha256": "de028e0820730d2eb10604ce8b59b36d31c4592613c1e11b5d41a5e0c1ea133e",
+      "vertices": 44,
+      "triangles": 72
+    },
+    {
+      "id": "NARIS-W04-ENV-ALTAR-1005",
+      "family": "ALTAR",
+      "variant": 5,
+      "mesh": "assets/w04-expansion/NARIS-W04-ENV-ALTAR-1005.mesh.json",
+      "sha256": "e05089793810e42249545dcb7d08bf26aedb69a6184f430a0048fa9808d93c61",
+      "vertices": 46,
+      "triangles": 76
+    },
+    {
+      "id": "NARIS-W04-ENV-OBELISK-1001",
+      "family": "OBELISK",
+      "variant": 1,
+      "mesh": "assets/w04-expansion/NARIS-W04-ENV-OBELISK-1001.mesh.json",
+      "sha256": "7cb77cef163c24397df643696a97bf394ca5f4be1e0882bb0d37550c3af459b4",
+      "vertices": 26,
+      "triangles": 44
+    },
+    {
+      "id": "NARIS-W04-ENV-OBELISK-1002",
+      "family": "OBELISK",
+      "variant": 2,
+      "mesh": "assets/w04-expansion/NARIS-W04-ENV-OBELISK-1002.mesh.json",
+      "sha256": "a816aca34de869975820bab643ef71f53067932b29230dee7f9dfa785866cfea",
+      "vertices": 28,
+      "triangles": 48
+    },
+    {
+      "id": "NARIS-W04-ENV-OBELISK-1003",
+      "family": "OBELISK",
+      "variant": 3,
+      "mesh": "assets/w04-expansion/NARIS-W04-ENV-OBELISK-1003.mesh.json",
+      "sha256": "86d97b524c7812fad68124a0b4cb7e24e271cc264e64b97fff7126730caf0a4b",
+      "vertices": 30,
+      "triangles": 52
+    },
+    {
+      "id": "NARIS-W04-ENV-OBELISK-1004",
+      "family": "OBELISK",
+      "variant": 4,
+      "mesh": "assets/w04-expansion/NARIS-W04-ENV-OBELISK-1004.mesh.json",
+      "sha256": "971afa01bb9b53b9dec53a0ff409a3fce2c9ca858b6be3178e4b9cc83af1f838",
+      "vertices": 32,
+      "triangles": 56
+    },
+    {
+      "id": "NARIS-W04-ENV-OBELISK-1005",
+      "family": "OBELISK",
+      "variant": 5,
+      "mesh": "assets/w04-expansion/NARIS-W04-ENV-OBELISK-1005.mesh.json",
+      "sha256": "39f839066755aa8f45ce852fbecae55a4f669cb26f470119c7cad1f4e808148f",
+      "vertices": 34,
+      "triangles": 60
+    },
+    {
+      "id": "NARIS-W04-ENV-CRYSTAL-1001",
+      "family": "CRYSTAL",
+      "variant": 1,
+      "mesh": "assets/w04-expansion/NARIS-W04-ENV-CRYSTAL-1001.mesh.json",
+      "sha256": "b7cbef7e680e6314c797140002e7b962e7bd9f0b2ab0692bcd68d4a8115e71f8",
+      "vertices": 24,
+      "triangles": 40
+    },
+    {
+      "id": "NARIS-W04-ENV-CRYSTAL-1002",
+      "family": "CRYSTAL",
+      "variant": 2,
+      "mesh": "assets/w04-expansion/NARIS-W04-ENV-CRYSTAL-1002.mesh.json",
+      "sha256": "1e90ace6499cdb8c20448e1672678653d39ce6ae29203e9dbbd2870dcea1e69b",
+      "vertices": 28,
+      "triangles": 48
+    },
+    {
+      "id": "NARIS-W04-ENV-CRYSTAL-1003",
+      "family": "CRYSTAL",
+      "variant": 3,
+      "mesh": "assets/w04-expansion/NARIS-W04-ENV-CRYSTAL-1003.mesh.json",
+      "sha256": "563e7667eaf96e0e5f1af677f4e38b327dc7847f73dc6df5aef20792420387a5",
+      "vertices": 32,
+      "triangles": 56
+    },
+    {
+      "id": "NARIS-W04-ENV-CRYSTAL-1004",
+      "family": "CRYSTAL",
+      "variant": 4,
+      "mesh": "assets/w04-expansion/NARIS-W04-ENV-CRYSTAL-1004.mesh.json",
+      "sha256": "1b9b8be492f51f1cf74decec163917a66620552859e24d9456b4e94c2e4d7218",
+      "vertices": 36,
+      "triangles": 64
+    },
+    {
+      "id": "NARIS-W04-ENV-CRYSTAL-1005",
+      "family": "CRYSTAL",
+      "variant": 5,
+      "mesh": "assets/w04-expansion/NARIS-W04-ENV-CRYSTAL-1005.mesh.json",
+      "sha256": "77ab5915e32cee3e8089a12df7c6fc7722e3170fd58fe4047bbe032016fed613",
+      "vertices": 40,
+      "triangles": 72
+    },
+    {
+      "id": "NARIS-W04-ENV-STUMP-1001",
+      "family": "STUMP",
+      "variant": 1,
+      "mesh": "assets/w04-expansion/NARIS-W04-ENV-STUMP-1001.mesh.json",
+      "sha256": "e013023960d7d20e76fc29b10f98afd9c4b3acdd40c76bab098c82930a8183c0",
+      "vertices": 16,
+      "triangles": 28
+    },
+    {
+      "id": "NARIS-W04-ENV-STUMP-1002",
+      "family": "STUMP",
+      "variant": 2,
+      "mesh": "assets/w04-expansion/NARIS-W04-ENV-STUMP-1002.mesh.json",
+      "sha256": "5150349da16a6cb888ce24250b1e533047d40ee0adfe8b6d19e22048fe87d8e9",
+      "vertices": 18,
+      "triangles": 32
+    },
+    {
+      "id": "NARIS-W04-ENV-STUMP-1003",
+      "family": "STUMP",
+      "variant": 3,
+      "mesh": "assets/w04-expansion/NARIS-W04-ENV-STUMP-1003.mesh.json",
+      "sha256": "759c9ebcd0792061cb11e66857121d60cbaa03fb0121037c75a9fefb8c989280",
+      "vertices": 20,
+      "triangles": 36
+    },
+    {
+      "id": "NARIS-W04-ENV-STUMP-1004",
+      "family": "STUMP",
+      "variant": 4,
+      "mesh": "assets/w04-expansion/NARIS-W04-ENV-STUMP-1004.mesh.json",
+      "sha256": "85745f0c870131c64a68d1a186053ac3c09d3a18125eadf2197e46733a0a7abf",
+      "vertices": 22,
+      "triangles": 40
+    },
+    {
+      "id": "NARIS-W04-ENV-STUMP-1005",
+      "family": "STUMP",
+      "variant": 5,
+      "mesh": "assets/w04-expansion/NARIS-W04-ENV-STUMP-1005.mesh.json",
+      "sha256": "a0997c8557c0270d263064d30a6f51fab86e6298fe1dac0e2afe32b0dbc07ed9",
+      "vertices": 24,
+      "triangles": 44
+    },
+    {
+      "id": "NARIS-W04-ENV-TREE-1001",
+      "family": "TREE",
+      "variant": 1,
+      "mesh": "assets/w04-expansion/NARIS-W04-ENV-TREE-1001.mesh.json",
+      "sha256": "4c5d9044d6f43030e9bea1967115a25c9e82fffb303f00dbc9cc56511b47ca20",
+      "vertices": 76,
+      "triangles": 124
+    },
+    {
+      "id": "NARIS-W04-ENV-TREE-1002",
+      "family": "TREE",
+      "variant": 2,
+      "mesh": "assets/w04-expansion/NARIS-W04-ENV-TREE-1002.mesh.json",
+      "sha256": "dbabff7a3dc2a295083f61fc7e9f3ba44c2f9147f4aefe0e71dfc69f34c31527",
+      "vertices": 96,
+      "triangles": 156
+    },
+    {
+      "id": "NARIS-W04-ENV-TREE-1003",
+      "family": "TREE",
+      "variant": 3,
+      "mesh": "assets/w04-expansion/NARIS-W04-ENV-TREE-1003.mesh.json",
+      "sha256": "fe2b0e0c6d879420d0b93e341dd02318a7fc9b9f0f5ccff04af82a5d15146fed",
+      "vertices": 116,
+      "triangles": 188
+    },
+    {
+      "id": "NARIS-W04-ENV-TREE-1004",
+      "family": "TREE",
+      "variant": 4,
+      "mesh": "assets/w04-expansion/NARIS-W04-ENV-TREE-1004.mesh.json",
+      "sha256": "73369b3b27b94879244c19e5b2d65e693f59a1a114f7038b2f9df30582f39fec",
+      "vertices": 136,
+      "triangles": 220
+    },
+    {
+      "id": "NARIS-W04-ENV-TREE-1005",
+      "family": "TREE",
+      "variant": 5,
+      "mesh": "assets/w04-expansion/NARIS-W04-ENV-TREE-1005.mesh.json",
+      "sha256": "f63f692fb9a6f13ea7c9ed0ff76f12dc809f8150e9fe2d58c28e77ece5479276",
+      "vertices": 156,
+      "triangles": 252
+    },
+    {
+      "id": "NARIS-W04-ENV-RUBBLE-1001",
+      "family": "RUBBLE",
+      "variant": 1,
+      "mesh": "assets/w04-expansion/NARIS-W04-ENV-RUBBLE-1001.mesh.json",
+      "sha256": "58601d9624144bef3e32c676fc5e9add5a812f854883117bb373dc3291425dc2",
+      "vertices": 58,
+      "triangles": 96
+    },
+    {
+      "id": "NARIS-W04-ENV-RUBBLE-1002",
+      "family": "RUBBLE",
+      "variant": 2,
+      "mesh": "assets/w04-expansion/NARIS-W04-ENV-RUBBLE-1002.mesh.json",
+      "sha256": "51f4fbde662b2262fef2aeefd6cb180a4e09803ecddb8b454d12ac7c3699ae25",
+      "vertices": 72,
+      "triangles": 120
+    },
+    {
+      "id": "NARIS-W04-ENV-RUBBLE-1003",
+      "family": "RUBBLE",
+      "variant": 3,
+      "mesh": "assets/w04-expansion/NARIS-W04-ENV-RUBBLE-1003.mesh.json",
+      "sha256": "71d269a513331e3fa71620631cc446fbe7cb87a665203f665ecee288cb1a950a",
+      "vertices": 82,
+      "triangles": 136
+    },
+    {
+      "id": "NARIS-W04-ENV-RUBBLE-1004",
+      "family": "RUBBLE",
+      "variant": 4,
+      "mesh": "assets/w04-expansion/NARIS-W04-ENV-RUBBLE-1004.mesh.json",
+      "sha256": "bb513ae98c331a639abec988a9e28693478899a9f258650726606ef50b744778",
+      "vertices": 94,
+      "triangles": 156
+    },
+    {
+      "id": "NARIS-W04-ENV-RUBBLE-1005",
+      "family": "RUBBLE",
+      "variant": 5,
+      "mesh": "assets/w04-expansion/NARIS-W04-ENV-RUBBLE-1005.mesh.json",
+      "sha256": "d13014a701f1dff44b8e9b1940b57754231e05a1d4b39e16307f2f5d3d73f862",
+      "vertices": 108,
+      "triangles": 180
+    },
+    {
+      "id": "NARIS-W04-ENV-BENCH-1001",
+      "family": "BENCH",
+      "variant": 1,
+      "mesh": "assets/w04-expansion/NARIS-W04-ENV-BENCH-1001.mesh.json",
+      "sha256": "760ec101177518aea2f64162f8a32ee7c984c4e02fda2b53cfb1819b943b0993",
+      "vertices": 24,
+      "triangles": 36
+    },
+    {
+      "id": "NARIS-W04-ENV-BENCH-1002",
+      "family": "BENCH",
+      "variant": 2,
+      "mesh": "assets/w04-expansion/NARIS-W04-ENV-BENCH-1002.mesh.json",
+      "sha256": "dc86e2d254831e024601bc92dc25d2ac9d33e990a59621d5c7f2b3fe686a7d67",
+      "vertices": 24,
+      "triangles": 36
+    },
+    {
+      "id": "NARIS-W04-ENV-BENCH-1003",
+      "family": "BENCH",
+      "variant": 3,
+      "mesh": "assets/w04-expansion/NARIS-W04-ENV-BENCH-1003.mesh.json",
+      "sha256": "3c6c6410e3761aaa09948e796834ec80599325aa3fb0baaa509d6467abb46dd7",
+      "vertices": 24,
+      "triangles": 36
+    },
+    {
+      "id": "NARIS-W04-ENV-BENCH-1004",
+      "family": "BENCH",
+      "variant": 4,
+      "mesh": "assets/w04-expansion/NARIS-W04-ENV-BENCH-1004.mesh.json",
+      "sha256": "e9775ca22a60037df7a6001617ab48db7167868362aa24534421daee4621211a",
+      "vertices": 24,
+      "triangles": 36
+    },
+    {
+      "id": "NARIS-W04-ENV-BENCH-1005",
+      "family": "BENCH",
+      "variant": 5,
+      "mesh": "assets/w04-expansion/NARIS-W04-ENV-BENCH-1005.mesh.json",
+      "sha256": "be5c301fa5c1d4f9d6d46b85b991367cbd86f38e798c55bec789cf6a1c99da05",
+      "vertices": 24,
+      "triangles": 36
+    },
+    {
+      "id": "NARIS-W04-ENV-BRAZIER-1001",
+      "family": "BRAZIER",
+      "variant": 1,
+      "mesh": "assets/w04-expansion/NARIS-W04-ENV-BRAZIER-1001.mesh.json",
+      "sha256": "71e6164cf95a13a1a27882e80e2c92052b07681b864d33140f51d02b106ba150",
+      "vertices": 76,
+      "triangles": 124
+    },
+    {
+      "id": "NARIS-W04-ENV-BRAZIER-1002",
+      "family": "BRAZIER",
+      "variant": 2,
+      "mesh": "assets/w04-expansion/NARIS-W04-ENV-BRAZIER-1002.mesh.json",
+      "sha256": "7f1632e97c7861821dee28314ba244c9398cc37b72281529554b3d61b8fa6fec",
+      "vertices": 88,
+      "triangles": 144
+    },
+    {
+      "id": "NARIS-W04-ENV-BRAZIER-1003",
+      "family": "BRAZIER",
+      "variant": 3,
+      "mesh": "assets/w04-expansion/NARIS-W04-ENV-BRAZIER-1003.mesh.json",
+      "sha256": "b3e0cf5782f211834fd769b2fcbfc41506b9798ca6a5b39a8731b076568f809b",
+      "vertices": 100,
+      "triangles": 164
+    },
+    {
+      "id": "NARIS-W04-ENV-BRAZIER-1004",
+      "family": "BRAZIER",
+      "variant": 4,
+      "mesh": "assets/w04-expansion/NARIS-W04-ENV-BRAZIER-1004.mesh.json",
+      "sha256": "09cfb944e80732d97773d19ed977697e4ba4023b195147fe5ca3deda31f80af0",
+      "vertices": 112,
+      "triangles": 184
+    },
+    {
+      "id": "NARIS-W04-ENV-BRAZIER-1005",
+      "family": "BRAZIER",
+      "variant": 5,
+      "mesh": "assets/w04-expansion/NARIS-W04-ENV-BRAZIER-1005.mesh.json",
+      "sha256": "f5801626d733efcb16b4fd977ae782f1f89f4a7db8a43d7e72519be92bb77e46",
+      "vertices": 124,
+      "triangles": 204
+    },
+    {
+      "id": "NARIS-W04-ENV-PLINTH-1001",
+      "family": "PLINTH",
+      "variant": 1,
+      "mesh": "assets/w04-expansion/NARIS-W04-ENV-PLINTH-1001.mesh.json",
+      "sha256": "2ab8720ffdde5c6f94afc551de7a12bee6b823a7addc680cc6399d4336bd5780",
+      "vertices": 16,
+      "triangles": 24
+    },
+    {
+      "id": "NARIS-W04-ENV-PLINTH-1002",
+      "family": "PLINTH",
+      "variant": 2,
+      "mesh": "assets/w04-expansion/NARIS-W04-ENV-PLINTH-1002.mesh.json",
+      "sha256": "f2c607eef0c251685a863a5cb3379f9fb6c2458cd96d1de583f0145a65456a23",
+      "vertices": 16,
+      "triangles": 24
+    },
+    {
+      "id": "NARIS-W04-ENV-PLINTH-1003",
+      "family": "PLINTH",
+      "variant": 3,
+      "mesh": "assets/w04-expansion/NARIS-W04-ENV-PLINTH-1003.mesh.json",
+      "sha256": "440815e1d9d57a61bda460a2651f80586a12f43f304cc3556745c8e3a4ec3556",
+      "vertices": 16,
+      "triangles": 24
+    },
+    {
+      "id": "NARIS-W04-ENV-PLINTH-1004",
+      "family": "PLINTH",
+      "variant": 4,
+      "mesh": "assets/w04-expansion/NARIS-W04-ENV-PLINTH-1004.mesh.json",
+      "sha256": "04d39c71b47ff5cdedb18c00e33cb174c05a98be2c4b37a813b6725036c3b1b8",
+      "vertices": 16,
+      "triangles": 24
+    },
+    {
+      "id": "NARIS-W04-ENV-PLINTH-1005",
+      "family": "PLINTH",
+      "variant": 5,
+      "mesh": "assets/w04-expansion/NARIS-W04-ENV-PLINTH-1005.mesh.json",
+      "sha256": "de1f314f0c9441322bf62f4f923de4303b129f6c0117c161ec39c59b63a05deb",
+      "vertices": 16,
+      "triangles": 24
+    },
+    {
+      "id": "NARIS-W04-ENV-TOWER-1001",
+      "family": "TOWER",
+      "variant": 1,
+      "mesh": "assets/w04-expansion/NARIS-W04-ENV-TOWER-1001.mesh.json",
+      "sha256": "f3f9f50b6e4f2f550d00412d2c6cf3ba55441277321c3d53a02e43c6edd48c5a",
+      "vertices": 58,
+      "triangles": 92
+    },
+    {
+      "id": "NARIS-W04-ENV-TOWER-1002",
+      "family": "TOWER",
+      "variant": 2,
+      "mesh": "assets/w04-expansion/NARIS-W04-ENV-TOWER-1002.mesh.json",
+      "sha256": "f3bbc0cbd53c4b00b9b23f69cf2a7d3605f4a626eac8b4fcd7c70b0667f6f0d6",
+      "vertices": 68,
+      "triangles": 108
+    },
+    {
+      "id": "NARIS-W04-ENV-TOWER-1003",
+      "family": "TOWER",
+      "variant": 3,
+      "mesh": "assets/w04-expansion/NARIS-W04-ENV-TOWER-1003.mesh.json",
+      "sha256": "fe510b0269671989bed11b499e22aba7d554606c853076c25e294d21a8c5c88b",
+      "vertices": 78,
+      "triangles": 124
+    },
+    {
+      "id": "NARIS-W04-ENV-TOWER-1004",
+      "family": "TOWER",
+      "variant": 4,
+      "mesh": "assets/w04-expansion/NARIS-W04-ENV-TOWER-1004.mesh.json",
+      "sha256": "a32e857e11a9e729c5e1b83915801c8c295380a7512ad9d7c84f90fec60d7bca",
+      "vertices": 88,
+      "triangles": 140
+    },
+    {
+      "id": "NARIS-W04-ENV-TOWER-1005",
+      "family": "TOWER",
+      "variant": 5,
+      "mesh": "assets/w04-expansion/NARIS-W04-ENV-TOWER-1005.mesh.json",
+      "sha256": "19d5380b2331ada9ffd70f16b022565814a00af944f86d9a34066517c37d2001",
+      "vertices": 98,
+      "triangles": 156
+    },
+    {
+      "id": "NARIS-W04-ENV-BARRICADE-1001",
+      "family": "BARRICADE",
+      "variant": 1,
+      "mesh": "assets/w04-expansion/NARIS-W04-ENV-BARRICADE-1001.mesh.json",
+      "sha256": "3fe6586b844f2ecb93836560f31166c095ee920a80770713b6e5a7baf98520aa",
+      "vertices": 64,
+      "triangles": 96
+    },
+    {
+      "id": "NARIS-W04-ENV-BARRICADE-1002",
+      "family": "BARRICADE",
+      "variant": 2,
+      "mesh": "assets/w04-expansion/NARIS-W04-ENV-BARRICADE-1002.mesh.json",
+      "sha256": "b69e5d02d77fa08dee4208ae26d0069c2256c1b4f05868a6483fe122017e703b",
+      "vertices": 72,
+      "triangles": 108
+    },
+    {
+      "id": "NARIS-W04-ENV-BARRICADE-1003",
+      "family": "BARRICADE",
+      "variant": 3,
+      "mesh": "assets/w04-expansion/NARIS-W04-ENV-BARRICADE-1003.mesh.json",
+      "sha256": "18d3746f7eb3adf4018467efbaaf5f8f1bbc59acf499190af69efb8e1a0d0ca9",
+      "vertices": 80,
+      "triangles": 120
+    },
+    {
+      "id": "NARIS-W04-ENV-BARRICADE-1004",
+      "family": "BARRICADE",
+      "variant": 4,
+      "mesh": "assets/w04-expansion/NARIS-W04-ENV-BARRICADE-1004.mesh.json",
+      "sha256": "f18d3d16ef7648193e0cf90e99115a5b01353cf42c446590c3d3a1f10e660d63",
+      "vertices": 88,
+      "triangles": 132
+    },
+    {
+      "id": "NARIS-W04-ENV-BARRICADE-1005",
+      "family": "BARRICADE",
+      "variant": 5,
+      "mesh": "assets/w04-expansion/NARIS-W04-ENV-BARRICADE-1005.mesh.json",
+      "sha256": "fe171e47c9843f09bebaaab406520b10af1ad075a871df39f26bd9ac055d48fa",
+      "vertices": 96,
+      "triangles": 144
+    },
+    {
+      "id": "NARIS-W04-ENV-GATE-1001",
+      "family": "GATE",
+      "variant": 1,
+      "mesh": "assets/w04-expansion/NARIS-W04-ENV-GATE-1001.mesh.json",
+      "sha256": "bce52ee1f1d5a45fb79cd6890e8efe7033fa554fc5d455942897c8d4c7507ff2",
+      "vertices": 56,
+      "triangles": 84
+    },
+    {
+      "id": "NARIS-W04-ENV-GATE-1002",
+      "family": "GATE",
+      "variant": 2,
+      "mesh": "assets/w04-expansion/NARIS-W04-ENV-GATE-1002.mesh.json",
+      "sha256": "979497a0b5a67d7915f23be5bf3285164d155d6bd0ba85e8514fa022387374d1",
+      "vertices": 64,
+      "triangles": 96
+    },
+    {
+      "id": "NARIS-W04-ENV-GATE-1003",
+      "family": "GATE",
+      "variant": 3,
+      "mesh": "assets/w04-expansion/NARIS-W04-ENV-GATE-1003.mesh.json",
+      "sha256": "afee0e114844df517660939fe72f239da01bf925f4019d7783f41a5fc3dffa18",
+      "vertices": 72,
+      "triangles": 108
+    },
+    {
+      "id": "NARIS-W04-ENV-GATE-1004",
+      "family": "GATE",
+      "variant": 4,
+      "mesh": "assets/w04-expansion/NARIS-W04-ENV-GATE-1004.mesh.json",
+      "sha256": "77e421a13d8e18b7f7b3e3ea6505df646baee11321a35ab6fe2339962b032487",
+      "vertices": 80,
+      "triangles": 120
+    },
+    {
+      "id": "NARIS-W04-ENV-GATE-1005",
+      "family": "GATE",
+      "variant": 5,
+      "mesh": "assets/w04-expansion/NARIS-W04-ENV-GATE-1005.mesh.json",
+      "sha256": "9039a3226c7d5a4be7851f9c7ea1f32a569533468af7ea1cc234971dcf998b78",
+      "vertices": 88,
+      "triangles": 132
+    },
+    {
+      "id": "NARIS-W04-ENV-WELL-1001",
+      "family": "WELL",
+      "variant": 1,
+      "mesh": "assets/w04-expansion/NARIS-W04-ENV-WELL-1001.mesh.json",
+      "sha256": "d081838b4f95288888cbc1ab3f875638bdd867a2c5f3a83f018ea111973a3ec6",
+      "vertices": 96,
+      "triangles": 144
+    },
+    {
+      "id": "NARIS-W04-ENV-WELL-1002",
+      "family": "WELL",
+      "variant": 2,
+      "mesh": "assets/w04-expansion/NARIS-W04-ENV-WELL-1002.mesh.json",
+      "sha256": "358e36f8e381cc556b9cbabe33f3d82521736e101b250c62cc529cc68b7e2da3",
+      "vertices": 96,
+      "triangles": 144
+    }
+  ]
+}

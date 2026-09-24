@@ -1,6 +1,6 @@
 # NARIS current work
 
-Updated: 2026-09-23
+Updated: 2026-09-24
 
 - Objective: maintain a shared, evidence-based project KB and unblock the Windows W04 vertical slice.
 - Human decision owner: project owner (repository user).
@@ -32,6 +32,8 @@ Updated: 2026-09-23
 - Static evidence: NARIS CI run 35855364699 passed MCP TypeScript build, Unreal project integrity, repository validation and PowerShell bridge parsing.
 - Neon: core PostgreSQL schema contract is checked in; no remote project/branch is bound yet, so no migration has been applied.
 - Next action: bring AsusRog/self-hosted Windows online; compile NARIS_W04Editor; execute the Ashen Forest Factory v2 Blender->Unreal bridge and production blockout authoring; then supply/author the 7 core production meshes, 2 approved master materials (instances auto-author from them), 10 production AnimMontages, 16 SFX WAV masters and 14 Niagara systems before the strict W04_AshenForest Shipping RC can pass.
-- Blockers: registered AsusRog remote host is offline; no Windows UnrealBuildTool/package/playtest evidence yet; production W04_AshenForest .umap is not verified; core meshes/master materials/10 montages/16 Audio/14 Niagara payloads remain unresolved production content; no bound Neon project ID; no Claude Code session available here; the 18 announced attachment paths were absent.
+- Blockers: registered AsusRog remote host is offline; no Windows UnrealBuildTool/package/playtest evidence yet; production W04_AshenForest .umap is not verified; core meshes/master materials/10 montages/16 Audio/14 Niagara payloads remain unresolved production content; no bound Neon project ID; no Claude Code session available here. Attachment paths have been recovered; see the source intake manifest.
 
 Do not treat static validation, Figma design, Blender source/export contracts or Neon schema files as engine/runtime evidence. The checked-in Unreal descriptor selects 5.4; changing that baseline needs an explicit migration and build evidence.
+
+- Latest source pass: [W04 asset expansion](docs/production/w04-asset-expansion.md); recovered attachments are inventoried and new blockout geometry is registry-backed. DCC/engine execution remains pending.

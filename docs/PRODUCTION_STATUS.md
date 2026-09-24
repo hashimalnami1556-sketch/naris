@@ -138,3 +138,7 @@ Public distribution remains disabled until all blocking conditions pass:
 ## Shared knowledge and source repair — 2026-09-23
 
 The shared agent entry point is [AGENTS.md](../AGENTS.md), with current work in [PROJECT_STATE.md](../PROJECT_STATE.md). Duplicate Unreal target definitions and module registration were removed, static guards were added, and AssetForge zero-count behavior was repaired. Repository validation and 10 Python tests pass locally. No Unreal compilation, Claude Code session, editor playtest or Windows package was executed here. See the [updated gap register](PROJECT_GAP_REGISTER.md).
+
+## Source expansion — 2026-09-24
+
+[W04 source expansion](production/w04-asset-expansion.md) adds registry-backed procedural environment geometry and reuses the canonical Blender/Unreal bridge. This increases blockout coverage only; all existing production/Shipping gates remain open. Source geometry tests and repository static guards pass; DCC/engine execution is unverified.

@@ -115,9 +115,9 @@ def floor_tile(name, x, y, material):
     )
 
 def tree(name, loc, trunk_mat, leaf_mat, scale=1.0):
-    cylinder(name+"_TRUNK", (loc[0],loc[1],2.0*scale), 0.32*scale, 4.0*scale, trunk_mat, 10)
+    cylinder(name+"_TRUNK", (loc[0],loc[1],loc[2]+2.0*scale), 0.32*scale, 4.0*scale, trunk_mat, 10)
     for i, z in enumerate((3.0,4.0,4.8)):
-        bpy.ops.mesh.primitive_ico_sphere_add(subdivisions=1, radius=1.25*scale, location=(loc[0]+(i-1)*0.35*scale, loc[1], z*scale))
+        bpy.ops.mesh.primitive_ico_sphere_add(subdivisions=1, radius=1.25*scale, location=(loc[0]+(i-1)*0.35*scale, loc[1], loc[2]+z*scale))
         o=bpy.context.object; o.name=f"{name}_CANOPY_{i:02d}"; o.scale=(1.2,0.9,0.75); bpy.ops.object.transform_apply(location=False,rotation=False,scale=True)
         o.data.materials.append(leaf_mat); ensure_uv(o); move_to_collection(o,get_collection())
 
