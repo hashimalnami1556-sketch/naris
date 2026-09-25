@@ -1,0 +1,72 @@
+[Reading 68 lines from start (total: 68 lines, 0 remaining)]
+
+{
+  "version": 1,
+  "realms": [
+    {
+      "id": "FrozenPeaks",
+      "biome": "alpine_ice",
+      "locations": 12,
+      "secrets": 5,
+      "puzzles": 3,
+      "lore": 10,
+      "boss": "LordVeyra"
+    },
+    {
+      "id": "AshenWastes",
+      "biome": "volcanic_ash",
+      "locations": 12,
+      "secrets": 5,
+      "puzzles": 3,
+      "lore": 10,
+      "boss": "LordMalakar"
+    },
+    {
+      "id": "VerdantHollow",
+      "biome": "corrupted_forest",
+      "locations": 12,
+      "secrets": 5,
+      "puzzles": 3,
+      "lore": 10,
+      "boss": "LordSylwen"
+    },
+    {
+      "id": "CrystalDepths",
+      "biome": "crystal_cavern",
+      "locations": 12,
+      "secrets": 5,
+      "puzzles": 3,
+      "lore": 10,
+      "boss": "LordOrun"
+    },
+    {
+      "id": "StormSanctum",
+      "biome": "storm_highlands",
+      "locations": 12,
+      "secrets": 5,
+      "puzzles": 3,
+      "lore": 10,
+      "boss": "LordKael"
+    },
+    {
+      "id": "SunkenCathedral",
+      "biome": "flooded_cathedral",
+      "locations": 12,
+      "secrets": 5,
+      "puzzles": 3,
+      "lore": 10,
+      "boss": "LadySeraphine"
+    },
+    {
+      "id": "ThroneOfRuin",
+      "biome": "void_ruins",
+      "locations": 12,
+      "secrets": 5,
+      "puzzles": 3,
+      "lore": 10,
+      "boss": "RuinKing"
+    }
+  ]
+}
+
+[executed on device: AsusRog (81c43ddb-199e-4bc1-9944-e3faf018908f)]
