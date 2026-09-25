@@ -1,7 +1,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Engine/PrimaryDataAsset.h"
+#include "Engine/DataAsset.h"
 #include "NarisW04Types.h"
 #include "BoneBeastDataAsset.generated.h"
 
