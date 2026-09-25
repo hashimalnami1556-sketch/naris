@@ -1,0 +1,41 @@
+[Reading 37 lines from start (total: 37 lines, 0 remaining)]
+
+{
+  "version": 1,
+  "states": [
+    "Exploration",
+    "Suspicion",
+    "CombatLow",
+    "CombatHigh",
+    "BossP1",
+    "BossP2",
+    "BossP3",
+    "Victory"
+  ],
+  "stems": [
+    "Pulse",
+    "Percussion",
+    "LowStrings",
+    "HighStrings",
+    "Brass",
+    "Choir"
+  ],
+  "reverbZones": [
+    "Citadel",
+    "Exterior",
+    "Cave",
+    "Cathedral",
+    "Crystal",
+    "Storm",
+    "Underwater"
+  ],
+  "rules": {
+    "crossfadeSeconds": 1.5,
+    "bossQuantization": "bar",
+    "virtualizeAmbience": true,
+    "maxImpactVoices": 12,
+    "maxFootstepVoices": 8
+  }
+}
+
+[executed on device: AsusRog (81c43ddb-199e-4bc1-9944-e3faf018908f)]
