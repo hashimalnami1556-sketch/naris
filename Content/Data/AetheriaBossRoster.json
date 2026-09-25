@@ -1,0 +1,135 @@
+[Reading 131 lines from start (total: 131 lines, 0 remaining)]
+
+{
+  "version": 1,
+  "bosses": [
+    {
+      "id": "LordVeyra",
+      "title": "The Frostbound",
+      "realm": "FrozenPeaks",
+      "phases": 3,
+      "thresholds": [
+        0.66,
+        0.33
+      ],
+      "archetype": "control",
+      "attacks": [
+        "IceCleave",
+        "FrostRing",
+        "ShardVolley",
+        "GlacierRush",
+        "Whiteout"
+      ]
+    },
+    {
+      "id": "LordMalakar",
+      "title": "The Ash Lord",
+      "realm": "AshenWastes",
+      "phases": 3,
+      "thresholds": [
+        0.66,
+        0.33
+      ],
+      "archetype": "pressure",
+      "attacks": [
+        "Slam",
+        "FireWave",
+        "Charge",
+        "AshStorm",
+        "Meteor"
+      ]
+    },
+    {
+      "id": "LordSylwen",
+      "title": "The Root Mother",
+      "realm": "VerdantHollow",
+      "phases": 3,
+      "thresholds": [
+        0.66,
+        0.33
+      ],
+      "archetype": "summoner",
+      "attacks": [
+        "ThornSweep",
+        "RootSnare",
+        "SporeBurst",
+        "BroodCall",
+        "BloomCollapse"
+      ]
+    },
+    {
+      "id": "LordOrun",
+      "title": "The Resonant",
+      "realm": "CrystalDepths",
+      "phases": 3,
+      "thresholds": [
+        0.66,
+        0.33
+      ],
+      "archetype": "precision",
+      "attacks": [
+        "PrismBeam",
+        "CrystalLance",
+        "MirrorStep",
+        "ResonancePulse",
+        "ShatterField"
+      ]
+    },
+    {
+      "id": "LordKael",
+      "title": "The Tempest Crown",
+      "realm": "StormSanctum",
+      "phases": 3,
+      "thresholds": [
+        0.66,
+        0.33
+      ],
+      "archetype": "mobility",
+      "attacks": [
+        "GaleCut",
+        "ThunderDive",
+        "ChainBolt",
+        "Cyclone",
+        "Skybreak"
+      ]
+    },
+    {
+      "id": "LadySeraphine",
+      "title": "The Drowned Saint",
+      "realm": "SunkenCathedral",
+      "phases": 3,
+      "thresholds": [
+        0.66,
+        0.33
+      ],
+      "archetype": "arena",
+      "attacks": [
+        "TidalSweep",
+        "BellToll",
+        "DrownedChoir",
+        "Undertow",
+        "AbyssalFlood"
+      ]
+    },
+    {
+      "id": "RuinKing",
+      "title": "The Fallen Aether Lord",
+      "realm": "ThroneOfRuin",
+      "phases": 3,
+      "thresholds": [
+        0.66,
+        0.33
+      ],
+      "archetype": "mastery",
+      "attacks": [
+        "AetherRend",
+        "StanceBreak",
+        "VoidCrown",
+        "MemoryStorm",
+        "Kingfall"
+      ]
+    }
+  ]
+}
+
+[executed on device: AsusRog (81c43ddb-199e-4bc1-9944-e3faf018908f)]
