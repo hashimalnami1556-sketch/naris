@@ -277,7 +277,7 @@ void ANarisPlayerController::SetupInputComponent()
     BindPausedAction(TEXT("MenuBack"), &ANarisPlayerController::MenuBack);
 }
 
-bool ANarisPlayerController::InputKey(const FInputKeyParams& Params)
+bool ANarisPlayerController::InputKey(const FInputKeyEventArgs& Params)
 {
     if (Params.Event == IE_Pressed || Params.Event == IE_Repeat)
     {
