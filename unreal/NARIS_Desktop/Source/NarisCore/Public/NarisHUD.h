@@ -14,6 +14,7 @@ public:
  virtual void DrawHUD() override;
  virtual void NotifyHitBoxClick(FName BoxName) override;
 private:
+ UFUNCTION() void HandlePlayerDeath();
  UPROPERTY() TObjectPtr<UNarisNativeMenuWidget> FrontEndWidget;
  int32 FrontEndPage=0;
 };
