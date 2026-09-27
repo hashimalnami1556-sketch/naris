@@ -72,3 +72,28 @@ NARIS/
 - تحققت على AsusRog من وجود 33 صورة مرجعية داخل SourceAssets/References/Images.
 - حزم Legacy لم تُطبّق تلقائيًا. Packages/README.md يوضح أن UI4.1 يحتوي Patch فارغًا وأن حزمة Offline تتعارض مع شاشة البداية.
 - تقرير HTML يطابق حالة هذا التقرير وقت إنشائه.
+
+
+## تحديث التنفيذ — 27 سبتمبر 2026، مساءً
+
+### ما أُضيف بعد التقرير الأولي
+- توسعت واجهة UMG المولدة بالكود لتشمل الصفحات الرئيسية والإعدادات والإيقاف المؤقت ونهاية اللعبة، مع إجراءات استئناف وحفظ سريع/تحميل سريع وإعادة محاولة من نقطة التفتيش.
+- ربط حدث وفاة اللاعب بصفحة Game Over، وإضافة عودة الإعدادات إلى صفحة Pause.
+- نُقل بناء شجرة الواجهة إلى NativeOnInitialized بعد مراجعة دورة حياة UUserWidget في مصدر UE 5.7؛ البناء في NativeConstruct كان متأخرًا عن أخذ RootWidget.
+- أصلح خطأ تسمية متغير محلي كان يمنع التجميع. أضيفت عناوين عربية/إنجليزية متبادلة؛ الخط المضمّن العربي لم يُضف بعد.
+- أُعيد تجميع NARISEditor، ونجح اختبارا NARIS.Benchmark.ParsesEnemyCount وNARIS.FrontEnd.StartsInMenuAndCanStart (ExitCode 0).
+- أُنشئت حزمة Development: 06_Builds/Development/NARIS_QA_20260927_UIFlows3/Windows/NARIS.exe. سجل التشغيل يثبت NARIS_UI_MAIN_MENU READY RTL=1 Buttons=4 وNARIS_FRONTEND READY.
+- اكتمل BuildCookRun لمرشح Windows Shipping: 06_Builds/Staging/NARIS_ShippingCandidate_UIFlows_20260927/Windows/NARIS/Binaries/Win64/NARIS-Win64-Shipping.exe؛ نجاح البناء لا يعني قبول الإصدار.
+
+### الفحص المرئي والقيود
+- لم أقبل الواجهة بصريًا: نافذة Windows Security حجبت جزءًا كبيرًا من اللعبة أثناء الالتقاط، ولم أسمح لها بوصول شبكي.
+- لقطة سطح المكتب NARIS_UI_VirtualDesktop_20260927.jpg تُظهر النافذة الحاجبة ومشهدًا أسودًا بعناصر هندسية مؤقتة. ولقطة HighresScreenshot من اللعبة لا ترسم طبقة HUD؛ لذلك لا تثبت ظهور الأزرار.
+- صور المحادثة أصبحت متاحة في مساحة العمل الحالية، وجُمعت في لوحة مراجع محلية للعرض فقط؛ لم تُستورد إلى Content ولا تمثل أصولًا داخل اللعبة.
+- لم تُختبر تفاعلات Pause/Game Over آليًا، ولا يوجد فحص 1080p/4K، ولا قياس أداء جديد، ولا اعتماد فني نهائي. لا تزال الحزمة مرشحًا داخليًا.
+
+### ملفات المصدر المعدلة في هذا التحديث
+- Source/NarisCore/Public/NarisHUD.h و Source/NarisCore/Private/NarisHUD.cpp: عرض Pause وربط حدث وفاة اللاعب بـ Game Over.
+- Source/NarisCore/Public/NarisNativeMenuWidget.h و Source/NarisCore/Private/NarisNativeMenuWidget.cpp: دورة حياة الواجهة وصفحات Pause/Game Over وإجراءات الحفظ والاسترجاع وإعادة المحاولة.
+
+### الحالة والتوصية
+لا أضع نسبة إنجاز تقديرية بلا مقياس موزون. المشروع غير جاهز للإصدار: يلزم أولًا إصلاح/اعتماد المشهد المرئي، ثم فحص القوائم على جهاز فعلي بدقات 1080p و4K، اختبارات التفاعل، وقياسات الأداء. فرع العمل لم يُدمج في main.
