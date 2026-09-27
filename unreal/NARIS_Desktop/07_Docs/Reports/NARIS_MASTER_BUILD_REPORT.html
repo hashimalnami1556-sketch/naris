@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>تقرير NARIS Master Build</title>
+<style>
+:root{color-scheme:dark;--bg:#090b0e;--panel:#11151a;--fg:#e7e0d4;--muted:#a9a49b;--gold:#c6a15b;--cyan:#63d6cf}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:17px/1.75 "Segoe UI",Tahoma,sans-serif}
+main{max-width:980px;margin:40px auto;padding:32px}
+header,section{background:var(--panel);border:1px solid #283039;margin:18px 0;padding:24px}
+h1,h2{color:var(--gold);line-height:1.35}
+h1{font-size:2rem;margin:0}
+h2{font-size:1.3rem;border-bottom:1px solid #34404a;padding-bottom:8px}
+.meta{color:var(--muted)}
+code,pre{direction:ltr;text-align:left;unicode-bidi:plaintext;background:#080a0d}
+pre{padding:16px;overflow:auto;color:var(--cyan);font-size:.92rem}
+li{margin:.35rem 0}
+.pass{color:var(--cyan);font-weight:700}
+.gap{color:#efbd6c}
+@media print{body{background:#fff;color:#222}header,section{background:#fff;border-color:#bbb;break-inside:avoid}h1,h2{color:#654c1f}pre,code{color:#111;background:#eee}}
+</style>
+</head>
+<body><main>
+<header>
+<h1>تقرير NARIS Master Build</h1>
+<p class="meta">27 سبتمبر 2026 · AsusRog · Unreal Engine 5.7.4 · production/masterbuild-20260927</p>
+<p class="gap">الحالة: قيد التطوير. بناء Shipping ناجح كمرشح، ولم يُعتمد الإصدار النهائي.</p>
+</header>
+<section>
+<h2>المنجز والمختبر</h2>
+<ul>
+<li>حفظ واسترجاع تفضيلات الصوت وإمكانية الوصول؛ وحفظ إعداد جودة الرسوم.</li>
+<li>بناء NARISEditor: <span class="pass">نجاح</span>.</li>
+<li>اختبارات الأتمتة: 2/2 <span class="pass">نجاح</span>.</li>
+<li>اختبار NARIS_QUEST_SMOKE: المهام، البوابة، الحفظ والاسترجاع، الفصول، Accessibility، الصوت، VFX ونقطة التفتيش: <span class="pass">نجاح</span>.</li>
+<li>تغليف Development واختبار الحزمة بعد التغليف: <span class="pass">نجاح</span>.</li>
+<li>تغليف Windows Shipping لجميع الخرائط بعد تحديث القائمة العربية: <span class="pass">نجاح</span> كمرشح.</li>
+<li>قائمة UMG عربية RTL أُنشئت عند التشغيل: <span class="pass">نجاح</span> في Editor وفي حزمة Development headless.</li>
+<li>مسار حزمة QA: <code>06_Builds/Development/NARIS_QA_20260927/Windows/NARIS.exe</code></li>
+<li>مرشح Shipping: <code>06_Builds/Staging/NARIS_ShippingCandidate_20260927/Windows/NARIS/Binaries/Win64/NARIS-Win64-Shipping.exe</code></li>
+</ul>
+</section>
+<section>
+<h2>الملفات المعدلة</h2>
+<ul>
+<li><code>Source/NarisCore/Public/NarisUserSettingsSubsystem.h</code></li>
+<li><code>Source/NarisCore/Private/NarisUserSettingsSubsystem.cpp</code></li>
+<li><code>Source/NarisCore/Private/NarisGameModeBase.cpp</code>: استعادة Accessibility بعد الاختبار.</li>
+<li><code>Source/NarisCore/NarisCore.Build.cs</code>: تفعيل UMG/Slate.</li>
+<li><code>Source/NarisCore/Public/NarisNativeMenuWidget.h</code> و<code>Private/NarisNativeMenuWidget.cpp</code>: Main Menu عربية RTL.</li>
+<li><code>Source/NarisCore/Public/NarisHUD.h</code> و<code>Private/NarisHUD.cpp</code>: إظهار القائمة عند بدء اللعبة.</li>
+<li><code>.gitignore</code>: استثناء نتائج البناء المولّدة.</li>
+</ul>
+</section>
+<section>
+<h2>الشجرة قبل</h2>
+<pre>NARIS/
+├── Docs/                         مستندات المشروع
+├── SourceAssets/References/      مراجع فنية محلية
+├── Source/NarisCore/             كود Unreal
+├── Content/                      الأصول والخرائط
+├── Packages/Legacy/              الحزم الأصلية
+├── Tools/                        البناء والاختبارات
+└── Releases/                     إصدارات تاريخية</pre>
+<h2>الشجرة بعد</h2>
+<pre>NARIS/
+├── 00_Core/  01_Design/  02_Projects/  03_Assets/
+├── 04_Packages/Legacy/  05_Tools/  06_Builds/
+├── 07_Docs/Reports/  08_Integration/
+├── Source/  Content/  Config/  NARIS.uproject
+└── SourceAssets/References/Images/ (33 صورة)</pre>
+<p>مخرجات الاختبار تحت <code>06_Builds</code>، مع بقاء مسارات Unreal الحية كما هي.</p>
+</section>
+<section>
+<h2>الفجوات وبوابات الإصدار</h2>
+<ul>
+<li>Main Menu عربية UMG مع RTL موجودة؛ المتبقي HUD وPause وSettings وGame Over، وخط عربي مضمّن، ثم اختبار مرئي 1080p و4K ولوحة التحكم.</li>
+<li>ربط منزلقات Master/Music/SFX بمزيج الصوت؛ التخزين الدائم موجود لكن Audio Director لا يربطها بعد بـ Sound Class أو Submix.</li>
+<li>Figma الحالي لا يحتوي الشاشات النهائية؛ القائمة المبنية بالكود لم تُحوّل إلى Widget Blueprints بعد.</li>
+<li>الحزم القديمة متعارضة؛ UI4.1 فارغ، لذلك لم يُنشأ تحديث موحد من ملفات لا تعمل.</li>
+<li>دمج W04/main لم يحدث. لم أدمج في main.</li>
+<li>مرشح Shipping لم يخضع بعد لفحص بصري أو قياس FPS/GPU/الذاكرة على جهاز حقيقي.</li>
+<li>اعتماد الأصول الفنية واختبار المسار الكامل من البداية إلى الخروج ما زالا مطلوبين.</li>
+</ul>
+<p>الصور في مسار المحادثة المؤقت غير متاحة هنا؛ تحققت على AsusRog من 33 صورة في <code>SourceAssets/References/Images</code>.</p>
+<p class="gap">لا توجد نسبة إنجاز موثوقة: معايير القبول غير موزونة، ولم يكتمل فحصها جميعًا.</p>
+</section>
+</main></body></html>
