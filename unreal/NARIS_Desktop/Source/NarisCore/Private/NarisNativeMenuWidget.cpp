@@ -18,9 +18,9 @@
 #include "Kismet/GameplayStatics.h"
 #include "Kismet/KismetSystemLibrary.h"
 
-void UNarisNativeMenuWidget::NativeConstruct()
+void UNarisNativeMenuWidget::NativeOnInitialized()
 {
- Super::NativeConstruct();
+ Super::NativeOnInitialized();
  SetFlowDirectionPreference(EFlowDirectionPreference::RightToLeft);
  UCanvasPanel* Root=WidgetTree->ConstructWidget<UCanvasPanel>(UCanvasPanel::StaticClass(),TEXT("MenuRoot"));
  WidgetTree->RootWidget=Root;
@@ -65,12 +65,14 @@ UButton* UNarisNativeMenuWidget::AddButton(const FText& Text)
  Frame->SetWidthOverride(520.f);
  Frame->SetHeightOverride(58.f);
  UButton* Button=WidgetTree->ConstructWidget<UButton>(UButton::StaticClass());
- Button->SetBackgroundColor(FLinearColor(.045f,.067f,.079f,1.f));
+ Button->SetBackgroundColor(FLinearColor(.13f,.20f,.23f,1.f));
  Button->SetColorAndOpacity(FLinearColor::White);
  Button->SetIsEnabled(true);
  UTextBlock* Label=WidgetTree->ConstructWidget<UTextBlock>(UTextBlock::StaticClass());
  Label->SetText(Text);
- Label->SetColorAndOpacity(FSlateColor(FLinearColor(.91f,.90f,.86f,1.f)));
+ Label->SetColorAndOpacity(FSlateColor(FLinearColor(.98f,.97f,.92f,1.f)));
+ Label->SetShadowColorAndOpacity(FLinearColor::Black);
+ Label->SetShadowOffset(FVector2D(1.f,1.f));
  Label->SetJustification(ETextJustify::Center);
  Label->SetFlowDirectionPreference(EFlowDirectionPreference::RightToLeft);
  FSlateFontInfo Font;
@@ -90,32 +92,52 @@ void UNarisNativeMenuWidget::BuildPage(EPage Page)
  MenuPanel->ClearChildren();
  InitialFocusButton=nullptr;
  if(Page==EPage::Main){
-  AddHeading(NSLOCTEXT("NARIS","MenuTitle","ملحمة نارس"),40,FLinearColor(.78f,.61f,.27f,1.f));
-  AddHeading(NSLOCTEXT("NARIS","MenuSubtitle","عالم الأساطير"),20,FLinearColor(.39f,.82f,.85f,1.f));
-  AddHeading(NSLOCTEXT("NARIS","MenuChapter","بوابة الرماد  ·  الفصل الأول"),16,FLinearColor(.64f,.66f,.68f,1.f));
+  AddHeading(NSLOCTEXT("NARIS","MenuTitle","ملحمة نارس | CALL OF NARIS"),40,FLinearColor(.78f,.61f,.27f,1.f));
+  AddHeading(NSLOCTEXT("NARIS","MenuSubtitle","عالم الأساطير | RECORDS OF ASH"),20,FLinearColor(.39f,.82f,.85f,1.f));
+  AddHeading(NSLOCTEXT("NARIS","MenuChapter","بوابة الرماد | CHAPTER I"),16,FLinearColor(.64f,.66f,.68f,1.f));
   if(UVerticalBoxSlot* SpacerSlot=MenuPanel->AddChildToVerticalBox(WidgetTree->ConstructWidget<USpacer>())) SpacerSlot->SetPadding(FMargin(0.f,10.f));
-  InitialFocusButton=AddButton(NSLOCTEXT("NARIS","NewJourney","ابدأ رحلة جديدة"));
+  InitialFocusButton=AddButton(NSLOCTEXT("NARIS","NewJourney","ابدأ رحلة جديدة | NEW JOURNEY"));
   InitialFocusButton->OnClicked.AddDynamic(this,&UNarisNativeMenuWidget::StartNewJourney);
-  UButton* Continue=AddButton(NSLOCTEXT("NARIS","ContinueJourney","متابعة الرحلة"));
+  UButton* Continue=AddButton(NSLOCTEXT("NARIS","ContinueJourney","متابعة الرحلة | CONTINUE"));
   const bool HasSave=UGameplayStatics::DoesSaveGameExist(TEXT("NARIS_Autosave"),0)||UGameplayStatics::DoesSaveGameExist(TEXT("NARIS_Auto"),0);
   Continue->SetIsEnabled(HasSave);
   Continue->OnClicked.AddDynamic(this,&UNarisNativeMenuWidget::ContinueJourney);
-  UButton* Settings=AddButton(NSLOCTEXT("NARIS","Settings","الإعدادات"));
+  UButton* Settings=AddButton(NSLOCTEXT("NARIS","Settings","الإعدادات | SETTINGS"));
   Settings->OnClicked.AddDynamic(this,&UNarisNativeMenuWidget::OpenSettings);
-  UButton* Exit=AddButton(NSLOCTEXT("NARIS","Exit","خروج"));
+  UButton* Exit=AddButton(NSLOCTEXT("NARIS","Exit","خروج | EXIT"));
+  Exit->OnClicked.AddDynamic(this,&UNarisNativeMenuWidget::ExitGame);
+ } else if(Page==EPage::Pause){
+  AddHeading(NSLOCTEXT("NARIS","PauseTitle","اللعبة متوقفة | PAUSED"),36,FLinearColor(.78f,.61f,.27f,1.f));
+  InitialFocusButton=AddButton(NSLOCTEXT("NARIS","Resume","متابعة اللعب | RESUME"));
+  InitialFocusButton->OnClicked.AddDynamic(this,&UNarisNativeMenuWidget::ResumeGame);
+  UButton* Settings=AddButton(NSLOCTEXT("NARIS","PauseSettings","الإعدادات | SETTINGS"));
+  Settings->OnClicked.AddDynamic(this,&UNarisNativeMenuWidget::OpenSettings);
+  UButton* Save=AddButton(NSLOCTEXT("NARIS","QuickSave","حفظ سريع | QUICK SAVE"));
+  Save->OnClicked.AddDynamic(this,&UNarisNativeMenuWidget::QuickSaveGame);
+  UButton* Load=AddButton(NSLOCTEXT("NARIS","QuickLoad","تحميل سريع | QUICK LOAD"));
+  Load->OnClicked.AddDynamic(this,&UNarisNativeMenuWidget::QuickLoadGame);
+  UButton* Exit=AddButton(NSLOCTEXT("NARIS","Exit","خروج | EXIT"));
+  Exit->OnClicked.AddDynamic(this,&UNarisNativeMenuWidget::ExitGame);
+ } else if(Page==EPage::GameOver){
+  AddHeading(NSLOCTEXT("NARIS","GameOverTitle","انتهت الرحلة | GAME OVER"),38,FLinearColor(.78f,.61f,.27f,1.f));
+  AddHeading(NSLOCTEXT("NARIS","GameOverHint","استعد من آخر نقطة حفظ | LOAD CHECKPOINT"),18,FLinearColor(.64f,.66f,.68f,1.f));
+  InitialFocusButton=AddButton(NSLOCTEXT("NARIS","RetryCheckpoint","إعادة المحاولة | RETRY CHECKPOINT"));
+  InitialFocusButton->SetIsEnabled(UGameplayStatics::DoesSaveGameExist(TEXT("NARIS_Auto"),0));
+  InitialFocusButton->OnClicked.AddDynamic(this,&UNarisNativeMenuWidget::RetryCheckpoint);
+  UButton* Exit=AddButton(NSLOCTEXT("NARIS","Exit","خروج | EXIT"));
   Exit->OnClicked.AddDynamic(this,&UNarisNativeMenuWidget::ExitGame);
  }else{
-  AddHeading(NSLOCTEXT("NARIS","SettingsTitle","الإعدادات"),34,FLinearColor(.78f,.61f,.27f,1.f));
-  AddHeading(NSLOCTEXT("NARIS","SettingsHint","تُحفظ تفضيلات إمكانية الوصول تلقائيًا"),16,FLinearColor(.64f,.66f,.68f,1.f));
-  UButton* High=AddButton(NSLOCTEXT("NARIS","HighQuality","جودة الرسوم: عالية"));
+  AddHeading(NSLOCTEXT("NARIS","SettingsTitle","الإعدادات | SETTINGS"),34,FLinearColor(.78f,.61f,.27f,1.f));
+  AddHeading(NSLOCTEXT("NARIS","SettingsHint","تُحفظ التفضيلات تلقائيًا | SAVED AUTOMATICALLY"),16,FLinearColor(.64f,.66f,.68f,1.f));
+  UButton* High=AddButton(NSLOCTEXT("NARIS","HighQuality","جودة عالية | HIGH QUALITY"));
   High->OnClicked.AddDynamic(this,&UNarisNativeMenuWidget::SetHighQuality);
-  UButton* Medium=AddButton(NSLOCTEXT("NARIS","MediumQuality","جودة الرسوم: متوسطة"));
+  UButton* Medium=AddButton(NSLOCTEXT("NARIS","MediumQuality","جودة متوسطة | MEDIUM QUALITY"));
   Medium->OnClicked.AddDynamic(this,&UNarisNativeMenuWidget::SetMediumQuality);
-  UButton* Subtitles=AddButton(NSLOCTEXT("NARIS","ToggleSubtitles","تبديل الترجمة النصية"));
+  UButton* Subtitles=AddButton(NSLOCTEXT("NARIS","ToggleSubtitles","الترجمة النصية | SUBTITLES"));
   Subtitles->OnClicked.AddDynamic(this,&UNarisNativeMenuWidget::ToggleSubtitles);
-  UButton* Contrast=AddButton(NSLOCTEXT("NARIS","ToggleContrast","تبديل التباين العالي"));
+  UButton* Contrast=AddButton(NSLOCTEXT("NARIS","ToggleContrast","التباين العالي | HIGH CONTRAST"));
   Contrast->OnClicked.AddDynamic(this,&UNarisNativeMenuWidget::ToggleHighContrast);
-  InitialFocusButton=AddButton(NSLOCTEXT("NARIS","Back","رجوع"));
+  InitialFocusButton=AddButton(NSLOCTEXT("NARIS","Back","رجوع | BACK"));
   InitialFocusButton->OnClicked.AddDynamic(this,&UNarisNativeMenuWidget::BackToMain);
  }
  if(InitialFocusButton) InitialFocusButton->SetKeyboardFocus();
@@ -144,14 +166,60 @@ void UNarisNativeMenuWidget::ContinueJourney()
 }
 void UNarisNativeMenuWidget::OpenSettings()
 {
+ bReturnToPause=(CurrentPage==EPage::Pause);
  BuildPage(EPage::Settings);
 }
 
 void UNarisNativeMenuWidget::BackToMain()
 {
+ if(bReturnToPause){bReturnToPause=false;BuildPage(EPage::Pause);return;}
  BuildPage(EPage::Main);
 }
 
+void UNarisNativeMenuWidget::ShowPausePage(){BuildPage(EPage::Pause);}
+void UNarisNativeMenuWidget::ShowGameOverPage(){BuildPage(EPage::GameOver);}
+void UNarisNativeMenuWidget::ResumeGame()
+{
+ UGameplayStatics::SetGamePaused(this,false);
+ if(APlayerController* Controller=GetOwningPlayer()){
+  Controller->bShowMouseCursor=false;
+  FInputModeGameOnly Mode;
+  Controller->SetInputMode(Mode);
+ }
+ RemoveFromParent();
+}
+void UNarisNativeMenuWidget::QuickSaveGame()
+{
+ APlayerController* Controller=GetOwningPlayer();
+ ANarisPlayerCharacter* Player=Controller?Cast<ANarisPlayerCharacter>(Controller->GetPawn()):nullptr;
+ if(Player) if(UGameInstance* Instance=GetGameInstance())
+  if(UNarisSaveSubsystem* Save=Instance->GetSubsystem<UNarisSaveSubsystem>())
+   Save->SavePlayer(Player,TEXT("NARIS_Autosave"));
+}
+void UNarisNativeMenuWidget::QuickLoadGame()
+{
+ APlayerController* Controller=GetOwningPlayer();
+ ANarisPlayerCharacter* Player=Controller?Cast<ANarisPlayerCharacter>(Controller->GetPawn()):nullptr;
+ if(!Player) return;
+ if(UGameInstance* Instance=GetGameInstance()) if(UNarisSaveSubsystem* Save=Instance->GetSubsystem<UNarisSaveSubsystem>()){
+  const FString SaveSlot=UGameplayStatics::DoesSaveGameExist(TEXT("NARIS_Autosave"),0)?TEXT("NARIS_Autosave"):TEXT("NARIS_Auto");
+  if(UGameplayStatics::DoesSaveGameExist(SaveSlot,0)) Save->LoadPlayer(Player,SaveSlot);
+ }
+}
+void UNarisNativeMenuWidget::RetryCheckpoint()
+{
+ APlayerController* Controller=GetOwningPlayer();
+ ANarisPlayerCharacter* Player=Controller?Cast<ANarisPlayerCharacter>(Controller->GetPawn()):nullptr;
+ if(!Player) return;
+ if(UGameInstance* Instance=GetGameInstance()) if(UNarisSaveSubsystem* Save=Instance->GetSubsystem<UNarisSaveSubsystem>()){
+  if(!UGameplayStatics::DoesSaveGameExist(TEXT("NARIS_Auto"),0)||!Save->LoadPlayer(Player,TEXT("NARIS_Auto"))) return;
+ }
+ UGameplayStatics::SetGamePaused(this,false);
+ Controller->bShowMouseCursor=false;
+ FInputModeGameOnly Mode;
+ Controller->SetInputMode(Mode);
+ RemoveFromParent();
+}
 void UNarisNativeMenuWidget::ExitGame()
 {
  if(APlayerController* Controller=GetOwningPlayer())
