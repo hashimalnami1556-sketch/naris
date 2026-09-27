@@ -1,0 +1,55 @@
+{
+  "SK_AshenVessel": {
+    "armatures": 1,
+    "meshes": 1,
+    "bones": 24,
+    "actions": [
+      "AN_Ashen_Attack_Heavy",
+      "AN_Ashen_Attack_Light",
+      "AN_Ashen_Dodge",
+      "AN_Ashen_HitReact",
+      "AN_Ashen_Idle",
+      "AN_Ashen_Walk"
+    ],
+    "vertices": 128,
+    "source": "C:\\Users\\Admin\\NARIS\\SourceAssets\\Blender\\RiggedV2\\SK_AshenVessel.blend",
+    "ue_fbx": "C:\\Users\\Admin\\NARIS\\Pipeline\\Exchange\\FBX\\RiggedV3\\SK_AshenVessel.fbx",
+    "unity_fbx": "C:\\Users\\Admin\\NARIS\\Pipeline\\Exchange\\Unity\\SK_AshenVessel.fbx",
+    "glb": "C:\\Users\\Admin\\NARIS\\Pipeline\\Exchange\\GLTF\\RiggedV2\\SK_AshenVessel.glb"
+  },
+  "SK_CelestialWolf": {
+    "armatures": 1,
+    "meshes": 1,
+    "bones": 16,
+    "actions": [
+      "AN_Wolf_Bite",
+      "AN_Wolf_Dash",
+      "AN_Wolf_Idle",
+      "AN_Wolf_Roar",
+      "AN_Wolf_Run"
+    ],
+    "vertices": 104,
+    "source": "C:\\Users\\Admin\\NARIS\\SourceAssets\\Blender\\RiggedV2\\SK_CelestialWolf.blend",
+    "ue_fbx": "C:\\Users\\Admin\\NARIS\\Pipeline\\Exchange\\FBX\\RiggedV3\\SK_CelestialWolf.fbx",
+    "unity_fbx": "C:\\Users\\Admin\\NARIS\\Pipeline\\Exchange\\Unity\\SK_CelestialWolf.fbx",
+    "glb": "C:\\Users\\Admin\\NARIS\\Pipeline\\Exchange\\GLTF\\RiggedV2\\SK_CelestialWolf.glb"
+  },
+  "SK_BoneBeast": {
+    "armatures": 1,
+    "meshes": 1,
+    "bones": 20,
+    "actions": [
+      "AN_Beast_Idle",
+      "AN_Beast_Roar",
+      "AN_Beast_Run",
+      "AN_Beast_Stunned",
+      "AN_Beast_Swipe",
+      "AN_Beast_TailSweep"
+    ],
+    "vertices": 112,
+    "source": "C:\\Users\\Admin\\NARIS\\SourceAssets\\Blender\\RiggedV2\\SK_BoneBeast.blend",
+    "ue_fbx": "C:\\Users\\Admin\\NARIS\\Pipeline\\Exchange\\FBX\\RiggedV3\\SK_BoneBeast.fbx",
+    "unity_fbx": "C:\\Users\\Admin\\NARIS\\Pipeline\\Exchange\\Unity\\SK_BoneBeast.fbx",
+    "glb": "C:\\Users\\Admin\\NARIS\\Pipeline\\Exchange\\GLTF\\RiggedV2\\SK_BoneBeast.glb"
+  }
+}

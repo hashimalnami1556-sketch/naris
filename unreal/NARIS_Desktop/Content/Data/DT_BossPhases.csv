@@ -1,0 +1,4 @@
+RowName,BossID,Phase,HealthThreshold,AIProfile,VFX_ID,SFX_ID,AttackSet,TransitionMontage
+BB_P1,BoneBeast,1,1.00,BP_AI_BoneBeast_P1,NS_Bone_Dust,SFX_Boss_Roar,BB_BASE,Phase_Intro
+BB_P2,BoneBeast,2,0.65,BP_AI_BoneBeast_P2,NS_Bone_Fury,SFX_Boss_Phase2,BB_FURY,Phase_02
+BB_P3,BoneBeast,3,0.30,BP_AI_BoneBeast_P3,NS_Aether_BoneStorm,SFX_Boss_Phase3,BB_FINAL,Phase_03

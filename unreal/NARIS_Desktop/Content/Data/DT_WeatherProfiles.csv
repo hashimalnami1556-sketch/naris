@@ -1,0 +1,6 @@
+Name,Weather,MinDuration,MaxDuration,FogDensity,WindStrength,EncounterModifier
+CLEAR,Clear,300,900,0.10,0.15,1.0
+ASH_STORM,AshStorm,120,360,0.72,0.90,1.25
+AETHER_FOG,AetherFog,150,420,0.82,0.20,1.15
+EMBER_WIND,EmberWind,100,300,0.30,0.78,1.20
+ECLIPSE,Eclipse,90,240,0.55,0.35,1.40

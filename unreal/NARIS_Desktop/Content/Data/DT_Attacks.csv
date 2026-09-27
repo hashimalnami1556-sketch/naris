@@ -1,0 +1,5 @@
+RowName,AttackID,OwnerProfile,MontageSection,Damage,PoiseDamage,HitboxSocket,HitboxRadius,Impulse,DamageType,VFX_ID,SFX_ID,EnergyCost,RequiredPhase
+AV_LIGHT_01,ATK_AV_LIGHT_01,AshenVessel,Light_01,28,12,weapon_tip,18,320,Slash,VFX_Slash_Ember,SFX_Sword_Light,8,0
+AV_HEAVY_01,ATK_AV_HEAVY_01,AshenVessel,Heavy_01,65,35,weapon_tip,24,620,HeavySlash,VFX_Heavy_Ember,SFX_Sword_Heavy,24,0
+BB_CHARGE,ATK_BB_CHARGE,BoneBeast,Charge,90,55,head_core,48,1200,Impact,VFX_Bone_Charge,SFX_Bone_Charge,0,2
+RW_SWIPE,ATK_RW_SWIPE,RootWraith,Swipe_A,42,22,hand_r,22,460,Abyss,VFX_Root_Abyss,SFX_Root_Swipe,0,0

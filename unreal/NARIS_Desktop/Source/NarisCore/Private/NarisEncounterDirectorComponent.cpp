@@ -1,0 +1,2 @@
+#include "NarisEncounterDirectorComponent.h"
+void UNarisEncounterDirectorComponent::ReportPlayerPressure(float H,float D,float N){float Old=Intensity; float Danger=(1.f-FMath::Clamp(H,0.f,1.f))*.45f+FMath::Clamp(D/100.f,0.f,1.f)*.3f+FMath::Clamp(N/6.f,0.f,1.f)*.25f; Intensity=FMath::FInterpTo(Intensity,Danger,1.f,.35f); if(!FMath::IsNearlyEqual(Old,Intensity,.01f))OnIntensityChanged.Broadcast(Old,Intensity);}

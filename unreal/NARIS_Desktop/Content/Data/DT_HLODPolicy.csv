@@ -1,0 +1,5 @@
+Name,AssetClass,Nanite,HLODLayer,CullDistance,Notes
+CLIFFS,StaticMesh,True,HLOD_Landscape,0,Nanite primary
+FOLIAGE,InstancedMesh,Selective,HLOD_Foliage,180000,Keep hero trees separate
+SETTLEMENTS,StaticMesh,True,HLOD_Settlement,0,Cluster by district
+SMALL_PROPS,StaticMesh,Selective,HLOD_Props,90000,Aggressive clustering

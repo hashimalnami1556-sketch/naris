@@ -1,0 +1,12 @@
+{
+  "date": "2026-09-27",
+  "scope": "UE5.7 editor game headless; not packaged or visual QA",
+  "smoke_pass": true,
+  "player_saves_unchanged": true,
+  "markers": [
+    "[2026.09.27-12.14.53:872][  0]LogTemp: Display: NARIS_RELEASE_GATE PASS World=1 Audio=1 VFX=1 Save=1 Quest=1 AI=1 Enemies=4 Bosses=1",
+    "[2026.09.27-12.14.53:872][  0]LogTemp: Display: NARIS_RUNTIME_READY Companion=1 Enemies=3 Boss=1 Pickups=3 Quest=Q_AshenGate Persistence=1 Audio=1 VFX=1",
+    "[2026.09.27-12.14.54:619][  1]LogTemp: Display: NARIS_RELEASE_GATE PASS World=1 Audio=1 VFX=1 Save=1 Quest=1 AI=1 Enemies=4 Bosses=1",
+    "[2026.09.27-12.14.54:628][  1]LogTemp: Display: NARIS_QUEST_SMOKE PASS Regular=3 Boss=1 Shards=6 Quest=1 Gate=1 Rep=1 Save=1 Persist=1 Audio=1 VFX=1 Chapter=1 Release=1 ChapterSave=1 Settings=1 Checkpoint=1"
+  ]
+}

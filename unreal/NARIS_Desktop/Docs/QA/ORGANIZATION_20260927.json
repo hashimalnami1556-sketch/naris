@@ -1,0 +1,739 @@
+{
+  "date": "2026-09-27",
+  "root": "C:\\Users\\Admin\\NARIS",
+  "before": [
+    {
+      "path": "Docs/AETHERIA_MASTER_EXECUTION.md",
+      "type": "file"
+    },
+    {
+      "path": "Docs/ASHEN_GATE_PRODUCTION_LOCK.md",
+      "type": "file"
+    },
+    {
+      "path": "Docs/BATCH_08_COMBAT_INTEGRATION.md",
+      "type": "file"
+    },
+    {
+      "path": "Docs/BATCH_09_AI_ARCHITECTURE.md",
+      "type": "file"
+    },
+    {
+      "path": "Docs/BATCH_10_WORLD_ARCHITECTURE.md",
+      "type": "file"
+    },
+    {
+      "path": "Docs/BATCH_11_ARCHITECTURE.md",
+      "type": "file"
+    },
+    {
+      "path": "Docs/BATCH_12_ARCHITECTURE.md",
+      "type": "file"
+    },
+    {
+      "path": "Docs/CONTENT_TARGETS.md",
+      "type": "file"
+    },
+    {
+      "path": "Docs/MASTER_ARCHITECTURE.md",
+      "type": "file"
+    },
+    {
+      "path": "Docs/MASTER_INTEGRATION.md",
+      "type": "file"
+    },
+    {
+      "path": "Docs/Pipeline",
+      "type": "directory"
+    },
+    {
+      "path": "Docs/QUALITY_FIXES.md",
+      "type": "file"
+    },
+    {
+      "path": "Docs/VERTICAL_SLICE_ACCEPTANCE.md",
+      "type": "file"
+    },
+    {
+      "path": "SourceAssets/References/NARIS_IMAGE_00356.jpg",
+      "type": "file"
+    },
+    {
+      "path": "SourceAssets/References/NARIS_IMAGE_00378.png",
+      "type": "file"
+    },
+    {
+      "path": "SourceAssets/References/NARIS_IMAGE_00381.jpg",
+      "type": "file"
+    },
+    {
+      "path": "SourceAssets/References/NARIS_IMAGE_00383.png",
+      "type": "file"
+    },
+    {
+      "path": "SourceAssets/References/NARIS_IMAGE_00408.jpg",
+      "type": "file"
+    },
+    {
+      "path": "SourceAssets/References/NARIS_IMAGE_00414.png",
+      "type": "file"
+    },
+    {
+      "path": "SourceAssets/References/NARIS_IMAGE_00420.png",
+      "type": "file"
+    },
+    {
+      "path": "SourceAssets/References/NARIS_IMAGE_00427.jpg",
+      "type": "file"
+    },
+    {
+      "path": "SourceAssets/References/NARIS_IMAGE_00435.jpg",
+      "type": "file"
+    },
+    {
+      "path": "SourceAssets/References/NARIS_IMAGE_00440.png",
+      "type": "file"
+    },
+    {
+      "path": "SourceAssets/References/NARIS_IMAGE_00441.png",
+      "type": "file"
+    },
+    {
+      "path": "SourceAssets/References/NARIS_IMAGE_00445.png",
+      "type": "file"
+    },
+    {
+      "path": "SourceAssets/References/NARIS_IMAGE_00446.png",
+      "type": "file"
+    },
+    {
+      "path": "SourceAssets/References/NARIS_IMAGE_00449.jpg",
+      "type": "file"
+    },
+    {
+      "path": "SourceAssets/References/NARIS_IMAGE_00450.jpg",
+      "type": "file"
+    },
+    {
+      "path": "SourceAssets/References/NARIS_IMAGE_00451.jpg",
+      "type": "file"
+    },
+    {
+      "path": "SourceAssets/References/NARIS_IMAGE_00452.jpg",
+      "type": "file"
+    },
+    {
+      "path": "SourceAssets/References/NARIS_IMAGE_00453.jpg",
+      "type": "file"
+    },
+    {
+      "path": "SourceAssets/References/NARIS_IMAGE_00456.gif",
+      "type": "file"
+    },
+    {
+      "path": "SourceAssets/References/NARIS_IMAGE_00457.jpg",
+      "type": "file"
+    },
+    {
+      "path": "SourceAssets/References/NARIS_IMAGE_00472.jpg",
+      "type": "file"
+    },
+    {
+      "path": "SourceAssets/References/NARIS_IMAGE_00473.jpg",
+      "type": "file"
+    },
+    {
+      "path": "SourceAssets/References/NARIS_IMAGE_00477.jpg",
+      "type": "file"
+    },
+    {
+      "path": "SourceAssets/References/NARIS_IMAGE_00480.jpg",
+      "type": "file"
+    },
+    {
+      "path": "SourceAssets/References/NARIS_IMAGE_00527.jpg",
+      "type": "file"
+    },
+    {
+      "path": "SourceAssets/References/NARIS_IMAGE_00537.jpg",
+      "type": "file"
+    },
+    {
+      "path": "SourceAssets/References/NARIS_IMAGE_00539.jpg",
+      "type": "file"
+    },
+    {
+      "path": "SourceAssets/References/NARIS_IMAGE_00542.jpg",
+      "type": "file"
+    },
+    {
+      "path": "SourceAssets/References/NARIS_IMAGE_00544.jpg",
+      "type": "file"
+    },
+    {
+      "path": "SourceAssets/References/NARIS_IMAGE_00546.jpg",
+      "type": "file"
+    },
+    {
+      "path": "SourceAssets/References/NARIS_IMAGE_00548.jpg",
+      "type": "file"
+    },
+    {
+      "path": "SourceAssets/References/NARIS_IMAGE_00632.jpg",
+      "type": "file"
+    },
+    {
+      "path": "SourceAssets/References/NARIS_IMAGE_00633.png",
+      "type": "file"
+    },
+    {
+      "path": "SourceAssets/References/NARIS_IMAGE_00642.jpg",
+      "type": "file"
+    }
+  ],
+  "after": [
+    {
+      "path": "Docs/AETHERIA_MASTER_EXECUTION.md",
+      "type": "file"
+    },
+    {
+      "path": "Docs/Architecture",
+      "type": "directory"
+    },
+    {
+      "path": "Docs/Architecture/BATCH_09_AI_ARCHITECTURE.md",
+      "type": "file"
+    },
+    {
+      "path": "Docs/Architecture/BATCH_11_ARCHITECTURE.md",
+      "type": "file"
+    },
+    {
+      "path": "Docs/Architecture/BATCH_12_ARCHITECTURE.md",
+      "type": "file"
+    },
+    {
+      "path": "Docs/Architecture/MASTER_ARCHITECTURE.md",
+      "type": "file"
+    },
+    {
+      "path": "Docs/Architecture/MASTER_INTEGRATION.md",
+      "type": "file"
+    },
+    {
+      "path": "Docs/ASHEN_GATE_PRODUCTION_LOCK.md",
+      "type": "file"
+    },
+    {
+      "path": "Docs/BATCH_08_COMBAT_INTEGRATION.md",
+      "type": "file"
+    },
+    {
+      "path": "Docs/BATCH_09_AI_ARCHITECTURE.md",
+      "type": "file"
+    },
+    {
+      "path": "Docs/BATCH_10_WORLD_ARCHITECTURE.md",
+      "type": "file"
+    },
+    {
+      "path": "Docs/BATCH_11_ARCHITECTURE.md",
+      "type": "file"
+    },
+    {
+      "path": "Docs/BATCH_12_ARCHITECTURE.md",
+      "type": "file"
+    },
+    {
+      "path": "Docs/CONTENT_TARGETS.md",
+      "type": "file"
+    },
+    {
+      "path": "Docs/Gameplay",
+      "type": "directory"
+    },
+    {
+      "path": "Docs/Gameplay/BATCH_08_COMBAT_INTEGRATION.md",
+      "type": "file"
+    },
+    {
+      "path": "Docs/Gameplay/BATCH_10_WORLD_ARCHITECTURE.md",
+      "type": "file"
+    },
+    {
+      "path": "Docs/MASTER_ARCHITECTURE.md",
+      "type": "file"
+    },
+    {
+      "path": "Docs/MASTER_INTEGRATION.md",
+      "type": "file"
+    },
+    {
+      "path": "Docs/Pipeline",
+      "type": "directory"
+    },
+    {
+      "path": "Docs/Production",
+      "type": "directory"
+    },
+    {
+      "path": "Docs/Production/AETHERIA_MASTER_EXECUTION.md",
+      "type": "file"
+    },
+    {
+      "path": "Docs/Production/ASHEN_GATE_PRODUCTION_LOCK.md",
+      "type": "file"
+    },
+    {
+      "path": "Docs/Production/CONTENT_TARGETS.md",
+      "type": "file"
+    },
+    {
+      "path": "Docs/QA",
+      "type": "directory"
+    },
+    {
+      "path": "Docs/QA/ORGANIZATION_20260927.json",
+      "type": "file"
+    },
+    {
+      "path": "Docs/QA/QUALITY_FIXES.md",
+      "type": "file"
+    },
+    {
+      "path": "Docs/QA/VERTICAL_SLICE_ACCEPTANCE.md",
+      "type": "file"
+    },
+    {
+      "path": "Docs/QUALITY_FIXES.md",
+      "type": "file"
+    },
+    {
+      "path": "Docs/Specifications",
+      "type": "directory"
+    },
+    {
+      "path": "Docs/Specifications/AAA_ACCEPTANCE.md",
+      "type": "file"
+    },
+    {
+      "path": "Docs/Specifications/IMPLEMENTATION_MAP.md",
+      "type": "file"
+    },
+    {
+      "path": "Docs/Specifications/NARIS_ART_BIBLE.md",
+      "type": "file"
+    },
+    {
+      "path": "Docs/Specifications/NARIS_SYSTEMS_MODERNIZATION.md",
+      "type": "file"
+    },
+    {
+      "path": "Docs/Specifications/NARIS_UIUX_AAA.md",
+      "type": "file"
+    },
+    {
+      "path": "Docs/Specifications/UPDATE_PLAN.md",
+      "type": "file"
+    },
+    {
+      "path": "Docs/VERTICAL_SLICE_ACCEPTANCE.md",
+      "type": "file"
+    },
+    {
+      "path": "SourceAssets/References/Images",
+      "type": "directory"
+    },
+    {
+      "path": "SourceAssets/References/Images/NARIS_IMAGE_00356.jpg",
+      "type": "file"
+    },
+    {
+      "path": "SourceAssets/References/Images/NARIS_IMAGE_00378.png",
+      "type": "file"
+    },
+    {
+      "path": "SourceAssets/References/Images/NARIS_IMAGE_00381.jpg",
+      "type": "file"
+    },
+    {
+      "path": "SourceAssets/References/Images/NARIS_IMAGE_00383.png",
+      "type": "file"
+    },
+    {
+      "path": "SourceAssets/References/Images/NARIS_IMAGE_00408.jpg",
+      "type": "file"
+    },
+    {
+      "path": "SourceAssets/References/Images/NARIS_IMAGE_00414.png",
+      "type": "file"
+    },
+    {
+      "path": "SourceAssets/References/Images/NARIS_IMAGE_00420.png",
+      "type": "file"
+    },
+    {
+      "path": "SourceAssets/References/Images/NARIS_IMAGE_00427.jpg",
+      "type": "file"
+    },
+    {
+      "path": "SourceAssets/References/Images/NARIS_IMAGE_00435.jpg",
+      "type": "file"
+    },
+    {
+      "path": "SourceAssets/References/Images/NARIS_IMAGE_00440.png",
+      "type": "file"
+    },
+    {
+      "path": "SourceAssets/References/Images/NARIS_IMAGE_00441.png",
+      "type": "file"
+    },
+    {
+      "path": "SourceAssets/References/Images/NARIS_IMAGE_00445.png",
+      "type": "file"
+    },
+    {
+      "path": "SourceAssets/References/Images/NARIS_IMAGE_00446.png",
+      "type": "file"
+    },
+    {
+      "path": "SourceAssets/References/Images/NARIS_IMAGE_00449.jpg",
+      "type": "file"
+    },
+    {
+      "path": "SourceAssets/References/Images/NARIS_IMAGE_00450.jpg",
+      "type": "file"
+    },
+    {
+      "path": "SourceAssets/References/Images/NARIS_IMAGE_00451.jpg",
+      "type": "file"
+    },
+    {
+      "path": "SourceAssets/References/Images/NARIS_IMAGE_00452.jpg",
+      "type": "file"
+    },
+    {
+      "path": "SourceAssets/References/Images/NARIS_IMAGE_00453.jpg",
+      "type": "file"
+    },
+    {
+      "path": "SourceAssets/References/Images/NARIS_IMAGE_00457.jpg",
+      "type": "file"
+    },
+    {
+      "path": "SourceAssets/References/Images/NARIS_IMAGE_00472.jpg",
+      "type": "file"
+    },
+    {
+      "path": "SourceAssets/References/Images/NARIS_IMAGE_00473.jpg",
+      "type": "file"
+    },
+    {
+      "path": "SourceAssets/References/Images/NARIS_IMAGE_00477.jpg",
+      "type": "file"
+    },
+    {
+      "path": "SourceAssets/References/Images/NARIS_IMAGE_00480.jpg",
+      "type": "file"
+    },
+    {
+      "path": "SourceAssets/References/Images/NARIS_IMAGE_00527.jpg",
+      "type": "file"
+    },
+    {
+      "path": "SourceAssets/References/Images/NARIS_IMAGE_00537.jpg",
+      "type": "file"
+    },
+    {
+      "path": "SourceAssets/References/Images/NARIS_IMAGE_00539.jpg",
+      "type": "file"
+    },
+    {
+      "path": "SourceAssets/References/Images/NARIS_IMAGE_00542.jpg",
+      "type": "file"
+    },
+    {
+      "path": "SourceAssets/References/Images/NARIS_IMAGE_00544.jpg",
+      "type": "file"
+    },
+    {
+      "path": "SourceAssets/References/Images/NARIS_IMAGE_00546.jpg",
+      "type": "file"
+    },
+    {
+      "path": "SourceAssets/References/Images/NARIS_IMAGE_00548.jpg",
+      "type": "file"
+    },
+    {
+      "path": "SourceAssets/References/Images/NARIS_IMAGE_00632.jpg",
+      "type": "file"
+    },
+    {
+      "path": "SourceAssets/References/Images/NARIS_IMAGE_00633.png",
+      "type": "file"
+    },
+    {
+      "path": "SourceAssets/References/Images/NARIS_IMAGE_00642.jpg",
+      "type": "file"
+    },
+    {
+      "path": "SourceAssets/References/NARIS_IMAGE_00456.gif",
+      "type": "file"
+    },
+    {
+      "path": "Packages/Legacy",
+      "type": "directory"
+    },
+    {
+      "path": "Packages/Legacy/NARIS_AAA_Upgrade_v1.zip",
+      "type": "file"
+    },
+    {
+      "path": "Packages/Legacy/NARIS_Offline_Update.zip",
+      "type": "file"
+    },
+    {
+      "path": "Packages/Legacy/NARIS_UI4_1_Production_Patch.zip",
+      "type": "file"
+    },
+    {
+      "path": "Packages/README.md",
+      "type": "file"
+    }
+  ],
+  "moves": [
+    {
+      "before": "Docs/MASTER_ARCHITECTURE.md",
+      "after": "Docs/Architecture/MASTER_ARCHITECTURE.md",
+      "sha256": "6382d09d3b3a049250c6f46e6ca02d7f8c269739ec4afc181e6325f68297ee67"
+    },
+    {
+      "before": "Docs/MASTER_INTEGRATION.md",
+      "after": "Docs/Architecture/MASTER_INTEGRATION.md",
+      "sha256": "dfebe5aa06e46db2c3f9086a5f46b3da7db635cc6735800becd6d4d0c26719a3"
+    },
+    {
+      "before": "Docs/BATCH_09_AI_ARCHITECTURE.md",
+      "after": "Docs/Architecture/BATCH_09_AI_ARCHITECTURE.md",
+      "sha256": "bb8106e07fc2c2d8dda74d986f249f34f70f18502603a5cff38b84b7061b0352"
+    },
+    {
+      "before": "Docs/BATCH_11_ARCHITECTURE.md",
+      "after": "Docs/Architecture/BATCH_11_ARCHITECTURE.md",
+      "sha256": "00d2c271e21a5369b15c58a4b623d841b361a76b069d90fcbf9f03aa9357a985"
+    },
+    {
+      "before": "Docs/BATCH_12_ARCHITECTURE.md",
+      "after": "Docs/Architecture/BATCH_12_ARCHITECTURE.md",
+      "sha256": "daabbc7e2347d483adda5af42ed7848955984f3b63931ec9fcf4ef52331e4f14"
+    },
+    {
+      "before": "Docs/BATCH_08_COMBAT_INTEGRATION.md",
+      "after": "Docs/Gameplay/BATCH_08_COMBAT_INTEGRATION.md",
+      "sha256": "dd5812d49710e0d1e720ed80d67c2e6fdcf21460765c9ac41274119e484ee6b8"
+    },
+    {
+      "before": "Docs/BATCH_10_WORLD_ARCHITECTURE.md",
+      "after": "Docs/Gameplay/BATCH_10_WORLD_ARCHITECTURE.md",
+      "sha256": "51f164733b8ba933e3aeab51b58d3ac93cef1ca97fb8cf111566ea14615238c2"
+    },
+    {
+      "before": "Docs/AETHERIA_MASTER_EXECUTION.md",
+      "after": "Docs/Production/AETHERIA_MASTER_EXECUTION.md",
+      "sha256": "6182f62b03ec93a11ddfeb640ff5ecf9f146c4bdccc591689f63936035f91533"
+    },
+    {
+      "before": "Docs/ASHEN_GATE_PRODUCTION_LOCK.md",
+      "after": "Docs/Production/ASHEN_GATE_PRODUCTION_LOCK.md",
+      "sha256": "6994a0be8d6969febea20b236b40c60ed2dfe65d8063f9aa6457549eb64308fc"
+    },
+    {
+      "before": "Docs/CONTENT_TARGETS.md",
+      "after": "Docs/Production/CONTENT_TARGETS.md",
+      "sha256": "0b74ba81245dcd7505cf6d4ca5532e2b3f5c0f757ea2ebbccade7fb48dcf6d42"
+    },
+    {
+      "before": "Docs/QUALITY_FIXES.md",
+      "after": "Docs/QA/QUALITY_FIXES.md",
+      "sha256": "2bf9f1d7c7fcab3a86ecbbaabed58c5a721df74c5fc76039c6a7c1ff055c4789"
+    },
+    {
+      "before": "Docs/VERTICAL_SLICE_ACCEPTANCE.md",
+      "after": "Docs/QA/VERTICAL_SLICE_ACCEPTANCE.md",
+      "sha256": "d6ae1429f54664761f91ff88b7253872c3df40e82609d45991180279144f835c"
+    },
+    {
+      "before": "SourceAssets/References/NARIS_IMAGE_00356.jpg",
+      "after": "SourceAssets/References/Images/NARIS_IMAGE_00356.jpg",
+      "sha256": "ce8e0a2d47df9d9bcfdfa912903beb374c480faa751b0b3bb63b95b0d1ca564c"
+    },
+    {
+      "before": "SourceAssets/References/NARIS_IMAGE_00378.png",
+      "after": "SourceAssets/References/Images/NARIS_IMAGE_00378.png",
+      "sha256": "592e08111b14229e079ce85e9055b73c056bc1239db83c9558bf6796262678ad"
+    },
+    {
+      "before": "SourceAssets/References/NARIS_IMAGE_00381.jpg",
+      "after": "SourceAssets/References/Images/NARIS_IMAGE_00381.jpg",
+      "sha256": "4425af33dd163cf73bdff502bd35ee527e9bdd5725501db1da78bfdae9f538f4"
+    },
+    {
+      "before": "SourceAssets/References/NARIS_IMAGE_00383.png",
+      "after": "SourceAssets/References/Images/NARIS_IMAGE_00383.png",
+      "sha256": "570e7cccf61f9cf29d58cc68f130a828a301aed1959cff402f8227e7f2ba47ca"
+    },
+    {
+      "before": "SourceAssets/References/NARIS_IMAGE_00408.jpg",
+      "after": "SourceAssets/References/Images/NARIS_IMAGE_00408.jpg",
+      "sha256": "9e7bfdf149d57e71368843e79d38ef9abd6699fcb4c0e3935e2fbedce7f145e7"
+    },
+    {
+      "before": "SourceAssets/References/NARIS_IMAGE_00414.png",
+      "after": "SourceAssets/References/Images/NARIS_IMAGE_00414.png",
+      "sha256": "2707207e2dee8a9051eff35c797d88a007939a7cfd4af7a8dd055663d2296963"
+    },
+    {
+      "before": "SourceAssets/References/NARIS_IMAGE_00420.png",
+      "after": "SourceAssets/References/Images/NARIS_IMAGE_00420.png",
+      "sha256": "7885d4a349edcdfbfbc439305b8b554c2500f095949bc53d14835656b902dbcc"
+    },
+    {
+      "before": "SourceAssets/References/NARIS_IMAGE_00427.jpg",
+      "after": "SourceAssets/References/Images/NARIS_IMAGE_00427.jpg",
+      "sha256": "c474365f54eea113d941550e31e00d6a9b524224fa0ba9bbb8833792d9bf784f"
+    },
+    {
+      "before": "SourceAssets/References/NARIS_IMAGE_00435.jpg",
+      "after": "SourceAssets/References/Images/NARIS_IMAGE_00435.jpg",
+      "sha256": "d7d51c344a54f83aed49fdf93258a66e4bf2fcad24542c6cabda3c196bbf8c02"
+    },
+    {
+      "before": "SourceAssets/References/NARIS_IMAGE_00440.png",
+      "after": "SourceAssets/References/Images/NARIS_IMAGE_00440.png",
+      "sha256": "4b3df71b0b5ab8d37490e284ab76695939a2a5d61a37a3a8ae598545a5956cf3"
+    },
+    {
+      "before": "SourceAssets/References/NARIS_IMAGE_00441.png",
+      "after": "SourceAssets/References/Images/NARIS_IMAGE_00441.png",
+      "sha256": "7ab04d6988102b5c11900ba6395188dfae4c6679222fcba1eefa7b85783d2331"
+    },
+    {
+      "before": "SourceAssets/References/NARIS_IMAGE_00445.png",
+      "after": "SourceAssets/References/Images/NARIS_IMAGE_00445.png",
+      "sha256": "56530b43d0e87e3b4d07b7cf23df1ee69b1b17856bed1eec35fac3208a806d6b"
+    },
+    {
+      "before": "SourceAssets/References/NARIS_IMAGE_00446.png",
+      "after": "SourceAssets/References/Images/NARIS_IMAGE_00446.png",
+      "sha256": "d621cda2d143497b0f7cd964a71e82e6f74c33ae1e64f2da5546a49de010ec4d"
+    },
+    {
+      "before": "SourceAssets/References/NARIS_IMAGE_00449.jpg",
+      "after": "SourceAssets/References/Images/NARIS_IMAGE_00449.jpg",
+      "sha256": "e17ce306947dbcb1e455e1ba4183cb695fbbd1273708fd61e9e21daaa90609f3"
+    },
+    {
+      "before": "SourceAssets/References/NARIS_IMAGE_00450.jpg",
+      "after": "SourceAssets/References/Images/NARIS_IMAGE_00450.jpg",
+      "sha256": "9c3ad15c00b6173d889e719fe4106314da3b9fc8fc51f546279b946371c0d286"
+    },
+    {
+      "before": "SourceAssets/References/NARIS_IMAGE_00451.jpg",
+      "after": "SourceAssets/References/Images/NARIS_IMAGE_00451.jpg",
+      "sha256": "5b83d6e489d9bb0257554878e8db60774fc144912a54f05da4b2c7d48b7df021"
+    },
+    {
+      "before": "SourceAssets/References/NARIS_IMAGE_00452.jpg",
+      "after": "SourceAssets/References/Images/NARIS_IMAGE_00452.jpg",
+      "sha256": "b81d805670530705e717d77e57e84e62e214200d2b22c2aa75ac81af5961b08c"
+    },
+    {
+      "before": "SourceAssets/References/NARIS_IMAGE_00453.jpg",
+      "after": "SourceAssets/References/Images/NARIS_IMAGE_00453.jpg",
+      "sha256": "f3de4ba9f41ae082a8c0906f6dac4a91f859d37ffdd3df430cbc97b34c00af49"
+    },
+    {
+      "before": "SourceAssets/References/NARIS_IMAGE_00457.jpg",
+      "after": "SourceAssets/References/Images/NARIS_IMAGE_00457.jpg",
+      "sha256": "5a6f7ff13caa0cff5247d5a5c9a15c438f655cc67de03250dfe061e131b1fa4b"
+    },
+    {
+      "before": "SourceAssets/References/NARIS_IMAGE_00472.jpg",
+      "after": "SourceAssets/References/Images/NARIS_IMAGE_00472.jpg",
+      "sha256": "b21aa26ac7c514c554b381e82b4be5b99fe273a937ff965d8cf8424921daed6b"
+    },
+    {
+      "before": "SourceAssets/References/NARIS_IMAGE_00473.jpg",
+      "after": "SourceAssets/References/Images/NARIS_IMAGE_00473.jpg",
+      "sha256": "de9ac65c1860753bd8b35b2e79354f9baeb789952394a931c19e8613db7bf45c"
+    },
+    {
+      "before": "SourceAssets/References/NARIS_IMAGE_00477.jpg",
+      "after": "SourceAssets/References/Images/NARIS_IMAGE_00477.jpg",
+      "sha256": "07bf24435185b6538d0f33def417ca222049a4b2eab62f396017d0a0a3312ca0"
+    },
+    {
+      "before": "SourceAssets/References/NARIS_IMAGE_00480.jpg",
+      "after": "SourceAssets/References/Images/NARIS_IMAGE_00480.jpg",
+      "sha256": "069aac9ba4e6f7fe2a8da34651d30255d706d0f170bb083e0ea932da056d54b8"
+    },
+    {
+      "before": "SourceAssets/References/NARIS_IMAGE_00527.jpg",
+      "after": "SourceAssets/References/Images/NARIS_IMAGE_00527.jpg",
+      "sha256": "05921c624274eedbfc1208d12eba5b06acbdd1291d1b1a2129770199f430d6ae"
+    },
+    {
+      "before": "SourceAssets/References/NARIS_IMAGE_00537.jpg",
+      "after": "SourceAssets/References/Images/NARIS_IMAGE_00537.jpg",
+      "sha256": "39c9c9b69673880b17fa038c74f2a46e3e97841ed39ac4318efc5fde58512984"
+    },
+    {
+      "before": "SourceAssets/References/NARIS_IMAGE_00539.jpg",
+      "after": "SourceAssets/References/Images/NARIS_IMAGE_00539.jpg",
+      "sha256": "f84affb5ab606588673a2afaee556837c3d98d47a40489df31f25cfaf30004fd"
+    },
+    {
+      "before": "SourceAssets/References/NARIS_IMAGE_00542.jpg",
+      "after": "SourceAssets/References/Images/NARIS_IMAGE_00542.jpg",
+      "sha256": "60be5c9ee256c5637057e5cec27ebd25adbd734e6d96b1891128cd75356273b8"
+    },
+    {
+      "before": "SourceAssets/References/NARIS_IMAGE_00544.jpg",
+      "after": "SourceAssets/References/Images/NARIS_IMAGE_00544.jpg",
+      "sha256": "087d7c7a2384f653f2c38750be8b61f9a4efcbfff895bfefead7a6a548ebba64"
+    },
+    {
+      "before": "SourceAssets/References/NARIS_IMAGE_00546.jpg",
+      "after": "SourceAssets/References/Images/NARIS_IMAGE_00546.jpg",
+      "sha256": "f3938c6cd52c2009bd61eb94e7e4e8942e7dd754d2271426736b6de7d9d150d4"
+    },
+    {
+      "before": "SourceAssets/References/NARIS_IMAGE_00548.jpg",
+      "after": "SourceAssets/References/Images/NARIS_IMAGE_00548.jpg",
+      "sha256": "6367339dd0b20168fb1abdeaa067cca1f2094affb9ec672b35e915d9c0d21cf1"
+    },
+    {
+      "before": "SourceAssets/References/NARIS_IMAGE_00632.jpg",
+      "after": "SourceAssets/References/Images/NARIS_IMAGE_00632.jpg",
+      "sha256": "1932879342a97353a30b408def1501aa9ae4dd72e77d4f8f7b1a71b0e79565c7"
+    },
+    {
+      "before": "SourceAssets/References/NARIS_IMAGE_00633.png",
+      "after": "SourceAssets/References/Images/NARIS_IMAGE_00633.png",
+      "sha256": "abca4945806ecaff45ca6b4b5f96a417b6ca4b1d511c88e749eeda30798b8a9f"
+    },
+    {
+      "before": "SourceAssets/References/NARIS_IMAGE_00642.jpg",
+      "after": "SourceAssets/References/Images/NARIS_IMAGE_00642.jpg",
+      "sha256": "712bcf1a6854934ea85c827024554e38e96b2593b26bb1958eb990414c557ba6"
+    }
+  ],
+  "policy": "Runtime paths unchanged; old document links retained as redirect notes; full original bytes backed up; no source assets deleted.",
+  "imports": [
+    "Docs/Specifications: 6 supplied Markdown files",
+    "Packages/Legacy: 3 original ZIPs"
+  ],
+  "verification": {
+    "moved_hashes_match": true
+  }
+}

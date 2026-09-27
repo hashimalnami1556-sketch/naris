@@ -1,0 +1,4 @@
+VFXID,System,Poolable,BudgetClass
+VFX_FlameHit,NS_FlameHit,true,Medium
+VFX_AetherVeins,NS_Aether_Veins,true,Low
+VFX_BoneDust,NS_Bone_Dust,true,High

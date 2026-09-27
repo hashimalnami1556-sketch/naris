@@ -1,0 +1,48 @@
+{
+  "SK_AshenVessel": {
+    "blend": "C:\\Users\\Admin\\NARIS\\SourceAssets\\Blender\\RiggedV3\\SK_AshenVessel.blend",
+    "ue_fbx": "C:\\Users\\Admin\\NARIS\\Pipeline\\Exchange\\FBX\\RiggedV4\\SK_AshenVessel.fbx",
+    "unity_fbx": "C:\\Users\\Admin\\NARIS\\Pipeline\\Exchange\\UnityV4\\SK_AshenVessel.fbx",
+    "bones": 26,
+    "actions": [
+      "AN_Ashen_Attack_Heavy",
+      "AN_Ashen_Attack_Light",
+      "AN_Ashen_Dodge",
+      "AN_Ashen_HitReact",
+      "AN_Ashen_Idle",
+      "AN_Ashen_Parry",
+      "AN_Ashen_Resonance",
+      "AN_Ashen_Run",
+      "AN_Ashen_Walk"
+    ]
+  },
+  "SK_CelestialWolf": {
+    "blend": "C:\\Users\\Admin\\NARIS\\SourceAssets\\Blender\\RiggedV3\\SK_CelestialWolf.blend",
+    "ue_fbx": "C:\\Users\\Admin\\NARIS\\Pipeline\\Exchange\\FBX\\RiggedV4\\SK_CelestialWolf.fbx",
+    "unity_fbx": "C:\\Users\\Admin\\NARIS\\Pipeline\\Exchange\\UnityV4\\SK_CelestialWolf.fbx",
+    "bones": 17,
+    "actions": [
+      "AN_Wolf_Bite",
+      "AN_Wolf_Dash",
+      "AN_Wolf_Idle",
+      "AN_Wolf_Roar",
+      "AN_Wolf_Run",
+      "AN_Wolf_SoulVision"
+    ]
+  },
+  "SK_BoneBeast": {
+    "blend": "C:\\Users\\Admin\\NARIS\\SourceAssets\\Blender\\RiggedV3\\SK_BoneBeast.blend",
+    "ue_fbx": "C:\\Users\\Admin\\NARIS\\Pipeline\\Exchange\\FBX\\RiggedV4\\SK_BoneBeast.fbx",
+    "unity_fbx": "C:\\Users\\Admin\\NARIS\\Pipeline\\Exchange\\UnityV4\\SK_BoneBeast.fbx",
+    "bones": 21,
+    "actions": [
+      "AN_Beast_Enrage",
+      "AN_Beast_Idle",
+      "AN_Beast_Roar",
+      "AN_Beast_Run",
+      "AN_Beast_Stunned",
+      "AN_Beast_Swipe",
+      "AN_Beast_TailSweep"
+    ]
+  }
+}

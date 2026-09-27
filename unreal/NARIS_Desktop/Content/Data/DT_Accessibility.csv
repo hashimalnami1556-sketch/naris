@@ -1,0 +1,5 @@
+SettingID,Default,Min,Max
+SubtitleSize,1.0,0.75,1.75
+CameraShake,0.7,0,1
+HoldToToggle,0,0,1
+AimAssist,0.55,0,1

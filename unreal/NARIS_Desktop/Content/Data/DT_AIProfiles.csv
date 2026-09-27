@@ -1,0 +1,5 @@
+Name,ProfileID,Role,SightRadius,LoseSightRadius,HearingRange,PreferredRange,Aggression,RetreatHealthPct,MaxAttackersOnTarget
+AI_RootWraith,AI_RootWraith,Skirmisher,2200,3200,1800,350,0.72,0.18,2
+AI_BoneBeast,AI_BoneBeast,Boss,3500,5000,2500,500,0.95,0.00,1
+AI_AshRaider,AI_AshRaider,Vanguard,2400,3400,1700,220,0.78,0.12,3
+AI_VeilCaster,AI_VeilCaster,Controller,2800,3800,2000,1100,0.55,0.25,2

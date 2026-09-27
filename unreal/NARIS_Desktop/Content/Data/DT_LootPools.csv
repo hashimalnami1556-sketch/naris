@@ -1,0 +1,4 @@
+PoolID,EntryID,Weight,MinQty,MaxQty,ConditionTag
+LOOT_BoneBeast,ITM_AetherShard,55,2,6,
+LOOT_BoneBeast,ARM_AshenMantle,8,1,1,Boss.FirstKill
+LOOT_RootWraith,ITM_AetherShard,25,1,2,

@@ -1,0 +1,10 @@
+Name,ZoneID,MinEnemies,MaxEnemies,Budget,IntensityMin,IntensityMax,Roles,ReinforcementDelay
+Entry_Tutorial,00_ENTRY,0,2,3,0.00,0.25,"Tutorial;Ambient",12
+RuinedPath_Ambush,01_RUINED_PATH,3,7,10,0.20,0.70,"Vanguard;Skirmisher",8
+RootTunnel_Hunt,02_ROOT_TUNNEL,2,5,8,0.15,0.60,"Skirmisher;Controller",12
+WhisperClearing_Event,03_WHISPER_CLEARING,1,4,6,0.10,0.45,"Ambient;Companion",15
+AetherShrine_Guard,04_AETHER_SHRINE,0,3,5,0.00,0.35,"Guardian;Ambient",20
+BoneCrypt_Elite,05_BONE_CRYPT,3,6,12,0.35,0.80,"Elite;Controller;Support",10
+BoneBeast_Arena,06_BONE_BEAST_ARENA,1,4,14,0.45,1.00,"Boss;Support",18
+PostBoss_Recovery,07_POST_BOSS_OVERLOOK,0,1,2,0.00,0.15,"Ambient",30
+DragonGate_Guard,08_DRAGON_GATE,2,5,11,0.30,0.75,"Guardian;Elite",12

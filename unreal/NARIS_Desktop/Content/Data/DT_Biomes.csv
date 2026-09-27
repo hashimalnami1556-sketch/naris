@@ -1,0 +1,5 @@
+RowName,BiomeID,Temperature,Humidity,PCGGraph,AmbientVFX,AmbientAudio,EncounterProfile,Density
+AshenForest,BIO_ASHEN_FOREST,0.58,0.42,PCG_AshenForest,NS_Ash_Mist,AMB_AshenForest,ENC_AshenForest,0.82
+RootTunnels,BIO_ROOT_TUNNELS,0.44,0.77,PCG_RootTunnels,NS_Root_Spores,AMB_RootTunnels,ENC_RootWraith,0.64
+WhisperLake,BIO_WHISPER_LAKE,0.38,0.91,PCG_WhisperLake,NS_Lake_Mist,AMB_WhisperLake,ENC_LakeEdge,0.51
+AshGate,BIO_ASH_GATE,0.72,0.24,PCG_AshGate,NS_Ember_Wind,AMB_AshGate,ENC_AshGate,0.69

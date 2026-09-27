@@ -1,0 +1,4 @@
+Name,BiomeID,Width,Depth,FlowSpeed,MaterialID
+WHISPER_FLOW,WhisperLake,1800,220,0.35,M_Water_Whisper
+ASH_RUNOFF,AshenForest,650,90,0.65,M_Water_Ash
+AETHER_STREAM,AetherHighlands,500,120,0.9,M_Aether_Stream

@@ -1,0 +1,13 @@
+Id,Type,Zone,State,Requirement
+AG_Spawn,Area,SpawnCanyon,Ready,Movement onboarding
+AG_Vista,Area,FirstVista,Ready,Gate landmark reveal
+AG_Ruins,Area,LowerRuins,Ready,Lore and first combat
+AG_Cave,Area,CrystalCave,Ready,Optional echo
+AG_Basin,Area,CentralBasin,Ready,Waystone hub
+AG_Shrine,Area,HiddenShrine,Ready,Relic puzzle
+AG_Bridge,Area,AncientBridge,Ready,Serpent setpiece
+AG_Gate,Area,AshenGate,Ready,Sentinel climax
+ECHO_01,Objective,LowerRuins,Required,Aether Echo
+ECHO_02,Objective,CrystalCave,Required,Aether Echo
+ECHO_03,Objective,Observatory,Required,Aether Echo
+BOSS_01,Encounter,AshenGate,Required,Ashbound Sentinel
