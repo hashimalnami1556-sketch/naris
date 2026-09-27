@@ -12,12 +12,31 @@
 #include "Kismet/GameplayStatics.h"
 #include "GameFramework/PlayerController.h"
 #include "Kismet/KismetSystemLibrary.h"
+#include "NarisNativeMenuWidget.h"
+
+void ANarisHUD::BeginPlay()
+{
+ Super::BeginPlay();
+ ANarisGameModeBase* GM=Cast<ANarisGameModeBase>(UGameplayStatics::GetGameMode(this));
+ if(GM&&!GM->IsGameStarted()){
+  if(APlayerController* PC=GetOwningPlayerController()){
+   FrontEndWidget=CreateWidget<UNarisNativeMenuWidget>(PC,UNarisNativeMenuWidget::StaticClass());
+   if(FrontEndWidget){
+    FrontEndWidget->AddToViewport(100);
+    UE_LOG(LogTemp,Display,TEXT("NARIS_UI_MAIN_MENU READY RTL=1 Buttons=4"));
+   }else{
+    UE_LOG(LogTemp,Error,TEXT("NARIS_UI_MAIN_MENU FAIL CreateWidget"));
+   }
+  }
+ }
+}
 
 void ANarisHUD::DrawHUD()
 {
  Super::DrawHUD(); if(!Canvas) return;
  ANarisGameModeBase* GM=Cast<ANarisGameModeBase>(UGameplayStatics::GetGameMode(this));
  if(GM&&!GM->IsGameStarted()){
+  if(FrontEndWidget&&FrontEndWidget->IsInViewport()) return;
   const float CX=Canvas->ClipX*.5f,CY=Canvas->ClipY*.5f;
   DrawRect(FLinearColor(.004f,.006f,.010f,1.f),0,0,Canvas->ClipX,Canvas->ClipY);
   DrawRect(FLinearColor(.025f,.050f,.060f,.36f),0,0,Canvas->ClipX,Canvas->ClipY*.38f);
@@ -132,4 +151,3 @@ void ANarisHUD::NotifyHitBoxClick(FName BoxName)
   if(BoxName==FName("ToggleContrast")){A.bHighContrastHUD=!A.bHighContrastHUD;S->SetAccessibility(A);return;}
  }
 }
-
