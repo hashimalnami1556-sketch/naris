@@ -5,7 +5,7 @@ public class NarisCore : ModuleRules
     {
         PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
         PublicDependencyModuleNames.AddRange(new string[] {
-            "Core", "CoreUObject", "Engine", "InputCore", "GameplayTags", "Niagara", "AIModule", "NavigationSystem", "StateTreeModule", "GameplayStateTreeModule", "PCG"
+            "Core", "CoreUObject", "Engine", "InputCore", "GameplayTags", "Niagara", "AIModule", "NavigationSystem", "StateTreeModule", "GameplayStateTreeModule", "PCG", "UMG", "Slate", "SlateCore"
         });
     }
 }
