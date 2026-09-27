@@ -13,11 +13,14 @@ class NARISCORE_API UNarisNativeMenuWidget : public UUserWidget
 {
  GENERATED_BODY()
 public:
- virtual void NativeConstruct() override;
+ virtual void NativeOnInitialized() override;
+ void ShowPausePage();
+ void ShowGameOverPage();
 
 private:
- enum class EPage : uint8 { Main, Settings };
+ enum class EPage : uint8 { Main, Settings, Pause, GameOver };
  EPage CurrentPage=EPage::Main;
+ bool bReturnToPause=false;
  UPROPERTY() TObjectPtr<UBorder> Backdrop;
  UPROPERTY() TObjectPtr<UVerticalBox> MenuPanel;
  UPROPERTY() TObjectPtr<UButton> InitialFocusButton;
@@ -34,4 +37,8 @@ private:
  UFUNCTION() void SetMediumQuality();
  UFUNCTION() void ToggleSubtitles();
  UFUNCTION() void ToggleHighContrast();
+ UFUNCTION() void ResumeGame();
+ UFUNCTION() void QuickSaveGame();
+ UFUNCTION() void QuickLoadGame();
+ UFUNCTION() void RetryCheckpoint();
 };
