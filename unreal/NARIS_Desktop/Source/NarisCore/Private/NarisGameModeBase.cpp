@@ -33,6 +33,12 @@ ANarisGameModeBase::ANarisGameModeBase()
  VFXDirector=CreateDefaultSubobject<UNarisVFXDirectorComponent>(TEXT("VFXDirector"));
  AttackCoordinator=CreateDefaultSubobject<UNarisAttackTokenCoordinator>(TEXT("AttackCoordinator"));
 }
+int32 ANarisGameModeBase::ParseBenchmarkEnemyCount(const TCHAR* CmdLine)
+{
+ int32 Count=0;
+ if(FParse::Value(CmdLine,TEXT("NarisBenchmarkEnemies="),Count)) return FMath::Clamp(Count,0,64);
+ return 0;
+}
 void ANarisGameModeBase::StartGame()
 {
  if(bGameStarted) return;
@@ -82,6 +88,20 @@ void ANarisGameModeBase::BeginPlay()
  if(E1){E1->PersistentID=FName("BB_01");E1->ApplyPersistentState();}
  if(E2){E2->PersistentID=FName("BB_02");E2->ApplyPersistentState();}
  if(E3){E3->PersistentID=FName("BB_03");E3->ApplyPersistentState();}
+ const int32 BenchmarkEnemyCount=ParseBenchmarkEnemyCount(FCommandLine::Get());
+ if(BenchmarkEnemyCount>3){
+  int32 Spawned=3;
+  for(int32 Index=3;Index<BenchmarkEnemyCount;++Index){
+   const float Angle=(2.f*PI*Index)/FMath::Max(1,BenchmarkEnemyCount);
+   const float Radius=1200.f+150.f*(Index%3);
+   const FVector Location(FMath::Cos(Angle)*Radius,FMath::Sin(Angle)*Radius,120.f);
+   if(ANarisEnemyCharacter* Enemy=W->SpawnActor<ANarisEnemyCharacter>(ANarisEnemyCharacter::StaticClass(),Location,FRotator::ZeroRotator,P)){
+    Enemy->PersistentID=FName(*FString::Printf(TEXT("BENCH_BB_%02d"),Index+1));
+    ++Spawned;
+   }
+  }
+  UE_LOG(LogTemp,Display,TEXT("NARIS_BENCHMARK_ENEMIES Requested=%d Spawned=%d"),BenchmarkEnemyCount,Spawned);
+ }
 
  ANarisBossCharacter* Boss=W->SpawnActor<ANarisBossCharacter>(ANarisBossCharacter::StaticClass(),FVector(1750.f,0.f,140.f),FRotator(0.f,180.f,0.f),P);
  if(Boss){Boss->PersistentID=FName("GateWarden_01");Boss->ApplyPersistentState();}
@@ -176,11 +196,13 @@ void ANarisGameModeBase::RunQuestSmoke()
 
  bool SettingsOK=false;
  if(Settings){
-  FNarisAccessibilitySettings A=Settings->GetAccessibility();
+  const FNarisAccessibilitySettings Original=Settings->GetAccessibility();
+  FNarisAccessibilitySettings A=Original;
   A.bSubtitles=true; A.bReducedCameraMotion=true; A.UIScale=1.2f; A.AimAssistStrength=.5f;
   Settings->SetAccessibility(A);
   const FNarisAccessibilitySettings R=Settings->GetAccessibility();
   SettingsOK=R.bSubtitles&&R.bReducedCameraMotion&&FMath::IsNearlyEqual(R.UIScale,1.2f)&&FMath::IsNearlyEqual(R.AimAssistStrength,.5f);
+  Settings->SetAccessibility(Original);
  }
 
  bool CheckpointOK=false;
