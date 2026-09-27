@@ -29,6 +29,21 @@ void ANarisHUD::BeginPlay()
    }
   }
  }
+ if(ANarisPlayerCharacter* Player=Cast<ANarisPlayerCharacter>(GetOwningPawn()))
+  if(Player->Vitals) Player->Vitals->OnDeath.AddDynamic(this,&ANarisHUD::HandlePlayerDeath);
+}
+
+void ANarisHUD::HandlePlayerDeath()
+{
+ UGameplayStatics::SetGamePaused(this,true);
+ if(APlayerController* PC=GetOwningPlayerController()){
+  PC->bShowMouseCursor=true;
+  FInputModeGameAndUI Mode;
+  Mode.SetHideCursorDuringCapture(false);
+  PC->SetInputMode(Mode);
+  if(!FrontEndWidget) FrontEndWidget=CreateWidget<UNarisNativeMenuWidget>(PC,UNarisNativeMenuWidget::StaticClass());
+  if(FrontEndWidget){FrontEndWidget->ShowGameOverPage();FrontEndWidget->AddToViewport(100);}
+ }
 }
 
 void ANarisHUD::DrawHUD()
@@ -67,16 +82,12 @@ void ANarisHUD::DrawHUD()
  }
  ANarisPlayerCharacter* P=Cast<ANarisPlayerCharacter>(GetOwningPawn()); if(!P||!P->Vitals) return;
  if(UGameplayStatics::IsGamePaused(this)){
-  const float CX=Canvas->ClipX*.5f,CY=Canvas->ClipY*.5f,PW=520.f,PH=390.f;
-  DrawRect(FLinearColor(.002f,.004f,.008f,.78f),0,0,Canvas->ClipX,Canvas->ClipY);
-  DrawRect(FLinearColor(.018f,.026f,.038f,.97f),CX-PW*.5f,CY-PH*.5f,PW,PH);
-  DrawRect(FLinearColor(.46f,.90f,.95f,1.f),CX-PW*.5f,CY-PH*.5f,PW,2.f);
-  DrawText(TEXT("NARIS  /  PAUSED"),FLinearColor(.88f,.72f,.36f,1.f),CX-112.f,CY-145.f,nullptr,1.55f);
-  DrawText(TEXT("ESC / MENU     RESUME"),FLinearColor(.94f,.96f,.98f,1.f),CX-108.f,CY-58.f,nullptr,1.02f);
-  DrawText(TEXT("F5             QUICK SAVE"),FLinearColor(.68f,.76f,.82f,1.f),CX-108.f,CY-12.f,nullptr,.92f);
-  DrawText(TEXT("F9             QUICK LOAD"),FLinearColor(.68f,.76f,.82f,1.f),CX-108.f,CY+30.f,nullptr,.92f);
-  DrawText(TEXT("CTRL + Q       EXIT GAME"),FLinearColor(.68f,.76f,.82f,1.f),CX-108.f,CY+72.f,nullptr,.92f);
-  DrawText(TEXT("SETTINGS / MAP / CODEX  -  SYSTEMS READY"),FLinearColor(.38f,.62f,.66f,1.f),CX-155.f,CY+130.f,nullptr,.75f);
+  if(!FrontEndWidget||!FrontEndWidget->IsInViewport()){
+   if(APlayerController* PC=GetOwningPlayerController()){
+    if(!FrontEndWidget) FrontEndWidget=CreateWidget<UNarisNativeMenuWidget>(PC,UNarisNativeMenuWidget::StaticClass());
+    if(FrontEndWidget){FrontEndWidget->ShowPausePage();FrontEndWidget->AddToViewport(100);}
+   }
+  }
   return;
  }
  const float X=48.f,Y=48.f,W=320.f,H=18.f;
