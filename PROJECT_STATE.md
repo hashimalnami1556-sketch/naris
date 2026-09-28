@@ -1,11 +1,11 @@
 # NARIS current work
 
-Updated: 2026-09-27
+Updated: 2026-09-28
 
 - Objective: maintain a shared, evidence-based project KB and unblock the Windows W04 vertical slice.
 - Human decision owner: project owner (repository user).
 - Executing agent: shared-agent integration pass active for Figma/Blender/Neon and W04 readiness.
-- Current work: [Desktop reconciliation](docs/production/work/active/desktop-integration-20260927.md); [W04 follow-up](docs/production/work/active/w04-readiness.md).
+- Current work: [Asset intake follow-up](docs/production/work/active/asset-intake-20260928.md); [Desktop reconciliation](docs/production/work/active/desktop-integration-20260927.md); [W04 follow-up](docs/production/work/active/w04-readiness.md).
 - Source routing: [knowledge sources](docs/production/knowledge-sources.md).
 - Production readiness: [production status](docs/PRODUCTION_STATUS.md).
 - Work navigation: [work index](docs/production/work/index.md).
@@ -40,3 +40,9 @@ Do not treat static validation, Figma design, Blender source/export contracts or
 - Live Figma metadata shows only 00_Foundations with a cover/color frame; earlier multi-page handoff claims are superseded.
 - Next: review desktop intake, reconcile with W04, then run canonical Windows production gates.
 - Evidence and remaining gaps: [desktop audit](docs/production/desktop-integration-audit-20260927.md).
+
+
+## Verified source asset intake — 2026-09-28
+- The 14 supplied image references are present in the current workspace and pass image decode checks. Their SHA-256 values match the existing source inventory records. A lookup of the cataloged `ASSETS/CHARACTERS/REFERENCES/IMG_3846.jpeg` on canonical `main` returns 404; inventory metadata is not evidence that payloads are stored in GitHub.
+- Seven 3D source files were structurally inspected: five GLBs, a CRC-valid ZIP duplicating those five GLBs, and a USD-labeled file with `PXR-USDC` crate signature.
+- The image/3D binaries have not been uploaded by this intake, imported to Unreal/Blender, or approved. See [asset intake record](docs/production/work/active/asset-intake-20260928.md) and [3D source manifest](docs/project-uploads/2026-09-28/PROJECT_UPLOAD_MANIFEST.md).
