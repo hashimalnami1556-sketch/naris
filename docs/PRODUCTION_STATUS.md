@@ -138,3 +138,6 @@ Public distribution remains disabled until all blocking conditions pass:
 ## Shared knowledge and source repair — 2026-09-23
 
 The shared agent entry point is [AGENTS.md](../AGENTS.md), with current work in [PROJECT_STATE.md](../PROJECT_STATE.md). Duplicate Unreal target definitions and module registration were removed, static guards were added, and AssetForge zero-count behavior was repaired. Repository validation and 10 Python tests pass locally. No Unreal compilation, Claude Code session, editor playtest or Windows package was executed here. See the [updated gap register](PROJECT_GAP_REGISTER.md).
+
+## 2026-09-27 desktop evidence
+Host access restored. Separate UE5.7 NarisCore compile and headless smoke passed; canonical W04 Shipping gates remain open. See [audit](production/desktop-integration-audit-20260927.md). Four Aetheria JSON files had tool-output wrappers; wrappers were removed after verifying the data matches the desktop source. Six AssetForge tests passed.

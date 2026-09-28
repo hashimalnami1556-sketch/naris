@@ -1,0 +1,72 @@
+{
+    "generated_at":  "2026-09-24T12:23:54",
+    "project":  "C:\\Users\\Admin\\NARIS\\NARIS.uproject",
+    "blender":  "C:\\Program Files\\Blender Foundation\\Blender 5.2\\blender.exe",
+    "unreal":  "C:\\Program Files\\Epic Games\\UE_5.7\\Engine\\Binaries\\Win64\\UnrealEditor.exe",
+    "source_assets":  {
+                          "references":  34,
+                          "assetforge":  307,
+                          "audio":  198,
+                          "blend":  2
+                      },
+    "imported_assets":  [
+                            {
+                                "Name":  "CHR_AshenVessel_Blockout.uasset",
+                                "Length":  67492
+                            },
+                            {
+                                "Name":  "CHR_CelestialWolf_Blockout.uasset",
+                                "Length":  72273
+                            },
+                            {
+                                "Name":  "ENM_BoneBeast_Blockout.uasset",
+                                "Length":  65284
+                            },
+                            {
+                                "Name":  "ENV_AshenGround.uasset",
+                                "Length":  64750
+                            },
+                            {
+                                "Name":  "ENV_GateLintel.uasset",
+                                "Length":  65151
+                            },
+                            {
+                                "Name":  "ENV_GatePillar.uasset",
+                                "Length":  65159
+                            },
+                            {
+                                "Name":  "ENV_GatePillar_001.uasset",
+                                "Length":  65223
+                            }
+                        ],
+    "pipeline_files":  [
+                           {
+                               "FullName":  "C:\\Users\\Admin\\NARIS\\Pipeline\\Blender\\build_master_scene.py",
+                               "Length":  2169
+                           },
+                           {
+                               "FullName":  "C:\\Users\\Admin\\NARIS\\Pipeline\\Blender\\export_to_unreal.py",
+                               "Length":  615
+                           },
+                           {
+                               "FullName":  "C:\\Users\\Admin\\NARIS\\Pipeline\\Blender\\refresh_export.py",
+                               "Length":  805
+                           },
+                           {
+                               "FullName":  "C:\\Users\\Admin\\NARIS\\Pipeline\\Exchange\\FBX\\NARIS_Blockout.fbx",
+                               "Length":  32124
+                           },
+                           {
+                               "FullName":  "C:\\Users\\Admin\\NARIS\\Pipeline\\Unreal\\build_blockout_level.py",
+                               "Length":  1366
+                           },
+                           {
+                               "FullName":  "C:\\Users\\Admin\\NARIS\\Pipeline\\Unreal\\import_exchange.py",
+                               "Length":  631
+                           },
+                           {
+                               "FullName":  "C:\\Users\\Admin\\NARIS\\Pipeline\\Unreal\\launch_and_import.ps1",
+                               "Length":  309
+                           }
+                       ]
+}

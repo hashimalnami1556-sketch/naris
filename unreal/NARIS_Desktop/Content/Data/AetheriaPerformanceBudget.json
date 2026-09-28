@@ -1,0 +1,35 @@
+{
+  "version": 1,
+  "target": {
+    "resolution": "1920x1080",
+    "fps": 60,
+    "gpuClass": "GTX1660",
+    "activeEnemies": 20
+  },
+  "budgetMs": {
+    "frame": 16.67,
+    "game": 5.5,
+    "render": 5.5,
+    "gpu": 15.5
+  },
+  "systems": {
+    "ai": {
+      "significanceTick": true,
+      "maxSimultaneousAttackers": 2
+    },
+    "animation": {
+      "budgetAllocator": true
+    },
+    "vfx": {
+      "niagaraScalability": true
+    },
+    "world": {
+      "hlod": true,
+      "worldPartition": true,
+      "asyncLoading": true
+    },
+    "transients": {
+      "pooling": true
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "result": "PASS",
+  "zones": 9,
+  "fast_travel_nodes": 5,
+  "encounters": 9,
+  "quests": 3,
+  "objectives": 6,
+  "errors": [],
+  "warnings": []
+}

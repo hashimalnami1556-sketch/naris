@@ -1,0 +1,6 @@
+Gate,Target,Blocking
+CrashFreeSessions,>=99.5%,true
+SaveLoadSoak,100 cycles no corruption,true
+MainQuestCompletable,100%,true
+MissingAssetRefs,0,true
+CriticalBugs,0,true

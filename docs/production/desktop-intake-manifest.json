@@ -1,0 +1,1244 @@
+{
+  "date": "2026-09-27",
+  "desktop_commit": "7e9904ae8f3f426ab0f5895fad5910b41853c03b",
+  "scope": "Review candidate, not canonical W04 migration",
+  "files": [
+    {
+      "path": "Config/DefaultEngine.ini",
+      "bytes": 782,
+      "sha256": "e07999d610b3ebf4056ca34409ce299d5237f75d7e954d9cd5e91528228fff66"
+    },
+    {
+      "path": "Config/DefaultGame.ini",
+      "bytes": 172,
+      "sha256": "091e8aacbb556be0025278f7016a44cf4439404635ff9bd7f301c259636f647c"
+    },
+    {
+      "path": "Config/DefaultGameUserSettings.ini",
+      "bytes": 541,
+      "sha256": "ecbf82b7c73a6cae0a721043aa4623ea47005a02b0f78eb8e11adb71efeb15ae"
+    },
+    {
+      "path": "Config/DefaultInput.ini",
+      "bytes": 11719,
+      "sha256": "8d43ea0f3acd853eedda7b37bf808a796da67f8728edc177e06fd036989a4311"
+    },
+    {
+      "path": "Content/Art/Characters/Rigged/AshenVessel/AN_Ashen_Attack.uasset",
+      "bytes": 103832,
+      "sha256": "36fdb9809673ff8320d7b5ff5735b648c31ee4db0574778586f683043df5a445"
+    },
+    {
+      "path": "Content/Art/Characters/Rigged/AshenVessel/AN_Ashen_Idle.uasset",
+      "bytes": 102718,
+      "sha256": "6c518596412741b4e7a77e723575ad32e3b04a82c34ab27994c45cc8760deba3"
+    },
+    {
+      "path": "Content/Art/Characters/Rigged/AshenVessel/AN_Ashen_Walk.uasset",
+      "bytes": 103294,
+      "sha256": "62e65043dd4380f8984a3ffe14b571e0ead421f24498539f15d5122138cb4966"
+    },
+    {
+      "path": "Content/Art/Characters/Rigged/AshenVessel/SK_AshenVessel.uasset",
+      "bytes": 92805,
+      "sha256": "345176e4948a940823afc1cb85358ce7add1a351985c7ab9388dc5006c589025"
+    },
+    {
+      "path": "Content/Art/Characters/Rigged/AshenVessel/SK_AshenVessel_Skeleton.uasset",
+      "bytes": 5722,
+      "sha256": "d80568c0e3423b46e8572fcad1363dbd30d5cbdd7ff9573e1529344ec69ae9cd"
+    },
+    {
+      "path": "Content/Art/Characters/Rigged/BoneBeast/AN_Beast_Idle.uasset",
+      "bytes": 99204,
+      "sha256": "30cdae04e6b43ba59b6f33d5bae1d9ed25a39eac8941237467d1e1425b537fc6"
+    },
+    {
+      "path": "Content/Art/Characters/Rigged/BoneBeast/AN_Beast_Run.uasset",
+      "bytes": 99831,
+      "sha256": "6831ab43646859bab099608765f2f94f21b693227eb0596ab151a0fd98786dbb"
+    },
+    {
+      "path": "Content/Art/Characters/Rigged/BoneBeast/AN_Beast_Swipe.uasset",
+      "bytes": 99985,
+      "sha256": "83dbe6b8c82049f111def0868e58213ccfca5c5f267079bfc8a9bc9bbe6c53e6"
+    },
+    {
+      "path": "Content/Art/Characters/Rigged/BoneBeast/SK_BoneBeast.uasset",
+      "bytes": 89792,
+      "sha256": "4f0cbd3657d9cf9d03be2f649ab0ad76d2f990a180f3b23fbcfa973417080bad"
+    },
+    {
+      "path": "Content/Art/Characters/Rigged/BoneBeast/SK_BoneBeast_Skeleton.uasset",
+      "bytes": 5312,
+      "sha256": "39507ef1405ecb2a682c8086c8fb12a26ae0b60b6eba42439c12919df2c15460"
+    },
+    {
+      "path": "Content/Art/Characters/Rigged/CelestialWolf/AN_Wolf_Bite.uasset",
+      "bytes": 94903,
+      "sha256": "0d3c0d8732af2f2a755a6901869120b31e281f93e24822ba14c9994b7fdf4e93"
+    },
+    {
+      "path": "Content/Art/Characters/Rigged/CelestialWolf/AN_Wolf_Idle.uasset",
+      "bytes": 96439,
+      "sha256": "cc0f6dceea04598b8a9b55e600264b54a2ab07ef5f9dd51c4568d44769e7c5a7"
+    },
+    {
+      "path": "Content/Art/Characters/Rigged/CelestialWolf/AN_Wolf_Run.uasset",
+      "bytes": 96682,
+      "sha256": "41b83dfc1e3b3f236861d331657820727bd95df259563d0184dffc47a69c3ef5"
+    },
+    {
+      "path": "Content/Art/Characters/Rigged/CelestialWolf/SK_CelestialWolf.uasset",
+      "bytes": 87399,
+      "sha256": "ba2d4cbb885c4ff3e3b359e7be61911187af86607f74bfeab73bf8dbccbfb0f0"
+    },
+    {
+      "path": "Content/Art/Characters/Rigged/CelestialWolf/SK_CelestialWolf_Skeleton.uasset",
+      "bytes": 5038,
+      "sha256": "f97e080b5c2b3c84949438aafaab4805bf380cd152b51798d9f0a92ef520bf10"
+    },
+    {
+      "path": "Content/Art/Characters/RiggedV2/AshenVessel/AN_Ashen_Attack_Heavy.uasset",
+      "bytes": 123460,
+      "sha256": "ac8bc429c1dc7f96b992c3cb09699215528cf30e633dea978c9d3631a3972c19"
+    },
+    {
+      "path": "Content/Art/Characters/RiggedV2/AshenVessel/AN_Ashen_Attack_Light.uasset",
+      "bytes": 121994,
+      "sha256": "329bf59d9a91d93b9950fa3be84098ead7df60665d77a3e321e3b2ab02e6db37"
+    },
+    {
+      "path": "Content/Art/Characters/RiggedV2/AshenVessel/AN_Ashen_Dodge.uasset",
+      "bytes": 120565,
+      "sha256": "03634f003aa3f7645012ece3bc8ad76abfe5c270c38eb37a2d920ac8bbc7c776"
+    },
+    {
+      "path": "Content/Art/Characters/RiggedV2/AshenVessel/AN_Ashen_HitReact.uasset",
+      "bytes": 120536,
+      "sha256": "4d34c1329292c17cd293dcfe71eb4990af43cb5f0570fb9cf9129d1a5dac16a9"
+    },
+    {
+      "path": "Content/Art/Characters/RiggedV2/AshenVessel/AN_Ashen_Idle.uasset",
+      "bytes": 120809,
+      "sha256": "539c48831ec89c72732878e0a3c57fd86717017b99c0404c88aa23bec760ea7b"
+    },
+    {
+      "path": "Content/Art/Characters/RiggedV2/AshenVessel/AN_Ashen_Walk.uasset",
+      "bytes": 121395,
+      "sha256": "8cb7847c878e64730400d0245ee866a22810720226a4891b656ec6fa1e5ed410"
+    },
+    {
+      "path": "Content/Art/Characters/RiggedV2/AshenVessel/SK_AshenVessel.uasset",
+      "bytes": 107198,
+      "sha256": "60523ea947afa224b778c8b59b9c2d659de5fb798599dbbd9e3a1b2627cd3b53"
+    },
+    {
+      "path": "Content/Art/Characters/RiggedV2/AshenVessel/SK_AshenVessel_Skeleton.uasset",
+      "bytes": 9747,
+      "sha256": "f7125ef2e0c0aacd02b9439f372b5c0c01400edefeab6142945ff115eaf8e3f2"
+    },
+    {
+      "path": "Content/Art/Characters/RiggedV2/BoneBeast/AN_Beast_Idle.uasset",
+      "bytes": 116314,
+      "sha256": "1a55f3094015e92c86f15a7ed8b6862efcdb84f00519dc96eae6c76e6f726aca"
+    },
+    {
+      "path": "Content/Art/Characters/RiggedV2/BoneBeast/AN_Beast_Roar.uasset",
+      "bytes": 116568,
+      "sha256": "ad27247410ffe09519eea4dce2fa84cce8bbf5c1b5d47ce7f9309300ecef9c0a"
+    },
+    {
+      "path": "Content/Art/Characters/RiggedV2/BoneBeast/AN_Beast_Run.uasset",
+      "bytes": 115663,
+      "sha256": "18ab3113679f449a2e9e8c720951c4b69f5b4afe22e0ae9372572853ce63ab82"
+    },
+    {
+      "path": "Content/Art/Characters/RiggedV2/BoneBeast/AN_Beast_Stunned.uasset",
+      "bytes": 115593,
+      "sha256": "3693121d3125913ca3472b86b46288bb7b2ccd0c6c9aa4070c15c311ba65731b"
+    },
+    {
+      "path": "Content/Art/Characters/RiggedV2/BoneBeast/AN_Beast_Swipe.uasset",
+      "bytes": 117097,
+      "sha256": "6171073a852016a44d9c07e2992287df5157b08c939e7115980a34b47c078229"
+    },
+    {
+      "path": "Content/Art/Characters/RiggedV2/BoneBeast/AN_Beast_TailSweep.uasset",
+      "bytes": 116575,
+      "sha256": "c0b02560d67f9f754f7e63ad3bfe6fb69b636ffa227dba878109c7e894b1e523"
+    },
+    {
+      "path": "Content/Art/Characters/RiggedV2/BoneBeast/SK_BoneBeast.uasset",
+      "bytes": 99341,
+      "sha256": "4d97e8048cbd55f6a994d965e2647762e99e82af4ce1462c240e5c7974840e51"
+    },
+    {
+      "path": "Content/Art/Characters/RiggedV2/BoneBeast/SK_BoneBeast_Skeleton.uasset",
+      "bytes": 9080,
+      "sha256": "7039d0467510e6493e128ae2375904bb9e607eff6d7ddad626d305d4f9484661"
+    },
+    {
+      "path": "Content/Art/Characters/RiggedV2/CelestialWolf/AN_Wolf_Bite.uasset",
+      "bytes": 105892,
+      "sha256": "1907b72ee3c0397cb5bf932a3b782de97f74971ecc19207645d61476113fc01f"
+    },
+    {
+      "path": "Content/Art/Characters/RiggedV2/CelestialWolf/AN_Wolf_Dash.uasset",
+      "bytes": 105701,
+      "sha256": "4c3b951032067001180486f8ad7195963b9815bd03dee32d44ceb2641ad624a7"
+    },
+    {
+      "path": "Content/Art/Characters/RiggedV2/CelestialWolf/AN_Wolf_Idle.uasset",
+      "bytes": 107429,
+      "sha256": "7e33e1e5d6862c60726a091ec72137a1ed7269adbcd16dc4141d2e30157f2fb2"
+    },
+    {
+      "path": "Content/Art/Characters/RiggedV2/CelestialWolf/AN_Wolf_Roar.uasset",
+      "bytes": 106014,
+      "sha256": "f40d6ab2411238fff3c254e30cec7c7888af77635375f18dc248d95c84419214"
+    },
+    {
+      "path": "Content/Art/Characters/RiggedV2/CelestialWolf/AN_Wolf_Run.uasset",
+      "bytes": 106397,
+      "sha256": "77ef155131990d09948bb3a17ef531c353dbaaa5ee580a58f20246a7a0b7a71b"
+    },
+    {
+      "path": "Content/Art/Characters/RiggedV2/CelestialWolf/SK_CelestialWolf.uasset",
+      "bytes": 94719,
+      "sha256": "d31adf9b80fac79e35dbbf4051e9bbb7116e154150d6008b0feb236e14f876b7"
+    },
+    {
+      "path": "Content/Art/Characters/RiggedV2/CelestialWolf/SK_CelestialWolf_Skeleton.uasset",
+      "bytes": 8375,
+      "sha256": "3789c7f901bf03e463e8864a4f5d7671f0ccf0d45e973e35cc1013228ccd7f84"
+    },
+    {
+      "path": "Content/Art/Characters/RiggedV4/AshenVessel/AN_Ashen_Attack_Heavy.uasset",
+      "bytes": 127417,
+      "sha256": "4a4a0c3b8af9a14563c36ec6aa0e0d6499736f7e844efbdf6df92a290b5a2e4e"
+    },
+    {
+      "path": "Content/Art/Characters/RiggedV4/AshenVessel/AN_Ashen_Attack_Light.uasset",
+      "bytes": 126463,
+      "sha256": "42ec221cd242d1b9e3f2680376e03133b6efd7b9d611e0104f44fa9994b8d139"
+    },
+    {
+      "path": "Content/Art/Characters/RiggedV4/AshenVessel/AN_Ashen_Dodge.uasset",
+      "bytes": 125928,
+      "sha256": "96740b2246550ab1a42932618a4892d4de00bfbecf7b773dc8f09359a73eda15"
+    },
+    {
+      "path": "Content/Art/Characters/RiggedV4/AshenVessel/AN_Ashen_HitReact.uasset",
+      "bytes": 125126,
+      "sha256": "d5ea751ab3bb892e44e3a30fc7436f892b5c31a3135f6e3b25dbfb3c6098e7bb"
+    },
+    {
+      "path": "Content/Art/Characters/RiggedV4/AshenVessel/AN_Ashen_Idle.uasset",
+      "bytes": 125726,
+      "sha256": "77936f603834b30adae0bde9916444dcd2619f1f6d3a9d42598799a937be8769"
+    },
+    {
+      "path": "Content/Art/Characters/RiggedV4/AshenVessel/AN_Ashen_Parry.uasset",
+      "bytes": 127261,
+      "sha256": "68d7752b704edb06665619c9fa03a726ef54f67822abc38e93ab74bea31a13d5"
+    },
+    {
+      "path": "Content/Art/Characters/RiggedV4/AshenVessel/AN_Ashen_Resonance.uasset",
+      "bytes": 132376,
+      "sha256": "b683ee904e3a7498201fcb1edeef94c8ca4a72f948c89a881d60ca6cda9ab051"
+    },
+    {
+      "path": "Content/Art/Characters/RiggedV4/AshenVessel/AN_Ashen_Run.uasset",
+      "bytes": 124824,
+      "sha256": "71c277b98ddc4cd88caa91162dae9485bb4d745f391c93f6d37f604044bf7e3f"
+    },
+    {
+      "path": "Content/Art/Characters/RiggedV4/AshenVessel/AN_Ashen_Walk.uasset",
+      "bytes": 125352,
+      "sha256": "33e67861e816317027bd7d271fba1f2a20f2613b3287fd6dbd401fd2557d778c"
+    },
+    {
+      "path": "Content/Art/Characters/RiggedV4/AshenVessel/SK_AshenVessel.uasset",
+      "bytes": 107505,
+      "sha256": "d58471ba534f1331c5306b7ee7bae1a1ec179f2a5f18216967c2d7afbf8defa4"
+    },
+    {
+      "path": "Content/Art/Characters/RiggedV4/AshenVessel/SK_AshenVessel_Skeleton.uasset",
+      "bytes": 10186,
+      "sha256": "8cb34ee669d09aa24f7ed1554a087831b41c698c6c5c457c2c4210837a837823"
+    },
+    {
+      "path": "Content/Art/Characters/RiggedV4/BoneBeast/AN_Beast_Enrage.uasset",
+      "bytes": 121766,
+      "sha256": "9ca8f45122d8942f13b1285560f9538d6229332ceb4f781bf60bc366437cb107"
+    },
+    {
+      "path": "Content/Art/Characters/RiggedV4/BoneBeast/AN_Beast_Idle.uasset",
+      "bytes": 119263,
+      "sha256": "5e132d22146b6d6f7e72551724bf8a795b429814d5c4f1e3c7e8cc3152c5c714"
+    },
+    {
+      "path": "Content/Art/Characters/RiggedV4/BoneBeast/AN_Beast_Roar.uasset",
+      "bytes": 118557,
+      "sha256": "7c4297ec11bbcdeb480a332128ceae855ea1aa0057b9ed3e9482478a63efbc08"
+    },
+    {
+      "path": "Content/Art/Characters/RiggedV4/BoneBeast/AN_Beast_Run.uasset",
+      "bytes": 117895,
+      "sha256": "002f27593ce52b54dea4e340d7063397e122f80374adf7613e8bb47b26a7f169"
+    },
+    {
+      "path": "Content/Art/Characters/RiggedV4/BoneBeast/AN_Beast_Stunned.uasset",
+      "bytes": 117582,
+      "sha256": "bda1468effc104450f180fafd39dd72804b333ff8b93319e754a353366fb7292"
+    },
+    {
+      "path": "Content/Art/Characters/RiggedV4/BoneBeast/AN_Beast_Swipe.uasset",
+      "bytes": 119329,
+      "sha256": "496e11579f5781cc40defa1acdfdbe15888558002b1b76a30482bf33f6747a53"
+    },
+    {
+      "path": "Content/Art/Characters/RiggedV4/BoneBeast/AN_Beast_TailSweep.uasset",
+      "bytes": 119511,
+      "sha256": "9b016728ba3847c5856c67a316e081265540dfc1be9d6f24ec4684707a110760"
+    },
+    {
+      "path": "Content/Art/Characters/RiggedV4/BoneBeast/SK_BoneBeast.uasset",
+      "bytes": 106588,
+      "sha256": "ce8f06d708d969233967f4c4e0e4c55ee082356625b735fbb2a965327ed3e1b4"
+    },
+    {
+      "path": "Content/Art/Characters/RiggedV4/BoneBeast/SK_BoneBeast_Skeleton.uasset",
+      "bytes": 9622,
+      "sha256": "150072cb60d91a1b6d2de3aa4bcbd68f343247b80d0c80e6b40792cc93715308"
+    },
+    {
+      "path": "Content/Art/Characters/RiggedV4/CelestialWolf/AN_Wolf_Bite.uasset",
+      "bytes": 107783,
+      "sha256": "d10e58f931cb0a92443d2e628adfc480a0ce0fb878b73e8bb7bc4382fde10911"
+    },
+    {
+      "path": "Content/Art/Characters/RiggedV4/CelestialWolf/AN_Wolf_Dash.uasset",
+      "bytes": 107592,
+      "sha256": "642b293a70e1c6f52475c8e03f037163f9c12da6285ffe387417017e16a0cbf7"
+    },
+    {
+      "path": "Content/Art/Characters/RiggedV4/CelestialWolf/AN_Wolf_Idle.uasset",
+      "bytes": 109320,
+      "sha256": "39bf18c3ed9663dec36765f42bf8e934ac1d06779e5fd0efbae4f66b5bc831b2"
+    },
+    {
+      "path": "Content/Art/Characters/RiggedV4/CelestialWolf/AN_Wolf_Roar.uasset",
+      "bytes": 107905,
+      "sha256": "382b5e656c8c2e91827f9d9079b74e509047ce43f4b10b4262e7d7004ad4f3a4"
+    },
+    {
+      "path": "Content/Art/Characters/RiggedV4/CelestialWolf/AN_Wolf_Run.uasset",
+      "bytes": 108288,
+      "sha256": "a354dea6e271e695dcdcfb1dd252528cf5480a275fc1f36760751597294ebaed"
+    },
+    {
+      "path": "Content/Art/Characters/RiggedV4/CelestialWolf/AN_Wolf_SoulVision.uasset",
+      "bytes": 109391,
+      "sha256": "47c905fe7d8814347c97222e887a249b4e7d2ca6173a66916812d4ce963ce088"
+    },
+    {
+      "path": "Content/Art/Characters/RiggedV4/CelestialWolf/SK_CelestialWolf.uasset",
+      "bytes": 101972,
+      "sha256": "aa35574c9be00630b652394c12047b24c40f5f72df5c94a9ec8a67e5ae4e712d"
+    },
+    {
+      "path": "Content/Art/Characters/RiggedV4/CelestialWolf/SK_CelestialWolf_Skeleton.uasset",
+      "bytes": 8910,
+      "sha256": "366c97ca09671137fa358c71ba52981b02103c659c0a656be3cbca481be89de2"
+    },
+    {
+      "path": "Content/Art/Imported/CHR_AshenVessel_Blockout.uasset",
+      "bytes": 67492,
+      "sha256": "82fff76e42de258cc8094c315a7c7db6bbde078952c0f3dd36ccad5380e491c8"
+    },
+    {
+      "path": "Content/Art/Imported/CHR_CelestialWolf_Blockout.uasset",
+      "bytes": 72273,
+      "sha256": "3b151b7786bffbe817ad7bc6baa9ab67cb49f4cb117d23f7b13ae6a26daa03ce"
+    },
+    {
+      "path": "Content/Art/Imported/ENM_BoneBeast_Blockout.uasset",
+      "bytes": 65284,
+      "sha256": "ea7c4ac3a184772d0c8d1fc2a32be2e89966ccf3af32af440382422d768bc651"
+    },
+    {
+      "path": "Content/Art/Imported/ENV_AshenGround.uasset",
+      "bytes": 64750,
+      "sha256": "73dd1dbe562f544f8872c1b0505b0ab2f46b5d4ca2d2dca1304b8035d6393a7a"
+    },
+    {
+      "path": "Content/Art/Imported/ENV_GateLintel.uasset",
+      "bytes": 65151,
+      "sha256": "33597a551bde6586096dbb9f3186123578394d70a7aaa246daa12692a5c810b9"
+    },
+    {
+      "path": "Content/Art/Imported/ENV_GatePillar.uasset",
+      "bytes": 65159,
+      "sha256": "1939cb037a811395492b245895bd9c661357c1350b859472eaff73ef1dc91167"
+    },
+    {
+      "path": "Content/Art/Imported/ENV_GatePillar_001.uasset",
+      "bytes": 65223,
+      "sha256": "3c3e3f4bcd99b5b61df8c3972ff5a89f98d1975e53389e4a0c00826387649f89"
+    },
+    {
+      "path": "Content/Audio/SFX/SFX_Attack_Whoosh.uasset",
+      "bytes": 46689,
+      "sha256": "e845220816545d3f46351d111468a46b9bea5e02dbd10823dab33414ba2e8a7b"
+    },
+    {
+      "path": "Content/Audio/SFX/SFX_BossPhase.uasset",
+      "bytes": 57693,
+      "sha256": "13645ae744bead75db8484bef54fad36ab2abf92a37d9acb6d43677eef57b1a8"
+    },
+    {
+      "path": "Content/Audio/SFX/SFX_Dodge.uasset",
+      "bytes": 57616,
+      "sha256": "760b0ce00c6e073a96cb414b2785d878aa474e71e8986dcaed6e087561f1d72e"
+    },
+    {
+      "path": "Content/Audio/SFX/SFX_Hit_Impact.uasset",
+      "bytes": 32246,
+      "sha256": "f4f9cde01ff3ca11563c4151eac5c9730b45aa268411c47629691d4bcfeb4e49"
+    },
+    {
+      "path": "Content/Audio/SFX/SFX_Load.uasset",
+      "bytes": 33305,
+      "sha256": "29a6839d447d34d7aeedb2fef473990c7ebfc9f55b7d34235fbb7a340c07dcb5"
+    },
+    {
+      "path": "Content/Audio/SFX/SFX_Parry.uasset",
+      "bytes": 37904,
+      "sha256": "e27b87cd075ea96a1108e24c056d0d521dee798d6a2f90bcdd32ed4e994adcef"
+    },
+    {
+      "path": "Content/Audio/SFX/SFX_Pickup.uasset",
+      "bytes": 31454,
+      "sha256": "25e904d996c9fb3e2b92d817966d6c50835c7a210628859a06e86a95814030a1"
+    },
+    {
+      "path": "Content/Audio/SFX/SFX_QuestComplete.uasset",
+      "bytes": 41965,
+      "sha256": "63c8d5ad0411d3157047493732fbf05d9ceed7472d11daea5839fd413fd3df6a"
+    },
+    {
+      "path": "Content/Audio/SFX/SFX_Save.uasset",
+      "bytes": 31725,
+      "sha256": "61201d4e631f6b36a197664936fd8b870be80ff55ba07d7efac7fa59d2b0b984"
+    },
+    {
+      "path": "Content/Data/AetheriaAudioStates.json",
+      "bytes": 568,
+      "sha256": "0b0ce9fc2e2d6386718c000d91a3be07ea82a8e02daa41f6e214498daf7469b6"
+    },
+    {
+      "path": "Content/Data/AetheriaBossRoster.json",
+      "bytes": 2451,
+      "sha256": "7307af80a130aa390fe886518e8b21fa44b94b692cfc785163ccac628d0a1e1e"
+    },
+    {
+      "path": "Content/Data/AetheriaPerformanceBudget.json",
+      "bytes": 590,
+      "sha256": "08988dac40ee22111adab8ec0b57efce0fef31447d979d2befc71061d7c7cc4e"
+    },
+    {
+      "path": "Content/Data/AetheriaRealms.json",
+      "bytes": 1306,
+      "sha256": "44cbcfce04a5c40b9c6187a9012b7a21dfdab4e7aba26d7b9b647b43f8ca8bc8"
+    },
+    {
+      "path": "Content/Data/DT_AIProfiles.csv",
+      "bytes": 394,
+      "sha256": "23355f9a785939a6ab8172d97702be83bed671ade36e2e1f74aa27843cea1da5"
+    },
+    {
+      "path": "Content/Data/DT_Accessibility.csv",
+      "bytes": 119,
+      "sha256": "8578a36546eaf6f26bb66f32d93e4058a3d99ce28ca4925982dcf62319dcfa98"
+    },
+    {
+      "path": "Content/Data/DT_Achievements.csv",
+      "bytes": 175,
+      "sha256": "75c03684af6a4c6e8c3d8272fd06ea7f094a0f836ad4eddc6d673f433be4c39b"
+    },
+    {
+      "path": "Content/Data/DT_Attacks.csv",
+      "bytes": 593,
+      "sha256": "b92f9e7234e0a2419ae4b9677eed6dcf41578019f42f3fe530093c56cce4e4de"
+    },
+    {
+      "path": "Content/Data/DT_AudioStates.csv",
+      "bytes": 182,
+      "sha256": "7202a52d43c6acec6b300e5abe1d971b89a0db26825165546f6e59159015a319"
+    },
+    {
+      "path": "Content/Data/DT_Biomes.csv",
+      "bytes": 493,
+      "sha256": "776e1759fbf69c9f13e63ce26ab23a035e1ac8e77951161f1b1da7e4a468244e"
+    },
+    {
+      "path": "Content/Data/DT_BossPhases.csv",
+      "bytes": 362,
+      "sha256": "18b400edc603c483d7d42618a7bbdde382e3c629b920d9ea81cbbce8413c0982"
+    },
+    {
+      "path": "Content/Data/DT_Codex.csv",
+      "bytes": 331,
+      "sha256": "445c1a8c6849d687f7446ad6e71b4e8b48132f5d9adae1d5f3c7ede84752b4ec"
+    },
+    {
+      "path": "Content/Data/DT_CraftingRecipes.csv",
+      "bytes": 111,
+      "sha256": "78ff166ea89c9929b74308034c4e4fd0a2d3199db60c72681be8277ba5866a7f"
+    },
+    {
+      "path": "Content/Data/DT_DialogueChoices.csv",
+      "bytes": 308,
+      "sha256": "9971a867ae0fcfbb316026365f25ef08346c37032840ed1dc320e57e03bf3753"
+    },
+    {
+      "path": "Content/Data/DT_DialogueNodes.csv",
+      "bytes": 382,
+      "sha256": "513adbf5cde63a302b54b5b1c5bd0c9959322c33253e25bbdf83d5efbb4b4dae"
+    },
+    {
+      "path": "Content/Data/DT_DungeonArchetypes.csv",
+      "bytes": 225,
+      "sha256": "b14dfbd238ef5eddcb64226370fcd2703c9dffb265cc045dfa2839afa7b03bcd"
+    },
+    {
+      "path": "Content/Data/DT_DynamicEvents.csv",
+      "bytes": 323,
+      "sha256": "4f91113eb10da39e0f385fd9cb2eee266c7c533e738fe8586dfe1dc2a70fcf2d"
+    },
+    {
+      "path": "Content/Data/DT_EncounterArchetypes.csv",
+      "bytes": 743,
+      "sha256": "8057abc3972e2a0f83783d3e1f8750596a0d7dc55b8b2b2a1558df67ea58f4a8"
+    },
+    {
+      "path": "Content/Data/DT_Factions.csv",
+      "bytes": 176,
+      "sha256": "0f8c28524c379501af10364b718688c8ee738ade0899e1c3a15e9ea4982bffc9"
+    },
+    {
+      "path": "Content/Data/DT_FastTravelNodes.csv",
+      "bytes": 420,
+      "sha256": "f65f2fd9a7ce322cb0f495556f2758c7c500a70374bdefc11447d2dc8b83e7d9"
+    },
+    {
+      "path": "Content/Data/DT_HLODPolicy.csv",
+      "bytes": 322,
+      "sha256": "fc730beadff309af830ecf3908e478626245a5dbefbfc92fbbb6e59a6f6a23bd"
+    },
+    {
+      "path": "Content/Data/DT_Items.csv",
+      "bytes": 238,
+      "sha256": "46e3b62723d0209bd8fb391c76d73e29af3eb3a961d2c90f25a9e9b46387981e"
+    },
+    {
+      "path": "Content/Data/DT_LootPools.csv",
+      "bytes": 187,
+      "sha256": "99bfa68c0433430c8081826ca8142a0adbbb7e89a51c68ce31e93007b7f60c04"
+    },
+    {
+      "path": "Content/Data/DT_NPCSchedules.csv",
+      "bytes": 247,
+      "sha256": "fef3aa65e997cf3379eabf9602522943605dcca502cab38decb0b133c5fc65f2"
+    },
+    {
+      "path": "Content/Data/DT_Progression.csv",
+      "bytes": 110,
+      "sha256": "43550e8ced7ebd29aa8b91eb1f0aef060a8f159336ed0674e65614488ffc00d0"
+    },
+    {
+      "path": "Content/Data/DT_QuestObjectives.csv",
+      "bytes": 481,
+      "sha256": "3e5072b607906dfd5a690b9d82213a82baa4b6d3ad6ce2b35168a1ec816bdfb5"
+    },
+    {
+      "path": "Content/Data/DT_Quests.csv",
+      "bytes": 403,
+      "sha256": "89404810d051946760d205197cb4342c1abec05b35184c3e5f7bfadf9a273622"
+    },
+    {
+      "path": "Content/Data/DT_ReleaseGates.csv",
+      "bytes": 179,
+      "sha256": "b4dd300219bc5dbf88f2f048b3cc9d0a4c6c30bf0f4cec9110582f60f75b909f"
+    },
+    {
+      "path": "Content/Data/DT_RiverProfiles.csv",
+      "bytes": 206,
+      "sha256": "d791fe64fa388a60e5202f3ef509c2df42f9ca97fe1c7403b41ffe34e883109c"
+    },
+    {
+      "path": "Content/Data/DT_Scalability.csv",
+      "bytes": 114,
+      "sha256": "68b811596c4cf25df0217a15c49e4c7784ea363a33d48996da3735a34bb7b65e"
+    },
+    {
+      "path": "Content/Data/DT_Settlements.csv",
+      "bytes": 237,
+      "sha256": "67a7188139c533f6ed162d3d5f2cbcbfcced818d496a1540946e20b4c2a77f14"
+    },
+    {
+      "path": "Content/Data/DT_TerrainProfiles.csv",
+      "bytes": 257,
+      "sha256": "2dc93894e5c2939969c1fca662d177cf96c16626f8ba26dddeefb914e09dc28d"
+    },
+    {
+      "path": "Content/Data/DT_UIRoutes.csv",
+      "bytes": 189,
+      "sha256": "59b3b68f2a083392d00b78f98d67bccac1c3764e7363691dbbb330908e9c1090"
+    },
+    {
+      "path": "Content/Data/DT_VFXRegistry.csv",
+      "bytes": 155,
+      "sha256": "35f5d67cfa83a4ab949d5187eeeb062640be135b1f45a3138287180323be8ace"
+    },
+    {
+      "path": "Content/Data/DT_WeatherProfiles.csv",
+      "bytes": 281,
+      "sha256": "1662e8cd008b73b95e7e0e85b11b9ba16423983a10d474023966c43a2336ce3b"
+    },
+    {
+      "path": "Content/Data/DT_WorldConsequences.csv",
+      "bytes": 307,
+      "sha256": "f8093529a10c1e4aeb94fb9af1f6449577975532a409779f80f19aaaef1168c7"
+    },
+    {
+      "path": "Content/Data/DT_WorldZones.csv",
+      "bytes": 868,
+      "sha256": "ebf82f028f5bf566b9fd3dc8893041a32731a0f1f15d4d665ec2af72d7193acc"
+    },
+    {
+      "path": "Content/World/AshenGate/Data/DT_AshenGate_Production.csv",
+      "bytes": 629,
+      "sha256": "f25ecdb29df168d3e544850e8a392b7d98dac3b9b779b0c0cffd756d5e66753a"
+    },
+    {
+      "path": "Content/World/Maps/L_AshenForest_VerticalSlice.umap",
+      "bytes": 26593,
+      "sha256": "f393dd0d67bec5d254502b846877bf0b0d97e754cee549bf754a5c398121f91f"
+    },
+    {
+      "path": "MANIFEST.json",
+      "bytes": 16863,
+      "sha256": "a328eaa5a0ccd3b8bbe7d6ff822bcb557577faf13a4ba861eceea8ad7a05307b"
+    },
+    {
+      "path": "MANIFEST_RUNTIME.json",
+      "bytes": 3471,
+      "sha256": "85e6e7311d207800d98b5575d839e8b9f63480ac50c1d773ff4acf72f34ebe7d"
+    },
+    {
+      "path": "NARIS.uproject",
+      "bytes": 632,
+      "sha256": "7d1e48a8797d1773eb8258cae74ed1abfc6ef82724440372bb21517725ecca19"
+    },
+    {
+      "path": "Pipeline/Blender/DUAL_ENGINE_EXPORT_V3.json",
+      "bytes": 1973,
+      "sha256": "4f85ff602715ed70219fb5c3b0656f13508c21408b87270a9cc2a7ad941a7ae3"
+    },
+    {
+      "path": "Pipeline/Blender/RIG_EXPORT_REPORT.json",
+      "bytes": 979,
+      "sha256": "81e855cd662b63f3b73b184c0ad136a895b2e390570b4bd4d08430179486cd6c"
+    },
+    {
+      "path": "Pipeline/Blender/RIG_EXPORT_REPORT_V2.json",
+      "bytes": 1225,
+      "sha256": "ddefc9897d3fd15af2136dadeb0df89f57951180b948101c9406fef6b2a84a9d"
+    },
+    {
+      "path": "Pipeline/Blender/RIG_UPGRADE_V3_REPORT.json",
+      "bytes": 1640,
+      "sha256": "ae38d6ae25dcfae555ef12750a4500f4d20d116542405101ded06686c7e3e76f"
+    },
+    {
+      "path": "Pipeline/Blender/build_master_scene.py",
+      "bytes": 2236,
+      "sha256": "4788ae9dedecad5299750dca049d5eee34ea5dd6faf5aa230446a3630276d698"
+    },
+    {
+      "path": "Pipeline/Blender/build_rigged_characters.py",
+      "bytes": 9098,
+      "sha256": "db7fef45e441396d68dad330249097120de64bd630312f21ff1aff88e87fdc85"
+    },
+    {
+      "path": "Pipeline/Blender/build_rigged_characters_v2.py",
+      "bytes": 12213,
+      "sha256": "de0666ba1179535b6fadd255c68c9e5616fbbc20bc7a7069fe955f09c8b2d7a2"
+    },
+    {
+      "path": "Pipeline/Blender/export_dual_engine_v3.py",
+      "bytes": 2506,
+      "sha256": "5a683a9e4505e79a01c56a9953fa5138470dbf8c3bf22dff8e7c5c529fedf9a4"
+    },
+    {
+      "path": "Pipeline/Blender/export_to_unreal.py",
+      "bytes": 634,
+      "sha256": "eb521f4278c45e55b1c0fce80b4c0d11f95e799128589c047db322619a6d7c64"
+    },
+    {
+      "path": "Pipeline/Blender/refresh_export.py",
+      "bytes": 831,
+      "sha256": "f9a806c5c018457b8d7cd697c8947329b036153509d0fed7a080d59d9d65acb4"
+    },
+    {
+      "path": "Pipeline/Blender/upgrade_rig_v3.py",
+      "bytes": 3907,
+      "sha256": "5e6fc8096354663d59fc6767f1b360681ae975da05681bdd519adb89850102cc"
+    },
+    {
+      "path": "Pipeline/Unreal/RIG_IMPORT_REPORT_V2.json",
+      "bytes": 5244,
+      "sha256": "404aacfd41f9b5728acf1803db610f82c30e9a401e7984869b37187487203384"
+    },
+    {
+      "path": "Pipeline/Unreal/RIG_IMPORT_REPORT_V4.json",
+      "bytes": 5304,
+      "sha256": "94bafd1730ad9fc07f5d48bca28fe53db752d7099cb80ec9d2d81c328a3986a7"
+    },
+    {
+      "path": "Pipeline/Unreal/build_blockout_level.py",
+      "bytes": 1399,
+      "sha256": "cf18b8aec0e5d6ec0cf6ef18c205d11158a1d8489a20662d4333571784e5de6d"
+    },
+    {
+      "path": "Pipeline/Unreal/build_vertical_slice.py",
+      "bytes": 1349,
+      "sha256": "7cda30244e8a019586d368a2053469e6e02917eee6b059a56ef47162016685c7"
+    },
+    {
+      "path": "Pipeline/Unreal/diagnose_runtime_map.py",
+      "bytes": 886,
+      "sha256": "9af30525704c0e5a65a50f2f4d8b382ed9b3e27ea8b26cf78dea6672edb60977"
+    },
+    {
+      "path": "Pipeline/Unreal/import_combat_audio.py",
+      "bytes": 1202,
+      "sha256": "27868fb235d6cce789adfb3b7690cd69c7a75f34a7add26e49af97eee9e25915"
+    },
+    {
+      "path": "Pipeline/Unreal/import_exchange.py",
+      "bytes": 650,
+      "sha256": "bd365a9b627e6d33cef1c600d693ad1b264b3f9df9b844aaf222629c005d9ea2"
+    },
+    {
+      "path": "Pipeline/Unreal/import_rigged_characters.py",
+      "bytes": 2822,
+      "sha256": "2cfed57bf714f440d1adba9d8b21569114806ba8316b390c97b823a66baf8e76"
+    },
+    {
+      "path": "Pipeline/Unreal/import_rigged_characters_v2.py",
+      "bytes": 3766,
+      "sha256": "acee62a3d60887c570e4ff7754ea2f666ef8a3ea786d90b64bf60e25ffb5b160"
+    },
+    {
+      "path": "Pipeline/Unreal/import_rigged_characters_v4.py",
+      "bytes": 3757,
+      "sha256": "80875c77dc88d65f4dbc7d7f5d70670f02cda1a51ae0249809844c49a804de03"
+    },
+    {
+      "path": "Pipeline/Unreal/inspect_niagara_templates.py",
+      "bytes": 425,
+      "sha256": "eccbce41cde4363417adf192a93baeb5795d2ae9db3440287667a0896883cf56"
+    },
+    {
+      "path": "Pipeline/Unreal/inspect_rigged_assets.py",
+      "bytes": 699,
+      "sha256": "d40aee13f8c35cc7a1a618268fdb96c2b72deea9a6c401ad9f47a27854f3f8fb"
+    },
+    {
+      "path": "Pipeline/Unreal/launch_and_import.ps1",
+      "bytes": 314,
+      "sha256": "01325d7c7115aaaa8bb83b1c89f09f846e1b6e7dad56d4fba3cd1211dcd41cb2"
+    },
+    {
+      "path": "Pipeline/Unreal/normalize_rig_assets.py",
+      "bytes": 2187,
+      "sha256": "ad156f7ae8f4ba40b06f1f2a90a47f0c0140b34548963b8ba0e1c4e02b62b569"
+    },
+    {
+      "path": "Pipeline/Unreal/validate_rigged_characters_v4.py",
+      "bytes": 1309,
+      "sha256": "138206d8fec5cfba45d071f2b0b9b65d12138d3c132902f9b06983ab8238f67b"
+    },
+    {
+      "path": "Source/NARIS.Target.cs",
+      "bytes": 333,
+      "sha256": "9b735ffbb102d197fac82a0882efbfe32afa20f993c8473c9b93b3f553fc5945"
+    },
+    {
+      "path": "Source/NARISEditor.Target.cs",
+      "bytes": 347,
+      "sha256": "98a72cea114f9477e57aa7073f3a02851ad2f275f28d059bff7ffca574e02362"
+    },
+    {
+      "path": "Source/NarisCore/NarisCore.Build.cs",
+      "bytes": 438,
+      "sha256": "c0096aca842584467254465f51497184d8db86bac333dc162d459f35a79adde5"
+    },
+    {
+      "path": "Source/NarisCore/NarisCore.cpp",
+      "bytes": 137,
+      "sha256": "cdecd45500160530ccc507701f315c65b27bea23cf89651f83f3db6a7b2b1f04"
+    },
+    {
+      "path": "Source/NarisCore/NarisCore.h",
+      "bytes": 38,
+      "sha256": "58ce467200ef3b208f7430719a4c23e10ea104b9d8df71f60ce32fef4e7e7154"
+    },
+    {
+      "path": "Source/NarisCore/Private/NarisAttackTokenCoordinator.cpp",
+      "bytes": 2852,
+      "sha256": "c01eb64b6f9e128e98303b6b415008c5fd87ad610fd01444e00167d8ad20b98c"
+    },
+    {
+      "path": "Source/NarisCore/Private/NarisAudioDirectorComponent.cpp",
+      "bytes": 2593,
+      "sha256": "b342b2b9ca4900fc22a7aa4ebb48263186ede74ceaa41f7039dbcddc459a7e3a"
+    },
+    {
+      "path": "Source/NarisCore/Private/NarisBossCharacter.cpp",
+      "bytes": 2831,
+      "sha256": "d3fcff05aca11b08d774a64c9dd4804a1d11da5ef981456dbfe29db1e69c9f40"
+    },
+    {
+      "path": "Source/NarisCore/Private/NarisCameraFeedbackComponent.cpp",
+      "bytes": 1195,
+      "sha256": "31e19abe43dd316f6743b234cab40cf73844962975db5070f5a0f7f18930a735"
+    },
+    {
+      "path": "Source/NarisCore/Private/NarisChapterSubsystem.cpp",
+      "bytes": 965,
+      "sha256": "9fcef065c536cbeb418986ba0404a7402ce824ea4c7b601def756f5473d9b351"
+    },
+    {
+      "path": "Source/NarisCore/Private/NarisCheckpointActor.cpp",
+      "bytes": 1615,
+      "sha256": "644dc76cb4c3c4d5522da4b75cf8c161bd6f4430abda09305637bbaeeaa28256"
+    },
+    {
+      "path": "Source/NarisCore/Private/NarisCodexSubsystem.cpp",
+      "bytes": 274,
+      "sha256": "4e6d484aa07c583ad2fb04773709eefdc5972f60a2a8a521eb1471126e1b3888"
+    },
+    {
+      "path": "Source/NarisCore/Private/NarisCombatComponent.cpp",
+      "bytes": 312,
+      "sha256": "9f5a2b3bca7b0e11ee37a2da616fe387438d711bc1738bc986ea94bea7fd7c03"
+    },
+    {
+      "path": "Source/NarisCore/Private/NarisCompanionCharacter.cpp",
+      "bytes": 3565,
+      "sha256": "1fa965e4c820d708644259bc4ddba6e8a59eab208df633868d46249f4c31bd6f"
+    },
+    {
+      "path": "Source/NarisCore/Private/NarisDialogueComponent.cpp",
+      "bytes": 272,
+      "sha256": "34abe39793c2c72073a4b68b4f4b78faf0e5ff78151e6898cec98387cc601878"
+    },
+    {
+      "path": "Source/NarisCore/Private/NarisDungeonGeneratorComponent.cpp",
+      "bytes": 552,
+      "sha256": "50c9fc61a818daf2bc1e25033a1b6a689d51c7192668b760576cc65ae8b73fee"
+    },
+    {
+      "path": "Source/NarisCore/Private/NarisDynamicEventComponent.cpp",
+      "bytes": 476,
+      "sha256": "515e23e41d9679821c728714062e451f4bf97cca61d7f2d147f445394204381f"
+    },
+    {
+      "path": "Source/NarisCore/Private/NarisEncounterDirectorComponent.cpp",
+      "bytes": 413,
+      "sha256": "ba17adcca53c86385485a1d914ff1d7014a986a5428fd4c9e8548fda47e55861"
+    },
+    {
+      "path": "Source/NarisCore/Private/NarisEnemyCharacter.cpp",
+      "bytes": 5747,
+      "sha256": "781db50db89151c1df2f48727132fe15d7a8fab92f6763b808e1b777c49cfe0c"
+    },
+    {
+      "path": "Source/NarisCore/Private/NarisEnvironmentDirectorComponent.cpp",
+      "bytes": 514,
+      "sha256": "0e1558af993279f4024a9ce9375e865ae579e1293054d6b0fdb588a389727b43"
+    },
+    {
+      "path": "Source/NarisCore/Private/NarisFastTravelComponent.cpp",
+      "bytes": 256,
+      "sha256": "0e4c9d08e7a7eb310dcb781cd23b94a1c97940d173936dcf6b6704526e583d7b"
+    },
+    {
+      "path": "Source/NarisCore/Private/NarisGameModeBase.cpp",
+      "bytes": 11407,
+      "sha256": "413e320f5c1a4e1840fa58ae23ecd7595f8999ea22d416802b2c9f32879c21cf"
+    },
+    {
+      "path": "Source/NarisCore/Private/NarisHUD.cpp",
+      "bytes": 9241,
+      "sha256": "b7c98d35c71568e019e8b25e342f608f298b2a2bdfc8501fc5a57572f045ab6b"
+    },
+    {
+      "path": "Source/NarisCore/Private/NarisHitReactionComponent.cpp",
+      "bytes": 960,
+      "sha256": "dbed0354a02e010904cb916eda62bc2264f9d595ea02bf359856fe3d4c3125f3"
+    },
+    {
+      "path": "Source/NarisCore/Private/NarisHitboxComponent.cpp",
+      "bytes": 326,
+      "sha256": "b2e8a697018072e027199ca93f9c539b143895b6ed6d5ff990aaae27f9e932af"
+    },
+    {
+      "path": "Source/NarisCore/Private/NarisInventoryComponent.cpp",
+      "bytes": 528,
+      "sha256": "75caeab7032e2b2dec7d6c4c609ca5048f6fd82d8f267d405e8fa8a8bfb6e707"
+    },
+    {
+      "path": "Source/NarisCore/Private/NarisNPCScheduleComponent.cpp",
+      "bytes": 189,
+      "sha256": "1e34ce3f198c09c6a41764b8fc59b5a1a4f2e4d77ca607561d46924dc5b990c3"
+    },
+    {
+      "path": "Source/NarisCore/Private/NarisPickupActor.cpp",
+      "bytes": 2740,
+      "sha256": "efc15be2c9347faae5a11ad406173f0edad743c86ec136a28fab6162086051e3"
+    },
+    {
+      "path": "Source/NarisCore/Private/NarisPlayerCharacter.cpp",
+      "bytes": 12903,
+      "sha256": "60add05c8ccfae938169b2e7d716a9f881bccfcb3a2205998ba0bc2ad2c78370"
+    },
+    {
+      "path": "Source/NarisCore/Private/NarisQualitySubsystem.cpp",
+      "bytes": 374,
+      "sha256": "4accb8eb711c1ace4281d8a882395324b2945db42cedc4a468319b37fc770c2a"
+    },
+    {
+      "path": "Source/NarisCore/Private/NarisQuestSubsystem.cpp",
+      "bytes": 2960,
+      "sha256": "6db5e7991eb24b91faeeb74203a16c5e4e76b14d2684db71c6fd456cc300e114"
+    },
+    {
+      "path": "Source/NarisCore/Private/NarisReleaseGateSubsystem.cpp",
+      "bytes": 430,
+      "sha256": "ab5d26285f4cee41c990c4e07810a9aeeb0218c0f193e2ccd55f94a0ed6fbbcc"
+    },
+    {
+      "path": "Source/NarisCore/Private/NarisRoadNetworkComponent.cpp",
+      "bytes": 255,
+      "sha256": "7397ba269a5d5b81e117ef853f0cb46e3e090d80410b7decc48d9ba951487f6a"
+    },
+    {
+      "path": "Source/NarisCore/Private/NarisRuntimeDiagnosticsSubsystem.cpp",
+      "bytes": 1845,
+      "sha256": "76c4ce01595cd0f40612f48d6669e0ab611fb8bad2bbab872e911dc51461dcdb"
+    },
+    {
+      "path": "Source/NarisCore/Private/NarisSaveSubsystem.cpp",
+      "bytes": 3685,
+      "sha256": "d438b68be397050bdce1622ce19ee693361c3188ea2538561ba1ed4957fd495f"
+    },
+    {
+      "path": "Source/NarisCore/Private/NarisThreatComponent.cpp",
+      "bytes": 741,
+      "sha256": "9860f14ee69dea26e6589bb5b296121c46b12b14b677a4619372619e1d8a3327"
+    },
+    {
+      "path": "Source/NarisCore/Private/NarisUserSettingsSubsystem.cpp",
+      "bytes": 837,
+      "sha256": "925c5f251979e0f2e84e7b46d11d8f7fe19909df8c6ea2de56d0a22c9f061a58"
+    },
+    {
+      "path": "Source/NarisCore/Private/NarisVFXDirectorComponent.cpp",
+      "bytes": 1441,
+      "sha256": "70f0387ca7539f07b84d3caf40f0a9da036feb17f81e885d14de622bebb7e904"
+    },
+    {
+      "path": "Source/NarisCore/Private/NarisVitalsComponent.cpp",
+      "bytes": 1064,
+      "sha256": "917371c4a7c01a6ec738ebf09e0aa3c9f0d734b6e5e33c4b0774a044b9c9a054"
+    },
+    {
+      "path": "Source/NarisCore/Private/NarisWorldStateSubsystem.cpp",
+      "bytes": 716,
+      "sha256": "2dd864629fd052ac63095548ce36a18530f00b9bce95cef22aaa5ab63d5557b0"
+    },
+    {
+      "path": "Source/NarisCore/Private/NarisWorldSubsystem.cpp",
+      "bytes": 424,
+      "sha256": "a0e69e21c3e426a56990cfaaf69e303b19e3db20ea25122cb6615241dda54ac7"
+    },
+    {
+      "path": "Source/NarisCore/Private/Tests/NarisFrontEndTests.cpp",
+      "bytes": 614,
+      "sha256": "af665199abe7ec378d6fad834fee5f3ea38255995b28cd48f8ade6d45badafe9"
+    },
+    {
+      "path": "Source/NarisCore/Public/NarisAITypes.h",
+      "bytes": 1131,
+      "sha256": "be680035daf952dc9690fb6363bd3c58ba6fa7142a832e1d7f4c8c10c78cf32b"
+    },
+    {
+      "path": "Source/NarisCore/Public/NarisAdvancedWorldTypes.h",
+      "bytes": 1042,
+      "sha256": "ee0ce266d0fd088b04674101dbc4344782f5bb7fde6563a8de8070e40a58c60b"
+    },
+    {
+      "path": "Source/NarisCore/Public/NarisAttackTokenCoordinator.h",
+      "bytes": 1649,
+      "sha256": "70b7a0273ba2485571d77cb87f19f7cd2f81bd533ab8ce6b5fd00108c59a5007"
+    },
+    {
+      "path": "Source/NarisCore/Public/NarisAudioDirectorComponent.h",
+      "bytes": 1132,
+      "sha256": "f5ce8290a617e1ce8f4a951e0b3f1808516f073d9336d5ac4c5ea23a7c979091"
+    },
+    {
+      "path": "Source/NarisCore/Public/NarisBossCharacter.h",
+      "bytes": 720,
+      "sha256": "4fd62b21a0d977d26b115f2ad9a155b89cfb4f3cedb23417a21774c8ae84f187"
+    },
+    {
+      "path": "Source/NarisCore/Public/NarisBossPhaseComponent.h",
+      "bytes": 784,
+      "sha256": "ba93d124b673fd2ee1ddf81cfc76346ef0d03f3868875686ac891df188930b82"
+    },
+    {
+      "path": "Source/NarisCore/Public/NarisCameraFeedbackComponent.h",
+      "bytes": 859,
+      "sha256": "79e7b238824dc0f3ac1a65a62880bd115e1a75b7643fc1f63021873b720f49aa"
+    },
+    {
+      "path": "Source/NarisCore/Public/NarisChapterSubsystem.h",
+      "bytes": 1424,
+      "sha256": "63d3a9117b7a5786dc98529f43560c134dbfb2169da7c5135952dab50ce6d0c0"
+    },
+    {
+      "path": "Source/NarisCore/Public/NarisCheckpointActor.h",
+      "bytes": 642,
+      "sha256": "3d71f99dfcc8e53781a8e1f509fbbaf4a17dd72660386a9705b1bbd003392024"
+    },
+    {
+      "path": "Source/NarisCore/Public/NarisCodexSubsystem.h",
+      "bytes": 410,
+      "sha256": "cc741310aa85fcc90da428028d3cb6f52f6e900b8ff2e6c1bbee9936dc86aff8"
+    },
+    {
+      "path": "Source/NarisCore/Public/NarisCombatComponent.h",
+      "bytes": 572,
+      "sha256": "04c1f1092a86ff4d9eaf5f54762e06f43c834f4a530a5ee23c1b1a20c8b99253"
+    },
+    {
+      "path": "Source/NarisCore/Public/NarisCombatTypes.h",
+      "bytes": 1118,
+      "sha256": "11d04479da4e45d3ce6e5da100fdbaa8394417c4b984a68bc264e93bfc548fef"
+    },
+    {
+      "path": "Source/NarisCore/Public/NarisCompanionCharacter.h",
+      "bytes": 957,
+      "sha256": "bdd3e83993c02db4b195760cdf83a9676145d783aedb11902189976f5761436a"
+    },
+    {
+      "path": "Source/NarisCore/Public/NarisDialogueComponent.h",
+      "bytes": 683,
+      "sha256": "e3d6344aa426d9aa069d08ef3d1275bd25597f9ca33c5f493638e839fd283e88"
+    },
+    {
+      "path": "Source/NarisCore/Public/NarisDungeonGeneratorComponent.h",
+      "bytes": 696,
+      "sha256": "e6171f8943ff143a35521f83d6f9a430b83c3fbc81e512c9b2144493acf17417"
+    },
+    {
+      "path": "Source/NarisCore/Public/NarisDynamicEventComponent.h",
+      "bytes": 512,
+      "sha256": "e3dccf34c20dfc626e8d7cf15bf0cae8e5dba9b8edbd2067f0a275a5b2fd75a8"
+    },
+    {
+      "path": "Source/NarisCore/Public/NarisEncounterDirectorComponent.h",
+      "bytes": 1128,
+      "sha256": "82e4046a3cdff47eba2011208e36b04742355980f26be21da996edfc02113a0d"
+    },
+    {
+      "path": "Source/NarisCore/Public/NarisEnemyCharacter.h",
+      "bytes": 1828,
+      "sha256": "edc2c22bc774f4eca31e6cd6677c6fb6b606ad326b64c0ebe93c9e3bc6a25208"
+    },
+    {
+      "path": "Source/NarisCore/Public/NarisEnvironmentDirectorComponent.h",
+      "bytes": 1125,
+      "sha256": "c237729a452241193b7d6eea298485a24117c77495f419fc901f34c7d58543c6"
+    },
+    {
+      "path": "Source/NarisCore/Public/NarisFastTravelComponent.h",
+      "bytes": 475,
+      "sha256": "e18402f33fbf2616774406c7164bcf69d79efd630da287c2cba9326d420b3197"
+    },
+    {
+      "path": "Source/NarisCore/Public/NarisGameModeBase.h",
+      "bytes": 888,
+      "sha256": "fe37b20ce7fc2950916ee636ef252bd222346602f245e399c17ca4c830e4d5b1"
+    },
+    {
+      "path": "Source/NarisCore/Public/NarisGameplayEventComponent.h",
+      "bytes": 758,
+      "sha256": "aaf3afe6abd0c2b24b7d51215a916b2fc15299021b169ff23a93891f8f866556"
+    },
+    {
+      "path": "Source/NarisCore/Public/NarisGameplayEventRouter.h",
+      "bytes": 625,
+      "sha256": "5414877547090388c9c805c3e49bc333fd3a7a01f5510cd03f1dfdd637b5a00c"
+    },
+    {
+      "path": "Source/NarisCore/Public/NarisHUD.h",
+      "bytes": 308,
+      "sha256": "5441c315d7057f6ecd1ad38a8fadb0a6759cbb078d4537d598d772dba64d3910"
+    },
+    {
+      "path": "Source/NarisCore/Public/NarisHitReactionComponent.h",
+      "bytes": 1087,
+      "sha256": "a9368db1530519ad190ab2b3378f1d19ff04e1d45e3c9bb6594c021fbffbec6d"
+    },
+    {
+      "path": "Source/NarisCore/Public/NarisHitboxComponent.h",
+      "bytes": 717,
+      "sha256": "dfc1f33914dc0ca08237f5365968b9f15cc8ccfc652773fdbe1908b4e8a4142f"
+    },
+    {
+      "path": "Source/NarisCore/Public/NarisInventoryComponent.h",
+      "bytes": 669,
+      "sha256": "207886737ff3b1bd5688a2b6fa932e22ebb951365be4fbb2af0767650b2fd4ee"
+    },
+    {
+      "path": "Source/NarisCore/Public/NarisNPCScheduleComponent.h",
+      "bytes": 424,
+      "sha256": "e21fc4e465ccbab563defd54a931e6303694718110a4d43f24afb2110af689f1"
+    },
+    {
+      "path": "Source/NarisCore/Public/NarisNarrativeTypes.h",
+      "bytes": 1056,
+      "sha256": "8629913111c7e57b308dd08f1876d5a0bd9356e54098419681e0546d7499ce6a"
+    },
+    {
+      "path": "Source/NarisCore/Public/NarisPickupActor.h",
+      "bytes": 792,
+      "sha256": "4818a524d6c5c54be5d89713de221e778776734368a8d766d0fb2ac9e1fa6712"
+    },
+    {
+      "path": "Source/NarisCore/Public/NarisPlayerCharacter.h",
+      "bytes": 2424,
+      "sha256": "d3edd4ae9cb831794cf244aac4b453c45b82efab85bf297c19d3a0c7b8c3a210"
+    },
+    {
+      "path": "Source/NarisCore/Public/NarisQualitySubsystem.h",
+      "bytes": 382,
+      "sha256": "fe5e2241c55ecba7d6477ba583d23900c008f627e3914096e6f981539f05c12e"
+    },
+    {
+      "path": "Source/NarisCore/Public/NarisQuestSubsystem.h",
+      "bytes": 1154,
+      "sha256": "e1e1b31247267e7409095d87c22c7a541cb71739f7ed2afe3ca0f6e96cb86961"
+    },
+    {
+      "path": "Source/NarisCore/Public/NarisReleaseGateSubsystem.h",
+      "bytes": 319,
+      "sha256": "f5ed54403a4d2447d2a430c173e99c1d706596c3b34e3cd10d69aa959b3d9faa"
+    },
+    {
+      "path": "Source/NarisCore/Public/NarisRoadNetworkComponent.h",
+      "bytes": 734,
+      "sha256": "f37e130ff5573c7110cd99010b65fe9ae1f9299e045050e2bfd69fdbaab74555"
+    },
+    {
+      "path": "Source/NarisCore/Public/NarisRuntimeDiagnosticsSubsystem.h",
+      "bytes": 943,
+      "sha256": "acb05af86fd5d3fd26bf4a829b564758df3705b2e5c14e0de37600b51e76535d"
+    },
+    {
+      "path": "Source/NarisCore/Public/NarisSaveGame.h",
+      "bytes": 824,
+      "sha256": "bfb53414bc49da698887a9f8b1bbd77d7b31e3c4375acc79016dcaa74d647820"
+    },
+    {
+      "path": "Source/NarisCore/Public/NarisSaveSubsystem.h",
+      "bytes": 482,
+      "sha256": "84490312d5a82ef7cfbd2af88acfb5f59ec2b1b699dc40202bf2ed44045987dd"
+    },
+    {
+      "path": "Source/NarisCore/Public/NarisThreatComponent.h",
+      "bytes": 818,
+      "sha256": "f606289576e7e12560202bda8353a2f9c2f47854ce0a67a3463790e261e5ef44"
+    },
+    {
+      "path": "Source/NarisCore/Public/NarisUserSettingsSubsystem.h",
+      "bytes": 1415,
+      "sha256": "6cee9cd88f57e078d79a67f192ff85c26c4afcba4414b1f00165fb5800ba4250"
+    },
+    {
+      "path": "Source/NarisCore/Public/NarisVFXDirectorComponent.h",
+      "bytes": 758,
+      "sha256": "4f2eadd296f1012c91f99eb14fc55a3e129bc732674b401a55eaa882efeed662"
+    },
+    {
+      "path": "Source/NarisCore/Public/NarisVitalsComponent.h",
+      "bytes": 1470,
+      "sha256": "89a23b67aa9e19e23dd33866640e72e59a09813d0e3591272585039e7b7f96a1"
+    },
+    {
+      "path": "Source/NarisCore/Public/NarisWorldStateSubsystem.h",
+      "bytes": 868,
+      "sha256": "20a619117b9cbdf6050e9b264ab9927a81aa0324b647a1832e9a808aeb5bd9c8"
+    },
+    {
+      "path": "Source/NarisCore/Public/NarisWorldSubsystem.h",
+      "bytes": 739,
+      "sha256": "55277441aa41acd1e45d48b088a48816fe3f41f64b913360ea6e69fcb2baa005"
+    },
+    {
+      "path": "Source/NarisCore/Public/NarisWorldTypes.h",
+      "bytes": 1195,
+      "sha256": "a30bbff2aa98420ea460d86288caf2f8baa3a32c33dee3e02c992c6ddcf5c6ca"
+    },
+    {
+      "path": "Tests/PREFLIGHT_REPORT.json",
+      "bytes": 111,
+      "sha256": "fb87776cc29879c562ea44dd46f021732ef6ea730e16e7afedf5d2837078f5fa"
+    },
+    {
+      "path": "Tests/RUNTIME_SMOKE_2026-09-24.json",
+      "bytes": 1764,
+      "sha256": "e94c17c0e5e9f4a73b3fa4158e94702c740402deb5369da7ad6324c5c6e9ca38"
+    },
+    {
+      "path": "Tests/WORLD_DATA_VALIDATION.json",
+      "bytes": 158,
+      "sha256": "fb0050d29aedf45e08959e6504e8db58bbb35d803d7111a655a1c07cae849454"
+    },
+    {
+      "path": "Tests/validate_world_data.py",
+      "bytes": 2086,
+      "sha256": "a7f38e3a73bdf163b90e1b80a734e80b5f41328824f2fc9ad4ea624347523413"
+    }
+  ],
+  "not_included": [
+    "Builds",
+    "Releases",
+    "Binaries",
+    "Saved",
+    "SourceAssets/References",
+    "SourceAssets/Blender",
+    "Pipeline/Exchange"
+  ],
+  "config_sanitized": [
+    "Android file server token removed from intake"
+  ]
+}

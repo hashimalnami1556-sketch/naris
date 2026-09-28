@@ -1,17 +1,16 @@
 # NARIS current work
 
-Updated: 2026-09-23
+Updated: 2026-09-28
 
 - Objective: maintain a shared, evidence-based project KB and unblock the Windows W04 vertical slice.
 - Human decision owner: project owner (repository user).
 - Executing agent: shared-agent integration pass active for Figma/Blender/Neon and W04 readiness.
-- Current work: [W04 follow-up](docs/production/work/active/w04-readiness.md).
+- Current work: [Asset intake follow-up](docs/production/work/active/asset-intake-20260928.md); [Desktop reconciliation](docs/production/work/active/desktop-integration-20260927.md); [W04 follow-up](docs/production/work/active/w04-readiness.md).
 - Source routing: [knowledge sources](docs/production/knowledge-sources.md).
 - Production readiness: [production status](docs/PRODUCTION_STATUS.md).
 - Work navigation: [work index](docs/production/work/index.md).
 - Integration contract: [Figma, Blender and Neon](docs/production/INTEGRATIONS_FIGMA_BLENDER_NEON.md).
 - Figma: live file created and structured at https://www.figma.com/design/lYSmWwGHXCEXODKpG9bpJH.
-- Blender: deterministic validation/export helper is checked in and the export path is gated by the canonical asset registry; runtime execution is still pending because the registered AsusRog host is offline.
 - Blender -> Unreal bridge: exchange schema, Unreal Python importer, and Windows smoke-test script are checked in. Ashen Forest Factory v2 now has a dedicated end-to-end launcher that generates a UV-safe canonical .blend source, then reuses the registry-gated FBX/GLB + manifest + Unreal import bridge.
 - W04 source progression now covers interaction; Waystone checkpoint ID/location + respawn; Memory Crystal -> FirstWhisper; Corrupted Heart quest steps 1-4; Ash Gate persistence; Celestial Wolf bond/modes/animation-driven attacks; arena auto-entry; Bone Beast autonomous phase attacks; quest completion; DemoEnd persistence; and localized HUD objectives.
 - Combat production pass adds real incoming-hit defense routing, timed Parry/Dodge windows, five-Essence cycling, pause/resume input, and native animation hit-window/impact notifies with a smoke-only immediate fallback.
@@ -31,7 +30,19 @@ Updated: 2026-09-23
 - Verified CI evidence: NARIS CI run 35904765067 success; Content Validation run 35904765117 success; Unreal Validate run 35904765189 success. Windows self-hosted execution remains manual and unverified.
 - Static evidence: NARIS CI run 35855364699 passed MCP TypeScript build, Unreal project integrity, repository validation and PowerShell bridge parsing.
 - Neon: core PostgreSQL schema contract is checked in; no remote project/branch is bound yet, so no migration has been applied.
-- Next action: bring AsusRog/self-hosted Windows online; compile NARIS_W04Editor; execute the Ashen Forest Factory v2 Blender->Unreal bridge and production blockout authoring; then supply/author the 7 core production meshes, 2 approved master materials (instances auto-author from them), 10 production AnimMontages, 16 SFX WAV masters and 14 Niagara systems before the strict W04_AshenForest Shipping RC can pass.
-- Blockers: registered AsusRog remote host is offline; no Windows UnrealBuildTool/package/playtest evidence yet; production W04_AshenForest .umap is not verified; core meshes/master materials/10 montages/16 Audio/14 Niagara payloads remain unresolved production content; no bound Neon project ID; no Claude Code session available here; the 18 announced attachment paths were absent.
 
 Do not treat static validation, Figma design, Blender source/export contracts or Neon schema files as engine/runtime evidence. The checked-in Unreal descriptor selects 5.4; changing that baseline needs an explicit migration and build evidence.
+
+## Verified desktop audit — 2026-09-27
+- AsusRog is online; UE5.7 and Blender 5.2.1 are available. Desktop NarisCore differs from canonical W04.
+- Desktop editor compile and headless quest/save/checkpoint smoke passed; player saves unchanged. W04 packaging and visual QA remain unverified.
+- Attachment files are now accessible in the chat workspace. They are references, not imported engine assets.
+- Live Figma metadata shows only 00_Foundations with a cover/color frame; earlier multi-page handoff claims are superseded.
+- Next: review desktop intake, reconcile with W04, then run canonical Windows production gates.
+- Evidence and remaining gaps: [desktop audit](docs/production/desktop-integration-audit-20260927.md).
+
+
+## Verified source asset intake — 2026-09-28
+- The 14 supplied image references are present in the current workspace and pass image decode checks. Their SHA-256 values match the existing source inventory records. A lookup of the cataloged `ASSETS/CHARACTERS/REFERENCES/IMG_3846.jpeg` on canonical `main` returns 404; inventory metadata is not evidence that payloads are stored in GitHub.
+- Seven 3D source files were structurally inspected: five GLBs, a CRC-valid ZIP duplicating those five GLBs, and a USD-labeled file with `PXR-USDC` crate signature.
+- The image/3D binaries have not been uploaded by this intake, imported to Unreal/Blender, or approved. See [asset intake record](docs/production/work/active/asset-intake-20260928.md) and [3D source manifest](docs/project-uploads/2026-09-28/PROJECT_UPLOAD_MANIFEST.md).

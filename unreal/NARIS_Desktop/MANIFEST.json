@@ -1,0 +1,491 @@
+{
+  "project": "Call of NARIS",
+  "engine": "Unreal Engine 5.6",
+  "files": [
+    {
+      "path": "Config/DefaultEngine.ini",
+      "bytes": 357,
+      "sha256": "5a2eebbd82c910e862d3f6e33b03aac9c05348d18e7120a37ecc6a1018cc4c6f"
+    },
+    {
+      "path": "Config/DefaultGame.ini",
+      "bytes": 172,
+      "sha256": "091e8aacbb556be0025278f7016a44cf4439404635ff9bd7f301c259636f647c"
+    },
+    {
+      "path": "Content/Data/DT_AIProfiles.csv",
+      "bytes": 394,
+      "sha256": "23355f9a785939a6ab8172d97702be83bed671ade36e2e1f74aa27843cea1da5"
+    },
+    {
+      "path": "Content/Data/DT_Accessibility.csv",
+      "bytes": 119,
+      "sha256": "8578a36546eaf6f26bb66f32d93e4058a3d99ce28ca4925982dcf62319dcfa98"
+    },
+    {
+      "path": "Content/Data/DT_Achievements.csv",
+      "bytes": 175,
+      "sha256": "75c03684af6a4c6e8c3d8272fd06ea7f094a0f836ad4eddc6d673f433be4c39b"
+    },
+    {
+      "path": "Content/Data/DT_Attacks.csv",
+      "bytes": 593,
+      "sha256": "b92f9e7234e0a2419ae4b9677eed6dcf41578019f42f3fe530093c56cce4e4de"
+    },
+    {
+      "path": "Content/Data/DT_AudioStates.csv",
+      "bytes": 182,
+      "sha256": "7202a52d43c6acec6b300e5abe1d971b89a0db26825165546f6e59159015a319"
+    },
+    {
+      "path": "Content/Data/DT_Biomes.csv",
+      "bytes": 493,
+      "sha256": "776e1759fbf69c9f13e63ce26ab23a035e1ac8e77951161f1b1da7e4a468244e"
+    },
+    {
+      "path": "Content/Data/DT_BossPhases.csv",
+      "bytes": 362,
+      "sha256": "18b400edc603c483d7d42618a7bbdde382e3c629b920d9ea81cbbce8413c0982"
+    },
+    {
+      "path": "Content/Data/DT_Codex.csv",
+      "bytes": 331,
+      "sha256": "445c1a8c6849d687f7446ad6e71b4e8b48132f5d9adae1d5f3c7ede84752b4ec"
+    },
+    {
+      "path": "Content/Data/DT_CraftingRecipes.csv",
+      "bytes": 111,
+      "sha256": "78ff166ea89c9929b74308034c4e4fd0a2d3199db60c72681be8277ba5866a7f"
+    },
+    {
+      "path": "Content/Data/DT_DialogueChoices.csv",
+      "bytes": 308,
+      "sha256": "9971a867ae0fcfbb316026365f25ef08346c37032840ed1dc320e57e03bf3753"
+    },
+    {
+      "path": "Content/Data/DT_DialogueNodes.csv",
+      "bytes": 382,
+      "sha256": "513adbf5cde63a302b54b5b1c5bd0c9959322c33253e25bbdf83d5efbb4b4dae"
+    },
+    {
+      "path": "Content/Data/DT_DungeonArchetypes.csv",
+      "bytes": 225,
+      "sha256": "b14dfbd238ef5eddcb64226370fcd2703c9dffb265cc045dfa2839afa7b03bcd"
+    },
+    {
+      "path": "Content/Data/DT_DynamicEvents.csv",
+      "bytes": 323,
+      "sha256": "4f91113eb10da39e0f385fd9cb2eee266c7c533e738fe8586dfe1dc2a70fcf2d"
+    },
+    {
+      "path": "Content/Data/DT_EncounterArchetypes.csv",
+      "bytes": 304,
+      "sha256": "e3eb83b942f7bcd075e05b69eaae8f409f1395ee8c446adf6305ffbce0108e5b"
+    },
+    {
+      "path": "Content/Data/DT_Factions.csv",
+      "bytes": 176,
+      "sha256": "0f8c28524c379501af10364b718688c8ee738ade0899e1c3a15e9ea4982bffc9"
+    },
+    {
+      "path": "Content/Data/DT_FastTravelNodes.csv",
+      "bytes": 345,
+      "sha256": "9159a7324708564159cfaea323ae34103f49e174b536e54a3d7a532640f78845"
+    },
+    {
+      "path": "Content/Data/DT_HLODPolicy.csv",
+      "bytes": 322,
+      "sha256": "fc730beadff309af830ecf3908e478626245a5dbefbfc92fbbb6e59a6f6a23bd"
+    },
+    {
+      "path": "Content/Data/DT_Items.csv",
+      "bytes": 238,
+      "sha256": "46e3b62723d0209bd8fb391c76d73e29af3eb3a961d2c90f25a9e9b46387981e"
+    },
+    {
+      "path": "Content/Data/DT_LootPools.csv",
+      "bytes": 187,
+      "sha256": "99bfa68c0433430c8081826ca8142a0adbbb7e89a51c68ce31e93007b7f60c04"
+    },
+    {
+      "path": "Content/Data/DT_NPCSchedules.csv",
+      "bytes": 247,
+      "sha256": "fef3aa65e997cf3379eabf9602522943605dcca502cab38decb0b133c5fc65f2"
+    },
+    {
+      "path": "Content/Data/DT_Progression.csv",
+      "bytes": 110,
+      "sha256": "43550e8ced7ebd29aa8b91eb1f0aef060a8f159336ed0674e65614488ffc00d0"
+    },
+    {
+      "path": "Content/Data/DT_QuestObjectives.csv",
+      "bytes": 351,
+      "sha256": "d18e21a9a7dc5d85d256b5d1781c6ab22473a8215fcdda52646fd390b631eec5"
+    },
+    {
+      "path": "Content/Data/DT_Quests.csv",
+      "bytes": 408,
+      "sha256": "9b309098e27d8d5297822d30db5fc794e5148d650c2a50f3836eb1dfbd102003"
+    },
+    {
+      "path": "Content/Data/DT_ReleaseGates.csv",
+      "bytes": 179,
+      "sha256": "b4dd300219bc5dbf88f2f048b3cc9d0a4c6c30bf0f4cec9110582f60f75b909f"
+    },
+    {
+      "path": "Content/Data/DT_RiverProfiles.csv",
+      "bytes": 206,
+      "sha256": "d791fe64fa388a60e5202f3ef509c2df42f9ca97fe1c7403b41ffe34e883109c"
+    },
+    {
+      "path": "Content/Data/DT_Scalability.csv",
+      "bytes": 114,
+      "sha256": "68b811596c4cf25df0217a15c49e4c7784ea363a33d48996da3735a34bb7b65e"
+    },
+    {
+      "path": "Content/Data/DT_Settlements.csv",
+      "bytes": 237,
+      "sha256": "67a7188139c533f6ed162d3d5f2cbcbfcced818d496a1540946e20b4c2a77f14"
+    },
+    {
+      "path": "Content/Data/DT_TerrainProfiles.csv",
+      "bytes": 257,
+      "sha256": "2dc93894e5c2939969c1fca662d177cf96c16626f8ba26dddeefb914e09dc28d"
+    },
+    {
+      "path": "Content/Data/DT_UIRoutes.csv",
+      "bytes": 189,
+      "sha256": "59b3b68f2a083392d00b78f98d67bccac1c3764e7363691dbbb330908e9c1090"
+    },
+    {
+      "path": "Content/Data/DT_VFXRegistry.csv",
+      "bytes": 155,
+      "sha256": "35f5d67cfa83a4ab949d5187eeeb062640be135b1f45a3138287180323be8ace"
+    },
+    {
+      "path": "Content/Data/DT_WeatherProfiles.csv",
+      "bytes": 281,
+      "sha256": "1662e8cd008b73b95e7e0e85b11b9ba16423983a10d474023966c43a2336ce3b"
+    },
+    {
+      "path": "Content/Data/DT_WorldConsequences.csv",
+      "bytes": 307,
+      "sha256": "f8093529a10c1e4aeb94fb9af1f6449577975532a409779f80f19aaaef1168c7"
+    },
+    {
+      "path": "Content/Data/DT_WorldZones.csv",
+      "bytes": 579,
+      "sha256": "7d0d0a876921baee52474c440e15af26d7c084481ddada22d1ad77492a3769e8"
+    },
+    {
+      "path": "Docs/BATCH_08_COMBAT_INTEGRATION.md",
+      "bytes": 2395,
+      "sha256": "dd5812d49710e0d1e720ed80d67c2e6fdcf21460765c9ac41274119e484ee6b8"
+    },
+    {
+      "path": "Docs/BATCH_09_AI_ARCHITECTURE.md",
+      "bytes": 1634,
+      "sha256": "bb8106e07fc2c2d8dda74d986f249f34f70f18502603a5cff38b84b7061b0352"
+    },
+    {
+      "path": "Docs/BATCH_10_WORLD_ARCHITECTURE.md",
+      "bytes": 961,
+      "sha256": "51f164733b8ba933e3aeab51b58d3ac93cef1ca97fb8cf111566ea14615238c2"
+    },
+    {
+      "path": "Docs/BATCH_11_ARCHITECTURE.md",
+      "bytes": 1001,
+      "sha256": "00d2c271e21a5369b15c58a4b623d841b361a76b069d90fcbf9f03aa9357a985"
+    },
+    {
+      "path": "Docs/BATCH_12_ARCHITECTURE.md",
+      "bytes": 987,
+      "sha256": "daabbc7e2347d483adda5af42ed7848955984f3b63931ec9fcf4ef52331e4f14"
+    },
+    {
+      "path": "Docs/CONTENT_TARGETS.md",
+      "bytes": 605,
+      "sha256": "0b74ba81245dcd7505cf6d4ca5532e2b3f5c0f757ea2ebbccade7fb48dcf6d42"
+    },
+    {
+      "path": "Docs/MASTER_ARCHITECTURE.md",
+      "bytes": 1842,
+      "sha256": "295484081f492cd86728bce407af89b37dc2a9d018fa05b70f32ac8bf217746d"
+    },
+    {
+      "path": "Docs/MASTER_INTEGRATION.md",
+      "bytes": 839,
+      "sha256": "dfebe5aa06e46db2c3f9086a5f46b3da7db635cc6735800becd6d4d0c26719a3"
+    },
+    {
+      "path": "Docs/QUALITY_FIXES.md",
+      "bytes": 734,
+      "sha256": "2bf9f1d7c7fcab3a86ecbbaabed58c5a721df74c5fc76039c6a7c1ff055c4789"
+    },
+    {
+      "path": "Docs/VERTICAL_SLICE_ACCEPTANCE.md",
+      "bytes": 671,
+      "sha256": "d6ae1429f54664761f91ff88b7253872c3df40e82609d45991180279144f835c"
+    },
+    {
+      "path": "NARIS.uproject",
+      "bytes": 498,
+      "sha256": "ca2a60da6a33752acdda20d5bdaa6a6040f749593b47417dc4b91d7cdb9f64a0"
+    },
+    {
+      "path": "README.md",
+      "bytes": 1172,
+      "sha256": "546a9d973217aadb56802913671e3a0e01bc21036fa37165b5726e07b622e451"
+    },
+    {
+      "path": "Source/NARISEditor.Target.cs",
+      "bytes": 241,
+      "sha256": "c0112451524fb9d95b3680e0ef92917cb97dfbb3b96e6b679f20c1274175cfab"
+    },
+    {
+      "path": "Source/NARISTarget.Target.cs",
+      "bytes": 227,
+      "sha256": "135a9fa7a501b6e1d393383db9949eeaf2335fa903c8c0552286773299f44a35"
+    },
+    {
+      "path": "Source/NarisCore/NarisCore.Build.cs",
+      "bytes": 438,
+      "sha256": "c0096aca842584467254465f51497184d8db86bac333dc162d459f35a79adde5"
+    },
+    {
+      "path": "Source/NarisCore/NarisCore.cpp",
+      "bytes": 137,
+      "sha256": "cdecd45500160530ccc507701f315c65b27bea23cf89651f83f3db6a7b2b1f04"
+    },
+    {
+      "path": "Source/NarisCore/NarisCore.h",
+      "bytes": 38,
+      "sha256": "58ce467200ef3b208f7430719a4c23e10ea104b9d8df71f60ce32fef4e7e7154"
+    },
+    {
+      "path": "Source/NarisCore/Private/NarisCodexSubsystem.cpp",
+      "bytes": 274,
+      "sha256": "4e6d484aa07c583ad2fb04773709eefdc5972f60a2a8a521eb1471126e1b3888"
+    },
+    {
+      "path": "Source/NarisCore/Private/NarisCombatComponent.cpp",
+      "bytes": 312,
+      "sha256": "9f5a2b3bca7b0e11ee37a2da616fe387438d711bc1738bc986ea94bea7fd7c03"
+    },
+    {
+      "path": "Source/NarisCore/Private/NarisDialogueComponent.cpp",
+      "bytes": 272,
+      "sha256": "34abe39793c2c72073a4b68b4f4b78faf0e5ff78151e6898cec98387cc601878"
+    },
+    {
+      "path": "Source/NarisCore/Private/NarisDungeonGeneratorComponent.cpp",
+      "bytes": 543,
+      "sha256": "d4980cdca3cd9fbe973dfb1125481bb2a3c6a14a1d77510f528c7103196d8418"
+    },
+    {
+      "path": "Source/NarisCore/Private/NarisDynamicEventComponent.cpp",
+      "bytes": 476,
+      "sha256": "515e23e41d9679821c728714062e451f4bf97cca61d7f2d147f445394204381f"
+    },
+    {
+      "path": "Source/NarisCore/Private/NarisEncounterDirectorComponent.cpp",
+      "bytes": 413,
+      "sha256": "ba17adcca53c86385485a1d914ff1d7014a986a5428fd4c9e8548fda47e55861"
+    },
+    {
+      "path": "Source/NarisCore/Private/NarisEnvironmentDirectorComponent.cpp",
+      "bytes": 514,
+      "sha256": "0e1558af993279f4024a9ce9375e865ae579e1293054d6b0fdb588a389727b43"
+    },
+    {
+      "path": "Source/NarisCore/Private/NarisFastTravelComponent.cpp",
+      "bytes": 256,
+      "sha256": "0e4c9d08e7a7eb310dcb781cd23b94a1c97940d173936dcf6b6704526e583d7b"
+    },
+    {
+      "path": "Source/NarisCore/Private/NarisHitboxComponent.cpp",
+      "bytes": 326,
+      "sha256": "b2e8a697018072e027199ca93f9c539b143895b6ed6d5ff990aaae27f9e932af"
+    },
+    {
+      "path": "Source/NarisCore/Private/NarisInventoryComponent.cpp",
+      "bytes": 528,
+      "sha256": "75caeab7032e2b2dec7d6c4c609ca5048f6fd82d8f267d405e8fa8a8bfb6e707"
+    },
+    {
+      "path": "Source/NarisCore/Private/NarisNPCScheduleComponent.cpp",
+      "bytes": 189,
+      "sha256": "1e34ce3f198c09c6a41764b8fc59b5a1a4f2e4d77ca607561d46924dc5b990c3"
+    },
+    {
+      "path": "Source/NarisCore/Private/NarisQuestSubsystem.cpp",
+      "bytes": 728,
+      "sha256": "ce03dfebd39067ca72e5aea553dfbfdaf7573297fc9bd065f5e80135738c9d56"
+    },
+    {
+      "path": "Source/NarisCore/Private/NarisRoadNetworkComponent.cpp",
+      "bytes": 255,
+      "sha256": "7397ba269a5d5b81e117ef853f0cb46e3e090d80410b7decc48d9ba951487f6a"
+    },
+    {
+      "path": "Source/NarisCore/Private/NarisThreatComponent.cpp",
+      "bytes": 741,
+      "sha256": "9860f14ee69dea26e6589bb5b296121c46b12b14b677a4619372619e1d8a3327"
+    },
+    {
+      "path": "Source/NarisCore/Private/NarisWorldStateSubsystem.cpp",
+      "bytes": 582,
+      "sha256": "368f9fd5b2dc7dac7f61cc38c585a533d781c5fe53d7bfaf5e00579911cf66b9"
+    },
+    {
+      "path": "Source/NarisCore/Private/NarisWorldSubsystem.cpp",
+      "bytes": 424,
+      "sha256": "a0e69e21c3e426a56990cfaaf69e303b19e3db20ea25122cb6615241dda54ac7"
+    },
+    {
+      "path": "Source/NarisCore/Public/NarisAITypes.h",
+      "bytes": 1131,
+      "sha256": "be680035daf952dc9690fb6363bd3c58ba6fa7142a832e1d7f4c8c10c78cf32b"
+    },
+    {
+      "path": "Source/NarisCore/Public/NarisAdvancedWorldTypes.h",
+      "bytes": 1042,
+      "sha256": "ee0ce266d0fd088b04674101dbc4344782f5bb7fde6563a8de8070e40a58c60b"
+    },
+    {
+      "path": "Source/NarisCore/Public/NarisAudioDirectorComponent.h",
+      "bytes": 425,
+      "sha256": "34c976154c7a66e9bbe1f5425f67f34fec2f102581d5de19a3ca5d9763007ab3"
+    },
+    {
+      "path": "Source/NarisCore/Public/NarisBossPhaseComponent.h",
+      "bytes": 784,
+      "sha256": "ba93d124b673fd2ee1ddf81cfc76346ef0d03f3868875686ac891df188930b82"
+    },
+    {
+      "path": "Source/NarisCore/Public/NarisCodexSubsystem.h",
+      "bytes": 410,
+      "sha256": "cc741310aa85fcc90da428028d3cb6f52f6e900b8ff2e6c1bbee9936dc86aff8"
+    },
+    {
+      "path": "Source/NarisCore/Public/NarisCombatComponent.h",
+      "bytes": 572,
+      "sha256": "04c1f1092a86ff4d9eaf5f54762e06f43c834f4a530a5ee23c1b1a20c8b99253"
+    },
+    {
+      "path": "Source/NarisCore/Public/NarisCombatTypes.h",
+      "bytes": 1118,
+      "sha256": "11d04479da4e45d3ce6e5da100fdbaa8394417c4b984a68bc264e93bfc548fef"
+    },
+    {
+      "path": "Source/NarisCore/Public/NarisDialogueComponent.h",
+      "bytes": 683,
+      "sha256": "e3d6344aa426d9aa069d08ef3d1275bd25597f9ca33c5f493638e839fd283e88"
+    },
+    {
+      "path": "Source/NarisCore/Public/NarisDungeonGeneratorComponent.h",
+      "bytes": 643,
+      "sha256": "ad0136685c5544420b1b2dfd0df2b903a09094a313b9bd1a93b4921bceb294eb"
+    },
+    {
+      "path": "Source/NarisCore/Public/NarisDynamicEventComponent.h",
+      "bytes": 512,
+      "sha256": "e3dccf34c20dfc626e8d7cf15bf0cae8e5dba9b8edbd2067f0a275a5b2fd75a8"
+    },
+    {
+      "path": "Source/NarisCore/Public/NarisEncounterDirectorComponent.h",
+      "bytes": 1128,
+      "sha256": "82e4046a3cdff47eba2011208e36b04742355980f26be21da996edfc02113a0d"
+    },
+    {
+      "path": "Source/NarisCore/Public/NarisEnvironmentDirectorComponent.h",
+      "bytes": 1125,
+      "sha256": "c237729a452241193b7d6eea298485a24117c77495f419fc901f34c7d58543c6"
+    },
+    {
+      "path": "Source/NarisCore/Public/NarisFastTravelComponent.h",
+      "bytes": 475,
+      "sha256": "e18402f33fbf2616774406c7164bcf69d79efd630da287c2cba9326d420b3197"
+    },
+    {
+      "path": "Source/NarisCore/Public/NarisGameplayEventComponent.h",
+      "bytes": 758,
+      "sha256": "aaf3afe6abd0c2b24b7d51215a916b2fc15299021b169ff23a93891f8f866556"
+    },
+    {
+      "path": "Source/NarisCore/Public/NarisGameplayEventRouter.h",
+      "bytes": 625,
+      "sha256": "5414877547090388c9c805c3e49bc333fd3a7a01f5510cd03f1dfdd637b5a00c"
+    },
+    {
+      "path": "Source/NarisCore/Public/NarisHitboxComponent.h",
+      "bytes": 717,
+      "sha256": "dfc1f33914dc0ca08237f5365968b9f15cc8ccfc652773fdbe1908b4e8a4142f"
+    },
+    {
+      "path": "Source/NarisCore/Public/NarisInventoryComponent.h",
+      "bytes": 669,
+      "sha256": "207886737ff3b1bd5688a2b6fa932e22ebb951365be4fbb2af0767650b2fd4ee"
+    },
+    {
+      "path": "Source/NarisCore/Public/NarisNPCScheduleComponent.h",
+      "bytes": 424,
+      "sha256": "e21fc4e465ccbab563defd54a931e6303694718110a4d43f24afb2110af689f1"
+    },
+    {
+      "path": "Source/NarisCore/Public/NarisNarrativeTypes.h",
+      "bytes": 1056,
+      "sha256": "8629913111c7e57b308dd08f1876d5a0bd9356e54098419681e0546d7499ce6a"
+    },
+    {
+      "path": "Source/NarisCore/Public/NarisQualitySubsystem.h",
+      "bytes": 382,
+      "sha256": "fe5e2241c55ecba7d6477ba583d23900c008f627e3914096e6f981539f05c12e"
+    },
+    {
+      "path": "Source/NarisCore/Public/NarisQuestSubsystem.h",
+      "bytes": 745,
+      "sha256": "27aa9b80c8d070b73135b1e61c8a7ab4c57d56ecb922fa8f87ce854b2d2be273"
+    },
+    {
+      "path": "Source/NarisCore/Public/NarisReleaseGateSubsystem.h",
+      "bytes": 319,
+      "sha256": "f5ed54403a4d2447d2a430c173e99c1d706596c3b34e3cd10d69aa959b3d9faa"
+    },
+    {
+      "path": "Source/NarisCore/Public/NarisRoadNetworkComponent.h",
+      "bytes": 734,
+      "sha256": "f37e130ff5573c7110cd99010b65fe9ae1f9299e045050e2bfd69fdbaab74555"
+    },
+    {
+      "path": "Source/NarisCore/Public/NarisSaveGame.h",
+      "bytes": 476,
+      "sha256": "4a8eafb67d3b15553b25f580aff5b15b3c0942d38c670433a2f5e0644ba363f6"
+    },
+    {
+      "path": "Source/NarisCore/Public/NarisThreatComponent.h",
+      "bytes": 818,
+      "sha256": "f606289576e7e12560202bda8353a2f9c2f47854ce0a67a3463790e261e5ef44"
+    },
+    {
+      "path": "Source/NarisCore/Public/NarisWorldStateSubsystem.h",
+      "bytes": 639,
+      "sha256": "cea7a3f60eb1203d55e6af2077ed2535457949a6fd0797971d539dbe5afb0b4d"
+    },
+    {
+      "path": "Source/NarisCore/Public/NarisWorldSubsystem.h",
+      "bytes": 739,
+      "sha256": "55277441aa41acd1e45d48b088a48816fe3f41f64b913360ea6e69fcb2baa005"
+    },
+    {
+      "path": "Source/NarisCore/Public/NarisWorldTypes.h",
+      "bytes": 1069,
+      "sha256": "7c1b8d99a119b47cb33fa90601ef0d8fa2cd8bb680298ebc7ae12be090c34b15"
+    },
+    {
+      "path": "Tests/PREFLIGHT_REPORT.json",
+      "bytes": 111,
+      "sha256": "fb87776cc29879c562ea44dd46f021732ef6ea730e16e7afedf5d2837078f5fa"
+    }
+  ]
+}

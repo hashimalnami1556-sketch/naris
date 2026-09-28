@@ -1,0 +1,4 @@
+ID,EventTag,Threshold,Hidden
+ACH_FIRST_FLAME,Progression.FlameAwakened,1,false
+ACH_BONEFALL,Boss.BoneBeast.Defeated,1,false
+ACH_LOREKEEPER,Codex.EntryUnlocked,25,false

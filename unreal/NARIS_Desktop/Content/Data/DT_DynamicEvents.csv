@@ -1,0 +1,5 @@
+RowName,Weight,CooldownSeconds,MinThreat,MaxThreat,BiomeTag,EventClass
+AshStorm,0.45,900,0,100,BIO_ASHEN_FOREST,BP_EVT_AshStorm
+WraithAmbush,0.65,420,20,90,BIO_ROOT_TUNNELS,BP_EVT_WraithAmbush
+AetherSurge,0.25,1200,30,100,BIO_ASHEN_FOREST,BP_EVT_AetherSurge
+BoneMigration,0.18,1500,45,100,BIO_ASH_GATE,BP_EVT_BoneMigration

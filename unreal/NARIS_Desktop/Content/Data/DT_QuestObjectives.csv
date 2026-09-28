@@ -1,0 +1,7 @@
+ObjectiveID,QuestID,Order,EventType,TargetID,RequiredCount,Optional,DescriptionKey
+OBJ_AG1,Q_AshenGate,1,ZoneDiscovered,04_AETHER_SHRINE,1,false,LOC_OBJ_AG1
+OBJ_AG2,Q_AshenGate,2,ItemAcquired,AshShard,3,false,LOC_OBJ_AG2
+OBJ_AG3,Q_AshenGate,3,EnemyDefeated,BoneBeast,3,false,LOC_OBJ_AG3
+OBJ_AG4,Q_AshenGate,4,BossDefeated,GateWarden,1,false,LOC_OBJ_AG4
+OBJ_R1,Q_ROOT_002,1,EnemyDefeated,ROOT_WRAITH,3,false,LOC_OBJ_R1
+OBJ_B1,Q_BONE_003,1,BossDefeated,BONE_BEAST,1,false,LOC_OBJ_B1

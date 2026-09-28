@@ -1,0 +1,4 @@
+StateID,MusicLayer,CombatIntensity,Snapshot
+Explore_Ashen,MUS_Ashen_Explore,0,Mix_Explore
+Combat_Low,MUS_Combat_Pulse,0.4,Mix_Combat
+Boss_BoneBeast,MUS_BoneBeast,1.0,Mix_Boss

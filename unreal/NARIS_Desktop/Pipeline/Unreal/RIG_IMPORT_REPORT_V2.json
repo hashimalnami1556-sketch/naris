@@ -1,0 +1,87 @@
+{
+  "version": 2,
+  "characters": {
+    "AshenVessel": {
+      "raw_imports": [
+        "/Game/Art/Characters/RiggedV2/AshenVessel/SK_AshenVessel.SK_AshenVessel"
+      ],
+      "meshes": [
+        {
+          "asset": "/Game/Art/Characters/RiggedV2/AshenVessel/SK_AshenVessel.SK_AshenVessel",
+          "skeleton": "/Game/Art/Characters/RiggedV2/AshenVessel/SK_AshenVessel_Skeleton.SK_AshenVessel_Skeleton"
+        }
+      ],
+      "skeletons": [
+        "/Game/Art/Characters/RiggedV2/AshenVessel/SK_AshenVessel_Skeleton.SK_AshenVessel_Skeleton"
+      ],
+      "animations": [
+        "/Game/Art/Characters/RiggedV2/AshenVessel/AN_Ashen_Attack_Heavy.AN_Ashen_Attack_Heavy",
+        "/Game/Art/Characters/RiggedV2/AshenVessel/AN_Ashen_Attack_Light.AN_Ashen_Attack_Light",
+        "/Game/Art/Characters/RiggedV2/AshenVessel/AN_Ashen_Dodge.AN_Ashen_Dodge",
+        "/Game/Art/Characters/RiggedV2/AshenVessel/AN_Ashen_HitReact.AN_Ashen_HitReact",
+        "/Game/Art/Characters/RiggedV2/AshenVessel/AN_Ashen_Idle.AN_Ashen_Idle",
+        "/Game/Art/Characters/RiggedV2/AshenVessel/AN_Ashen_Walk.AN_Ashen_Walk"
+      ],
+      "missing_expected": []
+    },
+    "CelestialWolf": {
+      "raw_imports": [
+        "/Game/Art/Characters/RiggedV2/CelestialWolf/SK_CelestialWolf_Skeleton.SK_CelestialWolf_Skeleton",
+        "/Game/Art/Characters/RiggedV2/CelestialWolf/SK_CelestialWolf.SK_CelestialWolf",
+        "/Game/Art/Characters/RiggedV2/CelestialWolf/SK_CelestialWolfSK_CelestialWolf_Armature_AN_Wolf_Bite.SK_CelestialWolfSK_CelestialWolf_Armature_AN_Wolf_Bite",
+        "/Game/Art/Characters/RiggedV2/CelestialWolf/SK_CelestialWolfSK_CelestialWolf_Armature_AN_Wolf_Dash.SK_CelestialWolfSK_CelestialWolf_Armature_AN_Wolf_Dash",
+        "/Game/Art/Characters/RiggedV2/CelestialWolf/SK_CelestialWolfSK_CelestialWolf_Armature_AN_Wolf_Idle.SK_CelestialWolfSK_CelestialWolf_Armature_AN_Wolf_Idle",
+        "/Game/Art/Characters/RiggedV2/CelestialWolf/SK_CelestialWolfSK_CelestialWolf_Armature_AN_Wolf_Roar.SK_CelestialWolfSK_CelestialWolf_Armature_AN_Wolf_Roar",
+        "/Game/Art/Characters/RiggedV2/CelestialWolf/SK_CelestialWolfSK_CelestialWolf_Armature_AN_Wolf_Run.SK_CelestialWolfSK_CelestialWolf_Armature_AN_Wolf_Run"
+      ],
+      "meshes": [
+        {
+          "asset": "/Game/Art/Characters/RiggedV2/CelestialWolf/SK_CelestialWolf.SK_CelestialWolf",
+          "skeleton": "/Game/Art/Characters/RiggedV2/CelestialWolf/SK_CelestialWolf_Skeleton.SK_CelestialWolf_Skeleton"
+        }
+      ],
+      "skeletons": [
+        "/Game/Art/Characters/RiggedV2/CelestialWolf/SK_CelestialWolf_Skeleton.SK_CelestialWolf_Skeleton"
+      ],
+      "animations": [
+        "/Game/Art/Characters/RiggedV2/CelestialWolf/AN_Wolf_Bite.AN_Wolf_Bite",
+        "/Game/Art/Characters/RiggedV2/CelestialWolf/AN_Wolf_Dash.AN_Wolf_Dash",
+        "/Game/Art/Characters/RiggedV2/CelestialWolf/AN_Wolf_Idle.AN_Wolf_Idle",
+        "/Game/Art/Characters/RiggedV2/CelestialWolf/AN_Wolf_Roar.AN_Wolf_Roar",
+        "/Game/Art/Characters/RiggedV2/CelestialWolf/AN_Wolf_Run.AN_Wolf_Run"
+      ],
+      "missing_expected": []
+    },
+    "BoneBeast": {
+      "raw_imports": [
+        "/Game/Art/Characters/RiggedV2/BoneBeast/SK_BoneBeast_Skeleton.SK_BoneBeast_Skeleton",
+        "/Game/Art/Characters/RiggedV2/BoneBeast/SK_BoneBeast.SK_BoneBeast",
+        "/Game/Art/Characters/RiggedV2/BoneBeast/SK_BoneBeastSK_BoneBeast_Armature_AN_Beast_Idle.SK_BoneBeastSK_BoneBeast_Armature_AN_Beast_Idle",
+        "/Game/Art/Characters/RiggedV2/BoneBeast/SK_BoneBeastSK_BoneBeast_Armature_AN_Beast_Roar.SK_BoneBeastSK_BoneBeast_Armature_AN_Beast_Roar",
+        "/Game/Art/Characters/RiggedV2/BoneBeast/SK_BoneBeastSK_BoneBeast_Armature_AN_Beast_Run.SK_BoneBeastSK_BoneBeast_Armature_AN_Beast_Run",
+        "/Game/Art/Characters/RiggedV2/BoneBeast/SK_BoneBeastSK_BoneBeast_Armature_AN_Beast_Stunned.SK_BoneBeastSK_BoneBeast_Armature_AN_Beast_Stunned",
+        "/Game/Art/Characters/RiggedV2/BoneBeast/SK_BoneBeastSK_BoneBeast_Armature_AN_Beast_Swipe.SK_BoneBeastSK_BoneBeast_Armature_AN_Beast_Swipe",
+        "/Game/Art/Characters/RiggedV2/BoneBeast/SK_BoneBeastSK_BoneBeast_Armature_AN_Beast_TailSweep.SK_BoneBeastSK_BoneBeast_Armature_AN_Beast_TailSweep"
+      ],
+      "meshes": [
+        {
+          "asset": "/Game/Art/Characters/RiggedV2/BoneBeast/SK_BoneBeast.SK_BoneBeast",
+          "skeleton": "/Game/Art/Characters/RiggedV2/BoneBeast/SK_BoneBeast_Skeleton.SK_BoneBeast_Skeleton"
+        }
+      ],
+      "skeletons": [
+        "/Game/Art/Characters/RiggedV2/BoneBeast/SK_BoneBeast_Skeleton.SK_BoneBeast_Skeleton"
+      ],
+      "animations": [
+        "/Game/Art/Characters/RiggedV2/BoneBeast/AN_Beast_Idle.AN_Beast_Idle",
+        "/Game/Art/Characters/RiggedV2/BoneBeast/AN_Beast_Roar.AN_Beast_Roar",
+        "/Game/Art/Characters/RiggedV2/BoneBeast/AN_Beast_Run.AN_Beast_Run",
+        "/Game/Art/Characters/RiggedV2/BoneBeast/AN_Beast_Stunned.AN_Beast_Stunned",
+        "/Game/Art/Characters/RiggedV2/BoneBeast/AN_Beast_Swipe.AN_Beast_Swipe",
+        "/Game/Art/Characters/RiggedV2/BoneBeast/AN_Beast_TailSweep.AN_Beast_TailSweep"
+      ],
+      "missing_expected": []
+    }
+  },
+  "errors": []
+}

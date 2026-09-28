@@ -1,6 +1,6 @@
 ---
 status: active
-last_updated: 2026-09-23
+last_updated: 2026-09-27
 ---
 # W04 readiness handoff
 
@@ -26,10 +26,7 @@ last_updated: 2026-09-23
 - Presentation source intake: 16 deterministic WAV source slots + SFX generation contracts exist; WAV import validates PCM 48 kHz/24-bit, channels, duration, digital silence and -1 dBFS peak ceiling. Niagara binding/profile authoring rejects systems with zero emitter handles.
 - Windows packaging readiness: Development authoring/package/runtime smoke, material/core-asset/animation reports, fatal-log/crash QA and bilingual CSV/GPU/LLM profiling are scripted. Shipping RC enforces strict animation/core-asset/material/presentation gates plus the production Ashen Forest map before Shipping BuildCookRun. Neither Windows path has executed in this session.
 - CI evidence: NARIS CI run 35904765067 success; Content Validation run 35904765117 success; Unreal Validate run 35904765189 success. Manual Windows execution remains unperformed.
-- Confirmed constraint: Unreal descriptor currently selects 5.4; Windows PC remains primary.
-- Runtime blocker: registered AsusRog remote host is offline, so neither Blender nor Unreal can be executed from this session yet.
 - Backend blocker: Neon connector requires a concrete project ID and the repository has no bound .neon/neon.json project metadata; no migration was applied.
 - Open issues: Windows compile/package/runtime evidence; actual W04_AshenForest production map; seven core production meshes; approved surface/water master materials + generated instances; 16 Audio + 14 Niagara payloads; 10 production AnimMontages; real Blender-to-Unreal Factory v2 run; Arabic visual/RTL QA; measured hardware performance; strict Shipping RC evidence.
-- Missing sources: 18 attachment paths announced for this session were absent; no asset contents were inspected.
-- Next action: when Windows is online, compile NARIS_W04Editor first, run the W04 Environment Factory bridge and production blockout authoring, retain all reports, then execute Development package/runtime smoke before attempting the strict W04_AshenForest Shipping RC.
 - Acceptance: a passing static check alone cannot close engine, DCC import, backend deployment or gameplay gates.
+- 2026-09-27 supersession: host is online and attachments are accessible; desktop NarisCore build/smoke passed, but this does not validate W04. See [desktop audit](../../desktop-integration-audit-20260927.md).

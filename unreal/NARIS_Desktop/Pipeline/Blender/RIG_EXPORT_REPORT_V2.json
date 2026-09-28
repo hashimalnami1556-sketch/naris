@@ -1,0 +1,41 @@
+{
+  "version": 2,
+  "AshenVessel": {
+    "blend": "C:\\Users\\Admin\\NARIS\\SourceAssets\\Blender\\RiggedV2\\SK_AshenVessel.blend",
+    "fbx": "C:\\Users\\Admin\\NARIS\\Pipeline\\Exchange\\FBX\\RiggedV2\\SK_AshenVessel.fbx",
+    "bones": 24,
+    "actions": [
+      "AN_Ashen_Attack_Heavy",
+      "AN_Ashen_Attack_Light",
+      "AN_Ashen_Dodge",
+      "AN_Ashen_HitReact",
+      "AN_Ashen_Idle",
+      "AN_Ashen_Walk"
+    ]
+  },
+  "CelestialWolf": {
+    "blend": "C:\\Users\\Admin\\NARIS\\SourceAssets\\Blender\\RiggedV2\\SK_CelestialWolf.blend",
+    "fbx": "C:\\Users\\Admin\\NARIS\\Pipeline\\Exchange\\FBX\\RiggedV2\\SK_CelestialWolf.fbx",
+    "bones": 16,
+    "actions": [
+      "AN_Wolf_Bite",
+      "AN_Wolf_Dash",
+      "AN_Wolf_Idle",
+      "AN_Wolf_Roar",
+      "AN_Wolf_Run"
+    ]
+  },
+  "BoneBeast": {
+    "blend": "C:\\Users\\Admin\\NARIS\\SourceAssets\\Blender\\RiggedV2\\SK_BoneBeast.blend",
+    "fbx": "C:\\Users\\Admin\\NARIS\\Pipeline\\Exchange\\FBX\\RiggedV2\\SK_BoneBeast.fbx",
+    "bones": 20,
+    "actions": [
+      "AN_Beast_Idle",
+      "AN_Beast_Roar",
+      "AN_Beast_Run",
+      "AN_Beast_Stunned",
+      "AN_Beast_Swipe",
+      "AN_Beast_TailSweep"
+    ]
+  }
+}

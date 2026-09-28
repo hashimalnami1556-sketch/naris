@@ -1,0 +1,50 @@
+{
+  "test": "NARIS Production Completion + RiggedV2 + Packaged Runtime Smoke",
+  "date": "2026-09-24",
+  "engine": "Unreal Engine 5.7",
+  "result": "PASS",
+  "runtime_marker": "NARIS_RUNTIME_READY Companion=1 Enemies=3 Boss=1 Pickups=3 Quest=Q_AshenGate Persistence=1 Audio=1 VFX=1",
+  "release_gate": "NARIS_RELEASE_GATE PASS World=1 Audio=1 VFX=1 Save=1 Quest=1 Enemies=4 Bosses=1",
+  "quest_smoke": "NARIS_QUEST_SMOKE PASS Regular=3 Boss=1 Shards=6 Quest=1 Gate=1 Rep=1 Save=1 Persist=1 Audio=1 VFX=1 Chapter=1 Release=1 ChapterSave=1 Settings=1 Checkpoint=1",
+  "world_data_validation": {
+    "result": "PASS",
+    "zones": 9,
+    "fast_travel_nodes": 5,
+    "encounters": 9,
+    "quests": 3,
+    "objectives": 6,
+    "errors": [],
+    "warnings": []
+  },
+  "rigged_v2_asset_files": 23,
+  "validated": [
+    "Ashen Vessel RiggedV2 animations",
+    "Light and heavy attack animation paths",
+    "Dodge animation",
+    "Hit reaction animation",
+    "Camera feedback component",
+    "Hit reaction component",
+    "Boss HUD and lock marker",
+    "Checkpoint autosave",
+    "Accessibility settings",
+    "Six-chapter progression subsystem",
+    "Chapter 1 completion and Chapter 2 unlock",
+    "Chapter state save/load",
+    "Runtime release diagnostics",
+    "Persistent world",
+    "Combat audio",
+    "Niagara VFX",
+    "Editor runtime smoke PASS",
+    "NARIS Win64 Development full build PASS",
+    "Cook Stage Pak Archive PASS",
+    "Packaged Win64 smoke PASS"
+  ],
+  "package": {
+    "path": "C:/Users/Admin/NARIS/Releases/Win64_Completion/NARIS.exe",
+    "archive_bytes": 901868374
+  },
+  "notes": [
+    "Optional aqProf/Vtune/WinPix instrumentation DLL warnings do not block gameplay runtime.",
+    "Artifacts/ and Releases/ remain excluded from Git."
+  ]
+}

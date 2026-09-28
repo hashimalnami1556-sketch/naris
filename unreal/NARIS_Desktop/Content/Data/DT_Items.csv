@@ -1,0 +1,4 @@
+ItemID,Type,Rarity,MaxStack,Weight,Value,GameplayTag
+ITM_AetherShard,Material,Rare,99,0.1,120,Item.Material.Aether
+WPN_FlameRelic,Weapon,Legendary,1,4.5,5000,Item.Weapon.Sword
+ARM_AshenMantle,Armor,Epic,1,3.0,2800,Item.Armor.Cloak

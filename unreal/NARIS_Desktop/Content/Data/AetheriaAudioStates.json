@@ -1,0 +1,37 @@
+{
+  "version": 1,
+  "states": [
+    "Exploration",
+    "Suspicion",
+    "CombatLow",
+    "CombatHigh",
+    "BossP1",
+    "BossP2",
+    "BossP3",
+    "Victory"
+  ],
+  "stems": [
+    "Pulse",
+    "Percussion",
+    "LowStrings",
+    "HighStrings",
+    "Brass",
+    "Choir"
+  ],
+  "reverbZones": [
+    "Citadel",
+    "Exterior",
+    "Cave",
+    "Cathedral",
+    "Crystal",
+    "Storm",
+    "Underwater"
+  ],
+  "rules": {
+    "crossfadeSeconds": 1.5,
+    "bossQuantization": "bar",
+    "virtualizeAmbience": true,
+    "maxImpactVoices": 12,
+    "maxFootstepVoices": 8
+  }
+}

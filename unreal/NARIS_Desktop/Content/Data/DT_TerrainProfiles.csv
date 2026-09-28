@@ -1,0 +1,5 @@
+Name,BiomeID,HeightScale,NoiseScale,ErosionStrength,SeedOffset
+ASHEN_FOREST,AshenForest,900,0.0025,0.42,110
+WHISPER_LAKE,WhisperLake,380,0.0014,0.18,220
+AETHER_HIGHLANDS,AetherHighlands,1650,0.0018,0.55,330
+EMBER_BADLANDS,EmberBadlands,1250,0.0032,0.68,440

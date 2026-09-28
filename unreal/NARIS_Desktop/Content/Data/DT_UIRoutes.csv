@@ -1,0 +1,5 @@
+RouteID,Widget,InputMode,PauseGame
+UI_HUD,WBP_NarisHUD,GameOnly,false
+UI_Inventory,WBP_Inventory,GameAndUI,true
+UI_Map,WBP_WorldMap,GameAndUI,true
+UI_Codex,WBP_Codex,GameAndUI,true
