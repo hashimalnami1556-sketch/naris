@@ -16,6 +16,9 @@ UENUM(BlueprintType)
 enum class ENarisPauseMenuPage : uint8
 {
     Main,
+    Inventory,
+    Map,
+    Quests,
     Settings,
     Controls
 };
