@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "updated": "2026-10-01",
+  "canonical": {
+    "repository": "hashimalnami1556-sketch/naris",
+    "branch": "main",
+    "sourceOfTruth": "GitHub"
+  },
+  "verifiedMain": [
+    "Docs/AETHERIA_MASTER_EXECUTION.md",
+    "Content/Data/AetheriaBossRoster.json",
+    "Content/Data/AetheriaRealms.json",
+    "Content/Data/AetheriaAudioStates.json",
+    "Content/Data/AetheriaPerformanceBudget.json"
+  ],
+  "activeStreams": [
+    "codex/naris-product-context-20260929",
+    "codex/naris-product-design-meshy-game-studio",
+    "feat/asset-generation-pipeline-v1",
+    "feat/w04-asset-expansion",
+    "feature/runtime-core-v2",
+    "integration/ashen-wastes-playable-slice-0-1",
+    "integration/desktop-audit-20260927",
+    "integration/naris-master-0-2",
+    "ui/naris-runtime-interface-foundation",
+    "unity/cross-platform-systems-20260929",
+    "fix/w04-ue57-build"
+  ],
+  "workstation": {
+    "path": "C:\\Users\\Admin\\NARIS",
+    "knownTestedCommit": "7e9904a",
+    "windowsBuildPreviouslyVerified": true
+  },
+  "conversationHandoff": {
+    "bundle": "NARIS_MASTER_COMPLETE_HANDOFF_2026-09-27.zip",
+    "referenceImages": 14,
+    "pdfs": 1,
+    "videos": 2,
+    "binariesRequireRealImport": true
+  },
+  "safety": {
+    "forcePushMain": false,
+    "blindMergeDivergentBranches": false
+  }
+}
