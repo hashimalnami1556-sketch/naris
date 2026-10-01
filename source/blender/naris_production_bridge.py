@@ -1,10 +1,10 @@
 bl_info = {
     "name": "NARIS Production Bridge",
     "author": "NARIS Studios",
-    "version": (1, 0, 0),
+    "version": (1, 1, 0),
     "blender": (4, 0, 0),
     "location": "View3D > Sidebar > NARIS",
-    "description": "NARIS asset naming, metadata, LOD and validation helpers.",
+    "description": "NARIS asset metadata compatibility helper for the canonical Unreal/W04 pipeline.",
     "category": "3D View",
 }
 
@@ -21,9 +21,9 @@ class NARIS_OT_setup_asset(bpy.types.Operator):
         if not obj.get("naris_asset_id"):
             obj["naris_asset_id"] = obj.name
         obj["naris_category"] = "Character"
-        obj["naris_export"] = "GLB,FBX"
-        obj["naris_version"] = "1.0"
-        obj["naris_engine_target"] = "Unity 6"
+        obj["naris_export"] = "FBX,GLB"
+        obj["naris_version"] = "1.1"
+        obj["naris_engine_target"] = "Unreal Engine 5.4"
         obj["naris_lod0"] = 1.0
         obj["naris_lod1"] = 0.60
         obj["naris_lod2"] = 0.30
