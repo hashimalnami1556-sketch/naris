@@ -169,3 +169,16 @@ A repository-backed loading-style monitor is now part of the production plan for
 - Primary layout: **32:9**, with 21:9 and 16:9 fallbacks
 - Current phase: **Vertical Slice / W04 Ashen Forest**
 - Planning percentages are not build/runtime/QA evidence.
+
+
+## AAA presentation upgrade — 2026-10-01
+
+A new visual/system modernization pass is now tracked in the canonical repository. It adds an image-led AAA UI/UX direction, character/environment art bible, runtime modernization contract, Unreal implementation map and acceptance gates.
+
+- Visual reference: `generated_designs/ui/naris-aaa-ui-master-reference-2026-10-01.svg`
+- UI/UX: `docs/ui/naris-uiux-aaa-v1.md`
+- Art direction: `docs/production/naris-character-environment-art-bible-v1.md`
+- Systems: `docs/architecture/naris-systems-modernization-v1.md`
+- Unreal map: `docs/production/naris-unreal-aaa-implementation-map-v1.md`
+- QA gates: `docs/release/naris-aaa-acceptance-v1.md`
+- Traceability manifest: `data/manifests/AAA_UI_ART_PASS_2026-10-01.json`
