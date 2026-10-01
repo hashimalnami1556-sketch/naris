@@ -65,7 +65,7 @@ void ANarisHUD::DrawPlayerVitals(ANarisHeroCharacter* Hero, float Scale, float S
     if (Hero->Combat)
     {
         DrawBar(
-            NSLOCTEXT("NARIS", "HUDHealth", "HEALTH").ToString(),
+            NSLOCTEXT("NARIS", "HUDHealth", "Health").ToString(),
             Hero->Combat->Health,
             Hero->Combat->MaxHealth,
             X + 18.f * Scale,
@@ -77,7 +77,7 @@ void ANarisHUD::DrawPlayerVitals(ANarisHeroCharacter* Hero, float Scale, float S
         );
 
         DrawBar(
-            NSLOCTEXT("NARIS", "HUDResonance", "RESONANCE").ToString(),
+            NSLOCTEXT("NARIS", "HUDResonance", "Resonance").ToString(),
             Hero->Combat->Resonance,
             Hero->Combat->MaxResonance,
             X + 18.f * Scale,
@@ -92,7 +92,7 @@ void ANarisHUD::DrawPlayerVitals(ANarisHeroCharacter* Hero, float Scale, float S
     if (Hero->Energy)
     {
         DrawBar(
-            NSLOCTEXT("NARIS", "HUDEnergy", "AETHER").ToString(),
+            NSLOCTEXT("NARIS", "HUDEnergy", "Energy").ToString(),
             Hero->Energy->Energy,
             Hero->Energy->MaxEnergy,
             X + 18.f * Scale,
@@ -103,10 +103,15 @@ void ANarisHUD::DrawPlayerVitals(ANarisHeroCharacter* Hero, float Scale, float S
             Scale
         );
 
+        const FString EssenceText = FString::Printf(
+            TEXT("%s: %s"),
+            *NSLOCTEXT("NARIS", "HUDEssence", "Essence").ToString(),
+            *Hero->Energy->GetActiveEssenceDisplayName().ToString()
+        );
         DrawText(
-            Hero->Energy->GetActiveEssenceDisplayName().ToString(),
+            EssenceText,
             FNarisUIStyle::Bone(),
-            X + PanelW - 118.f * Scale,
+            X + PanelW - 152.f * Scale,
             Y + 82.f * Scale,
             nullptr,
             0.68f * Scale,
@@ -164,14 +169,16 @@ void ANarisHUD::DrawObjectiveCard(
         }
     }
 
+    const bool bWolfBonded = Runtime->IsCompanionUnlocked(TEXT("CelestialWolf"));
+
     const float W = 410.f * Scale;
-    const float H = 84.f * Scale;
+    const float H = 112.f * Scale;
     const float X = Canvas->ClipX - Safe - W;
     const float Y = Safe;
 
     DrawPanel(X, Y, W, H, FLinearColor(0.025f, 0.032f, 0.043f, 0.70f));
     DrawText(
-        NSLOCTEXT("NARIS", "HUDQuestCorruptedHeart", "CORRUPTED HEART").ToString(),
+        NSLOCTEXT("NARIS", "HUDQuestCorruptedHeart", "Corrupted Heart").ToString(),
         FNarisUIStyle::Gold(),
         X + 18.f * Scale,
         Y + 14.f * Scale,
@@ -186,6 +193,36 @@ void ANarisHUD::DrawObjectiveCard(
         Y + 45.f * Scale,
         nullptr,
         0.78f * Scale,
+        false
+    );
+
+    FString CompanionLine = bWolfBonded
+        ? NSLOCTEXT("NARIS", "HUDWolfBonded", "Celestial Wolf: Bonded").ToString()
+        : NSLOCTEXT("NARIS", "HUDWolfUnbonded", "Celestial Wolf: Unbonded").ToString();
+
+    if (bWolfBonded && GetWorld())
+    {
+        for (TActorIterator<ACelestialWolf> WolfIt(GetWorld()); WolfIt; ++WolfIt)
+        {
+            if (ACelestialWolf* Wolf = *WolfIt)
+            {
+                CompanionLine = FString::Printf(
+                    TEXT("%s: %s"),
+                    *NSLOCTEXT("NARIS", "HUDWolfMode", "Wolf Mode").ToString(),
+                    *Wolf->GetModeDisplayName().ToString()
+                );
+                break;
+            }
+        }
+    }
+
+    DrawText(
+        CompanionLine,
+        bWolfBonded ? FNarisUIStyle::Cyan() : FNarisUIStyle::Muted(),
+        X + 18.f * Scale,
+        Y + 78.f * Scale,
+        nullptr,
+        0.66f * Scale,
         false
     );
 }
@@ -209,7 +246,11 @@ void ANarisHUD::DrawInteractionPrompt(ANarisHeroCharacter* Hero, float Scale)
         : FText::FromString(TEXT("E"));
 
     const FText Prompt = INarisInteractable::Execute_GetInteractionPrompt(Target);
-    const FString Text = FString::Printf(TEXT("[%s]  %s"), *ActionKey.ToString(), *Prompt.ToString());
+    const FString Text = FString::Printf(TEXT("[%s] %s"), *ActionKey.ToString(), *Prompt.ToString());
+
+    const UNarisGameUserSettings* Settings = UNarisGameUserSettings::GetNarisGameUserSettings();
+    const bool bHighContrast = Settings && Settings->bHighContrastInteractions;
+    const FLinearColor Gold = FNarisUIStyle::Gold();
 
     const float W = 420.f * Scale;
     const float H = 48.f * Scale;
@@ -217,7 +258,15 @@ void ANarisHUD::DrawInteractionPrompt(ANarisHeroCharacter* Hero, float Scale)
     const float Y = Canvas->ClipY - 190.f * Scale;
 
     DrawPanel(X, Y, W, H, FLinearColor(0.02f, 0.025f, 0.035f, 0.78f));
-    DrawText(Text, FNarisUIStyle::Bone(), X + 18.f * Scale, Y + 14.f * Scale, nullptr, 0.78f * Scale, false);
+    DrawText(
+        Text,
+        bHighContrast ? FLinearColor::White : Gold,
+        X + 18.f * Scale,
+        Y + 14.f * Scale,
+        nullptr,
+        bHighContrast ? 1.2f : 1.05f,
+        false
+    );
 }
 
 void ANarisHUD::DrawBossHUD(float Scale, float Safe)
@@ -241,7 +290,7 @@ void ANarisHUD::DrawBossHUD(float Scale, float Safe)
         const float Y = Safe;
 
         DrawText(
-            NSLOCTEXT("NARIS", "HUDBoneBeast", "BONE BEAST").ToString(),
+            NSLOCTEXT("NARIS", "HUDBoneBeast", "Bone Beast").ToString(),
             FNarisUIStyle::Bone(),
             X,
             Y,
@@ -363,7 +412,7 @@ void ANarisHUD::DrawContentPage(
         RowY += 42.f * Scale;
 
         DrawText(
-            NSLOCTEXT("NARIS", "InventoryEquipped", "EQUIPPED").ToString(),
+            NSLOCTEXT("NARIS", "InventoryEquipped", "Equipped").ToString(),
             FNarisUIStyle::Muted(),
             Left,
             RowY,
@@ -396,7 +445,7 @@ void ANarisHUD::DrawContentPage(
 
         RowY += 50.f * Scale;
         DrawText(
-            NSLOCTEXT("NARIS", "InventoryItems", "RELICS & ITEMS").ToString(),
+            NSLOCTEXT("NARIS", "InventoryItems", "Relics & Items").ToString(),
             FNarisUIStyle::Muted(),
             Left,
             RowY,
@@ -452,7 +501,7 @@ void ANarisHUD::DrawContentPage(
         RowY += 54.f * Scale;
 
         DrawText(
-            NSLOCTEXT("NARIS", "MapWaystones", "DISCOVERED WAYSTONES").ToString(),
+            NSLOCTEXT("NARIS", "MapWaystones", "Discovered Waystones").ToString(),
             FNarisUIStyle::Gold(),
             Left,
             RowY,
@@ -489,7 +538,7 @@ void ANarisHUD::DrawContentPage(
         const float MapH = Height - 165.f * Scale;
         DrawPanel(MapX, MapY, MapW, MapH, FLinearColor(0.07f, 0.10f, 0.08f, 0.88f));
         DrawText(
-            NSLOCTEXT("NARIS", "MapAshenForest", "ASHEN FOREST").ToString(),
+            NSLOCTEXT("NARIS", "MapAshenForest", "Ashen Forest").ToString(),
             FNarisUIStyle::Gold(),
             MapX + 24.f * Scale,
             MapY + 24.f * Scale,
@@ -503,7 +552,7 @@ void ANarisHUD::DrawContentPage(
     else if (Controller->GetPauseMenuPage() == ENarisPauseMenuPage::Quests)
     {
         DrawText(
-            NSLOCTEXT("NARIS", "QuestActive", "ACTIVE").ToString(),
+            NSLOCTEXT("NARIS", "QuestActive", "Active").ToString(),
             FNarisUIStyle::Gold(),
             Left,
             RowY,
@@ -545,7 +594,7 @@ void ANarisHUD::DrawContentPage(
 
         RowY += 48.f * Scale;
         DrawText(
-            NSLOCTEXT("NARIS", "QuestCompleted", "COMPLETED").ToString(),
+            NSLOCTEXT("NARIS", "QuestCompleted", "Completed").ToString(),
             FNarisUIStyle::Muted(),
             Left,
             RowY,
@@ -658,13 +707,43 @@ void ANarisHUD::DrawPauseMenu()
         }
     }
 
-    const FString Hint = Controller->GetPauseMenuPage() == ENarisPauseMenuPage::Controls
-        ? NSLOCTEXT("NARIS", "ControlsMenuHint", "Confirm to remap • Back to return").ToString()
-        : Controller->GetPauseMenuPage() == ENarisPauseMenuPage::Settings
-            ? NSLOCTEXT("NARIS", "SettingsMenuHint", "Left / Right to adjust • Confirm to apply").ToString()
-            : Controller->GetMenuContext() == ENarisMenuContext::FrontEnd
-                ? NSLOCTEXT("NARIS", "FrontEndMenuHint", "Navigate • Confirm").ToString()
-                : NSLOCTEXT("NARIS", "PauseMenuHint", "Navigate • Confirm • Back").ToString();
+    FString Hint;
+    if (Controller->GetPauseMenuPage() == ENarisPauseMenuPage::Controls)
+    {
+        Hint = Controller->IsWaitingForGamepadRemap()
+            ? NSLOCTEXT(
+                "NARIS",
+                "ControlsCaptureHint",
+                "Press a gamepad button. Start/B cancels capture."
+              ).ToString()
+            : NSLOCTEXT(
+                "NARIS",
+                "ControlsMenuHint",
+                "Select an action and press Confirm to remap. Back: Esc/B"
+              ).ToString();
+    }
+    else if (Controller->GetPauseMenuPage() == ENarisPauseMenuPage::Settings)
+    {
+        Hint = NSLOCTEXT(
+            "NARIS",
+            "SettingsMenuHint",
+            "Adjust: A/D or Left/Right   Confirm: Enter/A   Back: Esc/B"
+        ).ToString();
+    }
+    else
+    {
+        Hint = Controller->GetMenuContext() == ENarisMenuContext::FrontEnd
+            ? NSLOCTEXT(
+                "NARIS",
+                "FrontEndMenuHint",
+                "Navigate: W/S or D-Pad   Confirm: Enter/A"
+              ).ToString()
+            : NSLOCTEXT(
+                "NARIS",
+                "PauseMenuHint",
+                "Navigate: W/S or D-Pad   Confirm: Enter/A   Back: Esc/B"
+              ).ToString();
+    }
 
     DrawText(
         Hint,
@@ -686,47 +765,46 @@ void ANarisHUD::DrawHUD()
         return;
     }
 
-    if (ANarisPlayerController* Controller = Cast<ANarisPlayerController>(PlayerOwner))
+    ANarisPlayerController* Controller = Cast<ANarisPlayerController>(PlayerOwner);
+    if (Controller && Controller->IsFrontEndMenuOpen())
     {
-        if (Controller->IsSystemMenuOpen())
-        {
-            DrawPauseMenu();
-            return;
-        }
-    }
-
-    ANarisHeroCharacter* Hero = Cast<ANarisHeroCharacter>(PlayerOwner->GetPawn());
-    if (!Hero)
-    {
+        DrawSubtitle();
+        DrawPauseMenu();
         return;
     }
 
+    ANarisHeroCharacter* Hero = Cast<ANarisHeroCharacter>(PlayerOwner->GetPawn());
     UNarisRuntimeSubsystem* Runtime = nullptr;
     if (UGameInstance* GameInstance = GetWorld() ? GetWorld()->GetGameInstance() : nullptr)
     {
         Runtime = GameInstance->GetSubsystem<UNarisRuntimeSubsystem>();
     }
 
-    const float Scale = FNarisUIStyle::GetViewportScale(Canvas->ClipX, Canvas->ClipY);
-    const float Safe = FNarisUIStyle::GetSafeMargin(Canvas->ClipX, Canvas->ClipY);
-
-    DrawPlayerVitals(Hero, Scale, Safe);
-    DrawObjectiveCard(Runtime, Scale, Safe);
-    DrawInteractionPrompt(Hero, Scale);
-    DrawBossHUD(Scale, Safe);
-    DrawSubtitle();
-
-    if (Runtime && Runtime->IsDemoCompleted())
+    if (Hero && (!Controller || !Controller->IsSystemMenuOpen()))
     {
-        const FString Complete = NSLOCTEXT("NARIS", "HUDDemoComplete", "W04 DEMO COMPLETE").ToString();
-        DrawText(
-            Complete,
-            FNarisUIStyle::Gold(),
-            Canvas->ClipX * 0.5f - 110.f * Scale,
-            Canvas->ClipY * 0.18f,
-            nullptr,
-            1.05f * Scale,
-            false
-        );
+        const float Scale = FNarisUIStyle::GetViewportScale(Canvas->ClipX, Canvas->ClipY);
+        const float Safe = FNarisUIStyle::GetSafeMargin(Canvas->ClipX, Canvas->ClipY);
+
+        DrawPlayerVitals(Hero, Scale, Safe);
+        DrawObjectiveCard(Runtime, Scale, Safe);
+        DrawInteractionPrompt(Hero, Scale);
+        DrawBossHUD(Scale, Safe);
+
+        if (Runtime && Runtime->IsDemoCompleted())
+        {
+            const FString Complete = NSLOCTEXT("NARIS", "HUDDemoComplete", "W04 DEMO COMPLETE").ToString();
+            DrawText(
+                Complete,
+                FNarisUIStyle::Gold(),
+                Canvas->ClipX * 0.5f - 110.f * Scale,
+                Canvas->ClipY * 0.18f,
+                nullptr,
+                1.05f * Scale,
+                false
+            );
+        }
     }
+
+    DrawSubtitle();
+    DrawPauseMenu();
 }
