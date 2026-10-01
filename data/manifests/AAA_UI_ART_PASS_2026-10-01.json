@@ -5,7 +5,7 @@
   "date": "2026-10-01",
   "branch": "main",
   "intent": "Upgrade UI/UX, character presentation, environments and runtime presentation from prototype quality toward a modern AAA-style production target.",
-  "reference_visual": "generated_designs/ui/naris-aaa-ui-master-reference-2026-10-01.jpg",
+  "reference_visual": "generated_designs/ui/naris-aaa-ui-master-reference-2026-10-01.svg",
   "documents": [
     "docs/ui/naris-uiux-aaa-v1.md",
     "docs/production/naris-character-environment-art-bible-v1.md",
