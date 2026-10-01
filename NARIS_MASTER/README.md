@@ -38,3 +38,11 @@ The master now includes an adaptive audio specification under `15_AUDIO/`:
 - `AUDIO_PRODUCTION_CHECKLIST.md` — source, loop, spatial, mix and QA gates.
 
 Current status: **specification ready; final WAV/MP3 production assets are pending generation/recording and listening QA.**
+
+## UI4.1 production update — 2026-10-01
+
+- Guarded production patch: `14_UI_UX/releases/UI4_1/`.
+- Verified predecessor runtime evidence: packaged Windows UI3 launched through the front-end and runtime readiness gates.
+- Patch automation provides timestamped backup, rollback, NARISEditor build, Windows Development packaging, EXE launch and log acceptance checks.
+- Acceptance rejects Direct Play regression, fatal/load failures and missing front-end/runtime readiness markers.
+- Full Pause / Inventory / Map / Quest source integration remains pending against the live local source tree; no Unreal binary assets are fabricated.
