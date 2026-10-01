@@ -1,6 +1,6 @@
 # CALL OF NARIS — Production Status
 
-**Snapshot:** 2026-09-23
+**Snapshot:** 2026-10-01
 **Canonical engine path:** Unreal Engine 5.4+  
 **Primary target:** Windows PC  
 **Primary vertical slice:** W04 — Ashen Forest  
@@ -15,6 +15,7 @@
 - Unreal bootstrap: `unreal/NARIS_W04/NARIS_W04.uproject`
 - Master integration: `docs/production/NARIS_MASTER_INTEGRATION_v1_9.md`
 - AssetForge world generator: `tools/assetforge/world_generator.py`
+- Blender master authoring scaffold: `tools/blender/NARIS_Blender_Master_Builder_v1_0.py`
 
 ## Integration status
 
@@ -29,6 +30,8 @@
 | v1.9 | Active | Master merge, PC packaging, playtest, validation |
 
 Earlier Godot-oriented packages remain useful as design/system provenance, but **Unreal Engine W04 is the canonical implementation target**.
+
+The Blender Master Builder v1.0 is checked-in authoring source, not runtime evidence. Generated prototype geometry, rigs, LODs, collision proxies and manifests must still pass the canonical registry, Blender exchange schema, Unreal import, technical budgets and QA gates before promotion.
 
 ## Active production focus — W04 Ashen Forest
 
