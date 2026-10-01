@@ -175,7 +175,7 @@ A repository-backed loading-style monitor is now part of the production plan for
 
 A new visual/system modernization pass is now tracked in the canonical repository. It adds an image-led AAA UI/UX direction, character/environment art bible, runtime modernization contract, Unreal implementation map and acceptance gates.
 
-- Visual reference: `generated_designs/ui/naris-aaa-ui-master-reference-2026-10-01.jpg`
+- Visual reference: `generated_designs/ui/naris-aaa-ui-master-reference-2026-10-01.svg`
 - UI/UX: `docs/ui/naris-uiux-aaa-v1.md`
 - Art direction: `docs/production/naris-character-environment-art-bible-v1.md`
 - Systems: `docs/architecture/naris-systems-modernization-v1.md`
