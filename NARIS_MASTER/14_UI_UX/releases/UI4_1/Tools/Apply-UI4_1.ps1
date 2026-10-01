@@ -23,11 +23,9 @@ if($gm -notmatch 'NarisDirectPlay'){throw 'Explicit DirectPlay flag marker missi
 if($gm -match 'bSmoke\|\|!bFrontEnd'){throw 'Direct-play regression detected in GameMode.'}
 
 $ini=Get-Content -Raw $input
-if($ini -notmatch 'ActionName="Resonance"'){
- $anchor='+ActionMappings=(ActionName="Dodge",bShift=False,bCtrl=False,bAlt=False,bCmd=False,Key=LeftShift)'
- if(!$ini.Contains($anchor)){throw 'Dodge input anchor not found.'}
+if($ini -notmatch '(?m)^\+ActionMappings=\(ActionName="Resonance"[^\r\n]*Key=R\)'){
  $mapping='+ActionMappings=(ActionName="Resonance",bShift=False,bCtrl=False,bAlt=False,bCmd=False,Key=R)'
- $ini=$ini.Replace($anchor,($anchor + [Environment]::NewLine + $mapping))
+ $ini=$ini.TrimEnd() + [Environment]::NewLine + $mapping + [Environment]::NewLine
  Set-Content $input $ini -Encoding UTF8
 }
 
