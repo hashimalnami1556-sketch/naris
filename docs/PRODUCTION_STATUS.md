@@ -155,3 +155,17 @@ The shared agent entry point is [AGENTS.md](../AGENTS.md), with current work in 
 - Current phase: **Vertical Slice**
 - ASUS ROG host at sync time: **online**
 - Host connectivity is not build or playtest evidence.
+
+
+## AAA UI / art / presentation pass — 2026-10-01
+
+The repository now includes a unified image-led modernization target for UI/UX, characters, environments and supporting runtime systems. This pass is canonical design/implementation guidance, not an assertion that final Unreal assets are already production-approved.
+
+Current additions:
+- AAA UI/UX screen and interaction contract with Arabic RTL and accessibility requirements.
+- Character/environment art bible covering silhouette, materials, LOD, animation, lighting, VFX and audio presentation.
+- Runtime modernization targets for combat, AI, save, streaming and performance.
+- Unreal implementation map for CommonUI-style screen stacks and gameplay subsystem boundaries.
+- Visual acceptance gates and one master visual reference under `generated_designs/ui/`.
+
+Next engine gate: implement these contracts in the W04 Unreal runtime, replace placeholders with production assets, and validate 60 fps, save/load, input, RTL and boss readability before promotion to approved/release.
