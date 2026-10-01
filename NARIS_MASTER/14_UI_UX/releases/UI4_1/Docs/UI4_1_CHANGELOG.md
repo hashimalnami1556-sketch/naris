@@ -17,3 +17,8 @@ No `.uasset` or `.umap` is fabricated. Full Pause/Inventory/Map/Quest source int
 - Propagates nonzero validator exit status to the apply workflow.
 - The live AsusRog GameMode currently defaults to gameplay in its normal-launch branch; this conflicts with the previously documented front-end default and remains a separate runtime regression to reconcile before release.
 - Remote PowerShell parser execution was not permitted in this session; repository edits were verified by GitHub read-back, not by a fresh packaged test.
+
+## AsusRog source hotfix verification — 2026-10-01
+- Restored default Front-End path in local `NarisGameModeBase.cpp`: normal launch sets `bGameStarted=false`, pauses play, enables mouse cursor and uses `FInputModeGameAndUI`; direct gameplay remains opt-in for smoke/direct-play flags.
+- Unreal Engine 5.7 `NARISEditor Win64 Development` compile completed successfully (`Result: Succeeded`, exit code 0) following local source edit.
+- Packaged Windows UI4.1 and interactive mouse-click validation were not rerun in this pass; do not conflate successful Editor compile with packaged acceptance.
