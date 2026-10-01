@@ -93,6 +93,15 @@ struct FNarisSaveState
     TArray<FString> DefeatedBosses;
 
     UPROPERTY(BlueprintReadWrite)
+    TArray<FString> InventoryItems;
+
+    UPROPERTY(BlueprintReadWrite)
+    TArray<FString> EquippedItems;
+
+    UPROPERTY(BlueprintReadWrite)
+    int32 Currency = 0;
+
+    UPROPERTY(BlueprintReadWrite)
     bool bDemoCompleted = false;
 
     UPROPERTY(BlueprintReadWrite)
