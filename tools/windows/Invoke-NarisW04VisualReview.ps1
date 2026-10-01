@@ -35,9 +35,9 @@ if ($PrepareBlockout) {
     }
 }
 if (-not (Test-Path -LiteralPath $mapFile)) {
-    throw ("NARIS_VISUAL_PREVIEW_BLOCKED: {0} is missing. " +
+    throw (("NARIS_VISUAL_PREVIEW_BLOCKED: {0} is missing. " +
         "Do not substitute W04_Prototype. Build the blockout with -PrepareBlockout " +
-        "or author and validate the production map in Unreal.") -f $mapFile
+        "or author and validate the production map in Unreal.") -f $mapFile)
 }
 if ((Get-Item -LiteralPath $mapFile).Length -eq 0) {
     throw "NARIS_VISUAL_PREVIEW_BLOCKED: map is empty: $mapFile"
