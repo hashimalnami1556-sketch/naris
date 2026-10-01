@@ -2,6 +2,15 @@
 
 Updated: 2026-10-01
 
+## 2026-10-01 repository sync — UI4.1 + packaged Windows evidence
+
+- Verified local Unreal packaged runtime reached the front-end path: normal launch logged `NARIS_FRONTEND READY` and `NARIS_RUNTIME_READY`; the automatic Direct Play regression was corrected.
+- UI4.1 is checked into `NARIS_MASTER/14_UI_UX/releases/UI4_1/` with guarded apply, validation and rollback workflows.
+- UI4.1 does not fabricate `.uasset` or `.umap` files. Full Pause / Inventory / Map / Quest source integration remains pending against the live UI3 source tree.
+- The local UI4.1 workflow targets the verified Unreal Engine 5.7 installation. This does not silently migrate the canonical repository W04 descriptor; an engine-baseline migration still requires repository build evidence.
+- Godot remains secondary/prototype-only. The audited runtime archive contains 34 non-empty files but remains a Runtime Skeleton rather than a Master Build: Autoload wiring, playable scene actors, real hit detection, production assets/audio, HUD quality and reliable input packaging remain incomplete.
+- AsusRog remote execution was offline at this sync, so the newly checked-in UI4.1 installer has not yet been executed after this repository update.
+
 - Objective: maintain a shared, evidence-based project KB and unblock the Windows W04 vertical slice.
 - Human decision owner: project owner (repository user).
 - Executing agent: shared-agent integration pass active for Figma/Blender/Neon and W04 readiness.
