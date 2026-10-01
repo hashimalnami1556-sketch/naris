@@ -30,3 +30,11 @@ Combat architecture → production animations → Celestial Wolf → Bone Beast 
 - `MASTER_MANIFEST.json` and the production bibles under `NARIS_MASTER/`.
 
 Do not promote asset/status gates without validation evidence.
+
+## Audio production update — v2.1
+The master now includes an adaptive audio specification under `15_AUDIO/`:
+- `AUDIO_BIBLE.md` — leitmotifs, OST slate, boss phases, ambience and mix rules.
+- `AUDIO_EVENT_MAP.json` — runtime-facing states, buses and initial event contract.
+- `AUDIO_PRODUCTION_CHECKLIST.md` — source, loop, spatial, mix and QA gates.
+
+Current status: **specification ready; final WAV/MP3 production assets are pending generation/recording and listening QA.**
