@@ -1,0 +1,19 @@
+{
+  "schema_version": "1.0.0",
+  "project": "CALL OF NARIS",
+  "pass_id": "AAA_UI_ART_PASS_2026-10-01",
+  "date": "2026-10-01",
+  "branch": "main",
+  "intent": "Upgrade UI/UX, character presentation, environments and runtime presentation from prototype quality toward a modern AAA-style production target.",
+  "reference_visual": "generated_designs/ui/naris-aaa-ui-master-reference-2026-10-01.jpg",
+  "documents": [
+    "docs/ui/naris-uiux-aaa-v1.md",
+    "docs/production/naris-character-environment-art-bible-v1.md",
+    "docs/architecture/naris-systems-modernization-v1.md",
+    "docs/production/naris-unreal-aaa-implementation-map-v1.md",
+    "docs/release/naris-aaa-acceptance-v1.md"
+  ],
+  "production_status": "reference_and_contract",
+  "runtime_asset_status": "not_approved_until_engine_and_qa_gates_pass",
+  "primary_target": "Unreal Engine / Windows PC / W04 Ashen Forest"
+}
