@@ -1,6 +1,6 @@
-# NARIS Toolkit — Product Design Record
+# NARSIC Toolkit — Product Design Record
 
-**Project:** CALL OF NARIS
+**Project:** NARSIC
 **Platform:** NARIS Toolkit — Blender-centered game production platform
 **Date:** 2026-08-28
 **Status:** Product Design exploration / visual direction selection
@@ -110,3 +110,17 @@ The central viewport remains visually important, but surrounding UI must communi
 ## Source context
 
 The repository is the versioned production source of truth for CALL OF NARIS specifications, schemas, manifests, automation definitions, and release history. This document records the Product Design direction so future implementation stays aligned with the production pipeline.
+
+## Live production monitor / desktop dashboard
+A second surface is defined for the owner's ASUS ROG desktop. It does **not** replace the Blender Workbench.
+
+- Present manufacturing progress like a game loading screen.
+- Show completed, active, missing, blocked and next work.
+- Update from repository-backed structured data instead of baking status into a static image.
+- Keep NARSIC key art dominant; place production state on the side and bottom.
+- Final visual copy is English-only.
+- Support 32:9 first, then 21:9 and 16:9.
+- Keep product brand **NARSIC** while preserving technical `NARIS_*` identifiers.
+
+Canonical data: `data/PRODUCTION_PROGRESS.json`  
+Specification: `docs/production/NARSIC_LIVE_PROGRESS_DASHBOARD.md`
