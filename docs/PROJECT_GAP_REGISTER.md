@@ -1,6 +1,6 @@
-# NARIS Project Gap Register
+# NARSIC Project Gap Register
 
-Updated: 2026-09-23. Evidence: repository source inspection and static tests. Engine execution is unverified.
+Updated: 2026-10-01. Evidence: repository source inspection, prior CI evidence, and current integration state. Engine execution remains a separate evidence gate.
 
 ## Corrections to the previous snapshot
 
@@ -60,3 +60,10 @@ Presence is not proof of successful compilation or correct gameplay. Historical 
 | P2 | Missing reference attachments | Receive and inspect the 18 announced source files; none were available in this session |
 
 No engine upgrade, new product direction, asset approval or public release is implied by these source repairs.
+
+## 2026-10-01 synchronization notes
+- Public/product name is **NARSIC**; technical IDs/modules remain `NARIS`.
+- The repository now defines a loading-style monitor for phases, blockers, missing work and next actions.
+- Visible percentages are planning estimates, not QA evidence.
+- AsusRog state during synchronization: **online**.
+- Critical blockers remain Windows Unreal build evidence, production map/assets, unresolved animation/audio/Niagara payloads, packaged playtest evidence and performance acceptance.
