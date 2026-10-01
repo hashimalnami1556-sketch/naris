@@ -15,7 +15,7 @@
 
 namespace
 {
-    constexpr int32 PauseMainMenuCount = 3;
+    constexpr int32 PauseMainMenuCount = 6;
     constexpr int32 FrontEndMainMenuCount = 5;
     constexpr int32 SettingsMenuCount = 17;
     constexpr int32 ControlActionCount = 11;
@@ -425,6 +425,10 @@ int32 ANarisPlayerController::GetVisibleMenuItemCount() const
             return MenuContext == ENarisMenuContext::FrontEnd
                 ? FrontEndMainMenuCount
                 : PauseMainMenuCount;
+        case ENarisPauseMenuPage::Inventory:
+        case ENarisPauseMenuPage::Map:
+        case ENarisPauseMenuPage::Quests:
+            return 0;
         case ENarisPauseMenuPage::Settings:
             return SettingsMenuCount;
         case ENarisPauseMenuPage::Controls:
@@ -440,6 +444,12 @@ FText ANarisPlayerController::GetMenuTitle() const
     {
         case ENarisPauseMenuPage::Main:
             return NSLOCTEXT("NARIS", "PauseMenuTitle", "CALL OF NARIS");
+        case ENarisPauseMenuPage::Inventory:
+            return NSLOCTEXT("NARIS", "InventoryTitle", "Inventory");
+        case ENarisPauseMenuPage::Map:
+            return NSLOCTEXT("NARIS", "MapTitle", "World Map");
+        case ENarisPauseMenuPage::Quests:
+            return NSLOCTEXT("NARIS", "QuestsTitle", "Quest Journal");
         case ENarisPauseMenuPage::Settings:
             return NSLOCTEXT("NARIS", "SettingsMenuTitle", "Settings");
         case ENarisPauseMenuPage::Controls:
@@ -477,12 +487,25 @@ FText ANarisPlayerController::GetMenuItemLabel(int32 Index) const
             case 0:
                 return NSLOCTEXT("NARIS", "PauseResume", "Resume");
             case 1:
-                return NSLOCTEXT("NARIS", "PauseSettings", "Settings");
+                return NSLOCTEXT("NARIS", "PauseInventory", "Inventory");
             case 2:
+                return NSLOCTEXT("NARIS", "PauseMap", "World Map");
+            case 3:
+                return NSLOCTEXT("NARIS", "PauseQuests", "Quest Journal");
+            case 4:
+                return NSLOCTEXT("NARIS", "PauseSettings", "Settings");
+            case 5:
                 return NSLOCTEXT("NARIS", "PauseControls", "Controller Remap");
             default:
                 return FText::GetEmpty();
         }
+    }
+
+    if (PauseMenuPage == ENarisPauseMenuPage::Inventory
+        || PauseMenuPage == ENarisPauseMenuPage::Map
+        || PauseMenuPage == ENarisPauseMenuPage::Quests)
+    {
+        return FText::GetEmpty();
     }
 
     if (PauseMenuPage == ENarisPauseMenuPage::Controls)
@@ -681,6 +704,10 @@ void ANarisPlayerController::MenuUp()
     }
 
     const int32 Count = GetVisibleMenuItemCount();
+    if (Count <= 0)
+    {
+        return;
+    }
     SelectedMenuIndex = (SelectedMenuIndex - 1 + Count) % Count;
 }
 
@@ -697,6 +724,10 @@ void ANarisPlayerController::MenuDown()
     }
 
     const int32 Count = GetVisibleMenuItemCount();
+    if (Count <= 0)
+    {
+        return;
+    }
     SelectedMenuIndex = (SelectedMenuIndex + 1) % Count;
 }
 
@@ -762,10 +793,22 @@ void ANarisPlayerController::MenuConfirm()
         }
         else if (SelectedMenuIndex == 1)
         {
+            PauseMenuPage = ENarisPauseMenuPage::Inventory;
+        }
+        else if (SelectedMenuIndex == 2)
+        {
+            PauseMenuPage = ENarisPauseMenuPage::Map;
+        }
+        else if (SelectedMenuIndex == 3)
+        {
+            PauseMenuPage = ENarisPauseMenuPage::Quests;
+        }
+        else if (SelectedMenuIndex == 4)
+        {
             PauseMenuPage = ENarisPauseMenuPage::Settings;
             SelectedMenuIndex = 0;
         }
-        else if (SelectedMenuIndex == 2)
+        else if (SelectedMenuIndex == 5)
         {
             PauseMenuPage = ENarisPauseMenuPage::Controls;
             SelectedMenuIndex = 0;
@@ -833,7 +876,10 @@ void ANarisPlayerController::MenuBack()
         return;
     }
 
-    if (PauseMenuPage == ENarisPauseMenuPage::Settings
+    if (PauseMenuPage == ENarisPauseMenuPage::Inventory
+        || PauseMenuPage == ENarisPauseMenuPage::Map
+        || PauseMenuPage == ENarisPauseMenuPage::Quests
+        || PauseMenuPage == ENarisPauseMenuPage::Settings
         || PauseMenuPage == ENarisPauseMenuPage::Controls)
     {
         PauseMenuPage = ENarisPauseMenuPage::Main;
