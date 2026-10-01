@@ -1,10 +1,13 @@
 {
   "project": "CALL OF NARIS",
   "status": "MASTER_FOUNDATION_ACTIVE",
-  "version": "MASTER-0.3-AUDIO",
+  "version": "MASTER-0.4-UI4.1",
   "engine": "Unreal Engine 5",
   "vertical_slice": "Ashen Forest",
-  "core_characters": ["Ashen Vessel", "Celestial Wolf"],
+  "core_characters": [
+    "Ashen Vessel",
+    "Celestial Wolf"
+  ],
   "first_boss": "Bone Beast",
   "world_package": "Ashen Forest",
   "production_bibles": {
@@ -15,11 +18,39 @@
   "audio": {
     "schema_version": "2.1",
     "adaptive_states": 9,
-    "buses": ["Master","Music","SFX","UI","Voice","Ambience"],
+    "buses": [
+      "Master",
+      "Music",
+      "SFX",
+      "UI",
+      "Voice",
+      "Ambience"
+    ],
     "production_audio_status": "SPEC_READY_ASSETS_PENDING"
   },
-  "source_basis": ["تصميم هوية بصرية.txt", "أفكار رسومات وتصاميم.txt"],
+  "source_basis": [
+    "تصميم هوية بصرية.txt",
+    "أفكار رسومات وتصاميم.txt"
+  ],
   "repository": "hashimalnami1556-sketch/naris",
   "default_branch": "main",
-  "last_update": "2026-10-01"
+  "last_update": "2026-10-01",
+  "ui": {
+    "release": "UI4.1",
+    "path": "14_UI_UX/releases/UI4_1",
+    "status": "PATCH_CHECKED_IN_LIVE_MACHINE_VALIDATION_PENDING",
+    "verified_predecessor": "UI3_PACKAGED_FRONTEND_READY",
+    "acceptance": [
+      "NARIS_FRONTEND READY",
+      "NARIS_RUNTIME_READY",
+      "NO NARIS_DIRECT_PLAY",
+      "NO_FATAL_OR_LOAD_FAILURE"
+    ]
+  },
+  "runtime_evidence": {
+    "unreal_local_engine": "5.7",
+    "repository_engine_baseline": "unchanged_pending_explicit_migration",
+    "windows_packaged_predecessor": "verified",
+    "ui4_1_post_commit_machine_validation": "pending_remote_host"
+  }
 }
