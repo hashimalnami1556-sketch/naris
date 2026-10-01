@@ -391,3 +391,72 @@ msgstr "No Save Data"
 msgctxt "NARIS,FrontEndMenuHint"
 msgid "Navigate: W/S or D-Pad   Confirm: Enter/A"
 msgstr "Navigate: W/S or D-Pad   Confirm: Enter/A"
+
+msgctxt "NARIS,ContentBackHint"
+msgid "Back: Esc / B"
+msgstr "Back: Esc / B"
+
+msgctxt "NARIS,InventoryEmpty"
+msgid "Your inventory is empty."
+msgstr "Your inventory is empty."
+
+msgctxt "NARIS,InventoryEmptyEquipped"
+msgid "No equipment assigned."
+msgstr "No equipment assigned."
+
+msgctxt "NARIS,InventoryEquipped"
+msgid "Equipped"
+msgstr "Equipped"
+
+msgctxt "NARIS,InventoryItems"
+msgid "Relics & Items"
+msgstr "Relics & Items"
+
+msgctxt "NARIS,InventoryTitle"
+msgid "Inventory"
+msgstr "Inventory"
+
+msgctxt "NARIS,MapAshenForest"
+msgid "Ashen Forest"
+msgstr "Ashen Forest"
+
+msgctxt "NARIS,MapNoWaystones"
+msgid "No waystones discovered."
+msgstr "No waystones discovered."
+
+msgctxt "NARIS,MapTitle"
+msgid "World Map"
+msgstr "World Map"
+
+msgctxt "NARIS,MapWaystones"
+msgid "Discovered Waystones"
+msgstr "Discovered Waystones"
+
+msgctxt "NARIS,PauseInventory"
+msgid "Inventory"
+msgstr "Inventory"
+
+msgctxt "NARIS,PauseMap"
+msgid "World Map"
+msgstr "World Map"
+
+msgctxt "NARIS,PauseQuests"
+msgid "Quest Journal"
+msgstr "Quest Journal"
+
+msgctxt "NARIS,QuestActive"
+msgid "Active"
+msgstr "Active"
+
+msgctxt "NARIS,QuestCompleted"
+msgid "Completed"
+msgstr "Completed"
+
+msgctxt "NARIS,QuestNoneActive"
+msgid "No active quests."
+msgstr "No active quests."
+
+msgctxt "NARIS,QuestsTitle"
+msgid "Quest Journal"
+msgstr "Quest Journal"
+

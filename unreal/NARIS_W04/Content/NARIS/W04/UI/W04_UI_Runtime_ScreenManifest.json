@@ -1,0 +1,29 @@
+{
+  "schema_version": "2.0.0",
+  "project": "CALL OF NARIS",
+  "target": "Unreal Engine W04",
+  "design_reference": "generated_designs/ui/naris-aaa-ui-master-reference-2026-10-01.svg",
+  "screens": [
+    {"id":"UI.MainMenu","state":"runtime","responsibilities":["continue","new_game","settings","controls","quit"],"input":"gamepad_keyboard_mouse"},
+    {"id":"UI.HUD","state":"runtime","responsibilities":["health","resonance","aether","objective","interaction","boss","subtitles"],"input":"passive"},
+    {"id":"UI.Pause","state":"runtime","responsibilities":["resume","inventory","map","quests","settings","controls"],"input":"gamepad_keyboard_mouse"},
+    {"id":"UI.Inventory","state":"runtime","responsibilities":["currency","inventory_items","equipped_items","empty_state"],"data":"FNarisSaveState"},
+    {"id":"UI.Map","state":"runtime","responsibilities":["region","checkpoint","waystones","route_preview"],"data":"FNarisSaveState"},
+    {"id":"UI.QuestJournal","state":"runtime","responsibilities":["active_quests","quest_steps","completed_quests"],"data":"FNarisSaveState"},
+    {"id":"UI.Settings","state":"runtime","responsibilities":["quality","vsync","frame_limit","audio","camera_shake","subtitles","contrast","color_vision"],"data":"UNarisGameUserSettings"},
+    {"id":"UI.Controls","state":"runtime","responsibilities":["gamepad_remap","reset_defaults"],"data":"UInputSettings"},
+    {"id":"UI.Dialogue","state":"partial","responsibilities":["speaker","subtitle","choice_future"],"data":"UNarisSubtitleSubsystem"},
+    {"id":"UI.Loading","state":"planned","responsibilities":["async_stage","chapter_art","tips","progress"]},
+    {"id":"UI.Death","state":"planned","responsibilities":["death_summary","retry_checkpoint","return_menu"]},
+    {"id":"UI.Codex","state":"planned","responsibilities":["lore","creatures","places","relics"]},
+    {"id":"UI.ChapterSelect","state":"planned","responsibilities":["chapter_state","completion","locked_reason"]}
+  ],
+  "quality_gates": {
+    "responsive":["1280x720","1920x1080","2560x1440","3840x2160"],
+    "safe_zone":true,
+    "rtl_required":true,
+    "controller_first":true,
+    "event_driven_target":true,
+    "placeholder_free_release":true
+  }
+}

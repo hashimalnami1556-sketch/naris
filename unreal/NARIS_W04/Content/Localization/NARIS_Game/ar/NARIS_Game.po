@@ -391,3 +391,72 @@ msgstr "لا توجد بيانات حفظ"
 msgctxt "NARIS,FrontEndMenuHint"
 msgid "Navigate: W/S or D-Pad   Confirm: Enter/A"
 msgstr "تنقل: W/S أو لوحة الاتجاهات   تأكيد: Enter/A"
+
+msgctxt "NARIS,ContentBackHint"
+msgid "Back: Esc / B"
+msgstr "رجوع: Esc / B"
+
+msgctxt "NARIS,InventoryEmpty"
+msgid "Your inventory is empty."
+msgstr "المخزون فارغ."
+
+msgctxt "NARIS,InventoryEmptyEquipped"
+msgid "No equipment assigned."
+msgstr "لا توجد تجهيزات معيّنة."
+
+msgctxt "NARIS,InventoryEquipped"
+msgid "Equipped"
+msgstr "المجهز"
+
+msgctxt "NARIS,InventoryItems"
+msgid "Relics & Items"
+msgstr "الآثار والعناصر"
+
+msgctxt "NARIS,InventoryTitle"
+msgid "Inventory"
+msgstr "المخزون"
+
+msgctxt "NARIS,MapAshenForest"
+msgid "Ashen Forest"
+msgstr "غابة الرماد"
+
+msgctxt "NARIS,MapNoWaystones"
+msgid "No waystones discovered."
+msgstr "لم يتم اكتشاف أحجار طريق."
+
+msgctxt "NARIS,MapTitle"
+msgid "World Map"
+msgstr "خريطة العالم"
+
+msgctxt "NARIS,MapWaystones"
+msgid "Discovered Waystones"
+msgstr "أحجار الطريق المكتشفة"
+
+msgctxt "NARIS,PauseInventory"
+msgid "Inventory"
+msgstr "المخزون"
+
+msgctxt "NARIS,PauseMap"
+msgid "World Map"
+msgstr "خريطة العالم"
+
+msgctxt "NARIS,PauseQuests"
+msgid "Quest Journal"
+msgstr "سجل المهام"
+
+msgctxt "NARIS,QuestActive"
+msgid "Active"
+msgstr "نشطة"
+
+msgctxt "NARIS,QuestCompleted"
+msgid "Completed"
+msgstr "مكتملة"
+
+msgctxt "NARIS,QuestNoneActive"
+msgid "No active quests."
+msgstr "لا توجد مهام نشطة."
+
+msgctxt "NARIS,QuestsTitle"
+msgid "Quest Journal"
+msgstr "سجل المهام"
+

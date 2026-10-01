@@ -4,6 +4,10 @@
 #include "GameFramework/HUD.h"
 #include "NarisHUD.generated.h"
 
+class ANarisHeroCharacter;
+class ANarisPlayerController;
+class UNarisRuntimeSubsystem;
+
 UCLASS(Blueprintable)
 class NARIS_W04_API ANarisHUD : public AHUD
 {
@@ -14,13 +18,36 @@ public:
 
 private:
     void DrawPauseMenu();
+    void DrawContentPage(
+        ANarisPlayerController* Controller,
+        UNarisRuntimeSubsystem* Runtime,
+        float X,
+        float Y,
+        float Width,
+        float Height,
+        float Scale
+    );
     void DrawSubtitle();
+    void DrawPlayerVitals(ANarisHeroCharacter* Hero, float Scale, float Safe);
+    void DrawObjectiveCard(UNarisRuntimeSubsystem* Runtime, float Scale, float Safe);
+    void DrawInteractionPrompt(ANarisHeroCharacter* Hero, float Scale);
+    void DrawBossHUD(float Scale, float Safe);
     void DrawBar(
         const FString& Label,
         float Value,
         float MaxValue,
         float X,
         float Y,
-        const FLinearColor& FillColor
+        float Width,
+        float Height,
+        const FLinearColor& FillColor,
+        float Scale
+    );
+    void DrawPanel(
+        float X,
+        float Y,
+        float Width,
+        float Height,
+        const FLinearColor& Color
     );
 };
