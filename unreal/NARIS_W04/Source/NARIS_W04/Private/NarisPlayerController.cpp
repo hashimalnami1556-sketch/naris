@@ -15,7 +15,8 @@
 
 namespace
 {
-    constexpr int32 PauseMainMenuCount = 6;
+    constexpr int32 PauseMainMenuCount = 3;
+    constexpr int32 PauseExtendedMenuCount = 6;
     constexpr int32 FrontEndMainMenuCount = 5;
     constexpr int32 SettingsMenuCount = 17;
     constexpr int32 ControlActionCount = 11;
@@ -424,7 +425,7 @@ int32 ANarisPlayerController::GetVisibleMenuItemCount() const
         case ENarisPauseMenuPage::Main:
             return MenuContext == ENarisMenuContext::FrontEnd
                 ? FrontEndMainMenuCount
-                : PauseMainMenuCount;
+                : PauseExtendedMenuCount;
         case ENarisPauseMenuPage::Inventory:
         case ENarisPauseMenuPage::Map:
         case ENarisPauseMenuPage::Quests:
