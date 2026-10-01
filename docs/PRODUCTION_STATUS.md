@@ -1,4 +1,4 @@
-# CALL OF NARIS — Production Status
+# NARSIC — Production Status
 
 **Snapshot:** 2026-10-01
 **Canonical engine path:** Unreal Engine 5.4+  
@@ -141,3 +141,17 @@ Public distribution remains disabled until all blocking conditions pass:
 ## Shared knowledge and source repair — 2026-09-23
 
 The shared agent entry point is [AGENTS.md](../AGENTS.md), with current work in [PROJECT_STATE.md](../PROJECT_STATE.md). Duplicate Unreal target definitions and module registration were removed, static guards were added, and AssetForge zero-count behavior was repaired. Repository validation and 10 Python tests pass locally. No Unreal compilation, Claude Code session, editor playtest or Windows package was executed here. See the [updated gap register](PROJECT_GAP_REGISTER.md).
+
+## Brand and namespace policy
+- Product/display name: **NARSIC**.
+- Technical namespace: **NARIS**.
+- Existing IDs/modules/paths remain `NARIS_*` until an explicit migration is approved and validated.
+- Dashboard/wallpaper copy is English-only; game localization remains an independent EN/AR runtime feature.
+
+## Live production progress surface
+- Data: `data/PRODUCTION_PROGRESS.json`
+- UX contract: `docs/production/NARSIC_LIVE_PROGRESS_DASHBOARD.md`
+- Renderer: `tools/dashboard/render_progress_dashboard.py`
+- Current phase: **Vertical Slice**
+- ASUS ROG host at sync time: **online**
+- Host connectivity is not build or playtest evidence.
