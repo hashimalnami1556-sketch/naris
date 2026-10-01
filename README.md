@@ -20,7 +20,15 @@ Start with [AGENTS.md](AGENTS.md) and [PROJECT_STATE.md](PROJECT_STATE.md). Clau
 - **Master integration spec:** `docs/production/NARIS_MASTER_INTEGRATION_v1_9.md`
 - **World generation tool:** `tools/assetforge/world_generator.py`
 
-## Current integration level — 2026-09-22
+## Latest UI/runtime sync — 2026-10-01
+
+- Packaged Windows front-end evidence exists for the local Unreal integration: `NARIS_FRONTEND READY` and `NARIS_RUNTIME_READY` were observed after correcting the Direct Play boot regression.
+- The guarded UI4.1 production patch is versioned under `NARIS_MASTER/14_UI_UX/releases/UI4_1/`.
+- UI4.1 contains backup/rollback plus build → cook → stage → pak → archive → launch → log validation automation.
+- The patch targets the verified local UE 5.7 integration, while the repository's canonical W04 engine baseline remains unchanged until an explicit migration is validated.
+- Godot artifacts are treated as prototype/runtime-skeleton material, not release evidence.
+
+## Current integration level — 2026-10-01
 
 The repository has moved beyond isolated prototype packages. The current production baseline is **v1.9 Master Integration**, with Unreal/W04 as the canonical implementation path.
 
