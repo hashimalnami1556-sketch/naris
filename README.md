@@ -1,6 +1,6 @@
-# CALL OF NARIS
+# NARSIC
 
-> **Canonical production repository** for *CALL OF NARIS* — a dark-fantasy action RPG built around ten fractured worlds, modular environments, cinematic storytelling, tactical combat, and a controlled AAA-style asset pipeline.
+> **Canonical production repository** for **NARSIC**. Public/product branding uses `NARSIC`; the existing technical namespace (`NARIS_*`, asset IDs, paths, schemas and Unreal module names) remains unchanged for compatibility until a dedicated migration is validated.
 
 ## Shared agent knowledge
 
@@ -19,6 +19,9 @@ Start with [AGENTS.md](AGENTS.md) and [PROJECT_STATE.md](PROJECT_STATE.md). Clau
 - **Production status:** `docs/PRODUCTION_STATUS.md`
 - **Master integration spec:** `docs/production/NARIS_MASTER_INTEGRATION_v1_9.md`
 - **World generation tool:** `tools/assetforge/world_generator.py`
+- **Live production progress:** `data/PRODUCTION_PROGRESS.json`
+- **Ultrawide dashboard spec:** `docs/production/NARSIC_LIVE_PROGRESS_DASHBOARD.md`
+- **Dashboard renderer:** `tools/dashboard/render_progress_dashboard.py`
 
 ## Latest UI/runtime sync — 2026-10-01
 
@@ -157,3 +160,12 @@ Core visual accents:
 - `docs/production/ASSETFORGE_WORLDGEN.md`
 - `data/MASTER_ASSET_REGISTRY.json`
 - `data/manifests/MASTER_INTEGRATION_2026-09-22.json`
+
+## Live production loading dashboard
+A repository-backed loading-style monitor is now part of the production plan for the ASUS ROG ultrawide desktop.
+
+- Product title: **NARSIC**
+- Final dashboard copy: **English only**
+- Primary layout: **32:9**, with 21:9 and 16:9 fallbacks
+- Current phase: **Vertical Slice / W04 Ashen Forest**
+- Planning percentages are not build/runtime/QA evidence.
