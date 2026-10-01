@@ -1,13 +1,25 @@
 {
   "project": "CALL OF NARIS",
-  "status": "MASTER_FOUNDATION_STARTED",
-  "version": "MASTER-0.2",
+  "status": "MASTER_FOUNDATION_ACTIVE",
+  "version": "MASTER-0.3-AUDIO",
   "engine": "Unreal Engine 5",
   "vertical_slice": "Ashen Forest",
   "core_characters": ["Ashen Vessel", "Celestial Wolf"],
   "first_boss": "Bone Beast",
   "world_package": "Ashen Forest",
+  "production_bibles": {
+    "audio": "15_AUDIO/AUDIO_BIBLE.md",
+    "audio_event_map": "15_AUDIO/AUDIO_EVENT_MAP.json",
+    "audio_qa": "15_AUDIO/AUDIO_PRODUCTION_CHECKLIST.md"
+  },
+  "audio": {
+    "schema_version": "2.1",
+    "adaptive_states": 9,
+    "buses": ["Master","Music","SFX","UI","Voice","Ambience"],
+    "production_audio_status": "SPEC_READY_ASSETS_PENDING"
+  },
   "source_basis": ["تصميم هوية بصرية.txt", "أفكار رسومات وتصاميم.txt"],
   "repository": "hashimalnami1556-sketch/naris",
-  "integration_branch": "integration/naris-master-0-2"
+  "default_branch": "main",
+  "last_update": "2026-10-01"
 }
