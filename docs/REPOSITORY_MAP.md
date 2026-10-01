@@ -61,3 +61,9 @@ Generated images, videos and 3D conversions are references or source candidates 
 ## 8. Future normalization
 
 The repository can later migrate legacy documents and duplicate prototypes into the canonical taxonomy. Such migration must be performed as traceable commits and must not delete source material without a provenance record.
+
+### Live production dashboard
+- `data/PRODUCTION_PROGRESS.json` — machine-readable manufacturing/loading state.
+- `docs/production/NARSIC_LIVE_PROGRESS_DASHBOARD.md` — ultrawide English-only UX contract.
+- `tools/dashboard/render_progress_dashboard.py` — data-to-HTML renderer.
+- `generated_designs/production_dashboard/` — generated status surfaces; visual output, not release evidence.
