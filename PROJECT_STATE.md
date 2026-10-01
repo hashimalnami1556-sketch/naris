@@ -1,4 +1,4 @@
-# NARIS current work
+# NARSIC current work
 
 Updated: 2026-10-01
 
@@ -11,7 +11,7 @@ Updated: 2026-10-01
 - Godot remains secondary/prototype-only. The audited runtime archive contains 34 non-empty files but remains a Runtime Skeleton rather than a Master Build: Autoload wiring, playable scene actors, real hit detection, production assets/audio, HUD quality and reliable input packaging remain incomplete.
 - AsusRog remote execution was offline at this sync, so the newly checked-in UI4.1 installer has not yet been executed after this repository update.
 
-- Objective: maintain a shared, evidence-based project KB and unblock the Windows W04 vertical slice.
+- Objective: maintain one evidence-based NARSIC production source of truth, unblock the Windows W04 vertical slice, and expose workflow state through an ultrawide loading-style production monitor.
 - Human decision owner: project owner (repository user).
 - Executing agent: shared-agent integration pass active for Figma/Blender/Neon and W04 readiness.
 - Current work: [W04 follow-up](docs/production/work/active/w04-readiness.md).
@@ -41,6 +41,14 @@ Updated: 2026-10-01
 - Static evidence: NARIS CI run 35855364699 passed MCP TypeScript build, Unreal project integrity, repository validation and PowerShell bridge parsing.
 - Neon: core PostgreSQL schema contract is checked in; no remote project/branch is bound yet, so no migration has been applied.
 - Next action: bring AsusRog/self-hosted Windows online; run Blender 4.x with `NARIS_Blender_Master_Builder_v1_0.py`, validate its generated scaffold, then execute the registry-gated Ashen Forest Factory v2 Blender->Unreal bridge and compile NARIS_W04Editor. Only validated/approved generated assets may be promoted toward the 7 core production meshes; 2 approved master materials, 10 production AnimMontages, 16 SFX WAV masters and 14 Niagara systems remain required before strict W04_AshenForest Shipping RC can pass.
-- Blockers: registered AsusRog remote host is offline; no Windows UnrealBuildTool/package/playtest evidence yet; production W04_AshenForest .umap is not verified; core meshes/master materials/10 montages/16 Audio/14 Niagara payloads remain unresolved production content; no bound Neon project ID; no Claude Code session available here; the 18 announced attachment paths were absent.
+- Blockers: AsusRog connectivity must be re-checked at execution time; no Windows UnrealBuildTool/package/playtest evidence yet; production W04_AshenForest .umap is not verified; core meshes/master materials/10 montages/16 Audio/14 Niagara payloads remain unresolved production content; no bound Neon project ID; no Claude Code session available here; the 18 announced attachment paths were absent.
 
 Do not treat static validation, Figma design, Blender source/export contracts or Neon schema files as engine/runtime evidence. The checked-in Unreal descriptor selects 5.4; changing that baseline needs an explicit migration and build evidence.
+
+## 2026-10-01 repository synchronization
+- Public/product brand: **NARSIC**.
+- Technical namespace: **NARIS** (unchanged).
+- Loading-style progress source: `data/PRODUCTION_PROGRESS.json`.
+- Ultrawide monitor contract: `docs/production/NARSIC_LIVE_PROGRESS_DASHBOARD.md`.
+- Final monitor visual copy is English-only.
+- Planning percentages are not runtime evidence.
