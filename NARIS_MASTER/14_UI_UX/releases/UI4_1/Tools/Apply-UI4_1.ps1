@@ -19,14 +19,15 @@ Copy-Item $gmC (Join-Path $backup 'NarisGameModeBase.cpp')
 Copy-Item $input (Join-Path $backup 'DefaultInput.ini')
 
 $gm=Get-Content -Raw $gmC
-if($gm -notmatch 'NarisDirectPlay'){throw 'UI3 direct-play fix marker missing. Refusing unsafe patch.'}
+if($gm -notmatch 'NarisDirectPlay'){throw 'Explicit DirectPlay flag marker missing. Refusing unsafe patch.'}
 if($gm -match 'bSmoke\|\|!bFrontEnd'){throw 'Direct-play regression detected in GameMode.'}
 
 $ini=Get-Content -Raw $input
 if($ini -notmatch 'ActionName="Resonance"'){
  $anchor='+ActionMappings=(ActionName="Dodge",bShift=False,bCtrl=False,bAlt=False,bCmd=False,Key=LeftShift)'
  if(!$ini.Contains($anchor)){throw 'Dodge input anchor not found.'}
- $ini=$ini.Replace($anchor,$anchor+"`r`n+ActionMappings=(ActionName=\"Resonance\",bShift=False,bCtrl=False,bAlt=False,bCmd=False,Key=R)")
+ $mapping='+ActionMappings=(ActionName="Resonance",bShift=False,bCtrl=False,bAlt=False,bCmd=False,Key=R)'
+ $ini=$ini.Replace($anchor,($anchor + [Environment]::NewLine + $mapping))
  Set-Content $input $ini -Encoding UTF8
 }
 
@@ -45,7 +46,7 @@ Get-Process UnrealEditor -ErrorAction SilentlyContinue | Stop-Process -Force
 if($LASTEXITCODE -ne 0){throw "NARISEditor build failed: $LASTEXITCODE"}
 
 $out=Join-Path $ProjectRoot 'Builds\WindowsDevelopment_UI4_1'
-Remove-Item $out -Recurse -Force -ErrorAction SilentlyContinue
+if(Test-Path $out){throw "Target build directory already exists; preserving it: $out"}
 New-Item -ItemType Directory -Force $out | Out-Null
 & $uat BuildCookRun "-project=$uproject" -noP4 -platform=Win64 -clientconfig=Development -build -cook -stage -pak -archive "-archivedirectory=$out" -utf8output
 if($LASTEXITCODE -ne 0){throw "Packaging failed: $LASTEXITCODE"}
@@ -55,3 +56,4 @@ if(!(Test-Path $exe)){throw "Packaged EXE missing: $exe"}
 Start-Process $exe -ArgumentList '-windowed','-ResX=1280','-ResY=720','-log'
 Start-Sleep 8
 & (Join-Path $PSScriptRoot 'Validate-UI4_1.ps1') -ProjectRoot $ProjectRoot
+if($LASTEXITCODE -ne 0){throw "Packaged runtime validation failed: $LASTEXITCODE"}
