@@ -1,6 +1,6 @@
 ---
 status: active
-last_updated: 2026-09-23
+last_updated: 2026-10-01
 ---
 # W04 readiness handoff
 
@@ -11,7 +11,7 @@ last_updated: 2026-09-23
 - Goal: verify the checked-in W04 game on Windows and resolve remaining blockers.
 - Completed prerequisite: shared KB routing, duplicate Unreal bootstrap cleanup, static integrity validation, world-generator edge-case repairs.
 - Completed integration work: live Figma handoff file created; Blender validation/export helper added; Neon core schema contract added; repository validator extended to guard all three integration surfaces.
-- Completed Blender bridge work: registry-gated Blender export, exchange schema, Unreal 5.4 Python importer, and Windows Blender-to-Unreal smoke-test script are checked in.
+- Completed Blender bridge work: registry-gated Blender export, exchange schema, Unreal 5.4 Python importer, Windows Blender-to-Unreal smoke-test script, and `NARIS_Blender_Master_Builder_v1_0.py` authoring scaffold are checked in. The builder covers deterministic collections, prototype core assets, hero rig/actions, sockets, LOD/collision helpers, validation, manifest generation and preview exports; execution on Blender/Windows is still unverified.
 - Static validation evidence: GitHub Actions run 35855364699 passed MCP TypeScript build, Unreal project integrity, repository validation, and PowerShell bridge parsing.
 - Source progression completed in this pass: interaction; checkpoint ID/location + respawn; Corrupted Heart step progression; Memory Crystal/FirstWhisper; Ash Gate; Celestial Wolf five modes + animation-driven attack impact; arena auto-start/lock; autonomous Bone Beast phase attacks; DemoEnd; native HUD with localized quest objective; automatic save recovery.
 - Combat production readiness: hero TakeDamage routes through defense resolution; Parry rewards only resolved parries; Dodge has timed invulnerability; five-Essence cycling and Pause are input-bound; Hero, Wolf and Bone Beast expose animation-owned impact timing with smoke-only immediate fallbacks.
@@ -31,5 +31,5 @@ last_updated: 2026-09-23
 - Backend blocker: Neon connector requires a concrete project ID and the repository has no bound .neon/neon.json project metadata; no migration was applied.
 - Open issues: Windows compile/package/runtime evidence; actual W04_AshenForest production map; seven core production meshes; approved surface/water master materials + generated instances; 16 Audio + 14 Niagara payloads; 10 production AnimMontages; real Blender-to-Unreal Factory v2 run; Arabic visual/RTL QA; measured hardware performance; strict Shipping RC evidence.
 - Missing sources: 18 attachment paths announced for this session were absent; no asset contents were inspected.
-- Next action: when Windows is online, compile NARIS_W04Editor first, run the W04 Environment Factory bridge and production blockout authoring, retain all reports, then execute Development package/runtime smoke before attempting the strict W04_AshenForest Shipping RC.
+- Next action: when Windows is online, run the Blender Master Builder in Blender 4.x and retain its validation/manifest evidence; then compile NARIS_W04Editor, run the W04 Environment Factory bridge and production blockout authoring, retain all reports, and execute Development package/runtime smoke before attempting the strict W04_AshenForest Shipping RC.
 - Acceptance: a passing static check alone cannot close engine, DCC import, backend deployment or gameplay gates.
