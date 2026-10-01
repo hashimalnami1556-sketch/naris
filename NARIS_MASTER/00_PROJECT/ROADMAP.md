@@ -1,9 +1,11 @@
-# CALL OF NARIS — MASTER ROADMAP
+# NARSIC — MASTER ROADMAP
 
 **Primary target:** Unreal Engine 5.4+ / Windows PC  
 **Primary slice:** W04 — Ashen Forest  
 **Current integration level:** v1.9 Master Integration  
-**Public release:** gated / disabled until QA acceptance
+**Public release:** gated / disabled until QA acceptance  
+**Product brand:** NARSIC  
+**Technical namespace:** NARIS (retained for compatibility)
 
 ## Integrated foundation
 
@@ -107,3 +109,30 @@ Definition of Done:
 8. Windows package automation and smoke test.
 
 A system is not complete until **Data → Runtime → UI → Save → QA** works together.
+
+## Production loading stages
+| Stage | State |
+|---|---|
+| Concept & Vision | Complete |
+| Pre-Production | Complete |
+| Prototype | Complete |
+| Vertical Slice | Active |
+| Production Alpha | Locked by Vertical Slice acceptance |
+| Content Complete | Locked |
+| Beta & Polish | Locked |
+| Release Candidate | Locked |
+| Launch | Locked |
+
+The monitor reads stage/workstream state from `data/PRODUCTION_PROGRESS.json`. File presence alone never closes a stage.
+
+## Immediate vertical-slice closure order — 2026-10-01
+1. Compile `NARIS_W04Editor` on Windows and retain the complete log.
+2. Execute Ashen Forest Factory v2 through the Blender → Unreal bridge.
+3. Author and validate the six-zone `W04_AshenForest` production map.
+4. Resolve the seven gated W04 production meshes.
+5. Approve `M_MASTER_SURFACE` and `M_MASTER_WATER`, then author material instances.
+6. Resolve ten production AnimMontages and required hit/impact notifies.
+7. Resolve sixteen audio masters and fourteen Niagara systems.
+8. Run W04 progression, boss, checkpoint and save/load tests.
+9. Package Windows Development and capture performance evidence.
+10. Close UI/controller/localization regression before Shipping RC.
