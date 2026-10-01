@@ -1,0 +1,24 @@
+{
+  "schema_version": "2.1",
+  "project": "CALL OF NARIS",
+  "states": ["EXPLORE","SUSPICION","COMBAT","COMBAT_CRITICAL","BOSS_INTRO","BOSS_PHASE_1","BOSS_PHASE_2","BOSS_PHASE_3","VICTORY"],
+  "buses": ["Master","Music","SFX","UI","Voice","Ambience"],
+  "events": {
+    "player.parry.perfect": {"bus":"SFX","priority":"critical"},
+    "player.execution": {"bus":"SFX","priority":"high"},
+    "wolf.summon": {"bus":"SFX","asset":"SFX_WOLF_Summon"},
+    "wolf.soul_vision": {"bus":"SFX","asset":"SFX_WOLF_SoulVision"},
+    "boss.bone_beast.phase_1": {"bus":"Music","asset":"MUS_BOSS_BoneBeast_P1_Loop"},
+    "boss.bone_beast.phase_2": {"bus":"Music","asset":"MUS_BOSS_BoneBeast_P2_Loop"},
+    "boss.bone_beast.phase_3": {"bus":"Music","asset":"MUS_BOSS_BoneBeast_P3_Loop"},
+    "boss.bone_beast.victory": {"bus":"Music","asset":"MUS_BOSS_BoneBeast_Victory"},
+    "world.ash_gate.activate": {"bus":"SFX","asset":"SFX_Gate_MagicHum"},
+    "cinematic.logo.impact": {"bus":"SFX","asset":"SFX_Logo_FinalImpact"}
+  },
+  "rules": {
+    "music_transitions": "quantized_when_possible",
+    "frequent_sfx_variations_min": 3,
+    "frequent_sfx_variations_max": 6,
+    "critical_gameplay_sfx_ducking_exempt": true
+  }
+}
