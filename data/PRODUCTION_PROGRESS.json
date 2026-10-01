@@ -1,0 +1,156 @@
+{
+  "schema_version": "1.0.0",
+  "updated_at": "2026-10-01",
+  "product_brand": "NARSIC",
+  "technical_namespace": "NARIS",
+  "canonical_engine": "Unreal Engine 5.4+",
+  "primary_platform": "Windows PC",
+  "primary_slice": "W04 — Ashen Forest",
+  "display": {
+    "language": "English",
+    "primary_aspect_ratio": "32:9",
+    "alternate_aspect_ratios": [
+      "21:9",
+      "16:9"
+    ],
+    "progress_semantics": "planning estimate only; not runtime or QA evidence"
+  },
+  "current_stage": {
+    "id": "vertical_slice",
+    "label": "Vertical Slice",
+    "state": "active",
+    "display_progress_percent": 68,
+    "confidence": "planning_estimate"
+  },
+  "stages": [
+    {
+      "id": "concept",
+      "label": "Concept & Vision",
+      "state": "complete",
+      "display_percent": 100
+    },
+    {
+      "id": "preproduction",
+      "label": "Pre-Production",
+      "state": "complete",
+      "display_percent": 100
+    },
+    {
+      "id": "prototype",
+      "label": "Prototype",
+      "state": "complete",
+      "display_percent": 100
+    },
+    {
+      "id": "vertical_slice",
+      "label": "Vertical Slice",
+      "state": "active",
+      "display_percent": 68
+    },
+    {
+      "id": "production_alpha",
+      "label": "Production Alpha",
+      "state": "locked",
+      "display_percent": 0
+    },
+    {
+      "id": "content_complete",
+      "label": "Content Complete",
+      "state": "locked",
+      "display_percent": 0
+    },
+    {
+      "id": "beta_polish",
+      "label": "Beta & Polish",
+      "state": "locked",
+      "display_percent": 0
+    },
+    {
+      "id": "release_candidate",
+      "label": "Release Candidate",
+      "state": "locked",
+      "display_percent": 0
+    },
+    {
+      "id": "launch",
+      "label": "Launch",
+      "state": "locked",
+      "display_percent": 0
+    }
+  ],
+  "workstreams": [
+    {
+      "id": "worlds",
+      "label": "Worlds & Environments",
+      "display_percent": 85,
+      "evidence_state": "source_and_contracts_present_runtime_pending"
+    },
+    {
+      "id": "characters",
+      "label": "Characters & Enemies",
+      "display_percent": 70,
+      "evidence_state": "core_gates_defined_production_assets_pending"
+    },
+    {
+      "id": "animation",
+      "label": "Animation & Movement",
+      "display_percent": 60,
+      "evidence_state": "runtime_hooks_present_10_production_montages_unresolved"
+    },
+    {
+      "id": "ui",
+      "label": "HUD & Interfaces",
+      "display_percent": 90,
+      "evidence_state": "source_complete_runtime_qa_pending"
+    },
+    {
+      "id": "systems",
+      "label": "Systems & Programming",
+      "display_percent": 75,
+      "evidence_state": "source_coverage_high_windows_runtime_evidence_pending"
+    },
+    {
+      "id": "audio",
+      "label": "Audio & Music",
+      "display_percent": 50,
+      "evidence_state": "16_audio_payloads_unresolved"
+    },
+    {
+      "id": "story",
+      "label": "Story & Quests",
+      "display_percent": 40,
+      "evidence_state": "w04_progression_contract_present_authored_content_incomplete"
+    },
+    {
+      "id": "performance",
+      "label": "Optimization & Performance",
+      "display_percent": 35,
+      "evidence_state": "pipeline_defined_hardware_capture_pending"
+    }
+  ],
+  "blockers": [
+    "Passing Windows UnrealBuildTool compile for NARIS_W04Editor",
+    "Validated W04_AshenForest production map",
+    "Seven gated W04 core production meshes",
+    "Approved M_MASTER_SURFACE and M_MASTER_WATER",
+    "Ten production AnimMontages",
+    "Sixteen production audio masters",
+    "Fourteen Niagara systems",
+    "Packaged Windows end-to-end playtest and save/load evidence",
+    "Performance capture and acceptance"
+  ],
+  "next_actions": [
+    "Compile NARIS_W04Editor on AsusRog and retain logs",
+    "Run Ashen Forest Factory v2 Blender-to-Unreal bridge",
+    "Author and validate the six-zone production map",
+    "Resolve core production meshes and master materials",
+    "Resolve animation, audio and Niagara payloads",
+    "Run W04 full-loop packaged playtest",
+    "Capture performance and close QA blockers"
+  ],
+  "host_status_at_sync": {
+    "device": "AsusRog",
+    "observed": "online",
+    "note": "Connectivity is not build evidence and must be rechecked at execution time."
+  }
+}
