@@ -525,10 +525,15 @@ void ANarisHUD::DrawContentPage(
         }
         else
         {
-            for (const FString& Waystone : State.UnlockedWaystones)
+            const int32 VisibleWaystones = FMath::Min(State.UnlockedWaystones.Num(), 7);
+            for (int32 Index = 0; Index < VisibleWaystones; ++Index)
             {
-                DrawText(FString::Printf(TEXT("• %s"), *Waystone), FNarisUIStyle::Bone(), Left, RowY, nullptr, 0.78f * Scale, false);
+                DrawText(FString::Printf(TEXT("• %s"), *State.UnlockedWaystones[Index]), FNarisUIStyle::Bone(), Left, RowY, nullptr, 0.78f * Scale, false);
                 RowY += 30.f * Scale;
+            }
+            if (State.UnlockedWaystones.Num() > VisibleWaystones)
+            {
+                DrawText(FString::Printf(TEXT("+%d more"), State.UnlockedWaystones.Num() - VisibleWaystones), FNarisUIStyle::Muted(), Left, RowY, nullptr, 0.66f * Scale, false);
             }
         }
 
@@ -576,19 +581,21 @@ void ANarisHUD::DrawContentPage(
         }
         else
         {
-            for (const FString& Quest : State.ActiveQuests)
+            const int32 VisibleActive = FMath::Min(State.ActiveQuests.Num(), 6);
+            for (int32 Index = 0; Index < VisibleActive; ++Index)
             {
+                const FString& Quest = State.ActiveQuests[Index];
                 const int32 Step = State.QuestSteps.FindRef(Quest);
                 DrawText(
                     FString::Printf(TEXT("• %s  —  Step %d"), *Quest, Step),
-                    FNarisUIStyle::Bone(),
-                    Left,
-                    RowY,
-                    nullptr,
-                    0.78f * Scale,
-                    false
+                    FNarisUIStyle::Bone(), Left, RowY, nullptr, 0.78f * Scale, false
                 );
                 RowY += 30.f * Scale;
+            }
+            if (State.ActiveQuests.Num() > VisibleActive)
+            {
+                DrawText(FString::Printf(TEXT("+%d more"), State.ActiveQuests.Num() - VisibleActive), FNarisUIStyle::Muted(), Left, RowY, nullptr, 0.66f * Scale, false);
+                RowY += 28.f * Scale;
             }
         }
 
@@ -604,10 +611,16 @@ void ANarisHUD::DrawContentPage(
         );
         RowY += 34.f * Scale;
 
-        for (const FString& Quest : State.CompletedQuests)
+        const int32 VisibleCompleted = FMath::Min(State.CompletedQuests.Num(), 5);
+        for (int32 Index = 0; Index < VisibleCompleted; ++Index)
         {
+            const FString& Quest = State.CompletedQuests[Index];
             DrawText(FString::Printf(TEXT("✓ %s"), *Quest), FNarisUIStyle::Muted(), Left, RowY, nullptr, 0.75f * Scale, false);
             RowY += 28.f * Scale;
+        }
+        if (State.CompletedQuests.Num() > VisibleCompleted)
+        {
+            DrawText(FString::Printf(TEXT("+%d more"), State.CompletedQuests.Num() - VisibleCompleted), FNarisUIStyle::Muted(), Left, RowY, nullptr, 0.66f * Scale, false);
         }
     }
 
