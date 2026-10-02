@@ -120,6 +120,17 @@ public:
 
 private:
     UPROPERTY(VisibleAnywhere, Category="NARIS|Menu")
+    bool bFrontEndMenuOpen = false;
+
+    UPROPERTY(VisibleAnywhere, Category="NARIS|Menu")
+    ENarisMenuContext MenuContext = ENarisMenuContext::Pause;
+
+    void ApplyMenuInputMode(bool bOpen);
+    void StartNewGameFromMenu();
+    void ContinueGameFromMenu();
+    void QuitGameFromMenu();
+
+    UPROPERTY(VisibleAnywhere, Category="NARIS|Menu")
     bool bPauseMenuOpen = false;
 
     UPROPERTY(VisibleAnywhere, Category="NARIS|Menu")
