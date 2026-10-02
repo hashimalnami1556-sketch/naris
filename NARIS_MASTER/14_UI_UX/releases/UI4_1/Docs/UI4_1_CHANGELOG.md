@@ -28,3 +28,12 @@ No `.uasset` or `.umap` is fabricated. Full Pause/Inventory/Map/Quest source int
 - Unreal Engine 5.7 NARISEditor Win64 Development compilation completed successfully (`Result: Succeeded`, exit 0).
 - Windows Development `WindowsDevelopment_UI4_2` packaging was initiated, but this entry does not claim packaging/runtime validation until an explicit completion result is recorded.
 - The corrected C++ file is currently in `C:\Users\Admin\NARIS\Source\NarisCore\Private\NarisPlayerCharacter.cpp`; reconcile with canonical GitHub runtime code before claiming repository-source synchronization.
+
+## UI4.2 packaged verification — 2026-10-02
+- Fixed AsusRog local `ANarisPlayerCharacter::TogglePause` so Escape does not start a journey when main menu is active.
+- Passed `NARISEditor Win64 Development` compile (exit code 0).
+- Ran UE 5.7.4 BuildCookRun with Build/Cook/Stage/Pak/Archive in the local project. AutomationTool returned exit code 0; Cook reported 625 packages cooked, 72 skipped by platform.
+- Launched `C:\Users\Admin\NARIS\Builds\WindowsDevelopment_UI4_2\NARIS.exe` standalone and inspected `NARIS.log`.
+- Verified runtime markers: `NARIS_UI_MAIN_MENU READY RTL=1 Buttons=5 WorldSelection=1`, `NARIS_FRONTEND READY`, `NARIS_RELEASE_GATE PASS`, `NARIS_RUNTIME_READY`.
+- No `NARIS_DIRECT_PLAY` reported in the inspected launch log; optional profiling DLL load messages and optional pipeline cache misses were present.
+- **Not claimed:** automated interactive click-through, keyboard event simulation, gameplay QA, full Shipping RC or cross-machine engine migration. Local C++ code needs careful synchronization with canonical repository source.
