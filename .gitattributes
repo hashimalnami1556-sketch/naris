@@ -9,3 +9,6 @@
 *.psd filter=lfs diff=lfs merge=lfs -text
 *.tga filter=lfs diff=lfs merge=lfs -text
 *.exr filter=lfs diff=lfs merge=lfs -text
+
+# Binary gameplay map committed directly; no unresolved LFS pointer
+Content/World/Maps/L_AshenGate_Playable_V8.umap -filter -diff -merge -text
