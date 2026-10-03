@@ -20,9 +20,9 @@ class Unreal57TargetContractTests(unittest.TestCase):
             self.assertIn('#include "Engine/DataAsset.h"',text)
             self.assertNotIn("Engine/PrimaryDataAsset.h",text)
         shakes=(public/"NarisCameraShakes.h").read_text(encoding="utf-8")
-        self.assertIn('#include "Camera/CameraShakeBase.h"',shakes)
-        self.assertIn("public UCameraShakeBase",shakes)
-        self.assertNotIn("UDefaultCameraShakeBase",shakes)
+        self.assertIn('#include "Shakes/DefaultCameraShakeBase.h"',shakes)
+        self.assertIn("public UDefaultCameraShakeBase",shakes)
+        self.assertIn('"EngineCameras"', (ROOT/"unreal"/"NARIS_W04"/"Source"/"NARIS_W04"/"NARIS_W04.Build.cs").read_text(encoding="utf-8"))
 
     def test_camera_shake_modules_are_declared_for_ue57(self):
         build=(ROOT/"unreal"/"NARIS_W04"/"Source"/"NARIS_W04"/"NARIS_W04.Build.cs").read_text(encoding="utf-8")
