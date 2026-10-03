@@ -34,3 +34,15 @@ Static contract test:
 
 Repository gate:
 `python tools/ci/validate_naris.py`
+
+
+## Headless Windows production run
+```powershell
+$env:BLENDER_EXE="C:\Program Files\Blender Foundation\Blender 4.5\blender.exe"
+.\tools\windows\Invoke-NarisBlenderMasterBuilder.ps1 -ExportCoreAssets
+```
+
+The launcher sets `NARIS_REPO_ROOT`, runs the builder in Blender background mode, writes `NARIS_Master_W04.blend`, manifest/validation evidence under `artifacts/local/blender/master-builder-v1_1`, and then uses `tools/blender/naris_export.py` for registry-gated per-asset exchange when the deterministic blend exists.
+
+## Seven core assets
+v1.1 now authors/stamps all seven W04 production roles: Ashen Vessel, Celestial Wolf, Bone Beast, Waystone, Memory Crystal, Ash Gate and Sword of Poem. Static asset validation records LOD0 triangle evidence and material-slot counts; Ash Gate inherits the canonical 22,000-triangle LOD0 cap from the production binding.
