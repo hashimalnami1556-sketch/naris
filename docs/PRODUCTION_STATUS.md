@@ -169,3 +169,17 @@ Current additions:
 - Visual acceptance gates and one master visual reference under `generated_designs/ui/`.
 
 Next engine gate: implement these contracts in the W04 Unreal runtime, replace placeholders with production assets, and validate 60 fps, save/load, input, RTL and boss readability before promotion to approved/release.
+
+## Verified workstation evidence — 2026-10-03
+
+Direct inspection of the online **AsusRog** workstation established additional production evidence:
+
+- Unreal project `Game/NARIS_UE57/NARIS.uproject` targets **EngineAssociation 5.7**.
+- `/Game/NARIS/Maps/L_AshMap_Assembly` exists as an **8-zone assembly blockout**.
+- Environment Pass 01 reports **128 rocks, 10 ruins, 40 spires and 8 art placements** with status `built`.
+- Unreal imported assets include the Tripo material payload and `deep_repaired_model`.
+- The 2026-10-03 editor log shows modular placement, `NARIS_PLACE_PASS03_OK`, validation of **20 assets**, normal editor shutdown and **0 shaders left to compile**.
+- A source-control checkout warning occurred for `L_AshMap_Assembly`, but Unreal subsequently saved the package to `Content/NARIS/Maps/L_AshMap_Assembly.umap`.
+- The Unity project currently reports **6000.3.14f1** and contains Menu V2/UI refinement compile artifacts and reports dated 2026-10-03.
+
+This closes the old assumption that no editor execution evidence exists. It does **not** close packaged gameplay, production-map acceptance, performance, or Shipping gates.
