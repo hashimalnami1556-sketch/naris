@@ -19,7 +19,7 @@
     "id": "vertical_slice",
     "label": "Vertical Slice",
     "state": "active",
-    "display_progress_percent": 74,
+    "display_progress_percent": 76,
     "confidence": "planning_estimate"
   },
   "stages": [
@@ -129,23 +129,22 @@
     }
   ],
   "blockers": [
+    "Replace Engine BasicShapes used by build_ash_map.py and environment_pass01.py with approved production meshes",
+    "Populate Content/NARIS/Materials with approved NARSIC master materials and instances",
     "Promote L_AshMap_Assembly from assembly_blockout to validated W04 production map",
-    "Resolve seven gated W04 core production meshes and final technical-art acceptance",
-    "Approve production master materials and material instances",
-    "Resolve ten production AnimMontages and required hit/impact notifies",
-    "Resolve sixteen production audio masters",
-    "Resolve fourteen Niagara systems",
-    "Run packaged Windows end-to-end W04 gameplay, checkpoint and save/load validation",
+    "Resolve remaining character/enemy production meshes and technical-art acceptance",
+    "Resolve ten production AnimMontages and hit/impact notifies",
+    "Resolve sixteen production audio masters and fourteen Niagara systems",
+    "Run packaged Windows W04 gameplay, checkpoint and save/load validation",
     "Capture packaged performance evidence and close Shipping QA"
   ],
   "next_actions": [
-    "Validate and promote the current 8-zone L_AshMap_Assembly toward the W04 production map",
-    "Replace remaining blockout/modular placeholders with approved production assets",
-    "Resolve master materials, animation, audio and Niagara production payloads",
-    "Run the complete W04 gameplay loop including boss and Demo End",
-    "Package Windows Development and test save/load/checkpoint recovery",
-    "Capture CPU/GPU/frame-time evidence on AsusRog",
-    "Close localization, controller and UI runtime regression gates"
+    "Convert the current modular Pass03 layout into a production replacement pass for remaining Cube/Sphere placeholders",
+    "Author NARSIC surface/water/rock/ruin master materials and instances",
+    "Validate collision, traversal, landmark readability and zone transitions across all eight map zones",
+    "Integrate production character/enemy animation, VFX and audio payloads",
+    "Run full W04 loop through Ash Gate and Eclipse Citadel",
+    "Package Windows Development and capture AsusRog frame-time evidence"
   ],
   "host_status_at_sync": {
     "device": "AsusRog",
@@ -174,7 +173,21 @@
         "assets": 20,
         "result": "validation completed; editor exited normally; shaders_left_to_compile: 0"
       },
-      "note": "Source-control checkout warning occurred for the map, but the package was saved to Content/NARIS/Maps/L_AshMap_Assembly.umap."
+      "note": "Source-control checkout warning occurred for the map, but the package was saved to Content/NARIS/Maps/L_AshMap_Assembly.umap.",
+      "production_gap_analysis": {
+        "material_directory": "Content/NARIS/Materials is currently empty",
+        "current_map": "L_AshMap_Assembly.umap",
+        "current_scripts": [
+          "build_ash_map.py",
+          "environment_pass01.py",
+          "import_ash_assets.py",
+          "import_modular.py"
+        ],
+        "blockout_dependency": "build_ash_map.py still uses Engine BasicShapes Cube/Plane for the traversal spine and zone markers",
+        "environment_dependency": "environment_pass01.py still uses Engine BasicShapes Sphere/Cube for rocks/spires and deep_repaired_model as repeated art anchors",
+        "production_modular_pass": "import_modular.py successfully places ShrineBase, AetherCrystal, Waystone, Deck, GatePillar, GateCrown, GateTop and Buttress assets",
+        "conclusion": "Map is materially beyond an empty blockout but is not yet production-ready because basic-shape placeholders and missing production materials remain."
+      }
     },
     "unity": {
       "editor_version": "6000.3.14f1",
