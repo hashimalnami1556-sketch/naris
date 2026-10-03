@@ -78,16 +78,16 @@ class PauseSettingsMenuContractTests(unittest.TestCase):
     def test_keyboard_and_gamepad_menu_mappings_exist(self) -> None:
         ini = read("unreal/NARIS_W04/Config/DefaultInput.ini")
         for token in (
-            'ActionName="MenuUp",Key=(KeyName="W")',
-            'ActionName="MenuUp",Key=(KeyName="Gamepad_DPad_Up")',
-            'ActionName="MenuDown",Key=(KeyName="S")',
-            'ActionName="MenuDown",Key=(KeyName="Gamepad_DPad_Down")',
-            'ActionName="MenuLeft",Key=(KeyName="A")',
-            'ActionName="MenuRight",Key=(KeyName="D")',
-            'ActionName="MenuConfirm",Key=(KeyName="Enter")',
-            'ActionName="MenuConfirm",Key=(KeyName="Gamepad_FaceButton_Bottom")',
-            'ActionName="MenuBack",Key=(KeyName="Escape")',
-            'ActionName="MenuBack",Key=(KeyName="Gamepad_FaceButton_Right")',
+            'ActionName="MenuUp",bShift=False,bCtrl=False,bAlt=False,bCmd=False,Key=W',
+            'ActionName="MenuUp",bShift=False,bCtrl=False,bAlt=False,bCmd=False,Key=Gamepad_DPad_Up',
+            'ActionName="MenuDown",bShift=False,bCtrl=False,bAlt=False,bCmd=False,Key=S',
+            'ActionName="MenuDown",bShift=False,bCtrl=False,bAlt=False,bCmd=False,Key=Gamepad_DPad_Down',
+            'ActionName="MenuLeft",bShift=False,bCtrl=False,bAlt=False,bCmd=False,Key=A',
+            'ActionName="MenuRight",bShift=False,bCtrl=False,bAlt=False,bCmd=False,Key=D',
+            'ActionName="MenuConfirm",bShift=False,bCtrl=False,bAlt=False,bCmd=False,Key=Enter',
+            'ActionName="MenuConfirm",bShift=False,bCtrl=False,bAlt=False,bCmd=False,Key=Gamepad_FaceButton_Bottom',
+            'ActionName="MenuBack",bShift=False,bCtrl=False,bAlt=False,bCmd=False,Key=Escape',
+            'ActionName="MenuBack",bShift=False,bCtrl=False,bAlt=False,bCmd=False,Key=Gamepad_FaceButton_Right',
         ):
             self.assertIn(token, ini)
 
