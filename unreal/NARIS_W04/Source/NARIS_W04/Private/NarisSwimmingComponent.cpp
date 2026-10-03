@@ -153,16 +153,29 @@ void UNarisSwimmingComponent::ApplyCurrent(float DeltaTime)
 
 void UNarisSwimmingComponent::ApplyDrowning(float DeltaTime)
 {
-    if (!bUnderwater || BreathRemaining > 0.f)
+    UNarisCombatComponent* CombatComponent = Combat.Get();
+    ANarisWaterVolume* Water = ActiveWaterVolume.Get();
+    if (!CombatComponent || !Water)
     {
         return;
     }
 
-    if (UNarisCombatComponent* CombatComponent = Combat.Get())
+    float DamageThisFrame = 0.f;
+    if (bUnderwater && BreathRemaining <= 0.f)
+    {
+        DamageThisFrame += DrowningDamagePerSecond * DeltaTime;
+    }
+
+    if (Water->HazardDamagePerSecond > 0.f)
+    {
+        DamageThisFrame += Water->HazardDamagePerSecond * DeltaTime;
+    }
+
+    if (DamageThisFrame > 0.f)
     {
         CombatComponent->Health = FMath::Max(
             0.f,
-            CombatComponent->Health - DrowningDamagePerSecond * DeltaTime
+            CombatComponent->Health - DamageThisFrame
         );
     }
 }
