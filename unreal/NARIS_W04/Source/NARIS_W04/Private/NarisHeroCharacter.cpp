@@ -19,6 +19,7 @@
 #include "NarisPresentationComponent.h"
 #include "NarisPlayerController.h"
 #include "NarisRuntimeSubsystem.h"
+#include "NarisSwimmingComponent.h"
 #include "TimerManager.h"
 
 ANarisHeroCharacter::ANarisHeroCharacter()
@@ -30,6 +31,7 @@ ANarisHeroCharacter::ANarisHeroCharacter()
     LockOn = CreateDefaultSubobject<UNarisLockOnComponent>(TEXT("LockOn"));
     Interaction = CreateDefaultSubobject<UNarisInteractionComponent>(TEXT("Interaction"));
     Presentation = CreateDefaultSubobject<UNarisPresentationComponent>(TEXT("Presentation"));
+    Swimming = CreateDefaultSubobject<UNarisSwimmingComponent>(TEXT("Swimming"));
 
     CameraBoom = CreateDefaultSubobject<USpringArmComponent>(TEXT("CameraBoom"));
     CameraBoom->SetupAttachment(RootComponent);
@@ -96,6 +98,7 @@ void ANarisHeroCharacter::SetupPlayerInputComponent(UInputComponent* Input)
 
     Input->BindAxis(TEXT("MoveForward"), this, &ANarisHeroCharacter::MoveForward);
     Input->BindAxis(TEXT("MoveRight"), this, &ANarisHeroCharacter::MoveRight);
+    Input->BindAxis(TEXT("SwimVertical"), this, &ANarisHeroCharacter::MoveSwimVertical);
     Input->BindAxis(TEXT("LookYaw"), this, &ANarisHeroCharacter::LookYaw);
     Input->BindAxis(TEXT("LookPitch"), this, &ANarisHeroCharacter::LookPitch);
 
@@ -132,6 +135,14 @@ void ANarisHeroCharacter::MoveRight(float Value)
     {
         const FRotator Rotation(0.f, Controller->GetControlRotation().Yaw, 0.f);
         AddMovementInput(FRotationMatrix(Rotation).GetUnitAxis(EAxis::Y), Value);
+    }
+}
+
+void ANarisHeroCharacter::MoveSwimVertical(float Value)
+{
+    if (Swimming)
+    {
+        Swimming->SetVerticalSwimInput(Value);
     }
 }
 
@@ -294,6 +305,11 @@ void ANarisHeroCharacter::CancelPendingAttack()
 
 void ANarisHeroCharacter::Dodge()
 {
+    if (Swimming && Swimming->IsSwimming())
+    {
+        return;
+    }
+
     if (Energy && !Energy->Spend(DodgeEnergyCost))
     {
         return;
