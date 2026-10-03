@@ -1,9 +1,9 @@
 {
   "schema_version": "1.0.0",
-  "updated_at": "2026-10-01",
+  "updated_at": "2026-10-03",
   "product_brand": "NARSIC",
   "technical_namespace": "NARIS",
-  "canonical_engine": "Unreal Engine 5.4+",
+  "canonical_engine": "Unreal Engine 5.7",
   "primary_platform": "Windows PC",
   "primary_slice": "W04 — Ashen Forest",
   "display": {
@@ -19,7 +19,7 @@
     "id": "vertical_slice",
     "label": "Vertical Slice",
     "state": "active",
-    "display_progress_percent": 68,
+    "display_progress_percent": 74,
     "confidence": "planning_estimate"
   },
   "stages": [
@@ -82,8 +82,8 @@
     {
       "id": "worlds",
       "label": "Worlds & Environments",
-      "display_percent": 85,
-      "evidence_state": "source_and_contracts_present_runtime_pending"
+      "display_percent": 91,
+      "evidence_state": "UE5.7 L_AshMap_Assembly exists; 8-zone blockout; EnvironmentPass01 built with 128 rocks, 10 ruins, 40 spires and 8 art placements; 20 assets validated; production-map acceptance still pending"
     },
     {
       "id": "characters",
@@ -100,14 +100,14 @@
     {
       "id": "ui",
       "label": "HUD & Interfaces",
-      "display_percent": 90,
-      "evidence_state": "source_complete_runtime_qa_pending"
+      "display_percent": 93,
+      "evidence_state": "Unity 6.3.14f1 UI/Menu V2 compile artifacts and 2026-10-03 refinement reports exist; runtime UX acceptance still pending"
     },
     {
       "id": "systems",
       "label": "Systems & Programming",
-      "display_percent": 75,
-      "evidence_state": "source_coverage_high_windows_runtime_evidence_pending"
+      "display_percent": 80,
+      "evidence_state": "Unreal Python assembly/import pipeline executed successfully on AsusRog; packaged gameplay/runtime acceptance still pending"
     },
     {
       "id": "audio",
@@ -124,33 +124,72 @@
     {
       "id": "performance",
       "label": "Optimization & Performance",
-      "display_percent": 35,
-      "evidence_state": "pipeline_defined_hardware_capture_pending"
+      "display_percent": 40,
+      "evidence_state": "editor execution evidence exists; packaged hardware performance capture still pending"
     }
   ],
   "blockers": [
-    "Passing Windows UnrealBuildTool compile for NARIS_W04Editor",
-    "Validated W04_AshenForest production map",
-    "Seven gated W04 core production meshes",
-    "Approved M_MASTER_SURFACE and M_MASTER_WATER",
-    "Ten production AnimMontages",
-    "Sixteen production audio masters",
-    "Fourteen Niagara systems",
-    "Packaged Windows end-to-end playtest and save/load evidence",
-    "Performance capture and acceptance"
+    "Promote L_AshMap_Assembly from assembly_blockout to validated W04 production map",
+    "Resolve seven gated W04 core production meshes and final technical-art acceptance",
+    "Approve production master materials and material instances",
+    "Resolve ten production AnimMontages and required hit/impact notifies",
+    "Resolve sixteen production audio masters",
+    "Resolve fourteen Niagara systems",
+    "Run packaged Windows end-to-end W04 gameplay, checkpoint and save/load validation",
+    "Capture packaged performance evidence and close Shipping QA"
   ],
   "next_actions": [
-    "Compile NARIS_W04Editor on AsusRog and retain logs",
-    "Run Ashen Forest Factory v2 Blender-to-Unreal bridge",
-    "Author and validate the six-zone production map",
-    "Resolve core production meshes and master materials",
-    "Resolve animation, audio and Niagara payloads",
-    "Run W04 full-loop packaged playtest",
-    "Capture performance and close QA blockers"
+    "Validate and promote the current 8-zone L_AshMap_Assembly toward the W04 production map",
+    "Replace remaining blockout/modular placeholders with approved production assets",
+    "Resolve master materials, animation, audio and Niagara production payloads",
+    "Run the complete W04 gameplay loop including boss and Demo End",
+    "Package Windows Development and test save/load/checkpoint recovery",
+    "Capture CPU/GPU/frame-time evidence on AsusRog",
+    "Close localization, controller and UI runtime regression gates"
   ],
   "host_status_at_sync": {
     "device": "AsusRog",
     "observed": "online",
-    "note": "Connectivity is not build evidence and must be rechecked at execution time."
+    "note": "Verified online 2026-10-03; Unreal Engine 5.7 editor execution and asset validation evidence observed. Connectivity alone is not release evidence."
+  },
+  "observed_runtime_evidence": {
+    "date": "2026-10-03",
+    "unreal": {
+      "engine_association": "5.7",
+      "map": "/Game/NARIS/Maps/L_AshMap_Assembly",
+      "map_status": "assembly_blockout",
+      "zones": 8,
+      "environment_pass01": {
+        "status": "built",
+        "rocks": 128,
+        "ruins": 10,
+        "spires": 40,
+        "art": 8
+      },
+      "imported_assets": [
+        "/Game/NARIS/Imported/tripo_mat_bbe3411b-9ad9-4026-a336-f7970eb86b23.tripo_mat_bbe3411b-9ad9-4026-a336-f7970eb86b23",
+        "/Game/NARIS/Imported/deep_repaired_model.deep_repaired_model"
+      ],
+      "validation": {
+        "assets": 20,
+        "result": "validation completed; editor exited normally; shaders_left_to_compile: 0"
+      },
+      "note": "Source-control checkout warning occurred for the map, but the package was saved to Content/NARIS/Maps/L_AshMap_Assembly.umap."
+    },
+    "unity": {
+      "editor_version": "6000.3.14f1",
+      "recent_reports": [
+        "MAIN_MENU_V2_DEPLOYMENT.md",
+        "NARIS_UI_INTERACTION_PASS_20261003.md",
+        "NARIS_UI_UX_REFERENCE_UPDATE_20261003.md",
+        "NARIS_UI_UX_REFINEMENT_20261003.md"
+      ],
+      "compile_artifacts": [
+        "NARIS.MenuV2.CompileCheck.dll",
+        "primary-menu-compile.log",
+        "ux-focus-final-compile.log",
+        "ux-gamepad-compile.log"
+      ]
+    }
   }
 }
