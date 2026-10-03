@@ -50,7 +50,7 @@ $coreAssets | ConvertTo-Json | Set-Content -Encoding UTF8 (Join-Path $ManifestDi
 
 if ($ExportCoreAssets) {
   if (-not (Test-Path $BlendFile)) {
-    Write-Warning "NARIS_Master_W04.blend was not found at deterministic artifact path; registry-gated per-asset export is deferred."
+    throw "NARIS_Master_W04.blend missing after Blender build; refusing to report pipeline completion."
   } else {
     foreach ($AssetId in $coreAssets) {
       $Out = Join-Path $ArtifactRoot $AssetId
