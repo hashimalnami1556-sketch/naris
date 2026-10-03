@@ -5,6 +5,7 @@
 #include "NarisSwimmingComponent.generated.h"
 
 class ANarisWaterVolume;
+class ACharacter;
 class UNarisCombatComponent;
 
 UCLASS(ClassGroup=(NARIS), Blueprintable, meta=(BlueprintSpawnableComponent))
