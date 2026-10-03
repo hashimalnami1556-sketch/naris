@@ -460,3 +460,19 @@ msgctxt "NARIS,QuestsTitle"
 msgid "Quest Journal"
 msgstr "سجل المهام"
 
+msgctxt "NARIS,MemoryCrystalRewardTitle"
+msgid "Memory Recovered"
+msgstr "تم استعادة الذكرى"
+
+msgctxt "NARIS,MemoryCrystalRewardBody"
+msgid "An Ashen Forest memory has been restored."
+msgstr "تم استعادة ذكرى من غابة الرماد."
+
+msgctxt "NARIS,BoneBeastRewardTitle"
+msgid "Bone Beast Defeated"
+msgstr "تم القضاء على وحش العظام"
+
+msgctxt "NARIS,BoneBeastRewardBody"
+msgid "The guardian of the Ashen Forest has fallen."
+msgstr "سقط حارس غابة الرماد."
+
