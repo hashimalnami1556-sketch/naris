@@ -738,7 +738,7 @@ def export_engine(engine, output_dir):
 
 def save_blend(output_dir):
     ensure_dir(output_dir)
-    path=os.path.join(output_dir,"NARIS_Master_v1_0.blend")
+    path=os.path.join(output_dir,"NARIS_Master_W04.blend")
     bpy.ops.wm.save_as_mainfile(filepath=path)
     return path
 
@@ -1072,7 +1072,22 @@ if __name__ == "__main__":
     except Exception:
         pass
     register()
-    log("Ready. Open View3D > Sidebar (N) > NARIS, then click Build NARIS Master Scene.")
+    # Background/CI execution is non-interactive: build, validate, emit manifest,
+    # and save deterministic evidence. Interactive Blender keeps the panel workflow.
+    if bpy.app.background:
+        scene=bpy.context.scene
+        repo_root=os.environ.get("NARIS_REPO_ROOT","").strip()
+        if repo_root:
+            scene.naris_output_dir=os.path.join(repo_root,"artifacts","local","blender","master-builder-v1_1")
+        build_master_scene(scene,clear=True)
+        generate_lods_for_root(bpy.data.objects.get("PRP_Waystone_ROOT")) if bpy.data.objects.get("PRP_Waystone_ROOT") else None
+        generate_lods_for_root(bpy.data.objects.get("PRP_MemoryCrystal_ROOT")) if bpy.data.objects.get("PRP_MemoryCrystal_ROOT") else None
+        generate_lods_for_root(bpy.data.objects.get("ENV_AshGate_ROOT")) if bpy.data.objects.get("ENV_AshGate_ROOT") else None
+        write_manifest(scene.naris_output_dir)
+        save_blend(scene.naris_output_dir)
+        log("Background W04 build completed.")
+    else:
+        log("Ready. Open View3D > Sidebar (N) > NARIS, then click Build NARIS Master Scene.")
 
 # v1.1 repository contract notes:
 # - W04_AshenForest_environment_factory_v2.json owns grid_m, modular floor/wall height,
