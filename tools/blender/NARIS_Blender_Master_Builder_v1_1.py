@@ -547,11 +547,13 @@ def create_rune_gate(mats, location):
 
 def create_waystone(mats, location):
     x,y,z=location
-    stone=add_primitive("cylinder","ENV_Waystone",(x,y,z+1.0),(0.45,0.45,1.0),material=mats["MAT_Ground"],collection="ENVIRONMENT")
-    core=add_primitive("sphere","ENV_Waystone_Core",(x,y,z+1.45),(0.18,0.18,0.18),material=mats["MAT_Ember"],collection="VFX_PREVIEW")
-    core.parent=stone
-    tag(stone,naris_asset="Waystone",interaction="CHECKPOINT",export=True)
-    return stone
+    root=create_root("PRP_Waystone_ROOT",location,"PROPS")
+    stone=add_primitive("cylinder","PRP_Waystone_Mesh",(x,y,z+1.0),(0.45,0.45,1.0),material=mats["MAT_Ground"],collection="PROPS")
+    core=add_primitive("sphere","PRP_Waystone_Core",(x,y,z+1.45),(0.18,0.18,0.18),material=mats["MAT_Ember"],collection="PROPS")
+    stone.parent=root
+    core.parent=root
+    tag(root,naris_asset="Waystone",interaction="CHECKPOINT",export=True)
+    return root
 
 
 def create_ash_particles_preview(mats):
