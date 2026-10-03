@@ -85,12 +85,12 @@ class CombatDefenseEssencePauseContractTests(unittest.TestCase):
     def test_keyboard_and_gamepad_bind_essence_and_pause(self) -> None:
         ini = read("unreal/NARIS_W04/Config/DefaultInput.ini")
         for token in (
-            'ActionName="EssenceNext",Key=(KeyName="X")',
-            'ActionName="EssenceNext",Key=(KeyName="Gamepad_DPad_Right")',
-            'ActionName="EssencePrevious",Key=(KeyName="Z")',
-            'ActionName="EssencePrevious",Key=(KeyName="Gamepad_DPad_Left")',
-            'ActionName="Pause",Key=(KeyName="Escape")',
-            'ActionName="Pause",Key=(KeyName="Gamepad_Special_Right")',
+            'ActionName="EssenceNext",bShift=False,bCtrl=False,bAlt=False,bCmd=False,Key=X',
+            'ActionName="EssenceNext",bShift=False,bCtrl=False,bAlt=False,bCmd=False,Key=Gamepad_DPad_Right',
+            'ActionName="EssencePrevious",bShift=False,bCtrl=False,bAlt=False,bCmd=False,Key=Z',
+            'ActionName="EssencePrevious",bShift=False,bCtrl=False,bAlt=False,bCmd=False,Key=Gamepad_DPad_Left',
+            'ActionName="Pause",bShift=False,bCtrl=False,bAlt=False,bCmd=False,Key=Escape',
+            'ActionName="Pause",bShift=False,bCtrl=False,bAlt=False,bCmd=False,Key=Gamepad_Special_Right',
         ):
             self.assertIn(token, ini)
 
