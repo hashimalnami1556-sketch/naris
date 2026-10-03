@@ -14,19 +14,19 @@ class InputCombatSmokeContractTests(unittest.TestCase):
     def test_keyboard_and_gamepad_actions_share_input_names(self) -> None:
         cfg = read("unreal/NARIS_W04/Config/DefaultInput.ini")
         required = (
-            'ActionName="LightAttack",Key=(KeyName="LeftMouseButton")',
-            'ActionName="LightAttack",Key=(KeyName="Gamepad_RightShoulder")',
-            'ActionName="HeavyAttack",Key=(KeyName="Gamepad_RightTrigger")',
-            'ActionName="Dodge",Key=(KeyName="Gamepad_FaceButton_Bottom")',
-            'ActionName="Parry",Key=(KeyName="Gamepad_LeftShoulder")',
-            'ActionName="ResonanceBurst",Key=(KeyName="Gamepad_FaceButton_Top")',
-            'ActionName="Interact",Key=(KeyName="Gamepad_FaceButton_Left")',
-            'ActionName="LockOn",Key=(KeyName="Gamepad_RightThumbstick")',
-            'ActionName="Sprint",Key=(KeyName="Gamepad_LeftThumbstick")',
-            'AxisName="MoveForward",Key=(KeyName="Gamepad_LeftY")',
-            'AxisName="MoveRight",Key=(KeyName="Gamepad_LeftX")',
-            'AxisName="LookYaw",Key=(KeyName="Gamepad_RightX")',
-            'AxisName="LookPitch",Key=(KeyName="Gamepad_RightY")',
+            'ActionName="LightAttack",bShift=False,bCtrl=False,bAlt=False,bCmd=False,Key=LeftMouseButton',
+            'ActionName="LightAttack",bShift=False,bCtrl=False,bAlt=False,bCmd=False,Key=Gamepad_RightShoulder',
+            'ActionName="HeavyAttack",bShift=False,bCtrl=False,bAlt=False,bCmd=False,Key=Gamepad_RightTrigger',
+            'ActionName="Dodge",bShift=False,bCtrl=False,bAlt=False,bCmd=False,Key=Gamepad_FaceButton_Bottom',
+            'ActionName="Parry",bShift=False,bCtrl=False,bAlt=False,bCmd=False,Key=Gamepad_LeftShoulder',
+            'ActionName="ResonanceBurst",bShift=False,bCtrl=False,bAlt=False,bCmd=False,Key=Gamepad_FaceButton_Top',
+            'ActionName="Interact",bShift=False,bCtrl=False,bAlt=False,bCmd=False,Key=Gamepad_FaceButton_Left',
+            'ActionName="LockOn",bShift=False,bCtrl=False,bAlt=False,bCmd=False,Key=Gamepad_RightThumbstick',
+            'ActionName="Sprint",bShift=False,bCtrl=False,bAlt=False,bCmd=False,Key=Gamepad_LeftThumbstick',
+            'AxisName="MoveForward",Scale=1.000000,Key=Gamepad_LeftY',
+            'AxisName="MoveRight",Scale=1.000000,Key=Gamepad_LeftX',
+            'AxisName="LookYaw",Scale=1.000000,Key=Gamepad_RightX',
+            'AxisName="LookPitch",Scale=1.000000,Key=Gamepad_RightY',
         )
         for token in required:
             self.assertIn(token, cfg)
