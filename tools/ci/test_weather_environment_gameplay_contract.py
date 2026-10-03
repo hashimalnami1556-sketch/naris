@@ -25,7 +25,7 @@ class WeatherEnvironmentGameplayContract(unittest.TestCase):
         cpp=GAME_CPP.read_text(encoding="utf-8")
         for token in ("UNarisWeatherGameplayComponent","GetMoveSpeedMultiplier","GetVisibilityMultiplier","RefreshWeatherProfile"):
             self.assertIn(token,h)
-        for token in ("HealthDrainPerSecond","Combat->Health","Hero->RefreshMovementSpeed","Thunderstorm","Blizzard","Sandstorm"):
+        for token in ("HealthDrainPerSecond","CombatComponent->Health","Hero->RefreshMovementSpeed","Thunderstorm","Blizzard","Sandstorm"):
             self.assertIn(token,cpp)
 
     def test_hero_routes_speed_through_weather_component(self):
