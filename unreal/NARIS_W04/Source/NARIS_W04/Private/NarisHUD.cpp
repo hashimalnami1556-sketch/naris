@@ -14,6 +14,7 @@
 #include "NarisInteractionComponent.h"
 #include "NarisPlayerController.h"
 #include "NarisRuntimeSubsystem.h"
+#include "NarisRewardDirectorSubsystem.h"
 #include "NarisSubtitleSubsystem.h"
 #include "NarisUIStyle.h"
 
@@ -311,6 +312,45 @@ void ANarisHUD::DrawBossHUD(float Scale, float Safe)
         );
         break;
     }
+}
+
+void ANarisHUD::DrawRewardToast(float Scale, float Safe)
+{
+    if (!Canvas || !GetWorld()) return;
+    UGameInstance* GI = GetWorld()->GetGameInstance();
+    UNarisRewardDirectorSubsystem* Rewards = GI ? GI->GetSubsystem<UNarisRewardDirectorSubsystem>() : nullptr;
+    if (!Rewards) return;
+
+    FNarisRewardPresentationEvent Event;
+    if (!Rewards->Peek(Event))
+    {
+        ActiveRewardEventId.Reset();
+        ActiveRewardStartedAt = -1.f;
+        return;
+    }
+
+    const float Now = GetWorld()->GetTimeSeconds();
+    if (ActiveRewardEventId != Event.EventId)
+    {
+        ActiveRewardEventId = Event.EventId;
+        ActiveRewardStartedAt = Now;
+    }
+    if (Now - ActiveRewardStartedAt >= 4.5f)
+    {
+        Rewards->Acknowledge(Event.EventId);
+        ActiveRewardEventId.Reset();
+        ActiveRewardStartedAt = -1.f;
+        return;
+    }
+
+    const bool bLegendary = Event.Rarity == ENarisRewardRarity::Legendary;
+    const float W = FMath::Min(560.f * Scale, Canvas->ClipX * 0.42f);
+    const float H = 116.f * Scale;
+    const float X = (Canvas->ClipX - W) * 0.5f;
+    const float Y = Safe + 76.f * Scale;
+    DrawPanel(X, Y, W, H, FLinearColor(0.018f,0.024f,0.034f,0.94f));
+    DrawText(Event.Title.ToString(), bLegendary ? FNarisUIStyle::Gold() : FNarisUIStyle::Cyan(), X+22.f*Scale, Y+22.f*Scale, nullptr, 0.92f*Scale, false);
+    DrawText(Event.Description.ToString(), FNarisUIStyle::Bone(), X+22.f*Scale, Y+62.f*Scale, nullptr, 0.72f*Scale, false);
 }
 
 void ANarisHUD::DrawSubtitle()
@@ -789,6 +829,7 @@ void ANarisHUD::DrawHUD()
         DrawObjectiveCard(Runtime, Scale, Safe);
         DrawInteractionPrompt(Hero, Scale);
         DrawBossHUD(Scale, Safe);
+        DrawRewardToast(Scale, Safe);
 
         if (Runtime && Runtime->IsDemoCompleted())
         {
