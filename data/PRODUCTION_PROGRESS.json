@@ -19,7 +19,7 @@
     "id": "vertical_slice",
     "label": "Vertical Slice",
     "state": "active",
-    "display_progress_percent": 76,
+    "display_progress_percent": 79,
     "confidence": "planning_estimate"
   },
   "stages": [
@@ -82,8 +82,8 @@
     {
       "id": "worlds",
       "label": "Worlds & Environments",
-      "display_percent": 91,
-      "evidence_state": "UE5.7 L_AshMap_Assembly exists; 8-zone blockout; EnvironmentPass01 built with 128 rocks, 10 ruins, 40 spires and 8 art placements; 20 assets validated; production-map acceptance still pending"
+      "display_percent": 94,
+      "evidence_state": "ProductionPass04 executed on AsusRog: 29 modular actors placed across Causeway, Aether Shrine, Ash Gate and Eclipse Citadel approach; zero missing modular assets; map saved. Basic-shape cleanup/material acceptance still pending."
     },
     {
       "id": "characters",
@@ -106,8 +106,8 @@
     {
       "id": "systems",
       "label": "Systems & Programming",
-      "display_percent": 80,
-      "evidence_state": "Unreal Python assembly/import pipeline executed successfully on AsusRog; packaged gameplay/runtime acceptance still pending"
+      "display_percent": 82,
+      "evidence_state": "Unreal 5.7 headless Python production pass executed successfully and emitted a structured report; packaged runtime acceptance remains pending."
     },
     {
       "id": "audio",
@@ -129,22 +129,22 @@
     }
   ],
   "blockers": [
-    "Replace Engine BasicShapes used by build_ash_map.py and environment_pass01.py with approved production meshes",
-    "Populate Content/NARIS/Materials with approved NARSIC master materials and instances",
-    "Promote L_AshMap_Assembly from assembly_blockout to validated W04 production map",
+    "Remove or replace remaining Engine BasicShapes from early map/environment passes",
+    "Populate and approve NARSIC production master materials and instances",
+    "Validate collision, traversal and zone transitions across the eight-zone map",
     "Resolve remaining character/enemy production meshes and technical-art acceptance",
     "Resolve ten production AnimMontages and hit/impact notifies",
-    "Resolve sixteen production audio masters and fourteen Niagara systems",
+    "Resolve sixteen audio masters and fourteen Niagara systems",
     "Run packaged Windows W04 gameplay, checkpoint and save/load validation",
     "Capture packaged performance evidence and close Shipping QA"
   ],
   "next_actions": [
-    "Convert the current modular Pass03 layout into a production replacement pass for remaining Cube/Sphere placeholders",
-    "Author NARSIC surface/water/rock/ruin master materials and instances",
-    "Validate collision, traversal, landmark readability and zone transitions across all eight map zones",
+    "Run a placeholder audit and selectively remove superseded Cube/Sphere actors without damaging traversal",
+    "Author and bind NARSIC master materials for terrain, rock, ruins, gate and water",
+    "Validate collision and traversal from Ashen Approach through Eclipse Citadel",
     "Integrate production character/enemy animation, VFX and audio payloads",
-    "Run full W04 loop through Ash Gate and Eclipse Citadel",
-    "Package Windows Development and capture AsusRog frame-time evidence"
+    "Run complete W04 gameplay loop and package Windows Development",
+    "Capture AsusRog frame-time evidence and close remaining QA gates"
   ],
   "host_status_at_sync": {
     "device": "AsusRog",
@@ -187,6 +187,15 @@
         "environment_dependency": "environment_pass01.py still uses Engine BasicShapes Sphere/Cube for rocks/spires and deep_repaired_model as repeated art anchors",
         "production_modular_pass": "import_modular.py successfully places ShrineBase, AetherCrystal, Waystone, Deck, GatePillar, GateCrown, GateTop and Buttress assets",
         "conclusion": "Map is materially beyond an empty blockout but is not yet production-ready because basic-shape placeholders and missing production materials remain."
+      },
+      "production_pass04": {
+        "status": "production_layout_pass",
+        "spawned_modular_actors": 29,
+        "missing_assets": [],
+        "target_map": "/Game/NARIS/Maps/L_AshMap_Assembly",
+        "executed_on": "AsusRog",
+        "script": "Content/Python/production_pass04.py",
+        "report": "Reports/production-pass04.json"
       }
     },
     "unity": {
