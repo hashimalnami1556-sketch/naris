@@ -26,7 +26,7 @@ class BlenderMasterBuilderLauncherContractTests(unittest.TestCase):
 
     def test_launcher_retains_local_evidence(self):
         text=LAUNCHER.read_text(encoding="utf-8")
-        for token in ("artifacts", "validation", "manifest", "NARIS_Master_W04.blend"):
+        for token in ("artifacts", "validation", "manifest", "NARIS_Master_W04.blend", "if (-not (Test-Path $BlendFile))", "throw"):
             self.assertIn(token,text)
 
 if __name__=="__main__":
