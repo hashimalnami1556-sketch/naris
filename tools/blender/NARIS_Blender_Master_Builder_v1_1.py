@@ -82,6 +82,7 @@ def stamp_w04_asset(obj, role, contract=None):
     return obj
 
 
+import sys
 import bpy
 import math
 import os
@@ -748,7 +749,7 @@ def save_blend(output_dir):
 
 def create_memory_crystal(mats, location=(6.0, -4.0, 1.4)):
     root=create_root("PRP_MemoryCrystal_ROOT",location,"PROPS")
-    crystal=add_primitive("ico","PRP_MemoryCrystal_Mesh",location,(0.72,0.72,1.65),material=mats["MAT_Aether"],collection="PROPS")
+    crystal=add_primitive("sphere","PRP_MemoryCrystal_Mesh",location,(0.72,0.72,1.65),material=mats["MAT_Aether"],collection="PROPS")
     crystal.parent=root
     tag(root,naris_asset="MemoryCrystal",interaction="MEMORY_CRYSTAL",export=True)
     return root
@@ -1079,13 +1080,17 @@ if __name__ == "__main__":
         repo_root=os.environ.get("NARIS_REPO_ROOT","").strip()
         if repo_root:
             scene.naris_output_dir=os.path.join(repo_root,"artifacts","local","blender","master-builder-v1_1")
-        build_master_scene(scene,clear=True)
-        generate_lods_for_root(bpy.data.objects.get("PRP_Waystone_ROOT")) if bpy.data.objects.get("PRP_Waystone_ROOT") else None
-        generate_lods_for_root(bpy.data.objects.get("PRP_MemoryCrystal_ROOT")) if bpy.data.objects.get("PRP_MemoryCrystal_ROOT") else None
-        generate_lods_for_root(bpy.data.objects.get("ENV_AshGate_ROOT")) if bpy.data.objects.get("ENV_AshGate_ROOT") else None
-        write_manifest(scene.naris_output_dir)
-        save_blend(scene.naris_output_dir)
-        log("Background W04 build completed.")
+        try:
+            build_master_scene(scene,clear=True)
+            generate_lods_for_root(bpy.data.objects.get("PRP_Waystone_ROOT")) if bpy.data.objects.get("PRP_Waystone_ROOT") else None
+            generate_lods_for_root(bpy.data.objects.get("PRP_MemoryCrystal_ROOT")) if bpy.data.objects.get("PRP_MemoryCrystal_ROOT") else None
+            generate_lods_for_root(bpy.data.objects.get("ENV_AshGate_ROOT")) if bpy.data.objects.get("ENV_AshGate_ROOT") else None
+            write_manifest(scene.naris_output_dir)
+            save_blend(scene.naris_output_dir)
+            log("Background W04 build completed.")
+        except Exception:
+            traceback.print_exc()
+            sys.exit(1)
     else:
         log("Ready. Open View3D > Sidebar (N) > NARIS, then click Build NARIS Master Scene.")
 
