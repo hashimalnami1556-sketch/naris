@@ -10,6 +10,20 @@ class Unreal57TargetContractTests(unittest.TestCase):
         project=(ROOT/"unreal"/"NARIS_W04"/"NARIS_W04.uproject").read_text(encoding="utf-8")
         self.assertIn('"EngineAssociation": "5.7"',project)
 
+    def test_ue57_source_api_migrations_are_applied(self):
+        public=ROOT/"unreal"/"NARIS_W04"/"Source"/"NARIS_W04"/"Public"
+        controller=(public/"NarisPlayerController.h").read_text(encoding="utf-8")
+        self.assertIn("FInputKeyEventArgs",controller)
+        self.assertNotIn("FInputKeyParams",controller)
+        for name in ("BoneBeastDataAsset.h","NarisPresentationComponent.h"):
+            text=(public/name).read_text(encoding="utf-8")
+            self.assertIn('#include "Engine/DataAsset.h"',text)
+            self.assertNotIn("Engine/PrimaryDataAsset.h",text)
+        shakes=(public/"NarisCameraShakes.h").read_text(encoding="utf-8")
+        self.assertIn('#include "Camera/CameraShakeBase.h"',shakes)
+        self.assertIn("public UCameraShakeBase",shakes)
+        self.assertNotIn("UDefaultCameraShakeBase",shakes)
+
     def test_targets_use_ue57_build_settings_and_include_order(self):
         for path in (GAME,EDITOR):
             text=path.read_text(encoding="utf-8")
