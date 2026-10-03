@@ -11,6 +11,7 @@ class UNarisEnergyComponent;
 class UNarisLockOnComponent;
 class UNarisInteractionComponent;
 class UNarisPresentationComponent;
+class UNarisSwimmingComponent;
 class USpringArmComponent;
 class UCameraComponent;
 struct FDamageEvent;
@@ -46,6 +47,9 @@ public:
 
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="NARIS|Presentation")
     TObjectPtr<UNarisPresentationComponent> Presentation;
+
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="NARIS|Water")
+    TObjectPtr<UNarisSwimmingComponent> Swimming;
 
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
     TObjectPtr<USpringArmComponent> CameraBoom;
@@ -155,6 +159,7 @@ public:
 protected:
     void MoveForward(float Value);
     void MoveRight(float Value);
+    void MoveSwimVertical(float Value);
     void LookYaw(float Value);
     void LookPitch(float Value);
     void StartSprinting();
