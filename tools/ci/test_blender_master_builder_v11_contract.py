@@ -61,6 +61,14 @@ class BlenderMasterBuilderV11ContractTests(unittest.TestCase):
         ):
             self.assertIn(token, source)
 
+    def test_memory_crystal_uses_supported_builder_primitive(self):
+        source = BUILDER.read_text(encoding="utf-8")
+        self.assertNotIn('add_primitive("ico","PRP_MemoryCrystal_Mesh"', source)
+
+    def test_background_build_exits_nonzero_on_failure(self):
+        source = BUILDER.read_text(encoding="utf-8")
+        self.assertIn("sys.exit(1)", source)
+
     def test_builder_has_strict_static_mesh_budget_validation(self):
         source = BUILDER.read_text(encoding="utf-8")
         for token in (
