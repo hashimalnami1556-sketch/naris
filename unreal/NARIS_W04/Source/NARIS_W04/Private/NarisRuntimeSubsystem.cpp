@@ -265,3 +265,20 @@ bool UNarisRuntimeSubsystem::CompleteDemo()
     State.bDemoCompleted = true;
     return true;
 }
+
+
+void UNarisRuntimeSubsystem::SetWorldStateSnapshot(
+    float WorldHour,
+    int32 WorldDay,
+    ENarisWeatherState WeatherState
+)
+{
+    if (!FMath::IsFinite(WorldHour))
+    {
+        return;
+    }
+
+    State.WorldHour = FMath::Fmod(FMath::Fmod(WorldHour, 24.f) + 24.f, 24.f);
+    State.WorldDay = FMath::Max(1, WorldDay);
+    State.WeatherState = WeatherState;
+}
