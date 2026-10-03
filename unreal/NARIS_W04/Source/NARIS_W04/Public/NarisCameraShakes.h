@@ -1,11 +1,11 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Camera/CameraShakeBase.h"
+#include "Shakes/DefaultCameraShakeBase.h"
 #include "NarisCameraShakes.generated.h"
 
 UCLASS(Abstract)
-class NARIS_W04_API UNarisCameraShakeBase : public UCameraShakeBase
+class NARIS_W04_API UNarisCameraShakeBase : public UDefaultCameraShakeBase
 {
     GENERATED_BODY()
 
