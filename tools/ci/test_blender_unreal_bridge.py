@@ -86,6 +86,20 @@ class BlenderUnrealBridgeContractTests(unittest.TestCase):
         ):
             self.assertIn(token, source)
 
+    def test_blender_exporter_selects_requested_asset_by_metadata(self) -> None:
+        source = (ROOT / "tools" / "blender" / "naris_export.py").read_text(encoding="utf-8")
+        for token in (
+            "select_asset_objects",
+            'obj.get("naris_asset_id") == asset_id',
+            "children_recursive",
+            "No authored root found for requested asset ID",
+        ):
+            self.assertIn(token, source)
+        self.assertNotIn(
+            "selected = [o for o in bpy.context.selected_objects if o.type in ALLOWED_TYPES]",
+            source,
+        )
+
     def test_windows_smoke_script_gates_before_execution(self) -> None:
         source = (
             ROOT
