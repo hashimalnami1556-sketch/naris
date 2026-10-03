@@ -170,7 +170,7 @@ void UNarisNativeMenuWidget::TravelToAshenForest()
 }
 void UNarisNativeMenuWidget::TravelToExpandedForest()
 {
- TravelToWorld(TEXT("/Game/World/Maps/L_AshenGate_Playable_V8"));
+ TravelToWorld(TEXT("/Game/World/Maps/L_AshenGate_QuestPlayable_V9"));
 }
 void UNarisNativeMenuWidget::TravelToWorld(const TCHAR* PackagePath)
 {

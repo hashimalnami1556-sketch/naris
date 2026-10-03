@@ -4,6 +4,8 @@
 #include "NarisSaveSubsystem.h"
 #include "NarisUserSettingsSubsystem.h"
 #include "NarisBossCharacter.h"
+#include "NarisAshGateActor.h"
+#include "NarisWorldStateSubsystem.h"
 #include "NarisBossPhaseComponent.h"
 #include "NarisVitalsComponent.h"
 #include "NarisQuestSubsystem.h"
@@ -146,7 +148,14 @@ void ANarisHUD::DrawHUD()
   DrawRect(FLinearColor(.95f,.18f,.12f,1.f),TX-4.f*S,TY-4.f*S,8.f*S,8.f*S);
   break;
  }
- DrawText(TEXT("GATE WARDEN / NORTH"),FLinearColor(.64f,.68f,.72f,1.f),RX,MY+218.f*S,nullptr,.58f*S);
+ if(AActor* Gate=UGameplayStatics::GetActorOfClass(this,ANarisAshGateActor::StaticClass())){
+  const FVector Delta=Gate->GetActorLocation()-PlayerPos;
+  const float TX=FMath::Clamp(PX+(Delta.Y/2900.f)*RW,RX+6.f*S,RX+RW-6.f*S);
+  const float TY=FMath::Clamp(PY-(Delta.X/2900.f)*RW,RY+6.f*S,RY+RW-6.f*S);
+  const bool bGateOpen=Cast<ANarisAshGateActor>(Gate)->IsGateOpen();
+  DrawRect(bGateOpen?Ice:Gold,TX-5.f*S,TY-5.f*S,10.f*S,10.f*S);
+  DrawText(FString::Printf(TEXT("GATE  %.0fm  %s"),Delta.Size()/100.f,bGateOpen?TEXT("OPEN"):TEXT("SEALED")),bGateOpen?Ice:Gold,RX,MY+218.f*S,nullptr,.57f*S);
+ }else DrawText(TEXT("ASHEN DEPTHS / NORTH"),FLinearColor(.64f,.68f,.72f,1.f),RX,MY+218.f*S,nullptr,.58f*S);
  // Accessible PC combat action chips: labels reflect real bound input actions.
  const float Y=Canvas->ClipY-118.f*S;
  struct FChip{const TCHAR* Label;const TCHAR* Key;};
@@ -206,8 +215,11 @@ void ANarisHUD::DrawHUD()
    const float QX=24.f*QS,QY=242.f*QS,QW=314.f*QS;
    DrawRect(FLinearColor(.023f,.031f,.041f,.79f),QX,QY,QW,100.f*QS);
    DrawRect(FLinearColor(.79f,.60f,.26f,.95f),QX,QY,4.f*QS,100.f*QS);
-   DrawText(TEXT("ASHEN GATE  |  CHAPTER I"),QuestColor,QX+17.f*QS,QY+12.f*QS,nullptr,.91f*QS);
-   DrawText(Done?TEXT("GATE OPEN"):TEXT("ENTER THE ASHEN GATE"),FLinearColor(.88f,.87f,.78f,1.f),QX+17.f*QS,QY+40.f*QS,nullptr,.75f*QS);
+   bool bGateEntered=false;
+   if(UNarisWorldStateSubsystem* State=G->GetSubsystem<UNarisWorldStateSubsystem>())
+    bGateEntered=State->GetFlag(TEXT("AshenGateEntered"));
+   DrawText(bGateEntered?TEXT("BELL MARSH  |  CHAPTER II"):TEXT("ASHEN GATE  |  CHAPTER I"),QuestColor,QX+17.f*QS,QY+12.f*QS,nullptr,.91f*QS);
+   DrawText(bGateEntered?TEXT("NEXT CHAPTER UNLOCKED"):(Done?TEXT("CROSS THE OPEN GATE"):TEXT("DEFEAT THE GATE WARDEN")),FLinearColor(.88f,.87f,.78f,1.f),QX+17.f*QS,QY+40.f*QS,nullptr,.75f*QS);
    DrawText(FString::Printf(TEXT("SHARDS %d/3   BEASTS %d/3   WARDEN %d/1"),FMath::Min(Shards,3),FMath::Min(Beasts,3),FMath::Min(Boss,1)),FLinearColor(.61f,.72f,.77f,1.f),QX+17.f*QS,QY+70.f*QS,nullptr,.66f*QS);
   }
  }
