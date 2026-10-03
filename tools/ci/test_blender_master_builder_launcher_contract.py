@@ -24,6 +24,11 @@ class BlenderMasterBuilderLauncherContractTests(unittest.TestCase):
         ):
             self.assertIn(token,text)
 
+    def test_launcher_writes_json_evidence_without_utf8_bom(self):
+        text=LAUNCHER.read_text(encoding="utf-8")
+        self.assertIn("UTF8Encoding($false)", text)
+        self.assertNotIn("Set-Content -Encoding UTF8", text)
+
     def test_launcher_retains_local_evidence(self):
         text=LAUNCHER.read_text(encoding="utf-8")
         for token in ("artifacts", "validation", "manifest", "NARIS_Master_W04.blend", "if (-not (Test-Path $BlendFile))", "throw"):
