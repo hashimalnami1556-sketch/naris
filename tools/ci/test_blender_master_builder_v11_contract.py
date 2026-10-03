@@ -55,6 +55,7 @@ class BlenderMasterBuilderV11ContractTests(unittest.TestCase):
             '"memory_crystal"',
             '"ash_gate"',
             "create_memory_crystal",
+            'create_root("PRP_Waystone_ROOT"',
             "stamp_w04_asset(waystone",
             "stamp_w04_asset(memory_crystal",
             "stamp_w04_asset(ash_gate",
