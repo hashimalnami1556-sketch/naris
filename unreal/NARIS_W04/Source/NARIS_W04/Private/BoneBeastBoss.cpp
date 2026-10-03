@@ -9,6 +9,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "NarisPresentationComponent.h"
 #include "NarisRuntimeSubsystem.h"
+#include "NarisRewardDirectorSubsystem.h"
 
 ABoneBeastBoss::ABoneBeastBoss()
 {
@@ -274,6 +275,19 @@ void ABoneBeastBoss::CompleteEncounter()
     }
 
     bEncounterComplete = true;
+
+    if (UNarisRewardDirectorSubsystem* Rewards = GameInstance->GetSubsystem<UNarisRewardDirectorSubsystem>())
+    {
+        FNarisRewardPresentationEvent Event;
+        Event.EventId = FString::Printf(TEXT("w04.boss.%s"), *BossProgressId);
+        Event.Kind = ENarisRewardKind::Boss;
+        Event.SourceId = TEXT("bone_beast");
+        Event.Rarity = ENarisRewardRarity::Epic;
+        Event.Title = NSLOCTEXT("NARIS", "BoneBeastRewardTitle", "Bone Beast Defeated");
+        Event.Description = NSLOCTEXT("NARIS", "BoneBeastRewardBody", "The guardian of the Ashen Forest has fallen.");
+        Rewards->Enqueue(Event);
+    }
+
     EmitBossEvent(TEXT("EncounterComplete"));
 
     if (bCompleteDemoOnDefeat)
