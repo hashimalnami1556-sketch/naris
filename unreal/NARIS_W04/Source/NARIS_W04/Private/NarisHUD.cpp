@@ -14,6 +14,7 @@
 #include "NarisInteractionComponent.h"
 #include "NarisPlayerController.h"
 #include "NarisRuntimeSubsystem.h"
+#include "NarisSwimmingComponent.h"
 #include "NarisSubtitleSubsystem.h"
 #include "NarisUIStyle.h"
 
@@ -118,6 +119,38 @@ void ANarisHUD::DrawPlayerVitals(ANarisHeroCharacter* Hero, float Scale, float S
             false
         );
     }
+}
+
+void ANarisHUD::DrawBreath(ANarisHeroCharacter* Hero, float Scale)
+{
+    if (!Canvas || !Hero || !Hero->Swimming || !Hero->Swimming->IsUnderwater())
+    {
+        return;
+    }
+
+    const float W = FMath::Min(420.f * Scale, Canvas->ClipX * 0.42f);
+    const float H = 46.f * Scale;
+    const float X = (Canvas->ClipX - W) * 0.5f;
+    const float Y = Canvas->ClipY - 270.f * Scale;
+    const float Ratio = Hero->Swimming->GetBreathPercent();
+
+    DrawPanel(X, Y, W, H, FLinearColor(0.015f, 0.04f, 0.065f, 0.86f));
+    DrawText(
+        NSLOCTEXT("NARIS", "HUDBreath", "Breath").ToString(),
+        FNarisUIStyle::Bone(),
+        X + 18.f * Scale,
+        Y + 12.f * Scale,
+        nullptr,
+        0.70f * Scale,
+        false
+    );
+
+    const float BarX = X + 100.f * Scale;
+    const float BarY = Y + 17.f * Scale;
+    const float BarW = W - 122.f * Scale;
+    DrawRect(FLinearColor(0.01f, 0.02f, 0.03f, 0.95f), BarX, BarY, BarW, 8.f * Scale);
+    const FLinearColor Fill = Ratio < 0.25f ? FNarisUIStyle::Danger() : FNarisUIStyle::Cyan();
+    DrawRect(Fill, BarX, BarY, BarW * Ratio, 8.f * Scale);
 }
 
 void ANarisHUD::DrawObjectiveCard(
@@ -799,6 +832,7 @@ void ANarisHUD::DrawHUD()
         const float Safe = FNarisUIStyle::GetSafeMargin(Canvas->ClipX, Canvas->ClipY);
 
         DrawPlayerVitals(Hero, Scale, Safe);
+        DrawBreath(Hero, Scale);
         DrawObjectiveCard(Runtime, Scale, Safe);
         DrawInteractionPrompt(Hero, Scale);
         DrawBossHUD(Scale, Safe);
