@@ -284,6 +284,10 @@ def add_primitive(kind, name, location=(0, 0, 0), scale=(1, 1, 1), rotation=(0, 
     obj = bpy.context.object
     obj.name = name
     obj.scale = scale
+    # Author export-safe geometry: bake primitive rotation/scale into mesh data.
+    bpy.context.view_layer.objects.active = obj
+    obj.select_set(True)
+    bpy.ops.object.transform_apply(location=False, rotation=True, scale=True)
     if material and hasattr(obj.data, "materials"):
         obj.data.materials.append(material)
     if collection:
@@ -836,8 +840,8 @@ def build_master_scene(scene=None, clear=True):
                 failures[role]=errs
         scene["naris_w04_contract_validation"]="PASS" if not failures else "FAIL"
         scene["naris_w04_contract_failures"]=json.dumps(failures,sort_keys=True)
-    # Attach weapon to hero root for prototype authoring; actual socket mapping is exported as metadata.
-    sword.parent=hero
+    # Keep Sword of Poem as a separate canonical asset. Attachment is represented
+    # by SOCKET_Weapon_R metadata, never by cross-asset parenting.
     create_lighting_and_camera()
     log("Master scene built")
     return {"hero":hero,"wolf":wolf,"enemy":enemy,"weapon":sword}
