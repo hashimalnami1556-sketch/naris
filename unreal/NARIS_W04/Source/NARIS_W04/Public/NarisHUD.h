@@ -29,6 +29,7 @@ private:
     );
     void DrawSubtitle();
     void DrawPlayerVitals(ANarisHeroCharacter* Hero, float Scale, float Safe);
+    void DrawBreath(ANarisHeroCharacter* Hero, float Scale);
     void DrawObjectiveCard(UNarisRuntimeSubsystem* Runtime, float Scale, float Safe);
     void DrawInteractionPrompt(ANarisHeroCharacter* Hero, float Scale);
     void DrawBossHUD(float Scale, float Safe);
