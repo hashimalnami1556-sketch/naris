@@ -49,7 +49,7 @@ class WaystoneInteractionContractTests(unittest.TestCase):
         self.assertIn('BindAction(TEXT("Interact")', hero)
         self.assertIn("Interaction->Interact()", hero)
         self.assertIn(
-            '+ActionMappings=(ActionName="Interact",Key=(KeyName="E"))',
+            '+ActionMappings=(ActionName="Interact",bShift=False,bCtrl=False,bAlt=False,bCmd=False,Key=E)',
             input_ini,
         )
 
