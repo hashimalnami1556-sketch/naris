@@ -23,7 +23,7 @@ class ControllerRemapContractTests(unittest.TestCase):
             "unreal/NARIS_W04/Source/NARIS_W04/Private/NarisPlayerController.cpp"
         )
         self.assertIn("Controls", header)
-        self.assertIn("virtual bool InputKey(const FInputKeyParams& Params)", header)
+        self.assertIn("virtual bool InputKey(const FInputKeyEventArgs& Params)", header)
         self.assertIn("IsWaitingForGamepadRemap", header)
         self.assertIn("bWaitingForGamepadRemap", header)
         self.assertIn("PendingRemapAction", header)
