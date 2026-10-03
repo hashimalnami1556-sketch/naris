@@ -26,7 +26,7 @@ class InputCombatSmokeContractTests(unittest.TestCase):
             'AxisName="MoveForward",Scale=1.000000,Key=Gamepad_LeftY',
             'AxisName="MoveRight",Scale=1.000000,Key=Gamepad_LeftX',
             'AxisName="LookYaw",Scale=1.000000,Key=Gamepad_RightX',
-            'AxisName="LookPitch",Scale=1.000000,Key=Gamepad_RightY',
+            'AxisName="LookPitch",Scale=-1.000000,Key=Gamepad_RightY',
         )
         for token in required:
             self.assertIn(token, cfg)
