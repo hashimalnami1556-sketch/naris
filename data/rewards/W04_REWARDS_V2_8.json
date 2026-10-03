@@ -1,0 +1,17 @@
+{
+  "world": "W04_Ashen_Forest",
+  "pity": {"epic_or_better_by": 8, "legendary_by": 20},
+  "world_rewards": [
+    {"kind":"exploration","source_id":"memory_crystal_01","tokens":40},
+    {"kind":"exploration","source_id":"first_whisper","tokens":60},
+    {"kind":"boss","source_id":"celestial_wolf","tokens":150},
+    {"kind":"boss","source_id":"bone_beast","tokens":300},
+    {"kind":"exploration","source_id":"ash_gate_complete","tokens":125}
+  ],
+  "loot": [
+    {"item_id":"ash_shard","rarity":"common","weight":60},
+    {"item_id":"wolf_fang","rarity":"rare","weight":25},
+    {"item_id":"aether_core","rarity":"epic","weight":12},
+    {"item_id":"crown_fragment","rarity":"legendary","weight":3}
+  ]
+}

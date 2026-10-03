@@ -5,6 +5,7 @@
 #include "Engine/GameInstance.h"
 #include "Engine/World.h"
 #include "NarisRuntimeSubsystem.h"
+#include "NarisRewardDirectorSubsystem.h"
 #include "NarisSubtitleSubsystem.h"
 
 ANarisMemoryCrystal::ANarisMemoryCrystal()
@@ -81,6 +82,18 @@ bool ANarisMemoryCrystal::ActivateMemory(AActor* InstigatorActor)
     if (bAutoSave && !Runtime->SaveState(AutoSaveSlot))
     {
         return false;
+    }
+
+    if (UNarisRewardDirectorSubsystem* Rewards = GameInstance->GetSubsystem<UNarisRewardDirectorSubsystem>())
+    {
+        FNarisRewardPresentationEvent Event;
+        Event.EventId = FString::Printf(TEXT("w04.memory.%s"), *NarrativeId);
+        Event.Kind = ENarisRewardKind::Exploration;
+        Event.SourceId = TEXT("memory_crystal_01");
+        Event.Rarity = ENarisRewardRarity::Rare;
+        Event.Title = NSLOCTEXT("NARIS", "MemoryCrystalRewardTitle", "Memory Recovered");
+        Event.Description = NSLOCTEXT("NARIS", "MemoryCrystalRewardBody", "An Ashen Forest memory has been restored.");
+        Rewards->Enqueue(Event);
     }
 
     OnActivated.Broadcast();
