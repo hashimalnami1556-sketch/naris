@@ -20,6 +20,7 @@
 #include "NarisPlayerController.h"
 #include "NarisRuntimeSubsystem.h"
 #include "NarisSwimmingComponent.h"
+#include "NarisWeatherGameplayComponent.h"
 #include "TimerManager.h"
 
 ANarisHeroCharacter::ANarisHeroCharacter()
@@ -32,6 +33,7 @@ ANarisHeroCharacter::ANarisHeroCharacter()
     Interaction = CreateDefaultSubobject<UNarisInteractionComponent>(TEXT("Interaction"));
     Presentation = CreateDefaultSubobject<UNarisPresentationComponent>(TEXT("Presentation"));
     Swimming = CreateDefaultSubobject<UNarisSwimmingComponent>(TEXT("Swimming"));
+    WeatherGameplay = CreateDefaultSubobject<UNarisWeatherGameplayComponent>(TEXT("WeatherGameplay"));
 
     CameraBoom = CreateDefaultSubobject<USpringArmComponent>(TEXT("CameraBoom"));
     CameraBoom->SetupAttachment(RootComponent);
@@ -432,7 +434,21 @@ void ANarisHeroCharacter::Interact()
 
 void ANarisHeroCharacter::SetSprinting(bool bSprint)
 {
-    GetCharacterMovement()->MaxWalkSpeed = bSprint ? SprintSpeed : WalkSpeed;
+    bIsSprinting = bSprint;
+    RefreshMovementSpeed();
+}
+
+void ANarisHeroCharacter::RefreshMovementSpeed()
+{
+    float Multiplier = 1.f;
+    if (WeatherGameplay)
+    {
+        Multiplier = WeatherGameplay->GetMoveSpeedMultiplier();
+    }
+
+    GetCharacterMovement()->MaxWalkSpeed =
+        (bIsSprinting ? SprintSpeed : WalkSpeed) *
+        FMath::Clamp(Multiplier, 0.25f, 1.25f);
 }
 
 void ANarisHeroCharacter::TogglePause()
