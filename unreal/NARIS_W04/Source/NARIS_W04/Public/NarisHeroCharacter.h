@@ -12,6 +12,7 @@ class UNarisLockOnComponent;
 class UNarisInteractionComponent;
 class UNarisPresentationComponent;
 class UNarisSwimmingComponent;
+class UNarisWeatherGameplayComponent;
 class USpringArmComponent;
 class UCameraComponent;
 struct FDamageEvent;
@@ -50,6 +51,9 @@ public:
 
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="NARIS|Water")
     TObjectPtr<UNarisSwimmingComponent> Swimming;
+
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="NARIS|Weather")
+    TObjectPtr<UNarisWeatherGameplayComponent> WeatherGameplay;
 
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
     TObjectPtr<USpringArmComponent> CameraBoom;
@@ -150,6 +154,12 @@ public:
     UFUNCTION(BlueprintCallable, Category="NARIS|Movement")
     void SetSprinting(bool bSprint);
 
+    UFUNCTION(BlueprintCallable, Category="NARIS|Movement")
+    void RefreshMovementSpeed();
+
+    UFUNCTION(BlueprintPure, Category="NARIS|Movement")
+    bool IsSprinting() const { return bIsSprinting; }
+
     UFUNCTION(BlueprintCallable, Category="NARIS|System")
     void TogglePause();
 
@@ -174,4 +184,5 @@ private:
     bool bAttackHitWindowOpen = false;
     bool bAttackHitConsumed = false;
     bool bDeathHandled = false;
+    bool bIsSprinting = false;
 };
