@@ -192,6 +192,31 @@ if default_game.exists():
         if token not in default_game_text:
             errors.append(f"DefaultGame.ini missing localization staging: {token}")
 
+# Blender Master Builder v1.1 must remain bound to the seven canonical W04 core assets.
+master_builder = ROOT / "tools" / "blender" / "NARIS_Blender_Master_Builder_v1_1.py"
+if not master_builder.exists():
+    errors.append("Missing Blender Master Builder v1.1")
+else:
+    builder_text = master_builder.read_text(encoding="utf-8")
+    try:
+        compile(builder_text, str(master_builder), "exec")
+    except SyntaxError as exc:
+        errors.append(f"Invalid Blender Master Builder Python syntax: {exc}")
+    for token in (
+        "NARIS-W04-CHR-HERO-0001",
+        "NARIS-W04-CHR-COMPANION-0001",
+        "NARIS-W04-ENM-BONEBEAST-0001",
+        "NARIS-W04-PRP-WAYSTONE-0001",
+        "NARIS-W04-PRP-MEMORYCRYSTAL-0001",
+        "NARIS-W04-PRP-ASHGATE-0001",
+        "NARIS-W04-WPN-SWORD-0001",
+        "W04_AshenForest_environment_factory_v2.json",
+        "W04_ProductionAssetBindings.json",
+        "naris_export.py",
+    ):
+        if token not in builder_text:
+            errors.append(f"Blender Master Builder missing W04 contract token: {token}")
+
 # Neon migration contract: verify the core tables are declared and no connection secret is embedded.
 neon_schema = ROOT / "backend" / "neon" / "schema" / "001_core.sql"
 if neon_schema.exists():
@@ -229,6 +254,7 @@ print("NARIS CI validation PASSED")
 print(f"Validated JSON files: {json_count}")
 print("Validated Unreal project: unreal/NARIS_W04/NARIS_W04.uproject")
 print("Validated Blender integration: tools/blender/naris_export.py")
+print("Validated Blender Master Builder v1.1 W04 core-asset contract")
 print("Validated Neon schema contract: backend/neon/schema/001_core.sql")
 print("Validated Figma handoff contract: integrations/figma/README.md")
 print("Validated Blender exchange schema and Unreal import bridge")
