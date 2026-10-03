@@ -69,6 +69,11 @@ class BlenderMasterBuilderV11ContractTests(unittest.TestCase):
         source = BUILDER.read_text(encoding="utf-8")
         self.assertIn("sys.exit(1)", source)
 
+    def test_builder_applies_export_transforms_and_keeps_weapon_asset_separate(self):
+        source = BUILDER.read_text(encoding="utf-8")
+        self.assertIn("bpy.ops.object.transform_apply(location=False, rotation=True, scale=True)", source)
+        self.assertNotIn("sword.parent=hero", source)
+
     def test_builder_has_strict_static_mesh_budget_validation(self):
         source = BUILDER.read_text(encoding="utf-8")
         for token in (
