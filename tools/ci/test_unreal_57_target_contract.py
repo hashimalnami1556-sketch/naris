@@ -24,6 +24,11 @@ class Unreal57TargetContractTests(unittest.TestCase):
         self.assertIn("public UCameraShakeBase",shakes)
         self.assertNotIn("UDefaultCameraShakeBase",shakes)
 
+    def test_camera_shake_modules_are_declared_for_ue57(self):
+        build=(ROOT/"unreal"/"NARIS_W04"/"Source"/"NARIS_W04"/"NARIS_W04.Build.cs").read_text(encoding="utf-8")
+        self.assertIn('"EngineCameras"',build)
+        self.assertIn('"GameplayCameras"',build)
+
     def test_targets_use_ue57_build_settings_and_include_order(self):
         for path in (GAME,EDITOR):
             text=path.read_text(encoding="utf-8")
