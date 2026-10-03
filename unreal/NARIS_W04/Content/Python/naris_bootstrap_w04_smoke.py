@@ -62,6 +62,7 @@ def ensure_boss_data(asset_tools):
         "quest_completion_id",
         unreal.Name("Quest.W04.CorruptedHeart"),
     )
+    checkpoint("save.after")
     unreal.EditorAssetLibrary.save_directory(
         DATA_DIR,
         only_if_is_dirty=False,
@@ -111,13 +112,22 @@ def ensure_smoke_floor(editor_actor_subsystem):
     return status
 
 
+def checkpoint(name: str):
+    unreal.log(f"NARIS_W04_BOOTSTRAP_CHECKPOINT={name}")
+
+
 def main():
+    checkpoint("main.enter")
     level_subsystem = unreal.get_editor_subsystem(unreal.LevelEditorSubsystem)
     actor_subsystem = unreal.get_editor_subsystem(unreal.EditorActorSubsystem)
     asset_tools = unreal.AssetToolsHelpers.get_asset_tools()
 
+    checkpoint("level.before")
     level_status = ensure_level(level_subsystem)
+    checkpoint("level.after")
+    checkpoint("boss_data.before")
     boss_data, boss_data_status = ensure_boss_data(asset_tools)
+    checkpoint("boss_data.after")
 
     results = {
         "map": {"path": MAP_PATH, "status": level_status},
@@ -126,7 +136,9 @@ def main():
         "smoke_only": True,
     }
 
+    checkpoint("floor.before")
     results["actors"]["floor"] = ensure_smoke_floor(actor_subsystem)
+    checkpoint("floor.after")
 
     placements = [
         ("PlayerStart", unreal.PlayerStart, unreal.Vector(-400.0, 0.0, 100.0)),
@@ -167,6 +179,7 @@ def main():
         ),
     ]
 
+    checkpoint("placements.before")
     for label, actor_class, location in placements:
         actor, status = ensure_actor(
             actor_subsystem,
@@ -178,6 +191,7 @@ def main():
         if label == "NARIS_BoneBeastBoss_0001":
             actor.set_editor_property("boss_data", boss_data)
 
+    checkpoint("placements.after")
     bone_beast = actor_by_label(actor_subsystem, "NARIS_BoneBeastBoss_0001")
     arena_controller = actor_by_label(actor_subsystem, "NARIS_BossArenaController")
     if bone_beast is None or arena_controller is None:
@@ -199,6 +213,7 @@ def main():
         unreal.Vector(0.0, 0.0, 500.0),
     )
 
+    checkpoint("save.before")
     if not level_subsystem.save_current_level():
         raise RuntimeError("Could not save W04_Prototype")
 
