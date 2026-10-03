@@ -1,0 +1,6 @@
+#include "NarisRewardDirectorSubsystem.h"
+int32 UNarisRewardDirectorSubsystem::Priority(const FNarisRewardPresentationEvent&E){if(E.Rarity==ENarisRewardRarity::Legendary)return 100;if(E.Rarity==ENarisRewardRarity::Epic)return 80;if(E.Kind==ENarisRewardKind::Boss)return 70;if(E.Kind==ENarisRewardKind::Achievement)return 60;return 40;}
+bool UNarisRewardDirectorSubsystem::Enqueue(const FNarisRewardPresentationEvent&E){if(E.EventId.IsEmpty()||E.SourceId.IsEmpty())return false;for(const FEntry&X:Entries)if(X.Event.EventId==E.EventId)return false;FEntry X;X.Event=E;X.Sequence=NextSequence++;Entries.Add(X);OnRewardQueued.Broadcast(E);return true;}
+bool UNarisRewardDirectorSubsystem::Peek(FNarisRewardPresentationEvent&Out)const{const FEntry*Best=nullptr;for(const FEntry&X:Entries){if(X.bAcked)continue;if(!Best||Priority(X.Event)>Priority(Best->Event)||(Priority(X.Event)==Priority(Best->Event)&&X.Sequence<Best->Sequence))Best=&X;}if(!Best)return false;Out=Best->Event;return true;}
+bool UNarisRewardDirectorSubsystem::Acknowledge(const FString&Id){for(FEntry&X:Entries)if(X.Event.EventId==Id&&!X.bAcked){X.bAcked=true;return true;}return false;}
+int32 UNarisRewardDirectorSubsystem::PendingCount()const{int32 N=0;for(const FEntry&X:Entries)if(!X.bAcked)++N;return N;}
