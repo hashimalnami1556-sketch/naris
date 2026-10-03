@@ -460,3 +460,19 @@ msgctxt "NARIS,QuestsTitle"
 msgid "Quest Journal"
 msgstr "Quest Journal"
 
+msgctxt "NARIS,MemoryCrystalRewardTitle"
+msgid "Memory Recovered"
+msgstr "Memory Recovered"
+
+msgctxt "NARIS,MemoryCrystalRewardBody"
+msgid "An Ashen Forest memory has been restored."
+msgstr "An Ashen Forest memory has been restored."
+
+msgctxt "NARIS,BoneBeastRewardTitle"
+msgid "Bone Beast Defeated"
+msgstr "Bone Beast Defeated"
+
+msgctxt "NARIS,BoneBeastRewardBody"
+msgid "The guardian of the Ashen Forest has fallen."
+msgstr "The guardian of the Ashen Forest has fallen."
+
