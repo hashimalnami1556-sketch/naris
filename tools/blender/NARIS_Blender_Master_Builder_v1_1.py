@@ -811,6 +811,30 @@ def build_master_scene(scene=None, clear=True):
     stamp_w04_asset(memory_crystal, "memory_crystal")
     if ash_gate:
         stamp_w04_asset(ash_gate, "ash_gate")
+    # If this Blender session is running from a repository checkout, enforce the
+    # canonical contracts and record technical evidence on all seven roots.
+    repo_root=os.environ.get("NARIS_REPO_ROOT","").strip()
+    if repo_root:
+        contract=load_w04_contract(repo_root)
+        authored={
+            "hero":hero,
+            "celestial_wolf":wolf,
+            "bone_beast":enemy,
+            "waystone":waystone,
+            "memory_crystal":memory_crystal,
+            "ash_gate":ash_gate,
+            "sword_of_poem":sword,
+        }
+        failures={}
+        for role,obj in authored.items():
+            if obj is None:
+                failures[role]=["missing_authored_root"]
+                continue
+            errs=validate_w04_authored_asset(obj,role,contract)
+            if errs:
+                failures[role]=errs
+        scene["naris_w04_contract_validation"]="PASS" if not failures else "FAIL"
+        scene["naris_w04_contract_failures"]=json.dumps(failures,sort_keys=True)
     # Attach weapon to hero root for prototype authoring; actual socket mapping is exported as metadata.
     sword.parent=hero
     create_lighting_and_camera()
