@@ -1,0 +1,26 @@
+{
+  "version": "2.0.0",
+  "shipping_format": "GLB/glTF 2.0",
+  "characters": {
+    "ashen_vessel": {
+      "uri": "assets/models/characters/ashen_vessel.glb",
+      "status": "required_final_asset"
+    },
+    "celestial_wolf": {
+      "uri": "assets/models/characters/celestial_wolf.glb",
+      "status": "required_final_asset"
+    }
+  },
+  "enemies": {
+    "bone_beast": {
+      "uri": "assets/models/enemies/bone_beast.glb",
+      "status": "required_final_asset"
+    }
+  },
+  "environment": {
+    "ashen_forest": {
+      "uri": "assets/models/environment/ashen_forest.glb",
+      "status": "required_final_asset"
+    }
+  }
+}
