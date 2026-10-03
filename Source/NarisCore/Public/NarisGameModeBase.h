@@ -27,5 +27,6 @@ protected:
 private:
  bool bGameStarted=false;
  void RunQuestSmoke();
+ void RunBellMarshSmoke();
 };
 

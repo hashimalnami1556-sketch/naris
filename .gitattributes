@@ -13,3 +13,4 @@
 # Binary gameplay map committed directly; no unresolved LFS pointer
 Content/World/Maps/L_AshenGate_Playable_V8.umap -filter -diff -merge -text
 Content/World/Maps/L_AshenGate_QuestPlayable_V9.umap -filter -diff -merge -text
+Content/World/Maps/L_BellMarsh_Playable_V1.umap -filter -diff -merge -text

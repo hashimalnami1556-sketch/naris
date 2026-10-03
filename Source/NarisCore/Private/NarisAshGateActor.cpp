@@ -63,5 +63,10 @@ void ANarisAshGateActor::Tick(float DeltaSeconds)
   const bool bChapterOK=Instance->GetSubsystem<UNarisChapterSubsystem>() &&
    Instance->GetSubsystem<UNarisChapterSubsystem>()->GetCurrentChapter()==ENarisChapter::BellMarsh;
   UE_LOG(LogTemp,Display,TEXT("NARIS_ASH_GATE_ENTERED ChapterOK=%d Autosave=%d Smoke=%d"),bChapterOK?1:0,bSaved?1:0,bCrossSmoke?1:0);
+  if(!bCrossSmoke||FParse::Param(FCommandLine::Get(),TEXT("NarisGateTravelSmoke"))){
+   const FName Destination(TEXT("/Game/World/Maps/L_BellMarsh_Playable_V1"));
+   UE_LOG(LogTemp,Display,TEXT("NARIS_GATE_WORLD_TRAVEL Destination=%s"),*Destination.ToString());
+   UGameplayStatics::OpenLevel(this,Destination,true,TEXT("NarisWorldTravel"));
+  }
  }
 }

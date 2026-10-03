@@ -126,7 +126,8 @@ void ANarisHUD::DrawHUD()
  const float MW=202.f*S,MapX=Canvas->ClipX-MW-26.f*S,MY=25.f*S;
  DrawRect(Ash,MapX,MY,MW,234.f*S);
  DrawRect(Gold,MapX,MY,MW,2.f*S);
- DrawText(TEXT("ASHEN DEPTHS"),Gold,MapX+18.f*S,MY+12.f*S,nullptr,.90f*S);
+ const bool bInBellMarsh=GetWorld()&&GetWorld()->GetOutermost()->GetName().Contains(TEXT("L_BellMarsh_"));
+ DrawText(bInBellMarsh?TEXT("BELL MARSH"):TEXT("ASHEN DEPTHS"),Gold,MapX+18.f*S,MY+12.f*S,nullptr,.90f*S);
  const float RX=MapX+18.f*S,RY=MY+46.f*S,RW=166.f*S;
  DrawRect(FLinearColor(.055f,.062f,.070f,.95f),RX,RY,RW,RW);
  for(int32 Grid=1;Grid<4;++Grid){
@@ -155,7 +156,7 @@ void ANarisHUD::DrawHUD()
   const bool bGateOpen=Cast<ANarisAshGateActor>(Gate)->IsGateOpen();
   DrawRect(bGateOpen?Ice:Gold,TX-5.f*S,TY-5.f*S,10.f*S,10.f*S);
   DrawText(FString::Printf(TEXT("GATE  %.0fm  %s"),Delta.Size()/100.f,bGateOpen?TEXT("OPEN"):TEXT("SEALED")),bGateOpen?Ice:Gold,RX,MY+218.f*S,nullptr,.57f*S);
- }else DrawText(TEXT("ASHEN DEPTHS / NORTH"),FLinearColor(.64f,.68f,.72f,1.f),RX,MY+218.f*S,nullptr,.58f*S);
+ }else DrawText(bInBellMarsh?TEXT("BELL TOWER / NORTH"):TEXT("ASHEN DEPTHS / NORTH"),FLinearColor(.64f,.68f,.72f,1.f),RX,MY+218.f*S,nullptr,.58f*S);
  // Accessible PC combat action chips: labels reflect real bound input actions.
  const float Y=Canvas->ClipY-118.f*S;
  struct FChip{const TCHAR* Label;const TCHAR* Key;};
@@ -204,8 +205,8 @@ void ANarisHUD::DrawHUD()
 
  if(UGameInstance* G=P->GetGameInstance()){
   if(UNarisQuestSubsystem* Q=G->GetSubsystem<UNarisQuestSubsystem>()){
-   const FName Quest(TEXT("Q_AshenGate"));
-   const int32 Shards=Q->GetObjectiveProgress(Quest,FName("AshShard"),ENarisNarrativeEventType::ItemAcquired);
+   const FName Quest(bInBellMarsh?TEXT("Q_BellMarsh"):TEXT("Q_AshenGate"));
+   const int32 Shards=Q->GetObjectiveProgress(Quest,bInBellMarsh?FName("BellRelic"):FName("AshShard"),ENarisNarrativeEventType::ItemAcquired);
    const int32 Beasts=Q->GetObjectiveProgress(Quest,FName("BoneBeast"),ENarisNarrativeEventType::EnemyDefeated);
    const int32 Boss=Q->GetObjectiveProgress(Quest,FName("GateWarden"),ENarisNarrativeEventType::BossDefeated);
    const bool Done=Q->IsQuestCompleted(Quest);
@@ -218,9 +219,9 @@ void ANarisHUD::DrawHUD()
    bool bGateEntered=false;
    if(UNarisWorldStateSubsystem* State=G->GetSubsystem<UNarisWorldStateSubsystem>())
     bGateEntered=State->GetFlag(TEXT("AshenGateEntered"));
-   DrawText(bGateEntered?TEXT("BELL MARSH  |  CHAPTER II"):TEXT("ASHEN GATE  |  CHAPTER I"),QuestColor,QX+17.f*QS,QY+12.f*QS,nullptr,.91f*QS);
-   DrawText(bGateEntered?TEXT("NEXT CHAPTER UNLOCKED"):(Done?TEXT("CROSS THE OPEN GATE"):TEXT("DEFEAT THE GATE WARDEN")),FLinearColor(.88f,.87f,.78f,1.f),QX+17.f*QS,QY+40.f*QS,nullptr,.75f*QS);
-   DrawText(FString::Printf(TEXT("SHARDS %d/3   BEASTS %d/3   WARDEN %d/1"),FMath::Min(Shards,3),FMath::Min(Beasts,3),FMath::Min(Boss,1)),FLinearColor(.61f,.72f,.77f,1.f),QX+17.f*QS,QY+70.f*QS,nullptr,.66f*QS);
+   DrawText(bInBellMarsh?TEXT("BELL MARSH  |  CHAPTER II"):(bGateEntered?TEXT("BELL MARSH  |  CHAPTER II"):TEXT("ASHEN GATE  |  CHAPTER I")),QuestColor,QX+17.f*QS,QY+12.f*QS,nullptr,.91f*QS);
+   DrawText(bInBellMarsh?(Done?TEXT("TWILIGHT KEEP UNLOCKED"):TEXT("RECOVER THREE BELL RELICS")):(bGateEntered?TEXT("NEXT CHAPTER UNLOCKED"):(Done?TEXT("CROSS THE OPEN GATE"):TEXT("DEFEAT THE GATE WARDEN"))),FLinearColor(.88f,.87f,.78f,1.f),QX+17.f*QS,QY+40.f*QS,nullptr,.75f*QS);
+   DrawText(bInBellMarsh?FString::Printf(TEXT("RELICS %d/3   BEASTS %d/3"),FMath::Min(Shards,3),FMath::Min(Beasts,3)):FString::Printf(TEXT("SHARDS %d/3   BEASTS %d/3   WARDEN %d/1"),FMath::Min(Shards,3),FMath::Min(Beasts,3),FMath::Min(Boss,1)),FLinearColor(.61f,.72f,.77f,1.f),QX+17.f*QS,QY+70.f*QS,nullptr,.66f*QS);
   }
  }
 }

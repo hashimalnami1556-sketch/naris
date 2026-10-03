@@ -44,7 +44,7 @@ int32 ANarisGameModeBase::ParseBenchmarkEnemyCount(const TCHAR* CmdLine)
 }
 bool ANarisGameModeBase::ShouldStartDirectly(const TCHAR* CmdLine)
 {
- return FParse::Param(CmdLine,TEXT("NarisDirectPlay"))||FParse::Param(CmdLine,TEXT("NarisQuestSmoke"));
+ return FParse::Param(CmdLine,TEXT("NarisDirectPlay"))||FParse::Param(CmdLine,TEXT("NarisQuestSmoke"))||FParse::Param(CmdLine,TEXT("NarisBellMarshSmoke"));
 }
 bool ANarisGameModeBase::ShouldSkipAshenGateForWorld(const FString& WorldPackageName)
 {
@@ -70,7 +70,7 @@ void ANarisGameModeBase::BeginPlay()
  Super::BeginPlay();
  UWorld* W=GetWorld(); if(!W) return;
  const bool bSmoke=FParse::Param(FCommandLine::Get(),TEXT("NarisQuestSmoke"));
- const bool bDirectPlay=FParse::Param(FCommandLine::Get(),TEXT("NarisDirectPlay"));
+ const bool bDirectPlay=FParse::Param(FCommandLine::Get(),TEXT("NarisDirectPlay"))||FParse::Param(FCommandLine::Get(),TEXT("NarisBellMarshSmoke"));
  const bool bWorldTravel=W->URL.HasOption(TEXT("NarisWorldTravel"));
  if(bSmoke||bDirectPlay||bWorldTravel){
   if(bWorldTravel)UE_LOG(LogTemp,Display,TEXT("NARIS_WORLD_TRAVEL_START World=%s"),*W->GetOutermost()->GetName());
@@ -91,6 +91,43 @@ void ANarisGameModeBase::BeginPlay()
   UE_LOG(LogTemp,Display,TEXT("NARIS_FRONTEND READY"));
  }
  const FString WorldPackageName=W->GetOutermost()->GetName();
+ if(WorldPackageName.Contains(TEXT("L_BellMarsh_Playable_V1"))){
+  UGameInstance* Instance=GetGameInstance();
+  UNarisQuestSubsystem* Quest=Instance?Instance->GetSubsystem<UNarisQuestSubsystem>():nullptr;
+  UNarisChapterSubsystem* Chapters=Instance?Instance->GetSubsystem<UNarisChapterSubsystem>():nullptr;
+  UNarisSaveSubsystem* Save=Instance?Instance->GetSubsystem<UNarisSaveSubsystem>():nullptr;
+  if(Chapters){Chapters->UnlockChapter(ENarisChapter::BellMarsh);Chapters->SetCurrentChapter(ENarisChapter::BellMarsh);}
+  if(Quest)Quest->StartQuest(TEXT("Q_BellMarsh"));
+  FActorSpawnParameters SpawnParams;
+  SpawnParams.SpawnCollisionHandlingOverride=ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButAlwaysSpawn;
+  W->SpawnActor<ANarisCompanionCharacter>(ANarisCompanionCharacter::StaticClass(),FVector(-350.f,120.f,140.f),FRotator::ZeroRotator,SpawnParams);
+  const FVector EnemyPos[]={{900.f,0.f,150.f},{1540.f,-200.f,150.f},{2320.f,180.f,150.f}};
+  for(int32 I=0;I<3;++I)if(ANarisEnemyCharacter* E=W->SpawnActor<ANarisEnemyCharacter>(ANarisEnemyCharacter::StaticClass(),EnemyPos[I],FRotator::ZeroRotator,SpawnParams)){
+    E->PersistentID=FName(*FString::Printf(TEXT("BM_BB_%02d"),I+1));E->ApplyPersistentState();
+  }
+  const FVector RelicPos[]={{180.f,190.f,125.f},{1270.f,-230.f,125.f},{2680.f,210.f,125.f}};
+  for(int32 I=0;I<3;++I)if(ANarisPickupActor* A=W->SpawnActor<ANarisPickupActor>(ANarisPickupActor::StaticClass(),RelicPos[I],FRotator::ZeroRotator,SpawnParams)){
+    A->ItemID=TEXT("BellRelic"); A->PersistentID=FName(*FString::Printf(TEXT("BM_RELIC_%02d"),I+1));A->ApplyPersistentState();
+  }
+  if(ANarisCheckpointActor* CP=W->SpawnActor<ANarisCheckpointActor>(ANarisCheckpointActor::StaticClass(),FVector(80.f,320.f,105.f),FRotator::ZeroRotator,SpawnParams))CP->CheckpointID=TEXT("CP_BELL_MARSH_01");
+  if(Save){
+    const FString Queued=Save->ConsumePendingLoadSlot();
+    if(!Queued.IsEmpty()){
+      ANarisPlayerCharacter* Player=Cast<ANarisPlayerCharacter>(UGameplayStatics::GetPlayerCharacter(W,0));
+      const bool Loaded=Player&&Save->LoadPlayer(Player,Queued);
+      UE_LOG(LogTemp,Display,TEXT("NARIS_CONTINUE_WORLD_LOAD Success=%d Slot=%s"),Loaded?1:0,*Queued);
+    }else if(bWorldTravel&&!FParse::Param(FCommandLine::Get(),TEXT("NarisBellMarshSmoke"))&&!FParse::Param(FCommandLine::Get(),TEXT("NarisGateCrossSmoke"))&&!FParse::Param(FCommandLine::Get(),TEXT("NarisQuestSmoke"))){
+      ANarisPlayerCharacter* Player=Cast<ANarisPlayerCharacter>(UGameplayStatics::GetPlayerCharacter(W,0));
+      if(Player)Save->SavePlayer(Player,TEXT("NARIS_Autosave"));
+    }
+  }
+  UE_LOG(LogTemp,Display,TEXT("NARIS_BELL_MARSH_READY Chapter=2 Enemies=3 Relics=3 Companion=1 Checkpoint=1"));
+  if(FParse::Param(FCommandLine::Get(),TEXT("NarisBellMarshSmoke"))){
+    FTimerHandle Timer;
+    W->GetTimerManager().SetTimer(Timer,this,&ANarisGameModeBase::RunBellMarshSmoke,.4f,false);
+  }
+  return;
+ }
  if(ShouldSkipAshenGateForWorld(WorldPackageName)){
   if(WorldPackageName.Contains(TEXT("L_Jeddah_GIS_"))){
    UE_LOG(LogTemp,Display,TEXT("NARIS_JEDDAH_GIS_RUNTIME_READY World=%s AshenGateSpawn=0"),*WorldPackageName);
@@ -242,5 +279,33 @@ void ANarisGameModeBase::RunQuestSmoke()
  const bool Pass=RegularKilled==3&&BossKilled==1&&QuestOK&&GateOK&&RepOK&&LootOK&&SaveOK&&PersistOK&&AudioOK&&VFXOK&&ChapterOK&&ReleaseOK&&ChapterSaveOK&&SettingsOK&&CheckpointOK;
  UE_LOG(LogTemp,Display,TEXT("NARIS_QUEST_SMOKE %s Regular=%d Boss=%d Shards=%d Quest=%d Gate=%d Rep=%d Save=%d Persist=%d Audio=%d VFX=%d Chapter=%d Release=%d ChapterSave=%d Settings=%d Checkpoint=%d"),
   Pass?TEXT("PASS"):TEXT("FAIL"),RegularKilled,BossKilled,AshShards,QuestOK?1:0,GateOK?1:0,RepOK?1:0,SaveOK?1:0,PersistOK?1:0,AudioOK?1:0,VFXOK?1:0,ChapterOK?1:0,ReleaseOK?1:0,ChapterSaveOK?1:0,SettingsOK?1:0,CheckpointOK?1:0);
+}
+void ANarisGameModeBase::RunBellMarshSmoke()
+{
+ ANarisPlayerCharacter* Player=Cast<ANarisPlayerCharacter>(UGameplayStatics::GetPlayerCharacter(this,0));
+ UGameInstance* Instance=GetGameInstance();
+ if(!Player||!Instance){UE_LOG(LogTemp,Error,TEXT("NARIS_BELL_MARSH_SMOKE FAIL MissingPlayer"));return;}
+ UNarisQuestSubsystem* Quest=Instance->GetSubsystem<UNarisQuestSubsystem>();
+ UNarisChapterSubsystem* Chapters=Instance->GetSubsystem<UNarisChapterSubsystem>();
+ TArray<AActor*> Enemies;
+ UGameplayStatics::GetAllActorsOfClass(this,ANarisEnemyCharacter::StaticClass(),Enemies);
+ FDamageEvent Hit; int32 Kills=0;
+ for(AActor* A:Enemies)if(ANarisEnemyCharacter* E=Cast<ANarisEnemyCharacter>(A)){
+  if(!E->PersistentID.ToString().StartsWith(TEXT("BM_BB_")))continue;
+  E->TakeDamage(99999.f,Hit,Player->GetController(),Player);++Kills;
+ }
+ TArray<AActor*> Pickups;
+ UGameplayStatics::GetAllActorsOfClass(this,ANarisPickupActor::StaticClass(),Pickups);
+ int32 Relics=0;
+ for(AActor* A:Pickups)if(ANarisPickupActor* Pickup=Cast<ANarisPickupActor>(A)){
+  if(Pickup->ItemID!=FName("BellRelic"))continue;
+  Pickup->NotifyActorBeginOverlap(Player);++Relics;
+ }
+ const bool Completed=Quest&&Quest->IsQuestCompleted(FName("Q_BellMarsh"));
+ const bool ChapterComplete=Chapters&&Chapters->IsCompleted(ENarisChapter::BellMarsh);
+ const bool KeepUnlocked=Chapters&&Chapters->IsUnlocked(ENarisChapter::TwilightKeep);
+ const bool Pass=Kills==3&&Relics==3&&Completed&&ChapterComplete&&KeepUnlocked;
+ UE_LOG(LogTemp,Display,TEXT("NARIS_BELL_MARSH_SMOKE %s Kills=%d Relics=%d Quest=%d Chapter=%d KeepUnlocked=%d"),
+   Pass?TEXT("PASS"):TEXT("FAIL"),Kills,Relics,Completed?1:0,ChapterComplete?1:0,KeepUnlocked?1:0);
 }
 

@@ -2,9 +2,12 @@
 #include "NarisGameModeBase.h"
 #include "NarisPlayerCharacter.h"
 #include "NarisSaveSubsystem.h"
+#include "NarisSaveGame.h"
 #include "NarisUserSettingsSubsystem.h"
 #include "Blueprint/WidgetTree.h"
 #include "Components/Border.h"
+#include "Components/Image.h"
+#include "Engine/Texture2D.h"
 #include "Components/Button.h"
 #include "Components/CanvasPanel.h"
 #include "Components/CanvasPanelSlot.h"
@@ -26,6 +29,12 @@ void UNarisNativeMenuWidget::NativeOnInitialized()
  SetFlowDirectionPreference(EFlowDirectionPreference::RightToLeft);
  UCanvasPanel* Root=WidgetTree->ConstructWidget<UCanvasPanel>(UCanvasPanel::StaticClass(),TEXT("MenuRoot"));
  WidgetTree->RootWidget=Root;
+ ApprovedArtwork=WidgetTree->ConstructWidget<UImage>(UImage::StaticClass(),TEXT("NarisApprovedBackground"));
+ ApprovedArtwork->SetVisibility(ESlateVisibility::SelfHitTestInvisible);
+ UCanvasPanelSlot* ArtSlot=Root->AddChildToCanvas(ApprovedArtwork);
+ ArtSlot->SetAnchors(FAnchors(0.f,0.f,1.f,1.f));
+ ArtSlot->SetOffsets(FMargin(0.f));
+ ArtSlot->SetZOrder(-1);
  Backdrop=WidgetTree->ConstructWidget<UBorder>(UBorder::StaticClass(),TEXT("AshBackdrop"));
  Backdrop->SetBrushColor(FLinearColor(.007f,.014f,.024f,.34f));
  Backdrop->SetHorizontalAlignment(HAlign_Center);
@@ -36,7 +45,11 @@ void UNarisNativeMenuWidget::NativeOnInitialized()
  BackdropSlot->SetOffsets(FMargin(0.f));
  MenuPanel=WidgetTree->ConstructWidget<UVerticalBox>(UVerticalBox::StaticClass(),TEXT("MenuPanel"));
  MenuPanel->SetFlowDirectionPreference(EFlowDirectionPreference::RightToLeft);
- Backdrop->SetContent(MenuPanel);
+ UBorder* TextContrast=WidgetTree->ConstructWidget<UBorder>(UBorder::StaticClass(),TEXT("ReadableMenuFrame"));
+ TextContrast->SetBrushColor(FLinearColor(.008f,.018f,.030f,.93f));
+ TextContrast->SetPadding(FMargin(24.f,22.f));
+ TextContrast->SetContent(MenuPanel);
+ Backdrop->SetContent(TextContrast);
  BuildPage(EPage::Main);
  FVector2D ViewportSize(1920.f,1080.f);
  if(GEngine&&GEngine->GameViewport) GEngine->GameViewport->GetViewportSize(ViewportSize);
@@ -93,6 +106,18 @@ UButton* UNarisNativeMenuWidget::AddButton(const FText& Text)
 void UNarisNativeMenuWidget::BuildPage(EPage Page)
 {
  CurrentPage=Page;
+ if(ApprovedArtwork){
+  const TCHAR* AssetPath=Page==EPage::Worlds?TEXT("/Game/UI/Approved/T_NARIS_Worlds.T_NARIS_Worlds"):
+   Page==EPage::Settings?TEXT("/Game/UI/Approved/T_NARIS_Settings.T_NARIS_Settings"):
+   TEXT("/Game/UI/Approved/T_NARIS_Menu.T_NARIS_Menu");
+  if(UTexture2D* Art=LoadObject<UTexture2D>(nullptr,AssetPath)){
+   ApprovedArtwork->SetBrushFromTexture(Art);
+   ApprovedArtwork->SetColorAndOpacity(FLinearColor(.82f,.85f,.88f,1.f));
+  }else{
+   UE_LOG(LogTemp,Warning,TEXT("NARIS_APPROVED_UI_MISSING %s"),AssetPath);
+   ApprovedArtwork->SetColorAndOpacity(FLinearColor(0.f,0.f,0.f,0.f));
+  }
+ }
  MenuPanel->ClearChildren();
  InitialFocusButton=nullptr;
  if(Page==EPage::Main){
@@ -201,6 +226,18 @@ void UNarisNativeMenuWidget::ContinueJourney()
   if(UGameInstance* Instance=GetGameInstance()){
    if(UNarisSaveSubsystem* Save=Instance->GetSubsystem<UNarisSaveSubsystem>()){
     const FString SaveSlot=UGameplayStatics::DoesSaveGameExist(TEXT("NARIS_Autosave"),0)?TEXT("NARIS_Autosave"):TEXT("NARIS_Auto");
+    if(UNarisSaveGame* Saved=Cast<UNarisSaveGame>(UGameplayStatics::LoadGameFromSlot(SaveSlot,0))){
+     const FString Destination=Saved->WorldPackageName;
+     const FString CurrentWorld=GetWorld()?GetWorld()->GetOutermost()->GetName():FString();
+     if(!Destination.IsEmpty()&&Destination!=CurrentWorld&&FPackageName::DoesPackageExist(Destination)){
+      Save->QueueLoadAfterTravel(SaveSlot);
+      UE_LOG(LogTemp,Display,TEXT("NARIS_CONTINUE_WORLD_TRAVEL Destination=%s"),*Destination);
+      UGameplayStatics::SetGamePaused(this,false);
+      RemoveFromParent();
+      UGameplayStatics::OpenLevel(this,FName(*Destination),true,TEXT("NarisWorldTravel"));
+      return;
+     }
+    }
     Save->LoadPlayer(Player,SaveSlot);
    }
   }
