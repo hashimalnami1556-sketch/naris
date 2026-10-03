@@ -7,6 +7,7 @@
 class ANarisHeroCharacter;
 class ANarisPlayerController;
 class UNarisRuntimeSubsystem;
+class UNarisRewardDirectorSubsystem;
 
 UCLASS(Blueprintable)
 class NARIS_W04_API ANarisHUD : public AHUD
@@ -28,6 +29,7 @@ private:
         float Scale
     );
     void DrawSubtitle();
+    void DrawRewardToast(float Scale, float Safe);
     void DrawPlayerVitals(ANarisHeroCharacter* Hero, float Scale, float Safe);
     void DrawObjectiveCard(UNarisRuntimeSubsystem* Runtime, float Scale, float Safe);
     void DrawInteractionPrompt(ANarisHeroCharacter* Hero, float Scale);
@@ -43,6 +45,9 @@ private:
         const FLinearColor& FillColor,
         float Scale
     );
+    FString ActiveRewardEventId;
+    float ActiveRewardStartedAt = -1.f;
+
     void DrawPanel(
         float X,
         float Y,
