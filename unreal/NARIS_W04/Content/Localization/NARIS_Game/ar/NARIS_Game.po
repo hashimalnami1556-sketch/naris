@@ -460,3 +460,6 @@ msgctxt "NARIS,QuestsTitle"
 msgid "Quest Journal"
 msgstr "سجل المهام"
 
+msgctxt "NARIS,HUDBreath"
+msgid "Breath"
+msgstr "النَّفَس"
