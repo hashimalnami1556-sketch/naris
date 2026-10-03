@@ -13,6 +13,9 @@ CORE_IDS = {
     "NARIS-W04-CHR-HERO-0001",
     "NARIS-W04-CHR-COMPANION-0001",
     "NARIS-W04-ENM-BONEBEAST-0001",
+    "NARIS-W04-PRP-WAYSTONE-0001",
+    "NARIS-W04-PRP-MEMORYCRYSTAL-0001",
+    "NARIS-W04-PRP-ASHGATE-0001",
     "NARIS-W04-WPN-SWORD-0001",
 }
 
@@ -44,6 +47,30 @@ class BlenderMasterBuilderV11ContractTests(unittest.TestCase):
         self.assertIn("grid_m", source)
         self.assertIn("material_slots_max_per_mesh", source)
         self.assertIn("streaming", source)
+
+    def test_builder_authors_all_seven_core_asset_roles(self):
+        source = BUILDER.read_text(encoding="utf-8")
+        for token in (
+            '"waystone"',
+            '"memory_crystal"',
+            '"ash_gate"',
+            "create_memory_crystal",
+            "stamp_w04_asset(waystone",
+            "stamp_w04_asset(memory_crystal",
+            "stamp_w04_asset(ash_gate",
+        ):
+            self.assertIn(token, source)
+
+    def test_builder_has_strict_static_mesh_budget_validation(self):
+        source = BUILDER.read_text(encoding="utf-8")
+        for token in (
+            "max_triangles_lod0",
+            "max_material_slots",
+            "naris_validation_errors",
+            "triangle_count",
+            "material_slot_count",
+        ):
+            self.assertIn(token, source)
 
     def test_core_ids_are_registered_and_bound(self):
         registry = json.loads(REGISTRY.read_text(encoding="utf-8"))
