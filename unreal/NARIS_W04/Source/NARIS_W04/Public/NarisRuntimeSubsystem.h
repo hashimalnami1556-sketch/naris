@@ -92,6 +92,13 @@ public:
     UFUNCTION(BlueprintPure, Category="NARIS|Runtime")
     bool IsDemoCompleted() const { return State.bDemoCompleted; }
 
+    UFUNCTION(BlueprintCallable, Category="NARIS|Runtime|World")
+    void SetWorldStateSnapshot(
+        float WorldHour,
+        int32 WorldDay,
+        ENarisWeatherState WeatherState
+    );
+
     UFUNCTION(BlueprintPure, Category="NARIS|Runtime")
     FNarisSaveState GetState() const { return State; }
 

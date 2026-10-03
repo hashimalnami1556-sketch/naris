@@ -5,6 +5,7 @@
 #include "Engine/World.h"
 #include "GameFramework/PlayerController.h"
 #include "NarisRuntimeSubsystem.h"
+#include "NarisWorldStateSubsystem.h"
 
 ANarisDailyNPC::ANarisDailyNPC()
 {
@@ -91,11 +92,21 @@ void ANarisDailyNPC::UpdateRoutine()
         return;
     }
 
-    // Replace this fallback with the authoritative world clock when available.
     const float DayDuration = FMath::Max(1.f, GameDayDurationSeconds);
-    const float WorldHour = WorldHourOverride >= 0.f
+    float WorldHour = WorldHourOverride >= 0.f
         ? WorldHourOverride
         : FMath::Fmod(GetWorld()->GetTimeSeconds(), DayDuration) * (24.f / DayDuration);
+
+    if (WorldHourOverride < 0.f)
+    {
+        UGameInstance* GI = GetGameInstance();
+        if (UNarisWorldStateSubsystem* WorldState =
+                GI ? GI->GetSubsystem<UNarisWorldStateSubsystem>() : nullptr)
+        {
+            WorldHour = WorldState->GetWorldHour();
+            bStormActive = WorldState->IsStormWeather();
+        }
+    }
 
     if (bStormActive && IsValid(StormShelter))
     {

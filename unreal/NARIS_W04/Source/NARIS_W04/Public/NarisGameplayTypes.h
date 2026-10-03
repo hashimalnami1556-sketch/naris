@@ -21,6 +21,21 @@ enum class ENarisAttackKind : uint8
     Heavy
 };
 
+UENUM(BlueprintType)
+enum class ENarisWeatherState : uint8
+{
+    Clear,
+    Cloudy,
+    Rain,
+    HeavyRain,
+    Thunderstorm,
+    Snow,
+    Blizzard,
+    Sandstorm,
+    AshStorm,
+    VoidStorm
+};
+
 USTRUCT(BlueprintType)
 struct FNarisCombatResult
 {
@@ -100,6 +115,15 @@ struct FNarisSaveState
 
     UPROPERTY(BlueprintReadWrite)
     int32 Currency = 0;
+
+    UPROPERTY(BlueprintReadWrite)
+    float WorldHour = 8.f;
+
+    UPROPERTY(BlueprintReadWrite)
+    int32 WorldDay = 1;
+
+    UPROPERTY(BlueprintReadWrite)
+    ENarisWeatherState WeatherState = ENarisWeatherState::Clear;
 
     UPROPERTY(BlueprintReadWrite)
     bool bDemoCompleted = false;
