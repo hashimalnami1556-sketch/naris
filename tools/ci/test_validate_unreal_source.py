@@ -13,6 +13,13 @@ class UnrealSourceValidationTests(unittest.TestCase):
         (self.root / 'NARIS_W04Editor.Target.cs').write_text('public class NARIS_W04EditorTarget : TargetRules {}')
         (self.root / 'Module.cpp').write_text('IMPLEMENT_PRIMARY_GAME_MODULE(FDefaultGameModuleImpl, NARIS_W04, "NARIS_W04");')
 
+    def test_gameplay_tags_is_module_dependency_not_required_plugin(self):
+        project = json.loads((ROOT / "unreal" / "NARIS_W04" / "NARIS_W04.uproject").read_text(encoding="utf-8"))
+        plugins = {p.get("Name") for p in project.get("Plugins", [])}
+        self.assertNotIn("GameplayTags", plugins)
+        build = (ROOT / "unreal" / "NARIS_W04" / "Source" / "NARIS_W04" / "NARIS_W04.Build.cs").read_text(encoding="utf-8")
+        self.assertIn('"GameplayTags"', build)
+
     def test_valid_bootstrap(self):
         self.assertEqual([], validate_source(self.root))
 
