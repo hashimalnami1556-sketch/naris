@@ -23,7 +23,7 @@ enum class ENarisPauseMenuPage : uint8
     Controls
 };
 
-struct FInputKeyParams;
+struct FInputKeyEventArgs;
 
 UCLASS()
 class NARIS_W04_API ANarisPlayerController : public APlayerController
@@ -35,7 +35,7 @@ public:
 
     virtual void BeginPlay() override;
     virtual void SetupInputComponent() override;
-    virtual bool InputKey(const FInputKeyParams& Params) override;
+    virtual bool InputKey(const FInputKeyEventArgs& Params) override;
 
     UFUNCTION(BlueprintCallable, Category="NARIS|Menu")
     void OpenFrontEndMenu();
