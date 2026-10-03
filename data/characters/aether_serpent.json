@@ -1,0 +1,254 @@
+{
+  "asset_id": "NARIS-CHR-AETHER-SERPENT-0001",
+  "name": "Aether Serpent",
+  "type": "ethereal_serpentine_ambush",
+  "role": "pack_enemy",
+  "status": "production_locked",
+  "version": "V001",
+  "world": "W10",
+  "batch": "07",
+  "domains": ["CHR", "ENE"],
+
+  "skeleton": {
+    "total_bones": 28,
+    "structure": {
+      "root": "Armature",
+      "spine_chain": [
+        "SpineBase",
+        "Spine.001", "Spine.002", "Spine.003", "Spine.004",
+        "Spine.005", "Spine.006", "Spine.007", "Spine.008",
+        "Spine.009", "Spine.010", "Spine.011", "Spine.012",
+        "SpineMid"
+      ],
+      "head": ["Neck", "Head", "LeftHood", "RightHood", "TopHood", "Jaw"],
+      "tail": ["TailBase", "TailMid", "TailTip", "TailCoil"],
+      "float_rig": ["FloatAnchor", "LevitationBone"]
+    }
+  },
+
+  "scale": {
+    "length_m": 4.0,
+    "width_m": 0.6,
+    "height_m": 1.2,
+    "hover_height_m": 1.2,
+    "unit": "meters"
+  },
+
+  "visual_identity": {
+    "material": "ethereal_crystal",
+    "primary_color": "#00BFFF",
+    "accent_color": "#4169E1",
+    "glow": "aether_glow",
+    "glow_intensity": 1.5,
+    "surface": "translucent crystalline with flowing aether energy",
+    "special_features": ["ethereal_form", "spine_chain_visible", "energy_trails", "hood_flare_capable"]
+  },
+
+  "physics": {
+    "levitation": true,
+    "hover_height_m": 1.2,
+    "movement_type": "slither_float",
+    "gravity_scale": 0.0,
+    "collision_enabled": true
+  },
+
+  "combat": {
+    "hp": 220,
+    "armor": 2,
+    "status_immunities": ["bleed"],
+    "status_vulnerabilities": ["interrupt", "stun"]
+  },
+
+  "movement": {
+    "slither_speed_ms": 6.0,
+    "sprint_speed_ms": 9.5,
+    "acceleration": 2.8,
+    "turning_radius": 1.2
+  },
+
+  "ai": {
+    "ai_type": "AMBUSH_PATROL",
+    "patrol_range": 40.0,
+    "concealment_zones": true,
+    "concealment_type": "ash_cloud",
+    "aggro_range": 20.0,
+    "attack_range": 2.5,
+    "ambush_behavior": "hide_and_strike"
+  },
+
+  "abilities": {
+    "strike": {
+      "name": "Strike Attack",
+      "animation": "Strike",
+      "damage": 40,
+      "status_effect": "poison",
+      "poison_damage_per_tick": 15,
+      "poison_duration_seconds": 5,
+      "cooldown_seconds": 2.5,
+      "cast_time_seconds": 0.3,
+      "range": 2.5
+    },
+    "hood_flare": {
+      "name": "Hood Flare",
+      "animation": "HoodFlare",
+      "effect": "area_denial",
+      "damage": 25,
+      "radius": 3.0,
+      "cooldown_seconds": 6.0,
+      "cast_time_seconds": 0.8
+    },
+    "coil": {
+      "name": "Coil",
+      "animation": "Coil",
+      "effect": "defensive_stance",
+      "armor_bonus": 5,
+      "duration_seconds": 4.0,
+      "cooldown_seconds": 8.0,
+      "cast_time_seconds": 0.5
+    },
+    "ethereal_blink": {
+      "name": "Ethereal Blink",
+      "animation": "Blink",
+      "effect": "short_teleport",
+      "distance": 8.0,
+      "cooldown_seconds": 5.0,
+      "cast_time_seconds": 0.3
+    }
+  },
+
+  "animations": {
+    "idle": {
+      "name": "Idle",
+      "duration_seconds": 2.5,
+      "loop": true,
+      "events": [
+        {"frame": 0.5, "event": "breathing_idle"},
+        {"frame": 1.0, "event": "energy_pulse"},
+        {"frame": 2.0, "event": "energy_pulse"}
+      ]
+    },
+    "slither": {
+      "name": "Slither",
+      "duration_seconds": 1.4,
+      "loop": true,
+      "events": [
+        {"frame": 0.0, "event": "spine_chain_wave_start"},
+        {"frame": 0.7, "event": "spine_chain_wave_mid"},
+        {"frame": 1.4, "event": "spine_chain_wave_end"}
+      ]
+    },
+    "coil": {
+      "name": "Coil",
+      "duration_seconds": 1.2,
+      "loop": false,
+      "events": [
+        {"frame": 0.0, "event": "coil_start"},
+        {"frame": 0.6, "event": "defensive_stance_active"},
+        {"frame": 1.2, "event": "coil_ready"}
+      ]
+    },
+    "strike": {
+      "name": "Strike",
+      "duration_seconds": 0.9,
+      "loop": false,
+      "events": [
+        {"frame": 0.0, "event": "strike_prepare"},
+        {"frame": 0.3, "event": "strike_impact"},
+        {"frame": 0.5, "event": "poison_inject"},
+        {"frame": 0.9, "event": "strike_end"}
+      ]
+    },
+    "hood_flare": {
+      "name": "HoodFlare",
+      "duration_seconds": 1.5,
+      "loop": false,
+      "events": [
+        {"frame": 0.0, "event": "hood_flare_start"},
+        {"frame": 0.8, "event": "area_damage_apply"},
+        {"frame": 1.5, "event": "hood_flare_end"}
+      ]
+    },
+    "blink": {
+      "name": "Blink",
+      "duration_seconds": 0.6,
+      "loop": false,
+      "events": [
+        {"frame": 0.0, "event": "blink_fadeout"},
+        {"frame": 0.3, "event": "teleport"},
+        {"frame": 0.6, "event": "blink_fadein"}
+      ]
+    },
+    "death_dissolve": {
+      "name": "DeathDissolve",
+      "duration_seconds": 3.0,
+      "loop": false,
+      "events": [
+        {"frame": 0.0, "event": "death_start"},
+        {"frame": 0.5, "event": "dissolve_vfx_start"},
+        {"frame": 1.5, "event": "dissolve_mid"},
+        {"frame": 2.5, "event": "dissolve_complete"},
+        {"frame": 3.0, "event": "loot_drop"}
+      ]
+    },
+    "hit_light": {
+      "name": "HitLight",
+      "duration_seconds": 0.5,
+      "loop": false,
+      "events": [
+        {"frame": 0.0, "event": "hit_reaction_start"}
+      ]
+    },
+    "hit_heavy": {
+      "name": "HitHeavy",
+      "duration_seconds": 1.0,
+      "loop": false,
+      "events": [
+        {"frame": 0.0, "event": "knockback_start"},
+        {"frame": 0.6, "event": "recovery_start"}
+      ]
+    }
+  },
+
+  "state_machine": "aether_serpent_state_machine.json",
+
+  "death_vfx": {
+    "effect": "ethereal_dissolve",
+    "duration_seconds": 3.0,
+    "particle_type": "aether_crystal_shatter",
+    "sound_effect": "sfx_aether_serpent_death"
+  },
+
+  "loot_table": {
+    "common": [
+      {"item": "aether_shard", "weight": 0.7, "min_quantity": 2, "max_quantity": 4},
+      {"item": "crystal_dust", "weight": 0.4, "min_quantity": 1, "max_quantity": 2}
+    ],
+    "uncommon": [
+      {"item": "aether_core_fragment", "weight": 0.6, "min_quantity": 1, "max_quantity": 1},
+      {"item": "poison_gland", "weight": 0.5, "min_quantity": 1, "max_quantity": 2}
+    ],
+    "rare": [
+      {"item": "aether_essence_vial", "weight": 0.2, "min_quantity": 1, "max_quantity": 1}
+    ]
+  },
+
+  "sfx": {
+    "idle": "sfx_aether_serpent_ambient",
+    "slither": "sfx_aether_serpent_slither",
+    "strike": "sfx_aether_serpent_strike",
+    "hood_flare": "sfx_aether_serpent_hood_flare",
+    "death": "sfx_aether_serpent_death",
+    "poison": "sfx_poison_ambient"
+  },
+
+  "production_gates": ["concept", "skeleton", "rigged", "animated", "vfx_integrated", "combat_coded", "sfx_integrated", "qa", "approved", "release"],
+  "acceptance_criteria": [
+    "Skeleton: 28 bones in spine chain matching specification",
+    "Levitation: float behavior at 1.2m with no gravity",
+    "Spine Animation: Slither drives complete spine chain wave",
+    "AI: AMBUSH_PATROL with concealment zones",
+    "Strike: applies 15 dps poison for 5 seconds",
+    "Death: ethereal dissolve VFX with loot drop",
+    "Hood Flare: area damage of 3m radius"
+  ]
+}

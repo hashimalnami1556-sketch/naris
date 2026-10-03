@@ -1,0 +1,348 @@
+{
+  "batch": "07-08",
+  "environment_pack_id": "NARIS-ENV-ASHEN-FOREST-PACK-0001",
+  "name": "Ashen Forest Environment Pack",
+  "type": "cinematic_game_environment",
+  "biome": "ashen_forest",
+  "version": "V001",
+  "total_locations": 6,
+  "quality_tier": "cinematic_game_environment",
+
+  "locations": [
+    {
+      "id": "NARIS-ENV-ASHEN-FOREST-ENTRANCE-0001",
+      "name": "Forest Entrance",
+      "type": "hub_location",
+      "visual_theme": "mystical_decay",
+      "atmosphere": "eerie_welcome",
+      "player_spawn": true,
+      "fast_travel_point": true,
+
+      "environmental_features": {
+        "lighting": {
+          "primary_light": "soft_golden_glow",
+          "shadow_intensity": 0.6,
+          "ambient_occlusion": true
+        },
+        "visual_elements": [
+          "ancient_stone_archway",
+          "crystalline_vines",
+          "bioluminescent_plants",
+          "mist_ground_effect"
+        ],
+        "audio_ambience": [
+          "wind_through_stone",
+          "subtle_ambient_hum",
+          "distant_chimes"
+        ]
+      },
+
+      "interactive_objects": [
+        {
+          "name": "Ancient Gateway",
+          "type": "portal",
+          "function": "entrance_checkpoint"
+        },
+        {
+          "name": "Rune Stone",
+          "type": "interactive_prop",
+          "function": "lore_element"
+        }
+      ],
+
+      "enemy_spawns": [
+        {
+          "enemy_type": "Bone Hound",
+          "spawn_count": "2-3",
+          "behavior": "PACK_AGGRO"
+        }
+      ],
+
+      "loot_tables": {
+        "common": ["herb_bundle", "stone_shard", "cloth_scrap"],
+        "uncommon": ["crystal_fragment", "bone_dust"],
+        "rare": ["ancient_coin"]
+      }
+    },
+
+    {
+      "id": "NARIS-ENV-BROKEN-SHRINE-0001",
+      "name": "Broken Shrine",
+      "type": "sacred_ruin",
+      "visual_theme": "corrupted_sanctity",
+      "atmosphere": "haunting_sacred_space",
+      "fast_travel_point": true,
+
+      "environmental_features": {
+        "lighting": {
+          "primary_light": "ethereal_purple_glow",
+          "shadow_intensity": 0.8,
+          "ambient_occlusion": true,
+          "ghostly_mist": true
+        },
+        "visual_elements": [
+          "crumbling_stone_pillars",
+          "broken_altar",
+          "ethereal_crystals",
+          "glowing_runes"
+        ],
+        "audio_ambience": [
+          "haunting_whispers",
+          "bell_tolls",
+          "ethereal_resonance"
+        ]
+      },
+
+      "interactive_objects": [
+        {
+          "name": "Ancient Altar",
+          "type": "puzzle_element",
+          "function": "rune_activation"
+        },
+        {
+          "name": "Sacred Chest",
+          "type": "treasure_container",
+          "function": "unique_loot"
+        }
+      ],
+
+      "enemy_spawns": [
+        {
+          "enemy_type": "Aether Serpent",
+          "spawn_count": "1-2",
+          "behavior": "AMBUSH_PATROL"
+        }
+      ]
+    },
+
+    {
+      "id": "NARIS-ENV-RUINED-BRIDGE-0001",
+      "name": "Ruined Bridge",
+      "type": "traversal_challenge",
+      "visual_theme": "decaying_structure",
+      "atmosphere": "tense_passage",
+      "fast_travel_point": true,
+
+      "environmental_features": {
+        "lighting": {
+          "primary_light": "cool_daylight",
+          "shadow_intensity": 0.5,
+          "volumetric_fog": true
+        },
+        "visual_elements": [
+          "broken_stone_bridge",
+          "dangling_chains",
+          "crystalline_deposits",
+          "vapor_clouds"
+        ],
+        "audio_ambience": [
+          "creaking_wood",
+          "howling_wind",
+          "water_echoes"
+        ],
+        "hazards": [
+          {
+            "name": "Unstable Platforms",
+            "type": "platforming_challenge",
+            "damage_type": "fall"
+          }
+        ]
+      },
+
+      "interactive_objects": [
+        {
+          "name": "Portable Bridge Mechanism",
+          "type": "puzzle_element",
+          "function": "activate_bridge_section"
+        }
+      ],
+
+      "enemy_spawns": [
+        {
+          "enemy_type": "Bone Hound",
+          "spawn_count": "1-2",
+          "behavior": "PATROL"
+        }
+      ]
+    },
+
+    {
+      "id": "NARIS-ENV-WHISPER-LAKE-0001",
+      "name": "Whisper Lake",
+      "type": "aquatic_zone",
+      "visual_theme": "ethereal_water",
+      "atmosphere": "serene_mystery",
+      "fast_travel_point": true,
+
+      "environmental_features": {
+        "lighting": {
+          "primary_light": "bioluminescent_cyan",
+          "shadow_intensity": 0.4,
+          "water_reflection": true,
+          "caustic_patterns": true
+        },
+        "visual_elements": [
+          "crystal_clear_water",
+          "floating_luminescent_plants",
+          "submerged_ruins",
+          "water_spirits_vfx"
+        ],
+        "audio_ambience": [
+          "gentle_water_flow",
+          "mysterious_whispers",
+          "harmonic_tones"
+        ]
+      },
+
+      "interactive_objects": [
+        {
+          "name": "Spirit Guardian",
+          "type": "npc_interaction",
+          "function": "quest_giver"
+        },
+        {
+          "name": "Treasure Pool",
+          "type": "water_treasure",
+          "function": "aquatic_loot"
+        }
+      ],
+
+      "enemy_spawns": [],
+      "safe_zone": true
+    },
+
+    {
+      "id": "NARIS-ENV-ASH-GATE-0001",
+      "name": "Ash Gate",
+      "type": "boss_gateway",
+      "visual_theme": "infernal_passage",
+      "atmosphere": "ominous_grandeur",
+      "boss_encounter": true,
+
+      "environmental_features": {
+        "lighting": {
+          "primary_light": "intense_orange_red",
+          "shadow_intensity": 0.9,
+          "fire_glow": true
+        },
+        "visual_elements": [
+          "massive_obsidian_gates",
+          "lava_flows",
+          "burning_runes",
+          "smoke_plumes"
+        ],
+        "audio_ambience": [
+          "roaring_flames",
+          "ground_tremors",
+          "otherworldly_reverb"
+        ]
+      },
+
+      "interactive_objects": [
+        {
+          "name": "Gate Control Mechanism",
+          "type": "boss_gate",
+          "function": "boss_arena_entrance"
+        }
+      ],
+
+      "boss_encounter": {
+        "boss_name": "Gate Guardian",
+        "boss_id": "NARIS-ENM-GATE-GUARDIAN-0001",
+        "difficulty": "hard",
+        "arena_size": "large"
+      }
+    },
+
+    {
+      "id": "NARIS-ENV-BONE-BEAST-ARENA-0001",
+      "name": "Bone Beast Arena",
+      "type": "boss_arena",
+      "visual_theme": "skeletal_domain",
+      "atmosphere": "primal_combat_zone",
+      "boss_encounter": true,
+
+      "environmental_features": {
+        "lighting": {
+          "primary_light": "pale_blue_overhead",
+          "shadow_intensity": 0.7,
+          "ground_glow": true
+        },
+        "visual_elements": [
+          "giant_bone_structures",
+          "crystalline_floor_patterns",
+          "ethereal_fog",
+          "spectral_auras"
+        ],
+        "audio_ambience": [
+          "bone_rattling",
+          "beast_growls",
+          "ambient_drone"
+        ]
+      },
+
+      "arena_mechanics": {
+        "terrain_hazards": [
+          {
+            "name": "Bone Spikes",
+            "type": "arena_obstacle",
+            "damage": 20
+          }
+        ],
+        "environmental_attacks": [
+          {
+            "name": "Ground Slam Waves",
+            "trigger": "boss_attack",
+            "pattern": "radial"
+          }
+        ]
+      },
+
+      "boss_encounter": {
+        "boss_name": "Ash Giant",
+        "boss_id": "NARIS-ENM-ASH-GIANT-0001",
+        "difficulty": "extreme",
+        "arena_size": "massive"
+      }
+    }
+  ],
+
+  "environmental_systems": {
+    "weather": {
+      "enabled": true,
+      "types": ["ash_storms", "ethereal_mist", "ethereal_rain"]
+    },
+    "day_night_cycle": {
+      "enabled": false,
+      "current_time": "eternal_dusk"
+    },
+    "ambient_occlusion": true,
+    "dynamic_shadows": true,
+    "particle_systems": true
+  },
+
+  "performance_targets": {
+    "target_platform": "multi_engine",
+    "min_fps": 60,
+    "quality_preset": "high",
+    "polygon_budget": "optimized_for_cinematic"
+  },
+
+  "asset_references": {
+    "character_spawns": [
+      "NARIS-CHR-ASHEN-VESSEL-0001",
+      "NARIS-ENM-BONE-HOUND-0001",
+      "NARIS-ENM-AETHER-SERPENT-0001",
+      "NARIS-ENM-GATE-GUARDIAN-0001",
+      "NARIS-ENM-ASH-GIANT-0001"
+    ],
+    "vfx_systems": [
+      "NARIS-VFX-FIRE-0001",
+      "NARIS-VFX-SPIRIT-ENERGY-0001",
+      "NARIS-VFX-ANCIENT-MAGIC-0001"
+    ]
+  },
+
+  "validation_status": "production_ready",
+  "notes": "Complete Ashen Forest environment pack with 6 interconnected locations featuring distinct visual themes, enemy spawns, boss encounters, and interactive elements for Batch 07-08 production."
+}
