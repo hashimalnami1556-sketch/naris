@@ -139,9 +139,14 @@ void ANarisDailyNPC::ApplyActivity(ENarisNPCActivity NewActivity, AActor* Destin
 
 bool ANarisDailyNPC::InteractNPC(AActor* Interactor)
 {
-    if (!IsValid(Interactor) || !Interactor->IsA<APlayerController>() &&
-        !Interactor->GetInstigatorController() &&
-        !Interactor->IsA<APawn>())
+    // Accept a controlled pawn or its player controller, not arbitrary actors.
+    if (!IsValid(Interactor))
+    {
+        return false;
+    }
+    const APawn* Pawn = Cast<APawn>(Interactor);
+    const APlayerController* Player = Cast<APlayerController>(Interactor);
+    if ((Pawn == nullptr || !Pawn->IsPlayerControlled()) && Player == nullptr)
     {
         return false;
     }
