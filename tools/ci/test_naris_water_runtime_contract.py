@@ -25,7 +25,7 @@ class NarisWaterRuntimeContract(unittest.TestCase):
 
     def test_swimming_handles_breath_and_drowning(self):
         cpp=SWIM_CPP.read_text(encoding="utf-8")
-        for token in ("BreathRemaining","DrowningDamagePerSecond","Combat->Health","MOVE_Swimming","MOVE_Walking","ActiveWaterVolume"):
+        for token in ("BreathRemaining","DrowningDamagePerSecond","CombatComponent->Health","MOVE_Swimming","MOVE_Walking","ActiveWaterVolume"):
             self.assertIn(token,cpp)
 
     def test_hero_owns_swimming_component(self):
