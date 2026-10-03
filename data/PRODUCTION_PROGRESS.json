@@ -19,7 +19,7 @@
     "id": "vertical_slice",
     "label": "Vertical Slice",
     "state": "active",
-    "display_progress_percent": 79,
+    "display_progress_percent": 80,
     "confidence": "planning_estimate"
   },
   "stages": [
@@ -82,8 +82,8 @@
     {
       "id": "worlds",
       "label": "Worlds & Environments",
-      "display_percent": 94,
-      "evidence_state": "ProductionPass04 executed on AsusRog: 29 modular actors placed across Causeway, Aether Shrine, Ash Gate and Eclipse Citadel approach; zero missing modular assets; map saved. Basic-shape cleanup/material acceptance still pending."
+      "display_percent": 95,
+      "evidence_state": "Direct UE5.7 audit: 273 actors, 60 NARSIC asset actors, 210 Engine BasicShapes (192 ENV, 8 ZONE, 10 LANDMARK); MapCheck 0 errors/0 warnings. Production replacement work remains substantial."
     },
     {
       "id": "characters",
@@ -124,19 +124,19 @@
     {
       "id": "performance",
       "label": "Optimization & Performance",
-      "display_percent": 40,
-      "evidence_state": "editor execution evidence exists; packaged hardware performance capture still pending"
+      "display_percent": 42,
+      "evidence_state": "Workstation hardware observed: RTX 3050, i5-14400F, 32GB. This is not packaged-game performance evidence."
     }
   ],
   "blockers": [
-    "Remove or replace remaining Engine BasicShapes from early map/environment passes",
+    "Replace 210 audited Engine BasicShape actors: 192 ENV, 8 ZONE markers and 10 LANDMARK placeholders",
     "Populate and approve NARSIC production master materials and instances",
-    "Validate collision, traversal and zone transitions across the eight-zone map",
+    "Validate collision and traversal after placeholder replacement across all eight zones",
     "Resolve remaining character/enemy production meshes and technical-art acceptance",
     "Resolve ten production AnimMontages and hit/impact notifies",
-    "Resolve sixteen audio masters and fourteen Niagara systems",
+    "Resolve sixteen production audio masters and fourteen Niagara systems",
     "Run packaged Windows W04 gameplay, checkpoint and save/load validation",
-    "Capture packaged performance evidence and close Shipping QA"
+    "Capture packaged RTX 3050 performance evidence and close Shipping QA"
   ],
   "next_actions": [
     "Run a placeholder audit and selectively remove superseded Cube/Sphere actors without damaging traversal",
@@ -196,6 +196,28 @@
         "executed_on": "AsusRog",
         "script": "Content/Python/production_pass04.py",
         "report": "Reports/production-pass04.json"
+      },
+      "placeholder_audit05": {
+        "total_actors": 273,
+        "basic_shape_actor_count": 210,
+        "narsic_asset_actor_count": 60,
+        "basic_shape_prefixes": {
+          "ENV": 192,
+          "ZONE": 8,
+          "LANDMARK": 10
+        },
+        "map_check": {
+          "errors": 0,
+          "warnings": 0
+        },
+        "commandlet": {
+          "result": "success",
+          "errors": 0,
+          "warnings": 2
+        },
+        "gpu_observed": "NVIDIA GeForce RTX 3050",
+        "cpu_observed": "Intel Core i5-14400F",
+        "memory_observed_gb": 32
       }
     },
     "unity": {
