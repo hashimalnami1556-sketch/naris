@@ -22,8 +22,8 @@ class PresentationProductionPassContractTests(unittest.TestCase):
     def test_wolf_command_is_bound_for_keyboard_and_gamepad(self) -> None:
         ini = read("unreal/NARIS_W04/Config/DefaultInput.ini")
         hero = read("unreal/NARIS_W04/Source/NARIS_W04/Private/NarisHeroCharacter.cpp")
-        self.assertIn('ActionName="CompanionMode",Key=(KeyName="C")', ini)
-        self.assertIn('ActionName="CompanionMode",Key=(KeyName="Gamepad_DPad_Up")', ini)
+        self.assertIn('ActionName="CompanionMode",bShift=False,bCtrl=False,bAlt=False,bCmd=False,Key=C', ini)
+        self.assertIn('ActionName="CompanionMode",bShift=False,bCtrl=False,bAlt=False,bCmd=False,Key=Gamepad_DPad_Up', ini)
         self.assertIn('BindAction(TEXT("CompanionMode")', hero)
         self.assertIn("Wolf->CycleMode()", hero)
 
