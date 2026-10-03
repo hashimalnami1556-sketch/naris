@@ -101,6 +101,24 @@ def load_registry_entry(registry_path: Path, asset_id: str) -> tuple[dict | None
     return entry, issues
 
 
+
+def select_asset_objects(asset_id: str) -> tuple[list[bpy.types.Object], list[str]]:
+    """Select only the authored root matching asset_id plus its exportable descendants."""
+    roots = [
+        obj for obj in bpy.context.scene.objects
+        if obj.get("naris_asset_id") == asset_id
+    ]
+    if not roots:
+        return [], [f"No authored root found for requested asset ID: {asset_id}"]
+    if len(roots) > 1:
+        return [], [f"Multiple authored roots found for requested asset ID: {asset_id}"]
+    root = roots[0]
+    objects = [root] + list(root.children_recursive)
+    objects = [obj for obj in objects if obj.type in ALLOWED_TYPES]
+    if not objects:
+        return [], [f"Authored root contains no exportable objects: {asset_id}"]
+    return objects, []
+
 def collect_manifest(
     asset_id: str,
     objects: list[bpy.types.Object],
@@ -138,12 +156,9 @@ def main() -> int:
     registry_path = Path(args.registry).resolve()
     out.mkdir(parents=True, exist_ok=True)
 
-    selected = [o for o in bpy.context.selected_objects if o.type in ALLOWED_TYPES]
-    if not selected:
-        selected = [o for o in bpy.context.scene.objects if o.type in ALLOWED_TYPES]
-
     asset_id = args.asset_id.strip()
-    issues: list[str] = []
+    selected, selection_issues = select_asset_objects(asset_id)
+    issues: list[str] = list(selection_issues)
     if not ASSET_ID.match(asset_id):
         issues.append(
             "Asset ID must follow NARIS-W<world>-<domain>-<TYPE>-<sequence>; "
