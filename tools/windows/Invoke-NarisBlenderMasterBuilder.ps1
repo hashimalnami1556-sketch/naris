@@ -29,13 +29,15 @@ Write-Host "Building NARIS W04 authoring scene with Blender..."
 if ($LASTEXITCODE -ne 0) { throw "Blender Master Builder failed with exit code $LASTEXITCODE" }
 
 # The builder may save to its configured output; retain a deterministic invocation record.
-@{
+$Utf8NoBom = New-Object System.Text.UTF8Encoding($false)
+$RunEvidence = @{
   timestamp=(Get-Date).ToString("o")
   blender=$BlenderExe
   builder=$Builder
   registry=$Registry
   status="builder_completed"
-} | ConvertTo-Json | Set-Content -Encoding UTF8 (Join-Path $ValidationDir "builder-run.json")
+} | ConvertTo-Json
+[System.IO.File]::WriteAllText((Join-Path $ValidationDir "builder-run.json"), $RunEvidence, $Utf8NoBom)
 
 $coreAssets = @(
   "NARIS-W04-CHR-HERO-0001",
@@ -46,7 +48,8 @@ $coreAssets = @(
   "NARIS-W04-PRP-ASHGATE-0001",
   "NARIS-W04-WPN-SWORD-0001"
 )
-$coreAssets | ConvertTo-Json | Set-Content -Encoding UTF8 (Join-Path $ManifestDir "core-assets.json")
+$CoreJson = $coreAssets | ConvertTo-Json
+[System.IO.File]::WriteAllText((Join-Path $ManifestDir "core-assets.json"), $CoreJson, $Utf8NoBom)
 
 if ($ExportCoreAssets) {
   if (-not (Test-Path $BlendFile)) {
