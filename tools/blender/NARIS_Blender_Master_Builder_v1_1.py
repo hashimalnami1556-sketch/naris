@@ -35,6 +35,9 @@ W04_CORE_ASSETS = {
     "hero": {"naris_asset_id": "NARIS-W04-CHR-HERO-0001", "expected_unreal_object_path": "/Game/NARIS/W04/Characters/Hero/SK_AshenVessel.SK_AshenVessel"},
     "celestial_wolf": {"naris_asset_id": "NARIS-W04-CHR-COMPANION-0001", "expected_unreal_object_path": "/Game/NARIS/W04/Characters/CelestialWolf/SK_CelestialWolf.SK_CelestialWolf"},
     "bone_beast": {"naris_asset_id": "NARIS-W04-ENM-BONEBEAST-0001", "expected_unreal_object_path": "/Game/NARIS/W04/Bosses/BoneBeast/SK_BoneBeast.SK_BoneBeast"},
+    "waystone": {"naris_asset_id": "NARIS-W04-PRP-WAYSTONE-0001", "expected_unreal_object_path": "/Game/NARIS/W04/Environment/Props/Waystone/SM_Waystone.SM_Waystone"},
+    "memory_crystal": {"naris_asset_id": "NARIS-W04-PRP-MEMORYCRYSTAL-0001", "expected_unreal_object_path": "/Game/NARIS/W04/Environment/Props/MemoryCrystal/SM_MemoryCrystal.SM_MemoryCrystal"},
+    "ash_gate": {"naris_asset_id": "NARIS-W04-PRP-ASHGATE-0001", "expected_unreal_object_path": "/Game/NARIS/W04/Environment/Architecture/AshGate/SM_AshGate.SM_AshGate"},
     "sword_of_poem": {"naris_asset_id": "NARIS-W04-WPN-SWORD-0001", "expected_unreal_object_path": "/Game/NARIS/W04/Weapons/SwordOfPoem/SM_SwordOfPoem.SM_SwordOfPoem"},
 }
 
@@ -742,6 +745,45 @@ def save_blend(output_dir):
 # -----------------------------------------------------------------------------
 # Master build
 # -----------------------------------------------------------------------------
+
+def create_memory_crystal(mats, location=(6.0, -4.0, 1.4)):
+    root=create_root("PRP_MemoryCrystal_ROOT",location,"PROPS")
+    crystal=add_primitive("ico","PRP_MemoryCrystal_Mesh",location,(0.72,0.72,1.65),material=mats["MAT_Aether"],collection="PROPS")
+    crystal.parent=root
+    tag(root,naris_asset="MemoryCrystal",interaction="MEMORY_CRYSTAL",export=True)
+    return root
+
+def triangle_count(obj):
+    if obj is None or obj.type != "MESH":
+        return 0
+    return sum(max(0, len(poly.vertices)-2) for poly in obj.data.polygons)
+
+def material_slot_count(obj):
+    if obj is None or obj.type != "MESH":
+        return 0
+    return len(obj.material_slots)
+
+def validate_w04_authored_asset(obj, role, contract):
+    errors=[]
+    spec=W04_CORE_ASSETS[role]
+    binding=contract["bindings"][spec["naris_asset_id"]]
+    if obj.get("naris_asset_id") != spec["naris_asset_id"]:
+        errors.append("asset_id_mismatch")
+    mesh_children=[x for x in ([obj]+list(obj.children_recursive)) if x.type=="MESH"]
+    slots=max([material_slot_count(x) for x in mesh_children] or [0])
+    tris=sum(triangle_count(x) for x in mesh_children)
+    max_slots=int(binding.get("max_material_slots",contract["material_slots_max_per_mesh"]))
+    if slots>max_slots:
+        errors.append(f"material_slots:{slots}>{max_slots}")
+    max_tris=binding.get("max_triangles_lod0")
+    if max_tris is not None and tris>int(max_tris):
+        errors.append(f"lod0_triangles:{tris}>{int(max_tris)}")
+    obj["naris_triangle_count_lod0"]=tris
+    obj["naris_material_slot_count"]=slots
+    obj["naris_validation_errors"]="|".join(errors)
+    obj["naris_validation_state"]="PASS" if not errors else "FAIL"
+    return errors
+
 def build_master_scene(scene=None, clear=True):
     scene=scene or bpy.context.scene
     if clear:
@@ -761,6 +803,14 @@ def build_master_scene(scene=None, clear=True):
     stamp_w04_asset(wolf, "celestial_wolf")
     stamp_w04_asset(enemy, "bone_beast")
     stamp_w04_asset(sword, "sword_of_poem")
+    waystone=bpy.data.objects.get("PRP_Waystone_ROOT")
+    ash_gate=bpy.data.objects.get("ENV_AshGate_ROOT")
+    memory_crystal=create_memory_crystal(mats)
+    if waystone:
+        stamp_w04_asset(waystone, "waystone")
+    stamp_w04_asset(memory_crystal, "memory_crystal")
+    if ash_gate:
+        stamp_w04_asset(ash_gate, "ash_gate")
     # Attach weapon to hero root for prototype authoring; actual socket mapping is exported as metadata.
     sword.parent=hero
     create_lighting_and_camera()
