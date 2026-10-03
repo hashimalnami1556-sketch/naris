@@ -183,3 +183,13 @@ Direct inspection of the online **AsusRog** workstation established additional p
 - The Unity project currently reports **6000.3.14f1** and contains Menu V2/UI refinement compile artifacts and reports dated 2026-10-03.
 
 This closes the old assumption that no editor execution evidence exists. It does **not** close packaged gameplay, production-map acceptance, performance, or Shipping gates.
+
+## W04 ProductionPass04 — 2026-10-03
+
+Executed directly on **AsusRog** against Unreal Engine 5.7 and `/Game/NARIS/Maps/L_AshMap_Assembly`.
+
+- Added a dedicated `production_pass04.py` production-layout pass.
+- Placed **29 modular production actors** across Broken Causeway, Aether Shrine, Ash Gate and the Eclipse Citadel approach.
+- The pass reported **0 missing modular assets**.
+- The map was saved and `Reports/production-pass04.json` was emitted with status `production_layout_pass`.
+- This improves the map from the earlier blockout/modular state, but does not yet close the remaining BasicShapes cleanup, materials, traversal/collision, packaged gameplay or performance gates.
