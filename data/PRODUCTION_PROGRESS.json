@@ -1,6 +1,6 @@
 {
-  "schema_version": "1.0.0",
-  "updated_at": "2026-10-03",
+  "schema_version": "1.1.0",
+  "updated_at": "2026-10-07",
   "product_brand": "NARSIC",
   "technical_namespace": "NARIS",
   "canonical_engine": "Unreal Engine 5.7",
@@ -9,231 +9,164 @@
   "display": {
     "language": "English",
     "primary_aspect_ratio": "32:9",
-    "alternate_aspect_ratios": [
-      "21:9",
-      "16:9"
-    ],
+    "alternate_aspect_ratios": ["21:9", "16:9"],
     "progress_semantics": "planning estimate only; not runtime or QA evidence"
   },
   "current_stage": {
     "id": "vertical_slice",
     "label": "Vertical Slice",
     "state": "active",
-    "display_progress_percent": 80,
-    "confidence": "planning_estimate"
+    "display_progress_percent": 82,
+    "confidence": "planning_estimate_supported_by_runtime_evidence"
   },
   "stages": [
-    {
-      "id": "concept",
-      "label": "Concept & Vision",
-      "state": "complete",
-      "display_percent": 100
-    },
-    {
-      "id": "preproduction",
-      "label": "Pre-Production",
-      "state": "complete",
-      "display_percent": 100
-    },
-    {
-      "id": "prototype",
-      "label": "Prototype",
-      "state": "complete",
-      "display_percent": 100
-    },
-    {
-      "id": "vertical_slice",
-      "label": "Vertical Slice",
-      "state": "active",
-      "display_percent": 68
-    },
-    {
-      "id": "production_alpha",
-      "label": "Production Alpha",
-      "state": "locked",
-      "display_percent": 0
-    },
-    {
-      "id": "content_complete",
-      "label": "Content Complete",
-      "state": "locked",
-      "display_percent": 0
-    },
-    {
-      "id": "beta_polish",
-      "label": "Beta & Polish",
-      "state": "locked",
-      "display_percent": 0
-    },
-    {
-      "id": "release_candidate",
-      "label": "Release Candidate",
-      "state": "locked",
-      "display_percent": 0
-    },
-    {
-      "id": "launch",
-      "label": "Launch",
-      "state": "locked",
-      "display_percent": 0
-    }
+    {"id": "concept", "label": "Concept & Vision", "state": "complete", "display_percent": 100},
+    {"id": "preproduction", "label": "Pre-Production", "state": "complete", "display_percent": 100},
+    {"id": "prototype", "label": "Prototype", "state": "complete", "display_percent": 100},
+    {"id": "vertical_slice", "label": "Vertical Slice", "state": "active", "display_percent": 82},
+    {"id": "production_alpha", "label": "Production Alpha", "state": "locked", "display_percent": 0},
+    {"id": "content_complete", "label": "Content Complete", "state": "locked", "display_percent": 0},
+    {"id": "beta_polish", "label": "Beta & Polish", "state": "locked", "display_percent": 0},
+    {"id": "release_candidate", "label": "Release Candidate", "state": "locked", "display_percent": 0},
+    {"id": "launch", "label": "Launch", "state": "locked", "display_percent": 0}
   ],
   "workstreams": [
     {
-      "id": "worlds",
-      "label": "Worlds & Environments",
-      "display_percent": 95,
-      "evidence_state": "Direct UE5.7 audit: 273 actors, 60 NARSIC asset actors, 210 Engine BasicShapes (192 ENV, 8 ZONE, 10 LANDMARK); MapCheck 0 errors/0 warnings. Production replacement work remains substantial."
+      "id": "world",
+      "label": "WORLD",
+      "display_percent": 78,
+      "evidence_state": "L_AshMap_Assembly loads successfully and MapCheck is clean; 210 Engine BasicShape actors remain to be replaced or validated before production lock."
+    },
+    {
+      "id": "combat",
+      "label": "COMBAT",
+      "display_percent": 92,
+      "evidence_state": "UE5.7 combat QA passed: damage, three-hit combo, dodge, double jump, lock-on, notify-driven timing, hit-window callback and weapon sweep all verified."
+    },
+    {
+      "id": "ai",
+      "label": "AI",
+      "display_percent": 70,
+      "evidence_state": "Creature AI controllers and Recast nav data initialize at runtime; full traversal/path-following acceptance across the production world is still pending."
     },
     {
       "id": "characters",
-      "label": "Characters & Enemies",
-      "display_percent": 70,
-      "evidence_state": "core_gates_defined_production_assets_pending"
+      "label": "CHARACTERS",
+      "display_percent": 72,
+      "evidence_state": "Hero, Celestial Wolf, Bone Beast and Ash Warden load with runtime combat data; remaining production mesh and technical-art acceptance is incomplete."
     },
     {
       "id": "animation",
-      "label": "Animation & Movement",
-      "display_percent": 60,
-      "evidence_state": "runtime_hooks_present_10_production_montages_unresolved"
+      "label": "ANIMATION",
+      "display_percent": 74,
+      "evidence_state": "Eighteen motion clips are visible to the combat runtime and six attack clips passed notify-driven timing validation; broader production animation coverage remains incomplete."
     },
     {
-      "id": "ui",
-      "label": "HUD & Interfaces",
-      "display_percent": 93,
-      "evidence_state": "Unity 6.3.14f1 UI/Menu V2 compile artifacts and 2026-10-03 refinement reports exist; runtime UX acceptance still pending"
-    },
-    {
-      "id": "systems",
-      "label": "Systems & Programming",
-      "display_percent": 82,
-      "evidence_state": "Unreal 5.7 headless Python production pass executed successfully and emitted a structured report; packaged runtime acceptance remains pending."
+      "id": "uiux",
+      "label": "UI/UX",
+      "display_percent": 88,
+      "evidence_state": "Main-menu and pause/resume runtime QA both passed; final ultrawide visual, controller and localization regression acceptance remains open."
     },
     {
       "id": "audio",
-      "label": "Audio & Music",
+      "label": "AUDIO",
       "display_percent": 50,
-      "evidence_state": "16_audio_payloads_unresolved"
+      "evidence_state": "Runtime audio device initializes correctly, but sixteen production audio masters remain unresolved."
     },
     {
-      "id": "story",
-      "label": "Story & Quests",
-      "display_percent": 40,
-      "evidence_state": "w04_progression_contract_present_authored_content_incomplete"
+      "id": "quests",
+      "label": "QUESTS",
+      "display_percent": 72,
+      "evidence_state": "Objective progression QA passed from Ash Gate reach to boss defeat and reward grant; authored narrative/quest content is still incomplete."
     },
     {
-      "id": "performance",
-      "label": "Optimization & Performance",
-      "display_percent": 42,
-      "evidence_state": "Workstation hardware observed: RTX 3050, i5-14400F, 32GB. This is not packaged-game performance evidence."
+      "id": "optimization",
+      "label": "OPTIMIZATION",
+      "display_percent": 45,
+      "evidence_state": "Shipping cook/package succeeded on AsusRog, but packaged GPU frame-time and memory acceptance has not yet been captured."
+    },
+    {
+      "id": "qa",
+      "label": "QA",
+      "display_percent": 78,
+      "evidence_state": "NARISEditor and Win64 Development targets compile; combat, objective, save/load, pause and menu QA pass; three NARIS.Coop automation tests pass; Shipping BuildCookRun succeeds."
     }
   ],
   "blockers": [
-    "Replace 210 audited Engine BasicShape actors: 192 ENV, 8 ZONE markers and 10 LANDMARK placeholders",
-    "Populate and approve NARSIC production master materials and instances",
-    "Validate collision and traversal after placeholder replacement across all eight zones",
+    "Replace or explicitly approve the 210 audited Engine BasicShape actors: 192 ENV, 8 ZONE and 10 LANDMARK placeholders",
+    "Populate and approve NARSIC production master materials and material instances",
+    "Validate collision and traversal after placeholder replacement across the production route",
     "Resolve remaining character/enemy production meshes and technical-art acceptance",
-    "Resolve ten production AnimMontages and hit/impact notifies",
+    "Complete production animation coverage beyond the six verified notify-driven attack clips",
     "Resolve sixteen production audio masters and fourteen Niagara systems",
-    "Run packaged Windows W04 gameplay, checkpoint and save/load validation",
-    "Capture packaged RTX 3050 performance evidence and close Shipping QA"
+    "Run packaged Windows full-loop gameplay including checkpoint and save/load validation",
+    "Capture packaged RTX 3050 frame-time, memory and stability evidence and close Shipping QA",
+    "Run real multi-instance cooperative networking acceptance beyond the three passing default/replication automation tests"
   ],
   "next_actions": [
-    "Run a placeholder audit and selectively remove superseded Cube/Sphere actors without damaging traversal",
+    "Replace high-visibility BasicShape placeholders with approved modular environment assets without breaking traversal",
     "Author and bind NARSIC master materials for terrain, rock, ruins, gate and water",
-    "Validate collision and traversal from Ashen Approach through Eclipse Citadel",
-    "Integrate production character/enemy animation, VFX and audio payloads",
-    "Run complete W04 gameplay loop and package Windows Development",
-    "Capture AsusRog frame-time evidence and close remaining QA gates"
+    "Run end-to-end traversal validation on the production route and close nav/path-following gaps",
+    "Integrate remaining production character/enemy animation, VFX and audio payloads",
+    "Run packaged Windows full-loop gameplay and checkpoint/save-load validation",
+    "Run two-to-four client cooperative network acceptance",
+    "Capture AsusRog frame-time and memory evidence and close remaining Vertical Slice QA gates"
   ],
   "host_status_at_sync": {
     "device": "AsusRog",
     "observed": "online",
-    "note": "Verified online 2026-10-03; Unreal Engine 5.7 editor execution and asset validation evidence observed. Connectivity alone is not release evidence."
+    "note": "Verified online 2026-10-07. Unreal Engine 5.7 build, cook, runtime QA and automation evidence were captured on-device."
   },
   "observed_runtime_evidence": {
-    "date": "2026-10-03",
+    "date": "2026-10-07",
     "unreal": {
       "engine_association": "5.7",
+      "engine_runtime": "5.7.4",
       "map": "/Game/NARIS/Maps/L_AshMap_Assembly",
-      "map_status": "assembly_blockout",
-      "zones": 8,
-      "environment_pass01": {
-        "status": "built",
-        "rocks": 128,
-        "ruins": 10,
-        "spires": 40,
-        "art": 8
+      "map_status": "assembly_vertical_slice",
+      "build_verification": {
+        "NARISEditor_Win64_Development": "Succeeded",
+        "NARIS_Win64_Development": "Succeeded",
+        "Shipping_BuildCookRun": "Succeeded",
+        "shipping_archive": "Builds/NARIS_Win64_Shipping_20261007/Windows"
       },
-      "imported_assets": [
-        "/Game/NARIS/Imported/tripo_mat_bbe3411b-9ad9-4026-a336-f7970eb86b23.tripo_mat_bbe3411b-9ad9-4026-a336-f7970eb86b23",
-        "/Game/NARIS/Imported/deep_repaired_model.deep_repaired_model"
-      ],
-      "validation": {
-        "assets": 20,
-        "result": "validation completed; editor exited normally; shaders_left_to_compile: 0"
+      "runtime_qa": {
+        "combat": "Pass",
+        "objective_progression": "Pass",
+        "save_load": "Pass",
+        "pause_resume": "Pass",
+        "main_menu": "Pass",
+        "combat_details": "DamageSeen=1 ComboSeen=1 DodgeSeen=1 SecondJumpSeen=1 LockSeen=1 NotifyDriven=1 NotifyTimingUsed=1 CallbackSeen=1"
       },
-      "note": "Source-control checkout warning occurred for the map, but the package was saved to Content/NARIS/Maps/L_AshMap_Assembly.umap.",
-      "production_gap_analysis": {
-        "material_directory": "Content/NARIS/Materials is currently empty",
-        "current_map": "L_AshMap_Assembly.umap",
-        "current_scripts": [
-          "build_ash_map.py",
-          "environment_pass01.py",
-          "import_ash_assets.py",
-          "import_modular.py"
-        ],
-        "blockout_dependency": "build_ash_map.py still uses Engine BasicShapes Cube/Plane for the traversal spine and zone markers",
-        "environment_dependency": "environment_pass01.py still uses Engine BasicShapes Sphere/Cube for rocks/spires and deep_repaired_model as repeated art anchors",
-        "production_modular_pass": "import_modular.py successfully places ShrineBase, AetherCrystal, Waystone, Deck, GatePillar, GateCrown, GateTop and Buttress assets",
-        "conclusion": "Map is materially beyond an empty blockout but is not yet production-ready because basic-shape placeholders and missing production materials remain."
+      "automation": {
+        "suite": "NARIS.Coop",
+        "tests_found": 3,
+        "tests_passed": 3,
+        "tests": [
+          "NARIS.Coop.Character.ReplicationDefaults",
+          "NARIS.Coop.GameMode.Defaults",
+          "NARIS.Coop.Session.FourPlayerCap"
+        ]
       },
-      "production_pass04": {
-        "status": "production_layout_pass",
-        "spawned_modular_actors": 29,
-        "missing_assets": [],
-        "target_map": "/Game/NARIS/Maps/L_AshMap_Assembly",
-        "executed_on": "AsusRog",
-        "script": "Content/Python/production_pass04.py",
-        "report": "Reports/production-pass04.json"
+      "cook": {
+        "result": "Success",
+        "errors": 0,
+        "warnings": 2,
+        "packages": 534,
+        "iostore_chunks": 1250
       },
-      "placeholder_audit05": {
+      "environment_audit": {
         "total_actors": 273,
         "basic_shape_actor_count": 210,
         "narsic_asset_actor_count": 60,
-        "basic_shape_prefixes": {
-          "ENV": 192,
-          "ZONE": 8,
-          "LANDMARK": 10
-        },
-        "map_check": {
-          "errors": 0,
-          "warnings": 0
-        },
-        "commandlet": {
-          "result": "success",
-          "errors": 0,
-          "warnings": 2
-        },
-        "gpu_observed": "NVIDIA GeForce RTX 3050",
-        "cpu_observed": "Intel Core i5-14400F",
-        "memory_observed_gb": 32
+        "basic_shape_prefixes": {"ENV": 192, "ZONE": 8, "LANDMARK": 10},
+        "map_check": {"errors": 0, "warnings": 0}
+      },
+      "hardware_observed": {
+        "gpu": "NVIDIA GeForce RTX 3050",
+        "cpu": "Intel Core i5-14400F",
+        "memory_gb": 32
       }
-    },
-    "unity": {
-      "editor_version": "6000.3.14f1",
-      "recent_reports": [
-        "MAIN_MENU_V2_DEPLOYMENT.md",
-        "NARIS_UI_INTERACTION_PASS_20261003.md",
-        "NARIS_UI_UX_REFERENCE_UPDATE_20261003.md",
-        "NARIS_UI_UX_REFINEMENT_20261003.md"
-      ],
-      "compile_artifacts": [
-        "NARIS.MenuV2.CompileCheck.dll",
-        "primary-menu-compile.log",
-        "ux-focus-final-compile.log",
-        "ux-gamepad-compile.log"
-      ]
     }
   }
 }
