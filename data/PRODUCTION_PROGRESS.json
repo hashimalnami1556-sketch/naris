@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.1.0",
+  "schema_version": "1.2.0",
   "updated_at": "2026-10-07",
   "product_brand": "NARSIC",
   "technical_namespace": "NARIS",
@@ -16,14 +16,14 @@
     "id": "vertical_slice",
     "label": "Vertical Slice",
     "state": "active",
-    "display_progress_percent": 82,
-    "confidence": "planning_estimate_supported_by_runtime_evidence"
+    "display_progress_percent": 85,
+    "confidence": "planning_estimate_supported_by_packaged_runtime_evidence"
   },
   "stages": [
     {"id": "concept", "label": "Concept & Vision", "state": "complete", "display_percent": 100},
     {"id": "preproduction", "label": "Pre-Production", "state": "complete", "display_percent": 100},
     {"id": "prototype", "label": "Prototype", "state": "complete", "display_percent": 100},
-    {"id": "vertical_slice", "label": "Vertical Slice", "state": "active", "display_percent": 82},
+    {"id": "vertical_slice", "label": "Vertical Slice", "state": "active", "display_percent": 85},
     {"id": "production_alpha", "label": "Production Alpha", "state": "locked", "display_percent": 0},
     {"id": "content_complete", "label": "Content Complete", "state": "locked", "display_percent": 0},
     {"id": "beta_polish", "label": "Beta & Polish", "state": "locked", "display_percent": 0},
@@ -35,37 +35,37 @@
       "id": "world",
       "label": "WORLD",
       "display_percent": 78,
-      "evidence_state": "L_AshMap_Assembly loads successfully and MapCheck is clean; 210 Engine BasicShape actors remain to be replaced or validated before production lock."
+      "evidence_state": "L_AshMap_Assembly loads successfully and MapCheck is clean; 210 Engine BasicShape actors remain to be replaced or explicitly approved before production lock."
     },
     {
       "id": "combat",
       "label": "COMBAT",
-      "display_percent": 92,
-      "evidence_state": "UE5.7 combat QA passed: damage, three-hit combo, dodge, double jump, lock-on, notify-driven timing, hit-window callback and weapon sweep all verified."
+      "display_percent": 95,
+      "evidence_state": "Packaged Development combat QA passed: damage, three-hit combo, dodge, double jump, lock-on, notify-driven timing, hit-window callback and weapon sweep verified."
     },
     {
       "id": "ai",
       "label": "AI",
-      "display_percent": 70,
-      "evidence_state": "Creature AI controllers and Recast nav data initialize at runtime; full traversal/path-following acceptance across the production world is still pending."
+      "display_percent": 72,
+      "evidence_state": "Creature AI controllers and Recast nav data initialize in packaged runtime; current nav probe still reports zero travelled distance, so traversal/path-following acceptance remains open."
     },
     {
       "id": "characters",
       "label": "CHARACTERS",
-      "display_percent": 72,
+      "display_percent": 74,
       "evidence_state": "Hero, Celestial Wolf, Bone Beast and Ash Warden load with runtime combat data; remaining production mesh and technical-art acceptance is incomplete."
     },
     {
       "id": "animation",
       "label": "ANIMATION",
-      "display_percent": 74,
-      "evidence_state": "Eighteen motion clips are visible to the combat runtime and six attack clips passed notify-driven timing validation; broader production animation coverage remains incomplete."
+      "display_percent": 76,
+      "evidence_state": "Eighteen motion clips are visible to runtime and six attack clips passed packaged notify-driven timing validation; broader production animation coverage remains incomplete."
     },
     {
       "id": "uiux",
       "label": "UI/UX",
-      "display_percent": 88,
-      "evidence_state": "Main-menu and pause/resume runtime QA both passed; final ultrawide visual, controller and localization regression acceptance remains open."
+      "display_percent": 90,
+      "evidence_state": "Packaged Development main-menu and pause/resume QA both passed; final ultrawide visual, controller and localization regression acceptance remains open."
     },
     {
       "id": "audio",
@@ -76,46 +76,47 @@
     {
       "id": "quests",
       "label": "QUESTS",
-      "display_percent": 72,
-      "evidence_state": "Objective progression QA passed from Ash Gate reach to boss defeat and reward grant; authored narrative/quest content is still incomplete."
+      "display_percent": 76,
+      "evidence_state": "Packaged objective progression QA passed from Ash Gate reach to boss defeat and reward grant; authored narrative/quest content is still incomplete."
     },
     {
       "id": "optimization",
       "label": "OPTIMIZATION",
-      "display_percent": 45,
-      "evidence_state": "Shipping cook/package succeeded on AsusRog, but packaged GPU frame-time and memory acceptance has not yet been captured."
+      "display_percent": 48,
+      "evidence_state": "Shipping and Development cook/package succeed and a real D3D12 packaged benchmark launches on RTX 3050; formal frame-time percentile and memory acceptance is still not captured."
     },
     {
       "id": "qa",
       "label": "QA",
-      "display_percent": 78,
-      "evidence_state": "NARISEditor and Win64 Development targets compile; combat, objective, save/load, pause and menu QA pass; three NARIS.Coop automation tests pass; Shipping BuildCookRun succeeds."
+      "display_percent": 88,
+      "evidence_state": "Editor/game targets compile; packaged Development combat, objective, save/load, pause and menu QA pass; three NARIS.Coop automation tests pass; four-player packaged listen-server joins succeed and a fifth client is correctly rejected as Server full; Shipping and Development BuildCookRun succeed."
     }
   ],
   "blockers": [
     "Replace or explicitly approve the 210 audited Engine BasicShape actors: 192 ENV, 8 ZONE and 10 LANDMARK placeholders",
     "Populate and approve NARSIC production master materials and material instances",
+    "Fix and accept production navigation/path-following: current packaged nav probe reports Travelled=0.0",
     "Validate collision and traversal after placeholder replacement across the production route",
     "Resolve remaining character/enemy production meshes and technical-art acceptance",
     "Complete production animation coverage beyond the six verified notify-driven attack clips",
     "Resolve sixteen production audio masters and fourteen Niagara systems",
-    "Run packaged Windows full-loop gameplay including checkpoint and save/load validation",
-    "Capture packaged RTX 3050 frame-time, memory and stability evidence and close Shipping QA",
-    "Run real multi-instance cooperative networking acceptance beyond the three passing default/replication automation tests"
+    "Run one continuous packaged Windows W04 playthrough covering checkpoint, boss, save/load and completion",
+    "Capture packaged RTX 3050 frame-time percentiles, memory and stability evidence and close performance QA",
+    "Run controller, ultrawide and EN/AR localization regression before release-candidate promotion"
   ],
   "next_actions": [
+    "Repair nav/path-following and prove non-zero movement for companion and enemy AI in packaged runtime",
     "Replace high-visibility BasicShape placeholders with approved modular environment assets without breaking traversal",
     "Author and bind NARSIC master materials for terrain, rock, ruins, gate and water",
-    "Run end-to-end traversal validation on the production route and close nav/path-following gaps",
     "Integrate remaining production character/enemy animation, VFX and audio payloads",
-    "Run packaged Windows full-loop gameplay and checkpoint/save-load validation",
-    "Run two-to-four client cooperative network acceptance",
-    "Capture AsusRog frame-time and memory evidence and close remaining Vertical Slice QA gates"
+    "Run one continuous packaged W04 gameplay loop and retain the resulting QA log",
+    "Capture frame-time percentile and memory evidence on AsusRog RTX 3050",
+    "Close ultrawide, controller and localization regression gates"
   ],
   "host_status_at_sync": {
     "device": "AsusRog",
     "observed": "online",
-    "note": "Verified online 2026-10-07. Unreal Engine 5.7 build, cook, runtime QA and automation evidence were captured on-device."
+    "note": "Verified online 2026-10-07. Unreal Engine 5.7 compile, cook, packaged runtime QA, four-player networking and automation evidence were captured on-device."
   },
   "observed_runtime_evidence": {
     "date": "2026-10-07",
@@ -128,15 +129,28 @@
         "NARISEditor_Win64_Development": "Succeeded",
         "NARIS_Win64_Development": "Succeeded",
         "Shipping_BuildCookRun": "Succeeded",
-        "shipping_archive": "Builds/NARIS_Win64_Shipping_20261007/Windows"
+        "Development_BuildCookRun": "Succeeded",
+        "shipping_archive": "Builds/NARIS_Win64_Shipping_20261007/Windows",
+        "development_archive": "Builds/NARIS_Win64_Development_20261007/Windows"
       },
-      "runtime_qa": {
+      "packaged_runtime_qa": {
+        "configuration": "Development",
         "combat": "Pass",
         "objective_progression": "Pass",
         "save_load": "Pass",
         "pause_resume": "Pass",
         "main_menu": "Pass",
-        "combat_details": "DamageSeen=1 ComboSeen=1 DodgeSeen=1 SecondJumpSeen=1 LockSeen=1 NotifyDriven=1 NotifyTimingUsed=1 CallbackSeen=1"
+        "combat_details": "DamageSeen=1 ComboSeen=1 DodgeSeen=1 SecondJumpSeen=1 LockSeen=1 NotifyDriven=1 NotifyTimingUsed=1 CallbackSeen=1",
+        "objective_details": "Reached=1 Bosses=1 Stage=2 Crystals=12 Flasks=4"
+      },
+      "coop_packaged_acceptance": {
+        "listen_server": "Pass",
+        "game_mode": "NarisCoopGameMode",
+        "port": 7777,
+        "accepted_players": 4,
+        "join_counts_observed": [1, 2, 3, 4],
+        "fifth_client": "Rejected",
+        "fifth_client_reason": "Server full."
       },
       "automation": {
         "suite": "NARIS.Coop",
@@ -149,11 +163,27 @@
         ]
       },
       "cook": {
-        "result": "Success",
+        "shipping_result": "Success",
+        "development_result": "Success",
         "errors": 0,
         "warnings": 2,
         "packages": 534,
         "iostore_chunks": 1250
+      },
+      "performance_probe": {
+        "configuration": "Packaged Development D3D12",
+        "resolution_requested": "1920x1080 windowed",
+        "gpu": "NVIDIA GeForce RTX 3050",
+        "texture_pool_mb": 3297,
+        "status": "benchmark launched and exited normally; frame-time percentiles not yet captured",
+        "pipeline_cache_gap": "NARIS_PCD3D_SM5.stable.upipelinecache not found"
+      },
+      "navigation_probe": {
+        "nav_data": "RecastNavMesh-Default",
+        "request_result": 0,
+        "companion_travelled": 0.0,
+        "enemy_travelled": 0.0,
+        "status": "Fail / unresolved"
       },
       "environment_audit": {
         "total_actors": 273,
