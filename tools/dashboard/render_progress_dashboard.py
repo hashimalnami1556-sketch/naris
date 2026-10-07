@@ -72,9 +72,9 @@ li{{margin:9px 0}}
 <div class="shell">
 <aside class="panel"><div class="kicker">DEVELOPMENT PIPELINE</div>{stages}</aside>
 <main class="center">
-<div><div class="brand">NARSIC</div><div class="kicker">FALLEN WORLDS</div></div>
+<div><div class="brand">NARSIC</div></div>
 <section class="hero">
-<div class="kicker">CURRENT STAGE · {esc(data["primary_slice"])}</div>
+<div class="kicker">CURRENT PHASE</div>
 <h1>{esc(current["label"])} — {int(current["display_progress_percent"])}%</h1>
 <p>Planning indicator only. Runtime, build and QA evidence remain separate gates.</p>
 {bar(current["display_progress_percent"])}
