@@ -19,7 +19,7 @@
     "id": "vertical_slice",
     "label": "Vertical Slice",
     "state": "active",
-    "display_progress_percent": 89,
+    "display_progress_percent": 90,
     "confidence": "planning_estimate_supported_by_packaged_runtime_evidence"
   },
   "stages": [
@@ -45,7 +45,7 @@
       "id": "vertical_slice",
       "label": "Vertical Slice",
       "state": "active",
-      "display_percent": 89
+      "display_percent": 90
     },
     {
       "id": "production_alpha",
@@ -112,8 +112,8 @@
     {
       "id": "uiux",
       "label": "UI/UX",
-      "display_percent": 97,
-      "evidence_state": "Real UE5.7 runtime UI refined and repackaged: exact NARSIC title treatment, safe-frame scaling for ultrawide layouts, differentiated OVERVIEW/MISSIONS/CHALLENGES/ARSENAL content, live settings values, expanded keyboard/gamepad tab navigation, team and mission-control surfaces. Packaged Development NARISUIQA passed after the finish pass."
+      "display_percent": 98,
+      "evidence_state": "Operations UI migrated from Canvas-only drawing to a real UE5.7 UMG/Slate widget tree. UNarisOperationsWidget provides six real tab buttons, live progress bars, runtime-bound content and GameUserSettings values. Packaged build emitted NARSIC_UMG_INTERFACE_BUILT Tabs=6 and NARSIC_UMG_OPERATIONS_READY Widget=1; packaged UI state QA passed."
     },
     {
       "id": "audio",
@@ -136,8 +136,8 @@
     {
       "id": "qa",
       "label": "QA",
-      "display_percent": 94,
-      "evidence_state": "Editor/game targets compile; packaged Development combat, navigation, objective, save/load, pause, main-menu and operations-menu QA pass. The 2026-10-08 UI finish archive built/cooked/staged/packed successfully and its packaged NARISUIQA passed with tab 0 default."
+      "display_percent": 95,
+      "evidence_state": "Editor/game targets compile; packaged Development combat, navigation, objective, save/load, pause, main-menu and operations-menu QA pass. The UMG migration BuildCookRun succeeded with 0 cook errors and the packaged runtime confirmed widget construction plus operations state transitions."
     }
   ],
   "blockers": [
@@ -152,13 +152,12 @@
     "Run controller, ultrawide and EN/AR localization regression before release-candidate promotion"
   ],
   "next_actions": [
-    "Run a visual ultrawide/manual interaction pass on the new operations UI and tune spacing/readability from the live game, not the concept image",
-    "Replace high-visibility BasicShape placeholders with approved modular environment assets without breaking the now-passing navigation mesh",
-    "Author and bind NARSIC master materials for terrain, rock, ruins, gate and water",
-    "Integrate remaining production character/enemy animation, VFX and audio payloads",
-    "Run one continuous packaged W04 gameplay loop and retain the resulting QA log",
-    "Capture frame-time percentile and memory evidence on AsusRog RTX 3050",
-    "Close EN/AR localization and final controller regression gates"
+    "Migrate the main menu from Canvas drawing to real UMG widgets while preserving the exact NARSIC title",
+    "Migrate the pause menu to real UMG buttons with focus restoration and controller navigation",
+    "Convert SETTINGS from read-only runtime status into actual editable controls with apply/revert",
+    "Run 32:9, 21:9 and 16:9 visual regression on the UMG surfaces",
+    "Close EN/AR localization and RTL layout behavior",
+    "Continue environment/material, animation, VFX/audio, full-loop, performance and QA gates"
   ],
   "host_status_at_sync": {
     "device": "AsusRog",
@@ -183,7 +182,9 @@
         "ui_development_buildcookrun": "Succeeded",
         "ui_development_archive": "Builds/NARIS_Win64_Development_20261008_UI/Windows",
         "ui_finish_development_buildcookrun": "Succeeded",
-        "ui_finish_development_archive": "Builds/NARIS_Win64_Development_20261008_UI_FINISH/Windows"
+        "ui_finish_development_archive": "Builds/NARIS_Win64_Development_20261008_UI_FINISH/Windows",
+        "umg_development_buildcookrun": "Succeeded",
+        "umg_development_archive": "Builds/NARIS_Win64_Development_20261008_UMG/Windows"
       },
       "packaged_runtime_qa": {
         "configuration": "Development",
@@ -199,7 +200,13 @@
         "operations_menu": "Pass",
         "operations_menu_details": "NARIS_UI_QA_RESULT Pass=1 Open=1 Next=1 Prev=1 Close=1 Tab=2",
         "operations_menu_finish": "Pass",
-        "operations_menu_finish_details": "NARIS_UI_QA_RESULT Pass=1 Open=1 Next=1 Prev=1 Close=1 Tab=0"
+        "operations_menu_finish_details": "NARIS_UI_QA_RESULT Pass=1 Open=1 Next=1 Prev=1 Close=1 Tab=0",
+        "umg_operations": "Pass",
+        "umg_operations_details": [
+          "NARSIC_UMG_INTERFACE_BUILT Tabs=6",
+          "NARSIC_UMG_OPERATIONS_READY Widget=1",
+          "NARIS_UI_QA_RESULT Pass=1 Open=1 Next=1 Prev=1 Close=1 Tab=0"
+        ]
       },
       "coop_packaged_acceptance": {
         "listen_server": "Pass",
@@ -331,6 +338,31 @@
             "] / Right / R1 / DPad Right next",
             "Esc / Menu back"
           ]
+        },
+        "real_widget_migration": {
+          "framework": "UMG + Slate + SlateCore",
+          "widget_class": "UNarisOperationsWidget",
+          "created_by": "ANarisHUD",
+          "tabs": [
+            "OVERVIEW",
+            "MISSIONS",
+            "CHALLENGES",
+            "ARSENAL",
+            "TEAM",
+            "SETTINGS"
+          ],
+          "live_bindings": [
+            "health",
+            "stamina",
+            "objective stage",
+            "crystals",
+            "heal charges",
+            "stance",
+            "player count",
+            "GameUserSettings"
+          ],
+          "canvas_fallback": true,
+          "status": "packaged_runtime_verified"
         }
       }
     }
