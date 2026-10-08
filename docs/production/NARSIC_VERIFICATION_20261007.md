@@ -126,3 +126,32 @@ Verification:
 - Packaged UI state regression: `NARIS_UI_QA_RESULT Pass=1 Open=1 Next=1 Prev=1 Close=1 Tab=0`.
 - Visual cross-resolution screenshot comparison was not available from the connected desktop tool; responsive layout correctness was verified by code inspection and the new width/height-safe layout math, not claimed as screenshot evidence.
 
+## Real UMG interface migration — 2026-10-08
+
+The major player-facing interfaces have now been migrated from Canvas-only rendering into actual Unreal UMG widget trees.
+
+Implemented runtime classes:
+- `UNarisOperationsWidget`: real tactical/operations tabs and live gameplay data.
+- `UNarisSystemMenuWidget`: real Main Menu and Pause controls.
+- `UNarisGameplayHUDWidget`: live health, stamina, combat status, resources, objective, boss health and death-state UI.
+
+The legacy Canvas drawing paths remain only as fallback where applicable; the active packaged runtime creates the UMG surfaces through `ANarisHUD`.
+
+Final verification archive:
+`Builds/NARIS_Win64_Development_20261008_UMG_COMPLETE/Windows`
+
+Evidence:
+- Development compile: **PASS**.
+- BuildCookRun: **PASS**.
+- Cook: **0 errors**, 2 existing Lumen precedence warnings.
+- Runtime widget construction:
+  - `NARSIC_UMG_OPERATIONS_READY Widget=1`
+  - `NARSIC_UMG_SYSTEM_MENU_READY Widget=1`
+  - `NARSIC_UMG_GAMEPLAY_HUD_BUILT`
+  - `NARSIC_UMG_GAMEPLAY_HUD_READY Widget=1`
+- Main menu regression: `NARIS_MENU_QA_RESULT Pass=1 Open=1 Start=1`.
+- Pause regression: `NARIS_PAUSE_QA_RESULT Pass=1 Paused=1 Resumed=1`.
+- Operations regression: `NARIS_UI_QA_RESULT Pass=1 Open=1 Next=1 Prev=1 Close=1 Tab=0`.
+
+This verifies build, packaging, widget construction and state transitions. Screenshot-based 32:9/21:9/16:9 visual acceptance and EN/AR/RTL localization remain separate open gates.
+
