@@ -112,8 +112,8 @@
     {
       "id": "uiux",
       "label": "UI/UX",
-      "display_percent": 96,
-      "evidence_state": "Reference-inspired operations UI implemented in the real UE5.7 runtime: six-tab top navigation, challenges/progress cards, mission objectives/rewards, mission control actions, team status table, settings surface, NARSIC main menu and revised pause surface. Packaged Development NARISUIQA passed open/next/previous/close state transitions."
+      "display_percent": 97,
+      "evidence_state": "Real UE5.7 runtime UI refined and repackaged: exact NARSIC title treatment, safe-frame scaling for ultrawide layouts, differentiated OVERVIEW/MISSIONS/CHALLENGES/ARSENAL content, live settings values, expanded keyboard/gamepad tab navigation, team and mission-control surfaces. Packaged Development NARISUIQA passed after the finish pass."
     },
     {
       "id": "audio",
@@ -136,8 +136,8 @@
     {
       "id": "qa",
       "label": "QA",
-      "display_percent": 93,
-      "evidence_state": "Editor/game targets compile; packaged Development combat, navigation, objective, save/load, pause, main-menu and operations-menu QA pass; three NARIS.Coop automation tests pass; four-player packaged listen-server acceptance passes; Shipping and Development BuildCookRun succeed."
+      "display_percent": 94,
+      "evidence_state": "Editor/game targets compile; packaged Development combat, navigation, objective, save/load, pause, main-menu and operations-menu QA pass. The 2026-10-08 UI finish archive built/cooked/staged/packed successfully and its packaged NARISUIQA passed with tab 0 default."
     }
   ],
   "blockers": [
@@ -181,7 +181,9 @@
         "shipping_archive": "Builds/NARIS_Win64_Shipping_20261007/Windows",
         "development_archive": "Builds/NARIS_Win64_Development_20261007_NAVFIX/Windows",
         "ui_development_buildcookrun": "Succeeded",
-        "ui_development_archive": "Builds/NARIS_Win64_Development_20261008_UI/Windows"
+        "ui_development_archive": "Builds/NARIS_Win64_Development_20261008_UI/Windows",
+        "ui_finish_development_buildcookrun": "Succeeded",
+        "ui_finish_development_archive": "Builds/NARIS_Win64_Development_20261008_UI_FINISH/Windows"
       },
       "packaged_runtime_qa": {
         "configuration": "Development",
@@ -195,7 +197,9 @@
         "objective_details": "Reached=1 Bosses=1 Stage=2 Crystals=12 Flasks=4",
         "navigation_details": "MoveToActor Result=2 ProjectedFallback=0; Celestial Wolf Travelled=538.6 at progress sample; Bone Beast Travelled=381.7 at progress sample; QA target Travelled=1003.9; Pass=1",
         "operations_menu": "Pass",
-        "operations_menu_details": "NARIS_UI_QA_RESULT Pass=1 Open=1 Next=1 Prev=1 Close=1 Tab=2"
+        "operations_menu_details": "NARIS_UI_QA_RESULT Pass=1 Open=1 Next=1 Prev=1 Close=1 Tab=2",
+        "operations_menu_finish": "Pass",
+        "operations_menu_finish_details": "NARIS_UI_QA_RESULT Pass=1 Open=1 Next=1 Prev=1 Close=1 Tab=0"
       },
       "coop_packaged_acceptance": {
         "listen_server": "Pass",
@@ -309,7 +313,25 @@
           "settings surface",
           "bottom control legend"
         ],
-        "packaged_qa": "Pass"
+        "packaged_qa": "Pass",
+        "finish_pass": {
+          "responsive_layout": "Scale uses min(width/1920,height/1080) and a centered 3000px-equivalent safe frame to avoid 32:9 vertical overflow.",
+          "player_facing_brand": "NARSIC only; internal W04 code and subtitle treatment removed from the main title surface.",
+          "tab_content": {
+            "overview": "Vessel health, stamina, crystals and restoration",
+            "missions": "Ash Gate approach, Warden hunt, mission completion and recovery cache",
+            "challenges": "Memory, combo, survival and objective challenge cards",
+            "arsenal": "Relic sword, armor recovery, Aether reserve and stance mastery",
+            "team": "Fireteam status",
+            "settings": "Live window mode, resolution, scalability, VSync and frame limit"
+          },
+          "input": [
+            "Tab / View toggles menu",
+            "[ / Left / L1 / DPad Left previous",
+            "] / Right / R1 / DPad Right next",
+            "Esc / Menu back"
+          ]
+        }
       }
     }
   }
