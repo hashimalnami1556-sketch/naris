@@ -40,6 +40,10 @@ jobs:
           python -m unittest discover -s tools/ci -v
       - name: Validate NARIS repository
         run: python tools/ci/validate_naris.py
+      - name: Test companion ground approach calculation
+        run: |
+          g++ -std=c++17 -Wall -Wextra -Werror -I unreal/NARIS_W04/Source/NARIS_W04/Public tools/tests/test_companion_approach.cpp -o "$RUNNER_TEMP/naris-companion-test"
+          "$RUNNER_TEMP/naris-companion-test"
       - name: Parse Windows production launchers
         shell: pwsh
         run: |

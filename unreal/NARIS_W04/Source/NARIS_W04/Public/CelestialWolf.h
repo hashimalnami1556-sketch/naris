@@ -49,6 +49,10 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Companion|Movement")
     float FollowSpeed = 560.f;
 
+    // Distance outside the acceptance radius over which input ramps to full speed (cm).
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Companion|Movement", meta=(ClampMin="1.0"))
+    float ApproachSlowdownDistance = 500.f;
+
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Companion|Combat")
     float AttackAcquireRadius = 1200.f;
 

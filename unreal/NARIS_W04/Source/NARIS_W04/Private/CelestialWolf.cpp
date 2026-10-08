@@ -8,6 +8,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "NarisPresentationComponent.h"
 #include "NarisRuntimeSubsystem.h"
+#include "NarisGroundApproach.h"
 
 namespace
 {
@@ -39,6 +40,9 @@ ACelestialWolf::ACelestialWolf()
         CreateDefaultSubobject<UNarisPresentationComponent>(TEXT("Presentation"));
 
     GetCharacterMovement()->MaxWalkSpeed = FollowSpeed;
+    bUseControllerRotationYaw = false;
+    GetCharacterMovement()->bOrientRotationToMovement = true;
+    GetCharacterMovement()->RotationRate = FRotator(0.f, 360.f, 0.f);
 }
 
 void ACelestialWolf::BeginPlay()
@@ -227,14 +231,18 @@ void ACelestialWolf::MoveTowards(
     float AcceptanceRadius
 )
 {
-    const FVector ToDestination = Destination - GetActorLocation();
+    FVector ToDestination = Destination - GetActorLocation();
+    // Ground locomotion must not accelerate toward another actor's capsule height.
+    ToDestination.Z = 0.f;
     const float Distance = ToDestination.Size();
+    const float InputScale = static_cast<float>(NarisGroundApproach::InputScale(
+        Distance, AcceptanceRadius, ApproachSlowdownDistance));
 
-    if (Distance > AcceptanceRadius)
+    if (InputScale > 0.f)
     {
         AddMovementInput(
             ToDestination.GetSafeNormal(),
-            FMath::Clamp(Distance / 500.f, 0.15f, 1.f)
+            InputScale
         );
     }
 }

@@ -4,6 +4,20 @@ last_updated: 2026-10-01
 ---
 # W04 readiness handoff
 
+## 2026-10-08 companion approach correction
+
+- Executing agent: Codex.
+- Claimed scope: CelestialWolf ground approach calculation and focused regression tests.
+- Preserve: Unreal/W04 engine baseline, asset IDs, combat timing and existing user settings.
+- Observed source defect: movement input uses full 3D distance and has a nonzero jump at the acceptance boundary.
+- Required evidence: portable calculation tests plus repository validation; Unreal compilation and visual locomotion remain separate pending gates.
+- Implemented: planar-only approach input, continuous slowdown outside the acceptance radius, editable slowdown distance, movement-oriented yaw defaults.
+- Verified locally: portable C++ test (g++ C++17, warnings as errors), repository validator (52 JSON files), six AssetForge tests and git diff whitespace check passed.
+- CI: added the portable calculation test to NARIS CI. This is not an Unreal compile or gait/rig validation.
+- Broader static suite: 295/296 passed; test_pause_controller_exposes_controls_page_and_capture_state fails because it expects FInputKeyParams while the unchanged controller header uses FInputKeyEventArgs. Both files match the starting commit; this unrelated baseline mismatch was not modified or hidden.
+- Remaining scope: the pause-map renderer still draws fixed schematic lines; no live minimap or terrain source is wired. Hero/wolf production locomotion clips and visual blur diagnosis require the actual Unreal scene and authored assets. No visual or performance acceptance is claimed.
+- Next: compile W04Editor on Windows; test follow/guard/track/echo-link approaches on level ground, slopes and stairs at 30/60 fps, including changing targets and existing Blueprint overrides. Then implement a world-coordinate map from verified level data and diagnose blur from matched captures.
+
 - Task ID: NARIS-W04-READINESS
 - Human decision owner: project owner.
 - Executing agent: shared-agent integration pass.
