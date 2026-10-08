@@ -4,6 +4,17 @@ last_updated: 2026-10-01
 ---
 # W04 readiness handoff
 
+## 2026-10-08 local navigation follow-up
+
+- Executing agent: Codex; scope: HUD live player-centered map and portable coordinate tests.
+- Replaced fixed pause-map lines with a shared north-up local navigation view, also shown during gameplay. North is world +X; east is +Y. Actor position and heading are sampled on every HUD draw.
+- Symbols: player triangle, bonded wolf square, discovered same-map waystone diamond. Out-of-range markers are hidden; glyphs are inset to avoid clipping. Existing save data controls discovery; no new save schema.
+- Editable local radius defaults to 5000 cm; HUD display can be disabled independently of the pause-map view.
+- This is local navigation, not authored terrain/cartography. Only loaded actors have marker positions. EN/AR source catalogs include the new labels; compilation and RTL visual checks remain pending, along with terrain background, streamed-out landmarks, visual accessibility and runtime performance.
+- Acceptance gate: portable center/cardinal/boundary/invalid-input/translation tests; repository static validation; Windows Unreal compilation and gameplay QA remain required before merge.
+- Local evidence: map and companion portable C++ tests passed with warnings as errors; repository validator passed after adding EN/AR catalog entries; six AssetForge tests passed; whitespace validation passed. No engine compile/playtest was executed.
+- Next: compile and inspect on Windows at 720p/1080p/ultrawide in EN/AR; verify marker alignment, heading, save/load discovery and HUD overlap. Integrate a calibrated terrain layer from the actual level rather than a fabricated illustration.
+
 ## 2026-10-08 companion approach correction
 
 - Executing agent: Codex.

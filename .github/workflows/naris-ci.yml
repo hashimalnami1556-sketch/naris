@@ -44,6 +44,10 @@ jobs:
         run: |
           g++ -std=c++17 -Wall -Wextra -Werror -I unreal/NARIS_W04/Source/NARIS_W04/Public tools/tests/test_companion_approach.cpp -o "$RUNNER_TEMP/naris-companion-test"
           "$RUNNER_TEMP/naris-companion-test"
+      - name: Test local map projection
+        run: |
+          g++ -std=c++17 -Wall -Wextra -Werror -I unreal/NARIS_W04/Source/NARIS_W04/Public tools/tests/test_map_projection.cpp -o "$RUNNER_TEMP/naris-map-test"
+          "$RUNNER_TEMP/naris-map-test"
       - name: Parse Windows production launchers
         shell: pwsh
         run: |

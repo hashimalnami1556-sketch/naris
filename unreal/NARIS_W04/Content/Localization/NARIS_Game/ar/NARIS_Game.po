@@ -54,6 +54,18 @@ msgctxt "NARIS,HUDWolfUnbonded"
 msgid "Celestial Wolf: Unbonded"
 msgstr "الذئب السماوي: غير مرتبط"
 
+msgctxt "NARIS,LocalMapTitle"
+msgid "Local navigation"
+msgstr "التنقّل المحلي"
+
+msgctxt "NARIS,MapNorth"
+msgid "N"
+msgstr "ش"
+
+msgctxt "NARIS,MapMarkerLegend"
+msgid "Diamond: Waystone | Square: Wolf"
+msgstr "معيّن: نقطة حفظ | مربّع: الذئب"
+
 msgctxt "NARIS,HUDDemoComplete"
 msgid "W04 DEMO COMPLETE"
 msgstr "اكتمل عرض W04"

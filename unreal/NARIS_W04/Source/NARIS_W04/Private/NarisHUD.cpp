@@ -17,6 +17,73 @@
 #include "NarisSwimmingComponent.h"
 #include "NarisSubtitleSubsystem.h"
 #include "NarisUIStyle.h"
+#include "NarisMapProjection.h"
+#include "NarisWaystone.h"
+
+void ANarisHUD::DrawLocalMap(float X, float Y, float Size, float Scale, UNarisRuntimeSubsystem* Runtime)
+{
+    const APawn* Pawn = PlayerOwner ? PlayerOwner->GetPawn() : nullptr;
+    if (!Pawn || !GetWorld() || Size < 80.f * Scale) return;
+    DrawPanel(X, Y, Size, Size, FLinearColor(0.018f, 0.025f, 0.032f, 0.94f));
+    const float Padding = 18.f * Scale;
+    const float Left = X + Padding;
+    const float Top = Y + 34.f * Scale;
+    const float Extent = Size - 2.f * Padding - 28.f * Scale;
+    const float CenterX = Left + Extent * 0.5f;
+    const float CenterY = Top + Extent * 0.5f;
+    DrawText(NSLOCTEXT("NARIS", "LocalMapTitle", "Local navigation").ToString(),
+        FNarisUIStyle::Bone(), Left, Y + 8.f * Scale, nullptr, 0.65f * Scale, false);
+    DrawText(NSLOCTEXT("NARIS", "MapNorth", "N").ToString(), FNarisUIStyle::Gold(),
+        Left + Extent + 3.f * Scale, Top, nullptr, 0.65f * Scale, false);
+    for (int32 Index = 0; Index <= 4; ++Index)
+    {
+        const float Offset = Extent * Index / 4.f;
+        const FLinearColor Grid(0.20f, 0.25f, 0.29f, 0.7f);
+        DrawLine(Left + Offset, Top, Left + Offset, Top + Extent, Grid);
+        DrawLine(Left, Top + Offset, Left + Extent, Top + Offset, Grid);
+    }
+    const FVector Origin = Pawn->GetActorLocation();
+    const auto DrawMarker = [&](const FVector& Position, const FLinearColor& Color, bool bDiamond)
+    {
+        double U, V;
+        if (!NarisMapProjection::Project(Position.X, Position.Y, Origin.X, Origin.Y,
+            LocalMapRadius, U, V)) return;
+        const float Radius = 4.f * Scale;
+        // Keep the complete icon inside the map even when its center is on an edge.
+        const float PX = FMath::Clamp(Left + static_cast<float>(U) * Extent, Left + Radius, Left + Extent - Radius);
+        const float PY = FMath::Clamp(Top + static_cast<float>(V) * Extent, Top + Radius, Top + Extent - Radius);
+        if (bDiamond)
+        {
+            DrawLine(PX, PY - Radius, PX + Radius, PY, Color, 2.f * Scale);
+            DrawLine(PX + Radius, PY, PX, PY + Radius, Color, 2.f * Scale);
+            DrawLine(PX, PY + Radius, PX - Radius, PY, Color, 2.f * Scale);
+            DrawLine(PX - Radius, PY, PX, PY - Radius, Color, 2.f * Scale);
+        }
+        else DrawRect(Color, PX - Radius, PY - Radius, Radius * 2.f, Radius * 2.f);
+    };
+    if (Runtime)
+    {
+        const FNarisSaveState State = Runtime->GetState();
+        for (TActorIterator<ANarisWaystone> It(GetWorld()); It; ++It)
+            if (It->MapId == State.MapId && State.UnlockedWaystones.Contains(It->WaystoneId))
+                DrawMarker(It->GetActorLocation(), FNarisUIStyle::Gold(), true);
+    }
+    for (TActorIterator<ACelestialWolf> It(GetWorld()); It; ++It)
+        if (It->bBonded) DrawMarker(It->GetActorLocation(), FNarisUIStyle::Cyan(), false);
+
+    const FVector Forward = Pawn->GetActorForwardVector();
+    const FVector2D Direction(Forward.Y, -Forward.X);
+    const FVector2D Side(-Direction.Y, Direction.X);
+    const FVector2D Center(CenterX, CenterY);
+    const FVector2D Tip = Center + Direction * 9.f * Scale;
+    const FVector2D A = Center - Direction * 6.f * Scale + Side * 5.f * Scale;
+    const FVector2D B = Center - Direction * 6.f * Scale - Side * 5.f * Scale;
+    DrawLine(Tip.X, Tip.Y, A.X, A.Y, FNarisUIStyle::Bone(), 2.f * Scale);
+    DrawLine(A.X, A.Y, B.X, B.Y, FNarisUIStyle::Bone(), 2.f * Scale);
+    DrawLine(B.X, B.Y, Tip.X, Tip.Y, FNarisUIStyle::Bone(), 2.f * Scale);
+    DrawText(NSLOCTEXT("NARIS", "MapMarkerLegend", "Diamond: Waystone | Square: Wolf").ToString(),
+        FNarisUIStyle::Bone(), Left, Y + Size - 18.f * Scale, nullptr, 0.50f * Scale, false);
+}
 
 void ANarisHUD::DrawPanel(
     float X,
@@ -574,18 +641,7 @@ void ANarisHUD::DrawContentPage(
         const float MapY = Y + 105.f * Scale;
         const float MapW = Width * 0.40f;
         const float MapH = Height - 165.f * Scale;
-        DrawPanel(MapX, MapY, MapW, MapH, FLinearColor(0.07f, 0.10f, 0.08f, 0.88f));
-        DrawText(
-            NSLOCTEXT("NARIS", "MapAshenForest", "Ashen Forest").ToString(),
-            FNarisUIStyle::Gold(),
-            MapX + 24.f * Scale,
-            MapY + 24.f * Scale,
-            nullptr,
-            0.82f * Scale,
-            false
-        );
-        DrawLine(MapX + MapW * 0.18f, MapY + MapH * 0.75f, MapX + MapW * 0.72f, MapY + MapH * 0.30f, FNarisUIStyle::Gold(), 2.f);
-        DrawLine(MapX + MapW * 0.72f, MapY + MapH * 0.30f, MapX + MapW * 0.84f, MapY + MapH * 0.62f, FNarisUIStyle::Cyan(), 2.f);
+        DrawLocalMap(MapX, MapY, FMath::Min(MapW, MapH), Scale, Runtime);
     }
     else if (Controller->GetPauseMenuPage() == ENarisPauseMenuPage::Quests)
     {
@@ -836,6 +892,10 @@ void ANarisHUD::DrawHUD()
         DrawObjectiveCard(Runtime, Scale, Safe);
         DrawInteractionPrompt(Hero, Scale);
         DrawBossHUD(Scale, Safe);
+        if (bShowLocalMap)
+        {
+            DrawLocalMap(Safe, Safe, 260.f * Scale, Scale, Runtime);
+        }
 
         if (Runtime && Runtime->IsDemoCompleted())
         {

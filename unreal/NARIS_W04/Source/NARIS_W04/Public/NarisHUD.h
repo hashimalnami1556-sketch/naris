@@ -16,7 +16,14 @@ class NARIS_W04_API ANarisHUD : public AHUD
 public:
     virtual void DrawHUD() override;
 
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="NARIS|Map", meta=(ClampMin="100.0"))
+    float LocalMapRadius = 5000.f;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="NARIS|Map")
+    bool bShowLocalMap = true;
+
 private:
+    void DrawLocalMap(float X, float Y, float Size, float Scale, UNarisRuntimeSubsystem* Runtime);
     void DrawPauseMenu();
     void DrawContentPage(
         ANarisPlayerController* Controller,

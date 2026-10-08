@@ -54,6 +54,18 @@ msgctxt "NARIS,HUDWolfUnbonded"
 msgid "Celestial Wolf: Unbonded"
 msgstr "Celestial Wolf: Unbonded"
 
+msgctxt "NARIS,LocalMapTitle"
+msgid "Local navigation"
+msgstr "Local navigation"
+
+msgctxt "NARIS,MapNorth"
+msgid "N"
+msgstr "N"
+
+msgctxt "NARIS,MapMarkerLegend"
+msgid "Diamond: Waystone | Square: Wolf"
+msgstr "Diamond: Waystone | Square: Wolf"
+
 msgctxt "NARIS,HUDDemoComplete"
 msgid "W04 DEMO COMPLETE"
 msgstr "W04 DEMO COMPLETE"
