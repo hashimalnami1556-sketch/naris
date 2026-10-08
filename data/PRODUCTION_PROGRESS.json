@@ -19,7 +19,7 @@
     "id": "vertical_slice",
     "label": "Vertical Slice",
     "state": "active",
-    "display_progress_percent": 90,
+    "display_progress_percent": 91,
     "confidence": "planning_estimate_supported_by_packaged_runtime_evidence"
   },
   "stages": [
@@ -45,7 +45,7 @@
       "id": "vertical_slice",
       "label": "Vertical Slice",
       "state": "active",
-      "display_percent": 90
+      "display_percent": 91
     },
     {
       "id": "production_alpha",
@@ -112,8 +112,8 @@
     {
       "id": "uiux",
       "label": "UI/UX",
-      "display_percent": 98,
-      "evidence_state": "Operations UI migrated from Canvas-only drawing to a real UE5.7 UMG/Slate widget tree. UNarisOperationsWidget provides six real tab buttons, live progress bars, runtime-bound content and GameUserSettings values. Packaged build emitted NARSIC_UMG_INTERFACE_BUILT Tabs=6 and NARSIC_UMG_OPERATIONS_READY Widget=1; packaged UI state QA passed."
+      "display_percent": 99,
+      "evidence_state": "Major player-facing interfaces now run as real UE5.7 UMG widgets: operations/tactical menu, main menu, pause menu and gameplay HUD. Runtime-bound health/stamina/objective/resources/boss UI, real menu buttons and packaged main/pause/operations QA all pass."
     },
     {
       "id": "audio",
@@ -136,8 +136,8 @@
     {
       "id": "qa",
       "label": "QA",
-      "display_percent": 95,
-      "evidence_state": "Editor/game targets compile; packaged Development combat, navigation, objective, save/load, pause, main-menu and operations-menu QA pass. The UMG migration BuildCookRun succeeded with 0 cook errors and the packaged runtime confirmed widget construction plus operations state transitions."
+      "display_percent": 96,
+      "evidence_state": "Final UMG_COMPLETE Development BuildCookRun succeeded with 0 cook errors. Packaged runtime confirmed operations, system menu and gameplay HUD widget construction; main-menu, pause/resume and operations-navigation QA all pass."
     }
   ],
   "blockers": [
@@ -152,12 +152,11 @@
     "Run controller, ultrawide and EN/AR localization regression before release-candidate promotion"
   ],
   "next_actions": [
-    "Migrate the main menu from Canvas drawing to real UMG widgets while preserving the exact NARSIC title",
-    "Migrate the pause menu to real UMG buttons with focus restoration and controller navigation",
-    "Convert SETTINGS from read-only runtime status into actual editable controls with apply/revert",
-    "Run 32:9, 21:9 and 16:9 visual regression on the UMG surfaces",
-    "Close EN/AR localization and RTL layout behavior",
-    "Continue environment/material, animation, VFX/audio, full-loop, performance and QA gates"
+    "Convert Settings from read-only status into editable UMG controls with Apply/Revert and safe confirmation",
+    "Move UI copy to localization resources and implement Arabic RTL-aware layout",
+    "Run visual regression at 32:9, 21:9 and 16:9 on the new UMG surfaces",
+    "Polish focus/hover/pressed/disabled states and controller focus restoration",
+    "Continue environment/material, animation, VFX/audio, continuous full-loop, performance and release QA gates"
   ],
   "host_status_at_sync": {
     "device": "AsusRog",
@@ -184,7 +183,9 @@
         "ui_finish_development_buildcookrun": "Succeeded",
         "ui_finish_development_archive": "Builds/NARIS_Win64_Development_20261008_UI_FINISH/Windows",
         "umg_development_buildcookrun": "Succeeded",
-        "umg_development_archive": "Builds/NARIS_Win64_Development_20261008_UMG/Windows"
+        "umg_development_archive": "Builds/NARIS_Win64_Development_20261008_UMG/Windows",
+        "umg_complete_development_buildcookrun": "Succeeded",
+        "umg_complete_development_archive": "Builds/NARIS_Win64_Development_20261008_UMG_COMPLETE/Windows"
       },
       "packaged_runtime_qa": {
         "configuration": "Development",
@@ -206,7 +207,18 @@
           "NARSIC_UMG_INTERFACE_BUILT Tabs=6",
           "NARSIC_UMG_OPERATIONS_READY Widget=1",
           "NARIS_UI_QA_RESULT Pass=1 Open=1 Next=1 Prev=1 Close=1 Tab=0"
-        ]
+        ],
+        "umg_complete": {
+          "main_menu": "Pass — NARIS_MENU_QA_RESULT Pass=1 Open=1 Start=1",
+          "pause": "Pass — NARIS_PAUSE_QA_RESULT Pass=1 Paused=1 Resumed=1",
+          "operations": "Pass — NARIS_UI_QA_RESULT Pass=1 Open=1 Next=1 Prev=1 Close=1 Tab=0",
+          "runtime_widgets": [
+            "NARSIC_UMG_OPERATIONS_READY Widget=1",
+            "NARSIC_UMG_SYSTEM_MENU_READY Widget=1",
+            "NARSIC_UMG_GAMEPLAY_HUD_BUILT",
+            "NARSIC_UMG_GAMEPLAY_HUD_READY Widget=1"
+          ]
+        }
       },
       "coop_packaged_acceptance": {
         "listen_server": "Pass",
@@ -341,9 +353,13 @@
         },
         "real_widget_migration": {
           "framework": "UMG + Slate + SlateCore",
-          "widget_class": "UNarisOperationsWidget",
-          "created_by": "ANarisHUD",
-          "tabs": [
+          "status": "major player-facing runtime surfaces migrated",
+          "classes": [
+            "UNarisOperationsWidget",
+            "UNarisSystemMenuWidget",
+            "UNarisGameplayHUDWidget"
+          ],
+          "operations": [
             "OVERVIEW",
             "MISSIONS",
             "CHALLENGES",
@@ -351,18 +367,25 @@
             "TEAM",
             "SETTINGS"
           ],
-          "live_bindings": [
+          "system_actions": [
+            "NEW GAME",
+            "CONTINUE",
+            "RESUME",
+            "OPERATIONS",
+            "SAVE",
+            "LOAD"
+          ],
+          "gameplay_hud": [
             "health",
             "stamina",
-            "objective stage",
+            "stance/status/combo",
             "crystals",
-            "heal charges",
-            "stance",
-            "player count",
-            "GameUserSettings"
+            "flasks",
+            "objective",
+            "boss health",
+            "death state"
           ],
-          "canvas_fallback": true,
-          "status": "packaged_runtime_verified"
+          "packaged_runtime_verified": true
         }
       }
     }
