@@ -1,6 +1,6 @@
 {
   "schema_version": "1.3.0",
-  "updated_at": "2026-10-07",
+  "updated_at": "2026-10-08",
   "product_brand": "NARSIC",
   "technical_namespace": "NARIS",
   "canonical_engine": "Unreal Engine 5.7",
@@ -9,26 +9,74 @@
   "display": {
     "language": "English",
     "primary_aspect_ratio": "32:9",
-    "alternate_aspect_ratios": ["21:9", "16:9"],
+    "alternate_aspect_ratios": [
+      "21:9",
+      "16:9"
+    ],
     "progress_semantics": "planning estimate only; not runtime or QA evidence"
   },
   "current_stage": {
     "id": "vertical_slice",
     "label": "Vertical Slice",
     "state": "active",
-    "display_progress_percent": 87,
+    "display_progress_percent": 89,
     "confidence": "planning_estimate_supported_by_packaged_runtime_evidence"
   },
   "stages": [
-    {"id": "concept", "label": "Concept & Vision", "state": "complete", "display_percent": 100},
-    {"id": "preproduction", "label": "Pre-Production", "state": "complete", "display_percent": 100},
-    {"id": "prototype", "label": "Prototype", "state": "complete", "display_percent": 100},
-    {"id": "vertical_slice", "label": "Vertical Slice", "state": "active", "display_percent": 87},
-    {"id": "production_alpha", "label": "Production Alpha", "state": "locked", "display_percent": 0},
-    {"id": "content_complete", "label": "Content Complete", "state": "locked", "display_percent": 0},
-    {"id": "beta_polish", "label": "Beta & Polish", "state": "locked", "display_percent": 0},
-    {"id": "release_candidate", "label": "Release Candidate", "state": "locked", "display_percent": 0},
-    {"id": "launch", "label": "Launch", "state": "locked", "display_percent": 0}
+    {
+      "id": "concept",
+      "label": "Concept & Vision",
+      "state": "complete",
+      "display_percent": 100
+    },
+    {
+      "id": "preproduction",
+      "label": "Pre-Production",
+      "state": "complete",
+      "display_percent": 100
+    },
+    {
+      "id": "prototype",
+      "label": "Prototype",
+      "state": "complete",
+      "display_percent": 100
+    },
+    {
+      "id": "vertical_slice",
+      "label": "Vertical Slice",
+      "state": "active",
+      "display_percent": 89
+    },
+    {
+      "id": "production_alpha",
+      "label": "Production Alpha",
+      "state": "locked",
+      "display_percent": 0
+    },
+    {
+      "id": "content_complete",
+      "label": "Content Complete",
+      "state": "locked",
+      "display_percent": 0
+    },
+    {
+      "id": "beta_polish",
+      "label": "Beta & Polish",
+      "state": "locked",
+      "display_percent": 0
+    },
+    {
+      "id": "release_candidate",
+      "label": "Release Candidate",
+      "state": "locked",
+      "display_percent": 0
+    },
+    {
+      "id": "launch",
+      "label": "Launch",
+      "state": "locked",
+      "display_percent": 0
+    }
   ],
   "workstreams": [
     {
@@ -64,8 +112,8 @@
     {
       "id": "uiux",
       "label": "UI/UX",
-      "display_percent": 90,
-      "evidence_state": "Packaged Development main-menu and pause/resume QA both passed; final ultrawide visual, controller and localization regression acceptance remains open."
+      "display_percent": 96,
+      "evidence_state": "Reference-inspired operations UI implemented in the real UE5.7 runtime: six-tab top navigation, challenges/progress cards, mission objectives/rewards, mission control actions, team status table, settings surface, NARSIC main menu and revised pause surface. Packaged Development NARISUIQA passed open/next/previous/close state transitions."
     },
     {
       "id": "audio",
@@ -88,8 +136,8 @@
     {
       "id": "qa",
       "label": "QA",
-      "display_percent": 91,
-      "evidence_state": "Editor/game targets compile; packaged Development combat, navigation, objective, save/load, pause and menu QA pass; three NARIS.Coop automation tests pass; four-player packaged listen-server joins succeed and a fifth client is correctly rejected as Server full; Shipping and Development BuildCookRun succeed."
+      "display_percent": 93,
+      "evidence_state": "Editor/game targets compile; packaged Development combat, navigation, objective, save/load, pause, main-menu and operations-menu QA pass; three NARIS.Coop automation tests pass; four-player packaged listen-server acceptance passes; Shipping and Development BuildCookRun succeed."
     }
   ],
   "blockers": [
@@ -104,12 +152,13 @@
     "Run controller, ultrawide and EN/AR localization regression before release-candidate promotion"
   ],
   "next_actions": [
+    "Run a visual ultrawide/manual interaction pass on the new operations UI and tune spacing/readability from the live game, not the concept image",
     "Replace high-visibility BasicShape placeholders with approved modular environment assets without breaking the now-passing navigation mesh",
     "Author and bind NARSIC master materials for terrain, rock, ruins, gate and water",
     "Integrate remaining production character/enemy animation, VFX and audio payloads",
     "Run one continuous packaged W04 gameplay loop and retain the resulting QA log",
     "Capture frame-time percentile and memory evidence on AsusRog RTX 3050",
-    "Close ultrawide, controller and localization regression gates"
+    "Close EN/AR localization and final controller regression gates"
   ],
   "host_status_at_sync": {
     "device": "AsusRog",
@@ -117,7 +166,7 @@
     "note": "Verified online 2026-10-07. Unreal Engine 5.7 compile, cook, packaged runtime QA including navigation, four-player networking and automation evidence were captured on-device."
   },
   "observed_runtime_evidence": {
-    "date": "2026-10-07",
+    "date": "2026-10-08",
     "unreal": {
       "engine_association": "5.7",
       "engine_runtime": "5.7.4",
@@ -130,7 +179,9 @@
         "Development_BuildCookRun": "Succeeded",
         "navigation_fix_development_buildcookrun": "Succeeded",
         "shipping_archive": "Builds/NARIS_Win64_Shipping_20261007/Windows",
-        "development_archive": "Builds/NARIS_Win64_Development_20261007_NAVFIX/Windows"
+        "development_archive": "Builds/NARIS_Win64_Development_20261007_NAVFIX/Windows",
+        "ui_development_buildcookrun": "Succeeded",
+        "ui_development_archive": "Builds/NARIS_Win64_Development_20261008_UI/Windows"
       },
       "packaged_runtime_qa": {
         "configuration": "Development",
@@ -142,14 +193,21 @@
         "main_menu": "Pass",
         "combat_details": "DamageSeen=1 ComboSeen=1 DodgeSeen=1 SecondJumpSeen=1 LockSeen=1 NotifyDriven=1 NotifyTimingUsed=1 CallbackSeen=1",
         "objective_details": "Reached=1 Bosses=1 Stage=2 Crystals=12 Flasks=4",
-        "navigation_details": "MoveToActor Result=2 ProjectedFallback=0; Celestial Wolf Travelled=538.6 at progress sample; Bone Beast Travelled=381.7 at progress sample; QA target Travelled=1003.9; Pass=1"
+        "navigation_details": "MoveToActor Result=2 ProjectedFallback=0; Celestial Wolf Travelled=538.6 at progress sample; Bone Beast Travelled=381.7 at progress sample; QA target Travelled=1003.9; Pass=1",
+        "operations_menu": "Pass",
+        "operations_menu_details": "NARIS_UI_QA_RESULT Pass=1 Open=1 Next=1 Prev=1 Close=1 Tab=2"
       },
       "coop_packaged_acceptance": {
         "listen_server": "Pass",
         "game_mode": "NarisCoopGameMode",
         "port": 7777,
         "accepted_players": 4,
-        "join_counts_observed": [1, 2, 3, 4],
+        "join_counts_observed": [
+          1,
+          2,
+          3,
+          4
+        ],
         "fifth_client": "Rejected",
         "fifth_client_reason": "Server full."
       },
@@ -182,8 +240,16 @@
       },
       "navigation_probe": {
         "nav_data": "RecastNavMesh-Default",
-        "bounds_center": [10500.0, 0.0, 0.0],
-        "bounds_extent": [12000.0, 5000.0, 1500.0],
+        "bounds_center": [
+          10500,
+          0,
+          0
+        ],
+        "bounds_extent": [
+          12000,
+          5000,
+          1500
+        ],
         "map_saved_after_rebuild": true,
         "request_result": 2,
         "projected_fallback_used": false,
@@ -196,13 +262,54 @@
         "total_actors": 273,
         "basic_shape_actor_count": 210,
         "narsic_asset_actor_count": 60,
-        "basic_shape_prefixes": {"ENV": 192, "ZONE": 8, "LANDMARK": 10},
-        "map_check": {"errors": 0, "warnings": 0}
+        "basic_shape_prefixes": {
+          "ENV": 192,
+          "ZONE": 8,
+          "LANDMARK": 10
+        },
+        "map_check": {
+          "errors": 0,
+          "warnings": 0
+        }
       },
       "hardware_observed": {
         "gpu": "NVIDIA GeForce RTX 3050",
         "cpu": "Intel Core i5-14400F",
         "memory_gb": 32
+      },
+      "ui_menu": {
+        "implementation": "Native HUD runtime, not a mockup",
+        "brand": "NARSIC",
+        "tabs": [
+          "OVERVIEW",
+          "MISSIONS",
+          "CHALLENGES",
+          "ARSENAL",
+          "TEAM",
+          "SETTINGS"
+        ],
+        "keyboard": {
+          "toggle": "Tab",
+          "previous": "[",
+          "next": "]",
+          "back": "Esc"
+        },
+        "gamepad": {
+          "toggle": "Special Left / View",
+          "previous": "Left Shoulder",
+          "next": "Right Shoulder",
+          "back": "Special Right / Menu"
+        },
+        "layout": [
+          "top tab rail",
+          "left challenge/progress column",
+          "center mission/objectives/rewards",
+          "right mission control/progress",
+          "team scoreboard surface",
+          "settings surface",
+          "bottom control legend"
+        ],
+        "packaged_qa": "Pass"
       }
     }
   }
