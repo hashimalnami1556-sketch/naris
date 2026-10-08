@@ -107,3 +107,22 @@ Validation evidence:
 
 This verifies menu state, packaging and runtime integration. A live visual pass at the target ultrawide resolution remains required for final spacing/readability acceptance.
 
+## UI finish / responsive pass — 2026-10-08
+
+A Design Partner finish/refine pass was applied directly to the Unreal Engine 5.7 runtime HUD.
+
+Changes:
+- The public title treatment remains **NARSIC** exactly; subtitle/internal W04 text was removed from the main title surface.
+- Scaling now uses both viewport width and height instead of width alone.
+- A centered ultrawide safe frame caps the operational layout width, preventing 32:9 interfaces from becoming excessively wide or vertically oversized.
+- `OVERVIEW`, `MISSIONS`, `CHALLENGES`, and `ARSENAL` now have distinct, runtime-bound card content instead of reusing one generic panel.
+- `SETTINGS` now reads live GameUserSettings values for display mode, resolution, scalability, VSync and frame limit.
+- Operations navigation was expanded to keyboard arrows and gamepad D-pad in addition to bracket keys and shoulder buttons.
+- Default operations tab is now `OVERVIEW`.
+
+Verification:
+- `NARIS Win64 Development` compile: **PASS**.
+- Development BuildCookRun archive: `Builds/NARIS_Win64_Development_20261008_UI_FINISH/Windows`: **PASS**.
+- Packaged UI state regression: `NARIS_UI_QA_RESULT Pass=1 Open=1 Next=1 Prev=1 Close=1 Tab=0`.
+- Visual cross-resolution screenshot comparison was not available from the connected desktop tool; responsive layout correctness was verified by code inspection and the new width/height-safe layout math, not claimed as screenshot evidence.
+
