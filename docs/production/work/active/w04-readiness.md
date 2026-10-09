@@ -4,6 +4,17 @@ last_updated: 2026-10-01
 ---
 # W04 readiness handoff
 
+## 2026-10-09 rendered baseline inspection (05:32-05:37 UTC)
+
+- Executing agent: Codex. Ran the live UE5.7 project on L_AshMap_Assembly with a real D3D12 renderer, 1280x720 window, isolated temporary UserDir and NARISGAMEPLAYSCREENQA. No graphics settings were changed. Host GPU identified as NVIDIA GeForce RTX 3050.
+- Examined the engine-generated scene capture and then a separate HUD-inclusive `NARSIC_Gameplay_QA.png`, under `AppData/Local/Temp/NarisCodexVisualQA_20261009/Saved/Screenshots/WindowsEditor`. The first HighResShot excluded HUD; it was not used to conclude HUD absence.
+- Observed: hero rendered; scene consists of a flat dark platform, sparse separate assets, oversized bright vertical forms, largely plain surfaces and very large dark shadows. This view does not meet the intended assembled dark-fantasy environment presentation. A still frame cannot diagnose temporal flicker or distinguish every material/lighting cause.
+- HUD-inclusive observation: health/stamina at upper left, objective at upper right, resources at lower left; no visible minimap. Read the complete 197-line NarisGameplayHUDWidget.cpp: its BuildInterface creates status/objective/resources/boss/death panels, not a minimap. The earlier W04 minimap implementation is in a different module and is not proof of integration into this live NARIS HUD.
+- Source follow-up: current NarisCreature.cpp still selects Idle/Run/Attack through SingleNode playback; no Walk/Trot/Blend references appeared in the inspected source. Imported clips must be verified and wired before claiming their use at runtime. No new clip bindings or rig edits were made in this audit.
+- Runtime diagnostics: CesiumRuntime reported an uninitialized EnumProperty for FCesiumMetadataPropertyStatisticValue::Semantic. The level continued loading; this is an outstanding plugin diagnostic, not proof of a crash. Logs retained as Codex_VisualQA_20261009.log and Codex_VisualHUDQA_20261009.log in the live project's Saved/Logs.
+- Clarifications: the previous 1007.2-unit navigation result measured the spawned BoneBeast enemy, not wolf gait. TMP caused the build-launch problem; attack playback rate was a separate code correction.
+- Acceptance remains OPEN: wolf motion/foot contact, stationary-versus-moving attack timing, minimap spatial correctness, temporal flicker and performance require additional tests. No video inspection or final visual approval is claimed. Priorities: implement the live HUD minimap, verify/wire wolf locomotion clips, and validate the intended assembled level before tuning expensive rendering settings. The current gameplay window was left open for inspection.
+
 ## 2026-10-09 build recovery and headless navigation evidence
 
 - Executing agent: Codex. Follow-up supersedes the build blocker recorded below; visual acceptance remains open.
