@@ -4,6 +4,16 @@ last_updated: 2026-10-01
 ---
 # W04 readiness handoff
 
+## 2026-10-09 build recovery and headless navigation evidence
+
+- Executing agent: Codex. Follow-up supersedes the build blocker recorded below; visual acceptance remains open.
+- Root cause found in the remote execution environment: process `TMP` was unset while the user's registered TMP/TEMP directory existed. Build.bat constructs its lock path from TMP, so its waiting message was not sufficient evidence of an active compiler. Restored TMP and TEMP from the user's existing environment values for this invocation only. No engine scripts, system settings or foreign build sessions were changed.
+- Cleaned up the verified orphan child of our previous waiting session (parent 17744, child 26380).
+- Actual UE5.7 build: NARISEditor Win64 Development succeeded, exit 0, 25.56 seconds. It compiled NarisCreature.cpp, linked UnrealEditor-NARIS.lib/.dll and wrote target metadata. Dedicated host evidence: `Game/NARIS_UE57/Saved/Logs/Codex_AttackRate_Build_20261009.log`.
+- Actual runtime smoke: UnrealEditor-Cmd loaded `/Game/NARIS/Maps/L_AshMap_Assembly` with `-game -nullrhi -nosound -unattended -NARISNAVQA` and a separate temporary UserDir. Exit 0, 56.45 seconds including initialization. At 2026-10-09 00:26:13 UTC: `NARIS_NAV_QA_RESULT Pass=1 Travelled=1007.2 TargetValid=1`. Dedicated host evidence: `Game/NARIS_UE57/Saved/Logs/Codex_NavQA_20261009.log`.
+- This validates compilation and the existing AI navigation smoke only. NullRHI renders no scene; it cannot establish gait quality, wolf foot contact, attack animation timing, minimap readability or environmental sharpness. No packaged release, W04 engine migration or visual acceptance is claimed.
+- Next: rendered playtest of the live scene with stationary/moving attacks, wolf follow transitions, minimap alignment and matched clarity captures. Keep user saves isolated during automated QA.
+
 ## 2026-10-09 live UE 5.7 creature correction
 
 - Executing agent: Codex. Scope: preserve the independently edited live NARIS module and record a minimal attack-rate correction. This does not migrate W04 or replace its source.
