@@ -4,6 +4,17 @@ last_updated: 2026-10-01
 ---
 # W04 readiness handoff
 
+## 2026-10-09 live UE 5.7 creature correction
+
+- Executing agent: Codex. Scope: preserve the independently edited live NARIS module and record a minimal attack-rate correction. This does not migrate W04 or replace its source.
+- AsusRog was online. Re-read `Game/NARIS_UE57/Source/NARIS/NarisCreature.cpp` and confirmed the applied attack-rate change: attacks use 1.0 playback rate independently of locomotion speed. Previously moving attacks inherited 0.9/1.3 rates while the attack-state duration remained fixed.
+- Backup from the edit: `NarisCreature.cpp.pre_attack_rate_20261008_2000.bak`. Original file SHA256: `AE90F2F78A3742CE2CBF944CB5CA1B79BA1786F2190BF4528D499AD06904B48F`.
+- Minimal transfer patch: `tools/windows/patches/ue57-creature-attack-rate.patch`, relative to the live UE57 project root. It is already applied on AsusRog; do not apply twice or apply to W04. For another matching checkout, first inspect the diff and use `git apply --check --unidiff-zero` before applying with `--unidiff-zero`; back up the target file first.
+- Verification: source line was re-read on the host. The NARISEditor Win64 Development build attempt reached only `Build.bat is already running, waiting for existing script to terminate...`. Several other build sessions existed. Only this attempt's waiting session was terminated; other sessions and engine locks were left intact. No successful compile or playtest of this correction is claimed.
+- Remaining: direct SingleNode clip changes still lack blending; rig quality, foot contact, attack hit synchronization, minimap visuals and environment clarity need runtime validation. This correction alone does not repair those issues.
+- Next: after concurrent builds finish, compile NARISEditor on UE5.7, retain this build's log, and compare stationary/moving creature attacks and locomotion transitions in the actual level. Resolve clip duration versus the fixed attack window from observed animation data.
+- Attachment intake: referenced image files are now present locally. The newly attached Blender production prompt contains incomplete generation/animation code; its claimed asset counts and quality are requirements, not produced or verified assets. It was not executed.
+
 ## 2026-10-08 local navigation follow-up
 
 - Executing agent: Codex; scope: HUD live player-centered map and portable coordinate tests.

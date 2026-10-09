@@ -1,0 +1,5 @@
+--- a/Source/NARIS/NarisCreature.cpp
++++ b/Source/NARIS/NarisCreature.cpp
+@@ -245 +245 @@
+-  GetMesh()->SetPlayRate(Moving?(GetCharacterMovement()->MaxWalkSpeed>=ChaseSpeed?1.3f:.9f):1.f);
++  GetMesh()->SetPlayRate(Attacking ? 1.f : (Moving?(GetCharacterMovement()->MaxWalkSpeed>=ChaseSpeed?1.3f:.9f):1.f));
