@@ -78,6 +78,8 @@ void ACelestialWolf::SetMode(ENarisWolfMode NewMode)
         return;
     }
 
+    // A delayed animation notify must not hit after the companion changes mode.
+    CancelAttack();
     Mode = NewMode;
 
     if (Mode == ENarisWolfMode::Guard)
@@ -228,12 +230,12 @@ void ACelestialWolf::MoveTowards(
 )
 {
     const FVector ToDestination = Destination - GetActorLocation();
-    const float Distance = ToDestination.Size();
+    const float Distance = ToDestination.Size2D();
 
     if (Distance > AcceptanceRadius)
     {
         AddMovementInput(
-            ToDestination.GetSafeNormal(),
+            ToDestination.GetSafeNormal2D(),
             FMath::Clamp(Distance / 500.f, 0.15f, 1.f)
         );
     }
@@ -343,6 +345,12 @@ bool ACelestialWolf::RequestAttack(ABoneBeastBoss* Target)
 
 bool ACelestialWolf::CommitAttackImpact()
 {
+    if (!bBonded || Mode != ENarisWolfMode::Attack)
+    {
+        CancelAttack();
+        return false;
+    }
+
     ABoneBeastBoss* Target = PendingAttackTarget;
     if (!IsValid(Target)
         || !Target->IsEncounterActive()

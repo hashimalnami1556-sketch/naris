@@ -44,6 +44,9 @@ ANarisHeroCharacter::ANarisHeroCharacter()
     FollowCamera->SetupAttachment(CameraBoom);
     FollowCamera->bUsePawnControlRotation = false;
 
+    GetCharacterMovement()->JumpZVelocity = 600.f;
+    GetCharacterMovement()->AirControl = 0.8f;
+    GetCharacterMovement()->GravityScale = 1.5f;
     GetCharacterMovement()->MaxWalkSpeed = WalkSpeed;
     GetCharacterMovement()->bOrientRotationToMovement = true;
     bUseControllerRotationYaw = false;
@@ -103,6 +106,9 @@ void ANarisHeroCharacter::SetupPlayerInputComponent(UInputComponent* Input)
     Input->BindAxis(TEXT("SwimVertical"), this, &ANarisHeroCharacter::MoveSwimVertical);
     Input->BindAxis(TEXT("LookYaw"), this, &ANarisHeroCharacter::LookYaw);
     Input->BindAxis(TEXT("LookPitch"), this, &ANarisHeroCharacter::LookPitch);
+
+    Input->BindAction(TEXT("Jump"), IE_Pressed, this, &ACharacter::Jump);
+    Input->BindAction(TEXT("Jump"), IE_Released, this, &ACharacter::StopJumping);
 
     Input->BindAction(TEXT("LightAttack"), IE_Pressed, this, &ANarisHeroCharacter::LightAttack);
     Input->BindAction(TEXT("HeavyAttack"), IE_Pressed, this, &ANarisHeroCharacter::HeavyAttack);

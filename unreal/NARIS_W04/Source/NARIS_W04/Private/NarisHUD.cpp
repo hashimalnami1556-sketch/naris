@@ -11,12 +11,14 @@
 #include "NarisGameUserSettings.h"
 #include "NarisHeroCharacter.h"
 #include "NarisInteractable.h"
+#include "NarisMapProjection.h"
 #include "NarisInteractionComponent.h"
 #include "NarisPlayerController.h"
 #include "NarisRuntimeSubsystem.h"
 #include "NarisSwimmingComponent.h"
 #include "NarisSubtitleSubsystem.h"
 #include "NarisUIStyle.h"
+#include "NarisWaystone.h"
 
 void ANarisHUD::DrawPanel(
     float X,
@@ -576,7 +578,7 @@ void ANarisHUD::DrawContentPage(
         const float MapH = Height - 165.f * Scale;
         DrawPanel(MapX, MapY, MapW, MapH, FLinearColor(0.07f, 0.10f, 0.08f, 0.88f));
         DrawText(
-            NSLOCTEXT("NARIS", "MapAshenForest", "Ashen Forest").ToString(),
+            NSLOCTEXT("NARIS", "MapLocalSchematic", "Local Map (+X up)").ToString(),
             FNarisUIStyle::Gold(),
             MapX + 24.f * Scale,
             MapY + 24.f * Scale,
@@ -584,8 +586,46 @@ void ANarisHUD::DrawContentPage(
             0.82f * Scale,
             false
         );
-        DrawLine(MapX + MapW * 0.18f, MapY + MapH * 0.75f, MapX + MapW * 0.72f, MapY + MapH * 0.30f, FNarisUIStyle::Gold(), 2.f);
-        DrawLine(MapX + MapW * 0.72f, MapY + MapH * 0.30f, MapX + MapW * 0.84f, MapY + MapH * 0.62f, FNarisUIStyle::Cyan(), 2.f);
+        const float HalfSize = FMath::Max(0.f, FMath::Min(MapW - 48.f * Scale, MapH - 100.f * Scale) * 0.5f);
+        const FVector2D Center(MapX + MapW * 0.5f, MapY + 70.f * Scale + HalfSize);
+        if (HalfSize > 10.f * Scale && Controller->GetPawn())
+        {
+            const APawn* Player = Controller->GetPawn();
+            const FVector Origin = Player->GetActorLocation();
+            const FLinearColor Grid(FNarisUIStyle::Muted().R, FNarisUIStyle::Muted().G, FNarisUIStyle::Muted().B, 0.25f);
+            for (int32 Index = -2; Index <= 2; ++Index)
+            {
+                const float Offset = HalfSize * Index * 0.5f;
+                DrawLine(Center.X + Offset, Center.Y - HalfSize, Center.X + Offset, Center.Y + HalfSize, Grid);
+                DrawLine(Center.X - HalfSize, Center.Y + Offset, Center.X + HalfSize, Center.Y + Offset, Grid);
+            }
+            for (TActorIterator<ANarisWaystone> It(GetWorld()); It; ++It)
+            {
+                if (It->MapId != State.MapId || !State.UnlockedWaystones.Contains(It->WaystoneId))
+                {
+                    continue;
+                }
+                const FVector2D Point = FNarisMapProjection::Project(It->GetActorLocation(), Origin, Center, HalfSize, MapWorldRadius);
+                const float Radius = 5.f * Scale;
+                if (!FNarisMapProjection::IsVisible(Point, Center, HalfSize, Radius))
+                {
+                    continue;
+                }
+                DrawLine(Point.X, Point.Y - Radius, Point.X + Radius, Point.Y, FNarisUIStyle::Gold(), 2.f);
+                DrawLine(Point.X + Radius, Point.Y, Point.X, Point.Y + Radius, FNarisUIStyle::Gold(), 2.f);
+                DrawLine(Point.X, Point.Y + Radius, Point.X - Radius, Point.Y, FNarisUIStyle::Gold(), 2.f);
+                DrawLine(Point.X - Radius, Point.Y, Point.X, Point.Y - Radius, FNarisUIStyle::Gold(), 2.f);
+            }
+            const FVector Forward = Player->GetActorForwardVector();
+            const FVector2D Heading = FVector2D(Forward.Y, -Forward.X).GetSafeNormal();
+            const FVector2D Side(-Heading.Y, Heading.X);
+            const FVector2D Tip = Center + Heading * 10.f * Scale;
+            const FVector2D LeftWing = Center - Heading * 6.f * Scale + Side * 6.f * Scale;
+            const FVector2D RightWing = Center - Heading * 6.f * Scale - Side * 6.f * Scale;
+            DrawLine(Tip.X, Tip.Y, LeftWing.X, LeftWing.Y, FNarisUIStyle::Cyan(), 2.f);
+            DrawLine(LeftWing.X, LeftWing.Y, RightWing.X, RightWing.Y, FNarisUIStyle::Cyan(), 2.f);
+            DrawLine(RightWing.X, RightWing.Y, Tip.X, Tip.Y, FNarisUIStyle::Cyan(), 2.f);
+        }
     }
     else if (Controller->GetPauseMenuPage() == ENarisPauseMenuPage::Quests)
     {

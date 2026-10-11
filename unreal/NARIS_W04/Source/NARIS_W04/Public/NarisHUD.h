@@ -16,6 +16,10 @@ class NARIS_W04_API ANarisHUD : public AHUD
 public:
     virtual void DrawHUD() override;
 
+    // Centimeters from the player to each edge of the local schematic.
+    UPROPERTY(EditDefaultsOnly, Category="NARIS|Map", meta=(ClampMin="1000.0"))
+    float MapWorldRadius = 10000.f;
+
 private:
     void DrawPauseMenu();
     void DrawContentPage(
