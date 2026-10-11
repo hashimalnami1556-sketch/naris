@@ -71,3 +71,11 @@ last_updated: 2026-10-11
 - Verification: repository/localization validator, Unreal source validator, all 301 CI tests and 6 AssetForge tests pass; diff whitespace check passes. Added NARIS.UI.Map.Projection engine automation coverage for axes, centering, altitude, marker borders and zero radius; it cannot run without Unreal.
 - Refreshed origin/main to ef013ed; its Windows launcher/UI4.1 changes do not overlap this scope and were not overwritten.
 - Engine gate: compile UE 5.7; test the map with a possessed hero, rotate/move/reopen, discover two waystones at known XY offsets, verify undiscovered/off-range/other-MapId markers absent and verify Confirm on content pages leaves settings unchanged. Verify Arabic rendering separately. No final executable or production asset readiness is claimed.
+
+### Packaged launch follow-up — 2026-10-11
+
+- Executing agent: Codex. Claimed scope: Start-NarisGame.ps1 and launch recovery documentation. Refreshed the working branch onto origin/main ef013ed; retained all input/map/companion changes.
+- Inspection: launcher defaults to C:\Users\Admin\NARIS instead of the known canonical checkout, misses nested W04 staged packages and directly packaged Win64 executable names, and accepts unrelated recently started game processes as bootstrap children.
+- Completed: canonical default path, nested W04 staged packages, launcher-checkout discovery and direct Win64 Development/Shipping executable names. Bootstrap checks now require a newly created direct child whose executable lies inside the selected package directory. Existing editors, saves and builds are untouched.
+- Verification: repository validator and all 306 CI source/data tests plus 6 AssetForge tests pass on the refreshed checkout; diff whitespace check passes. PowerShell/Windows and Unreal are unavailable here, so execution and packaged runtime acceptance remain pending.
+- Next gate: run -ListOnly on Windows, choose the intended package explicitly if multiple candidates exist, test both a root bootstrap and direct Win64 executable, and verify unrelated running game instances cannot satisfy a failed launch. A modification timestamp does not prove the newest approved release.
