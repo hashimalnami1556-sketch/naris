@@ -291,12 +291,12 @@ msgid "Normal"
 msgstr "Normal"
 
 msgctxt "NARIS,PauseMenuHint"
-msgid "Navigate: W/S or D-Pad   Confirm: Enter/A   Back: Esc/B"
-msgstr "Navigate: W/S or D-Pad   Confirm: Enter/A   Back: Esc/B"
+msgid "Navigate: W/S or D-Pad   Confirm: Enter/A   Mouse: Click   Back: Esc/B"
+msgstr "Navigate: W/S or D-Pad   Confirm: Enter/A   Mouse: Click   Back: Esc/B"
 
 msgctxt "NARIS,SettingsMenuHint"
-msgid "Adjust: A/D or Left/Right   Confirm: Enter/A   Back: Esc/B"
-msgstr "Adjust: A/D or Left/Right   Confirm: Enter/A   Back: Esc/B"
+msgid "Adjust: A/D or Left/Right   Confirm: Enter/A   Mouse: Click   Back: Esc/B"
+msgstr "Adjust: A/D or Left/Right   Confirm: Enter/A   Mouse: Click   Back: Esc/B"
 
 msgctxt "NARIS,PauseControls"
 msgid "Controller Remap"

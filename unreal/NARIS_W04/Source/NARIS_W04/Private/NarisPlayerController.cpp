@@ -245,6 +245,10 @@ void ANarisPlayerController::BeginPlay()
     {
         OpenFrontEndMenu();
     }
+    else
+    {
+        ApplyMenuInputMode(false);
+    }
 }
 
 void ANarisPlayerController::SetupInputComponent()
@@ -268,6 +272,7 @@ void ANarisPlayerController::SetupInputComponent()
             Function
         );
         Binding.bExecuteWhenPaused = true;
+        Binding.bConsumeInput = IsSystemMenuOpen();
     };
 
     BindPausedAction(TEXT("MenuUp"), &ANarisPlayerController::MenuUp);
@@ -416,6 +421,23 @@ void ANarisPlayerController::CloseFrontEndMenu()
 void ANarisPlayerController::ApplyMenuInputMode(bool bOpen)
 {
     bShowMouseCursor = bOpen;
+
+    // Closed menus must not swallow WASD, Space or shared gamepad actions.
+    // Open menus still consume these keys to keep them out of gameplay.
+    if (InputComponent)
+    {
+        for (int32 Index = 0; Index < InputComponent->GetNumActionBindings(); ++Index)
+        {
+            FInputActionBinding& Binding = InputComponent->GetActionBinding(Index);
+            const FName Action = Binding.GetActionName();
+            if (Action == TEXT("MenuUp") || Action == TEXT("MenuDown")
+                || Action == TEXT("MenuLeft") || Action == TEXT("MenuRight")
+                || Action == TEXT("MenuConfirm") || Action == TEXT("MenuBack"))
+            {
+                Binding.bConsumeInput = bOpen;
+            }
+        }
+    }
 
     if (bOpen)
     {
