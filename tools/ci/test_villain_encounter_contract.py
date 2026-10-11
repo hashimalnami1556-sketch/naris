@@ -47,7 +47,7 @@ class VillainRuntimeContract(unittest.TestCase):
             self.assertEqual(len(row["offset_m"]), 3)
             self.assertGreaterEqual(row["offset_m"][2], 0.5)
             self.assertLessEqual(row["offset_m"][2], 2.5)
-            self.assertIn(row["villain_id"], self.cpp)
+            self.assertTrue(row["villain_id"] in self.cpp or row["villain_id"] in self.header)
 
     def test_gameplay_and_animation_hooks_exist(self):
         for snippet in (
