@@ -159,8 +159,8 @@ msgid "{0}%"
 msgstr "{0}%"
 
 msgctxt "NARIS,PauseMenuTitle"
-msgid "CALL OF NARIS"
-msgstr "نداء نارس"
+msgid "NARSIC"
+msgstr "NARSIC"
 
 msgctxt "NARIS,SettingsMenuTitle"
 msgid "Settings"
@@ -389,8 +389,8 @@ msgid "No Save Data"
 msgstr "لا توجد بيانات حفظ"
 
 msgctxt "NARIS,FrontEndMenuHint"
-msgid "Navigate: W/S or D-Pad   Confirm: Enter/A"
-msgstr "تنقل: W/S أو لوحة الاتجاهات   تأكيد: Enter/A"
+msgid "Navigate: W/S or D-Pad   Confirm: Enter/A   Mouse: Click"
+msgstr "Navigate: W/S or D-Pad   Confirm: Enter/A   Mouse: Click"
 
 msgctxt "NARIS,ContentBackHint"
 msgid "Back: Esc / B"
@@ -463,3 +463,23 @@ msgstr "سجل المهام"
 msgctxt "NARIS,HUDBreath"
 msgid "Breath"
 msgstr "النَّفَس"
+
+msgctxt "NARIS,FrontEndContext"
+msgid "MAIN MENU"
+msgstr "MAIN MENU"
+
+msgctxt "NARIS,FrontEndOperation"
+msgid "ASHEN FOREST"
+msgstr "ASHEN FOREST"
+
+msgctxt "NARIS,PauseStatus"
+msgid "OPERATION STATUS"
+msgstr "OPERATION STATUS"
+
+msgctxt "NARIS,FrontEndSaveReady"
+msgid "SAVE DATA READY"
+msgstr "SAVE DATA READY"
+
+msgctxt "NARIS,FrontEndFreshRun"
+msgid "NEW JOURNEY"
+msgstr "NEW JOURNEY"
