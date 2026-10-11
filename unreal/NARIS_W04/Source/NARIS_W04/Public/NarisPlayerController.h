@@ -126,6 +126,7 @@ private:
     ENarisMenuContext MenuContext = ENarisMenuContext::Pause;
 
     void ApplyMenuInputMode(bool bOpen);
+    bool TryHandleMenuMouseClick();
     void StartNewGameFromMenu();
     void ContinueGameFromMenu();
     void QuitGameFromMenu();
