@@ -678,12 +678,12 @@ void ANarisHUD::DrawPauseMenu()
 
     const float Scale = FNarisUIStyle::GetViewportScale(Canvas->ClipX, Canvas->ClipY);
     const float Safe = FNarisUIStyle::GetSafeMargin(Canvas->ClipX, Canvas->ClipY);
-    const float W = FMath::Min(1180.f * Scale, Canvas->ClipX - Safe * 2.f);
-    const float H = FMath::Min(820.f * Scale, Canvas->ClipY - Safe * 2.f);
+    const float W = FMath::Min(1880.f * Scale, Canvas->ClipX - Safe * 2.f);
+    const float H = FMath::Min(960.f * Scale, Canvas->ClipY - Safe * 2.f);
     const float X = (Canvas->ClipX - W) * 0.5f;
     const float Y = (Canvas->ClipY - H) * 0.5f;
 
-    DrawRect(FLinearColor(0.005f, 0.008f, 0.012f, 0.84f), 0.f, 0.f, Canvas->ClipX, Canvas->ClipY);
+    DrawRect(FLinearColor(0.002f, 0.003f, 0.004f, 0.90f), 0.f, 0.f, Canvas->ClipX, Canvas->ClipY);
     DrawPanel(X, Y, W, H, FNarisUIStyle::Canvas());
 
     UNarisRuntimeSubsystem* Runtime = nullptr;
@@ -700,41 +700,92 @@ void ANarisHUD::DrawPauseMenu()
         return;
     }
 
+    const bool bFrontEnd = Controller->GetMenuContext() == ENarisMenuContext::FrontEnd;
+    const FString Brand = TEXT("NARSIC");
     DrawText(
-        Controller->GetMenuTitle().ToString(),
-        FNarisUIStyle::Gold(),
-        X + 44.f * Scale,
-        Y + 34.f * Scale,
+        Brand,
+        FNarisUIStyle::Bone(),
+        X + 48.f * Scale,
+        Y + 30.f * Scale,
         nullptr,
-        1.24f * Scale,
+        1.54f * Scale,
         false
+    );
+
+    DrawText(
+        bFrontEnd
+            ? NSLOCTEXT("NARIS", "FrontEndContext", "MAIN MENU").ToString()
+            : Controller->GetMenuTitle().ToString(),
+        FNarisUIStyle::Gold(),
+        X + 50.f * Scale,
+        Y + 86.f * Scale,
+        nullptr,
+        0.70f * Scale,
+        false
+    );
+
+    DrawRect(
+        FLinearColor(FNarisUIStyle::Gold().R, FNarisUIStyle::Gold().G, FNarisUIStyle::Gold().B, 0.60f),
+        X + 46.f * Scale,
+        Y + 126.f * Scale,
+        W - 92.f * Scale,
+        1.f * Scale
     );
 
     const int32 Count = Controller->GetVisibleMenuItemCount();
     const int32 Selected = Controller->GetSelectedMenuIndex();
-    const float StartY = Y + 106.f * Scale;
+    const float StartY = Y + 154.f * Scale;
     const float RowH = Controller->GetPauseMenuPage() == ENarisPauseMenuPage::Main
-        ? 64.f * Scale
-        : FMath::Clamp((H - 190.f * Scale) / FMath::Max(Count, 1), 26.f * Scale, 42.f * Scale);
+        ? 68.f * Scale
+        : FMath::Clamp(
+            (H - 236.f * Scale) / FMath::Max(Count, 1),
+            30.f * Scale,
+            46.f * Scale
+        );
+
+    const float ListLeft = X + 46.f * Scale;
+    const float ListRight = X + W * 0.58f;
+    const float ListWidth = ListRight - ListLeft;
 
     for (int32 Index = 0; Index < Count; ++Index)
     {
         const float RowY = StartY + Index * RowH;
         const bool bSelected = Index == Selected;
+        const bool bUnavailableContinue =
+            bFrontEnd
+            && Controller->GetPauseMenuPage() == ENarisPauseMenuPage::Main
+            && Index == 1
+            && !Controller->CanContinueGame();
 
         if (bSelected)
         {
-            DrawRect(FNarisUIStyle::Selection(), X + 28.f * Scale, RowY - 9.f * Scale, W - 56.f * Scale, RowH - 5.f * Scale);
-            DrawRect(FNarisUIStyle::Gold(), X + 28.f * Scale, RowY - 9.f * Scale, 3.f * Scale, RowH - 5.f * Scale);
+            DrawRect(
+                FNarisUIStyle::Selection(),
+                ListLeft,
+                RowY - 10.f * Scale,
+                ListWidth,
+                RowH - 4.f * Scale
+            );
+            DrawRect(
+                FNarisUIStyle::Ember(),
+                ListLeft,
+                RowY - 10.f * Scale,
+                4.f * Scale,
+                RowH - 4.f * Scale
+            );
         }
+
+        const FLinearColor LabelColor = bUnavailableContinue
+            ? FLinearColor(FNarisUIStyle::Muted().R, FNarisUIStyle::Muted().G, FNarisUIStyle::Muted().B, 0.48f)
+            : (bSelected ? FNarisUIStyle::Bone() : FNarisUIStyle::Muted());
 
         DrawText(
             Controller->GetMenuItemLabel(Index).ToString(),
-            bSelected ? FNarisUIStyle::Bone() : FNarisUIStyle::Muted(),
-            X + 50.f * Scale,
+            LabelColor,
+            ListLeft + 22.f * Scale,
             RowY,
             nullptr,
-            (bSelected ? 0.90f : 0.80f) * Scale,
+            (bSelected ? 0.94f : 0.80f) * Scale,
             false
         );
 
@@ -743,14 +794,105 @@ void ANarisHUD::DrawPauseMenu()
         {
             DrawText(
                 Value.ToString(),
-                bSelected ? FNarisUIStyle::Cyan() : FNarisUIStyle::Muted(),
-                X + W * 0.62f,
+                bSelected ? FNarisUIStyle::Gold() : FNarisUIStyle::Muted(),
+                ListLeft + ListWidth * 0.62f,
                 RowY,
                 nullptr,
-                0.78f * Scale,
+                0.72f * Scale,
                 false
             );
         }
+    }
+
+    const float InfoX = X + W * 0.63f;
+    const float InfoY = Y + 154.f * Scale;
+    const float InfoW = W * 0.32f;
+    const float InfoH = H - 236.f * Scale;
+    DrawPanel(InfoX, InfoY, InfoW, InfoH, FNarisUIStyle::Surface());
+
+    DrawText(
+        bFrontEnd
+            ? NSLOCTEXT("NARIS", "FrontEndOperation", "ASHEN FOREST").ToString()
+            : NSLOCTEXT("NARIS", "PauseStatus", "OPERATION STATUS").ToString(),
+        FNarisUIStyle::Gold(),
+        InfoX + 24.f * Scale,
+        InfoY + 22.f * Scale,
+        nullptr,
+        0.82f * Scale,
+        false
+    );
+
+    if (Runtime)
+    {
+        const FNarisSaveState State = Runtime->GetState();
+        float InfoRowY = InfoY + 76.f * Scale;
+
+        DrawText(
+            FString::Printf(TEXT("REGION  %s"), State.MapId.IsEmpty() ? TEXT("ASHEN FOREST") : *State.MapId),
+            FNarisUIStyle::Bone(),
+            InfoX + 24.f * Scale,
+            InfoRowY,
+            nullptr,
+            0.78f * Scale,
+            false
+        );
+        InfoRowY += 38.f * Scale;
+
+        DrawText(
+            FString::Printf(TEXT("CHECKPOINT  %s"), State.CheckpointId.IsEmpty() ? TEXT("--") : *State.CheckpointId),
+            FNarisUIStyle::Muted(),
+            InfoX + 24.f * Scale,
+            InfoRowY,
+            nullptr,
+            0.68f * Scale,
+            false
+        );
+        InfoRowY += 50.f * Scale;
+
+        DrawText(
+            FString::Printf(TEXT("ACTIVE QUESTS  %d"), State.ActiveQuests.Num()),
+            FNarisUIStyle::Bone(),
+            InfoX + 24.f * Scale,
+            InfoRowY,
+            nullptr,
+            0.72f * Scale,
+            false
+        );
+        InfoRowY += 34.f * Scale;
+
+        DrawText(
+            FString::Printf(TEXT("WAYSTONES  %d"), State.UnlockedWaystones.Num()),
+            FNarisUIStyle::Bone(),
+            InfoX + 24.f * Scale,
+            InfoRowY,
+            nullptr,
+            0.72f * Scale,
+            false
+        );
+        InfoRowY += 34.f * Scale;
+
+        DrawText(
+            FString::Printf(TEXT("RELICS & ITEMS  %d"), State.InventoryItems.Num()),
+            FNarisUIStyle::Bone(),
+            InfoX + 24.f * Scale,
+            InfoRowY,
+            nullptr,
+            0.72f * Scale,
+            false
+        );
+        InfoRowY += 54.f * Scale;
+
+        DrawText(
+            Controller->CanContinueGame()
+                ? NSLOCTEXT("NARIS", "FrontEndSaveReady", "SAVE DATA READY").ToString()
+                : NSLOCTEXT("NARIS", "FrontEndFreshRun", "NEW JOURNEY").ToString(),
+            Controller->CanContinueGame() ? FNarisUIStyle::Cyan() : FNarisUIStyle::Ember(),
+            InfoX + 24.f * Scale,
+            InfoRowY,
+            nullptr,
+            0.72f * Scale,
+            false
+        );
     }
 
     FString Hint;
@@ -773,31 +915,31 @@ void ANarisHUD::DrawPauseMenu()
         Hint = NSLOCTEXT(
             "NARIS",
             "SettingsMenuHint",
-            "Adjust: A/D or Left/Right   Confirm: Enter/A   Back: Esc/B"
+            "Adjust: A/D or Left/Right   Confirm: Enter/A   Mouse: Click   Back: Esc/B"
         ).ToString();
     }
     else
     {
-        Hint = Controller->GetMenuContext() == ENarisMenuContext::FrontEnd
+        Hint = bFrontEnd
             ? NSLOCTEXT(
                 "NARIS",
                 "FrontEndMenuHint",
-                "Navigate: W/S or D-Pad   Confirm: Enter/A"
+                "Navigate: W/S or D-Pad   Confirm: Enter/A   Mouse: Click"
               ).ToString()
             : NSLOCTEXT(
                 "NARIS",
                 "PauseMenuHint",
-                "Navigate: W/S or D-Pad   Confirm: Enter/A   Back: Esc/B"
+                "Navigate: W/S or D-Pad   Confirm: Enter/A   Mouse: Click   Back: Esc/B"
               ).ToString();
     }
 
     DrawText(
         Hint,
         FNarisUIStyle::Muted(),
-        X + 44.f * Scale,
-        Y + H - 44.f * Scale,
+        X + 48.f * Scale,
+        Y + H - 48.f * Scale,
         nullptr,
-        0.66f * Scale,
+        0.64f * Scale,
         false
     );
 }
