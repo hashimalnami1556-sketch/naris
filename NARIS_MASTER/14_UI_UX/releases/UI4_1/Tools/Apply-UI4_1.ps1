@@ -30,7 +30,7 @@ if($ini -notmatch '(?m)^\+ActionMappings=\(ActionName="Resonance"[^\r\n]*Key=R\)
 }
 
 $hc=Get-Content -Raw $hudC
-foreach($marker in @('StartGame','ContinueGame','OpenSettings','ExitGame','CALL OF NARIS')){
+foreach($marker in @('StartGame','ContinueGame','OpenSettings','ExitGame','NARSIC')){
  if($hc -notmatch [regex]::Escape($marker)){throw "HUD marker missing: $marker"}
 }
 
