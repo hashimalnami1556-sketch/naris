@@ -48,6 +48,16 @@ class NarsicUiRepairContractTests(unittest.TestCase):
         self.assertIn("State.UnlockedWaystones.Num()", hud)
         self.assertIn("return 32.f * GetViewportScale", style)
 
+    def test_runtime_presentation_settings_remove_known_live_launch_noise(self) -> None:
+        engine = read("unreal/NARIS_W04/Config/DefaultEngine.ini")
+        project = read("unreal/NARIS_W04/NARIS_W04.uproject")
+        self.assertIn("r.AllowStaticLighting=False", engine)
+        self.assertIn("r.DynamicGlobalIlluminationMethod=1", engine)
+        self.assertIn("r.ReflectionMethod=1", engine)
+        self.assertIn("bEnablePlugin=False", engine)
+        self.assertIn('"Name": "AndroidFileServer"', project)
+        self.assertIn('"Enabled": false', project)
+
     def test_localization_keeps_brand_exact(self) -> None:
         for culture in ("en", "ar"):
             po = read(
