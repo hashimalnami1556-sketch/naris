@@ -286,6 +286,14 @@ bool ANarisPlayerController::InputKey(const FInputKeyEventArgs& Params)
     }
 
     if (IsSystemMenuOpen()
+        && Params.Event == IE_Pressed
+        && Params.Key == EKeys::LeftMouseButton
+        && TryHandleMenuMouseClick())
+    {
+        return true;
+    }
+
+    if (IsSystemMenuOpen()
         && PauseMenuPage == ENarisPauseMenuPage::Controls
         && bWaitingForGamepadRemap
         && Params.Event == IE_Pressed
@@ -305,6 +313,75 @@ bool ANarisPlayerController::InputKey(const FInputKeyEventArgs& Params)
     }
 
     return Super::InputKey(Params);
+}
+
+bool ANarisPlayerController::TryHandleMenuMouseClick()
+{
+    if (!IsSystemMenuOpen() || PauseMenuPage == ENarisPauseMenuPage::Inventory
+        || PauseMenuPage == ENarisPauseMenuPage::Map
+        || PauseMenuPage == ENarisPauseMenuPage::Quests)
+    {
+        return false;
+    }
+
+    int32 ViewportX = 0;
+    int32 ViewportY = 0;
+    GetViewportSize(ViewportX, ViewportY);
+
+    float MouseX = 0.f;
+    float MouseY = 0.f;
+    if (ViewportX <= 0 || ViewportY <= 0 || !GetMousePosition(MouseX, MouseY))
+    {
+        return false;
+    }
+
+    const float Scale = FMath::Clamp(
+        FMath::Min(ViewportX / 1920.f, ViewportY / 1080.f),
+        0.75f,
+        1.60f
+    );
+    const float Safe = 32.f * Scale;
+    const float MenuW = FMath::Min(1880.f * Scale, ViewportX - Safe * 2.f);
+    const float MenuH = FMath::Min(960.f * Scale, ViewportY - Safe * 2.f);
+    const float X = (ViewportX - MenuW) * 0.5f;
+    const float Y = (ViewportY - MenuH) * 0.5f;
+
+    const int32 Count = GetVisibleMenuItemCount();
+    if (Count <= 0)
+    {
+        return false;
+    }
+
+    const float StartY = Y + 154.f * Scale;
+    const float RowH = PauseMenuPage == ENarisPauseMenuPage::Main
+        ? 68.f * Scale
+        : FMath::Clamp(
+            (MenuH - 236.f * Scale) / FMath::Max(Count, 1),
+            30.f * Scale,
+            46.f * Scale
+        );
+
+    const float HitLeft = X + 46.f * Scale;
+    const float HitRight = X + MenuW * 0.58f;
+    if (MouseX < HitLeft || MouseX > HitRight)
+    {
+        return false;
+    }
+
+    for (int32 Index = 0; Index < Count; ++Index)
+    {
+        const float RowY = StartY + Index * RowH;
+        const float Top = RowY - 10.f * Scale;
+        const float Bottom = Top + RowH - 4.f * Scale;
+        if (MouseY >= Top && MouseY <= Bottom)
+        {
+            SelectedMenuIndex = Index;
+            MenuConfirm();
+            return true;
+        }
+    }
+
+    return false;
 }
 
 void ANarisPlayerController::OpenFrontEndMenu()
@@ -344,6 +421,7 @@ void ANarisPlayerController::ApplyMenuInputMode(bool bOpen)
     {
         FInputModeGameAndUI Mode;
         Mode.SetHideCursorDuringCapture(false);
+        Mode.SetLockMouseToViewportBehavior(EMouseLockMode::DoNotLock);
         SetInputMode(Mode);
     }
     else
@@ -444,7 +522,7 @@ FText ANarisPlayerController::GetMenuTitle() const
     switch (PauseMenuPage)
     {
         case ENarisPauseMenuPage::Main:
-            return NSLOCTEXT("NARIS", "PauseMenuTitle", "CALL OF NARIS");
+            return NSLOCTEXT("NARIS", "PauseMenuTitle", "NARSIC");
         case ENarisPauseMenuPage::Inventory:
             return NSLOCTEXT("NARIS", "InventoryTitle", "Inventory");
         case ENarisPauseMenuPage::Map:
