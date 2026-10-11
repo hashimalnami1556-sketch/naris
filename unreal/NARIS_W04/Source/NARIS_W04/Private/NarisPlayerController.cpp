@@ -941,6 +941,11 @@ void ANarisPlayerController::MenuConfirm()
         return;
     }
 
+    if (PauseMenuPage != ENarisPauseMenuPage::Settings)
+    {
+        return;
+    }
+
     switch (SelectedMenuIndex)
     {
         case VSync:

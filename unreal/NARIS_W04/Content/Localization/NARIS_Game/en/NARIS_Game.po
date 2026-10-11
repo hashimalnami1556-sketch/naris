@@ -483,3 +483,7 @@ msgstr "SAVE DATA READY"
 msgctxt "NARIS,FrontEndFreshRun"
 msgid "NEW JOURNEY"
 msgstr "NEW JOURNEY"
+
+msgctxt "NARIS,MapLocalSchematic"
+msgid "Local Map (+X up)"
+msgstr "Local Map (+X up)"

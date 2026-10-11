@@ -61,3 +61,13 @@ last_updated: 2026-10-11
 - Final wolf mesh production remains blocked by remote execution quota; no asset approval is inferred from these source changes.
 
 - Follow-up verification: repository validator, Unreal source integrity and all 301 CI source/data tests pass locally. No engine compile or PIE test was performed.
+
+### Map UI follow-up — 2026-10-11
+
+- Executing agent: Codex. Claimed scope: HUD map projection and content-page confirmation routing. Existing map artwork consists of two fixed lines and does not consume world positions.
+- Implement a player-centered schematic with actual discovered waystone positions and a heading marker. This does not create terrain artwork, production map assets or fast travel. Engine validation remains blocked by remote quota.
+- Completed: square, altitude-independent world projection (+X up, +Y right), player heading, discovered loaded waystone markers filtered by MapId, border-safe marker culling, editable 100 m default world radius and EN/AR schematic heading. Unloaded actors and destinations outside the local radius are not shown; the discovered list remains available.
+- Completed: MenuConfirm only dispatches settings actions on the Settings page. Inventory/Map/Quests no longer fall through to settings using a stale menu index.
+- Verification: repository/localization validator, Unreal source validator, all 301 CI tests and 6 AssetForge tests pass; diff whitespace check passes. Added NARIS.UI.Map.Projection engine automation coverage for axes, centering, altitude, marker borders and zero radius; it cannot run without Unreal.
+- Refreshed origin/main to ef013ed; its Windows launcher/UI4.1 changes do not overlap this scope and were not overwritten.
+- Engine gate: compile UE 5.7; test the map with a possessed hero, rotate/move/reopen, discover two waystones at known XY offsets, verify undiscovered/off-range/other-MapId markers absent and verify Confirm on content pages leaves settings unchanged. Verify Arabic rendering separately. No final executable or production asset readiness is claimed.
