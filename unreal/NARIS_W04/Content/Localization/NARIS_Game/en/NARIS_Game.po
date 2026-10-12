@@ -483,3 +483,24 @@ msgstr "SAVE DATA READY"
 msgctxt "NARIS,FrontEndFreshRun"
 msgid "NEW JOURNEY"
 msgstr "NEW JOURNEY"
+
+msgctxt "NARIS,UMGFrontStatus"
+msgid "JOURNEY STATUS"
+msgstr "JOURNEY STATUS"
+
+msgctxt "NARIS,UMGGamepadFooter"
+msgid "D-PAD  NAVIGATE    A  CONFIRM    B  BACK"
+msgstr "D-PAD  NAVIGATE    A  CONFIRM    B  BACK"
+
+msgctxt "NARIS,UMGKeyboardFooter"
+msgid "W/S  NAVIGATE    ENTER  CONFIRM    MOUSE  CLICK    ESC  BACK"
+msgstr "W/S  NAVIGATE    ENTER  CONFIRM    MOUSE  CLICK    ESC  BACK"
+
+msgctxt "NARIS,UMGMainMenuContext"
+msgid "MAIN MENU"
+msgstr "MAIN MENU"
+
+msgctxt "NARIS,UMGPauseStatus"
+msgid "OPERATION STATUS"
+msgstr "OPERATION STATUS"
+
