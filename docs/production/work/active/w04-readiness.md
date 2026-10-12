@@ -106,3 +106,13 @@ last_updated: 2026-10-12
 - Owner approved the latest published generation-receipt repair (603a8d4) for continued production work, following the uploaded-asset intake (8ea68cd).
 - Scope: adoption of the source update and intake workflow. The 324 source/data test results remain the recorded validation evidence; owner approval does not assert completed generation, engine import, PIE, final-art readiness or Shipping acceptance.
 - Review remains tracked in PR #35. No main-branch merge, production asset promotion or workstation launch was performed as part of this adoption record.
+
+### Approved-update QA run — 2026-10-12
+
+- Executing agent: Codex. Tested checkout: 4388a42, the current owner-adoption revision.
+- Passed: repository validator (59 JSON files); 318 CI Python tests; six AssetForge tests; AST parsing of 14 intake/editor Python scripts. The asset intake tests revalidated uploaded byte hashes and geometry/skin metadata.
+- MCP build is blocked: this checkout has no package-lock.json for npm ci, and npm install --offline cannot resolve @modelcontextprotocol/sdk from the local cache (ENOTCACHED). TypeScript compilation did not execute. No package/dependency changes were made.
+- PowerShell parsing and Windows launcher execution are blocked: no PowerShell runtime in this execution environment.
+- Engine/DCC tests are blocked: no local Unreal or Blender binaries, and AsusRog was rechecked as Offline. Editor/Game compilation, actual candidate import, materials/collision/navigation/rig checks, PIE input/combat/save/load/EN-AR review, packaging and packaged-runtime/performance checks remain not_run.
+- Queried GitHub Actions for the tested/adopted revision and preceding source revision; neither returned a workflow run. No remote-CI success is inferred from local test results.
+- Completion requirement: connect the Windows Unreal/Blender workstation and run its existing Development package/runtime gate plus candidate review import. Source/data tests are complete for this revision; all-tests-complete and release-ready claims remain unsupported.
