@@ -39,80 +39,6 @@ jobs:
         run: |
           call "%GITHUB_WORKSPACE%\tools\windows\run_p0_hero_to_unreal.bat"
 
-      - name: Render P0-04B D3D12 comparison screenshot
-        shell: powershell
-        run: |
-          $projectRoot = 'C:\Users\Admin\OneDrive\NARIS_MASTER_BUNDLE\Game\NARIS_UE57'
-          $uproject = Join-Path $projectRoot 'NARIS.uproject'
-          $ueGui = 'C:\Program Files\Epic Games\UE_5.7\Engine\Binaries\Win64\UnrealEditor.exe'
-          $qaMap = '/Game/NARIS/QA/L_HeroCandidate_QA'
-          $screenDir = Join-Path $projectRoot 'Saved\Screenshots\Windows'
-          $canonicalShot = Join-Path $projectRoot 'Reports\P0-04B_HeroCompare.png'
-          $sceneReport = Join-Path $projectRoot 'Reports\P0-04B_visual_scene.json'
-          $evidencePath = Join-Path $projectRoot 'Reports\P0-04B_render_evidence.json'
-          $pipeline_revision = 'p0-04b-hashbound-camera-v2'
-
-          if (-not (Test-Path -LiteralPath $sceneReport)) { throw "Missing P0-04B scene report" }
-          New-Item -ItemType Directory -Force $screenDir | Out-Null
-          Get-ChildItem -LiteralPath $screenDir -Filter '*.png' -ErrorAction SilentlyContinue | Remove-Item -Force -ErrorAction SilentlyContinue
-          if (Test-Path -LiteralPath $canonicalShot) { Remove-Item -LiteralPath $canonicalShot -Force }
-
-          $renderStarted = [DateTime]::UtcNow
-          $args = @(
-            $uproject,
-            $qaMap,
-            '-game',
-            '-d3d12',
-            '-windowed',
-            '-ResX=1920',
-            '-ResY=1080',
-            '-nosplash',
-            '-BENCHMARK',
-            '-SECONDS=10',
-            '-ExecCmds="HighResShot 1"',
-            '-log'
-          )
-          $proc = Start-Process -FilePath $ueGui -ArgumentList $args -PassThru
-          if (-not $proc.WaitForExit(45000)) {
-            Stop-Process -Id $proc.Id -Force -ErrorAction SilentlyContinue
-          }
-          Start-Sleep -Seconds 2
-
-          $latest = Get-ChildItem -LiteralPath $screenDir -Filter '*.png' -Recurse -File -ErrorAction SilentlyContinue |
-            Where-Object { $_.LastWriteTimeUtc -ge $renderStarted } |
-            Sort-Object LastWriteTimeUtc -Descending |
-            Select-Object -First 1
-          if (-not $latest) { throw 'No fresh screenshot produced after render start' }
-          Copy-Item -LiteralPath $latest.FullName -Destination $canonicalShot -Force
-
-          $scene = Get-Content -Raw -LiteralPath $sceneReport | ConvertFrom-Json
-          $hash = (Get-FileHash -LiteralPath $canonicalShot -Algorithm SHA256).Hash.ToLowerInvariant()
-          $bytes = (Get-Item -LiteralPath $canonicalShot).Length
-          $gitSha = (& git -C $env:GITHUB_WORKSPACE rev-parse HEAD).Trim()
-          $dirty = ((& git -C $env:GITHUB_WORKSPACE status --porcelain) -join '').Trim().Length -gt 0
-
-          $evidence = [ordered]@{
-            schema_version = '1.1.0'
-            pipeline_revision = 'p0-04b-hashbound-camera-v2'
-            status = 'PASS'
-            screenshot = 'P0-04B_HeroCompare.png'
-            screenshot_path = $canonicalShot
-            screenshot_sha256 = $hash
-            screenshot_bytes = $bytes
-            candidate = $scene.candidate
-            baseline = $scene.baseline
-            qa_map = $scene.qa_map
-            git_sha = $gitSha
-            git_worktree_dirty = $dirty
-            render_started_utc = $renderStarted.ToString('o')
-            screenshot_written_utc = $latest.LastWriteTimeUtc.ToString('o')
-            workflow_run_id = '${{ github.run_id }}'
-          }
-          $evidence | ConvertTo-Json -Depth 7 | Set-Content -LiteralPath $evidencePath -Encoding utf8NoBOM
-          Write-Host "P0_04B_RENDER_EVIDENCE=$evidencePath"
-          Write-Host "P0_04B_SCREENSHOT_SHA256=$hash"
-          Write-Host "P0_04B_SCREENSHOT_BYTES=$bytes"
-
       - name: Run P0-04B master visual and combat QA
         shell: powershell
         run: |
@@ -137,10 +63,14 @@ jobs:
             (Join-Path $projectRoot 'Saved\Screenshots\Windows\P0-04B_HeroCompare.png')
           )
           foreach ($f in $files) {
-            if (Test-Path -LiteralPath $f) { Copy-Item -LiteralPath $f -Destination $dest -Force }
+            if (Test-Path -LiteralPath $f) {
+              Copy-Item -LiteralPath $f -Destination $dest -Force
+            }
           }
           $hero = Join-Path $projectRoot 'Production\Hero\SK_AshenVessel_PBR.fbx'
-          if (Test-Path -LiteralPath $hero) { Copy-Item -LiteralPath $hero -Destination $dest -Force }
+          if (Test-Path -LiteralPath $hero) {
+            Copy-Item -LiteralPath $hero -Destination $dest -Force
+          }
           Get-ChildItem $dest | Select-Object Name,Length,LastWriteTime | Format-Table -AutoSize
 
       - name: Upload P0 hero evidence
