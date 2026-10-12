@@ -15,7 +15,7 @@ concurrency:
 
 jobs:
   hero-production:
-    name: P0-01 to P0-04A on AsusRog
+    name: P0-01 to P0-04B on AsusRog
     runs-on: [self-hosted, windows, unreal]
     timeout-minutes: 90
     steps:
