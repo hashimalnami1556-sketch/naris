@@ -159,8 +159,8 @@ msgid "{0}%"
 msgstr "{0}%"
 
 msgctxt "NARIS,PauseMenuTitle"
-msgid "NARSIC"
-msgstr "NARSIC"
+msgid "CALL OF NARIS"
+msgstr "CALL OF NARIS"
 
 msgctxt "NARIS,SettingsMenuTitle"
 msgid "Settings"
