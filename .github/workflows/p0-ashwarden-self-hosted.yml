@@ -1,0 +1,93 @@
+name: P0 Ash Warden Self-Hosted Candidate
+
+on:
+  push:
+    paths:
+      - data/P0_ASH_WARDEN_RUN_REQUEST.json
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: p0-ashwarden-self-hosted
+  cancel-in-progress: true
+
+jobs:
+  ashwarden-candidate:
+    name: P0-BOSS-01 to P0-BOSS-04 Discovery on AsusRog
+    runs-on: [self-hosted, windows]
+    timeout-minutes: 90
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Verify local production tools
+        shell: powershell
+        run: |
+          $required = @(
+            'C:\Program Files\Blender Foundation\Blender 5.2\blender.exe',
+            'C:\Program Files\Epic Games\UE_5.7\Engine\Binaries\Win64\UnrealEditor-Cmd.exe',
+            'C:\Program Files\Epic Games\UE_5.7\Engine\Binaries\Win64\UnrealEditor.exe',
+            'C:\Users\Admin\OneDrive\NARIS_MASTER_BUNDLE\Game\NARIS_UE57\NARIS.uproject'
+          )
+          foreach ($p in $required) {
+            if (-not (Test-Path -LiteralPath $p)) { throw "Required production path missing: $p" }
+          }
+          Write-Host 'P0_BOSS_LOCAL_TOOLS_READY=1'
+
+      - name: Run P0-BOSS-01 to P0-BOSS-03 candidate pipeline
+        shell: cmd
+        run: |
+          call "%GITHUB_WORKSPACE%\tools\windows\run_p0_boss_03_local_visual.bat"
+
+      - name: Run read-only P0-BOSS-04 integration discovery
+        shell: cmd
+        run: |
+          call "%GITHUB_WORKSPACE%\tools\windows\run_p0_boss_04_discovery.bat"
+
+      - name: Verify no promotion happened
+        shell: powershell
+        run: |
+          $projectRoot = 'C:\Users\Admin\OneDrive\NARIS_MASTER_BUNDLE\Game\NARIS_UE57'
+          $approval = Get-Content -Raw -LiteralPath "$env:GITHUB_WORKSPACE\data\P0_ASH_WARDEN_VISUAL_APPROVAL.json" | ConvertFrom-Json
+          if ($approval.approved -eq $true) {
+            Write-Host 'Approval is true, but this workflow is still candidate-only by design.'
+          }
+          $final = Join-Path $projectRoot 'Reports\P0-BOSS-04_final_acceptance.json'
+          if (Test-Path -LiteralPath $final) {
+            $f = Get-Content -Raw -LiteralPath $final | ConvertFrom-Json
+            if ($f.promoted -eq $true) { throw 'Candidate workflow must never perform promotion.' }
+          }
+          Write-Host 'P0_BOSS_CANDIDATE_ONLY=1'
+
+      - name: Collect candidate evidence
+        if: always()
+        shell: powershell
+        run: |
+          $projectRoot = 'C:\Users\Admin\OneDrive\NARIS_MASTER_BUNDLE\Game\NARIS_UE57'
+          $dest = Join-Path $env:GITHUB_WORKSPACE 'artifacts\p0_ashwarden'
+          New-Item -ItemType Directory -Force $dest | Out-Null
+          $files = @(
+            (Join-Path $projectRoot 'Production\Boss\AshWarden\P0-BOSS_AshWarden_log.json'),
+            (Join-Path $projectRoot 'Production\Boss\AshWarden\P0-BOSS-02_rig_anim_pbr.json'),
+            (Join-Path $projectRoot 'Production\Boss\AshWarden\SK_AshWarden_Production.fbx'),
+            (Join-Path $projectRoot 'Reports\P0-BOSS-03_unreal_qa.json'),
+            (Join-Path $projectRoot 'Reports\P0-BOSS-03_render_evidence.json'),
+            (Join-Path $projectRoot 'Reports\P0-BOSS-04_integration_discovery.json'),
+            (Join-Path $projectRoot 'Saved\Screenshots\Windows\P0-BOSS-03_AshWardenCompare.png')
+          )
+          foreach ($f in $files) {
+            if (Test-Path -LiteralPath $f) { Copy-Item -LiteralPath $f -Destination $dest -Force }
+          }
+          Get-ChildItem $dest -ErrorAction SilentlyContinue | Select-Object Name,Length,LastWriteTime | Format-Table -AutoSize
+
+      - name: Upload Ash Warden candidate evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: CALL-OF-NARIS-P0-AshWarden-Candidate-Evidence
+          path: artifacts/p0_ashwarden
+          retention-days: 7
+          if-no-files-found: warn
+          compression-level: 0
