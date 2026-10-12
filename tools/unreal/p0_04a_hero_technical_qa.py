@@ -108,14 +108,23 @@ if baseline:
 # fail closed if we can query it and it is insufficient, otherwise report unresolved.
 lod_gate=(lod_count is not None and lod_count>=3)
 
+non_null_materials=[x for x in mats if x]
+baseline_present=baseline is not None
+animation_compatible_or_retargeted=(
+    baseline_present
+    and (same_skeleton or len(compatible_animation_assets)>=2)
+)
+
 checks={
     "candidate_is_skeletal_mesh":isinstance(hero,unreal.SkeletalMesh),
     "has_skeleton":skeleton is not None,
+    "baseline_present":baseline_present,
     "same_skeleton_as_working_hero":same_skeleton,
     "physics_asset":physics_asset is not None,
-    "material_slots_at_least_3":len(mats)>=3,
+    "material_slots_non_null":len(non_null_materials)>=1,
     "lod_count_at_least_3":lod_gate,
     "compatible_animation_assets":len(compatible_animation_assets)>=2,
+    "animation_compatible_or_retargeted":animation_compatible_or_retargeted,
     "p0_03_candidate_only":bool(p3.get("candidate_only")),
 }
 passed=all(checks.values())
@@ -136,6 +145,7 @@ result={
     "candidate":hero.get_path_name(),
     "skeleton":skeleton.get_path_name() if skeleton else None,
     "materials":mats,
+    "material_policy":"at least one real assigned material; do not fabricate unused style slots",
     "lod_count":lod_count,
     "physics_asset":physics_asset.get_path_name() if physics_asset else None,
     "compatible_animation_count":len(compatible_animation_assets),
