@@ -149,7 +149,7 @@ void UNarisSystemMenuWidget::BuildInterface()
     );
     Header->SetContent(HeaderRow);
 
-    BrandText = MakeText(TEXT("NARSIC"), 46, NarsicUMG::Bone);
+    BrandText = MakeText(TEXT("CALL OF NARIS"), 46, NarsicUMG::Bone);
     UHorizontalBoxSlot* BrandSlot = HeaderRow->AddChildToHorizontalBox(BrandText);
     BrandSlot->SetSize(FSlateChildSize(ESlateSizeRule::Automatic));
     BrandSlot->SetPadding(FMargin(2.f, 0.f, 34.f, 0.f));
