@@ -155,14 +155,27 @@ def material_set():
         out[name]=mat
     return out
 
-def ensure_material_slots():
-    mats=material_set()
+def prepare_material_identity():
+    """Preserve real source material assignments; never fabricate unused slots."""
+    style_library=material_set()
+    result={"mesh_slots":{},"renamed_primary":{},"style_library":sorted(style_library.keys())}
     for obj in bpy.data.objects:
-        if obj.type!="MESH": continue
-        existing={m.name for m in obj.data.materials if m}
-        for name,mat in mats.items():
-            if name not in existing:
-                obj.data.materials.append(mat)
+        if obj.type!="MESH":
+            continue
+        slots=obj.data.materials
+        if len(slots)==0:
+            # A mesh with no material gets one honest fallback, not three fake slots.
+            slots.append(style_library["M_NARIS_Obsidian"])
+        else:
+            primary=slots[0]
+            if primary:
+                lower=primary.name.lower()
+                if lower.startswith("tripo_") or lower.startswith("material"):
+                    old_name=primary.name
+                    primary.name="M_NARIS_AshenVessel_PBR"
+                    result["renamed_primary"][old_name]=primary.name
+        result["mesh_slots"][obj.name]=[m.name if m else None for m in slots]
+    return result
 
 def normalize_to_height(target=1.85):
     mn,mx=world_bounds()
@@ -246,6 +259,7 @@ fallback_texture=choose_fallback_texture()
 status="FAIL_NO_USABLE_SOURCE"
 production_grade=False
 normalization={}
+material_identity={}
 sword_output=None
 
 if (winner and winner.get("score",-999)>=THRESHOLD
@@ -254,7 +268,7 @@ if (winner and winner.get("score",-999)>=THRESHOLD
     reset_scene()
     import_any(winner["path"])
     normalization=normalize_to_height(1.85)
-    ensure_material_slots()
+    material_identity=prepare_material_identity()
     sword_output=export_sword(sword_fbx)
     bpy.ops.wm.save_as_mainfile(filepath=prod_blend)
     bpy.ops.export_scene.fbx(filepath=prod_fbx,use_selection=False,
@@ -276,6 +290,8 @@ log={
     "candidate_count":len(results),
     "fallback_texture":fallback_texture,
     "normalization":normalization,
+    "material_identity":material_identity,
+    "material_policy":"preserve assigned source PBR; do not fabricate unassigned style slots",
     "output_fbx":prod_fbx if os.path.exists(prod_fbx) else None,
     "output_blend":prod_blend if os.path.exists(prod_blend) else None,
     "sword_output":sword_output
