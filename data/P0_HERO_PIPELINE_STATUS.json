@@ -53,21 +53,26 @@
     },
     {
       "id": "P0-04B",
-      "name": "D3D12 Runtime Visual and Combat QA",
+      "name": "D3D12 Visual + Combat Evidence",
       "status": "ready_in_repository",
-      "gate": "D3D12 side-by-side screenshot + animation pose + visual inspection of silhouette/material/deformation/scale",
-      "replacement_allowed": false,
-      "script": "tools/unreal/p0_04b_prepare_visual_qa.py",
-      "output_report": "Reports/P0-04B_visual_scene.json",
-      "render_evidence": "Saved/Screenshots/Windows/P0-04B_HeroCompare.png",
-      "evidence_revision": "p0-04b-hashbound-camera-v2",
-      "stale_evidence_policy": "reject any render evidence without matching pipeline_revision"
+      "runner": "tools/windows/Invoke-P0HeroMasterQA.ps1",
+      "outputs": [
+        "Reports/P0-04B_visual_scene.json",
+        "Reports/P0-04B_runtime_qa.json",
+        "Reports/P0-04B_combat_d3d12.log",
+        "Reports/P0-04B_HeroCompare.png"
+      ],
+      "gate": "scene prepared + screenshot present + NARIS_COMBAT_QA_RESULT Pass=1 + fatal_count=0",
+      "replacement_allowed": false
     },
     {
       "id": "P0-05",
-      "name": "Hero Promotion and Packaged Combat Regression",
-      "status": "pending_p0_04b_visual_acceptance",
-      "gate": "promote candidate only after visual acceptance; rebuild Win64; packaged D3D12 combat regression must pass",
+      "name": "Hero Promotion + Package Regression",
+      "status": "ready_in_repository",
+      "runner": "tools/windows/Invoke-P0HeroPromotion.ps1",
+      "decision_template": "data/P0_HERO_VISUAL_DECISION_TEMPLATE.json",
+      "gate": "P0-04A PASS + P0-04B PASS_EVIDENCE_READY + APPROVED visual decision bound to screenshot SHA256",
+      "rollback": "automatic source rollback on any build, cook, package or combat QA failure",
       "replacement_allowed": "only_after_pass"
     }
   ],
@@ -85,7 +90,7 @@
   },
   "local_execution": {
     "device": "AsusRog",
-    "status": "PENDING",
+    "status": "blocked_or_waiting_for_self_hosted_runner",
     "blockers": [
       "Remote Desktop Commander monthly usage limit reached",
       "GitHub self-hosted Windows/Unreal runner did not start the latest P0 execution job before cancellation"
@@ -98,7 +103,8 @@
     "policy": "Keep SK_NARIS_AshenVessel_v3 active until P0-01..P0-04B execute locally and P0-05 packaged D3D12 regression passes.",
     "local_atomic_runner": "tools/windows/run_p0_hero_local_atomic.bat",
     "promotion_runner": "tools/windows/run_p0_05_promote_and_regress.bat",
-    "execution_policy": "Run local atomic runner to produce P0-04B evidence; do not promote until evidence is visually approved and bound in P0_HERO_VISUAL_APPROVAL.json."
+    "execution_policy": "Run local atomic runner to produce P0-04B evidence; do not promote until evidence is visually approved and bound in P0_HERO_VISUAL_APPROVAL.json.",
+    "note": "Remote Desktop Commander is quota-blocked. Self-hosted GitHub workflow has been retriggered with labels [self-hosted, windows]; no local Blender/Unreal execution is claimed until a run produces evidence artifacts."
   },
   "current_working_hero": {
     "asset": "SK_NARIS_AshenVessel_v3",
