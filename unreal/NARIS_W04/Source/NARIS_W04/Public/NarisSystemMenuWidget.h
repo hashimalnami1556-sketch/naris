@@ -24,7 +24,7 @@ private:
 
     void BuildInterface();
     void RefreshInterface();
-    FString ResolveIcon(const FText& Label) const;
+    FString ResolveIcon(int32 Index) const;
     UTextBlock* MakeText(const FString& Value, int32 Size, const FLinearColor& Color) const;
     UBorder* MakePanel(const FLinearColor& Color, const FMargin& Padding) const;
 
