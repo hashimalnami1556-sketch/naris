@@ -173,7 +173,11 @@ class AshWardenProductionPipelineContract(unittest.TestCase):
         self.assertFalse(stages["P0-BOSS-03"]["replacement_allowed"])
         self.assertEqual(
             stages["P0-BOSS-04"]["replacement_allowed"],
-            "only_after_pass"
+            "only_after_pass_and_discovery"
+        )
+        self.assertIn(
+            "P0-BOSS-04 integration discovery report",
+            stages["P0-BOSS-04"]["prerequisites"]
         )
         self.assertIn("packaged",stages["P0-BOSS-04"]["gate"].lower())
         self.assertIn("rollback",stages["P0-BOSS-04"]["gate"].lower())
