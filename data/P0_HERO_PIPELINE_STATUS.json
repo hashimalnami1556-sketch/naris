@@ -54,8 +54,18 @@
     {
       "id": "P0-04B",
       "name": "D3D12 Runtime Visual and Combat QA",
-      "status": "pending_local_execution",
-      "gate": "rendered visual QA + deformation + scale + weapon socket + animation + combat regression",
+      "status": "ready_in_repository",
+      "gate": "D3D12 side-by-side screenshot + animation pose + visual inspection of silhouette/material/deformation/scale",
+      "replacement_allowed": false,
+      "script": "tools/unreal/p0_04b_prepare_visual_qa.py",
+      "output_report": "Reports/P0-04B_visual_scene.json",
+      "render_evidence": "Saved/Screenshots/Windows/P0-04B_HeroCompare.png"
+    },
+    {
+      "id": "P0-05",
+      "name": "Hero Promotion and Packaged Combat Regression",
+      "status": "pending_p0_04b_visual_acceptance",
+      "gate": "promote candidate only after visual acceptance; rebuild Win64; packaged D3D12 combat regression must pass",
       "replacement_allowed": "only_after_pass"
     }
   ],
