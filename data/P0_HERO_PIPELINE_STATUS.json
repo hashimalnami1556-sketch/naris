@@ -20,7 +20,8 @@
       "gate": "production_grade=true; rigged humanoid required",
       "emergency_fallback": "2.5D relief only; never production-grade",
       "evidence_status": "executed_on_available_uploaded_asset",
-      "latest_result": "PASS candidate"
+      "latest_result": "PASS candidate",
+      "pipeline_status": "adopted"
     },
     {
       "id": "P0-02",
@@ -34,7 +35,8 @@
       ],
       "gate": "armature + weighted mesh + canonical humanoid bones + 1.80-1.90m + valid scale + real assigned PBR material + SHA256 for exported FBX",
       "evidence_status": "pbr_pass_retarget_pending",
-      "latest_result": "PBR PASS / Unreal retarget pending"
+      "latest_result": "PBR PASS / Unreal retarget pending",
+      "pipeline_status": "adopted"
     },
     {
       "id": "P0-03",
@@ -44,7 +46,8 @@
       "destination": "/Game/NARIS/Characters/HeroProduction",
       "output_report": "Reports/P0-03_unreal_hero_import.json",
       "gate": "candidate import succeeds + SkeletalMesh + Skeleton + >=1 assigned material + source SHA256 matches P0-02 export; baseline skeleton/PhysicsAsset/LOD are diagnostics for P0-04A",
-      "replacement_policy": "candidate-only; do not replace working HeroV3"
+      "replacement_policy": "candidate-only; do not replace working HeroV3",
+      "pipeline_status": "adopted"
     },
     {
       "id": "P0-04A",
@@ -53,7 +56,8 @@
       "script": "tools/unreal/p0_04a_hero_technical_qa.py",
       "output_report": "Reports/P0-04A_hero_technical_qa.json",
       "gate": "same working Skeleton + PhysicsAsset + >=3 LODs + >=2 compatible animations + >=1 assigned material + candidate source SHA256 metadata matches P0-03",
-      "replacement_allowed": false
+      "replacement_allowed": false,
+      "pipeline_status": "adopted"
     },
     {
       "id": "P0-04B",
@@ -97,9 +101,14 @@
   },
   "local_execution": {
     "device": "AsusRog",
-    "status": "blocked",
-    "blocker": "Remote Desktop Commander monthly usage limit reached; self-hosted workflow was not picked up by a Windows runner before cancellation.",
-    "note": "No claim is made that the new candidate has executed inside the AsusRog Unreal project."
+    "status": "not_executed_this_pass",
+    "blockers": [
+      "Remote Desktop Commander monthly usage limit reached",
+      "GitHub self-hosted runner did not pick up the P0 workflow; job was cancelled before steps started"
+    ],
+    "github_run_id": 38242226299,
+    "github_run_conclusion": "cancelled",
+    "note": "No claim is made that Blender P0-01/P0-02 or Unreal P0-03/P0-04A executed on the local machine."
   },
   "current_working_hero": {
     "asset": "SK_NARIS_AshenVessel_v3",
@@ -139,5 +148,12 @@
     ],
     "replacement_allowed": false,
     "note": "Candidate v2 is structurally/PBR accepted only. Unreal import, retarget, deformation, visual D3D12 and packaged regression gates remain mandatory."
+  },
+  "adoption": {
+    "status": "ADOPTED_AS_CANONICAL_PIPELINE",
+    "adopted_at": "2026-10-12",
+    "policy": "P0-01/P0-02/P0-03/P0-04A are the canonical hero production gates. Working HeroV3 remains authoritative runtime hero until P0-04B passes.",
+    "fallback_policy": "2.5D billboard relief is emergency reference output only and can never replace the runtime skeletal hero.",
+    "promotion_rule": "No replacement of SK_NARIS_AshenVessel_v3 until P0-04B D3D12 visual/deformation/weapon/combat regression is PASS."
   }
 }
