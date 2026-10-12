@@ -134,7 +134,7 @@ jobs:
             (Join-Path $projectRoot 'Reports\P0-04B_render_evidence.json'),
             (Join-Path $projectRoot 'Reports\P0-04B_runtime_qa.json'),
             (Join-Path $projectRoot 'Reports\P0-04B_combat_d3d12.log'),
-            (Join-Path $projectRoot 'Reports\P0-04B_HeroCompare.png')
+            (Join-Path $projectRoot 'Saved\Screenshots\Windows\P0-04B_HeroCompare.png')
           )
           foreach ($f in $files) {
             if (Test-Path -LiteralPath $f) { Copy-Item -LiteralPath $f -Destination $dest -Force }
