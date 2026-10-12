@@ -1,0 +1,72 @@
+{
+  "schema_version": "1.0.0",
+  "updated_at": "2026-10-12",
+  "product": "CALL OF NARIS",
+  "technical_namespace": "NARIS",
+  "pipeline": "P0 Hero Production",
+  "success_rule": "Build + Test + Manifest",
+  "stages": [
+    {
+      "id": "P0-01",
+      "name": "Hero Scan Score Select Rebuild",
+      "status": "ready_in_repository",
+      "script": "tools/blender/p0_01_hero_oneshot.py",
+      "outputs": [
+        "Production/Hero/SK_AshenVessel_Production.fbx",
+        "Production/Hero/SK_AshenVessel_Production.blend",
+        "Production/Hero/SM_Sword_AshenVessel.fbx",
+        "Production/Hero/P0-01_reimport_log.json"
+      ],
+      "gate": "production_grade=true; rigged humanoid required",
+      "emergency_fallback": "2.5D relief only; never production-grade"
+    },
+    {
+      "id": "P0-02",
+      "name": "Rig Canonicalization and PBR",
+      "status": "ready_in_repository",
+      "script": "tools/blender/p0_02_hero_rig_pbr.py",
+      "outputs": [
+        "Production/Hero/SK_AshenVessel_PBR.fbx",
+        "Production/Hero/SK_AshenVessel_PBR.blend",
+        "Production/Hero/P0-02_rig_pbr_log.json"
+      ],
+      "gate": "armature + weighted mesh + canonical humanoid bones + 1.80-1.90m + valid scale + PBR slots"
+    },
+    {
+      "id": "P0-03",
+      "name": "Unreal Candidate Import",
+      "status": "ready_in_repository",
+      "script": "tools/unreal/p0_03_import_hero.py",
+      "destination": "/Game/NARIS/Characters/HeroProduction",
+      "output_report": "Reports/P0-03_unreal_hero_import.json",
+      "gate": "SkeletalMesh + Skeleton + >=3 material slots",
+      "replacement_policy": "candidate-only; do not replace working HeroV3"
+    },
+    {
+      "id": "P0-04",
+      "name": "Runtime Visual and Combat QA",
+      "status": "pending_local_execution",
+      "gate": "D3D12 runtime + animation deformation + weapon socket + combat regression + visual acceptance"
+    }
+  ],
+  "runners": [
+    "tools/windows/run_p0_01_hero_oneshot.bat",
+    "tools/windows/run_p0_hero_atomic_pipeline.bat",
+    "tools/windows/run_p0_hero_to_unreal.bat"
+  ],
+  "repository": {
+    "owner": "hashimalnami1556-sketch",
+    "name": "naris",
+    "branch": "main"
+  },
+  "local_execution": {
+    "device": "AsusRog",
+    "status": "blocked",
+    "blocker": "Remote Desktop Commander monthly usage limit reached",
+    "note": "No claim is made that Blender P0-01/P0-02 or Unreal P0-03 has executed on the local machine."
+  },
+  "current_working_hero": {
+    "asset": "SK_NARIS_AshenVessel_v3",
+    "policy": "retain until P0-04 passes"
+  }
+}
