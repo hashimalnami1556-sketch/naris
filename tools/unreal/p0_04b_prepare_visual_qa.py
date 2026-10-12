@@ -27,6 +27,9 @@ if not REPORT_A.is_file():
 p4a=json.loads(REPORT_A.read_text(encoding="utf-8"))
 if p4a.get("status")!="PASS" or not p4a.get("technical_acceptance"):
     fail("p0_04a_not_passed",{"p0_04a":p4a})
+candidate_source_sha256=str(p4a.get("candidate_source_sha256") or "").lower().strip()
+if len(candidate_source_sha256)!=64 or any(c not in "0123456789abcdef" for c in candidate_source_sha256):
+    fail("p0_04a_candidate_source_sha256_missing_or_invalid",{"candidate_source_sha256":p4a.get("candidate_source_sha256")})
 
 candidate=unreal.load_asset(CANDIDATE)
 if not candidate or not isinstance(candidate,unreal.SkeletalMesh):
@@ -175,6 +178,7 @@ result={
     "qa_map":QA_MAP,
     "baseline":baseline.get_path_name(),
     "candidate":candidate.get_path_name(),
+    "candidate_source_sha256":candidate_source_sha256,
     "preview_animation":anim.get_path_name() if anim else None,
     "camera_actor":"QA_Camera_HeroCompare",
     "screenshot_target":"Saved/Screenshots/Windows/P0-04B_HeroCompare.png",
