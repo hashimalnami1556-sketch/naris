@@ -123,6 +123,39 @@ class AshWardenProductionPipelineContract(unittest.TestCase):
         ):
             self.assertIn(token,approval)
 
+    def test_boss_04_discovery_is_read_only(self):
+        src=self.read("tools/unreal/p0_boss_04_discover_integration.py")
+        runner=self.read("tools/windows/run_p0_boss_04_discovery.bat")
+
+        ast.parse(src,filename="tools/unreal/p0_boss_04_discover_integration.py")
+        for token in (
+            "P0-BOSS-04_integration_discovery.json",
+            "read_only",
+            "replacement_allowed",
+            "bonebeast_proxy_confirmed",
+            "native_skeletal_component",
+            "recommended_integration_strategy",
+            "VERIFY_LOCAL_CXX_DEFAULT_OR_BEGINPLAY_BEFORE_OVERRIDE",
+        ):
+            self.assertIn(token,src)
+
+        for forbidden in (
+            "rename_asset(",
+            "save_current_level(",
+            "save_dirty_packages(",
+            "set_skeletal_mesh_asset(",
+            "set_editor_property(\"skeletal_mesh\"",
+        ):
+            self.assertNotIn(forbidden,src)
+
+        for token in (
+            "p0_boss_04_discover_integration.py",
+            "READ ONLY",
+            "replacement_allowed",
+            "P0-BOSS-04 promotion remains BLOCKED",
+        ):
+            self.assertIn(token,runner)
+
     def test_manifest_matches_pipeline_and_blocks_replacement(self):
         data=json.loads(self.read("data/P0_ASH_WARDEN_PIPELINE_STATUS.json"))
         self.assertEqual(data["product"],"CALL OF NARIS")
