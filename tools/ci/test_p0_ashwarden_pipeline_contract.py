@@ -90,6 +90,39 @@ class AshWardenProductionPipelineContract(unittest.TestCase):
             self.assertIn(token,src)
         self.assertNotIn("rename_asset",src)
 
+    def test_boss_render_evidence_and_visual_approval_gate(self):
+        runner=self.read("tools/windows/run_p0_boss_03_local_visual.bat")
+        approval=self.read("data/P0_ASH_WARDEN_VISUAL_APPROVAL.json")
+
+        for token in (
+            "del /q \"%SCREEN_DIR%\\*.png\"",
+            "RENDER_START",
+            "No fresh Ash Warden screenshot produced after render start",
+            "Get-FileHash -LiteralPath $canonical -Algorithm SHA256",
+            "screenshot_sha256=$hash",
+            "screenshot_bytes=$bytes",
+            "git -C $repoRoot rev-parse HEAD",
+            "git_worktree_dirty=$dirty",
+            "P0-BOSS-03_render_evidence.json",
+            "P0-BOSS-04 replacement remains BLOCKED",
+        ):
+            self.assertIn(token,runner)
+
+        for token in (
+            '"approved": false',
+            '"decision": "PENDING_VISUAL_INSPECTION"',
+            '"replacement_allowed": false',
+            '"screenshot_sha256": ""',
+            '"screenshot_bytes": 0',
+            '"silhouette_unique_vs_proxy": "pending"',
+            '"deformation_attack": "pending"',
+            '"deformation_phase2": "pending"',
+            '"deformation_death": "pending"',
+            '"weapon_readability": "pending"',
+            '"boss_readability_at_camera_distance": "pending"',
+        ):
+            self.assertIn(token,approval)
+
     def test_manifest_matches_pipeline_and_blocks_replacement(self):
         data=json.loads(self.read("data/P0_ASH_WARDEN_PIPELINE_STATUS.json"))
         self.assertEqual(data["product"],"CALL OF NARIS")
