@@ -108,25 +108,36 @@
   "required_visual_pipeline_revision": "p0-04b-hashbound-camera-v2+candidate-source-sha",
   "repository_verification": {
     "status": "PASS",
-    "commit": "5fdb497101472b9eacd28ed4fec82dca995a1c4a",
+    "commit": "238d0d581db59839437ac1f173a07b7984d6b2e9",
     "workflows": {
       "NARIS CI": "success",
       "NARIS Content Validation": "success"
     },
-    "note": "Static and repository contracts are green. This does not substitute for local Blender/Unreal execution."
+    "jobs": {
+      "Repository + JSON validation": "success",
+      "Parse Windows production launchers": "success",
+      "Unreal project integrity": "success",
+      "MCP TypeScript build": "success"
+    },
+    "note": "Repository/static contracts are green. This does not substitute for P0-03/P0-04A/P0-04B local Unreal execution."
   },
   "external_candidate_execution": {
-    "environment": "conversation sandbox using uploaded 3D assets",
+    "environment": "conversation sandbox using uploaded 3D asset",
     "p0_01": "PASS",
     "p0_02": "PBR_STRUCTURAL_PASS_RETARGET_PENDING",
     "selected_source": "Character1_NARIS_Rigged_Prototype.glb",
+    "candidate_version": "v2",
     "output_sha256": "5689afdc4a6868b72d2aaf5a977798779f03c33fcc2bee641bcdd45525d56122",
-    "supersedes_sha256": "015b7a9ff1083086084b15183bb3b63072321aa599ccf332c956e1137b9364aa",
+    "package_sha256": "37a8c0908770ee62bab4357366fd21cdbb7ed5f75953f40d5777c64a75abcf82",
     "structural_guards": [
+      "mesh_bound_to_skin",
       "joint_indices_unchanged",
       "animation_targets_unchanged",
-      "canonical_joint_names_exact"
+      "canonical_joint_names_exact",
+      "18_joint_humanoid",
+      "basecolor_normalDX_roughness_metallic_exported"
     ],
-    "note": "Corrected candidate v2 retained outside public repository; evidence committed separately. Unreal retarget/deformation/runtime QA remains required."
+    "replacement_allowed": false,
+    "note": "Candidate v2 is structurally/PBR accepted only. Unreal import, retarget, deformation, visual D3D12 and packaged regression gates remain mandatory."
   }
 }
