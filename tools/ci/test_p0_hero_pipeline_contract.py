@@ -107,7 +107,8 @@ class HeroProductionPipelineContract(unittest.TestCase):
             "P0-04A_hero_technical_qa.json",
             "p0_04b_prepare_visual_qa.py",
             "P0-04B_visual_scene.json",
-            "P0-04B D3D12 visual+combat QA",
+            "P0-04B SCENE READY",
+            "Replacement remains BLOCKED until D3D12 screenshot is inspected.",
         ):
             self.assertIn(token, src)
 
