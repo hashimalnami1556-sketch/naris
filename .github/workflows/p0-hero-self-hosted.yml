@@ -27,8 +27,9 @@ jobs:
         run: |
           $blender = 'C:\Program Files\Blender Foundation\Blender 5.2\blender.exe'
           $ue = 'C:\Program Files\Epic Games\UE_5.7\Engine\Binaries\Win64\UnrealEditor-Cmd.exe'
+          $ueGui = 'C:\Program Files\Epic Games\UE_5.7\Engine\Binaries\Win64\UnrealEditor.exe'
           $project = 'C:\Users\Admin\OneDrive\NARIS_MASTER_BUNDLE\Game\NARIS_UE57\NARIS.uproject'
-          foreach ($p in @($blender,$ue,$project)) {
+          foreach ($p in @($blender,$ue,$ueGui,$project)) {
             if (-not (Test-Path -LiteralPath $p)) { throw "Required production path missing: $p" }
           }
           Write-Host 'P0_LOCAL_TOOLS_READY=1'
@@ -37,6 +38,22 @@ jobs:
         shell: cmd
         run: |
           call "%GITHUB_WORKSPACE%\tools\windows\run_p0_hero_to_unreal.bat"
+
+      - name: Render P0-04B D3D12 comparison screenshot
+        shell: powershell
+        run: |
+          $ueGui = 'C:\Program Files\Epic Games\UE_5.7\Engine\Binaries\Win64\UnrealEditor.exe'
+          $projectRoot = 'C:\Users\Admin\OneDrive\NARIS_MASTER_BUNDLE\Game\NARIS_UE57'
+          $uproject = Join-Path $projectRoot 'NARIS.uproject'
+          $screenDir = Join-Path $projectRoot 'Saved\Screenshots\Windows'
+          New-Item -ItemType Directory -Force $screenDir | Out-Null
+          Get-ChildItem $screenDir -Filter '*.png' -ErrorAction SilentlyContinue | Remove-Item -Force
+          & $ueGui $uproject /Game/NARIS/QA/L_HeroCandidate_QA -game -d3d12 -windowed -ResX=1920 -ResY=1080 -nosplash -BENCHMARK -SECONDS=10 -ExecCmds="HighResShot 1" -log
+          if ($LASTEXITCODE -ne 0) { throw "P0-04B D3D12 render exited with $LASTEXITCODE" }
+          $shot = Get-ChildItem $screenDir -Filter '*.png' | Sort-Object LastWriteTime -Descending | Select-Object -First 1
+          if (-not $shot) { throw 'P0-04B screenshot was not produced.' }
+          Copy-Item $shot.FullName (Join-Path $screenDir 'P0-04B_HeroCompare.png') -Force
+          Write-Host "P0_04B_SCREENSHOT=$($shot.FullName)"
 
       - name: Collect gate evidence
         if: always()
@@ -49,7 +66,9 @@ jobs:
             (Join-Path $projectRoot 'Production\Hero\P0-01_reimport_log.json'),
             (Join-Path $projectRoot 'Production\Hero\P0-02_rig_pbr_log.json'),
             (Join-Path $projectRoot 'Reports\P0-03_unreal_hero_import.json'),
-            (Join-Path $projectRoot 'Reports\P0-04A_hero_technical_qa.json')
+            (Join-Path $projectRoot 'Reports\P0-04A_hero_technical_qa.json'),
+            (Join-Path $projectRoot 'Reports\P0-04B_visual_scene.json'),
+            (Join-Path $projectRoot 'Saved\Screenshots\Windows\P0-04B_HeroCompare.png')
           )
           foreach ($f in $files) {
             if (Test-Path -LiteralPath $f) { Copy-Item -LiteralPath $f -Destination $dest -Force }
