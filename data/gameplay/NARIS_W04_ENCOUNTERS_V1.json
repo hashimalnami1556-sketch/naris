@@ -1,0 +1,146 @@
+{
+  "schema": "naris.encounters.v1",
+  "engine": "UE5.7",
+  "status": "design_data_unintegrated",
+  "zones": [
+    {
+      "id": "ash_gate",
+      "player_start": [
+        0,
+        0,
+        150
+      ],
+      "enemy_spawns": [
+        {
+          "id": "ash_wretch",
+          "count": 4,
+          "level": 1
+        },
+        {
+          "id": "bronze_sentinel",
+          "count": 2,
+          "level": 2
+        }
+      ],
+      "boss": {
+        "id": "ash_gatekeeper",
+        "hp": 4500,
+        "poise": 400,
+        "phases": [
+          {
+            "at_hp_ratio": 1,
+            "attack_set": [
+              "cleave",
+              "ground_slam",
+              "guard_break"
+            ]
+          },
+          {
+            "at_hp_ratio": 0.5,
+            "attack_set": [
+              "ember_wave",
+              "flame_charge",
+              "ground_slam"
+            ]
+          }
+        ]
+      },
+      "checkpoint": "AG_01",
+      "loot_table": "LT_ASH_GATE"
+    },
+    {
+      "id": "bell_marsh",
+      "player_start": [
+        0,
+        0,
+        150
+      ],
+      "enemy_spawns": [
+        {
+          "id": "marsh_leech",
+          "count": 5,
+          "level": 3
+        },
+        {
+          "id": "bell_wraith",
+          "count": 3,
+          "level": 3
+        }
+      ],
+      "boss": {
+        "id": "bellmasters_echo",
+        "hp": 5200,
+        "poise": 320,
+        "phases": [
+          {
+            "at_hp_ratio": 1,
+            "attack_set": [
+              "bell_pulse",
+              "spectral_summon"
+            ]
+          },
+          {
+            "at_hp_ratio": 0.5,
+            "attack_set": [
+              "resonance_storm",
+              "spectral_summon"
+            ]
+          }
+        ]
+      },
+      "checkpoint": "BM_01",
+      "loot_table": "LT_BELL_MARSH"
+    },
+    {
+      "id": "twilight_citadel",
+      "player_start": [
+        0,
+        0,
+        150
+      ],
+      "enemy_spawns": [
+        {
+          "id": "citadel_shadow",
+          "count": 6,
+          "level": 5
+        },
+        {
+          "id": "prince_guard",
+          "count": 3,
+          "level": 6
+        }
+      ],
+      "boss": {
+        "id": "prince_of_shadows",
+        "hp": 7500,
+        "poise": 500,
+        "phases": [
+          {
+            "at_hp_ratio": 1,
+            "attack_set": [
+              "shadow_lunge",
+              "parry"
+            ]
+          },
+          {
+            "at_hp_ratio": 0.5,
+            "attack_set": [
+              "eclipse",
+              "phantom_blade",
+              "shadow_lunge"
+            ]
+          }
+        ]
+      },
+      "checkpoint": "TC_01",
+      "loot_table": "LT_TWILIGHT"
+    }
+  ],
+  "integration": {
+    "production_map_modified": false,
+    "ue_editor_executed": false,
+    "ai_behavior_trees_created": false,
+    "physics_assets_created": false,
+    "encounters_playtested": false
+  }
+}
