@@ -6,6 +6,7 @@
 #include "NarisVillainCharacter.generated.h"
 
 class UNarisCombatComponent;
+class USkeletalMesh;
 class UStaticMeshComponent;
 class AAIController;
 struct FDamageEvent;
@@ -39,6 +40,10 @@ public:
 
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="NARIS|Villain")
     TObjectPtr<UNarisCombatComponent> Combat;
+
+    /** Import/bind the approved character mesh. Null means explicit primitive prototype. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="NARIS|Villain|Art")
+    TObjectPtr<USkeletalMesh> VisualMesh = nullptr;
 
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="NARIS|Villain|Development")
     TObjectPtr<UStaticMeshComponent> DevelopmentVisual;
