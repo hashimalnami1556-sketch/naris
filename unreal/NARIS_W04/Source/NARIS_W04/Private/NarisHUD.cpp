@@ -701,7 +701,7 @@ void ANarisHUD::DrawPauseMenu()
     }
 
     const bool bFrontEnd = Controller->GetMenuContext() == ENarisMenuContext::FrontEnd;
-    const FString Brand = TEXT("NARSIC");
+    const FString Brand = TEXT("CALL OF NARIS");
     DrawText(
         Brand,
         FNarisUIStyle::Bone(),
