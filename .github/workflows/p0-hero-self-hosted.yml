@@ -1,0 +1,69 @@
+name: P0 Hero Self-Hosted Production
+
+on:
+  push:
+    paths:
+      - data/P0_HERO_RUN_REQUEST.json
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: p0-hero-self-hosted
+  cancel-in-progress: false
+
+jobs:
+  hero-production:
+    name: P0-01 to P0-04A on AsusRog
+    runs-on: [self-hosted, windows, unreal]
+    timeout-minutes: 90
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Verify local production tools
+        shell: powershell
+        run: |
+          $blender = 'C:\Program Files\Blender Foundation\Blender 5.2\blender.exe'
+          $ue = 'C:\Program Files\Epic Games\UE_5.7\Engine\Binaries\Win64\UnrealEditor-Cmd.exe'
+          $project = 'C:\Users\Admin\OneDrive\NARIS_MASTER_BUNDLE\Game\NARIS_UE57\NARIS.uproject'
+          foreach ($p in @($blender,$ue,$project)) {
+            if (-not (Test-Path -LiteralPath $p)) { throw "Required production path missing: $p" }
+          }
+          Write-Host 'P0_LOCAL_TOOLS_READY=1'
+
+      - name: Run atomic hero production pipeline
+        shell: cmd
+        run: |
+          call "%GITHUB_WORKSPACE%\tools\windows\run_p0_hero_to_unreal.bat"
+
+      - name: Collect gate evidence
+        if: always()
+        shell: powershell
+        run: |
+          $projectRoot = 'C:\Users\Admin\OneDrive\NARIS_MASTER_BUNDLE\Game\NARIS_UE57'
+          $dest = Join-Path $env:GITHUB_WORKSPACE 'artifacts\p0_hero'
+          New-Item -ItemType Directory -Force $dest | Out-Null
+          $files = @(
+            (Join-Path $projectRoot 'Production\Hero\P0-01_reimport_log.json'),
+            (Join-Path $projectRoot 'Production\Hero\P0-02_rig_pbr_log.json'),
+            (Join-Path $projectRoot 'Reports\P0-03_unreal_hero_import.json'),
+            (Join-Path $projectRoot 'Reports\P0-04A_hero_technical_qa.json')
+          )
+          foreach ($f in $files) {
+            if (Test-Path -LiteralPath $f) { Copy-Item -LiteralPath $f -Destination $dest -Force }
+          }
+          $hero = Join-Path $projectRoot 'Production\Hero\SK_AshenVessel_PBR.fbx'
+          if (Test-Path -LiteralPath $hero) { Copy-Item -LiteralPath $hero -Destination $dest -Force }
+          Get-ChildItem $dest | Select-Object Name,Length,LastWriteTime | Format-Table -AutoSize
+
+      - name: Upload P0 hero evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: CALL-OF-NARIS-P0-Hero-Evidence
+          path: artifacts/p0_hero
+          retention-days: 7
+          if-no-files-found: warn
+          compression-level: 0
