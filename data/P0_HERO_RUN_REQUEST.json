@@ -1,5 +1,5 @@
 {
-  "requested_at": "2026-10-12T14:25:00+03:00",
+  "requested_at": "2026-10-12T14:40:00+03:00",
   "product": "CALL OF NARIS",
   "pipeline": "P0 Hero Self-Hosted Production",
   "stages": [
@@ -10,5 +10,12 @@
   ],
   "requested_by": "ChatGPT autonomous production pass",
   "local_project": "C:\\Users\\Admin\\OneDrive\\NARIS_MASTER_BUNDLE\\Game\\NARIS_UE57",
-  "note": "Do not replace working HeroV3; candidate remains gated until P0-04B."
+  "note": "Do not replace working HeroV3; candidate remains gated until P0-04B.",
+  "pipeline_revision": "skeleton-reuse-physics-3lod-animation-compatible",
+  "expected_gates": [
+    "P0-01",
+    "P0-02",
+    "P0-03",
+    "P0-04A"
+  ]
 }
