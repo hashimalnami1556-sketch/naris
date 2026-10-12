@@ -18,10 +18,16 @@ class HeroProductionPipelineContract(unittest.TestCase):
             src = self.read(rel)
             ast.parse(src, filename=rel)
 
-    def test_unreal_python_script_parses(self):
-        rel = "tools/unreal/p0_03_import_hero.py"
-        src = self.read(rel)
-        ast.parse(src, filename=rel)
+    def test_unreal_python_scripts_parse(self):
+        for rel in (
+            "tools/unreal/p0_03_import_hero.py",
+            "tools/unreal/p0_04a_hero_technical_qa.py",
+            "tools/unreal/p0_04b_prepare_visual_qa.py",
+            "tools/unreal/p0_05_promote_hero.py",
+            "tools/unreal/p0_05_rollback_hero.py",
+        ):
+            src = self.read(rel)
+            ast.parse(src, filename=rel)
 
     def test_p0_01_contract(self):
         src = self.read("tools/blender/p0_01_hero_oneshot.py")
@@ -138,6 +144,51 @@ class HeroProductionPipelineContract(unittest.TestCase):
         self.assertNotIn("-iterativecooking", runner)
         self.assertIn("clean_cook_outputs_failed", runner)
         self.assertIn("p0_05_rollback_hero.py", runner)
+
+    def test_p0_05_promotion_and_rollback_contract(self):
+        promote = self.read("tools/unreal/p0_05_promote_hero.py")
+        rollback = self.read("tools/unreal/p0_05_rollback_hero.py")
+        approval = self.read("data/P0_HERO_VISUAL_APPROVAL.json")
+        workflow = self.read(".github/workflows/p0-hero-self-hosted.yml")
+
+        for token in (
+            "P0-04B_render_evidence.json",
+            "screenshot_sha256",
+            "screenshot_bytes",
+            "visual_approval_criteria_incomplete",
+            "visual_evidence_hash_mismatch",
+            "visual_evidence_size_mismatch",
+            "render_evidence_candidate_mismatch",
+            "render_evidence_baseline_mismatch",
+            "render_evidence_map_mismatch",
+            "visual_approval_workflow_run_id_mismatch",
+            "visual_approval_provenance_missing",
+            "VisualEvidenceSHA256",
+        ):
+            self.assertIn(token, promote)
+
+        for token in (
+            "RollbackTemp",
+            "ACTIVE must never be left empty",
+            "active_preserved",
+            "archive_restore_failed",
+        ):
+            self.assertIn(token, rollback)
+
+        for token in (
+            '"screenshot_sha256": ""',
+            '"screenshot_bytes": 0',
+            '"approved_by": ""',
+            '"approved_at": ""',
+            '"baseline": "/Game/NARIS/Characters/HeroV3/SK_NARIS_AshenVessel_v3"',
+            '"qa_map": "/Game/NARIS/QA/L_HeroCandidate_QA"',
+        ):
+            self.assertIn(token, approval)
+
+        self.assertIn("P0-04B_render_evidence.json", workflow)
+        self.assertIn("Get-FileHash -LiteralPath $canonicalShot -Algorithm SHA256", workflow)
+        self.assertIn("screenshot_bytes = $bytes", workflow)
+        self.assertIn("name: P0-01 to P0-04B on AsusRog", workflow)
 
     def test_windows_runners_chain_the_gates(self):
         src = self.read("tools/windows/run_p0_hero_to_unreal.bat")
