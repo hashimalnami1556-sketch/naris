@@ -113,10 +113,12 @@ class HeroProductionPipelineContract(unittest.TestCase):
             self.assertIn(token, src)
 
         workflow = self.read(".github/workflows/p0-hero-self-hosted.yml")
-        self.assertIn("cancel-in-progress: false", workflow)
-        self.assertIn("Render P0-04B D3D12 comparison screenshot", workflow)
-        self.assertIn("HighResShot 1", workflow)
-        self.assertIn("pipeline_revision = 'p0-04b-hashbound-camera-v2'", workflow)
+        runner = self.read("tools/windows/Invoke-P0HeroMasterQA.ps1")
+        self.assertIn("cancel-in-progress: true", workflow)
+        self.assertIn("Invoke-P0HeroMasterQA.ps1", workflow)
+        self.assertIn("HighResShot 1", runner)
+        self.assertIn('p0-04b-hashbound-camera-v2', runner)
+        self.assertIn("P0-04B_render_evidence.json", runner)
 
     def test_p0_05_promotion_contract(self):
         promote = self.read("tools/unreal/p0_05_promote_hero.py")
@@ -195,9 +197,11 @@ class HeroProductionPipelineContract(unittest.TestCase):
         ):
             self.assertIn(token, approval)
 
+        runner = self.read("tools/windows/Invoke-P0HeroMasterQA.ps1")
         self.assertIn("P0-04B_render_evidence.json", workflow)
-        self.assertIn("Get-FileHash -LiteralPath $canonicalShot -Algorithm SHA256", workflow)
-        self.assertIn("screenshot_bytes = $bytes", workflow)
+        self.assertIn("Get-FileHash -LiteralPath $ScreenshotOut -Algorithm SHA256", runner)
+        self.assertIn("screenshot_bytes = $ScreenshotBytes", runner)
+        self.assertIn("workflow_run_id = $WorkflowRunId", runner)
         self.assertIn("name: P0-01 to P0-04B on AsusRog", workflow)
 
     def test_local_atomic_render_evidence_runner(self):
