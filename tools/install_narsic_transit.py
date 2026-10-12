@@ -64,8 +64,8 @@ def main():
         existing = build_file.read_text(encoding="utf-8-sig")
         if '"MoviePlayer"' not in existing:
             changed, count = re.subn(
-                r'(PublicDependencyModuleNames\\.AddRange\\(new string\\[\\]\\s*\\{)',
-                r'\\1 "MoviePlayer",', existing, count=1,
+                r'(PublicDependencyModuleNames\.AddRange\(new string\[\]\s*\{)',
+                r'\1 "MoviePlayer",', existing, count=1,
             )
             if count != 1:
                 raise SystemExit("Cannot patch Build.cs automatically")
@@ -76,7 +76,7 @@ def main():
     original = config_file.read_text(encoding="utf-8-sig") if config_file.exists() else ""
     if STAGE not in original:
         config_file.write_text(
-            original + "\\n[/Script/UnrealEd.ProjectPackagingSettings]\\n" + STAGE + "\\n",
+            original + "\n[/Script/UnrealEd.ProjectPackagingSettings]\n" + STAGE + "\n",
             encoding="utf-8"
         )
 
