@@ -1,0 +1,27 @@
+{
+  "product": "NARSIC",
+  "design": "Ash Gate / Transit in Progress — approved 2026-10-12",
+  "canonical_source_filename": "بوابة_الرماد_عبور_النارس_ك.png",
+  "target_runtime_filename": "NARSIC_Transit_Approved.png",
+  "width": 1672,
+  "height": 941,
+  "format": "PNG",
+  "sha256": "5e5716b02c2641948d93b481444ab6ecd2350318b0e3d63290801a9b2cde90d0",
+  "engine": "Unreal Engine 5.7",
+  "module": "NARIS_W04",
+  "runtime_path": "Content/NARSIC/Loading/NARSIC_Transit_Approved.png",
+  "windows_splash_path": "Content/Splash/Splash.bmp",
+  "binary_distribution": "The full-resolution approved art is in the downloadable NARSIC_LOADING_INSTALL_PACK.zip conversation artifact. The repository contains the integration code, installer and integrity manifest; the binary must be supplied to the installer.",
+  "runtime_loading_ux": "MoviePlayer/Slate indeterminate throbber, never a fabricated 62% actual load percentage",
+  "compatibility": [
+    "16:9",
+    "21:9",
+    "32:9"
+  ],
+  "evidence": {
+    "github_source_committed": true,
+    "desktop_online": false,
+    "ue_compile_verified": false,
+    "packaged_ui_verified": false
+  }
+}
