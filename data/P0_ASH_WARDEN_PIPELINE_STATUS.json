@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.0.0",
+  "product": "CALL OF NARIS",
+  "pipeline": "P0 Ash Warden Production",
+  "success_rule": "Build + Test + Manifest",
+  "current_gameplay_status": "Ash Warden gameplay works but still uses proxy/reused visual source",
+  "stages": [
+    {
+      "id": "P0-BOSS-01",
+      "name": "Scan/Score/Select or Procedural Unique Candidate",
+      "status": "ready_in_repository",
+      "script": "tools/blender/p0_boss_ashwarden_oneshot.py",
+      "output": "Production/Boss/AshWarden/SK_AshWarden_Candidate.fbx",
+      "gate": "candidate only; never final production from procedural fallback alone"
+    },
+    {
+      "id": "P0-BOSS-02",
+      "name": "Unreal Candidate Import",
+      "status": "ready_in_repository",
+      "script": "tools/unreal/p0_boss_02_import_ashwarden.py",
+      "destination": "/Game/NARIS/Creatures/AshWardenProduction",
+      "replacement_allowed": false
+    },
+    {
+      "id": "P0-BOSS-03",
+      "name": "Rig/Animation/PBR/Phase2 Visual QA",
+      "status": "pending_local_execution",
+      "gate": "D3D12 arena render + attack/death/phase2 animations + silhouette/material/deformation acceptance",
+      "replacement_allowed": false
+    },
+    {
+      "id": "P0-BOSS-04",
+      "name": "Gameplay Replacement + Packaged Boss Regression",
+      "status": "blocked_until_p0_boss_03_pass",
+      "gate": "replace proxy only after visual+combat acceptance and clean packaged regression",
+      "replacement_allowed": "only_after_pass"
+    }
+  ],
+  "runner": "tools/windows/run_p0_boss_ashwarden_atomic.bat"
+}
