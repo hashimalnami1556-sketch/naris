@@ -1,4 +1,4 @@
-# NARSIC current work
+# CALL OF NARIS current work
 
 Updated: 2026-10-01
 
@@ -11,7 +11,7 @@ Updated: 2026-10-01
 - Godot remains secondary/prototype-only. The audited runtime archive contains 34 non-empty files but remains a Runtime Skeleton rather than a Master Build: Autoload wiring, playable scene actors, real hit detection, production assets/audio, HUD quality and reliable input packaging remain incomplete.
 - AsusRog remote execution was offline at this sync, so the newly checked-in UI4.1 installer has not yet been executed after this repository update.
 
-- Objective: maintain one evidence-based NARSIC production source of truth, unblock the Windows W04 vertical slice, and expose workflow state through an ultrawide loading-style production monitor.
+- Objective: maintain one evidence-based CALL OF NARIS production source of truth, unblock the Windows W04 vertical slice, and expose workflow state through an ultrawide loading-style production monitor.
 - Human decision owner: project owner (repository user).
 - Executing agent: shared-agent integration pass active for Figma/Blender/Neon and W04 readiness.
 - Current work: [W04 follow-up](docs/production/work/active/w04-readiness.md).
