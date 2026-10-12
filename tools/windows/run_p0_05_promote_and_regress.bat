@@ -44,8 +44,17 @@ echo [P0-05] Building Win64 Development...
 "%UBT%" NARIS Win64 Development -Project="%UPROJECT%" -WaitMutex -NoHotReloadFromIDE
 if errorlevel 1 goto :rollback_build
 
-echo [P0-05] Cook / Stage / Pak / Archive...
-"%UAT%" BuildCookRun -project="%UPROJECT%" -noP4 -platform=Win64 -clientconfig=Development -skipbuild -cook -iterativecooking -stage -pak -archive -archivedirectory="%ARCHIVE%" -map=/Game/NARIS/Maps/L_AshMap_Assembly -unattended -utf8output
+echo [P0-05] Cleaning prior Cook / Stage / Archive outputs...
+for %%D in ("%PROJECT%\Saved\Cooked\Windows" "%PROJECT%\Saved\StagedBuilds\Windows" "%ARCHIVE%\Windows") do (
+  if exist "%%~D" (
+    echo [P0-05] Removing %%~D
+    rd /s /q "%%~D"
+    if exist "%%~D" goto :rollback_clean
+  )
+)
+
+echo [P0-05] Full Cook / Stage / Pak / Archive...
+"%UAT%" BuildCookRun -project="%UPROJECT%" -noP4 -platform=Win64 -clientconfig=Development -skipbuild -cook -stage -pak -archive -archivedirectory="%ARCHIVE%" -map=/Game/NARIS/Maps/L_AshMap_Assembly -unattended -utf8output
 if errorlevel 1 goto :rollback_package
 
 if not exist "%PACKAGED%" goto :rollback_missing_package
@@ -75,7 +84,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -Command ^
  " rollback_asset='/Game/NARIS/Characters/HeroV3/Archive/SK_NARIS_AshenVessel_v3_PreP0';" ^
  " log='%QA_LOG%';" ^
  " build='Win64 Development';" ^
- " package='Cook/Stage/Pak/Archive';" ^
+ " package='Full Clean Cook/Stage/Pak/Archive';" ^
  "};" ^
  "$o|ConvertTo-Json -Depth 6|Set-Content -Encoding utf8NoBOM -LiteralPath '%REPORT%'"
 echo ============================================================
@@ -85,6 +94,9 @@ exit /b 0
 
 :rollback_build
 set "FAIL_REASON=win64_build_failed"
+goto :rollback
+:rollback_clean
+set "FAIL_REASON=clean_cook_outputs_failed"
 goto :rollback
 :rollback_package
 set "FAIL_REASON=package_failed"
