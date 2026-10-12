@@ -80,6 +80,25 @@ if baseline:
         "same_skeleton_object":safe_prop(baseline,"skeleton")==skeleton,
     }
 
+compatible_animation_assets=[]
+animation_candidates=[
+    "/Game/NARIS/Characters/HeroV3",
+    "/Game/NARIS/W04/Characters/Hero/Animations",
+]
+for folder in animation_candidates:
+    if not unreal.EditorAssetLibrary.does_directory_exist(folder):
+        continue
+    for asset_path in unreal.EditorAssetLibrary.list_assets(folder,recursive=True,include_folder=False):
+        obj=unreal.load_asset(asset_path)
+        if not isinstance(obj,(unreal.AnimSequence,unreal.AnimMontage)):
+            continue
+        try:
+            anim_skeleton=obj.get_editor_property("skeleton")
+        except Exception:
+            anim_skeleton=None
+        if anim_skeleton==skeleton:
+            compatible_animation_assets.append(obj.get_path_name())
+
 physics_asset=safe_prop(hero,"physics_asset")
 same_skeleton=True
 if baseline:
@@ -96,6 +115,7 @@ checks={
     "physics_asset":physics_asset is not None,
     "material_slots_at_least_3":len(mats)>=3,
     "lod_count_at_least_3":lod_gate,
+    "compatible_animation_assets":len(compatible_animation_assets)>=2,
     "p0_03_candidate_only":bool(p3.get("candidate_only")),
 }
 passed=all(checks.values())
@@ -118,6 +138,8 @@ result={
     "materials":mats,
     "lod_count":lod_count,
     "physics_asset":physics_asset.get_path_name() if physics_asset else None,
+    "compatible_animation_count":len(compatible_animation_assets),
+    "compatible_animation_assets":compatible_animation_assets,
     "bounds_if_available":bounds,
     "comparison":comparison,
     "checks":checks,
