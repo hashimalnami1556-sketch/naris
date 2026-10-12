@@ -8,7 +8,7 @@ public class NARIS_W04 : ModuleRules
         PublicDependencyModuleNames.AddRange(new string[]
         {
             "Core","CoreUObject","Engine","InputCore","GameplayTags","EnhancedInput",
-            "AIModule","NavigationSystem","UMG","Slate","SlateCore","Json","Niagara","EngineCameras","GameplayCameras"
+            "AIModule","NavigationSystem","UMG","Slate","SlateCore","MoviePlayer","Json","Niagara","EngineCameras","GameplayCameras"
         });
     }
 }
