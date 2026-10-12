@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.1.0",
+  "schema_version": "1.2.0",
   "product": "CALL OF NARIS",
   "gate": "P0-04B",
   "approved": false,
@@ -14,7 +14,10 @@
     "animation_pose": "pending"
   },
   "decision": "PENDING_VISUAL_INSPECTION",
-  "note": "P0-05 requires approved=true, decision APPROVE/APPROVED/PASS, all criteria=pass, and screenshot_sha256 matching the actual D3D12 evidence file.",
+  "note": "P0-05 requires approved=true, decision APPROVE/APPROVED/PASS, all criteria=pass, screenshot_sha256 matching the actual D3D12 evidence file, candidate identity match, and evidence_git_sha matching P0-04B_render_evidence.json.",
   "screenshot_sha256": "",
-  "screenshot_bytes": 0
+  "screenshot_bytes": 0,
+  "candidate": "/Game/NARIS/Characters/HeroProduction/SK_NARIS_AshenVessel_Production",
+  "evidence_git_sha": "",
+  "evidence_workflow_run_id": ""
 }
