@@ -47,22 +47,28 @@
     {
       "id": "P0-BOSS-04",
       "name": "Rendered D3D12 Acceptance + Gameplay Replacement + Packaged Boss Regression",
-      "status": "blocked_until_p0_boss_03_render_acceptance",
-      "gate": "rendered boss comparison must pass silhouette/material/deformation/animation/phase2 checks; replacement then requires clean Win64 build, cook/stage/pak/archive, packaged boss/combat regression, and automatic rollback on failure",
-      "replacement_allowed": "only_after_pass_and_discovery",
+      "status": "ready_in_repository_pending_rendered_approval_and_local_execution",
+      "gate": "rendered boss comparison + exact SHA256/bytes/git/run evidence + fingerprinted Native C++ constructor + Win64 build + boss Phase2 QA + full clean cook/stage/pak/archive + packaged D3D12 combat/boss-art regression",
+      "replacement_allowed": "only_after_READY_NATIVE_CXX_PATCH_and_full_regression",
       "prerequisites": [
         "P0-BOSS-03 technical pass",
         "P0-BOSS-03 rendered visual approval",
         "P0-BOSS-04 integration discovery report",
         "verified local NarisAshWarden ownership/integration point"
-      ]
+      ],
+      "runner": "tools/windows/run_p0_boss_04_promote_and_regress.bat",
+      "decision_gate": "tools/ci/p0_boss_04_decide_promotion.py",
+      "native_patch": "tools/ci/p0_boss_04_patch_native_source.py",
+      "discovery_script": "tools/unreal/p0_boss_04_discover_integration.py",
+      "rollback": "automatic NarisCreature.cpp source rollback plus rebuilt clean packaged baseline on any post-patch failure"
     }
   ],
   "runner": "tools/windows/run_p0_boss_ashwarden_atomic.bat",
   "current_working_policy": "Do not replace the existing Ash Warden gameplay proxy until P0-BOSS-04 passes.",
   "local_execution": {
-    "status": "pending",
-    "note": "Repository pipeline is preparatory until executed on a Windows/Unreal/Blender machine. No local execution is claimed by this manifest."
+    "status": "pending_self_hosted_or_local_windows_execution",
+    "note": "Repository gates are ready. No Ash Warden final-art replacement is claimed until Blender/Unreal/D3D12 evidence executes on Windows.",
+    "current_proxy_policy": "Keep the existing BoneBeast-backed Ash Warden gameplay proxy active until P0-BOSS-04 full regression passes."
   },
   "visual_evidence_runner": "tools/windows/run_p0_boss_03_local_visual.bat",
   "visual_approval": "data/P0_ASH_WARDEN_VISUAL_APPROVAL.json",
@@ -73,6 +79,8 @@
     "output_report": "Reports/P0-BOSS-04_integration_discovery.json",
     "read_only": true,
     "replacement_allowed": false,
-    "purpose": "Discover the exact local Ash Warden actor/class/component/proxy ownership before authoring promotion."
+    "purpose": "Discover the exact local Ash Warden actor/class/component/proxy ownership before authoring promotion.",
+    "source_fingerprint_required": true,
+    "native_strategy": "READY_NATIVE_CXX_PATCH only after exact constructor SHA256 and BoneBeast proxy paths are proven."
   }
 }
