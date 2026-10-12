@@ -223,6 +223,19 @@ class HeroProductionPipelineContract(unittest.TestCase):
         ):
             self.assertIn(token, src)
 
+    def test_p0_05_self_hosted_workflow_contract(self):
+        workflow = self.read(".github/workflows/p0-hero-promote-self-hosted.yml")
+        for token in (
+            "data/P0_HERO_VISUAL_APPROVAL.json",
+            "approval-preflight",
+            "needs.approval-preflight.outputs.approved == 'true'",
+            "runs-on: [self-hosted, windows]",
+            "run_p0_05_promote_and_regress.bat",
+            "CALL-OF-NARIS-P0-Hero-Promotion-Evidence",
+            "cancel-in-progress: false",
+        ):
+            self.assertIn(token, workflow)
+
     def test_windows_runners_chain_the_gates(self):
         src = self.read("tools/windows/run_p0_hero_to_unreal.bat")
         for token in (
