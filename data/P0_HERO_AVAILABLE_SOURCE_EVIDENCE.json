@@ -1,0 +1,66 @@
+{
+  "schema_version": "1.0.0",
+  "product": "CALL OF NARIS",
+  "evidence_scope": "conversation-uploaded 3D source assets",
+  "executed_at": "2026-10-12",
+  "p0_01": {
+    "status": "PASS",
+    "selected_source": "Character1_NARIS_Rigged_Prototype.glb",
+    "score_after_repairs": 56.31,
+    "threshold": 55,
+    "metrics": {
+      "triangles": 49886,
+      "vertices": 32373,
+      "skins": 1,
+      "joints": 18,
+      "animations": 1,
+      "material_slots": 1,
+      "embedded_pbr_images": 3,
+      "source_height_m": 1,
+      "target_height_m": 1.85
+    },
+    "repairs": [
+      "Bound weighted mesh node to skin 0",
+      "Canonicalized 18 humanoid joint names without changing joint indices",
+      "Wrapped scene in uniform 1.85 scale parent to reach 1.85m",
+      "Preserved JOINTS_0/WEIGHTS_0 and prototype Idle animation",
+      "Preserved embedded PBR material maps"
+    ],
+    "structural_checks": {
+      "glb_reopens": true,
+      "mesh_bound_to_skin": true,
+      "joint_weights": true,
+      "canonical_bones": true,
+      "animation_present": true,
+      "pbr_basecolor": true,
+      "pbr_normal": true,
+      "pbr_metallic_roughness": true,
+      "target_height": true
+    },
+    "output_sha256": "015b7a9ff1083086084b15183bb3b63072321aa599ccf332c956e1137b9364aa"
+  },
+  "p0_02": {
+    "status": "PBR_PASS_RETARGET_PENDING",
+    "textures": [
+      "T_NARIS_AshenVessel_BaseColor.png",
+      "T_NARIS_AshenVessel_Normal_DX.png",
+      "T_NARIS_AshenVessel_Roughness.png",
+      "T_NARIS_AshenVessel_Metallic.png",
+      "T_NARIS_AshenVessel_AO.png"
+    ],
+    "resolution": [
+      2048,
+      2048
+    ],
+    "retarget_verified": false,
+    "visual_deformation_verified": false,
+    "weapon_socket_verified": false
+  },
+  "decision": {
+    "candidate_only": true,
+    "replace_current_hero": false,
+    "reason": "Current working HeroV3 remains authoritative until Unreal D3D12 retarget/deformation/combat QA passes.",
+    "next_gate": "P0-03 candidate import / P0-04B D3D12 runtime acceptance"
+  },
+  "binary_policy": "No conversation-uploaded binary asset was committed to the public GitHub repository."
+}
