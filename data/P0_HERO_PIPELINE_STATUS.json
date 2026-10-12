@@ -39,7 +39,7 @@
       "script": "tools/unreal/p0_03_import_hero.py",
       "destination": "/Game/NARIS/Characters/HeroProduction",
       "output_report": "Reports/P0-03_unreal_hero_import.json",
-      "gate": "SkeletalMesh + Skeleton + >=3 material slots",
+      "gate": "SkeletalMesh + reuse working Skeleton + PhysicsAsset + >=3 material slots + >=3 LODs",
       "replacement_policy": "candidate-only; do not replace working HeroV3"
     },
     {
@@ -48,7 +48,7 @@
       "status": "ready_in_repository",
       "script": "tools/unreal/p0_04a_hero_technical_qa.py",
       "output_report": "Reports/P0-04A_hero_technical_qa.json",
-      "gate": "SkeletalMesh + Skeleton + >=3 material slots + candidate metadata",
+      "gate": "same working Skeleton + PhysicsAsset + >=3 material slots + >=3 LODs + >=2 compatible animation assets",
       "replacement_allowed": false
     },
     {
