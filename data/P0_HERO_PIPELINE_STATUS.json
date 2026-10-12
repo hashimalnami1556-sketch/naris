@@ -18,7 +18,9 @@
         "Production/Hero/P0-01_reimport_log.json"
       ],
       "gate": "production_grade=true; rigged humanoid required",
-      "emergency_fallback": "2.5D relief only; never production-grade"
+      "emergency_fallback": "2.5D relief only; never production-grade",
+      "evidence_status": "executed_on_available_uploaded_asset",
+      "latest_result": "PASS candidate"
     },
     {
       "id": "P0-02",
@@ -30,7 +32,9 @@
         "Production/Hero/SK_AshenVessel_PBR.blend",
         "Production/Hero/P0-02_rig_pbr_log.json"
       ],
-      "gate": "armature + weighted mesh + canonical humanoid bones + 1.80-1.90m + valid scale + PBR slots"
+      "gate": "armature + weighted mesh + canonical humanoid bones + 1.80-1.90m + valid scale + PBR slots",
+      "evidence_status": "pbr_pass_retarget_pending",
+      "latest_result": "PBR PASS / Unreal retarget pending"
     },
     {
       "id": "P0-03",
@@ -93,22 +97,9 @@
   },
   "local_execution": {
     "device": "AsusRog",
-    "status": "waiting_for_self_hosted_windows_runner",
-    "blockers": [
-      "Remote Desktop Commander monthly usage limit reached",
-      "GitHub self-hosted Windows runner has not accepted the queued P0 job"
-    ],
-    "latest_self_hosted_run": {
-      "run_id": 38265233517,
-      "head_sha": "5fdb497101472b9eacd28ed4fec82dca995a1c4a",
-      "status": "queued",
-      "steps_started": false
-    },
-    "policy": "Keep SK_NARIS_AshenVessel_v3 active until P0-01..P0-04B produce evidence and P0-05 packaged D3D12 regression passes.",
-    "local_atomic_runner": "tools/windows/run_p0_hero_local_atomic.bat",
-    "promotion_runner": "tools/windows/run_p0_05_promote_and_regress.bat",
-    "execution_policy": "P0-04B evidence must be hash-bound to candidate, baseline, map, Git SHA, workflow run ID and pipeline revision before visual approval and promotion.",
-    "note": "No local Blender/Unreal P0 execution is claimed while the self-hosted job remains queued."
+    "status": "blocked",
+    "blocker": "Remote Desktop Commander monthly usage limit reached; self-hosted workflow was not picked up by a Windows runner before cancellation.",
+    "note": "No claim is made that the new candidate has executed inside the AsusRog Unreal project."
   },
   "current_working_hero": {
     "asset": "SK_NARIS_AshenVessel_v3",
@@ -123,5 +114,13 @@
       "NARIS Content Validation": "success"
     },
     "note": "Static and repository contracts are green. This does not substitute for local Blender/Unreal execution."
+  },
+  "external_candidate_execution": {
+    "environment": "conversation sandbox using uploaded 3D assets",
+    "p0_01": "PASS",
+    "p0_02": "PBR_PASS_RETARGET_PENDING",
+    "selected_source": "Character1_NARIS_Rigged_Prototype.glb",
+    "output_sha256": "015b7a9ff1083086084b15183bb3b63072321aa599ccf332c956e1137b9364aa",
+    "note": "Binary candidate retained outside public repository; evidence committed separately."
   }
 }
