@@ -81,6 +81,20 @@ class HeroProductionPipelineContract(unittest.TestCase):
         ):
             self.assertIn(token, src)
 
+    def test_p0_04b_contract(self):
+        src = self.read("tools/unreal/p0_04b_prepare_visual_qa.py")
+        for token in (
+            "P0-04B_visual_scene.json",
+            "/Game/NARIS/QA/L_HeroCandidate_QA",
+            "QA_BASELINE_HeroV3",
+            "QA_CANDIDATE_Production",
+            "visual_scene_prepared",
+            "visual_acceptance",
+            "replacement_allowed",
+            "P0-05 promotion + packaged combat regression",
+        ):
+            self.assertIn(token, src)
+
     def test_windows_runners_chain_the_gates(self):
         src = self.read("tools/windows/run_p0_hero_to_unreal.bat")
         for token in (
@@ -91,6 +105,8 @@ class HeroProductionPipelineContract(unittest.TestCase):
             "production_grade",
             "P0-03_unreal_hero_import.json",
             "P0-04A_hero_technical_qa.json",
+            "p0_04b_prepare_visual_qa.py",
+            "P0-04B_visual_scene.json",
             "P0-04B D3D12 visual+combat QA",
         ):
             self.assertIn(token, src)
