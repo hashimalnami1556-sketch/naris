@@ -59,7 +59,9 @@
       "replacement_allowed": false,
       "script": "tools/unreal/p0_04b_prepare_visual_qa.py",
       "output_report": "Reports/P0-04B_visual_scene.json",
-      "render_evidence": "Saved/Screenshots/Windows/P0-04B_HeroCompare.png"
+      "render_evidence": "Saved/Screenshots/Windows/P0-04B_HeroCompare.png",
+      "evidence_revision": "p0-04b-hashbound-camera-v2",
+      "stale_evidence_policy": "reject any render evidence without matching pipeline_revision"
     },
     {
       "id": "P0-05",
@@ -81,12 +83,19 @@
   },
   "local_execution": {
     "device": "AsusRog",
-    "status": "blocked",
-    "blocker": "Remote Desktop Commander monthly usage limit reached",
-    "note": "No claim is made that Blender P0-01/P0-02 or Unreal P0-03 has executed on the local machine."
+    "status": "blocked_external",
+    "blockers": [
+      "Remote Desktop Commander monthly usage limit reached for operational calls",
+      "GitHub self-hosted Windows/Unreal runner is not currently picking up jobs"
+    ],
+    "stale_queued_run_id": 38243252192,
+    "stale_queued_run_policy": "Do not approve evidence from this run unless it declares the required pipeline_revision; current gate will reject it.",
+    "required_pipeline_revision": "p0-04b-hashbound-camera-v2",
+    "note": "No claim is made that Blender P0-01/P0-02, Unreal P0-03/P0-04A, or rendered P0-04B has executed successfully on AsusRog."
   },
   "current_working_hero": {
     "asset": "SK_NARIS_AshenVessel_v3",
     "policy": "retain until P0-04 passes"
-  }
+  },
+  "required_visual_pipeline_revision": "p0-04b-hashbound-camera-v2"
 }
