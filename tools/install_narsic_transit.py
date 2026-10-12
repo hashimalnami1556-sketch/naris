@@ -45,6 +45,23 @@ def main():
     if not dest.is_file() or dest.read_bytes() != source.read_bytes():
         shutil.copyfile(source, dest)
 
+    # Public identity is NARSIC; technical module names are intentionally unchanged.
+    engine_ini = project_root / "Config" / "DefaultEngine.ini"
+    old_engine = engine_ini.read_text(encoding="utf-8-sig") if engine_ini.is_file() else ""
+    if "ProjectName=NARSIC" not in old_engine:
+        if "ProjectName=CALL OF NARIS" in old_engine:
+            old_engine = old_engine.replace("ProjectName=CALL OF NARIS", "ProjectName=NARSIC")
+        elif "ProjectName=NARIS" in old_engine:
+            old_engine = old_engine.replace("ProjectName=NARIS", "ProjectName=NARSIC")
+        else:
+            old_engine += "\n[/Script/EngineSettings.GeneralProjectSettings]\nProjectName=NARSIC\n"
+        engine_ini.parent.mkdir(parents=True, exist_ok=True)
+        engine_ini.write_text(old_engine, encoding="utf-8")
+
+    if document.get("Description") != "NARSIC":
+        document["Description"] = "NARSIC"
+        candidates[0].write_text(json.dumps(document, indent=2) + "\n", encoding="utf-8")
+
     if not args.assets_only:
         template = args.code_template.read_text(encoding="utf-8")
         source_cpp = project_root / "Source" / name / (name + ".cpp")
