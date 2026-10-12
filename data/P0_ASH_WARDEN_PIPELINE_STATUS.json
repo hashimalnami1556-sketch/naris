@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.1.0",
+  "schema_version": "1.2.0",
   "product": "CALL OF NARIS",
   "pipeline": "P0 Ash Warden Production",
   "success_rule": "Build + Test + Manifest",
@@ -39,8 +39,10 @@
       "destination": "/Game/NARIS/Creatures/AshWardenProduction",
       "qa_map": "/Game/NARIS/QA/L_AshWardenCandidate_QA",
       "screenshot": "Saved/Screenshots/Windows/P0-BOSS-03_AshWardenCompare.png",
-      "gate": "SkeletalMesh + Skeleton + PhysicsAsset + >=4 material slots + >=3 LODs + Idle/Walk/Attack/Phase2/HitReact/Death + saved QA map",
-      "replacement_allowed": false
+      "gate": "SkeletalMesh + Skeleton + PhysicsAsset + >=4 material slots + >=3 LODs + Idle/Walk/Attack/Phase2/HitReact/Death + saved QA map + fresh D3D12 screenshot bound by SHA-256/bytes/git SHA",
+      "replacement_allowed": false,
+      "render_evidence": "Reports/P0-BOSS-03_render_evidence.json",
+      "approval_file": "data/P0_ASH_WARDEN_VISUAL_APPROVAL.json"
     },
     {
       "id": "P0-BOSS-04",
@@ -55,5 +57,7 @@
   "local_execution": {
     "status": "pending",
     "note": "Repository pipeline is preparatory until executed on a Windows/Unreal/Blender machine. No local execution is claimed by this manifest."
-  }
+  },
+  "visual_evidence_runner": "tools/windows/run_p0_boss_03_local_visual.bat",
+  "visual_approval": "data/P0_ASH_WARDEN_VISUAL_APPROVAL.json"
 }
