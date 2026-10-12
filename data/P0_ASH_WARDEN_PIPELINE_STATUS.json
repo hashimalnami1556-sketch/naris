@@ -82,5 +82,22 @@
     "purpose": "Discover the exact local Ash Warden actor/class/component/proxy ownership before authoring promotion.",
     "source_fingerprint_required": true,
     "native_strategy": "READY_NATIVE_CXX_PATCH only after exact constructor SHA256 and BoneBeast proxy paths are proven."
+  },
+  "repository_verification": {
+    "status": "PASS",
+    "commit": "3aec2b507d755f5123721864dd806d04f9234a60",
+    "workflows": {
+      "NARIS CI": "success",
+      "NARIS Content Validation": "success"
+    }
+  },
+  "self_hosted_candidate_run": {
+    "workflow": ".github/workflows/p0-ashwarden-self-hosted.yml",
+    "run_id": 38267951910,
+    "job_id": 114874799907,
+    "status": "queued",
+    "steps_started": false,
+    "head_sha": "3aec2b507d755f5123721864dd806d04f9234a60",
+    "note": "No Blender or Unreal candidate execution is claimed while the Windows self-hosted job has no steps."
   }
 }
