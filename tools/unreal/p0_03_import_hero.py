@@ -59,13 +59,30 @@ def sha256_file(path):
     return h.hexdigest()
 
 source_sha256=sha256_file(source)
-expected_source_sha256=str(p2.get("output_fbx_sha256") or "").lower().strip() if source_format==".fbx" else ""
-if expected_source_sha256 and source_sha256.lower()!=expected_source_sha256:
-    fail("p0_02_source_sha256_mismatch",{
-        "expected_sha256":expected_source_sha256,
-        "actual_sha256":source_sha256,
-        "source":str(source)
-    })
+if source_format==".fbx":
+    expected_source_sha256=str(p2.get("output_fbx_sha256") or "").lower().strip()
+else:
+    expected_source_sha256=str(
+        p2.get("output_glb_sha256")
+        or p2.get("candidate_glb_sha256")
+        or p2.get("output_sha256")
+        or ""
+    ).lower().strip()
+
+if expected_source_sha256:
+    if len(expected_source_sha256)!=64 or any(c not in "0123456789abcdef" for c in expected_source_sha256):
+        fail("p0_02_expected_source_sha256_invalid",{
+            "expected_sha256":expected_source_sha256,
+            "source_format":source_format,
+            "source":str(source)
+        })
+    if source_sha256.lower()!=expected_source_sha256:
+        fail("p0_02_source_sha256_mismatch",{
+            "expected_sha256":expected_source_sha256,
+            "actual_sha256":source_sha256,
+            "source_format":source_format,
+            "source":str(source)
+        })
 
 # Keep candidate import isolated from the current working HeroV3.
 unreal.EditorAssetLibrary.make_directory(DEST)
