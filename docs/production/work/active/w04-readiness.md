@@ -1,6 +1,6 @@
 ---
 status: active
-last_updated: 2026-10-11
+last_updated: 2026-10-12
 ---
 # W04 readiness handoff
 
@@ -99,3 +99,10 @@ last_updated: 2026-10-11
 - Ambiguous network failures and rejected submissions remain explicit unresolved records; no automatic resubmission is allowed. Check the server history and repair the receipt only after determining whether a prompt was accepted. A crash may leave a lock; remove it only after verifying no runner is active.
 - No settings, prompts, seeds, geometry, production-map bindings or approval states changed. AsusRog was rechecked and remains Offline; no new images, Unreal import, PIE or final package were executed.
 - Verification: repository validation and 318 CI tests plus six AssetForge tests pass (324 total). Six new receipt tests cover repeat invocation, network uncertainty, legacy receipts, invalid journals, concurrent runners and rejected workflows. These tests use a simulated submit transport, not a live generation service.
+
+### Owner adoption — 2026-10-12
+
+- Decision owner: project owner. Executing agent: Codex.
+- Owner approved the latest published generation-receipt repair (603a8d4) for continued production work, following the uploaded-asset intake (8ea68cd).
+- Scope: adoption of the source update and intake workflow. The 324 source/data test results remain the recorded validation evidence; owner approval does not assert completed generation, engine import, PIE, final-art readiness or Shipping acceptance.
+- Review remains tracked in PR #35. No main-branch merge, production asset promotion or workstation launch was performed as part of this adoption record.
