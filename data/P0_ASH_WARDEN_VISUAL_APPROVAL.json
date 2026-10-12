@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0.0",
+  "product": "CALL OF NARIS",
+  "gate": "P0-BOSS-03 Rendered Visual Acceptance",
+  "approved": false,
+  "decision": "PENDING_VISUAL_INSPECTION",
+  "candidate": "/Game/NARIS/Creatures/AshWardenProduction/SK_NARIS_AshWarden_Production",
+  "baseline_proxy": "",
+  "qa_map": "/Game/NARIS/QA/L_AshWardenCandidate_QA",
+  "screenshot": "P0-BOSS-03_AshWardenCompare.png",
+  "screenshot_sha256": "",
+  "screenshot_bytes": 0,
+  "evidence_git_sha": "",
+  "evidence_workflow_run_id": "",
+  "pipeline_revision": "p0-boss-03-ashwarden-visual-v1",
+  "approved_by": "",
+  "approved_at": "",
+  "criteria": {
+    "silhouette_unique_vs_proxy": "pending",
+    "blackened_steel_bronze_burgundy_ember_language": "pending",
+    "scale_and_proportion": "pending",
+    "deformation_idle": "pending",
+    "deformation_attack": "pending",
+    "deformation_phase2": "pending",
+    "deformation_death": "pending",
+    "weapon_readability": "pending",
+    "clipping_intersections": "pending",
+    "boss_readability_at_camera_distance": "pending"
+  },
+  "replacement_allowed": false,
+  "note": "P0-BOSS-04 remains blocked until exact screenshot evidence is inspected and every criterion passes. Local NarisAshWarden integration point must also be verified before promotion."
+}
