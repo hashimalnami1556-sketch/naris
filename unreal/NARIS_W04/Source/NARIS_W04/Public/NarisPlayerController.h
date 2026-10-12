@@ -116,6 +116,12 @@ public:
     void MenuConfirm();
 
     UFUNCTION(BlueprintCallable, Category="NARIS|Menu")
+    void SelectMenuIndex(int32 Index);
+
+    UFUNCTION(BlueprintCallable, Category="NARIS|Menu")
+    void ActivateMenuIndex(int32 Index);
+
+    UFUNCTION(BlueprintCallable, Category="NARIS|Menu")
     void MenuBack();
 
 private:
