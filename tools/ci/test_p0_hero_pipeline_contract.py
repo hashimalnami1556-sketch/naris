@@ -80,6 +80,10 @@ class HeroProductionPipelineContract(unittest.TestCase):
             "source_format",
             "material_slots_non_null",
             "NARIS.SourceAsset",
+            "output_glb_sha256",
+            "expected_source_sha256",
+            "p0_02_source_sha256_mismatch",
+            "p0_02_expected_source_sha256_invalid",
             "diagnostics",
         ):
             self.assertIn(token, src)
