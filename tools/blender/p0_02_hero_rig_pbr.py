@@ -1,6 +1,6 @@
 # CALL OF NARIS — P0-02 Hero Rig + PBR Production Gate
 # Consumes Production/Hero/P0-01_reimport_log.json and SK_AshenVessel_Production.blend
-import bpy, os, sys, json, math, traceback
+import bpy, os, sys, json, math, traceback, hashlib
 from mathutils import Vector
 
 PROJECT_ROOT=r"C:\Users\Admin\OneDrive\NARIS_MASTER_BUNDLE\Game\NARIS_UE57"
@@ -191,6 +191,16 @@ bpy.ops.export_scene.fbx(
     object_types={'ARMATURE','MESH'}
 )
 
+def sha256_file(path):
+    h=hashlib.sha256()
+    with open(path,"rb") as f:
+        for chunk in iter(lambda:f.read(1024*1024),b""):
+            h.update(chunk)
+    return h.hexdigest()
+
+output_fbx_sha256=sha256_file(OUT_FBX) if os.path.isfile(OUT_FBX) else None
+output_blend_sha256=sha256_file(OUT_BLEND) if os.path.isfile(OUT_BLEND) else None
+
 report={
  "status":"PASS" if passed else "FAIL_GATE",
  "production_grade":passed,
@@ -198,6 +208,8 @@ report={
  "source":SRC_BLEND,
  "output_blend":OUT_BLEND,
  "output_fbx":OUT_FBX,
+ "output_fbx_sha256":output_fbx_sha256,
+ "output_blend_sha256":output_blend_sha256,
  "armature":arm.name,
  "bone_count":len(arm.data.bones),
  "weighted_meshes":weighted,
