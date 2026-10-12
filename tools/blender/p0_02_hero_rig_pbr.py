@@ -117,12 +117,35 @@ obs=principled_material("M_NARIS_Obsidian",(0.012,0.017,0.024),0.82,0.58)
 gold=principled_material("M_NARIS_AgedGold",(0.34,0.18,0.035),0.88,0.42)
 ember=principled_material("M_NARIS_EmberFire",(0.31,0.012,0.003),0.28,0.38,(1.0,0.07,0.01),4.5)
 
+# Keep NARIS style materials available in the .blend, but do not append
+# unassigned slots to production meshes. A real source PBR material is preferable
+# to three cosmetic slots with no polygon segmentation.
+style_material_library=[obs.name,gold.name,ember.name]
+material_slots={}
+renamed_primary={}
 for m in meshes:
     slots=m.data.materials
-    lower=[x.name.lower() if x else "" for x in slots]
-    if not any("obsidian" in x for x in lower): slots.append(obs)
-    if not any("gold" in x for x in lower): slots.append(gold)
-    if not any("fire" in x or "ember" in x for x in lower): slots.append(ember)
+    if len(slots)==0:
+        slots.append(obs)
+    elif slots[0]:
+        lower=slots[0].name.lower()
+        if lower.startswith("tripo_") or lower.startswith("material"):
+            old_name=slots[0].name
+            slots[0].name="M_NARIS_AshenVessel_PBR"
+            renamed_primary[old_name]=slots[0].name
+    material_slots[m.name]=[x.name if x else None for x in slots]
+
+def has_principled_material(mesh):
+    for mat in mesh.data.materials:
+        if not mat:
+            continue
+        if not mat.use_nodes:
+            return True
+        if mat.node_tree and any(node.type=="BSDF_PRINCIPLED" for node in mat.node_tree.nodes):
+            return True
+    return False
+
+pbr_material_ready=any(has_principled_material(m) for m in meshes)
 
 # Bounds/height.
 mn=Vector((1e20,1e20,1e20)); mx=Vector((-1e20,-1e20,-1e20)); found=False
@@ -149,6 +172,7 @@ gate={
  "height":1.80<=height<=1.90,
  "no_zero_scale":len(zero_scale)==0,
  "no_negative_scale":len(negative_scale)==0,
+ "pbr_material":pbr_material_ready,
 }
 passed=all(gate.values())
 
@@ -170,6 +194,7 @@ bpy.ops.export_scene.fbx(
 report={
  "status":"PASS" if passed else "FAIL_GATE",
  "production_grade":passed,
+ "import_candidate_ready":passed,
  "source":SRC_BLEND,
  "output_blend":OUT_BLEND,
  "output_fbx":OUT_FBX,
@@ -184,7 +209,11 @@ report={
  "zero_scale":zero_scale,
  "negative_scale":negative_scale,
  "gate":gate,
- "materials":["M_NARIS_Obsidian","M_NARIS_AgedGold","M_NARIS_EmberFire"]
+ "material_slots":material_slots,
+ "renamed_primary_materials":renamed_primary,
+ "materials":["M_NARIS_Obsidian","M_NARIS_AgedGold","M_NARIS_EmberFire"],
+ "style_material_library":style_material_library,
+ "material_policy":"preserve real assigned PBR; style materials remain unassigned until authored segmentation exists"
 }
 with open(LOG2,"w",encoding="utf-8") as f: json.dump(report,f,indent=2,ensure_ascii=False)
 print("=== P0-02 DONE ===")
