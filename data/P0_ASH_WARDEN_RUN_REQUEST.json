@@ -1,0 +1,24 @@
+{
+  "requested_at": "2026-10-12T18:00:00+03:00",
+  "product": "CALL OF NARIS",
+  "pipeline": "P0 Ash Warden Candidate Production",
+  "revision": "p0-boss-candidate-evidence-v1",
+  "stages": [
+    "P0-BOSS-01",
+    "P0-BOSS-02",
+    "P0-BOSS-03",
+    "P0-BOSS-04-discovery"
+  ],
+  "candidate_only": true,
+  "promotion_allowed": false,
+  "expected_evidence": [
+    "P0-BOSS_AshWarden_log.json",
+    "P0-BOSS-02_rig_anim_pbr.json",
+    "P0-BOSS-03_unreal_qa.json",
+    "P0-BOSS-03_render_evidence.json",
+    "P0-BOSS-04_integration_discovery.json",
+    "P0-BOSS-03_AshWardenCompare.png"
+  ],
+  "local_project": "C:\\Users\\Admin\\OneDrive\\NARIS_MASTER_BUNDLE\\Game\\NARIS_UE57",
+  "policy": "Do not run native C++ promotion. Keep BoneBeast-backed Ash Warden proxy active until explicit visual approval and guarded P0-BOSS-04 full regression pass."
+}
