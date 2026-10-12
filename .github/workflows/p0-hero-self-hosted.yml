@@ -52,8 +52,28 @@ jobs:
           if ($LASTEXITCODE -ne 0) { throw "P0-04B D3D12 render exited with $LASTEXITCODE" }
           $shot = Get-ChildItem $screenDir -Filter '*.png' | Sort-Object LastWriteTime -Descending | Select-Object -First 1
           if (-not $shot) { throw 'P0-04B screenshot was not produced.' }
-          Copy-Item $shot.FullName (Join-Path $screenDir 'P0-04B_HeroCompare.png') -Force
-          Write-Host "P0_04B_SCREENSHOT=$($shot.FullName)"
+          $canonicalShot = Join-Path $screenDir 'P0-04B_HeroCompare.png'
+          Copy-Item $shot.FullName $canonicalShot -Force
+          $hash = (Get-FileHash -LiteralPath $canonicalShot -Algorithm SHA256).Hash.ToLowerInvariant()
+          $sceneReportPath = Join-Path $projectRoot 'Reports\P0-04B_visual_scene.json'
+          if (-not (Test-Path -LiteralPath $sceneReportPath)) { throw 'P0-04B scene report missing.' }
+          $scene = Get-Content -Raw -LiteralPath $sceneReportPath | ConvertFrom-Json
+          $evidence = [ordered]@{
+            schema_version = '1.0.0'
+            status = 'PASS'
+            screenshot = 'P0-04B_HeroCompare.png'
+            screenshot_path = $canonicalShot
+            screenshot_sha256 = $hash
+            candidate = $scene.candidate
+            baseline = $scene.baseline
+            qa_map = $scene.qa_map
+            git_sha = $env:GITHUB_SHA
+            workflow_run_id = $env:GITHUB_RUN_ID
+          }
+          $evidencePath = Join-Path $projectRoot 'Reports\P0-04B_render_evidence.json'
+          $evidence | ConvertTo-Json -Depth 6 | Set-Content -Encoding utf8NoBOM -LiteralPath $evidencePath
+          Write-Host "P0_04B_SCREENSHOT=$canonicalShot"
+          Write-Host "P0_04B_SHA256=$hash"
 
       - name: Collect gate evidence
         if: always()
@@ -68,6 +88,7 @@ jobs:
             (Join-Path $projectRoot 'Reports\P0-03_unreal_hero_import.json'),
             (Join-Path $projectRoot 'Reports\P0-04A_hero_technical_qa.json'),
             (Join-Path $projectRoot 'Reports\P0-04B_visual_scene.json'),
+            (Join-Path $projectRoot 'Reports\P0-04B_render_evidence.json'),
             (Join-Path $projectRoot 'Saved\Screenshots\Windows\P0-04B_HeroCompare.png')
           )
           foreach ($f in $files) {
