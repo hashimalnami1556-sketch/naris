@@ -166,6 +166,26 @@ def main():
     result["bonebeast_proxy_confirmed"]=bool(discovery.get("bonebeast_proxy_confirmed"))
     result["native_skeletal_component"]=bool(discovery.get("native_skeletal_component"))
     result["recommended_integration_strategy"]=discovery.get("recommended_integration_strategy")
+    result["source_evidence"]=discovery.get("source_evidence") or {}
+
+    source_evidence=result["source_evidence"]
+    native_source_errors=[]
+    if bool(discovery.get("native_skeletal_component")):
+        if source_evidence.get("cpp_exists") is not True:
+            native_source_errors.append("naris_creature_cpp_missing")
+        if source_evidence.get("header_exists") is not True:
+            native_source_errors.append("naris_creature_header_missing")
+        if source_evidence.get("ashwarden_constructor_found") is not True:
+            native_source_errors.append("ashwarden_constructor_not_found")
+        if len(str(source_evidence.get("cpp_sha256") or ""))!=64:
+            native_source_errors.append("cpp_sha256_invalid")
+        if len(str(source_evidence.get("ashwarden_constructor_sha256") or ""))!=64:
+            native_source_errors.append("constructor_sha256_invalid")
+        if not source_evidence.get("bonebeast_paths_in_constructor"):
+            native_source_errors.append("bonebeast_proxy_paths_not_found_in_constructor")
+        if not bool(discovery.get("bonebeast_proxy_confirmed")):
+            native_source_errors.append("runtime_bonebeast_proxy_not_confirmed")
+    result["native_source_errors"]=native_source_errors
 
     if visual_errors:
         result["decision"]="BLOCKED_VISUAL_APPROVAL"
@@ -179,12 +199,19 @@ def main():
         result["decision"]="BLOCKED_INTEGRATION_DISCOVERY"
         result["reasons"].append({"discovery":discovery_errors})
         code=22
-    elif bool(discovery.get("native_skeletal_component")):
-        result["decision"]="BLOCKED_NATIVE_CXX"
-        result["reasons"].append(
-            "Skeletal component is Native; inspect local NarisAshWarden C++ constructor/BeginPlay before authoring any override."
-        )
+    elif bool(discovery.get("native_skeletal_component")) and native_source_errors:
+        result["decision"]="BLOCKED_NATIVE_CXX_SOURCE_EVIDENCE"
+        result["reasons"].append({"native_source":native_source_errors})
         code=30
+    elif bool(discovery.get("native_skeletal_component")):
+        result["status"]="READY"
+        result["decision"]="READY_NATIVE_CXX_PATCH"
+        result["replacement_allowed"]=True
+        result["reasons"].append(
+            "Rendered approval, runtime proxy identity and local C++ source fingerprints all match. "
+            "A guarded constructor-only patch may be prepared; build/package regression and automatic rollback remain mandatory."
+        )
+        code=0
     elif not discovery.get("target",{}).get("skeletal_components"):
         result["decision"]="BLOCKED_CLASS_INSPECTION"
         result["reasons"].append(
