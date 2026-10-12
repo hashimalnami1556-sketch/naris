@@ -1,6 +1,7 @@
 #include "NarisVillainCharacter.h"
 
 #include "AIController.h"
+#include "Animation/AnimSequence.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/SkeletalMeshComponent.h"
@@ -53,6 +54,7 @@ void ANarisVillainCharacter::BeginPlay()
     DevelopmentVisual->SetVisibility(!GetMesh() || GetMesh()->GetSkeletalMeshAsset() == nullptr);
     NextPatrolTime = GetWorld() ? GetWorld()->GetTimeSeconds() + 1.f : 0.f;
     ChangeState(ENarisVillainState::Patrol);
+    PlayStateAnimation(ENarisVillainState::Patrol);
 }
 
 void ANarisVillainCharacter::ApplyArchetype()
@@ -96,11 +98,48 @@ void ANarisVillainCharacter::ApplyArchetype()
     GetCharacterMovement()->MaxWalkSpeed = Speed;
 }
 
+void ANarisVillainCharacter::PlayStateAnimation(ENarisVillainState State)
+{
+    if (!GetMesh() || !GetMesh()->GetSkeletalMeshAsset())
+    {
+        return;
+    }
+    UAnimSequence* Sequence = nullptr;
+    bool bLoop = false;
+    switch (State)
+    {
+    case ENarisVillainState::Patrol:
+    case ENarisVillainState::Recovery:
+        Sequence = IdleAnimation;
+        bLoop = true;
+        break;
+    case ENarisVillainState::Chase:
+        Sequence = WalkAnimation;
+        bLoop = true;
+        break;
+    case ENarisVillainState::Windup:
+        Sequence = bSecondPhase && HeavyAttackAnimation
+            ? HeavyAttackAnimation.Get() : LightAttackAnimation.Get();
+        break;
+    case ENarisVillainState::Staggered:
+        Sequence = StaggerAnimation;
+        break;
+    case ENarisVillainState::Dead:
+        Sequence = DeathAnimation;
+        break;
+    }
+    if (Sequence && Sequence->GetSkeleton() == GetMesh()->GetSkeletalMeshAsset()->GetSkeleton())
+    {
+        GetMesh()->PlayAnimation(Sequence, bLoop);
+    }
+}
+
 void ANarisVillainCharacter::ChangeState(ENarisVillainState NewState)
 {
     if (VillainState != NewState)
     {
         VillainState = NewState;
+        PlayStateAnimation(NewState);
         OnVillainStateChanged(NewState);
     }
 }
