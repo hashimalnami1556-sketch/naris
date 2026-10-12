@@ -1,0 +1,97 @@
+{
+  "schema": "naris.character.intake.v1",
+  "date": "2026-10-12",
+  "engine": "Unreal Engine 5.7",
+  "scope": "six new user-supplied characters/creature assets",
+  "binary_delivery": "owner-provided NARIS_Character_Intake_20261012.zip; NOT in git until cleared",
+  "validation": "source structure and glTF rig serialization validated in isolated Python; Unreal/Blender not executed; ASUS ROG device offline",
+  "raw_dragon_tris": 954415,
+  "dragon_rig_joints": 22,
+  "dragon_animations": [
+    "NARIS_Dragon_Idle",
+    "NARIS_Dragon_WingBeat",
+    "NARIS_Dragon_Roar"
+  ],
+  "tests_passed_locally": 8,
+  "release_gate": "closed",
+  "assets": [
+    {
+      "id": "NARIS-W04-BOS-ASHDRAGON-0001",
+      "name": "Ash Dragon",
+      "format": "GLB",
+      "status": "procedural_skeletal_prototype",
+      "engine_target": "/Game/NARIS/W04/Characters/Intake/AshDragon",
+      "source": "user_upload_2026-10-12",
+      "gameplay_ready": false,
+      "ue57_import_verified": false,
+      "rig_art_approved": false,
+      "rights_verified": false,
+      "production_map_placed": false
+    },
+    {
+      "id": "NARIS-W04-ENM-ASHENKNIGHT-0001",
+      "name": "Ashen Knight",
+      "format": "USDZ",
+      "status": "source_intake",
+      "engine_target": "/Game/NARIS/W04/Characters/Intake/AshenKnight",
+      "source": "user_upload_2026-10-12",
+      "gameplay_ready": false,
+      "ue57_import_verified": false,
+      "rig_art_approved": false,
+      "rights_verified": false,
+      "production_map_placed": false
+    },
+    {
+      "id": "NARIS-W04-ENM-DARKKNIGHT-0001",
+      "name": "Dark Armored Knight",
+      "format": "USDZ",
+      "status": "source_intake",
+      "engine_target": "/Game/NARIS/W04/Characters/Intake/DarkKnight",
+      "source": "user_upload_2026-10-12",
+      "gameplay_ready": false,
+      "ue57_import_verified": false,
+      "rig_art_approved": false,
+      "rights_verified": false,
+      "production_map_placed": false
+    },
+    {
+      "id": "NARIS-W04-CHR-NPCVARIANT-0001",
+      "name": "Japan character candidate",
+      "format": "USDZ",
+      "status": "source_intake",
+      "engine_target": "/Game/NARIS/W04/Characters/Intake/JapanCandidate",
+      "source": "user_upload_2026-10-12",
+      "gameplay_ready": false,
+      "ue57_import_verified": false,
+      "rig_art_approved": false,
+      "rights_verified": false,
+      "production_map_placed": false
+    },
+    {
+      "id": "NARIS-W04-CHR-NPCVARIANT-0002",
+      "name": "W character candidate",
+      "format": "USDZ",
+      "status": "source_intake",
+      "engine_target": "/Game/NARIS/W04/Characters/Intake/WCandidate",
+      "source": "user_upload_2026-10-12",
+      "gameplay_ready": false,
+      "ue57_import_verified": false,
+      "rig_art_approved": false,
+      "rights_verified": false,
+      "production_map_placed": false
+    },
+    {
+      "id": "NARIS-W04-CHR-NPCVARIANT-0003",
+      "name": "HA character candidate",
+      "format": "USDZ",
+      "status": "source_intake",
+      "engine_target": "/Game/NARIS/W04/Characters/Intake/HACandidate",
+      "source": "user_upload_2026-10-12",
+      "gameplay_ready": false,
+      "ue57_import_verified": false,
+      "rig_art_approved": false,
+      "rights_verified": false,
+      "production_map_placed": false
+    }
+  ]
+}
