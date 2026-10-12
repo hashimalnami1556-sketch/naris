@@ -522,7 +522,7 @@ FText ANarisPlayerController::GetMenuTitle() const
     switch (PauseMenuPage)
     {
         case ENarisPauseMenuPage::Main:
-            return NSLOCTEXT("NARIS", "PauseMenuTitle", "NARSIC");
+            return NSLOCTEXT("NARIS", "PauseMenuTitle", "CALL OF NARIS");
         case ENarisPauseMenuPage::Inventory:
             return NSLOCTEXT("NARIS", "InventoryTitle", "Inventory");
         case ENarisPauseMenuPage::Map:
