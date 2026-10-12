@@ -90,3 +90,12 @@ last_updated: 2026-10-11
 - Rechecked remote device: AsusRog is Offline. No Unreal/Blender build, import, PIE, game launch or final packaging was performed in this environment.
 - Next action: run the review launcher on Windows, retain the editor report/logs and inspect materials/scale, then validate reference fidelity, production rigs and authored navigation before promotion. Main/default maps and production art remain unchanged.
 - Verification: repository validator passes; 312 CI tests (including six byte-level intake tests) and six AssetForge tests pass, 318 total. Python sources parse; diff whitespace check passes. Windows launcher and Unreal importer remain unexecuted.
+
+
+### Generation receipt recovery — 2026-10-12
+
+- Executing agent: Codex. Scope: generation queue receipts, resumed submissions and regression tests. Baseline: published intake commit 8ea68cd. The prior intake's 24 files were verified byte-identical to the local delivery tree.
+- Found: rerunning the six-job runner overwrote previous receipts and submitted accepted jobs again. Fixed: retain receipts, identify exact workflows, skip accepted jobs (including legacy receipts), checkpoint submission intent before POST, save atomically and prevent concurrent runners with a journal lock.
+- Ambiguous network failures and rejected submissions remain explicit unresolved records; no automatic resubmission is allowed. Check the server history and repair the receipt only after determining whether a prompt was accepted. A crash may leave a lock; remove it only after verifying no runner is active.
+- No settings, prompts, seeds, geometry, production-map bindings or approval states changed. AsusRog was rechecked and remains Offline; no new images, Unreal import, PIE or final package were executed.
+- Verification: repository validation and 318 CI tests plus six AssetForge tests pass (324 total). Six new receipt tests cover repeat invocation, network uncertainty, legacy receipts, invalid journals, concurrent runners and rejected workflows. These tests use a simulated submit transport, not a live generation service.

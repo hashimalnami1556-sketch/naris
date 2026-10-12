@@ -1,11 +1,75 @@
 """Submit the exact owner-requested sampling workflows to an installed ComfyUI."""
 import argparse
+import hashlib
 import json
+import os
 from pathlib import Path
 import urllib.request
 import uuid
 
 ROOT = Path(__file__).resolve().parents[2]
+
+
+def workflow_key(workflow):
+    return hashlib.sha256(json.dumps(workflow, sort_keys=True, separators=(',', ':')).encode()).hexdigest()
+
+
+def save_records(path, records):
+    temporary = path.with_name(path.name + '.tmp')
+    with temporary.open('w', encoding='utf-8') as handle:
+        json.dump(records, handle, indent=2)
+        handle.write('\n')
+        handle.flush()
+        os.fsync(handle.fileno())
+    os.replace(temporary, path)
+
+
+def submit_batch(batch, server, output, send):
+    """Resume accepted jobs; checkpoint intent before POST to avoid blind retries."""
+    output = Path(output)
+    output.parent.mkdir(parents=True, exist_ok=True)
+    lock = output.with_name(output.name + '.lock')
+    try:
+        descriptor = os.open(lock, os.O_CREAT | os.O_EXCL | os.O_WRONLY, 0o600)
+    except FileExistsError as exc:
+        raise RuntimeError('Another runner or an interrupted run holds ' + str(lock)) from exc
+    os.close(descriptor)
+    try:
+        records = json.loads(output.read_text(encoding='utf-8')) if output.exists() else []
+        if not isinstance(records, list) or any(not isinstance(r, dict) or not isinstance(r.get('workflow'), dict) for r in records):
+            raise ValueError('Invalid receipt journal; refusing to replace it')
+        server = server.rstrip('/')
+        pending = []
+        for name, workflow in batch:
+            key = workflow_key(workflow)
+            # Legacy receipts omitted server; conservatively retain them as sent.
+            matches = [r for r in records if workflow_key(r['workflow']) == key
+                       and r.get('server', server).rstrip('/') == server]
+            if matches:
+                if any(not r.get('prompt_id') for r in matches):
+                    raise RuntimeError('Unresolved submission for ' + name + '; inspect ComfyUI history and the journal before retrying')
+                print(name + ': already submitted; skipped')
+                continue
+            pending.append((name, workflow, key))
+        client = str(uuid.uuid4())
+        for name, workflow, key in pending:
+            record = {'name': name, 'status': 'submitting', 'server': server,
+                'workflow_key': key, 'workflow': workflow, 'client_id': client}
+            records.append(record)
+            save_records(output, records)
+            # A connection loss may occur after acceptance. Leave intent unresolved,
+            # rather than automatically retrying a potentially accepted generation.
+            result = send(server, '/prompt', {'prompt': workflow, 'client_id': client})
+            if result.get('node_errors') or not result.get('prompt_id'):
+                record['status'] = 'rejected'; record['response'] = result
+                save_records(output, records)
+                raise RuntimeError('Workflow rejected: ' + json.dumps(result))
+            record.update(prompt_id=result['prompt_id'], status='queued')
+            save_records(output, records)
+            print(name + ': queued ' + result['prompt_id'])
+        return records
+    finally:
+        lock.unlink()
 
 
 def request(server, path, payload=None):
@@ -48,16 +112,6 @@ if __name__ == '__main__':
     if args.validate_only:
         print(f'{len(batch)} workflows compatible with installed node/model names; no jobs submitted')
     else:
-        records=[];client=str(uuid.uuid4())
         output=ROOT/'unreal/NARIS_W04/Saved/NARIS/Intake/comfy-requests.json'
-        output.parent.mkdir(parents=True,exist_ok=True)
-        # Checkpoint each accepted request; never describe queue acceptance as generated output.
-        for name, workflow in batch:
-            result=request(args.server,'/prompt',{'prompt':workflow,'client_id':client})
-            if result.get('node_errors') or not result.get('prompt_id'):
-                raise RuntimeError('Workflow rejected: ' + json.dumps(result))
-            records.append({'name':name,'prompt_id':result['prompt_id'],'status':'queued',
-                'checkpoint':args.checkpoint,'upscaler':args.upscaler,'workflow':workflow})
-            output.write_text(json.dumps(records,indent=2)+'\n')
-            print(name + ': queued ' + result['prompt_id'])
+        submit_batch(batch, args.server, output, request)
         print('Generation completion and output inspection are still required. See ComfyUI history.')

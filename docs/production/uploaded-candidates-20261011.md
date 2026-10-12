@@ -59,3 +59,8 @@ The first command validates installed model and node names without submitting. T
 - No final EXE, new final maps, final wolf, or final UI redesign is included in this intake change.
 
 References: [Epic AssetImportTask](https://dev.epicgames.com/documentation/en-us/unreal-engine/python-api/class/AssetImportTask), [ComfyOrg sampling](https://github.com/Comfy-Org/workflow_templates/blob/main/site/knowledge/concepts/samplers.md).
+
+
+### Receipt recovery update — 2026-10-12
+
+The runner now retains existing receipts and skips previously accepted identical workflows. Legacy receipts are preserved conservatively even if they lack a server field. Different seeds/settings constitute new workflows. Receipt writes are atomic; a `.lock` file blocks concurrent runners. Intent is saved before sending a prompt, so a lost response becomes unresolved rather than causing a blind retry. Inspect ComfyUI history and repair the receipt with the accepted prompt ID before continuing after an uncertain submission. Remove an abandoned lock only after verifying that the prior process has stopped. Queue receipts still do not prove completed generation.

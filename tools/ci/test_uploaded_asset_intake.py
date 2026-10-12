@@ -54,4 +54,64 @@ class UploadedAssetTests(unittest.TestCase):
         self.assertEqual((folder/'source-mislabeled.usdz').read_bytes(),(folder/'source-corrected.usdc').read_bytes())
         self.assertTrue((folder/'source-corrected.usdc').read_bytes().startswith(b'PXR-USDC'))
 
+
+
+
+queue_spec = importlib.util.spec_from_file_location('queue_comfy', ROOT / 'tools/intake/queue_comfy_generation.py')
+queue = importlib.util.module_from_spec(queue_spec); queue_spec.loader.exec_module(queue)
+
+
+class GenerationReceiptTests(unittest.TestCase):
+    def test_second_run_does_not_repeat_accepted_jobs(self):
+        calls=[]
+        def send(*args):
+            calls.append(args); return {'prompt_id': str(len(calls))}
+        with tempfile.TemporaryDirectory() as d:
+            p=Path(d)/'receipts.json'; batch=[('one',{'seed':1}),('two',{'seed':2})]
+            queue.submit_batch(batch,'http://localhost:8188',p,send)
+            queue.submit_batch(batch,'http://localhost:8188/',p,send)
+            self.assertEqual(len(calls),2)
+            self.assertEqual(len(json.loads(p.read_text())),2)
+
+    def test_network_uncertainty_is_not_retried(self):
+        calls=[]
+        def send(*args):
+            calls.append(args); raise TimeoutError('Accepted response may have been lost')
+        with tempfile.TemporaryDirectory() as d:
+            p=Path(d)/'receipts.json'; batch=[('one',{'seed':1})]
+            with self.assertRaises(TimeoutError):queue.submit_batch(batch,'http://localhost',p,send)
+            self.assertEqual(json.loads(p.read_text())[0]['status'],'submitting')
+            with self.assertRaisesRegex(RuntimeError,'Unresolved'):queue.submit_batch(batch,'http://localhost',p,send)
+            self.assertEqual(len(calls),1)
+
+    def test_legacy_receipt_and_changed_seed(self):
+        calls=[]
+        def send(*args):
+            calls.append(args); return {'prompt_id':'new'}
+        with tempfile.TemporaryDirectory() as d:
+            p=Path(d)/'receipts.json'
+            p.write_text(json.dumps([{'name':'old','workflow':{'seed':1},'prompt_id':'existing','status':'queued'}]))
+            queue.submit_batch([('old',{'seed':1}),('new',{'seed':2})],'http://localhost',p,send)
+            self.assertEqual(len(calls),1)
+            self.assertEqual(json.loads(p.read_text())[0]['prompt_id'],'existing')
+
+    def test_invalid_journal_is_preserved(self):
+        with tempfile.TemporaryDirectory() as d:
+            p=Path(d)/'receipts.json';p.write_text('{invalid')
+            with self.assertRaises(ValueError):queue.submit_batch([], 'http://localhost', p, lambda *a:None)
+            self.assertEqual(p.read_text(),'{invalid')
+
+    def test_lock_prevents_concurrent_submit(self):
+        with tempfile.TemporaryDirectory() as d:
+            p=Path(d)/'receipts.json';lock=Path(str(p)+'.lock');lock.write_text('occupied')
+            with self.assertRaisesRegex(RuntimeError,'holds'):queue.submit_batch([], 'http://localhost', p, lambda *a:None)
+            self.assertEqual(lock.read_text(),'occupied')
+
+    def test_rejection_retains_evidence(self):
+        with tempfile.TemporaryDirectory() as d:
+            p=Path(d)/'receipts.json'
+            with self.assertRaisesRegex(RuntimeError,'rejected'):
+                queue.submit_batch([('one',{'seed':1})],'http://localhost',p,lambda *a:{'node_errors':{'5':'missing model'}})
+            self.assertEqual(json.loads(p.read_text())[0]['status'],'rejected')
+
 if __name__=='__main__':unittest.main()
