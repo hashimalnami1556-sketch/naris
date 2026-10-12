@@ -2,7 +2,7 @@
 
 **Status: development implementation, not shipped or fully verified.**
 
-## What is in pull request #38
+## What is in pull request #40
 
 Seven new AI enemy archetypes have Unreal C++ game state, health, chase/patrol,
 attacks, stagger and death. `ANarisVillainCharacter` has an explicit
