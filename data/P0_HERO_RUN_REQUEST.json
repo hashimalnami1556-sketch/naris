@@ -1,5 +1,5 @@
 {
-  "requested_at": "2026-10-12T14:40:00+03:00",
+  "requested_at": "2026-10-12T14:48:00+03:00",
   "product": "CALL OF NARIS",
   "pipeline": "P0 Hero Self-Hosted Production",
   "stages": [
@@ -11,11 +11,20 @@
   "requested_by": "ChatGPT autonomous production pass",
   "local_project": "C:\\Users\\Admin\\OneDrive\\NARIS_MASTER_BUNDLE\\Game\\NARIS_UE57",
   "note": "Do not replace working HeroV3; candidate remains gated until P0-04B.",
-  "pipeline_revision": "skeleton-reuse-physics-3lod-animation-compatible",
+  "pipeline_revision": "p0-01-02-03-04a-04b-d3d12-render",
   "expected_gates": [
     "P0-01",
     "P0-02",
     "P0-03",
-    "P0-04A"
+    "P0-04A",
+    "P0-04B"
+  ],
+  "expected_evidence": [
+    "P0-01_reimport_log.json",
+    "P0-02_rig_pbr_log.json",
+    "P0-03_unreal_hero_import.json",
+    "P0-04A_hero_technical_qa.json",
+    "P0-04B_visual_scene.json",
+    "P0-04B_HeroCompare.png"
   ]
 }
