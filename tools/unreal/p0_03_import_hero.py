@@ -9,6 +9,11 @@ LOG2=HERO_DIR/"P0-02_rig_pbr_log.json"
 REPORT=PROJECT_ROOT/"Reports"/"P0-03_unreal_hero_import.json"
 DEST="/Game/NARIS/Characters/HeroProduction"
 NAME="SK_NARIS_AshenVessel_Production"
+BASELINE_HERO_PATHS=[
+    "/Game/NARIS/Characters/HeroV3/SK_NARIS_AshenVessel_v3",
+    "/Game/NARIS/W04/Characters/Hero/SK_AshenVessel",
+    "/Game/NARIS/Characters/Hero/SK_NARIS_Hero_v1",
+]
 
 def fail(reason, extra=None):
     result={"status":"FAIL","reason":reason}
@@ -41,6 +46,19 @@ task.set_editor_property("replace_existing",True)
 task.set_editor_property("replace_existing_settings",True)
 task.set_editor_property("save",True)
 
+baseline_hero=None
+baseline_skeleton=None
+for candidate_path in BASELINE_HERO_PATHS:
+    candidate=unreal.load_asset(candidate_path)
+    if candidate and isinstance(candidate,unreal.SkeletalMesh):
+        baseline_hero=candidate
+        try:
+            baseline_skeleton=candidate.get_editor_property("skeleton")
+        except Exception:
+            baseline_skeleton=None
+        if baseline_skeleton:
+            break
+
 ui=unreal.FbxImportUI()
 ui.set_editor_property("import_mesh",True)
 ui.set_editor_property("import_as_skeletal",True)
@@ -48,6 +66,12 @@ ui.set_editor_property("import_animations",False)
 ui.set_editor_property("import_materials",True)
 ui.set_editor_property("import_textures",False)
 ui.set_editor_property("mesh_type_to_import",unreal.FBXImportType.FBXIT_SKELETAL_MESH)
+if baseline_skeleton:
+    ui.set_editor_property("skeleton",baseline_skeleton)
+try:
+    ui.set_editor_property("create_physics_asset",True)
+except Exception:
+    pass
 
 # Preserve normals/tangents generated in Blender where possible.
 try:
@@ -96,11 +120,21 @@ if hero_skeleton and hero_skeleton not in skeletons:
     skeletons.append(hero_skeleton)
 
 # Generic runtime-safe checks available to Python without assuming internal reference skeleton APIs.
+physics_asset=None
+try:
+    physics_asset=hero.get_editor_property("physics_asset")
+except Exception:
+    pass
+
+same_skeleton=(baseline_skeleton is None) or (hero_skeleton==baseline_skeleton)
+
 checks={
     "skeletal_mesh":hero is not None,
     "skeleton":hero_skeleton is not None or len(skeletons)>0,
     "source_file":source.is_file(),
     "p0_02_gate":bool(p2.get("production_grade")),
+    "baseline_skeleton_reused":same_skeleton,
+    "physics_asset":physics_asset is not None,
 }
 
 # Validate material assignment on the imported skeletal mesh.
@@ -136,8 +170,11 @@ result={
     "skeletal_mesh":hero.get_path_name(),
     "skeletons":[o.get_path_name() for o in skeletons if o],
     "materials":material_slots,
+    "baseline_hero":baseline_hero.get_path_name() if baseline_hero else None,
+    "baseline_skeleton":baseline_skeleton.get_path_name() if baseline_skeleton else None,
+    "physics_asset":physics_asset.get_path_name() if physics_asset else None,
     "checks":checks,
-    "next_gate":"P0-04 Runtime visual/combat QA before swapping HeroV3"
+    "next_gate":"P0-04A technical LOD/skeleton/material QA, then P0-04B D3D12 visual/combat QA before swapping HeroV3"
 }
 REPORT.parent.mkdir(parents=True,exist_ok=True)
 REPORT.write_text(json.dumps(result,indent=2,ensure_ascii=False),encoding="utf-8")
