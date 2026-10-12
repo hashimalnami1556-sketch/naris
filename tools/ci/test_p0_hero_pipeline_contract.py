@@ -95,6 +95,22 @@ class HeroProductionPipelineContract(unittest.TestCase):
         ):
             self.assertIn(token, src)
 
+    def test_p0_04b_render_contract(self):
+        src = self.read("tools/unreal/p0_04b_prepare_visual_qa.py")
+        for token in (
+            "QA_Camera_HeroCompare",
+            "auto_activate_for_player",
+            "AutoReceiveInput.PLAYER0",
+            "P0-04B_HeroCompare.png",
+            "replacement_allowed",
+        ):
+            self.assertIn(token, src)
+
+        workflow = self.read(".github/workflows/p0-hero-self-hosted.yml")
+        self.assertIn("cancel-in-progress: false", workflow)
+        self.assertIn("Render P0-04B D3D12 comparison screenshot", workflow)
+        self.assertIn("HighResShot 1", workflow)
+
     def test_windows_runners_chain_the_gates(self):
         src = self.read("tools/windows/run_p0_hero_to_unreal.bat")
         for token in (
