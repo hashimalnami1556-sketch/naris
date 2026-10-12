@@ -1,0 +1,142 @@
+{
+  "schema": "naris.character.rig.expansion.v2",
+  "date": "2026-10-12",
+  "engine": "UE5.7",
+  "handoff": "NARIS_RIG_EXPANSION_20261012.zip provided in conversation; binaries deliberately not committed to public repo pending source rights verification",
+  "validation": {
+    "offline_python_tests": {
+      "passed": 21,
+      "failed": 0
+    },
+    "third_party_gltf_loader_imports": "6/6 rigged GLB files parsed in trimesh",
+    "unreal_pie": "not_run",
+    "unreal_build": "not_run",
+    "blender_host_conversion": "not_run",
+    "win_pc_runtime": "not_run"
+  },
+  "assets": {
+    "rigged_variants": [
+      {
+        "file": "NARIS_Dragon_Ash_Rigged_Animated.glb",
+        "species": "dragon",
+        "sha256": "b293e58b0c98e3000fefcef64348b0b2b55724e7db16a0abd560247e97dc683c",
+        "bones": 22,
+        "animation_count": 10,
+        "triangles": 954415,
+        "stage": "binary-delivered-in-external-owner-bundle",
+        "blender_deformation_approved": false,
+        "unreal_import_verified": false
+      },
+      {
+        "file": "NARIS_Dragon_Ember_Rigged_Animated.glb",
+        "species": "dragon",
+        "sha256": "5fe6fe0ef40de6ce8007533a2102f73fd2106b7ecdc9aa13c73cb8a06be6cfde",
+        "bones": 22,
+        "animation_count": 10,
+        "triangles": 954415,
+        "stage": "binary-delivered-in-external-owner-bundle",
+        "blender_deformation_approved": false,
+        "unreal_import_verified": false
+      },
+      {
+        "file": "NARIS_Wanderer_Ash_Rigged_Animated.glb",
+        "species": "humanoid",
+        "sha256": "0c771a1864c21d03124450c78524eff41f97b3897849c5a0cc43dba769a1e1df",
+        "bones": 18,
+        "animation_count": 9,
+        "triangles": 49886,
+        "stage": "binary-delivered-in-external-owner-bundle",
+        "blender_deformation_approved": false,
+        "unreal_import_verified": false
+      },
+      {
+        "file": "NARIS_Sentinel_Bronze_Rigged_Animated.glb",
+        "species": "humanoid",
+        "sha256": "7d97214768cc69694587fd5270e8ec0432050ad7c9ac402d914f1e6e3b89042d",
+        "bones": 18,
+        "animation_count": 9,
+        "triangles": 49886,
+        "stage": "binary-delivered-in-external-owner-bundle",
+        "blender_deformation_approved": false,
+        "unreal_import_verified": false
+      },
+      {
+        "file": "NARIS_Beast_Marsh_Rigged_Animated.glb",
+        "species": "beast",
+        "sha256": "af514238df8dba4dc6a972a2ac5cf3d5d22118261e95fe8e90950d9dad116c10",
+        "bones": 18,
+        "animation_count": 7,
+        "triangles": 18210,
+        "stage": "binary-delivered-in-external-owner-bundle",
+        "blender_deformation_approved": false,
+        "unreal_import_verified": false
+      },
+      {
+        "file": "NARIS_Beast_Cinder_Rigged_Animated.glb",
+        "species": "beast",
+        "sha256": "0a2ae77335ce816e135737a798f7b4581cf94b152732c7c50b79818a17a2db2b",
+        "bones": 18,
+        "animation_count": 7,
+        "triangles": 18210,
+        "stage": "binary-delivered-in-external-owner-bundle",
+        "blender_deformation_approved": false,
+        "unreal_import_verified": false
+      }
+    ],
+    "static_worldkit": [
+      {
+        "file": "NARIS_W04_Citadel_Ash_Static.glb",
+        "sha256": "cb0c71ab8c3fc763b346a4fc105e74cfb616b502ab46f49888a579067548cf99",
+        "triangles": 18161,
+        "skinned": false,
+        "stage": "binary-delivered-in-external-owner-bundle"
+      },
+      {
+        "file": "NARIS_W04_Citadel_Bronze_Static.glb",
+        "sha256": "a441d9ec9fc70fc366ccff0339af33df1f219d37b0e81a3857b30dbc97a48f22",
+        "triangles": 18161,
+        "skinned": false,
+        "stage": "binary-delivered-in-external-owner-bundle"
+      },
+      {
+        "file": "NARIS_W04_Ruins_Fog_Static.glb",
+        "sha256": "6588b297f3762991ade505d5ba18d6ae294081927dc5dc12227a6d7ff5bdece6",
+        "triangles": 17880,
+        "skinned": false,
+        "stage": "binary-delivered-in-external-owner-bundle"
+      },
+      {
+        "file": "NARIS_W04_Ruins_Ember_Static.glb",
+        "sha256": "ce884dd93deb257f6de871ab9eba135fec79f503b14ec48bbe89d0ee8b403733",
+        "triangles": 17880,
+        "skinned": false,
+        "stage": "binary-delivered-in-external-owner-bundle"
+      }
+    ],
+    "usd_humanoids": "five unconverted USDZ originals with Blender batch rigging queued",
+    "unclassified_usd_crate": "single raw USD crate reclassified from .usdz to .usdc; manual classification needed"
+  },
+  "world": {
+    "qa_map": "/Game/NARIS/W04/Maps/W04_CharacterWorld_QA_20261012",
+    "state": "python_authoring_script_delivered_not_yet_executed",
+    "zones": [
+      "Ash Gate",
+      "Bell Marsh",
+      "Twilight Citadel"
+    ],
+    "production_map_modified": false
+  },
+  "fixes": [
+    "Fixed Character1 glTF inverseBindMatrices endianness/layout (row-major vs column-major translation) and removed skinned mesh from armature root",
+    "Created creature-specific 18-bone rig instead of blindly assigning humanoid rig",
+    "Extended dragon from 3 to 10 action clips; humanoid from 1 to 9; created 7 beast clips",
+    "Preserved source geometry, textures and UVs; no fake geometric optimization claims"
+  ],
+  "risks": [
+    "Dragon still ~954k triangles; separate LOD1 Blender export targets ~110k only after host execution & QA",
+    "USDZ five models require real Blender rigging",
+    "Need UE5.7 SkeletalMesh, AnimSequence, PhysicsAsset, collision, sockets, AI and combat wiring",
+    "Source redistribution rights not verified"
+  ],
+  "release_approved": false
+}
