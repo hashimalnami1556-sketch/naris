@@ -1,0 +1,117 @@
+name: P0 Hero Promotion
+
+on:
+  push:
+    paths:
+      - data/P0_HERO_VISUAL_APPROVAL.json
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: p0-hero-promotion
+  cancel-in-progress: false
+
+jobs:
+  approval-preflight:
+    name: Verify visual approval contract
+    runs-on: ubuntu-latest
+    outputs:
+      approved: ${{ steps.gate.outputs.approved }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validate approval JSON
+        id: gate
+        shell: python
+        run: |
+          import json, pathlib, re, os
+          p = pathlib.Path("data/P0_HERO_VISUAL_APPROVAL.json")
+          data = json.loads(p.read_text(encoding="utf-8"))
+          required = (
+              "silhouette",
+              "material_language",
+              "deformation",
+              "scale_vs_baseline",
+              "clipping",
+              "animation_pose",
+          )
+          approved = (
+              data.get("approved") is True
+              and data.get("decision") in ("APPROVE", "APPROVED", "PASS")
+              and all(str((data.get("criteria") or {}).get(k, "")).lower() in ("pass", "approved", "ok") for k in required)
+              and bool(re.fullmatch(r"[0-9a-fA-F]{64}", str(data.get("screenshot_sha256") or "")))
+              and int(data.get("screenshot_bytes") or 0) > 10000
+              and bool(str(data.get("evidence_git_sha") or "").strip())
+              and bool(str(data.get("evidence_workflow_run_id") or "").strip())
+              and bool(str(data.get("approved_by") or "").strip())
+              and bool(str(data.get("approved_at") or "").strip())
+              and data.get("pipeline_revision") == "p0-04b-hashbound-camera-v2"
+          )
+          print("P0_05_APPROVAL_READY=" + ("1" if approved else "0"))
+          with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as f:
+              f.write("approved=" + ("true" if approved else "false") + "\n")
+
+  promote:
+    name: Promote hero and run packaged regression
+    needs: approval-preflight
+    if: needs.approval-preflight.outputs.approved == 'true'
+    runs-on: [self-hosted, windows]
+    timeout-minutes: 120
+
+    steps:
+      - name: Checkout approved revision
+        uses: actions/checkout@v4
+
+      - name: Verify local master tools
+        shell: powershell
+        run: |
+          $required = @(
+            'C:\Program Files\Epic Games\UE_5.7\Engine\Binaries\Win64\UnrealEditor-Cmd.exe',
+            'C:\Program Files\Epic Games\UE_5.7\Engine\Binaries\DotNET\UnrealBuildTool\UnrealBuildTool.exe',
+            'C:\Program Files\Epic Games\UE_5.7\Engine\Build\BatchFiles\RunUAT.bat',
+            'C:\Users\Admin\OneDrive\NARIS_MASTER_BUNDLE\Game\NARIS_UE57\NARIS.uproject'
+          )
+          foreach ($p in $required) {
+            if (-not (Test-Path -LiteralPath $p)) { throw "Missing P0-05 dependency: $p" }
+          }
+
+      - name: Run atomic P0-05 promotion regression
+        shell: cmd
+        run: |
+          call "%GITHUB_WORKSPACE%\tools\windows\run_p0_05_promote_and_regress.bat"
+
+      - name: Collect promotion evidence
+        if: always()
+        shell: powershell
+        run: |
+          $projectRoot = 'C:\Users\Admin\OneDrive\NARIS_MASTER_BUNDLE\Game\NARIS_UE57'
+          $dest = Join-Path $env:GITHUB_WORKSPACE 'artifacts\p0_05'
+          New-Item -ItemType Directory -Force $dest | Out-Null
+          $files = @(
+            (Join-Path $projectRoot 'Reports\P0-05_promotion.json'),
+            (Join-Path $projectRoot 'Reports\P0-05_final_acceptance.json'),
+            (Join-Path $projectRoot 'Reports\P0-05_rollback.json'),
+            (Join-Path $projectRoot 'Reports\P0-05_packaged_combat_qa.log'),
+            (Join-Path $projectRoot 'Reports\P0-04B_render_evidence.json'),
+            (Join-Path $projectRoot 'Saved\Screenshots\Windows\P0-04B_HeroCompare.png')
+          )
+          foreach ($f in $files) {
+            if (Test-Path -LiteralPath $f) {
+              Copy-Item -LiteralPath $f -Destination $dest -Force
+            }
+          }
+          Copy-Item -LiteralPath "$env:GITHUB_WORKSPACE\data\P0_HERO_VISUAL_APPROVAL.json" -Destination $dest -Force
+          Get-ChildItem $dest | Select-Object Name,Length,LastWriteTime | Format-Table -AutoSize
+
+      - name: Upload promotion evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: CALL-OF-NARIS-P0-Hero-Promotion-Evidence
+          path: artifacts/p0_05
+          retention-days: 14
+          if-no-files-found: warn
+          compression-level: 0
