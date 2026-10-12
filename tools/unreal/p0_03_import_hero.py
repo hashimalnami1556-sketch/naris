@@ -128,6 +128,19 @@ except Exception:
 
 same_skeleton=(baseline_skeleton is None) or (hero_skeleton==baseline_skeleton)
 
+lod_count=None
+lod_regenerated=False
+try:
+    skel_editor=unreal.get_editor_subsystem(unreal.SkeletalMeshEditorSubsystem)
+    if skel_editor:
+        lod_count=int(skel_editor.get_lod_count(hero))
+        if lod_count < 3:
+            lod_regenerated=bool(skel_editor.regenerate_lod(hero,3,False,False))
+            unreal.EditorAssetLibrary.save_loaded_asset(hero)
+            lod_count=int(skel_editor.get_lod_count(hero))
+except Exception as exc:
+    unreal.log_warning("NARIS_P0_03_LOD_WARNING "+str(exc))
+
 checks={
     "skeletal_mesh":hero is not None,
     "skeleton":hero_skeleton is not None or len(skeletons)>0,
@@ -135,6 +148,7 @@ checks={
     "p0_02_gate":bool(p2.get("production_grade")),
     "baseline_skeleton_reused":same_skeleton,
     "physics_asset":physics_asset is not None,
+    "lod_count_at_least_3":lod_count is not None and lod_count>=3,
 }
 
 # Validate material assignment on the imported skeletal mesh.
@@ -173,6 +187,8 @@ result={
     "baseline_hero":baseline_hero.get_path_name() if baseline_hero else None,
     "baseline_skeleton":baseline_skeleton.get_path_name() if baseline_skeleton else None,
     "physics_asset":physics_asset.get_path_name() if physics_asset else None,
+    "lod_count":lod_count,
+    "lod_regenerated":lod_regenerated,
     "checks":checks,
     "next_gate":"P0-04A technical LOD/skeleton/material QA, then P0-04B D3D12 visual/combat QA before swapping HeroV3"
 }
