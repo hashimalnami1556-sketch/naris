@@ -21,32 +21,34 @@
     },
     "repairs": [
       "Bound weighted mesh node to skin 0",
-      "Canonicalized 18 humanoid joint names without changing joint indices",
-      "Wrapped scene in uniform 1.85 scale parent to reach 1.85m",
-      "Preserved JOINTS_0/WEIGHTS_0 and prototype Idle animation",
-      "Preserved embedded PBR material maps"
+      "Canonicalized 18 humanoid joint names by semantic source names without changing joint indices",
+      "Preserved all animation channel target node indices",
+      "Wrapped the original scene in a uniform 1.85 scale parent to reach 1.85m",
+      "Preserved JOINTS_0/WEIGHTS_0 and prototype animation",
+      "Preserved embedded base color / normal / metallic-roughness textures"
     ],
     "structural_checks": {
       "glb_reopens": true,
       "mesh_bound_to_skin": true,
-      "joint_weights": true,
-      "canonical_bones": true,
+      "joint_indices_unchanged": true,
+      "animation_targets_unchanged": true,
+      "canonical_bones_exact": true,
       "animation_present": true,
       "pbr_basecolor": true,
-      "pbr_normal": true,
-      "pbr_metallic_roughness": true,
+      "pbr_normal_dx": true,
+      "pbr_roughness": true,
+      "pbr_metallic": true,
       "target_height": true
     },
-    "output_sha256": "015b7a9ff1083086084b15183bb3b63072321aa599ccf332c956e1137b9364aa"
+    "output_sha256": "5689afdc4a6868b72d2aaf5a977798779f03c33fcc2bee641bcdd45525d56122"
   },
   "p0_02": {
-    "status": "PBR_PASS_RETARGET_PENDING",
+    "status": "PBR_STRUCTURAL_PASS_RETARGET_PENDING",
     "textures": [
       "T_NARIS_AshenVessel_BaseColor.png",
       "T_NARIS_AshenVessel_Normal_DX.png",
       "T_NARIS_AshenVessel_Roughness.png",
-      "T_NARIS_AshenVessel_Metallic.png",
-      "T_NARIS_AshenVessel_AO.png"
+      "T_NARIS_AshenVessel_Metallic.png"
     ],
     "resolution": [
       2048,
@@ -54,13 +56,18 @@
     ],
     "retarget_verified": false,
     "visual_deformation_verified": false,
-    "weapon_socket_verified": false
+    "weapon_socket_verified": false,
+    "ao_status": "No AO exported because the source material has no explicit occlusion texture; AO was not fabricated."
   },
   "decision": {
     "candidate_only": true,
     "replace_current_hero": false,
-    "reason": "Current working HeroV3 remains authoritative until Unreal D3D12 retarget/deformation/combat QA passes.",
-    "next_gate": "P0-03 candidate import / P0-04B D3D12 runtime acceptance"
+    "reason": "Candidate v2 passed structural/PBR checks. Current working HeroV3 remains authoritative until Unreal P0-03/P0-04A plus D3D12 P0-04B and packaged regression pass.",
+    "next_gate": "P0-03 candidate import -> P0-04A technical QA -> P0-04B D3D12 visual/combat QA -> P0-05 promotion/regression"
   },
-  "binary_policy": "No conversation-uploaded binary asset was committed to the public GitHub repository."
+  "binary_policy": "No conversation-uploaded binary asset was committed to the public GitHub repository.",
+  "supersedes": {
+    "sha256": "015b7a9ff1083086084b15183bb3b63072321aa599ccf332c956e1137b9364aa",
+    "reason": "Superseded because the earlier canonical bone rename used joint order instead of semantic source names."
+  }
 }
