@@ -61,14 +61,29 @@ class HeroProductionPipelineContract(unittest.TestCase):
         ):
             self.assertIn(token, src)
 
+    def test_p0_04a_contract(self):
+        src = self.read("tools/unreal/p0_04a_hero_technical_qa.py")
+        for token in (
+            "P0-04A_hero_technical_qa.json",
+            "technical_acceptance",
+            "visual_acceptance",
+            "runtime_combat_acceptance",
+            "replacement_allowed",
+            "P0-04B D3D12 visual + deformation + weapon socket + combat regression on AsusRog",
+        ):
+            self.assertIn(token, src)
+
     def test_windows_runners_chain_the_gates(self):
         src = self.read("tools/windows/run_p0_hero_to_unreal.bat")
         for token in (
             "p0_01_hero_oneshot.py",
             "p0_02_hero_rig_pbr.py",
             "p0_03_import_hero.py",
+            "p0_04a_hero_technical_qa.py",
             "production_grade",
             "P0-03_unreal_hero_import.json",
+            "P0-04A_hero_technical_qa.json",
+            "P0-04B D3D12 visual+combat QA",
         ):
             self.assertIn(token, src)
 
