@@ -2,7 +2,7 @@
   "FileVersion": 3,
   "EngineAssociation": "5.7",
   "Category": "Games",
-  "Description": "NARSIC W04 Unreal bootstrap project",
+  "Description": "CALL OF NARIS W04 Unreal bootstrap project",
   "Modules": [
     {
       "Name": "NARIS_W04",
