@@ -483,3 +483,24 @@ msgstr "SAVE DATA READY"
 msgctxt "NARIS,FrontEndFreshRun"
 msgid "NEW JOURNEY"
 msgstr "NEW JOURNEY"
+
+msgctxt "NARIS,UMGFrontStatus"
+msgid "JOURNEY STATUS"
+msgstr "حالة الرحلة"
+
+msgctxt "NARIS,UMGGamepadFooter"
+msgid "D-PAD  NAVIGATE    A  CONFIRM    B  BACK"
+msgstr "لوحة الاتجاهات: تنقل    A: تأكيد    B: رجوع"
+
+msgctxt "NARIS,UMGKeyboardFooter"
+msgid "W/S  NAVIGATE    ENTER  CONFIRM    MOUSE  CLICK    ESC  BACK"
+msgstr "W/S: تنقل    Enter: تأكيد    الفأرة: نقر    Esc: رجوع"
+
+msgctxt "NARIS,UMGMainMenuContext"
+msgid "MAIN MENU"
+msgstr "القائمة الرئيسية"
+
+msgctxt "NARIS,UMGPauseStatus"
+msgid "OPERATION STATUS"
+msgstr "حالة المهمة"
+
