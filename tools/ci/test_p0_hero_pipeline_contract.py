@@ -111,6 +111,34 @@ class HeroProductionPipelineContract(unittest.TestCase):
         self.assertIn("Render P0-04B D3D12 comparison screenshot", workflow)
         self.assertIn("HighResShot 1", workflow)
 
+    def test_p0_05_promotion_contract(self):
+        promote = self.read("tools/unreal/p0_05_promote_hero.py")
+        for token in (
+            "P0-04B_render_evidence.json",
+            "visual_approval_candidate_mismatch",
+            "visual_approval_git_sha_mismatch",
+            "render_evidence_sha256_mismatch",
+            "approved_screenshot_file_hash_mismatch",
+            "skeleton_mismatch_at_promotion",
+            "NARIS.VisualEvidenceSHA256",
+        ):
+            self.assertIn(token, promote)
+
+        approval = self.read("data/P0_HERO_VISUAL_APPROVAL.json")
+        for token in (
+            '"candidate"',
+            '"evidence_git_sha"',
+            '"screenshot_sha256"',
+            '"approved": false',
+        ):
+            self.assertIn(token, approval)
+
+        runner = self.read("tools/windows/run_p0_05_promote_and_regress.bat")
+        self.assertIn("Full Cook / Stage / Pak / Archive", runner)
+        self.assertNotIn("-iterativecooking", runner)
+        self.assertIn("clean_cook_outputs_failed", runner)
+        self.assertIn("p0_05_rollback_hero.py", runner)
+
     def test_windows_runners_chain_the_gates(self):
         src = self.read("tools/windows/run_p0_hero_to_unreal.bat")
         for token in (
