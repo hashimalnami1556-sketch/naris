@@ -55,6 +55,7 @@ jobs:
           $canonicalShot = Join-Path $screenDir 'P0-04B_HeroCompare.png'
           Copy-Item $shot.FullName $canonicalShot -Force
           $hash = (Get-FileHash -LiteralPath $canonicalShot -Algorithm SHA256).Hash.ToLowerInvariant()
+          $bytes = (Get-Item -LiteralPath $canonicalShot).Length
           $sceneReportPath = Join-Path $projectRoot 'Reports\P0-04B_visual_scene.json'
           if (-not (Test-Path -LiteralPath $sceneReportPath)) { throw 'P0-04B scene report missing.' }
           $scene = Get-Content -Raw -LiteralPath $sceneReportPath | ConvertFrom-Json
@@ -64,6 +65,7 @@ jobs:
             screenshot = 'P0-04B_HeroCompare.png'
             screenshot_path = $canonicalShot
             screenshot_sha256 = $hash
+            screenshot_bytes = $bytes
             candidate = $scene.candidate
             baseline = $scene.baseline
             qa_map = $scene.qa_map
@@ -74,6 +76,7 @@ jobs:
           $evidence | ConvertTo-Json -Depth 6 | Set-Content -Encoding utf8NoBOM -LiteralPath $evidencePath
           Write-Host "P0_04B_SCREENSHOT=$canonicalShot"
           Write-Host "P0_04B_SHA256=$hash"
+          Write-Host "P0_04B_BYTES=$bytes"
 
       - name: Collect gate evidence
         if: always()
