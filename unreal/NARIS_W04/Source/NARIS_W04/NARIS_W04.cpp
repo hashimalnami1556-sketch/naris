@@ -12,7 +12,7 @@
 #include "Widgets/SOverlay.h"
 #include "Widgets/Text/STextBlock.h"
 
-// Public product branding is NARSIC; NARIS_W04 stays the technical module name.
+// Public product branding is CALL OF NARIS; NARIS_W04 stays the technical module name.
 // MoviePlayer draws during blocking map loads, when ordinary UMG cannot tick.
 class FNarsicGameModule final : public FDefaultGameModuleImpl
 {
@@ -101,7 +101,7 @@ private:
                     .VAlign(VAlign_Center)
                     [
                         SNew(STextBlock)
-                        .Text(FText::FromString(TEXT("NARSIC")))
+                        .Text(FText::FromString(TEXT("CALL OF NARIS")))
                         .ColorAndOpacity(FSlateColor(FLinearColor(0.85f, 0.79f, 0.70f, 1.f)))
                     ]
                     + SHorizontalBox::Slot()
