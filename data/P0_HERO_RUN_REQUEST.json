@@ -1,8 +1,8 @@
 {
-  "requested_at": "2026-10-12T17:45:00+03:00",
+  "requested_at": "2026-10-12T17:46:00+03:00",
   "product": "CALL OF NARIS",
-  "pipeline": "P0 Hero Self-Hosted Production",
-  "revision": "p0-04b-hashbound-camera-v2",
+  "pipeline": "P0 Hero Hash-Bound Production",
+  "source_head": "c27577838e3ee211ed125681c1f23078532e78f9",
   "stages": [
     "P0-01",
     "P0-02",
@@ -10,7 +10,13 @@
     "P0-04A",
     "P0-04B"
   ],
-  "expected_evidence": [
+  "promotion_stage": "P0-05 only after cryptographic visual approval",
+  "runner_labels": [
+    "self-hosted",
+    "windows"
+  ],
+  "master_project": "C:\\Users\\Admin\\OneDrive\\NARIS_MASTER_BUNDLE\\Game\\NARIS_UE57",
+  "required_evidence": [
     "P0-01_reimport_log.json",
     "P0-02_rig_pbr_log.json",
     "P0-03_unreal_hero_import.json",
@@ -21,6 +27,5 @@
     "P0-04B_combat_d3d12.log",
     "P0-04B_HeroCompare.png"
   ],
-  "local_project": "C:\\Users\\Admin\\OneDrive\\NARIS_MASTER_BUNDLE\\Game\\NARIS_UE57",
-  "replacement_policy": "Do not replace working HeroV3 before P0-05 promotion passes visual hash approval, build/package regression, and rollback contract."
+  "replacement_policy": "blocked until P0-04B screenshot hash is explicitly approved"
 }
