@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.0.0",
+  "schema_version": "1.1.0",
   "product": "CALL OF NARIS",
   "gate": "P0-04B",
   "approved": false,
@@ -14,5 +14,7 @@
     "animation_pose": "pending"
   },
   "decision": "PENDING_VISUAL_INSPECTION",
-  "note": "P0-05 promotion script must reject this file until approved=true."
+  "note": "P0-05 requires approved=true, decision APPROVE/APPROVED/PASS, all criteria=pass, and screenshot_sha256 matching the actual D3D12 evidence file.",
+  "screenshot_sha256": "",
+  "screenshot_bytes": 0
 }
