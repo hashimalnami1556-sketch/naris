@@ -10,6 +10,7 @@ if REPO_ROOT:
     APPROVAL_CANDIDATES.insert(0,REPO_ROOT/"data"/"P0_HERO_VISUAL_APPROVAL.json")
 REPORT_A=PROJECT_ROOT/"Reports"/"P0-04A_hero_technical_qa.json"
 REPORT_B=PROJECT_ROOT/"Reports"/"P0-04B_visual_scene.json"
+EVIDENCE=PROJECT_ROOT/"Reports"/"P0-04B_render_evidence.json"
 REPORT=PROJECT_ROOT/"Reports"/"P0-05_promotion.json"
 
 CANDIDATE="/Game/NARIS/Characters/HeroProduction/SK_NARIS_AshenVessel_Production"
@@ -83,15 +84,44 @@ if expected_bytes <= 0:
 if actual_bytes != expected_bytes:
     fail("visual_evidence_size_mismatch",{"expected_bytes":expected_bytes,"actual_bytes":actual_bytes})
 
-for p,label in ((REPORT_A,"P0-04A"),(REPORT_B,"P0-04B")):
+for p,label in ((REPORT_A,"P0-04A"),(REPORT_B,"P0-04B"),(EVIDENCE,"P0-04B evidence")):
     if not p.is_file():
-        fail(label.lower()+"_report_missing")
+        fail(label.lower().replace(" ","_")+"_report_missing")
 p4a=json.loads(REPORT_A.read_text(encoding="utf-8"))
 p4b=json.loads(REPORT_B.read_text(encoding="utf-8"))
+evidence=json.loads(EVIDENCE.read_text(encoding="utf-8"))
 if p4a.get("status")!="PASS" or not p4a.get("technical_acceptance"):
     fail("p0_04a_not_passed")
 if p4b.get("status")!="PASS" or not p4b.get("visual_scene_prepared"):
     fail("p0_04b_scene_not_passed")
+if evidence.get("status")!="PASS":
+    fail("p0_04b_render_evidence_not_passed")
+
+approval_candidate=approval.get("candidate")
+approval_git_sha=approval.get("evidence_git_sha")
+if approval_candidate!=CANDIDATE:
+    fail("visual_approval_candidate_mismatch",{"approval_candidate":approval_candidate,"expected":CANDIDATE})
+if evidence.get("candidate")!=CANDIDATE or p4b.get("candidate")!=CANDIDATE:
+    fail("render_evidence_candidate_mismatch",{
+        "evidence_candidate":evidence.get("candidate"),
+        "scene_candidate":p4b.get("candidate"),
+        "expected":CANDIDATE
+    })
+if approval_git_sha!=evidence.get("git_sha"):
+    fail("visual_approval_git_sha_mismatch",{
+        "approval_git_sha":approval_git_sha,
+        "evidence_git_sha":evidence.get("git_sha")
+    })
+if str(evidence.get("screenshot",""))!=Path(str(shot_ref)).name:
+    fail("render_evidence_screenshot_name_mismatch",{
+        "approval":Path(str(shot_ref)).name,
+        "evidence":evidence.get("screenshot")
+    })
+if str(evidence.get("screenshot_sha256","")).lower()!=expected_hash:
+    fail("render_evidence_sha256_mismatch",{
+        "approval":expected_hash,
+        "evidence":evidence.get("screenshot_sha256")
+    })
 
 candidate=unreal.load_asset(CANDIDATE)
 active=unreal.load_asset(ACTIVE)
@@ -154,9 +184,12 @@ result={
         "path":str(actual_shot),
         "sha256":actual_hash,
         "bytes":actual_bytes,
-        "criteria":criteria
+        "criteria":criteria,
+        "candidate":approval_candidate,
+        "evidence_git_sha":approval_git_sha,
+        "workflow_run_id":evidence.get("workflow_run_id")
     },
-    "next_gate":"Win64 build + cook/stage/pak + packaged D3D12 NARISCOMBATQA. Roll back on any failure."
+    "next_gate":"Win64 build + clean cook/stage/pak + packaged D3D12 NARISCOMBATQA. Roll back on any failure."
 }
 REPORT.parent.mkdir(parents=True,exist_ok=True)
 REPORT.write_text(json.dumps(result,indent=2,ensure_ascii=False),encoding="utf-8")
