@@ -57,7 +57,11 @@ class HeroProductionPipelineContract(unittest.TestCase):
             "/Game/NARIS/Characters/HeroProduction",
             "FBXIT_SKELETAL_MESH",
             "NARIS.CandidateOnly",
-            "P0-04 Runtime visual/combat QA before swapping HeroV3",
+            "baseline_skeleton_reused",
+            "create_physics_asset",
+            "regenerate_lod",
+            "lod_count_at_least_3",
+            "P0-04A technical LOD/skeleton/material QA, then P0-04B D3D12 visual/combat QA before swapping HeroV3",
         ):
             self.assertIn(token, src)
 
@@ -68,6 +72,10 @@ class HeroProductionPipelineContract(unittest.TestCase):
             "technical_acceptance",
             "visual_acceptance",
             "runtime_combat_acceptance",
+            "same_skeleton_as_working_hero",
+            "physics_asset",
+            "lod_count_at_least_3",
+            "compatible_animation_assets",
             "replacement_allowed",
             "P0-04B D3D12 visual + deformation + weapon socket + combat regression on AsusRog",
         ):
