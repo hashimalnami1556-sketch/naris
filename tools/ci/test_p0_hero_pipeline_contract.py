@@ -116,6 +116,7 @@ class HeroProductionPipelineContract(unittest.TestCase):
         self.assertIn("cancel-in-progress: false", workflow)
         self.assertIn("Render P0-04B D3D12 comparison screenshot", workflow)
         self.assertIn("HighResShot 1", workflow)
+        self.assertIn("pipeline_revision = 'p0-04b-hashbound-camera-v2'", workflow)
 
     def test_p0_05_promotion_contract(self):
         promote = self.read("tools/unreal/p0_05_promote_hero.py")
@@ -124,6 +125,8 @@ class HeroProductionPipelineContract(unittest.TestCase):
             "visual_approval_candidate_mismatch",
             "visual_approval_git_sha_mismatch",
             "render_evidence_sha256_mismatch",
+            "render_evidence_pipeline_revision_mismatch",
+            "visual_approval_pipeline_revision_mismatch",
             "approved_screenshot_file_hash_mismatch",
             "skeleton_mismatch_at_promotion",
             "NARIS.VisualEvidenceSHA256",
@@ -135,6 +138,7 @@ class HeroProductionPipelineContract(unittest.TestCase):
             '"candidate"',
             '"evidence_git_sha"',
             '"screenshot_sha256"',
+            '"pipeline_revision"',
             '"approved": false',
         ):
             self.assertIn(token, approval)
