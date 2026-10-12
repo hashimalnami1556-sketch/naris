@@ -1,0 +1,78 @@
+{
+  "schema": "naris.p0.hero-external-candidate.v3",
+  "product": "CALL OF NARIS",
+  "status": "STRUCTURAL_PBR_PASS_RETARGET_PENDING",
+  "replacement_allowed": false,
+  "source": {
+    "file": "Character1_NARIS_Rigged_Prototype.glb",
+    "sha256": "83e4d41f347c959e61ec57355fd682db99ed4652dfabba622ae0784b8cd9b628"
+  },
+  "candidate": {
+    "file": "SK_AshenVessel_Candidate_v3.glb",
+    "sha256": "abd1fd1c440e67905ca60975b253ecdb4e4ab747708e50f11ed255f82c8a7c78",
+    "bytes": 2828852,
+    "mesh_binding": {
+      "node_index": 18,
+      "skin": 0
+    },
+    "vertices": 32373,
+    "triangles": 49886,
+    "skins": 1,
+    "joints": 18,
+    "joint_names": [
+      "root",
+      "pelvis",
+      "spine_01",
+      "spine_02",
+      "neck_01",
+      "head",
+      "upperarm_l",
+      "lowerarm_l",
+      "hand_l",
+      "upperarm_r",
+      "lowerarm_r",
+      "hand_r",
+      "thigh_l",
+      "calf_l",
+      "foot_l",
+      "thigh_r",
+      "calf_r",
+      "foot_r"
+    ],
+    "weights": {
+      "influences_per_vertex": 4,
+      "min_sum": 0.9999998211860657,
+      "max_sum": 1.0000001192092896,
+      "zero_weight_vertices": 0,
+      "invalid_joint_indices": 0
+    },
+    "inverse_bind_matrices": {
+      "count": 18,
+      "finite": true,
+      "abs_determinant_min": 1,
+      "abs_determinant_max": 1
+    },
+    "embedded_animation": {
+      "name": "A_Character1_Idle",
+      "channels": 1,
+      "target": "spine_02/chest rotation",
+      "keys": 3,
+      "duration_seconds": 1.5,
+      "policy": "do not rely on this for production locomotion/combat; retarget existing HeroV3 animation library"
+    },
+    "pbr_maps": {
+      "base_color": "T_NARIS_AshenVessel_BaseColor.png",
+      "normal_dx": "T_NARIS_AshenVessel_NormalDX.png",
+      "roughness": "T_NARIS_AshenVessel_Roughness.png",
+      "metallic": "T_NARIS_AshenVessel_Metallic.png"
+    }
+  },
+  "required_next_gates": [
+    "P0-03 Unreal import",
+    "P0-04A skeleton/physics/LOD/animation compatibility",
+    "P0-04B D3D12 visual/deformation/combat evidence",
+    "P0-05 full clean package regression"
+  ],
+  "current_runtime_hero": "SK_NARIS_AshenVessel_v3",
+  "note": "Candidate v3 is structurally and PBR-valid but cannot replace HeroV3 until Unreal retarget, deformation, visual and packaged combat gates pass."
+}
