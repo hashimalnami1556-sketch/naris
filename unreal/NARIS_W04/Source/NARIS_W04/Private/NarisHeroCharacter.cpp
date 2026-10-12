@@ -4,18 +4,14 @@
 #include "Camera/CameraComponent.h"
 #include "CelestialWolf.h"
 #include "Engine/GameInstance.h"
-#include "Engine/SkeletalMesh.h"
 #include "Engine/World.h"
 #include "EngineUtils.h"
 #include "Components/InputComponent.h"
-#include "Components/SkeletalMeshComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/Controller.h"
 #include "GameFramework/PlayerController.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Kismet/GameplayStatics.h"
-#include "Misc/CommandLine.h"
-#include "Misc/Parse.h"
 #include "NarisCombatComponent.h"
 #include "NarisEnergyComponent.h"
 #include "NarisInteractionComponent.h"
@@ -51,48 +47,6 @@ ANarisHeroCharacter::ANarisHeroCharacter()
     GetCharacterMovement()->MaxWalkSpeed = WalkSpeed;
     GetCharacterMovement()->bOrientRotationToMovement = true;
     bUseControllerRotationYaw = false;
-}
-
-void ANarisHeroCharacter::BeginPlay()
-{
-    Super::BeginPlay();
-
-    if (!FParse::Param(FCommandLine::Get(), TEXT("NarisHeroCandidateQA")))
-    {
-        return;
-    }
-
-    static const TCHAR* CandidatePath =
-        TEXT("/Game/NARIS/Characters/HeroProduction/"
-             "SK_NARIS_AshenVessel_Production."
-             "SK_NARIS_AshenVessel_Production");
-
-    USkeletalMesh* CandidateMesh =
-        LoadObject<USkeletalMesh>(nullptr, CandidatePath);
-
-    if (!CandidateMesh)
-    {
-        UE_LOG(
-            LogTemp,
-            Error,
-            TEXT("NARIS_HERO_CANDIDATE_QA loaded=0 path=%s"),
-            CandidatePath
-        );
-        return;
-    }
-
-    if (USkeletalMeshComponent* HeroMesh = GetMesh())
-    {
-        HeroMesh->SetSkeletalMesh(CandidateMesh, false);
-
-        UE_LOG(
-            LogTemp,
-            Display,
-            TEXT("NARIS_HERO_CANDIDATE_QA loaded=1 mesh=%s skeleton=%s"),
-            *CandidateMesh->GetPathName(),
-            *GetNameSafe(CandidateMesh->GetSkeleton())
-        );
-    }
 }
 
 void ANarisHeroCharacter::Tick(float DeltaSeconds)
