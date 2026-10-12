@@ -1,0 +1,92 @@
+{
+  "schema": "naris.w04.villain-encounters.v1",
+  "status": "source_implementation_pending_engine_test",
+  "gameplayClass": "/Script/NARIS_W04.NarisVillainCharacter",
+  "developmentMap": "/Game/NARIS/W04/Maps/W04_AshenForest_Blockout",
+  "productionMap": "/Game/NARIS/W04/Maps/W04_AshenForest",
+  "generationPolicy": "Every entry is a gameplay prototype; no UE skeletal mesh, rig, animation montage or PBR material is currently approved.",
+  "units": "meters relative to LEVEL_LAYOUT.json zone center",
+  "encounters": [
+    {
+      "label": "NARIS_ENM_AshWretch_001",
+      "villain_id": "AshWretch",
+      "zone": "Z02_BROKEN_SHRINE",
+      "offset_m": [
+        -65,
+        40,
+        1
+      ]
+    },
+    {
+      "label": "NARIS_ENM_BronzeSentinel_001",
+      "villain_id": "BronzeSentinel",
+      "zone": "Z03_RUINED_BRIDGE",
+      "offset_m": [
+        10,
+        -50,
+        1
+      ]
+    },
+    {
+      "label": "NARIS_ENM_BellWraith_001",
+      "villain_id": "BellWraith",
+      "zone": "Z04_WHISPER_LAKE",
+      "offset_m": [
+        -75,
+        35,
+        1
+      ]
+    },
+    {
+      "label": "NARIS_ENM_DrownedKnight_001",
+      "villain_id": "DrownedKnight",
+      "zone": "Z04_WHISPER_LAKE",
+      "offset_m": [
+        60,
+        -45,
+        1
+      ]
+    },
+    {
+      "label": "NARIS_MINI_ChainedGiant_001",
+      "villain_id": "ChainedGiant",
+      "zone": "Z05_ASH_GATE",
+      "offset_m": [
+        -70,
+        -50,
+        1.4
+      ]
+    },
+    {
+      "label": "NARIS_BOSS_AshGatekeeper_Dev",
+      "villain_id": "AshGatekeeper",
+      "zone": "Z06_BONE_BEAST_ARENA",
+      "offset_m": [
+        -110,
+        110,
+        1.4
+      ],
+      "development_only": true
+    },
+    {
+      "label": "NARIS_BOSS_EclipseReaver_Dev",
+      "villain_id": "EclipseReaver",
+      "zone": "Z06_BONE_BEAST_ARENA",
+      "offset_m": [
+        150,
+        110,
+        1.4
+      ],
+      "development_only": true
+    }
+  ],
+  "qa_requirements": [
+    "NavMeshBoundsVolume covers each encounter area",
+    "AI controller can path to player",
+    "Enemy appears as marked development primitive until validated skeletal mesh import",
+    "Hero LockOn targets enemy combat component",
+    "Combat applies one impact per attack",
+    "No W04 story boss substitution",
+    "No shipping promotion until meshes rigs montages provenance and playtests verified"
+  ]
+}
