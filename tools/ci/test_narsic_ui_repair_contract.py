@@ -11,16 +11,16 @@ def read(rel: str) -> str:
 
 
 class NarsicUiRepairContractTests(unittest.TestCase):
-    def test_public_runtime_brand_is_narsic(self) -> None:
+    def test_public_runtime_brand_is_call_of_naris(self) -> None:
         engine = read("unreal/NARIS_W04/Config/DefaultEngine.ini")
         project = read("unreal/NARIS_W04/NARIS_W04.uproject")
         controller = read(
             "unreal/NARIS_W04/Source/NARIS_W04/Private/NarisPlayerController.cpp"
         )
-        self.assertIn("ProjectName=NARSIC", engine)
-        self.assertIn('"Description": "NARSIC W04 Unreal bootstrap project"', project)
-        self.assertIn('"PauseMenuTitle", "NARSIC"', controller)
-        self.assertNotIn('"PauseMenuTitle", "CALL OF NARIS"', controller)
+        self.assertIn("ProjectName=CALL OF NARIS", engine)
+        self.assertIn('"Description": "CALL OF NARIS W04 Unreal bootstrap project"', project)
+        self.assertIn('"PauseMenuTitle", "CALL OF NARIS"', controller)
+        self.assertNotIn('"PauseMenuTitle", "NARSIC"', controller)
 
     def test_mouse_click_path_is_real_and_not_cursor_only(self) -> None:
         header = read(
@@ -43,7 +43,7 @@ class NarsicUiRepairContractTests(unittest.TestCase):
         self.assertIn("1880.f * Scale", hud)
         self.assertIn("960.f * Scale", hud)
         self.assertIn("Mouse: Click", hud)
-        self.assertIn('"NARSIC"', hud)
+        self.assertIn('"CALL OF NARIS"', hud)
         self.assertIn("State.ActiveQuests.Num()", hud)
         self.assertIn("State.UnlockedWaystones.Num()", hud)
         self.assertIn("return 32.f * GetViewportScale", style)
@@ -58,15 +58,15 @@ class NarsicUiRepairContractTests(unittest.TestCase):
         self.assertIn('"Name": "AndroidFileServer"', project)
         self.assertIn('"Enabled": false', project)
 
-    def test_localization_keeps_brand_exact(self) -> None:
+    def test_localization_keeps_call_of_naris_brand_exact(self) -> None:
         for culture in ("en", "ar"):
             po = read(
                 f"unreal/NARIS_W04/Content/Localization/NARIS_Game/{culture}/NARIS_Game.po"
             )
             marker = (
                 'msgctxt "NARIS,PauseMenuTitle"\n'
-                'msgid "NARSIC"\n'
-                'msgstr "NARSIC"'
+                'msgid "CALL OF NARIS"\n'
+                'msgstr "CALL OF NARIS"'
             )
             self.assertIn(marker, po)
 
