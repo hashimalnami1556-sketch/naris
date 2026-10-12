@@ -942,6 +942,25 @@ void ANarisPlayerController::MenuConfirm()
     }
 }
 
+void ANarisPlayerController::SelectMenuIndex(int32 Index)
+{
+    if (!IsSystemMenuOpen())
+    {
+        return;
+    }
+
+    const int32 Count = GetVisibleMenuItemCount();
+    SelectedMenuIndex = Count > 0
+        ? FMath::Clamp(Index, 0, Count - 1)
+        : 0;
+}
+
+void ANarisPlayerController::ActivateMenuIndex(int32 Index)
+{
+    SelectMenuIndex(Index);
+    MenuConfirm();
+}
+
 void ANarisPlayerController::MenuBack()
 {
     if (!IsSystemMenuOpen())
