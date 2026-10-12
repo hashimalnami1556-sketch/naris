@@ -1,6 +1,6 @@
-# NARSIC
+# CALL OF NARIS
 
-> **Canonical production repository** for **NARSIC**. Public/product branding uses `NARSIC`; the existing technical namespace (`NARIS_*`, asset IDs, paths, schemas and Unreal module names) remains unchanged for compatibility until a dedicated migration is validated.
+> **Canonical production repository** for **CALL OF NARIS**. Public/product branding uses `CALL OF NARIS`; the existing technical namespace (`NARIS_*`, asset IDs, paths, schemas and Unreal module names) remains unchanged for compatibility.
 
 ## Shared agent knowledge
 
