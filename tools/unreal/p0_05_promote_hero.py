@@ -99,8 +99,21 @@ if evidence.get("status")!="PASS":
 
 approval_candidate=approval.get("candidate")
 approval_git_sha=approval.get("evidence_git_sha")
+approval_run_id=str(approval.get("evidence_workflow_run_id") or "").strip()
+approval_baseline=approval.get("baseline")
+approval_qa_map=approval.get("qa_map")
+approved_by=str(approval.get("approved_by") or "").strip()
+approved_at=str(approval.get("approved_at") or "").strip()
 if approval_candidate!=CANDIDATE:
     fail("visual_approval_candidate_mismatch",{"approval_candidate":approval_candidate,"expected":CANDIDATE})
+if approval_baseline!=ACTIVE:
+    fail("visual_approval_baseline_mismatch",{"approval_baseline":approval_baseline,"expected":ACTIVE})
+if approval_qa_map!=p4b.get("qa_map"):
+    fail("visual_approval_qa_map_mismatch",{"approval_qa_map":approval_qa_map,"expected":p4b.get("qa_map")})
+if not approved_by or not approved_at:
+    fail("visual_approval_provenance_missing",{"approved_by":approved_by,"approved_at":approved_at})
+if not approval_run_id:
+    fail("visual_approval_workflow_run_id_missing")
 if evidence.get("candidate")!=CANDIDATE or p4b.get("candidate")!=CANDIDATE:
     fail("render_evidence_candidate_mismatch",{
         "evidence_candidate":evidence.get("candidate"),
@@ -112,6 +125,11 @@ if approval_git_sha!=evidence.get("git_sha"):
         "approval_git_sha":approval_git_sha,
         "evidence_git_sha":evidence.get("git_sha")
     })
+if approval_run_id!=str(evidence.get("workflow_run_id") or ""):
+    fail("visual_approval_workflow_run_id_mismatch",{
+        "approval_workflow_run_id":approval_run_id,
+        "evidence_workflow_run_id":evidence.get("workflow_run_id")
+    })
 if str(evidence.get("screenshot",""))!=Path(str(shot_ref)).name:
     fail("render_evidence_screenshot_name_mismatch",{
         "approval":Path(str(shot_ref)).name,
@@ -121,6 +139,21 @@ if str(evidence.get("screenshot_sha256","")).lower()!=expected_hash:
     fail("render_evidence_sha256_mismatch",{
         "approval":expected_hash,
         "evidence":evidence.get("screenshot_sha256")
+    })
+if int(evidence.get("screenshot_bytes") or 0)!=actual_bytes:
+    fail("render_evidence_size_mismatch",{
+        "approval_bytes":actual_bytes,
+        "evidence_bytes":evidence.get("screenshot_bytes")
+    })
+if evidence.get("baseline")!=ACTIVE:
+    fail("render_evidence_baseline_mismatch",{
+        "expected":ACTIVE,
+        "actual":evidence.get("baseline")
+    })
+if evidence.get("qa_map")!=p4b.get("qa_map"):
+    fail("render_evidence_map_mismatch",{
+        "scene_report":p4b.get("qa_map"),
+        "evidence":evidence.get("qa_map")
     })
 
 candidate=unreal.load_asset(CANDIDATE)
@@ -187,7 +220,11 @@ result={
         "criteria":criteria,
         "candidate":approval_candidate,
         "evidence_git_sha":approval_git_sha,
-        "workflow_run_id":evidence.get("workflow_run_id")
+        "workflow_run_id":evidence.get("workflow_run_id"),
+        "approved_by":approved_by,
+        "approved_at":approved_at,
+        "baseline":approval_baseline,
+        "qa_map":approval_qa_map
     },
     "next_gate":"Win64 build + clean cook/stage/pak + packaged D3D12 NARISCOMBATQA. Roll back on any failure."
 }
