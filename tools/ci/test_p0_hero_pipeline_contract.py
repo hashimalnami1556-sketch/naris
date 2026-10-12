@@ -39,6 +39,8 @@ class HeroProductionPipelineContract(unittest.TestCase):
             "armatures",
             "humanoid_bone_hits",
             "SK_AshenVessel_Production.fbx",
+            "material_policy",
+            "do not fabricate unassigned style slots",
         ):
             self.assertIn(token, src)
 
@@ -53,6 +55,10 @@ class HeroProductionPipelineContract(unittest.TestCase):
             "M_NARIS_AgedGold",
             "M_NARIS_EmberFire",
             "SK_AshenVessel_PBR.fbx",
+            "import_candidate_ready",
+            "pbr_material",
+            "material_policy",
+            "preserve real assigned PBR",
         ):
             self.assertIn(token, src)
 
@@ -68,6 +74,11 @@ class HeroProductionPipelineContract(unittest.TestCase):
             "regenerate_lod",
             "lod_count_at_least_3",
             "P0-04A technical LOD/skeleton/material QA, then P0-04B D3D12 visual/combat QA before swapping HeroV3",
+            "SK_AshenVessel_Production.glb",
+            "source_format",
+            "material_slots_non_null",
+            "NARIS.SourceAsset",
+            "diagnostics",
         ):
             self.assertIn(token, src)
 
@@ -82,6 +93,9 @@ class HeroProductionPipelineContract(unittest.TestCase):
             "physics_asset",
             "lod_count_at_least_3",
             "compatible_animation_assets",
+            "material_slots_non_null",
+            "animation_compatible_or_retargeted",
+            "do not fabricate unused style slots",
             "replacement_allowed",
             "P0-04B D3D12 visual + deformation + weapon socket + combat regression on AsusRog",
         ):
