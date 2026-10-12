@@ -68,14 +68,51 @@ def main():
                 result["blocked"][key] = "Importer returned no SkeletalMesh; inspect FBX/Unreal log"
                 continue
             cache[key] = meshes[0]
-            result["imported"][key] = {"asset_path": meshes[0].get_path_name(),
-                                        "imported_paths": imported_paths}
+            # Blender can export multiple clips; do not assume that an FBX import
+            # actually created them. Scan the destination for AnimSequence assets.
+            assets = [unreal.load_asset(p) for p in unreal.EditorAssetLibrary.list_assets(
+                path, recursive=True, include_folder=False
+            )]
+            sequences = [obj for obj in assets if isinstance(obj, unreal.AnimSequence)]
+            wanted = {
+                "Idle": "idle_animation", "Walk": "walk_animation",
+                "Attack_Light": "light_attack_animation",
+                "Attack_Heavy": "heavy_attack_animation",
+                "Stagger": "stagger_animation", "Death": "death_animation",
+            }
+            clip_assets = {}
+            for clip in wanted:
+                matched = [obj for obj in sequences
+                           if clip.lower() in obj.get_name().lower()]
+                if matched:
+                    clip_assets[clip] = matched[0]
+            cache[key + "_clips"] = clip_assets
+            missing = sorted(set(wanted) - set(clip_assets))
+            if missing:
+                result["blocked"][key + "_animation_clips"] = (
+                    "Missing imported AnimSequence(s): " + ", ".join(missing)
+                )
+            result["imported"][key] = {
+                "asset_path": meshes[0].get_path_name(),
+                "imported_paths": imported_paths,
+                "animation_clips": {n: a.get_path_name() for n, a in clip_assets.items()},
+            }
         actor = all_actors.get(item["label"])
         if actor is None:
             result["blocked"][item["label"]] = "Enemy actor not found: run naris_author_w04_villains.py"
             continue
         if key in cache:
             actor.set_editor_property("visual_mesh", cache[key])
+            wanted = {
+                "Idle": "idle_animation", "Walk": "walk_animation",
+                "Attack_Light": "light_attack_animation",
+                "Attack_Heavy": "heavy_attack_animation",
+                "Stagger": "stagger_animation", "Death": "death_animation",
+            }
+            for clip, prop in wanted.items():
+                sequence = cache.get(key + "_clips", {}).get(clip)
+                if sequence:
+                    actor.set_editor_property(prop, sequence)
     if not levels.save_current_level():
         raise RuntimeError("Failed to save development map after mesh binding")
     report_path = Path(unreal.Paths.project_saved_dir()) / "TestReports" / "naris_villain_fbx_intake.json"
