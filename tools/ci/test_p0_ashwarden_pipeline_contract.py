@@ -211,6 +211,24 @@ class AshWardenProductionPipelineContract(unittest.TestCase):
             self.assertIn(token,runner)
         self.assertNotIn("-iterativecooking",runner)
 
+
+    def test_self_hosted_candidate_workflow_never_promotes(self):
+        workflow=self.read(".github/workflows/p0-ashwarden-self-hosted.yml")
+        for token in (
+            "P0 Ash Warden Self-Hosted Candidate",
+            "runs-on: [self-hosted, windows]",
+            "run_p0_boss_03_local_visual.bat",
+            "run_p0_boss_04_discovery.bat",
+            "P0_BOSS_CANDIDATE_ONLY=1",
+            "P0-BOSS-04_integration_discovery.json",
+            "P0-BOSS-03_render_evidence.json",
+            "CALL-OF-NARIS-P0-AshWarden-Candidate-Evidence",
+        ):
+            self.assertIn(token,workflow)
+        self.assertNotIn("run_p0_boss_04_promote_and_regress.bat",workflow)
+        self.assertNotIn("p0_boss_04_patch_native_source.py",workflow)
+        self.assertNotIn("READY_NATIVE_CXX_PATCH",workflow)
+
     def test_manifest_matches_pipeline_and_blocks_replacement(self):
         data=json.loads(self.read("data/P0_ASH_WARDEN_PIPELINE_STATUS.json"))
         self.assertEqual(data["product"],"CALL OF NARIS")
