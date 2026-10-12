@@ -118,9 +118,15 @@
   "external_candidate_execution": {
     "environment": "conversation sandbox using uploaded 3D assets",
     "p0_01": "PASS",
-    "p0_02": "PBR_PASS_RETARGET_PENDING",
+    "p0_02": "PBR_STRUCTURAL_PASS_RETARGET_PENDING",
     "selected_source": "Character1_NARIS_Rigged_Prototype.glb",
-    "output_sha256": "015b7a9ff1083086084b15183bb3b63072321aa599ccf332c956e1137b9364aa",
-    "note": "Binary candidate retained outside public repository; evidence committed separately."
+    "output_sha256": "5689afdc4a6868b72d2aaf5a977798779f03c33fcc2bee641bcdd45525d56122",
+    "supersedes_sha256": "015b7a9ff1083086084b15183bb3b63072321aa599ccf332c956e1137b9364aa",
+    "structural_guards": [
+      "joint_indices_unchanged",
+      "animation_targets_unchanged",
+      "canonical_joint_names_exact"
+    ],
+    "note": "Corrected candidate v2 retained outside public repository; evidence committed separately. Unreal retarget/deformation/runtime QA remains required."
   }
 }
