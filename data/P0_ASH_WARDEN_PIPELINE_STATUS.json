@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.2.0",
+  "schema_version": "1.3.0",
   "product": "CALL OF NARIS",
   "pipeline": "P0 Ash Warden Production",
   "success_rule": "Build + Test + Manifest",
@@ -49,7 +49,13 @@
       "name": "Rendered D3D12 Acceptance + Gameplay Replacement + Packaged Boss Regression",
       "status": "blocked_until_p0_boss_03_render_acceptance",
       "gate": "rendered boss comparison must pass silhouette/material/deformation/animation/phase2 checks; replacement then requires clean Win64 build, cook/stage/pak/archive, packaged boss/combat regression, and automatic rollback on failure",
-      "replacement_allowed": "only_after_pass"
+      "replacement_allowed": "only_after_pass_and_discovery",
+      "prerequisites": [
+        "P0-BOSS-03 technical pass",
+        "P0-BOSS-03 rendered visual approval",
+        "P0-BOSS-04 integration discovery report",
+        "verified local NarisAshWarden ownership/integration point"
+      ]
     }
   ],
   "runner": "tools/windows/run_p0_boss_ashwarden_atomic.bat",
@@ -59,5 +65,14 @@
     "note": "Repository pipeline is preparatory until executed on a Windows/Unreal/Blender machine. No local execution is claimed by this manifest."
   },
   "visual_evidence_runner": "tools/windows/run_p0_boss_03_local_visual.bat",
-  "visual_approval": "data/P0_ASH_WARDEN_VISUAL_APPROVAL.json"
+  "visual_approval": "data/P0_ASH_WARDEN_VISUAL_APPROVAL.json",
+  "integration_discovery": {
+    "status": "ready_in_repository",
+    "script": "tools/unreal/p0_boss_04_discover_integration.py",
+    "runner": "tools/windows/run_p0_boss_04_discovery.bat",
+    "output_report": "Reports/P0-BOSS-04_integration_discovery.json",
+    "read_only": true,
+    "replacement_allowed": false,
+    "purpose": "Discover the exact local Ash Warden actor/class/component/proxy ownership before authoring promotion."
+  }
 }
