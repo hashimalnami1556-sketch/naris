@@ -11,7 +11,7 @@ permissions:
 
 concurrency:
   group: p0-hero-self-hosted
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   hero-production:
@@ -39,10 +39,85 @@ jobs:
         run: |
           call "%GITHUB_WORKSPACE%\tools\windows\run_p0_hero_to_unreal.bat"
 
+      - name: Render P0-04B D3D12 comparison screenshot
+        shell: powershell
+        run: |
+          $projectRoot = 'C:\Users\Admin\OneDrive\NARIS_MASTER_BUNDLE\Game\NARIS_UE57'
+          $uproject = Join-Path $projectRoot 'NARIS.uproject'
+          $ueGui = 'C:\Program Files\Epic Games\UE_5.7\Engine\Binaries\Win64\UnrealEditor.exe'
+          $qaMap = '/Game/NARIS/QA/L_HeroCandidate_QA'
+          $screenDir = Join-Path $projectRoot 'Saved\Screenshots\Windows'
+          $canonicalShot = Join-Path $projectRoot 'Reports\P0-04B_HeroCompare.png'
+          $sceneReport = Join-Path $projectRoot 'Reports\P0-04B_visual_scene.json'
+          $evidencePath = Join-Path $projectRoot 'Reports\P0-04B_render_evidence.json'
+          $pipeline_revision = 'p0-04b-hashbound-camera-v2'
+
+          if (-not (Test-Path -LiteralPath $sceneReport)) { throw "Missing P0-04B scene report" }
+          New-Item -ItemType Directory -Force $screenDir | Out-Null
+          Get-ChildItem -LiteralPath $screenDir -Filter '*.png' -ErrorAction SilentlyContinue | Remove-Item -Force -ErrorAction SilentlyContinue
+          if (Test-Path -LiteralPath $canonicalShot) { Remove-Item -LiteralPath $canonicalShot -Force }
+
+          $renderStarted = [DateTime]::UtcNow
+          $args = @(
+            $uproject,
+            $qaMap,
+            '-game',
+            '-d3d12',
+            '-windowed',
+            '-ResX=1920',
+            '-ResY=1080',
+            '-nosplash',
+            '-BENCHMARK',
+            '-SECONDS=10',
+            '-ExecCmds="HighResShot 1"',
+            '-log'
+          )
+          $proc = Start-Process -FilePath $ueGui -ArgumentList $args -PassThru
+          if (-not $proc.WaitForExit(45000)) {
+            Stop-Process -Id $proc.Id -Force -ErrorAction SilentlyContinue
+          }
+          Start-Sleep -Seconds 2
+
+          $latest = Get-ChildItem -LiteralPath $screenDir -Filter '*.png' -Recurse -File -ErrorAction SilentlyContinue |
+            Where-Object { $_.LastWriteTimeUtc -ge $renderStarted } |
+            Sort-Object LastWriteTimeUtc -Descending |
+            Select-Object -First 1
+          if (-not $latest) { throw 'No fresh screenshot produced after render start' }
+          Copy-Item -LiteralPath $latest.FullName -Destination $canonicalShot -Force
+
+          $scene = Get-Content -Raw -LiteralPath $sceneReport | ConvertFrom-Json
+          $hash = (Get-FileHash -LiteralPath $canonicalShot -Algorithm SHA256).Hash.ToLowerInvariant()
+          $bytes = (Get-Item -LiteralPath $canonicalShot).Length
+          $gitSha = (& git -C $env:GITHUB_WORKSPACE rev-parse HEAD).Trim()
+          $dirty = ((& git -C $env:GITHUB_WORKSPACE status --porcelain) -join '').Trim().Length -gt 0
+
+          $evidence = [ordered]@{
+            schema_version = '1.1.0'
+            pipeline_revision = 'p0-04b-hashbound-camera-v2'
+            status = 'PASS'
+            screenshot = 'P0-04B_HeroCompare.png'
+            screenshot_path = $canonicalShot
+            screenshot_sha256 = $hash
+            screenshot_bytes = $bytes
+            candidate = $scene.candidate
+            baseline = $scene.baseline
+            qa_map = $scene.qa_map
+            git_sha = $gitSha
+            git_worktree_dirty = $dirty
+            render_started_utc = $renderStarted.ToString('o')
+            screenshot_written_utc = $latest.LastWriteTimeUtc.ToString('o')
+            workflow_run_id = '${{ github.run_id }}'
+          }
+          $evidence | ConvertTo-Json -Depth 7 | Set-Content -LiteralPath $evidencePath -Encoding utf8NoBOM
+          Write-Host "P0_04B_RENDER_EVIDENCE=$evidencePath"
+          Write-Host "P0_04B_SCREENSHOT_SHA256=$hash"
+          Write-Host "P0_04B_SCREENSHOT_BYTES=$bytes"
+
       - name: Run P0-04B master visual and combat QA
         shell: powershell
         run: |
           & "$env:GITHUB_WORKSPACE\tools\windows\Invoke-P0HeroMasterQA.ps1" -RepoRoot "$env:GITHUB_WORKSPACE"
+
       - name: Collect gate evidence
         if: always()
         shell: powershell
@@ -56,6 +131,7 @@ jobs:
             (Join-Path $projectRoot 'Reports\P0-03_unreal_hero_import.json'),
             (Join-Path $projectRoot 'Reports\P0-04A_hero_technical_qa.json'),
             (Join-Path $projectRoot 'Reports\P0-04B_visual_scene.json'),
+            (Join-Path $projectRoot 'Reports\P0-04B_render_evidence.json'),
             (Join-Path $projectRoot 'Reports\P0-04B_runtime_qa.json'),
             (Join-Path $projectRoot 'Reports\P0-04B_combat_d3d12.log'),
             (Join-Path $projectRoot 'Reports\P0-04B_HeroCompare.png')
