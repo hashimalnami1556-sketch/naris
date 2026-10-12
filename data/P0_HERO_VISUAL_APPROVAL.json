@@ -1,0 +1,18 @@
+{
+  "schema_version": "1.0.0",
+  "product": "CALL OF NARIS",
+  "gate": "P0-04B",
+  "approved": false,
+  "screenshot": "P0-04B_HeroCompare.png",
+  "screenshot_artifact": "CALL-OF-NARIS-P0-Hero-Evidence",
+  "criteria": {
+    "silhouette": "pending",
+    "material_language": "pending",
+    "deformation": "pending",
+    "scale_vs_baseline": "pending",
+    "clipping": "pending",
+    "animation_pose": "pending"
+  },
+  "decision": "PENDING_VISUAL_INSPECTION",
+  "note": "P0-05 promotion script must reject this file until approved=true."
+}
