@@ -1,0 +1,280 @@
+{
+  "schema": "naris.intake.v1",
+  "batch": "w04-20261011",
+  "map": "/Game/NARIS/Intake/W04_20261011/Maps/DEV_IntakeReview",
+  "production_approved": false,
+  "assets": [
+    {
+      "asset_id": "NARIS-W04-ENV-INTAKE-0001",
+      "slug": "environment-01",
+      "source": "assets/intake/w04-20261011/environment-01.glb",
+      "original_filename": "Environmental-1.glb",
+      "display_height_cm": 1200,
+      "position_cm": [
+        0,
+        0,
+        0
+      ],
+      "audit": {
+        "sha256": "64780ab4c7abb5c38d10fe5035d740f294ba5aed4824c897c9bcc494f30b4271",
+        "bytes": 1210488,
+        "geometry_validation": "pass",
+        "primitives": [
+          {
+            "vertices": 15136,
+            "triangles": 17880,
+            "bounds_min": [
+              -0.5000000596046448,
+              0.0,
+              -0.42971810698509216
+            ],
+            "bounds_max": [
+              0.5000000596046448,
+              0.92071533203125,
+              0.42971810698509216
+            ],
+            "attributes": [
+              "NORMAL",
+              "POSITION",
+              "TEXCOORD_0"
+            ]
+          }
+        ],
+        "triangles": 17880,
+        "joint_counts": [],
+        "animations": [],
+        "materials": 1,
+        "embedded_images": 3,
+        "warnings": [
+          "No skeleton; display mesh only",
+          "No verified locomotion/combat animation set"
+        ],
+        "engine_import": "not_run",
+        "production_approved": false
+      }
+    },
+    {
+      "asset_id": "NARIS-W04-CHR-INTAKE-0002",
+      "slug": "character-03",
+      "source": "assets/intake/w04-20261011/character-03.glb",
+      "original_filename": "Character-3.glb",
+      "display_height_cm": 180,
+      "position_cm": [
+        0,
+        1500,
+        0
+      ],
+      "audit": {
+        "sha256": "ac36ad54c102b7d755359195997afc009160689b28b0cfb4b53b77987dbb72b5",
+        "bytes": 1052664,
+        "geometry_validation": "pass",
+        "primitives": [
+          {
+            "vertices": 12115,
+            "triangles": 18210,
+            "bounds_min": [
+              -0.5,
+              0.0,
+              -0.2875366806983948
+            ],
+            "bounds_max": [
+              0.5,
+              0.6060791015625,
+              0.2875366806983948
+            ],
+            "attributes": [
+              "NORMAL",
+              "POSITION",
+              "TEXCOORD_0"
+            ]
+          }
+        ],
+        "triangles": 18210,
+        "joint_counts": [],
+        "animations": [],
+        "materials": 1,
+        "embedded_images": 3,
+        "warnings": [
+          "No skeleton; display mesh only",
+          "No verified locomotion/combat animation set"
+        ],
+        "engine_import": "not_run",
+        "production_approved": false
+      }
+    },
+    {
+      "asset_id": "NARIS-W04-CHR-INTAKE-0003",
+      "slug": "character-01-rigged",
+      "source": "assets/intake/w04-20261011/character-01-rigged.glb",
+      "original_filename": "Character1_NARIS_Rigged_Prototype.glb",
+      "display_height_cm": 180,
+      "position_cm": [
+        0,
+        3000,
+        0
+      ],
+      "audit": {
+        "sha256": "83e4d41f347c959e61ec57355fd682db99ed4652dfabba622ae0784b8cd9b628",
+        "bytes": 2828520,
+        "geometry_validation": "pass",
+        "primitives": [
+          {
+            "vertices": 32373,
+            "triangles": 49886,
+            "bounds_min": [
+              -0.4989014267921448,
+              0.0,
+              -0.3611450791358948
+            ],
+            "bounds_max": [
+              0.4989014267921448,
+              1.0,
+              0.3611450791358948
+            ],
+            "attributes": [
+              "JOINTS_0",
+              "NORMAL",
+              "POSITION",
+              "TEXCOORD_0",
+              "WEIGHTS_0"
+            ]
+          }
+        ],
+        "triangles": 49886,
+        "joint_counts": [
+          18
+        ],
+        "animations": [
+          {
+            "name": "A_Character1_Idle",
+            "channels": 1,
+            "target_paths": [
+              "rotation"
+            ]
+          }
+        ],
+        "materials": 1,
+        "embedded_images": 3,
+        "warnings": [
+          "No verified locomotion/combat animation set"
+        ],
+        "engine_import": "not_run",
+        "production_approved": false
+      }
+    },
+    {
+      "asset_id": "NARIS-W04-ENV-INTAKE-0004",
+      "slug": "city-01",
+      "source": "assets/intake/w04-20261011/city-01.glb",
+      "original_filename": "City-1.glb",
+      "display_height_cm": 3000,
+      "position_cm": [
+        0,
+        4500,
+        0
+      ],
+      "audit": {
+        "sha256": "2032dd3208d9215a5531f1fa880a2ea2e6ab4962a0836a4a6acb12dd8ec36e52",
+        "bytes": 1525136,
+        "geometry_validation": "pass",
+        "primitives": [
+          {
+            "vertices": 14781,
+            "triangles": 18161,
+            "bounds_min": [
+              -0.5000000596046448,
+              0.0,
+              -0.4373474717140198
+            ],
+            "bounds_max": [
+              0.5000000596046448,
+              0.3314208984375,
+              0.4373474717140198
+            ],
+            "attributes": [
+              "NORMAL",
+              "POSITION",
+              "TEXCOORD_0"
+            ]
+          }
+        ],
+        "triangles": 18161,
+        "joint_counts": [],
+        "animations": [],
+        "materials": 1,
+        "embedded_images": 3,
+        "warnings": [
+          "No skeleton; display mesh only",
+          "No verified locomotion/combat animation set"
+        ],
+        "engine_import": "not_run",
+        "production_approved": false
+      }
+    },
+    {
+      "asset_id": "NARIS-W04-CHR-INTAKE-0005",
+      "slug": "character-01",
+      "source": "assets/intake/w04-20261011/character-01.glb",
+      "original_filename": "Character-1.glb",
+      "display_height_cm": 180,
+      "position_cm": [
+        0,
+        6000,
+        0
+      ],
+      "audit": {
+        "sha256": "d3d83628a982079a614541295334f11cafe616af86f621cd0947190afb1acc75",
+        "bytes": 2177340,
+        "geometry_validation": "pass",
+        "primitives": [
+          {
+            "vertices": 32373,
+            "triangles": 49886,
+            "bounds_min": [
+              -0.4989014267921448,
+              0.0,
+              -0.3611450791358948
+            ],
+            "bounds_max": [
+              0.4989014267921448,
+              1.0,
+              0.3611450791358948
+            ],
+            "attributes": [
+              "NORMAL",
+              "POSITION",
+              "TEXCOORD_0"
+            ]
+          }
+        ],
+        "triangles": 49886,
+        "joint_counts": [],
+        "animations": [],
+        "materials": 1,
+        "embedded_images": 3,
+        "warnings": [
+          "No skeleton; display mesh only",
+          "No verified locomotion/combat animation set"
+        ],
+        "engine_import": "not_run",
+        "production_approved": false
+      }
+    }
+  ],
+  "format_correction": {
+    "original": "assets/intake/w04-20261011/source-mislabeled.usdz",
+    "corrected": "assets/intake/w04-20261011/source-corrected.usdc",
+    "magic": "PXR-USDC",
+    "conversion_performed": false
+  },
+  "generation": {
+    "steps": 40,
+    "cfg": 7.5,
+    "sampler": "dpmpp_2m",
+    "scheduler": "karras",
+    "width": 1344,
+    "height": 768,
+    "status": "not_run",
+    "upscale_factor": 2
+  }
+}

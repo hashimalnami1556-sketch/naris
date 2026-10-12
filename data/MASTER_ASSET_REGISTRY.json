@@ -1123,6 +1123,61 @@
       "source": "data/materials/W04_ASHEN_FOREST_MATERIAL_LIBRARY_v1.json",
       "engine_target": "Unreal Material Instance",
       "notes": "Material library id: MAT_W04_WHISPER_LAKE_01"
+    },
+    {
+      "id": "NARIS-W04-ENV-INTAKE-0001",
+      "name": "environment-01",
+      "domain": "ENV",
+      "type": "INTAKE",
+      "world": "W04",
+      "status": "blockout",
+      "source": "assets/intake/w04-20261011/environment-01.glb",
+      "engine_target": "Unreal",
+      "notes": "Owner-uploaded source candidate; geometry checked, engine and visual approval pending. Do not bind to production hero."
+    },
+    {
+      "id": "NARIS-W04-CHR-INTAKE-0002",
+      "name": "character-03",
+      "domain": "CHR",
+      "type": "INTAKE",
+      "world": "W04",
+      "status": "blockout",
+      "source": "assets/intake/w04-20261011/character-03.glb",
+      "engine_target": "Unreal",
+      "notes": "Owner-uploaded source candidate; geometry checked, engine and visual approval pending. Do not bind to production hero."
+    },
+    {
+      "id": "NARIS-W04-CHR-INTAKE-0003",
+      "name": "character-01-rigged",
+      "domain": "CHR",
+      "type": "INTAKE",
+      "world": "W04",
+      "status": "blockout",
+      "source": "assets/intake/w04-20261011/character-01-rigged.glb",
+      "engine_target": "Unreal",
+      "notes": "Owner-uploaded source candidate; geometry checked, engine and visual approval pending. Do not bind to production hero."
+    },
+    {
+      "id": "NARIS-W04-ENV-INTAKE-0004",
+      "name": "city-01",
+      "domain": "ENV",
+      "type": "INTAKE",
+      "world": "W04",
+      "status": "blockout",
+      "source": "assets/intake/w04-20261011/city-01.glb",
+      "engine_target": "Unreal",
+      "notes": "Owner-uploaded source candidate; geometry checked, engine and visual approval pending. Do not bind to production hero."
+    },
+    {
+      "id": "NARIS-W04-CHR-INTAKE-0005",
+      "name": "character-01",
+      "domain": "CHR",
+      "type": "INTAKE",
+      "world": "W04",
+      "status": "blockout",
+      "source": "assets/intake/w04-20261011/character-01.glb",
+      "engine_target": "Unreal",
+      "notes": "Owner-uploaded source candidate; geometry checked, engine and visual approval pending. Do not bind to production hero."
     }
   ]
 }

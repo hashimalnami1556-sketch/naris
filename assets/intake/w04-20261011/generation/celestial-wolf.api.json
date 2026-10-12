@@ -1,0 +1,115 @@
+{
+  "1": {
+    "class_type": "CheckpointLoaderSimple",
+    "inputs": {
+      "ckpt_name": "REPLACE_WITH_INSTALLED_SDXL_CHECKPOINT.safetensors"
+    }
+  },
+  "2": {
+    "class_type": "CLIPTextEncode",
+    "inputs": {
+      "text": "Anatomically realistic dark fantasy wolf, full body side view standing neutral pose, long canine muzzle, articulated paws and legs, dense short ash silver fur, subtle ember eyes, neutral studio backdrop, creature modeling reference, no spikes, no text",
+      "clip": [
+        "1",
+        1
+      ]
+    }
+  },
+  "3": {
+    "class_type": "CLIPTextEncode",
+    "inputs": {
+      "text": "low quality, blurry, deformed, extra limbs, cartoon, watermark, text, logo",
+      "clip": [
+        "1",
+        1
+      ]
+    }
+  },
+  "4": {
+    "class_type": "EmptyLatentImage",
+    "inputs": {
+      "width": 1344,
+      "height": 768,
+      "batch_size": 1
+    }
+  },
+  "5": {
+    "class_type": "KSampler",
+    "inputs": {
+      "seed": 104015,
+      "steps": 40,
+      "cfg": 7.5,
+      "sampler_name": "dpmpp_2m",
+      "scheduler": "karras",
+      "denoise": 1,
+      "model": [
+        "1",
+        0
+      ],
+      "positive": [
+        "2",
+        0
+      ],
+      "negative": [
+        "3",
+        0
+      ],
+      "latent_image": [
+        "4",
+        0
+      ]
+    }
+  },
+  "6": {
+    "class_type": "VAEDecode",
+    "inputs": {
+      "samples": [
+        "5",
+        0
+      ],
+      "vae": [
+        "1",
+        2
+      ]
+    }
+  },
+  "7": {
+    "class_type": "SaveImage",
+    "inputs": {
+      "filename_prefix": "NARIS/celestial-wolf/base",
+      "images": [
+        "6",
+        0
+      ]
+    }
+  },
+  "8": {
+    "class_type": "UpscaleModelLoader",
+    "inputs": {
+      "model_name": "REPLACE_WITH_INSTALLED_2X_UPSCALER.pth"
+    }
+  },
+  "9": {
+    "class_type": "ImageUpscaleWithModel",
+    "inputs": {
+      "upscale_model": [
+        "8",
+        0
+      ],
+      "image": [
+        "6",
+        0
+      ]
+    }
+  },
+  "10": {
+    "class_type": "SaveImage",
+    "inputs": {
+      "filename_prefix": "NARIS/celestial-wolf/upscaled",
+      "images": [
+        "9",
+        0
+      ]
+    }
+  }
+}

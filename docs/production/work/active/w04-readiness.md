@@ -79,3 +79,14 @@ last_updated: 2026-10-11
 - Completed: canonical default path, nested W04 staged packages, launcher-checkout discovery and direct Win64 Development/Shipping executable names. Bootstrap checks now require a newly created direct child whose executable lies inside the selected package directory. Existing editors, saves and builds are untouched.
 - Verification: repository validator and all 306 CI source/data tests plus 6 AssetForge tests pass on the refreshed checkout; diff whitespace check passes. PowerShell/Windows and Unreal are unavailable here, so execution and packaged runtime acceptance remain pending.
 - Next gate: run -ListOnly on Windows, choose the intended package explicitly if multiple candidates exist, test both a root bootstrap and direct Win64 executable, and verify unrelated running game instances cannot satisfy a failed launch. A modification timestamp does not prove the newest approved release.
+
+### Uploaded asset production intake — 2026-10-11
+
+- Executing agent: Codex. Claimed scope: five uploaded GLBs, USD extension repair, geometry validation, isolated Unreal review importer and exact ComfyUI generation preparation. Details: [uploaded candidate record](../../uploaded-candidates-20261011.md).
+- Actual bytes inspected: four static GLBs; one rigged GLB with 18 joints and one single-channel Idle rotation animation. Registered new W04 INTAKE blockout IDs without replacing core production bindings. Container/accessor/index/weight checks pass on all five files.
+- Corrected the uploaded USDC crate's `.usdz` extension in a separate preserved-byte copy. Did not claim ZIP conversion or USD engine import.
+- Added an editor authoring path and guarded Windows build/import/review launcher. Geometry previews are local source renders, not engine evidence.
+- Preserved requested 40 steps, CFG 7.5, DPM++ 2M Karras, 1344x768 in six ComfyUI API workflows plus a queue runner. Live fal SDXL schema lacks sampler selection; no incompatible generation was submitted. Generation remains not_run.
+- Rechecked remote device: AsusRog is Offline. No Unreal/Blender build, import, PIE, game launch or final packaging was performed in this environment.
+- Next action: run the review launcher on Windows, retain the editor report/logs and inspect materials/scale, then validate reference fidelity, production rigs and authored navigation before promotion. Main/default maps and production art remain unchanged.
+- Verification: repository validator passes; 312 CI tests (including six byte-level intake tests) and six AssetForge tests pass, 318 total. Python sources parse; diff whitespace check passes. Windows launcher and Unreal importer remain unexecuted.
