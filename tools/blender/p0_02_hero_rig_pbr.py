@@ -10,6 +10,7 @@ LOG1=os.path.join(HERO_DIR,"P0-01_reimport_log.json")
 SRC_BLEND=os.path.join(HERO_DIR,"SK_AshenVessel_Production.blend")
 OUT_BLEND=os.path.join(HERO_DIR,"SK_AshenVessel_PBR.blend")
 OUT_FBX=os.path.join(HERO_DIR,"SK_AshenVessel_PBR.fbx")
+OUT_GLB=os.path.join(HERO_DIR,"SK_AshenVessel_Production.glb")
 LOG2=os.path.join(HERO_DIR,"P0-02_rig_pbr_log.json")
 
 def fail(reason, extra=None, code=20):
@@ -191,6 +192,22 @@ bpy.ops.export_scene.fbx(
     object_types={'ARMATURE','MESH'}
 )
 
+# GLB is a secondary, hash-bound interchange fallback for UE5.7 Interchange.
+# FBX remains the preferred production route because P0-03 can explicitly
+# reuse the working HeroV3 Skeleton during FBX import.
+glb_export_error=None
+try:
+    bpy.ops.export_scene.gltf(
+        filepath=OUT_GLB,
+        export_format='GLB',
+        use_selection=True,
+        export_animations=False,
+        export_apply=True
+    )
+except Exception as exc:
+    glb_export_error=str(exc)
+    print("P0-02 optional GLB export warning:",glb_export_error)
+
 def sha256_file(path):
     h=hashlib.sha256()
     with open(path,"rb") as f:
@@ -199,6 +216,7 @@ def sha256_file(path):
     return h.hexdigest()
 
 output_fbx_sha256=sha256_file(OUT_FBX) if os.path.isfile(OUT_FBX) else None
+output_glb_sha256=sha256_file(OUT_GLB) if os.path.isfile(OUT_GLB) else None
 output_blend_sha256=sha256_file(OUT_BLEND) if os.path.isfile(OUT_BLEND) else None
 
 report={
@@ -209,6 +227,9 @@ report={
  "output_blend":OUT_BLEND,
  "output_fbx":OUT_FBX,
  "output_fbx_sha256":output_fbx_sha256,
+ "output_glb":OUT_GLB if os.path.isfile(OUT_GLB) else None,
+ "output_glb_sha256":output_glb_sha256,
+ "glb_export_error":glb_export_error,
  "output_blend_sha256":output_blend_sha256,
  "armature":arm.name,
  "bone_count":len(arm.data.bones),
