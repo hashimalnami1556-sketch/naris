@@ -200,6 +200,18 @@ class HeroProductionPipelineContract(unittest.TestCase):
         self.assertIn("screenshot_bytes = $bytes", workflow)
         self.assertIn("name: P0-01 to P0-04B on AsusRog", workflow)
 
+    def test_local_atomic_render_evidence_runner(self):
+        src = self.read("tools/windows/run_p0_hero_local_atomic.bat")
+        for token in (
+            "run_p0_hero_to_unreal.bat",
+            "P0-04B_HeroCompare.png",
+            "p0-04b-hashbound-camera-v2",
+            "Get-FileHash",
+            "P0-04B_render_evidence.json",
+            "P0-05 promotion remains BLOCKED",
+        ):
+            self.assertIn(token, src)
+
     def test_windows_runners_chain_the_gates(self):
         src = self.read("tools/windows/run_p0_hero_to_unreal.bat")
         for token in (
