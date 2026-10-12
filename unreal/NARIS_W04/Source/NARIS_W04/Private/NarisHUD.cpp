@@ -13,6 +13,7 @@
 #include "NarisInteractable.h"
 #include "NarisInteractionComponent.h"
 #include "NarisPlayerController.h"
+#include "NarisSystemMenuWidget.h"
 #include "NarisRuntimeSubsystem.h"
 #include "NarisSwimmingComponent.h"
 #include "NarisSubtitleSubsystem.h"
@@ -668,8 +669,31 @@ void ANarisHUD::DrawContentPage(
     );
 }
 
+void ANarisHUD::BeginPlay()
+{
+    Super::BeginPlay();
+
+    if (PlayerOwner)
+    {
+        SystemMenuWidget = CreateWidget<UNarisSystemMenuWidget>(
+            PlayerOwner,
+            UNarisSystemMenuWidget::StaticClass()
+        );
+
+        if (SystemMenuWidget)
+        {
+            SystemMenuWidget->AddToViewport(80);
+        }
+    }
+}
+
 void ANarisHUD::DrawPauseMenu()
 {
+    if (SystemMenuWidget && SystemMenuWidget->IsInViewport())
+    {
+        return;
+    }
+
     ANarisPlayerController* Controller = Cast<ANarisPlayerController>(PlayerOwner);
     if (!Controller || !Controller->IsSystemMenuOpen() || !Canvas)
     {
