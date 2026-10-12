@@ -30,6 +30,21 @@ hero=unreal.load_asset(CANDIDATE)
 if not hero or not isinstance(hero,unreal.SkeletalMesh):
     fail("candidate_skeletal_mesh_missing",{"candidate":CANDIDATE})
 
+source_sha256=str(p3.get("source_sha256") or "").lower().strip()
+if len(source_sha256)!=64 or any(c not in "0123456789abcdef" for c in source_sha256):
+    fail("p0_03_source_sha256_missing_or_invalid",{"source_sha256":p3.get("source_sha256")})
+
+candidate_metadata_sha=""
+try:
+    candidate_metadata_sha=str(unreal.EditorAssetLibrary.get_metadata_tag(hero,unreal.Name("NARIS.SourceSHA256")) or "").lower().strip()
+except Exception as exc:
+    unreal.log_warning("NARIS_P0_04A_SOURCE_SHA_METADATA_WARNING "+str(exc))
+if candidate_metadata_sha!=source_sha256:
+    fail("candidate_source_sha256_metadata_mismatch",{
+        "p0_03_source_sha256":source_sha256,
+        "candidate_metadata_sha256":candidate_metadata_sha
+    })
+
 def safe_prop(obj,name,default=None):
     try: return obj.get_editor_property(name)
     except Exception: return default
@@ -126,6 +141,7 @@ checks={
     "compatible_animation_assets":len(compatible_animation_assets)>=2,
     "animation_compatible_or_retargeted":animation_compatible_or_retargeted,
     "p0_03_candidate_only":bool(p3.get("candidate_only")),
+    "candidate_source_sha256_bound":candidate_metadata_sha==source_sha256,
 }
 passed=all(checks.values())
 
@@ -143,6 +159,7 @@ result={
     "visual_acceptance":False,
     "runtime_combat_acceptance":False,
     "candidate":hero.get_path_name(),
+    "candidate_source_sha256":source_sha256,
     "skeleton":skeleton.get_path_name() if skeleton else None,
     "materials":mats,
     "material_policy":"at least one real assigned material; do not fabricate unused style slots",
