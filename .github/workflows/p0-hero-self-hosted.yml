@@ -11,7 +11,7 @@ permissions:
 
 concurrency:
   group: p0-hero-self-hosted
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   hero-production:
