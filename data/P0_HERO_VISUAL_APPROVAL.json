@@ -23,5 +23,6 @@
   "baseline": "/Game/NARIS/Characters/HeroV3/SK_NARIS_AshenVessel_v3",
   "qa_map": "/Game/NARIS/QA/L_HeroCandidate_QA",
   "approved_by": "",
-  "approved_at": ""
+  "approved_at": "",
+  "pipeline_revision": "p0-04b-hashbound-camera-v2"
 }
