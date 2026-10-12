@@ -17,8 +17,11 @@ $PrepScript = Join-Path $RepoRoot "tools\unreal\p0_04b_prepare_visual_qa.py"
 $ReportA = Join-Path $ProjectRoot "Reports\P0-04A_hero_technical_qa.json"
 $SceneReport = Join-Path $ProjectRoot "Reports\P0-04B_visual_scene.json"
 $FinalReport = Join-Path $ProjectRoot "Reports\P0-04B_runtime_qa.json"
+$RenderEvidence = Join-Path $ProjectRoot "Reports\P0-04B_render_evidence.json"
 $CombatLog = Join-Path $ProjectRoot "Reports\P0-04B_combat_d3d12.log"
-$ScreenshotOut = Join-Path $ProjectRoot "Reports\P0-04B_HeroCompare.png"
+$ScreenshotDir = Join-Path $ProjectRoot "Saved\Screenshots\Windows"
+$ScreenshotOut = Join-Path $ScreenshotDir "P0-04B_HeroCompare.png"
+$Revision = "p0-04b-hashbound-camera-v2"
 $MainMap = "/Game/NARIS/Maps/L_AshMap_Assembly"
 $QaMap = "/Game/NARIS/QA/L_HeroCandidate_QA"
 
@@ -56,8 +59,12 @@ if ($Scene.status -ne "PASS" -or $Scene.visual_scene_prepared -ne $true) {
     throw "P0-04B visual scene gate failed."
 }
 
+New-Item -ItemType Directory -Force $ScreenshotDir | Out-Null
 if (Test-Path -LiteralPath $ScreenshotOut) {
     Remove-Item -LiteralPath $ScreenshotOut -Force
+}
+if (Test-Path -LiteralPath $RenderEvidence) {
+    Remove-Item -LiteralPath $RenderEvidence -Force
 }
 
 $CaptureStartedAt = [DateTime]::UtcNow
@@ -105,6 +112,52 @@ if ($NewestShot) {
 $ScreenshotPresent = Test-Path -LiteralPath $ScreenshotOut
 if (-not $ScreenshotPresent) {
     Write-Warning "P0-04B D3D12 screenshot was not produced."
+}
+
+if ($ScreenshotPresent) {
+    $ScreenshotHash = (Get-FileHash -LiteralPath $ScreenshotOut -Algorithm SHA256).Hash.ToLowerInvariant()
+    $ScreenshotBytes = (Get-Item -LiteralPath $ScreenshotOut).Length
+
+    $GitSha = [string]$env:GITHUB_SHA
+    if (-not $GitSha) {
+        try {
+            $GitSha = (& git -C $RepoRoot rev-parse HEAD 2>$null).Trim()
+        } catch {
+            $GitSha = ""
+        }
+    }
+    if (-not $GitSha) {
+        throw "Unable to resolve Git SHA for P0-04B visual evidence."
+    }
+
+    $WorkflowRunId = [string]$env:GITHUB_RUN_ID
+    if (-not $WorkflowRunId) {
+        $WorkflowRunId = "local-" + (Get-Date).ToUniversalTime().ToString("yyyyMMddTHHmmssZ")
+    }
+
+    $Evidence = [ordered]@{
+        schema_version = "1.1.0"
+        pipeline_revision = $Revision
+        status = "PASS"
+        screenshot = "P0-04B_HeroCompare.png"
+        screenshot_path = $ScreenshotOut
+        screenshot_sha256 = $ScreenshotHash
+        screenshot_bytes = $ScreenshotBytes
+        candidate = $Scene.candidate
+        baseline = $Scene.baseline
+        qa_map = $Scene.qa_map
+        git_sha = $GitSha
+        workflow_run_id = $WorkflowRunId
+        render_started_utc = $CaptureStartedAt.ToString("o")
+        screenshot_written_utc = (Get-Item -LiteralPath $ScreenshotOut).LastWriteTimeUtc.ToString("o")
+    }
+
+    $Evidence | ConvertTo-Json -Depth 7 | Set-Content -LiteralPath $RenderEvidence -Encoding UTF8
+    Write-Host "[P0-04B] RENDER_EVIDENCE=$RenderEvidence"
+    Write-Host "[P0-04B] SHA256=$ScreenshotHash"
+    Write-Host "[P0-04B] BYTES=$ScreenshotBytes"
+    Write-Host "[P0-04B] GIT_SHA=$GitSha"
+    Write-Host "[P0-04B] WORKFLOW_RUN_ID=$WorkflowRunId"
 }
 
 if (Test-Path -LiteralPath $CombatLog) {
@@ -165,6 +218,8 @@ $Result = [ordered]@{
     scene_prepared = $true
     screenshot_present = $ScreenshotPresent
     screenshot_path = if ($ScreenshotPresent) { $ScreenshotOut } else { $null }
+    render_evidence = if ($ScreenshotPresent) { $RenderEvidence } else { $null }
+    pipeline_revision = $Revision
     combat_exit_code = $CombatExit
     combat_pass = $CombatPass
     fatal_findings = @($FatalFindings)
@@ -187,4 +242,5 @@ if (-not $ScreenshotPresent) {
 
 Write-Host "[P0-04B] PASS_EVIDENCE_READY"
 Write-Host "[P0-04B] Screenshot: $ScreenshotOut"
+Write-Host "[P0-04B] Render evidence: $RenderEvidence"
 Write-Host "[P0-04B] Promotion remains blocked pending visual review."
