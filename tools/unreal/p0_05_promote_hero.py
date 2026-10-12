@@ -74,8 +74,14 @@ if actual_hash.lower()!=expected_hash:
         "expected_sha256":expected_hash,
         "actual_sha256":actual_hash
     })
-if actual_shot.stat().st_size < 10000:
-    fail("visual_evidence_file_too_small",{"bytes":actual_shot.stat().st_size})
+actual_bytes=actual_shot.stat().st_size
+expected_bytes=int(approval.get("screenshot_bytes") or 0)
+if actual_bytes < 10000:
+    fail("visual_evidence_file_too_small",{"bytes":actual_bytes})
+if expected_bytes <= 0:
+    fail("visual_approval_missing_valid_byte_count",{"screenshot_bytes":approval.get("screenshot_bytes")})
+if actual_bytes != expected_bytes:
+    fail("visual_evidence_size_mismatch",{"expected_bytes":expected_bytes,"actual_bytes":actual_bytes})
 
 for p,label in ((REPORT_A,"P0-04A"),(REPORT_B,"P0-04B")):
     if not p.is_file():
@@ -147,7 +153,7 @@ result={
     "visual_evidence":{
         "path":str(actual_shot),
         "sha256":actual_hash,
-        "bytes":actual_shot.stat().st_size,
+        "bytes":actual_bytes,
         "criteria":criteria
     },
     "next_gate":"Win64 build + cook/stage/pak + packaged D3D12 NARISCOMBATQA. Roll back on any failure."
