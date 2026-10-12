@@ -36,7 +36,10 @@ if ($GateA.status -ne "PASS" -or $GateA.technical_acceptance -ne $true) {
     throw "P0-04A has not passed; refusing P0-04B."
 }
 $CandidateSourceSha = ([string]$GateA.candidate_source_sha256).ToLowerInvariant().Trim()
-if ($CandidateSourceSha -notmatch '^[0-9a-f]{64}
+if ($CandidateSourceSha -notmatch '^[0-9a-f]{64}$') {
+    throw "P0-04A candidate source SHA256 missing or invalid."
+}
+
 Write-Host "[P0-04B] Preparing side-by-side hero QA scene"
 $PrepArgs = @(
     $UProject,
