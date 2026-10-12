@@ -1,7 +1,7 @@
 {
-  "requested_at": "2026-10-12T17:22:00+03:00",
+  "requested_at": "2026-10-12T17:30:00+03:00",
   "product": "CALL OF NARIS",
-  "pipeline": "P0 Hero Self-Hosted Production",
+  "pipeline": "P0 Hero Latest",
   "stages": [
     "P0-01",
     "P0-02",
@@ -9,13 +9,13 @@
     "P0-04A",
     "P0-04B"
   ],
-  "requested_by": "autonomous production pass",
+  "promotion_stage": "P0-05 gated after visual approval",
   "runner_labels": [
     "self-hosted",
     "windows"
   ],
   "master_project": "C:\\Users\\Admin\\OneDrive\\NARIS_MASTER_BUNDLE\\Game\\NARIS_UE57",
-  "evidence": [
+  "evidence_required": [
     "P0-01_reimport_log.json",
     "P0-02_rig_pbr_log.json",
     "P0-03_unreal_hero_import.json",
@@ -23,5 +23,5 @@
     "P0-04B_runtime_qa.json",
     "P0-04B_HeroCompare.png"
   ],
-  "replacement_policy": "blocked until visual review approves P0-04B"
+  "replacement_policy": "blocked until screenshot visual decision approved"
 }
