@@ -43,10 +43,20 @@
       "replacement_policy": "candidate-only; do not replace working HeroV3"
     },
     {
-      "id": "P0-04",
-      "name": "Runtime Visual and Combat QA",
+      "id": "P0-04A",
+      "name": "Unreal Technical QA",
+      "status": "ready_in_repository",
+      "script": "tools/unreal/p0_04a_hero_technical_qa.py",
+      "output_report": "Reports/P0-04A_hero_technical_qa.json",
+      "gate": "SkeletalMesh + Skeleton + >=3 material slots + candidate metadata",
+      "replacement_allowed": false
+    },
+    {
+      "id": "P0-04B",
+      "name": "D3D12 Runtime Visual and Combat QA",
       "status": "pending_local_execution",
-      "gate": "D3D12 runtime + animation deformation + weapon socket + combat regression + visual acceptance"
+      "gate": "rendered visual QA + deformation + scale + weapon socket + animation + combat regression",
+      "replacement_allowed": "only_after_pass"
     }
   ],
   "runners": [
