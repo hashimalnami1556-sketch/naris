@@ -48,6 +48,31 @@ class NarsicUiRepairContractTests(unittest.TestCase):
         self.assertIn("State.UnlockedWaystones.Num()", hud)
         self.assertIn("return 32.f * GetViewportScale", style)
 
+
+    def test_real_umg_menu_and_translucent_icon_contract(self) -> None:
+        header = read(
+            "unreal/NARIS_W04/Source/NARIS_W04/Public/NarisSystemMenuWidget.h"
+        )
+        source = read(
+            "unreal/NARIS_W04/Source/NARIS_W04/Private/NarisSystemMenuWidget.cpp"
+        )
+        hud = read("unreal/NARIS_W04/Source/NARIS_W04/Private/NarisHUD.cpp")
+        controller = read(
+            "unreal/NARIS_W04/Source/NARIS_W04/Private/NarisPlayerController.cpp"
+        )
+
+        self.assertIn("class NARIS_W04_API UNarisSystemMenuWidget", header)
+        self.assertIn("class NARIS_W04_API UNarisMenuRowButton", header)
+        self.assertIn("CreateWidget<UNarisSystemMenuWidget>", hud)
+        self.assertIn("Controller->ActivateMenuIndex(MenuIndex)", source)
+        self.assertIn("Controller->SelectMenuIndex(MenuIndex)", source)
+        self.assertIn("ActiveIconPlateAlpha = 0.18f", source)
+        self.assertIn("InactiveIconPlateAlpha = 0.025f", source)
+        self.assertIn("ActiveIconGlyphAlpha = 0.68f", source)
+        self.assertIn("InactiveIconGlyphAlpha = 0.24f", source)
+        self.assertIn("void ANarisPlayerController::ActivateMenuIndex", controller)
+        self.assertIn("void ANarisPlayerController::SelectMenuIndex", controller)
+
     def test_runtime_presentation_settings_remove_known_live_launch_noise(self) -> None:
         engine = read("unreal/NARIS_W04/Config/DefaultEngine.ini")
         project = read("unreal/NARIS_W04/NARIS_W04.uproject")
