@@ -1,0 +1,146 @@
+# CALL OF NARIS — P0-03 Unreal Hero Import Candidate Gate
+# Run with UnrealEditor-Cmd.exe NARIS.uproject -ExecutePythonScript=...
+import unreal, json, os
+from pathlib import Path
+
+PROJECT_ROOT=Path(r"C:\Users\Admin\OneDrive\NARIS_MASTER_BUNDLE\Game\NARIS_UE57")
+HERO_DIR=PROJECT_ROOT/"Production"/"Hero"
+LOG2=HERO_DIR/"P0-02_rig_pbr_log.json"
+REPORT=PROJECT_ROOT/"Reports"/"P0-03_unreal_hero_import.json"
+DEST="/Game/NARIS/Characters/HeroProduction"
+NAME="SK_NARIS_AshenVessel_Production"
+
+def fail(reason, extra=None):
+    result={"status":"FAIL","reason":reason}
+    if extra: result.update(extra)
+    REPORT.parent.mkdir(parents=True,exist_ok=True)
+    REPORT.write_text(json.dumps(result,indent=2,ensure_ascii=False),encoding="utf-8")
+    unreal.log_error("NARIS_P0_03_FAIL "+json.dumps(result,ensure_ascii=False))
+    raise RuntimeError(reason)
+
+if not LOG2.is_file():
+    fail("missing_p0_02_log",{"path":str(LOG2)})
+
+p2=json.loads(LOG2.read_text(encoding="utf-8"))
+if not p2.get("production_grade"):
+    fail("p0_02_not_production_grade",{"p0_02_status":p2.get("status")})
+
+source=Path(p2.get("output_fbx") or (HERO_DIR/"SK_AshenVessel_PBR.fbx"))
+if not source.is_file():
+    fail("missing_p0_02_fbx",{"path":str(source)})
+
+# Keep candidate import isolated from the current working HeroV3.
+unreal.EditorAssetLibrary.make_directory(DEST)
+
+task=unreal.AssetImportTask()
+task.set_editor_property("filename",str(source))
+task.set_editor_property("destination_path",DEST)
+task.set_editor_property("destination_name",NAME)
+task.set_editor_property("automated",True)
+task.set_editor_property("replace_existing",True)
+task.set_editor_property("replace_existing_settings",True)
+task.set_editor_property("save",True)
+
+ui=unreal.FbxImportUI()
+ui.set_editor_property("import_mesh",True)
+ui.set_editor_property("import_as_skeletal",True)
+ui.set_editor_property("import_animations",False)
+ui.set_editor_property("import_materials",True)
+ui.set_editor_property("import_textures",False)
+ui.set_editor_property("mesh_type_to_import",unreal.FBXImportType.FBXIT_SKELETAL_MESH)
+
+# Preserve normals/tangents generated in Blender where possible.
+try:
+    sk=ui.get_editor_property("skeletal_mesh_import_data")
+    sk.set_editor_property("import_mesh_lo_ds",False)
+    sk.set_editor_property("update_skeleton_reference_pose",False)
+    sk.set_editor_property("use_t0_as_ref_pose",False)
+    sk.set_editor_property("preserve_smoothing_groups",True)
+except Exception as exc:
+    unreal.log_warning("NARIS_P0_03_IMPORT_DATA_WARNING "+str(exc))
+
+task.set_editor_property("options",ui)
+unreal.AssetToolsHelpers.get_asset_tools().import_asset_tasks([task])
+
+objects=list(task.get_objects())
+if not objects:
+    fail("unreal_import_produced_no_objects")
+
+skeletal=[o for o in objects if isinstance(o,unreal.SkeletalMesh)]
+skeletons=[o for o in objects if isinstance(o,unreal.Skeleton)]
+materials=[o for o in objects if isinstance(o,unreal.MaterialInterface)]
+
+if not skeletal:
+    # Some importer versions return only the primary asset from get_objects;
+    # inspect destination for generated assets as a fallback.
+    assets=unreal.EditorAssetLibrary.list_assets(DEST,recursive=True,include_folder=False)
+    for path in assets:
+        obj=unreal.load_asset(path)
+        if isinstance(obj,unreal.SkeletalMesh) and obj not in skeletal: skeletal.append(obj)
+        elif isinstance(obj,unreal.Skeleton) and obj not in skeletons: skeletons.append(obj)
+        elif isinstance(obj,unreal.MaterialInterface) and obj not in materials: materials.append(obj)
+
+if len(skeletal)!=1:
+    fail("skeletal_mesh_count_not_one",{
+        "skeletal_meshes":[o.get_path_name() for o in skeletal],
+        "imported_objects":[o.get_path_name() for o in objects]
+    })
+
+hero=skeletal[0]
+hero_skeleton=None
+try:
+    hero_skeleton=hero.get_editor_property("skeleton")
+except Exception:
+    pass
+if hero_skeleton and hero_skeleton not in skeletons:
+    skeletons.append(hero_skeleton)
+
+# Generic runtime-safe checks available to Python without assuming internal reference skeleton APIs.
+checks={
+    "skeletal_mesh":hero is not None,
+    "skeleton":hero_skeleton is not None or len(skeletons)>0,
+    "source_file":source.is_file(),
+    "p0_02_gate":bool(p2.get("production_grade")),
+}
+
+# Validate material assignment on the imported skeletal mesh.
+material_slots=[]
+try:
+    for smat in hero.get_editor_property("materials"):
+        mat=smat.get_editor_property("material_interface")
+        material_slots.append(mat.get_path_name() if mat else None)
+except Exception as exc:
+    unreal.log_warning("NARIS_P0_03_MATERIAL_READ_WARNING "+str(exc))
+
+checks["material_slots"]=len(material_slots)>=3
+passed=all(checks.values())
+
+for obj in [hero]+skeletons+materials:
+    if not obj: continue
+    try:
+        unreal.EditorAssetLibrary.set_metadata_tag(obj,unreal.Name("NARIS.ProductionGate"),"P0-03")
+        unreal.EditorAssetLibrary.set_metadata_tag(obj,unreal.Name("NARIS.SourceFBX"),str(source))
+        unreal.EditorAssetLibrary.set_metadata_tag(obj,unreal.Name("NARIS.P0_01Status"),str(p2.get("source","")))
+        unreal.EditorAssetLibrary.set_metadata_tag(obj,unreal.Name("NARIS.CandidateOnly"),"true")
+        unreal.EditorAssetLibrary.save_loaded_asset(obj)
+    except Exception as exc:
+        unreal.log_warning("NARIS_P0_03_METADATA_WARNING "+str(exc))
+
+unreal.EditorAssetLibrary.save_directory(DEST,only_if_is_dirty=False,recursive=True)
+
+result={
+    "status":"PASS" if passed else "FAIL_GATE",
+    "candidate_only":True,
+    "source_fbx":str(source),
+    "destination":DEST,
+    "skeletal_mesh":hero.get_path_name(),
+    "skeletons":[o.get_path_name() for o in skeletons if o],
+    "materials":material_slots,
+    "checks":checks,
+    "next_gate":"P0-04 Runtime visual/combat QA before swapping HeroV3"
+}
+REPORT.parent.mkdir(parents=True,exist_ok=True)
+REPORT.write_text(json.dumps(result,indent=2,ensure_ascii=False),encoding="utf-8")
+unreal.log("NARIS_P0_03_RESULT="+json.dumps(result,ensure_ascii=False))
+if not passed:
+    raise RuntimeError("P0-03 import gate failed")
