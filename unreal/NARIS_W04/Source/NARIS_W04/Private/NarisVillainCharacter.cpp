@@ -44,8 +44,13 @@ void ANarisVillainCharacter::BeginPlay()
     {
         Combat->OnCombatResolved.AddDynamic(this, &ANarisVillainCharacter::HandleCombatResolved);
     }
-    // Never silently pretend a greybox cube is a final rigged asset.
-    DevelopmentVisual->SetVisibility(GetMesh() && GetMesh()->GetSkeletalMeshAsset() == nullptr);
+    // Only bind a real artist-authored/imported skeletal mesh when explicitly assigned.
+    if (VisualMesh && GetMesh())
+    {
+        GetMesh()->SetSkeletalMeshAsset(VisualMesh);
+    }
+    // Preserve an unmistakable development proxy until a mesh is bound.
+    DevelopmentVisual->SetVisibility(!GetMesh() || GetMesh()->GetSkeletalMeshAsset() == nullptr);
     NextPatrolTime = GetWorld() ? GetWorld()->GetTimeSeconds() + 1.f : 0.f;
     ChangeState(ENarisVillainState::Patrol);
 }
