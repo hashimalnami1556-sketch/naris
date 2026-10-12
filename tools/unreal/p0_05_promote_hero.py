@@ -11,6 +11,7 @@ if REPO_ROOT:
 REPORT_A=PROJECT_ROOT/"Reports"/"P0-04A_hero_technical_qa.json"
 REPORT_B=PROJECT_ROOT/"Reports"/"P0-04B_visual_scene.json"
 EVIDENCE=PROJECT_ROOT/"Reports"/"P0-04B_render_evidence.json"
+RUNTIME_B=PROJECT_ROOT/"Reports"/"P0-04B_runtime_qa.json"
 REPORT=PROJECT_ROOT/"Reports"/"P0-05_promotion.json"
 
 CANDIDATE="/Game/NARIS/Characters/HeroProduction/SK_NARIS_AshenVessel_Production"
@@ -85,18 +86,21 @@ if expected_bytes <= 0:
 if actual_bytes != expected_bytes:
     fail("visual_evidence_size_mismatch",{"expected_bytes":expected_bytes,"actual_bytes":actual_bytes})
 
-for p,label in ((REPORT_A,"P0-04A"),(REPORT_B,"P0-04B"),(EVIDENCE,"P0-04B evidence")):
+for p,label in ((REPORT_A,"P0-04A"),(REPORT_B,"P0-04B"),(EVIDENCE,"P0-04B evidence"),(RUNTIME_B,"P0-04B runtime")):
     if not p.is_file():
         fail(label.lower().replace(" ","_")+"_report_missing")
 p4a=json.loads(REPORT_A.read_text(encoding="utf-8"))
 p4b=json.loads(REPORT_B.read_text(encoding="utf-8"))
 evidence=json.loads(EVIDENCE.read_text(encoding="utf-8"))
+runtime_b=json.loads(RUNTIME_B.read_text(encoding="utf-8"))
 if p4a.get("status")!="PASS" or not p4a.get("technical_acceptance"):
     fail("p0_04a_not_passed")
 if p4b.get("status")!="PASS" or not p4b.get("visual_scene_prepared"):
     fail("p0_04b_scene_not_passed")
 if evidence.get("status")!="PASS":
     fail("p0_04b_render_evidence_not_passed")
+if runtime_b.get("status")!="PASS_EVIDENCE_READY" or runtime_b.get("technical_runtime_gate") is not True or runtime_b.get("screenshot_present") is not True:
+    fail("p0_04b_runtime_gate_not_passed",{"runtime_status":runtime_b.get("status"),"runtime_gate":runtime_b.get("technical_runtime_gate"),"screenshot_present":runtime_b.get("screenshot_present")})
 if evidence.get("pipeline_revision")!=EXPECTED_EVIDENCE_REVISION:
     fail("render_evidence_pipeline_revision_mismatch",{
         "expected":EXPECTED_EVIDENCE_REVISION,
@@ -109,6 +113,21 @@ if approval.get("pipeline_revision")!=EXPECTED_EVIDENCE_REVISION:
     })
 
 approval_candidate=approval.get("candidate")
+approval_source_sha=str(approval.get("candidate_source_sha256") or "").lower().strip()
+p4a_source_sha=str(p4a.get("candidate_source_sha256") or "").lower().strip()
+scene_source_sha=str(p4b.get("candidate_source_sha256") or "").lower().strip()
+evidence_source_sha=str(evidence.get("candidate_source_sha256") or "").lower().strip()
+runtime_source_sha=str(runtime_b.get("candidate_source_sha256") or "").lower().strip()
+if len(approval_source_sha)!=64 or any(c not in "0123456789abcdef" for c in approval_source_sha):
+    fail("visual_approval_candidate_source_sha256_missing_or_invalid",{"candidate_source_sha256":approval.get("candidate_source_sha256")})
+if not (approval_source_sha==p4a_source_sha==scene_source_sha==evidence_source_sha==runtime_source_sha):
+    fail("candidate_source_sha256_chain_mismatch",{
+        "approval":approval_source_sha,
+        "p0_04a":p4a_source_sha,
+        "p0_04b_scene":scene_source_sha,
+        "render_evidence":evidence_source_sha,
+        "runtime_evidence":runtime_source_sha
+    })
 approval_git_sha=approval.get("evidence_git_sha")
 approval_run_id=str(approval.get("evidence_workflow_run_id") or "").strip()
 approval_baseline=approval.get("baseline")
@@ -230,6 +249,7 @@ result={
         "bytes":actual_bytes,
         "criteria":criteria,
         "candidate":approval_candidate,
+        "candidate_source_sha256":approval_source_sha,
         "evidence_git_sha":approval_git_sha,
         "workflow_run_id":evidence.get("workflow_run_id"),
         "approved_by":approved_by,
