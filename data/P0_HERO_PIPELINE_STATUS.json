@@ -83,19 +83,31 @@
   },
   "local_execution": {
     "device": "AsusRog",
-    "status": "blocked_external",
+    "status": "PENDING",
     "blockers": [
-      "Remote Desktop Commander monthly usage limit reached for operational calls",
-      "GitHub self-hosted Windows/Unreal runner is not currently picking up jobs"
+      "Remote Desktop Commander monthly usage limit reached",
+      "GitHub self-hosted Windows/Unreal runner did not start the latest P0 execution job before cancellation"
     ],
-    "stale_queued_run_id": 38243252192,
-    "stale_queued_run_policy": "Do not approve evidence from this run unless it declares the required pipeline_revision; current gate will reject it.",
-    "required_pipeline_revision": "p0-04b-hashbound-camera-v2",
-    "note": "No claim is made that Blender P0-01/P0-02, Unreal P0-03/P0-04A, or rendered P0-04B has executed successfully on AsusRog."
+    "latest_self_hosted_run": {
+      "run_id": 38242226299,
+      "conclusion": "cancelled",
+      "steps_started": false
+    },
+    "policy": "Keep SK_NARIS_AshenVessel_v3 active until P0-01..P0-04B execute locally and P0-05 packaged D3D12 regression passes."
   },
   "current_working_hero": {
     "asset": "SK_NARIS_AshenVessel_v3",
     "policy": "retain until P0-04 passes"
   },
-  "required_visual_pipeline_revision": "p0-04b-hashbound-camera-v2"
+  "required_visual_pipeline_revision": "p0-04b-hashbound-camera-v2",
+  "repository_verification": {
+    "status": "PASS",
+    "commit": "4cb30d55ed6315d0d00c843c0be944a42ae2dbae",
+    "workflows": {
+      "NARIS CI": "success",
+      "NARIS Unreal Validate": "success",
+      "NARIS Content Validation": "success"
+    },
+    "note": "Static/contract validation passed. This does not claim local Blender/Unreal P0 execution."
+  }
 }
