@@ -144,6 +144,12 @@ camera=actor_sub.spawn_actor_from_class(unreal.CameraActor,unreal.Vector(540,0,1
 camera.set_actor_label("QA_Camera_HeroCompare")
 look=unreal.MathLibrary.find_look_at_rotation(camera.get_actor_location(),unreal.Vector(0,0,105))
 camera.set_actor_rotation(look,False)
+# Force the dedicated comparison camera to own Player 0 at runtime. Without
+# this, a -game screenshot can silently come from the default pawn/camera.
+try:
+    camera.set_editor_property("auto_activate_for_player",unreal.AutoReceiveInput.PLAYER0)
+except Exception as exc:
+    unreal.log_warning("NARIS_P0_04B_CAMERA_AUTOACTIVATE "+str(exc))
 try:
     ccomp=camera.get_editor_property("camera_component")
     ccomp.set_editor_property("field_of_view",46.0)
