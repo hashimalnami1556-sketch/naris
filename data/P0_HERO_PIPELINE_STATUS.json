@@ -58,22 +58,25 @@
       "runner": "tools/windows/Invoke-P0HeroMasterQA.ps1",
       "outputs": [
         "Reports/P0-04B_visual_scene.json",
+        "Reports/P0-04B_render_evidence.json",
         "Reports/P0-04B_runtime_qa.json",
         "Reports/P0-04B_combat_d3d12.log",
-        "Reports/P0-04B_HeroCompare.png"
+        "Saved/Screenshots/Windows/P0-04B_HeroCompare.png"
       ],
-      "gate": "scene prepared + screenshot present + NARIS_COMBAT_QA_RESULT Pass=1 + fatal_count=0",
+      "gate": "scene prepared + fresh D3D12 screenshot + SHA256/bytes/git SHA/workflow run ID evidence + NARIS_COMBAT_QA_RESULT Pass=1 + fatal_count=0",
       "replacement_allowed": false
     },
     {
       "id": "P0-05",
       "name": "Hero Promotion + Package Regression",
       "status": "ready_in_repository",
-      "runner": "tools/windows/Invoke-P0HeroPromotion.ps1",
-      "decision_template": "data/P0_HERO_VISUAL_DECISION_TEMPLATE.json",
-      "gate": "P0-04A PASS + P0-04B PASS_EVIDENCE_READY + APPROVED visual decision bound to screenshot SHA256",
-      "rollback": "automatic source rollback on any build, cook, package or combat QA failure",
-      "replacement_allowed": "only_after_pass"
+      "runner": "tools/windows/run_p0_05_promote_and_regress.bat",
+      "gate": "P0-04A PASS + P0-04B hash-bound render evidence + explicit APPROVED visual criteria + matching screenshot SHA256/bytes/candidate/baseline/qa_map/git SHA/workflow run ID + same Skeleton",
+      "rollback": "transactional asset rollback on any Win64 build, clean cook, package, packaged D3D12 combat QA, or log QA failure",
+      "replacement_allowed": "only_after_full_packaged_regression_pass",
+      "promotion_script": "tools/unreal/p0_05_promote_hero.py",
+      "rollback_script": "tools/unreal/p0_05_rollback_hero.py",
+      "approval_contract": "data/P0_HERO_VISUAL_APPROVAL.json"
     }
   ],
   "runners": [
@@ -90,35 +93,36 @@
   },
   "local_execution": {
     "device": "AsusRog",
-    "status": "blocked_or_waiting_for_self_hosted_runner",
+    "status": "waiting_for_self_hosted_windows_runner",
     "blockers": [
       "Remote Desktop Commander monthly usage limit reached",
-      "GitHub self-hosted Windows/Unreal runner did not start the latest P0 execution job before cancellation"
+      "Latest GitHub self-hosted Windows job is queued and has not started any step"
     ],
     "latest_self_hosted_run": {
-      "run_id": 38242226299,
-      "conclusion": "cancelled",
+      "run_id": 38265233517,
+      "conclusion": null,
+      "status": "queued",
       "steps_started": false
     },
     "policy": "Keep SK_NARIS_AshenVessel_v3 active until P0-01..P0-04B execute locally and P0-05 packaged D3D12 regression passes.",
     "local_atomic_runner": "tools/windows/run_p0_hero_local_atomic.bat",
     "promotion_runner": "tools/windows/run_p0_05_promote_and_regress.bat",
-    "execution_policy": "Run local atomic runner to produce P0-04B evidence; do not promote until evidence is visually approved and bound in P0_HERO_VISUAL_APPROVAL.json.",
-    "note": "Remote Desktop Commander is quota-blocked. Self-hosted GitHub workflow has been retriggered with labels [self-hosted, windows]; no local Blender/Unreal execution is claimed until a run produces evidence artifacts."
+    "execution_policy": "P0-04B must produce hash-bound screenshot evidence. Promotion runs only after P0_HERO_VISUAL_APPROVAL.json is explicitly approved with matching provenance; any regression failure triggers rollback.",
+    "note": "Remote Desktop Commander is quota-blocked. Self-hosted GitHub workflow has been retriggered with labels [self-hosted, windows]; no local Blender/Unreal execution is claimed until a run produces evidence artifacts.",
+    "promotion_workflow": ".github/workflows/p0-hero-promote-self-hosted.yml"
   },
   "current_working_hero": {
     "asset": "SK_NARIS_AshenVessel_v3",
-    "policy": "retain until P0-04 passes"
+    "policy": "retain until P0-05 full packaged regression passes"
   },
   "required_visual_pipeline_revision": "p0-04b-hashbound-camera-v2",
   "repository_verification": {
     "status": "PASS",
-    "commit": "4cb30d55ed6315d0d00c843c0be944a42ae2dbae",
+    "commit": "c27577838e3ee211ed125681c1f23078532e78f9",
     "workflows": {
       "NARIS CI": "success",
-      "NARIS Unreal Validate": "success",
       "NARIS Content Validation": "success"
     },
-    "note": "Static/contract validation passed. This does not claim local Blender/Unreal P0 execution."
+    "note": "Static/contract validation passed at the recorded commit. Local Blender/Unreal P0 execution remains unclaimed until self-hosted evidence exists."
   }
 }
