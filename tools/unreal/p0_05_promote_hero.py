@@ -18,6 +18,7 @@ ACTIVE="/Game/NARIS/Characters/HeroV3/SK_NARIS_AshenVessel_v3"
 ARCHIVE="/Game/NARIS/Characters/HeroV3/Archive/SK_NARIS_AshenVessel_v3_PreP0"
 
 REQUIRED_CRITERIA=("silhouette","material_language","deformation","scale_vs_baseline","clipping","animation_pose")
+EXPECTED_EVIDENCE_REVISION="p0-04b-hashbound-camera-v2"
 
 def fail(reason,extra=None):
     out={"status":"FAIL","promoted":False,"reason":reason}
@@ -96,6 +97,16 @@ if p4b.get("status")!="PASS" or not p4b.get("visual_scene_prepared"):
     fail("p0_04b_scene_not_passed")
 if evidence.get("status")!="PASS":
     fail("p0_04b_render_evidence_not_passed")
+if evidence.get("pipeline_revision")!=EXPECTED_EVIDENCE_REVISION:
+    fail("render_evidence_pipeline_revision_mismatch",{
+        "expected":EXPECTED_EVIDENCE_REVISION,
+        "actual":evidence.get("pipeline_revision")
+    })
+if approval.get("pipeline_revision")!=EXPECTED_EVIDENCE_REVISION:
+    fail("visual_approval_pipeline_revision_mismatch",{
+        "expected":EXPECTED_EVIDENCE_REVISION,
+        "actual":approval.get("pipeline_revision")
+    })
 
 approval_candidate=approval.get("candidate")
 approval_git_sha=approval.get("evidence_git_sha")
