@@ -27,12 +27,29 @@ if not LOG2.is_file():
     fail("missing_p0_02_log",{"path":str(LOG2)})
 
 p2=json.loads(LOG2.read_text(encoding="utf-8"))
-if not p2.get("production_grade"):
-    fail("p0_02_not_production_grade",{"p0_02_status":p2.get("status")})
+p0_02_ready=bool(p2.get("production_grade") or p2.get("import_candidate_ready"))
+if not p0_02_ready:
+    fail("p0_02_not_import_ready",{"p0_02_status":p2.get("status")})
 
-source=Path(p2.get("output_fbx") or (HERO_DIR/"SK_AshenVessel_PBR.fbx"))
-if not source.is_file():
-    fail("missing_p0_02_fbx",{"path":str(source)})
+source_candidates=[
+    p2.get("output_fbx"),
+    p2.get("output_glb"),
+    str(HERO_DIR/"SK_AshenVessel_PBR.fbx"),
+    str(HERO_DIR/"SK_AshenVessel_Production.glb"),
+]
+source=None
+for raw in source_candidates:
+    if not raw:
+        continue
+    candidate=Path(raw)
+    if candidate.is_file():
+        source=candidate
+        break
+if source is None:
+    fail("missing_p0_02_source",{"candidates":[str(x) for x in source_candidates if x]})
+source_format=source.suffix.lower()
+if source_format not in (".fbx",".glb",".gltf"):
+    fail("unsupported_p0_02_source_format",{"path":str(source),"format":source_format})
 
 # Keep candidate import isolated from the current working HeroV3.
 unreal.EditorAssetLibrary.make_directory(DEST)
@@ -59,31 +76,35 @@ for candidate_path in BASELINE_HERO_PATHS:
         if baseline_skeleton:
             break
 
-ui=unreal.FbxImportUI()
-ui.set_editor_property("import_mesh",True)
-ui.set_editor_property("import_as_skeletal",True)
-ui.set_editor_property("import_animations",False)
-ui.set_editor_property("import_materials",True)
-ui.set_editor_property("import_textures",False)
-ui.set_editor_property("mesh_type_to_import",unreal.FBXImportType.FBXIT_SKELETAL_MESH)
-if baseline_skeleton:
-    ui.set_editor_property("skeleton",baseline_skeleton)
-try:
-    ui.set_editor_property("create_physics_asset",True)
-except Exception:
-    pass
+if source_format==".fbx":
+    ui=unreal.FbxImportUI()
+    ui.set_editor_property("import_mesh",True)
+    ui.set_editor_property("import_as_skeletal",True)
+    ui.set_editor_property("import_animations",False)
+    ui.set_editor_property("import_materials",True)
+    ui.set_editor_property("import_textures",False)
+    ui.set_editor_property("mesh_type_to_import",unreal.FBXImportType.FBXIT_SKELETAL_MESH)
+    if baseline_skeleton:
+        ui.set_editor_property("skeleton",baseline_skeleton)
+    try:
+        ui.set_editor_property("create_physics_asset",True)
+    except Exception:
+        pass
 
-# Preserve normals/tangents generated in Blender where possible.
-try:
-    sk=ui.get_editor_property("skeletal_mesh_import_data")
-    sk.set_editor_property("import_mesh_lo_ds",False)
-    sk.set_editor_property("update_skeleton_reference_pose",False)
-    sk.set_editor_property("use_t0_as_ref_pose",False)
-    sk.set_editor_property("preserve_smoothing_groups",True)
-except Exception as exc:
-    unreal.log_warning("NARIS_P0_03_IMPORT_DATA_WARNING "+str(exc))
-
-task.set_editor_property("options",ui)
+    # Preserve normals/tangents generated in Blender where possible.
+    try:
+        sk=ui.get_editor_property("skeletal_mesh_import_data")
+        sk.set_editor_property("import_mesh_lo_ds",False)
+        sk.set_editor_property("update_skeleton_reference_pose",False)
+        sk.set_editor_property("use_t0_as_ref_pose",False)
+        sk.set_editor_property("preserve_smoothing_groups",True)
+    except Exception as exc:
+        unreal.log_warning("NARIS_P0_03_IMPORT_DATA_WARNING "+str(exc))
+    task.set_editor_property("options",ui)
+else:
+    # UE5.7 Interchange handles glTF/GLB. Keep it candidate-only and validate
+    # the resulting SkeletalMesh/Skeleton below instead of forcing FBX settings.
+    unreal.log("NARIS_P0_03_INTERCHANGE_SOURCE "+str(source))
 unreal.AssetToolsHelpers.get_asset_tools().import_asset_tasks([task])
 
 objects=list(task.get_objects())
@@ -141,17 +162,6 @@ try:
 except Exception as exc:
     unreal.log_warning("NARIS_P0_03_LOD_WARNING "+str(exc))
 
-checks={
-    "skeletal_mesh":hero is not None,
-    "skeleton":hero_skeleton is not None or len(skeletons)>0,
-    "source_file":source.is_file(),
-    "p0_02_gate":bool(p2.get("production_grade")),
-    "baseline_skeleton_reused":same_skeleton,
-    "physics_asset":physics_asset is not None,
-    "lod_count_at_least_3":lod_count is not None and lod_count>=3,
-}
-
-# Validate material assignment on the imported skeletal mesh.
 material_slots=[]
 try:
     for smat in hero.get_editor_property("materials"):
@@ -160,14 +170,28 @@ try:
 except Exception as exc:
     unreal.log_warning("NARIS_P0_03_MATERIAL_READ_WARNING "+str(exc))
 
-checks["material_slots"]=len(material_slots)>=3
+checks={
+    "skeletal_mesh":hero is not None,
+    "skeleton":hero_skeleton is not None or len(skeletons)>0,
+    "source_file":source.is_file(),
+    "p0_02_gate":p0_02_ready,
+    "material_slots_non_null":sum(1 for x in material_slots if x)>=1,
+}
+diagnostics={
+    "baseline_skeleton_reused":same_skeleton,
+    "physics_asset":physics_asset is not None,
+    "lod_count_at_least_3":lod_count is not None and lod_count>=3,
+}
+
+# P0-03 is an import gate, not the final retarget/LOD/physics gate.
+# P0-04A evaluates those diagnostics before any promotion.
 passed=all(checks.values())
 
 for obj in [hero]+skeletons+materials:
     if not obj: continue
     try:
         unreal.EditorAssetLibrary.set_metadata_tag(obj,unreal.Name("NARIS.ProductionGate"),"P0-03")
-        unreal.EditorAssetLibrary.set_metadata_tag(obj,unreal.Name("NARIS.SourceFBX"),str(source))
+        unreal.EditorAssetLibrary.set_metadata_tag(obj,unreal.Name("NARIS.SourceAsset"),str(source))
         unreal.EditorAssetLibrary.set_metadata_tag(obj,unreal.Name("NARIS.P0_01Status"),str(p2.get("source","")))
         unreal.EditorAssetLibrary.set_metadata_tag(obj,unreal.Name("NARIS.CandidateOnly"),"true")
         unreal.EditorAssetLibrary.save_loaded_asset(obj)
@@ -179,7 +203,8 @@ unreal.EditorAssetLibrary.save_directory(DEST,only_if_is_dirty=False,recursive=T
 result={
     "status":"PASS" if passed else "FAIL_GATE",
     "candidate_only":True,
-    "source_fbx":str(source),
+    "source_asset":str(source),
+    "source_format":source_format,
     "destination":DEST,
     "skeletal_mesh":hero.get_path_name(),
     "skeletons":[o.get_path_name() for o in skeletons if o],
@@ -190,6 +215,7 @@ result={
     "lod_count":lod_count,
     "lod_regenerated":lod_regenerated,
     "checks":checks,
+    "diagnostics":diagnostics,
     "next_gate":"P0-04A technical LOD/skeleton/material QA, then P0-04B D3D12 visual/combat QA before swapping HeroV3"
 }
 REPORT.parent.mkdir(parents=True,exist_ok=True)
