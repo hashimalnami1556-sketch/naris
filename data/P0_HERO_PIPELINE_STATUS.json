@@ -96,20 +96,19 @@
     "status": "waiting_for_self_hosted_windows_runner",
     "blockers": [
       "Remote Desktop Commander monthly usage limit reached",
-      "Latest GitHub self-hosted Windows job is queued and has not started any step"
+      "GitHub self-hosted Windows runner has not accepted the queued P0 job"
     ],
     "latest_self_hosted_run": {
       "run_id": 38265233517,
-      "conclusion": null,
+      "head_sha": "5fdb497101472b9eacd28ed4fec82dca995a1c4a",
       "status": "queued",
       "steps_started": false
     },
-    "policy": "Keep SK_NARIS_AshenVessel_v3 active until P0-01..P0-04B execute locally and P0-05 packaged D3D12 regression passes.",
+    "policy": "Keep SK_NARIS_AshenVessel_v3 active until P0-01..P0-04B produce evidence and P0-05 packaged D3D12 regression passes.",
     "local_atomic_runner": "tools/windows/run_p0_hero_local_atomic.bat",
     "promotion_runner": "tools/windows/run_p0_05_promote_and_regress.bat",
-    "execution_policy": "P0-04B must produce hash-bound screenshot evidence. Promotion runs only after P0_HERO_VISUAL_APPROVAL.json is explicitly approved with matching provenance; any regression failure triggers rollback.",
-    "note": "Remote Desktop Commander is quota-blocked. Self-hosted GitHub workflow has been retriggered with labels [self-hosted, windows]; no local Blender/Unreal execution is claimed until a run produces evidence artifacts.",
-    "promotion_workflow": ".github/workflows/p0-hero-promote-self-hosted.yml"
+    "execution_policy": "P0-04B evidence must be hash-bound to candidate, baseline, map, Git SHA, workflow run ID and pipeline revision before visual approval and promotion.",
+    "note": "No local Blender/Unreal P0 execution is claimed while the self-hosted job remains queued."
   },
   "current_working_hero": {
     "asset": "SK_NARIS_AshenVessel_v3",
@@ -118,11 +117,11 @@
   "required_visual_pipeline_revision": "p0-04b-hashbound-camera-v2",
   "repository_verification": {
     "status": "PASS",
-    "commit": "c27577838e3ee211ed125681c1f23078532e78f9",
+    "commit": "5fdb497101472b9eacd28ed4fec82dca995a1c4a",
     "workflows": {
       "NARIS CI": "success",
       "NARIS Content Validation": "success"
     },
-    "note": "Static/contract validation passed at the recorded commit. Local Blender/Unreal P0 execution remains unclaimed until self-hosted evidence exists."
+    "note": "Static and repository contracts are green. This does not substitute for local Blender/Unreal execution."
   }
 }
