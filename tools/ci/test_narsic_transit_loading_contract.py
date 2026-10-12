@@ -1,4 +1,4 @@
-"""Static CI contract for NARSIC's approved transit loading screen.
+"""Static CI contract for CALL OF NARIS approved transit loading screen.
 
 No Unreal runtime build is claimed by these source-only checks.
 """
@@ -16,7 +16,7 @@ def source(path: str) -> str:
 class ApprovedTransitLoadingContract(unittest.TestCase):
     def test_art_approval_manifest(self):
         d = json.loads(source("assets/NARSIC_TRANSIT_APPROVED_ASSET.json"))
-        self.assertEqual(d["product"], "NARSIC")
+        self.assertEqual(d["product"], "CALL OF NARIS")
         self.assertEqual(d["width"], 1672)
         self.assertEqual(d["height"], 941)
         self.assertEqual(len(d["sha256"]), 64)
@@ -41,8 +41,8 @@ class ApprovedTransitLoadingContract(unittest.TestCase):
     def test_exact_public_name(self):
         cpp = source("unreal/NARIS_W04/Source/NARIS_W04/NARIS_W04.cpp")
         ini = source("unreal/NARIS_W04/Config/DefaultEngine.ini")
-        self.assertIn('TEXT("NARSIC")', cpp)
-        self.assertIn("ProjectName=NARSIC", ini)
+        self.assertIn('TEXT("CALL OF NARIS")', cpp)
+        self.assertIn("ProjectName=CALL OF NARIS", ini)
 
 
 if __name__ == "__main__":
