@@ -55,6 +55,8 @@ class HeroProductionPipelineContract(unittest.TestCase):
             "M_NARIS_AgedGold",
             "M_NARIS_EmberFire",
             "SK_AshenVessel_PBR.fbx",
+            "output_fbx_sha256",
+            "hashlib",
             "import_candidate_ready",
             "pbr_material",
             "material_policy",
@@ -98,6 +100,8 @@ class HeroProductionPipelineContract(unittest.TestCase):
             "do not fabricate unused style slots",
             "replacement_allowed",
             "P0-04B D3D12 visual + deformation + weapon socket + combat regression on AsusRog",
+            "candidate_source_sha256",
+            "NARIS.SourceSHA256",
         ):
             self.assertIn(token, src)
 
@@ -249,6 +253,19 @@ class HeroProductionPipelineContract(unittest.TestCase):
             "cancel-in-progress: false",
         ):
             self.assertIn(token, workflow)
+
+    def test_p0_04b_and_p0_05_are_hash_bound(self):
+        master = self.read("tools/windows/Invoke-P0HeroMasterQA.ps1")
+        promote = self.read("tools/unreal/p0_05_promote_hero.py")
+        approval = self.read("data/P0_HERO_VISUAL_APPROVAL.json")
+        for token in (
+            "candidate_source_sha256",
+            "P0-04B_runtime_qa.json",
+            "PASS_EVIDENCE_READY",
+            "technical_runtime_gate",
+        ):
+            self.assertIn(token, master + promote + approval)
+        self.assertIn("candidate_source_sha256_chain_mismatch", promote)
 
     def test_windows_runners_chain_the_gates(self):
         src = self.read("tools/windows/run_p0_hero_to_unreal.bat")
