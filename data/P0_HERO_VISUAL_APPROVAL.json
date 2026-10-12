@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.3.0",
+  "schema_version": "1.4.0",
   "product": "CALL OF NARIS",
   "gate": "P0-04B",
   "approved": false,
@@ -14,7 +14,7 @@
     "animation_pose": "pending"
   },
   "decision": "PENDING_VISUAL_INSPECTION",
-  "note": "P0-05 requires approved=true, decision APPROVE/APPROVED/PASS, all criteria=pass, screenshot hash+bytes matching P0-04B_render_evidence.json, candidate/baseline/qa_map identity match, exact git SHA + workflow run ID, and approval provenance.",
+  "note": "P0-05 requires approved=true, decision APPROVE/APPROVED/PASS, all criteria=pass, screenshot hash+bytes matching P0-04B_render_evidence.json, exact candidate source SHA256 matching P0-04A/scene/render/runtime evidence, candidate/baseline/qa_map identity match, exact git SHA + workflow run ID, and approval provenance.",
   "screenshot_sha256": "",
   "screenshot_bytes": 0,
   "candidate": "/Game/NARIS/Characters/HeroProduction/SK_NARIS_AshenVessel_Production",
@@ -24,5 +24,6 @@
   "qa_map": "/Game/NARIS/QA/L_HeroCandidate_QA",
   "approved_by": "",
   "approved_at": "",
-  "pipeline_revision": "p0-04b-hashbound-camera-v2"
+  "pipeline_revision": "p0-04b-hashbound-camera-v2",
+  "candidate_source_sha256": ""
 }
