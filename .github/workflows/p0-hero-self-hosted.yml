@@ -61,6 +61,7 @@ jobs:
           $scene = Get-Content -Raw -LiteralPath $sceneReportPath | ConvertFrom-Json
           $evidence = [ordered]@{
             schema_version = '1.0.0'
+            pipeline_revision = 'p0-04b-hashbound-camera-v2'
             status = 'PASS'
             screenshot = 'P0-04B_HeroCompare.png'
             screenshot_path = $canonicalShot
