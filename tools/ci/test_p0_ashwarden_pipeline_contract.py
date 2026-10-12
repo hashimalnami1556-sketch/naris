@@ -16,6 +16,9 @@ class AshWardenProductionPipelineContract(unittest.TestCase):
             "tools/blender/p0_boss_ashwarden_oneshot.py",
             "tools/blender/p0_boss_02_rig_anim_pbr.py",
             "tools/unreal/p0_boss_03_import_qa.py",
+            "tools/unreal/p0_boss_04_discover_integration.py",
+            "tools/ci/p0_boss_04_decide_promotion.py",
+            "tools/ci/p0_boss_04_patch_native_source.py",
         ):
             ast.parse(self.read(rel),filename=rel)
 
@@ -155,6 +158,58 @@ class AshWardenProductionPipelineContract(unittest.TestCase):
             "P0-BOSS-04 promotion remains BLOCKED",
         ):
             self.assertIn(token,runner)
+
+
+    def test_boss_04_native_source_is_fingerprinted_and_reversible(self):
+        discovery=self.read("tools/unreal/p0_boss_04_discover_integration.py")
+        decision=self.read("tools/ci/p0_boss_04_decide_promotion.py")
+        patch=self.read("tools/ci/p0_boss_04_patch_native_source.py")
+        runner=self.read("tools/windows/run_p0_boss_04_promote_and_regress.bat")
+
+        for token in (
+            "source_evidence",
+            "cpp_sha256",
+            "ashwarden_constructor_sha256",
+            "bonebeast_paths_in_constructor",
+            "ANarisAshWarden::ANarisAshWarden()",
+        ):
+            self.assertIn(token,discovery)
+
+        for token in (
+            "READY_NATIVE_CXX_PATCH",
+            "native_source_errors",
+            "constructor_sha256_invalid",
+            "bonebeast_proxy_paths_not_found_in_constructor",
+            "runtime_bonebeast_proxy_not_confirmed",
+        ):
+            self.assertIn(token,decision)
+
+        for token in (
+            "source_cpp_sha256_changed_since_discovery",
+            "constructor_sha256_changed_since_discovery",
+            "constructor_proxy_roles_incomplete",
+            "NARIS_BOSS_ART_READY",
+            "before_cpp_sha256",
+            "after_cpp_sha256",
+            "--mode",
+            "rollback",
+            "rollback_refused_source_changed_after_patch",
+        ):
+            self.assertIn(token,patch)
+
+        for token in (
+            "READY_NATIVE_CXX_PATCH",
+            "NARIS Win64 Development",
+            "NARIS_BOSS_ART_READY Mesh=SK_NARIS_AshWarden_Production",
+            "NARIS_BOSS_QA Spawned=1",
+            "NARIS_BOSS_PHASE2",
+            "NARIS_COMBAT_QA_RESULT Pass=1",
+            "Full Cook / Stage / Pak / Archive",
+            "--mode rollback",
+            "Restoring clean packaged baseline",
+        ):
+            self.assertIn(token,runner)
+        self.assertNotIn("-iterativecooking",runner)
 
     def test_manifest_matches_pipeline_and_blocks_replacement(self):
         data=json.loads(self.read("data/P0_ASH_WARDEN_PIPELINE_STATUS.json"))
