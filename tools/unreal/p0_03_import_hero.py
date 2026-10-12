@@ -1,6 +1,6 @@
 # CALL OF NARIS — P0-03 Unreal Hero Import Candidate Gate
 # Run with UnrealEditor-Cmd.exe NARIS.uproject -ExecutePythonScript=...
-import unreal, json, os
+import unreal, json, os, hashlib
 from pathlib import Path
 
 PROJECT_ROOT=Path(r"C:\Users\Admin\OneDrive\NARIS_MASTER_BUNDLE\Game\NARIS_UE57")
@@ -50,6 +50,22 @@ if source is None:
 source_format=source.suffix.lower()
 if source_format not in (".fbx",".glb",".gltf"):
     fail("unsupported_p0_02_source_format",{"path":str(source),"format":source_format})
+
+def sha256_file(path):
+    h=hashlib.sha256()
+    with open(path,"rb") as f:
+        for chunk in iter(lambda:f.read(1024*1024),b""):
+            h.update(chunk)
+    return h.hexdigest()
+
+source_sha256=sha256_file(source)
+expected_source_sha256=str(p2.get("output_fbx_sha256") or "").lower().strip() if source_format==".fbx" else ""
+if expected_source_sha256 and source_sha256.lower()!=expected_source_sha256:
+    fail("p0_02_source_sha256_mismatch",{
+        "expected_sha256":expected_source_sha256,
+        "actual_sha256":source_sha256,
+        "source":str(source)
+    })
 
 # Keep candidate import isolated from the current working HeroV3.
 unreal.EditorAssetLibrary.make_directory(DEST)
@@ -192,6 +208,7 @@ for obj in [hero]+skeletons+materials:
     try:
         unreal.EditorAssetLibrary.set_metadata_tag(obj,unreal.Name("NARIS.ProductionGate"),"P0-03")
         unreal.EditorAssetLibrary.set_metadata_tag(obj,unreal.Name("NARIS.SourceAsset"),str(source))
+        unreal.EditorAssetLibrary.set_metadata_tag(obj,unreal.Name("NARIS.SourceSHA256"),source_sha256)
         unreal.EditorAssetLibrary.set_metadata_tag(obj,unreal.Name("NARIS.P0_01Status"),str(p2.get("source","")))
         unreal.EditorAssetLibrary.set_metadata_tag(obj,unreal.Name("NARIS.CandidateOnly"),"true")
         unreal.EditorAssetLibrary.save_loaded_asset(obj)
@@ -204,6 +221,7 @@ result={
     "status":"PASS" if passed else "FAIL_GATE",
     "candidate_only":True,
     "source_asset":str(source),
+    "source_sha256":source_sha256,
     "source_format":source_format,
     "destination":DEST,
     "skeletal_mesh":hero.get_path_name(),
