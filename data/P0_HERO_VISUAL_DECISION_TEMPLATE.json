@@ -1,0 +1,20 @@
+{
+  "schema": "naris.p0.hero-visual-decision.v1",
+  "status": "PENDING",
+  "approved": false,
+  "product": "CALL OF NARIS",
+  "candidate": "/Game/NARIS/Characters/HeroProduction/SK_NARIS_AshenVessel_Production",
+  "baseline": "/Game/NARIS/Characters/HeroV3/SK_NARIS_AshenVessel_v3",
+  "screenshot": "P0-04B_HeroCompare.png",
+  "screenshot_sha256": "",
+  "review": {
+    "silhouette": false,
+    "proportions": false,
+    "materials": false,
+    "scale": false,
+    "deformation": false,
+    "weapon_alignment": false
+  },
+  "notes": "Do not set APPROVED until the exact screenshot hash has been reviewed.",
+  "promotion_allowed": false
+}
