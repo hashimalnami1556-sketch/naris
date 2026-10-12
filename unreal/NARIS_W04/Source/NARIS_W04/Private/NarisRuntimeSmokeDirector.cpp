@@ -2,7 +2,6 @@
 
 #include "BoneBeastBoss.h"
 #include "CelestialWolf.h"
-#include "Components/SkeletalMeshComponent.h"
 #include "Engine/GameInstance.h"
 #include "Engine/World.h"
 #include "EngineUtils.h"
@@ -15,8 +14,6 @@
 #include "Misc/Paths.h"
 #include "NarisAshGate.h"
 #include "NarisBossArenaController.h"
-#include "NarisHeroCharacter.h"
-#include "NarisLockOnComponent.h"
 #include "NarisMemoryCrystal.h"
 #include "NarisRuntimeSubsystem.h"
 #include "NarisWaystone.h"
@@ -90,7 +87,6 @@ void ANarisRuntimeSmokeDirector::RunSmoke()
         return;
     }
 
-    ANarisHeroCharacter* Hero = nullptr;
     ANarisWaystone* Waystone = nullptr;
     ANarisMemoryCrystal* MemoryCrystal = nullptr;
     ANarisAshGate* AshGate = nullptr;
@@ -98,11 +94,6 @@ void ANarisRuntimeSmokeDirector::RunSmoke()
     ABoneBeastBoss* BoneBeast = nullptr;
     ANarisBossArenaController* Arena = nullptr;
 
-    for (TActorIterator<ANarisHeroCharacter> It(World); It; ++It)
-    {
-        Hero = *It;
-        break;
-    }
     for (TActorIterator<ANarisWaystone> It(World); It; ++It)
     {
         Waystone = *It;
@@ -134,26 +125,6 @@ void ANarisRuntimeSmokeDirector::RunSmoke()
         break;
     }
 
-    Steps.Add(TEXT("hero_actor"), Hero != nullptr);
-    Steps.Add(TEXT("hero_combat_component"), Hero && Hero->Combat != nullptr);
-    Steps.Add(TEXT("hero_energy_component"), Hero && Hero->Energy != nullptr);
-    Steps.Add(TEXT("hero_lock_on_component"), Hero && Hero->LockOn != nullptr);
-
-    const bool bHeroCandidateQA =
-        FParse::Param(FCommandLine::Get(), TEXT("NarisHeroCandidateQA"));
-    if (bHeroCandidateQA)
-    {
-        USkeletalMeshComponent* HeroMesh = Hero ? Hero->GetMesh() : nullptr;
-        USkeletalMesh* ActiveMesh =
-            HeroMesh ? HeroMesh->GetSkeletalMeshAsset() : nullptr;
-        const bool bCandidateLoaded =
-            ActiveMesh
-            && ActiveMesh->GetPathName().Contains(
-                TEXT("/Game/NARIS/Characters/HeroProduction/")
-            );
-        Steps.Add(TEXT("hero_candidate_mesh_loaded"), bCandidateLoaded);
-    }
-
     Steps.Add(TEXT("waystone_actor"), Waystone != nullptr);
     Steps.Add(TEXT("memory_crystal_actor"), MemoryCrystal != nullptr);
     Steps.Add(TEXT("ash_gate_actor"), AshGate != nullptr);
@@ -161,7 +132,7 @@ void ANarisRuntimeSmokeDirector::RunSmoke()
     Steps.Add(TEXT("bone_beast_actor"), BoneBeast != nullptr);
     Steps.Add(TEXT("boss_arena_actor"), Arena != nullptr);
 
-    if (!Hero || !Waystone || !MemoryCrystal || !AshGate || !Wolf || !BoneBeast || !Arena)
+    if (!Waystone || !MemoryCrystal || !AshGate || !Wolf || !BoneBeast || !Arena)
     {
         FinishSmoke(false, Steps, TEXT("Required W04 smoke actors are missing"));
         return;
@@ -220,44 +191,6 @@ void ANarisRuntimeSmokeDirector::RunSmoke()
         TEXT("arena_closed_on_encounter"),
         bBossStarted && Arena->bArenaClosed
     );
-
-    bool bHeroLightAttackHit = false;
-    if (bBossStarted && Hero && Hero->LockOn)
-    {
-        const FVector BossLocation = BoneBeast->GetActorLocation();
-        FVector HeroLocation =
-            BossLocation - BoneBeast->GetActorForwardVector() * 180.f;
-        HeroLocation.Z = BossLocation.Z;
-
-        Hero->SetActorLocation(HeroLocation, false);
-        Hero->SetActorRotation(
-            (BossLocation - HeroLocation).Rotation()
-        );
-
-        Hero->LockOn->ClearTarget();
-        Hero->LockOn->Target = BoneBeast;
-        Hero->bImmediateSmokeAttackHit = true;
-
-        const float BeforeHeroAttack = BoneBeast->GetCurrentHealth();
-        Hero->LightAttack();
-        const float AfterHeroAttack = BoneBeast->GetCurrentHealth();
-
-        bHeroLightAttackHit =
-            AfterHeroAttack < BeforeHeroAttack - KINDA_SMALL_NUMBER;
-
-        UE_LOG(
-            LogTemp,
-            Display,
-            TEXT("NARIS_HERO_RUNTIME_COMBAT_QA hit=%s before=%.1f after=%.1f mesh=%s"),
-            bHeroLightAttackHit ? TEXT("true") : TEXT("false"),
-            BeforeHeroAttack,
-            AfterHeroAttack,
-            Hero->GetMesh() && Hero->GetMesh()->GetSkeletalMeshAsset()
-                ? *Hero->GetMesh()->GetSkeletalMeshAsset()->GetPathName()
-                : TEXT("None")
-        );
-    }
-    Steps.Add(TEXT("hero_light_attack_hits_boss"), bHeroLightAttackHit);
 
     if (bBossStarted)
     {
