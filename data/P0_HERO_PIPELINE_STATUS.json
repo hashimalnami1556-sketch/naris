@@ -101,14 +101,15 @@
   },
   "local_execution": {
     "device": "AsusRog",
-    "status": "not_executed_this_pass",
+    "status": "queued_waiting_for_self_hosted_runner",
     "blockers": [
-      "Remote Desktop Commander monthly usage limit reached",
-      "GitHub self-hosted runner did not pick up the P0 workflow; job was cancelled before steps started"
+      "AsusRog is offline in Remote Desktop Commander",
+      "GitHub self-hosted job 38283661904 is queued with zero steps started"
     ],
-    "github_run_id": 38242226299,
-    "github_run_conclusion": "cancelled",
-    "note": "No claim is made that Blender P0-01/P0-02 or Unreal P0-03/P0-04A executed on the local machine."
+    "github_run_id": 38283661904,
+    "github_run_status": "queued",
+    "github_run_conclusion": null,
+    "note": "No claim is made that P0-03/P0-04A/P0-04B executed inside the AsusRog Unreal project."
   },
   "current_working_hero": {
     "asset": "SK_NARIS_AshenVessel_v3",
@@ -132,22 +133,40 @@
   },
   "external_candidate_execution": {
     "environment": "conversation sandbox using uploaded 3D asset",
-    "p0_01": "PASS",
+    "p0_01": "STRUCTURAL_SOURCE_SELECTED",
     "p0_02": "PBR_STRUCTURAL_PASS_RETARGET_PENDING",
     "selected_source": "Character1_NARIS_Rigged_Prototype.glb",
-    "candidate_version": "v2",
-    "output_sha256": "5689afdc4a6868b72d2aaf5a977798779f03c33fcc2bee641bcdd45525d56122",
-    "package_sha256": "37a8c0908770ee62bab4357366fd21cdbb7ed5f75953f40d5777c64a75abcf82",
+    "selected_source_sha256": "83e4d41f347c959e61ec57355fd682db99ed4652dfabba622ae0784b8cd9b628",
+    "candidate_version": "v3",
+    "candidate_file": "SK_AshenVessel_Candidate_v3.glb",
+    "output_sha256": "abd1fd1c440e67905ca60975b253ecdb4e4ab747708e50f11ed255f82c8a7c78",
+    "structural_metrics": {
+      "vertices": 32373,
+      "triangles": 49886,
+      "skins": 1,
+      "joints": 18,
+      "mesh_bound_to_skin": true,
+      "invalid_joint_indices": 0,
+      "zero_weight_vertices": 0,
+      "influences_per_vertex": 4,
+      "weights_sum_range": [
+        0.9999998211860657,
+        1.0000001192092896
+      ],
+      "inverse_bind_matrices": 18
+    },
     "structural_guards": [
       "mesh_bound_to_skin",
-      "joint_indices_unchanged",
-      "animation_targets_unchanged",
-      "canonical_joint_names_exact",
-      "18_joint_humanoid",
-      "basecolor_normalDX_roughness_metallic_exported"
+      "joint_indices_in_range",
+      "weights_normalized",
+      "inverse_bind_matrices_finite",
+      "canonical_joint_names",
+      "PBR maps extracted",
+      "OpenGL normal converted to DirectX normal"
     ],
     "replacement_allowed": false,
-    "note": "Candidate v2 is structurally/PBR accepted only. Unreal import, retarget, deformation, visual D3D12 and packaged regression gates remain mandatory."
+    "evidence_file": "data/P0_HERO_EXTERNAL_CANDIDATE_V3.json",
+    "warning": "Embedded idle has only one chest-rotation channel; production locomotion/combat must come from HeroV3 animation library after Unreal compatibility/retarget validation."
   },
   "adoption": {
     "status": "ADOPTED_AS_CANONICAL_PIPELINE",
