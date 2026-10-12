@@ -1,6 +1,6 @@
 {
   "schema_version": "1.3.0",
-  "updated_at": "2026-10-11",
+  "updated_at": "2026-10-12",
   "product_brand": "CALL OF NARIS",
   "technical_namespace": "NARIS",
   "canonical_engine": "Unreal Engine 5.7",
@@ -113,7 +113,7 @@
       "id": "uiux",
       "label": "UI/UX",
       "display_percent": 88,
-      "evidence_state": "UI acceptance reopened after live user feedback that the interfaces were poor and not reliably working. Canonical repository repair now adds real mouse-click activation, exact CALL OF NARIS branding, tactical ultrawide geometry, runtime status binding, dark-fantasy palette, dynamic-Lumen project settings and disabled Android File Server networking. Fresh packaged visual/click-through acceptance on AsusRog is still required."
+      "evidence_state": "UI acceptance remains reopened. Canonical Unreal source now includes a real UMG system-menu view with clickable/hoverable UMG rows, controller-driven selection, responsive anchored layout and deliberately translucent active icons (plate alpha 0.18, glyph alpha 0.68). Runtime/package acceptance is still pending because AsusRog is currently offline."
     },
     {
       "id": "audio",
@@ -155,11 +155,11 @@
     "Run controller, ultrawide and EN/AR localization regression before release-candidate promotion"
   ],
   "next_actions": [
-    "Sync the canonical NARSIC UI repair commits to the AsusRog Unreal project",
-    "Compile Win64 Development and run a fresh BuildCookRun package",
-    "Capture visible main-menu and pause-menu screenshots at 16:9, 21:9 and 32:9",
-    "Run real mouse click-through for New Game, Continue, Settings, Controls and Quit; repeat keyboard and gamepad navigation",
-    "Verify the packaged launch has no blocking firewall dialog and no LIGHTING NEEDS TO BE REBUILT overlay",
+    "Bring AsusRog online and sync the canonical NARSIC UMG repair commits",
+    "Compile NARIS_W04 Win64 Development and run a fresh BuildCookRun package",
+    "Verify UMG hover/click/keyboard/gamepad on Main, Pause, Settings and Controls",
+    "Capture 16:9, 21:9 and 32:9 screenshots and tune icon opacity only from live evidence",
+    "Verify no lighting-rebuild warning and no blocking firewall dialog",
     "Continue environment/material, animation, VFX/audio, continuous full-loop, performance and release QA gates"
   ],
   "host_status_at_sync": {
@@ -413,6 +413,27 @@
           "renderer": "Lumen dynamic GI/reflections, static lighting disabled",
           "android_file_server_runtime_networking": false,
           "validation_state": "source committed; fresh packaged visual acceptance pending"
+        },
+        "canonical_repo_repair_20261012": {
+          "framework": "UMG + Slate + SlateCore",
+          "widget": "UNarisSystemMenuWidget",
+          "row_widget": "UNarisMenuRowButton",
+          "click_contract": [
+            "SelectMenuIndex",
+            "ActivateMenuIndex",
+            "mouse hover",
+            "mouse click",
+            "keyboard/gamepad controller contract"
+          ],
+          "icon_transparency": {
+            "active_plate_alpha": 0.18,
+            "active_glyph_alpha": 0.68,
+            "inactive_plate_alpha": 0.025,
+            "inactive_glyph_alpha": 0.24,
+            "selected_row_wash_alpha": 0.12
+          },
+          "layout": "anchored UMG: menu 3.5%-60.5%, status 63.5%-96.5%, footer 3.5%-96.5%",
+          "status": "source committed; live packaged verification pending because AsusRog is offline"
         }
       }
     }
