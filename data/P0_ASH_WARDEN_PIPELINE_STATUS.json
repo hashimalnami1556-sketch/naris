@@ -1,40 +1,59 @@
 {
-  "schema_version": "1.0.0",
+  "schema_version": "1.1.0",
   "product": "CALL OF NARIS",
   "pipeline": "P0 Ash Warden Production",
   "success_rule": "Build + Test + Manifest",
-  "current_gameplay_status": "Ash Warden gameplay works but still uses proxy/reused visual source",
+  "current_gameplay_status": "Ash Warden gameplay works, including Phase 2 and boss HUD, but final art replacement remains blocked; working gameplay proxy must stay active until P0-BOSS-04 packaged regression passes.",
   "stages": [
     {
       "id": "P0-BOSS-01",
       "name": "Scan/Score/Select or Procedural Unique Candidate",
       "status": "ready_in_repository",
       "script": "tools/blender/p0_boss_ashwarden_oneshot.py",
-      "output": "Production/Boss/AshWarden/SK_AshWarden_Candidate.fbx",
-      "gate": "candidate only; never final production from procedural fallback alone"
+      "outputs": [
+        "Production/Boss/AshWarden/SK_AshWarden_Candidate.fbx",
+        "Production/Boss/AshWarden/SK_AshWarden_Candidate.blend",
+        "Production/Boss/AshWarden/P0-BOSS_AshWarden_log.json"
+      ],
+      "gate": "PASS_CANDIDATE only. Procedural fallback may seed the unique boss but is never final by itself.",
+      "replacement_allowed": false
     },
     {
       "id": "P0-BOSS-02",
-      "name": "Unreal Candidate Import",
+      "name": "Canonical Rig + Six Animations + PBR",
       "status": "ready_in_repository",
-      "script": "tools/unreal/p0_boss_02_import_ashwarden.py",
-      "destination": "/Game/NARIS/Creatures/AshWardenProduction",
+      "script": "tools/blender/p0_boss_02_rig_anim_pbr.py",
+      "outputs": [
+        "Production/Boss/AshWarden/SK_AshWarden_Production.fbx",
+        "Production/Boss/AshWarden/SK_AshWarden_Production.blend",
+        "Production/Boss/AshWarden/P0-BOSS-02_rig_anim_pbr.json"
+      ],
+      "gate": "canonical humanoid coverage + weighted body + 6 actions + 4 NARIS PBR materials + reasonable boss height",
       "replacement_allowed": false
     },
     {
       "id": "P0-BOSS-03",
-      "name": "Rig/Animation/PBR/Phase2 Visual QA",
-      "status": "pending_local_execution",
-      "gate": "D3D12 arena render + attack/death/phase2 animations + silhouette/material/deformation acceptance",
+      "name": "Unreal Import + Physics/LOD/Animation + QA Arena",
+      "status": "ready_in_repository",
+      "script": "tools/unreal/p0_boss_03_import_qa.py",
+      "destination": "/Game/NARIS/Creatures/AshWardenProduction",
+      "qa_map": "/Game/NARIS/QA/L_AshWardenCandidate_QA",
+      "screenshot": "Saved/Screenshots/Windows/P0-BOSS-03_AshWardenCompare.png",
+      "gate": "SkeletalMesh + Skeleton + PhysicsAsset + >=4 material slots + >=3 LODs + Idle/Walk/Attack/Phase2/HitReact/Death + saved QA map",
       "replacement_allowed": false
     },
     {
       "id": "P0-BOSS-04",
-      "name": "Gameplay Replacement + Packaged Boss Regression",
-      "status": "blocked_until_p0_boss_03_pass",
-      "gate": "replace proxy only after visual+combat acceptance and clean packaged regression",
+      "name": "Rendered D3D12 Acceptance + Gameplay Replacement + Packaged Boss Regression",
+      "status": "blocked_until_p0_boss_03_render_acceptance",
+      "gate": "rendered boss comparison must pass silhouette/material/deformation/animation/phase2 checks; replacement then requires clean Win64 build, cook/stage/pak/archive, packaged boss/combat regression, and automatic rollback on failure",
       "replacement_allowed": "only_after_pass"
     }
   ],
-  "runner": "tools/windows/run_p0_boss_ashwarden_atomic.bat"
+  "runner": "tools/windows/run_p0_boss_ashwarden_atomic.bat",
+  "current_working_policy": "Do not replace the existing Ash Warden gameplay proxy until P0-BOSS-04 passes.",
+  "local_execution": {
+    "status": "pending",
+    "note": "Repository pipeline is preparatory until executed on a Windows/Unreal/Blender machine. No local execution is claimed by this manifest."
+  }
 }
