@@ -25,10 +25,10 @@ namespace NarsicUMG
     const FLinearColor Bronze(0.72f, 0.46f, 0.18f, 1.f);
     const FLinearColor Ember(0.93f, 0.28f, 0.06f, 1.f);
 
-    constexpr float ActiveIconPlateAlpha = 0.22f;
-    constexpr float InactiveIconPlateAlpha = 0.04f;
-    constexpr float ActiveIconGlyphAlpha = 0.72f;
-    constexpr float InactiveIconGlyphAlpha = 0.30f;
+    constexpr float ActiveIconPlateAlpha = 0.18f;
+    constexpr float InactiveIconPlateAlpha = 0.025f;
+    constexpr float ActiveIconGlyphAlpha = 0.68f;
+    constexpr float InactiveIconGlyphAlpha = 0.24f;
 }
 
 void UNarisMenuRowButton::Configure(
@@ -398,7 +398,7 @@ void UNarisSystemMenuWidget::RefreshInterface()
                 NarsicUMG::RaisedSteel.R,
                 NarsicUMG::RaisedSteel.G,
                 NarsicUMG::RaisedSteel.B,
-                bSelected ? 0.16f : 0.025f
+                bSelected ? 0.12f : 0.018f
             )
         );
 
