@@ -7,6 +7,7 @@
 class ANarisHeroCharacter;
 class ANarisPlayerController;
 class UNarisRuntimeSubsystem;
+class UNarisSystemMenuWidget;
 
 UCLASS(Blueprintable)
 class NARIS_W04_API ANarisHUD : public AHUD
@@ -14,9 +15,13 @@ class NARIS_W04_API ANarisHUD : public AHUD
     GENERATED_BODY()
 
 public:
+    virtual void BeginPlay() override;
     virtual void DrawHUD() override;
 
 private:
+    UPROPERTY(Transient)
+    TObjectPtr<UNarisSystemMenuWidget> SystemMenuWidget;
+
     void DrawPauseMenu();
     void DrawContentPage(
         ANarisPlayerController* Controller,
