@@ -7,6 +7,7 @@
 
 class UNarisCombatComponent;
 class USkeletalMesh;
+class UAnimSequence;
 class UStaticMeshComponent;
 class AAIController;
 struct FDamageEvent;
@@ -44,6 +45,25 @@ public:
     /** Import/bind the approved character mesh. Null means explicit primitive prototype. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="NARIS|Villain|Art")
     TObjectPtr<USkeletalMesh> VisualMesh = nullptr;
+
+    /** Optional imported animation clips sharing the assigned VisualMesh skeleton. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="NARIS|Villain|Animation")
+    TObjectPtr<UAnimSequence> IdleAnimation = nullptr;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="NARIS|Villain|Animation")
+    TObjectPtr<UAnimSequence> WalkAnimation = nullptr;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="NARIS|Villain|Animation")
+    TObjectPtr<UAnimSequence> LightAttackAnimation = nullptr;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="NARIS|Villain|Animation")
+    TObjectPtr<UAnimSequence> HeavyAttackAnimation = nullptr;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="NARIS|Villain|Animation")
+    TObjectPtr<UAnimSequence> StaggerAnimation = nullptr;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="NARIS|Villain|Animation")
+    TObjectPtr<UAnimSequence> DeathAnimation = nullptr;
 
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="NARIS|Villain|Development")
     TObjectPtr<UStaticMeshComponent> DevelopmentVisual;
@@ -109,6 +129,7 @@ private:
 
     void ApplyArchetype();
     void ChangeState(ENarisVillainState NewState);
+    void PlayStateAnimation(ENarisVillainState State);
     void StopAI();
     void Die();
     void UpdatePatrol(float Now);
