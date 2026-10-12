@@ -31,6 +31,34 @@ namespace NarsicUMG
     constexpr float InactiveIconGlyphAlpha = 0.30f;
 }
 
+void UNarisMenuRowButton::Configure(
+    ANarisPlayerController* InController,
+    int32 InIndex
+)
+{
+    Controller = InController;
+    MenuIndex = InIndex;
+
+    OnClicked.AddUniqueDynamic(this, &UNarisMenuRowButton::HandleClicked);
+    OnHovered.AddUniqueDynamic(this, &UNarisMenuRowButton::HandleHovered);
+}
+
+void UNarisMenuRowButton::HandleClicked()
+{
+    if (Controller)
+    {
+        Controller->ActivateMenuIndex(MenuIndex);
+    }
+}
+
+void UNarisMenuRowButton::HandleHovered()
+{
+    if (Controller)
+    {
+        Controller->SelectMenuIndex(MenuIndex);
+    }
+}
+
 void UNarisSystemMenuWidget::NativeConstruct()
 {
     Super::NativeConstruct();
@@ -144,6 +172,17 @@ void UNarisSystemMenuWidget::BuildInterface()
 
     for (int32 Index = 0; Index < MaxRows; ++Index)
     {
+        UNarisMenuRowButton* RowButton =
+            WidgetTree->ConstructWidget<UNarisMenuRowButton>(
+                UNarisMenuRowButton::StaticClass()
+            );
+        RowButton->SetBackgroundColor(FLinearColor(1.f, 1.f, 1.f, 0.f));
+        RowButton->SetVisibility(ESlateVisibility::Collapsed);
+        RowButtons.Add(RowButton);
+
+        UVerticalBoxSlot* RowSlot = MenuColumn->AddChildToVerticalBox(RowButton);
+        RowSlot->SetPadding(FMargin(0.f, 0.f, 0.f, 6.f));
+
         UBorder* RowPanel = MakePanel(
             FLinearColor(
                 NarsicUMG::RaisedSteel.R,
@@ -154,10 +193,7 @@ void UNarisSystemMenuWidget::BuildInterface()
             FMargin(12.f, 7.f)
         );
         RowPanels.Add(RowPanel);
-
-        UVerticalBoxSlot* RowSlot = MenuColumn->AddChildToVerticalBox(RowPanel);
-        RowSlot->SetPadding(FMargin(0.f, 0.f, 0.f, 6.f));
-        RowPanel->SetVisibility(ESlateVisibility::Collapsed);
+        RowButton->AddChild(RowPanel);
 
         UHorizontalBox* Row = WidgetTree->ConstructWidget<UHorizontalBox>(
             UHorizontalBox::StaticClass()
@@ -340,14 +376,16 @@ void UNarisSystemMenuWidget::RefreshInterface()
     for (int32 Index = 0; Index < MaxRows; ++Index)
     {
         const bool bVisible = Index < Count;
-        RowPanels[Index]->SetVisibility(
-            bVisible ? ESlateVisibility::SelfHitTestInvisible : ESlateVisibility::Collapsed
+        RowButtons[Index]->SetVisibility(
+            bVisible ? ESlateVisibility::Visible : ESlateVisibility::Collapsed
         );
 
         if (!bVisible)
         {
             continue;
         }
+
+        RowButtons[Index]->Configure(Controller, Index);
 
         const bool bSelected = Index == Selected;
 
