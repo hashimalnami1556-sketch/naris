@@ -228,7 +228,7 @@ class AshWardenProductionPipelineContract(unittest.TestCase):
         self.assertFalse(stages["P0-BOSS-03"]["replacement_allowed"])
         self.assertEqual(
             stages["P0-BOSS-04"]["replacement_allowed"],
-            "only_after_pass_and_discovery"
+            "only_after_READY_NATIVE_CXX_PATCH_and_full_regression"
         )
         self.assertIn(
             "P0-BOSS-04 integration discovery report",
