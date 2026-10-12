@@ -2,6 +2,7 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
+#include "Components/Button.h"
 #include "NarisSystemMenuWidget.generated.h"
 
 class ANarisPlayerController;
@@ -9,6 +10,27 @@ class UBorder;
 class UTextBlock;
 class UVerticalBox;
 class UHorizontalBox;
+
+UCLASS()
+class NARIS_W04_API UNarisMenuRowButton : public UButton
+{
+    GENERATED_BODY()
+
+public:
+    void Configure(ANarisPlayerController* InController, int32 InIndex);
+
+private:
+    UFUNCTION()
+    void HandleClicked();
+
+    UFUNCTION()
+    void HandleHovered();
+
+    UPROPERTY(Transient)
+    TObjectPtr<ANarisPlayerController> Controller;
+
+    int32 MenuIndex = 0;
+};
 
 UCLASS()
 class NARIS_W04_API UNarisSystemMenuWidget : public UUserWidget
@@ -45,6 +67,9 @@ private:
 
     UPROPERTY(Transient)
     TObjectPtr<UTextBlock> FooterText;
+
+    UPROPERTY(Transient)
+    TArray<TObjectPtr<UNarisMenuRowButton>> RowButtons;
 
     UPROPERTY(Transient)
     TArray<TObjectPtr<UBorder>> RowPanels;
