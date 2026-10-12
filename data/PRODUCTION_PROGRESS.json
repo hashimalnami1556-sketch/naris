@@ -155,12 +155,16 @@
     "Run controller, ultrawide and EN/AR localization regression before release-candidate promotion"
   ],
   "next_actions": [
+    "Reconnect AsusRog and sync canonical NARSIC transit loading source",
+    "Copy the approved image from the NARSIC_LOADING_INSTALL_PACK.zip payload to Content/NARSIC/Loading",
+    "Compile Unreal 5.7 and package Windows Development",
+    "Visually verify boot splash and actual map transitions at 16:9, 21:9, 32:9",
+    "Verify MoviePlayer closes only when level load completes; no fake loading percentage",
     "Bring AsusRog online and sync the canonical NARSIC UMG repair commits",
     "Compile NARIS_W04 Win64 Development and run a fresh BuildCookRun package",
     "Verify UMG hover/click/keyboard/gamepad on Main, Pause, Settings and Controls",
     "Capture 16:9, 21:9 and 32:9 screenshots and tune icon opacity only from live evidence",
-    "Verify no lighting-rebuild warning and no blocking firewall dialog",
-    "Continue environment/material, animation, VFX/audio, continuous full-loop, performance and release QA gates"
+    "Verify no lighting-rebuild warning and no blocking firewall dialog"
   ],
   "host_status_at_sync": {
     "device": "AsusRog",
@@ -436,6 +440,21 @@
           "status": "source committed; live packaged verification pending because AsusRog is offline"
         }
       }
+    },
+    "narsic_ash_gate_transit": {
+      "design_approved": true,
+      "art_sha256": "5e5716b02c2641948d93b481444ab6ecd2350318b0e3d63290801a9b2cde90d0",
+      "github_source": "unreal/NARIS_W04/Source/NARIS_W04/NARIS_W04.cpp",
+      "packaging": "unreal/NARIS_W04/Config/DefaultGame.ini",
+      "installer": "tools/install_narsic_transit.py",
+      "asset_manifest": "assets/NARSIC_TRANSIT_APPROVED_ASSET.json",
+      "engine": "Unreal Engine 5.7",
+      "runtime_intent": "Slate MoviePlayer startup and PreLoadMap transition",
+      "device_status": "AsusRog offline during this update",
+      "installation": "not yet applied on AsusRog",
+      "win64_compile": "not verified",
+      "package": "not verified",
+      "visual_qa": "not verified"
     }
   }
 }
