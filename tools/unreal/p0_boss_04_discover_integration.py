@@ -1,6 +1,6 @@
 # CALL OF NARIS — P0-BOSS-04 Integration Discovery
 # Read-only Unreal Editor inspection. Does NOT modify or save the gameplay map.
-import unreal, json
+import unreal, json, hashlib, re
 from pathlib import Path
 
 PROJECT_ROOT=Path(r"C:\Users\Admin\OneDrive\NARIS_MASTER_BUNDLE\Game\NARIS_UE57")
@@ -142,6 +142,55 @@ elif target["skeletal_components"]:
 else:
     recommendation="NO_SKELETAL_COMPONENT_FOUND_REQUIRES_CLASS_LEVEL_INSPECTION"
 
+def sha256_text(text):
+    return hashlib.sha256(text.encode("utf-8")).hexdigest()
+
+def extract_balanced_function(source, signature):
+    pos=source.find(signature)
+    if pos<0:
+        return None
+    brace=source.find("{",pos)
+    if brace<0:
+        return None
+    depth=0
+    for i in range(brace,len(source)):
+        ch=source[i]
+        if ch=="{":depth+=1
+        elif ch=="}":
+            depth-=1
+            if depth==0:
+                return source[pos:i+1]
+    return None
+
+source_cpp=PROJECT_ROOT/"Source"/"NARIS"/"NarisCreature.cpp"
+source_h=PROJECT_ROOT/"Source"/"NARIS"/"NarisCreature.h"
+source_evidence={
+    "cpp_path":str(source_cpp),
+    "header_path":str(source_h),
+    "cpp_exists":source_cpp.is_file(),
+    "header_exists":source_h.is_file(),
+    "cpp_sha256":None,
+    "header_sha256":None,
+    "ashwarden_constructor_found":False,
+    "ashwarden_constructor_sha256":None,
+    "ashwarden_constructor":None,
+    "bonebeast_paths_in_constructor":[],
+}
+if source_cpp.is_file():
+    cpp_text=source_cpp.read_text(encoding="utf-8-sig")
+    source_evidence["cpp_sha256"]=sha256_text(cpp_text)
+    ctor=extract_balanced_function(cpp_text,"ANarisAshWarden::ANarisAshWarden()")
+    if ctor:
+        source_evidence["ashwarden_constructor_found"]=True
+        source_evidence["ashwarden_constructor_sha256"]=sha256_text(ctor)
+        source_evidence["ashwarden_constructor"]=ctor
+        source_evidence["bonebeast_paths_in_constructor"]=sorted(set(
+            re.findall(r'["\\\']([^"\\\']*BoneBeast[^"\\\']*)["\\\']',ctor,re.IGNORECASE)
+        ))
+if source_h.is_file():
+    header_text=source_h.read_text(encoding="utf-8-sig")
+    source_evidence["header_sha256"]=sha256_text(header_text)
+
 result={
     "status":"PASS",
     "read_only":True,
@@ -155,6 +204,7 @@ result={
     "bonebeast_proxy_confirmed":proxy_confirmed,
     "native_skeletal_component":native_component,
     "recommended_integration_strategy":recommendation,
+    "source_evidence":source_evidence,
     "next_gate":"Inspect local NarisAshWarden C++/Blueprint ownership using this evidence, then author a reversible P0-BOSS-04 promotion and packaged boss regression. Do not rename or overwrite the proxy blindly."
 }
 REPORT.parent.mkdir(parents=True,exist_ok=True)
