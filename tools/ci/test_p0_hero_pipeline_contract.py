@@ -209,6 +209,13 @@ class HeroProductionPipelineContract(unittest.TestCase):
             "Get-FileHash",
             "P0-04B_render_evidence.json",
             "P0-05 promotion remains BLOCKED",
+            "del /q \"%SCREEN_DIR%\\*.png\"",
+            "RENDER_START",
+            "No fresh screenshot produced after render start",
+            "git -C $repoRoot rev-parse HEAD",
+            "git_worktree_dirty=$dirty",
+            "render_started_utc",
+            "screenshot_written_utc",
         ):
             self.assertIn(token, src)
 
