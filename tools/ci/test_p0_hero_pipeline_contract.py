@@ -271,6 +271,30 @@ class HeroProductionPipelineContract(unittest.TestCase):
             self.assertIn(token, master + promote + approval)
         self.assertIn("candidate_source_sha256_chain_mismatch", promote)
 
+    def test_p0_05_packaged_regression_contract(self):
+        src = self.read("tools/windows/run_p0_05_promote_and_regress.bat")
+        for token in (
+            "PACKAGED_INTERNAL",
+            "WaitForExit(120000)",
+            "NARIS_COMBAT_QA_RESULT Pass=1",
+            "NARIS_HERO_VISUAL_QA MeshVisible=1",
+            "Get-FileHash -Algorithm SHA256",
+            "qa_log_sha256",
+            "packaged_exe_sha256",
+            "goto :rollback_runtime",
+        ):
+            self.assertIn(token, src)
+
+        workflow = self.read(".github/workflows/p0-hero-promote-self-hosted.yml")
+        for token in (
+            "candidate_source_sha256",
+            "/Game/NARIS/Characters/HeroProduction/SK_NARIS_AshenVessel_Production",
+            "/Game/NARIS/Characters/HeroV3/SK_NARIS_AshenVessel_v3",
+            "/Game/NARIS/QA/L_HeroCandidate_QA",
+            "P0-04B_HeroCompare.png",
+        ):
+            self.assertIn(token, workflow)
+
     def test_windows_runners_chain_the_gates(self):
         src = self.read("tools/windows/run_p0_hero_to_unreal.bat")
         for token in (
