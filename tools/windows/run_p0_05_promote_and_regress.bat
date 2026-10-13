@@ -12,6 +12,7 @@ set "ROLLBACK=%~dp0..\unreal\p0_05_rollback_hero.py"
 set "APPROVAL=%~dp0..\..\data\P0_HERO_VISUAL_APPROVAL.json"
 set "ARCHIVE=%PROJECT%\Builds\NARIS_Win64_Dev"
 set "PACKAGED=%ARCHIVE%\Windows\NARIS.exe"
+set "PACKAGED_INTERNAL=%ARCHIVE%\Windows\NARIS\Binaries\Win64\NARIS.exe"
 set "QA_LOG=%PROJECT%\Reports\P0-05_packaged_combat_qa.log"
 set "REPORT=%PROJECT%\Reports\P0-05_final_acceptance.json"
 
@@ -58,10 +59,20 @@ echo [P0-05] Full Cook / Stage / Pak / Archive...
 if errorlevel 1 goto :rollback_package
 
 if not exist "%PACKAGED%" goto :rollback_missing_package
+if not exist "%PACKAGED_INTERNAL%" goto :rollback_missing_package
 if exist "%QA_LOG%" del /q "%QA_LOG%"
 
-echo [P0-05] Running packaged D3D12 combat regression...
-"%PACKAGED%" -unattended -nosplash -windowed -ResX=1280 -ResY=720 -d3d12 -NARISCOMBATQA -abslog="%QA_LOG%"
+echo [P0-05] Running packaged D3D12 combat regression on internal game binary...
+powershell -NoProfile -ExecutionPolicy Bypass -Command ^
+ "$exe='%PACKAGED_INTERNAL%';" ^
+ "$log='%QA_LOG%';" ^
+ "$started=Get-Date;" ^
+ "$p=Start-Process -FilePath $exe -ArgumentList @('-unattended','-nosplash','-windowed','-ResX=1280','-ResY=720','-d3d12','-NARISCOMBATQA',('-abslog='+$log)) -PassThru;" ^
+ "if(-not $p.WaitForExit(120000)){try{$p.Kill()}catch{};exit 80};" ^
+ "if($p.ExitCode -ne 0){exit $p.ExitCode};" ^
+ "if(-not(Test-Path -LiteralPath $log)){exit 81};" ^
+ "$fi=Get-Item -LiteralPath $log;" ^
+ "if($fi.LastWriteTime -lt $started.AddSeconds(-2)){exit 85}"
 if errorlevel 1 goto :rollback_runtime
 
 powershell -NoProfile -ExecutionPolicy Bypass -Command ^
@@ -75,6 +86,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -Command ^
 if errorlevel 1 goto :rollback_logqa
 
 powershell -NoProfile -ExecutionPolicy Bypass -Command ^
+ "$exe='%PACKAGED_INTERNAL%';$log='%QA_LOG%';" ^
  "$o=[ordered]@{" ^
  " status='PASS';" ^
  " promoted=$true;" ^
@@ -82,7 +94,11 @@ powershell -NoProfile -ExecutionPolicy Bypass -Command ^
  " d3d12=$true;" ^
  " active_hero='/Game/NARIS/Characters/HeroV3/SK_NARIS_AshenVessel_v3';" ^
  " rollback_asset='/Game/NARIS/Characters/HeroV3/Archive/SK_NARIS_AshenVessel_v3_PreP0';" ^
- " log='%QA_LOG%';" ^
+ " packaged_internal=$exe;" ^
+ " packaged_exe_sha256=(Get-FileHash -Algorithm SHA256 -LiteralPath $exe).Hash.ToLowerInvariant();" ^
+ " log=$log;" ^
+ " qa_log_sha256=(Get-FileHash -Algorithm SHA256 -LiteralPath $log).Hash.ToLowerInvariant();" ^
+ " qa_log_bytes=(Get-Item -LiteralPath $log).Length;" ^
  " build='Win64 Development';" ^
  " package='Full Clean Cook/Stage/Pak/Archive';" ^
  "};" ^
