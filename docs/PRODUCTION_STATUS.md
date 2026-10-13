@@ -193,3 +193,9 @@ Executed directly on **AsusRog** against Unreal Engine 5.7 and `/Game/NARIS/Maps
 - The pass reported **0 missing modular assets**.
 - The map was saved and `Reports/production-pass04.json` was emitted with status `production_layout_pass`.
 - This improves the map from the earlier blockout/modular state, but does not yet close the remaining BasicShapes cleanup, materials, traversal/collision, packaged gameplay or performance gates.
+
+## 2026-10-13 Windows report gate repair
+
+Four P0 Windows runners now write JSON through a BOM-free .NET UTF8Encoding instead of the unsupported Windows PowerShell 5.1 `utf8NoBOM` Set-Content option. Inline PowerShell errors are terminating. Hero and Ash Warden acceptance-report write failures cannot reach the final PASS path. Hero promotion and rollback additionally require fresh successful reports rather than an editor process exit code alone.
+
+Verification: repository validation passed; 340 CI source/contract tests and 6 AssetForge tests passed locally. Four added checks cover JSON writer compatibility, unique/resolvable batch labels, acceptance write failure routing and fresh promotion/rollback evidence. These are source-level checks: Windows CMD, Windows PowerShell 5.1, Unreal compilation, cook, package and gameplay were not executed in this repair. Production and Shipping gaps above remain open.

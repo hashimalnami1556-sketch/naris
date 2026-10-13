@@ -40,6 +40,7 @@ if errorlevel 1 (
   exit /b 152
 )
 powershell -NoProfile -ExecutionPolicy Bypass -Command ^
+ "$ErrorActionPreference='Stop';" ^
  "$j=Get-Content -Raw -LiteralPath '%PROJECT%\Reports\P0-BOSS-04_decision.json'|ConvertFrom-Json;" ^
  "if($j.status -ne 'READY' -or $j.decision -ne 'READY_NATIVE_CXX_PATCH' -or $j.replacement_allowed -ne $true){exit 153};" ^
  "Write-Host ('[ASH-WARDEN-04] Decision='+$j.decision);" ^
@@ -64,6 +65,7 @@ if errorlevel 1 (
 echo [5/7] Running editor boss Phase 2 QA...
 if exist "%BOSS_QA_LOG%" del /q "%BOSS_QA_LOG%"
 powershell -NoProfile -ExecutionPolicy Bypass -Command ^
+ "$ErrorActionPreference='Stop';" ^
  "$p=Start-Process -FilePath '%UECMD%' -ArgumentList @('%UPROJECT%','/Game/NARIS/Maps/L_AshMap_Assembly','-game','-nullrhi','-unattended','-nop4','-nosplash','-NARISBOSSQA','-abslog=%BOSS_QA_LOG%') -PassThru;" ^
  "if(-not $p.WaitForExit(25000)){Stop-Process -Id $p.Id -Force -ErrorAction SilentlyContinue};" ^
  "Start-Sleep -Seconds 1"
@@ -72,6 +74,7 @@ if not exist "%BOSS_QA_LOG%" (
   goto :rollback
 )
 powershell -NoProfile -ExecutionPolicy Bypass -Command ^
+ "$ErrorActionPreference='Stop';" ^
  "$l='%BOSS_QA_LOG%';$t=Get-Content -Raw -LiteralPath $l;" ^
  "if($t -notmatch 'NARIS_BOSS_ART_READY Mesh=SK_NARIS_AshWarden_Production'){exit 161};" ^
  "if($t -notmatch 'NARIS_BOSS_QA Spawned=1'){exit 162};" ^
@@ -113,6 +116,7 @@ if errorlevel 1 (
   goto :rollback
 )
 powershell -NoProfile -ExecutionPolicy Bypass -Command ^
+ "$ErrorActionPreference='Stop';" ^
  "$l='%PACKAGED_QA_LOG%';if(-not(Test-Path -LiteralPath $l)){exit 171};$t=Get-Content -Raw -LiteralPath $l;" ^
  "if($t -notmatch 'NARIS_COMBAT_QA_RESULT Pass=1'){exit 172};" ^
  "if($t -notmatch 'NARIS_BOSS_ART_READY Mesh=SK_NARIS_AshWarden_Production'){exit 173};" ^
@@ -124,6 +128,7 @@ if errorlevel 1 (
 )
 
 powershell -NoProfile -ExecutionPolicy Bypass -Command ^
+ "$ErrorActionPreference='Stop';" ^
  "$patch=Get-Content -Raw -LiteralPath '%PROJECT%\Reports\P0-BOSS-04_native_patch.json'|ConvertFrom-Json;" ^
  "$decision=Get-Content -Raw -LiteralPath '%PROJECT%\Reports\P0-BOSS-04_decision.json'|ConvertFrom-Json;" ^
  "$o=[ordered]@{" ^
@@ -131,7 +136,11 @@ powershell -NoProfile -ExecutionPolicy Bypass -Command ^
  " integration='native_cpp_constructor_patch';source_before_sha256=$patch.before_cpp_sha256;source_after_sha256=$patch.after_cpp_sha256;" ^
  " candidate_mesh=$patch.candidate_mesh;visual_evidence=$decision.screenshot;boss_phase2_qa=$true;packaged_combat_qa=$true;" ^
  " build='NARIS Win64 Development';package='Full Clean Cook/Stage/Pak/Archive';rollback_backup=$patch.backup_path;" ^
- "};$o|ConvertTo-Json -Depth 8|Set-Content -Encoding utf8NoBOM -LiteralPath '%FINAL%'"
+ "};[System.IO.File]::WriteAllText('%FINAL%',($o|ConvertTo-Json -Depth 8),[System.Text.UTF8Encoding]::new($false))"
+if errorlevel 1 (
+  set "FAIL_REASON=acceptance_report_write_failed"
+  goto :rollback
+)
 echo ============================================================
 echo [ASH-WARDEN-04] PASS - UNIQUE ASH WARDEN SURVIVED PACKAGE QA
 echo ============================================================
@@ -159,7 +168,9 @@ for %%D in ("%PROJECT%\Saved\Cooked\Windows" "%PROJECT%\Saved\StagedBuilds\Windo
 if errorlevel 1 exit /b 197
 
 powershell -NoProfile -ExecutionPolicy Bypass -Command ^
+ "$ErrorActionPreference='Stop';" ^
  "$o=[ordered]@{schema_version='1.0.0';status='FAIL';promoted=$false;failure_reason='!FAIL_REASON!';rollback='PASS';restored_package=$true};" ^
- "$o|ConvertTo-Json|Set-Content -Encoding utf8NoBOM -LiteralPath '%FINAL%'"
+ "[System.IO.File]::WriteAllText('%FINAL%',($o|ConvertTo-Json),[System.Text.UTF8Encoding]::new($false))"
+if errorlevel 1 exit /b 196
 echo [ASH-WARDEN-04] Rollback PASS. Existing proxy restored.
 exit /b 190

@@ -67,3 +67,9 @@ No engine upgrade, new product direction, asset approval or public release is im
 - Visible percentages are planning estimates, not QA evidence.
 - AsusRog state during synchronization: **online**.
 - Critical blockers remain Windows Unreal build evidence, production map/assets, unresolved animation/audio/Niagara payloads, packaged playtest evidence and performance acceptance.
+
+## 2026-10-13 Windows report gate repair
+
+Four P0 Windows runners now write JSON through a BOM-free .NET UTF8Encoding instead of the unsupported Windows PowerShell 5.1 `utf8NoBOM` Set-Content option. Inline PowerShell errors are terminating. Hero and Ash Warden acceptance-report write failures cannot reach the final PASS path. Hero promotion and rollback additionally require fresh successful reports rather than an editor process exit code alone.
+
+Verification: repository validation passed; 340 CI source/contract tests and 6 AssetForge tests passed locally. Four added checks cover JSON writer compatibility, unique/resolvable batch labels, acceptance write failure routing and fresh promotion/rollback evidence. These are source-level checks: Windows CMD, Windows PowerShell 5.1, Unreal compilation, cook, package and gameplay were not executed in this repair. Production and Shipping gaps above remain open.
