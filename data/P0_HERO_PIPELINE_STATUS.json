@@ -92,7 +92,23 @@
       "workflow": ".github/workflows/p0-hero-promote-self-hosted.yml",
       "gate": "approved screenshot hash/bytes + candidate source SHA256 + exact git SHA/workflow run ID + provenance + skeleton match + transactional promotion + full cook/stage/pak/archive + packaged combat regression",
       "rollback": "transactional; ACTIVE must never be left empty",
-      "replacement_allowed": "only_after_all_checks_pass"
+      "replacement_allowed": "only_after_all_checks_pass",
+      "packaged_regression": {
+        "binary": "Builds/NARIS_Win64_Dev/Windows/NARIS/Binaries/Win64/NARIS.exe",
+        "wait_policy": "wait_for_internal_binary_exit_with_120s_timeout",
+        "freshness_gate": "QA log must be newly written by the current run",
+        "evidence": [
+          "packaged_exe_sha256",
+          "qa_log_sha256",
+          "qa_log_bytes",
+          "visual_approval_sha256",
+          "promotion_report_sha256",
+          "candidate_source_sha256",
+          "evidence_git_sha",
+          "evidence_workflow_run_id"
+        ]
+      },
+      "preflight": "Approval must include exact candidate/baseline/qa_map/screenshot, 64-char source SHA256, provenance, revision, and all visual criteria=pass."
     }
   ],
   "runners": [
@@ -149,12 +165,13 @@
       "Unreal project integrity": "success",
       "MCP TypeScript build": "success"
     },
-    "note": "Repository/static contracts are green. This does not substitute for P0-03/P0-04A/P0-04B local Unreal execution.",
+    "note": "Unreal Validate and Content Validation are green on the hardened pipeline; latest NARIS CI run is queued. Self-hosted P0 execution remains pending and no local promotion claim is made.",
     "latest_cloud_checks": {
       "NARIS Unreal Validate": "success",
       "NARIS Content Validation": "success",
       "NARIS CI": "queued"
-    }
+    },
+    "latest_hardening_commit": "0e39f8273b01c2c55f7f21144785ed1e27722ffe"
   },
   "external_candidate_execution": {
     "environment": "conversation sandbox using uploaded 3D asset",
