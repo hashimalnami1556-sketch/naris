@@ -64,6 +64,7 @@ class FakeEditor:
         self.imported_paths = ["/test/Demon", "/test/Idle"]
         self.import_tasks = []
         self.actors = []
+        self.level_actors = {}
         self.spawn_count = 0
         self.saved_level = 0
         self.saved_asset_directory = 0
@@ -107,13 +108,13 @@ class FakeEditor:
         if path not in self.levels:
             return False
         self.current_level = path
-        self.actors = []
+        self.actors = self.level_actors.setdefault(path, [])
         return True
 
     def new_level(self, path):
         self.levels.add(path)
         self.current_level = path
-        self.actors = []
+        self.actors = self.level_actors.setdefault(path, [])
         return True
 
     def save_level(self):
