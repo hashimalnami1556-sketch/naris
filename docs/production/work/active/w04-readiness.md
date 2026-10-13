@@ -44,3 +44,13 @@ last_updated: 2026-10-01
 - Blocker: actual Windows CMD/PowerShell and Unreal validation not performed.
 - Next action: execute the repaired P0 runners on the Windows host and preserve fresh reports before closing engine gates.
 - Claim released: implementation complete; host validation remains open.
+
+## 2026-10-13 follow-up execution claim
+- Executing agent: Codex.
+- Scope: P0 hero promotion/rollback persistence failures and packaged ensure-log rejection.
+- Baseline: PR #42 head 6db90b6; all four GitHub PR workflows passed.
+- No asset approval, production promotion or Unreal execution is authorized by these source repairs.
+- Completed: persistence guards and recovery reporting, packaged ensure rejection, seven executable mock-based recovery tests.
+- Validation: 347 CI tests, 6 AssetForge tests, repository validator and diff checks pass locally.
+- Claim released: source repair complete; engine/Windows validation remains open.
+- Next action: verify saves/rename/rollback in the actual Unreal editor, then run the Windows packaged regressions.

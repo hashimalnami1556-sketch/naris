@@ -48,7 +48,7 @@ if errorlevel 1 exit /b 73
 powershell -NoProfile -Command ^
  "$ErrorActionPreference='Stop';" ^
  "$p=Get-Content -Raw -LiteralPath '%PROMOTION_REPORT%'|ConvertFrom-Json;" ^
- "if($p.status -ne 'PASS' -or $p.promoted -ne $true -or $p.active_path -ne '/Game/NARIS/Characters/HeroV3/SK_NARIS_AshenVessel_v3'){exit 75}"
+ "if($p.status -ne 'PASS' -or $p.promoted -ne $true -or $p.persisted -ne $true -or $p.active_path -ne '/Game/NARIS/Characters/HeroV3/SK_NARIS_AshenVessel_v3'){exit 75}"
 if errorlevel 1 exit /b 75
 
 set "ComSpec=C:\Windows\System32\cmd.exe"
@@ -95,7 +95,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -Command ^
  "if(-not(Test-Path -LiteralPath $l)){exit 81};" ^
  "$txt=Get-Content -Raw -LiteralPath $l;" ^
  "if($txt -notmatch 'NARIS_COMBAT_QA_RESULT Pass=1'){exit 82};" ^
- "if($txt -match 'Fatal error|LowLevelFatalError|Unhandled Exception|Assertion failed'){exit 83};" ^
+ "if($txt -match 'Fatal error|LowLevelFatalError|Unhandled Exception|Ensure condition failed|Assertion failed'){exit 83};" ^
  "if($txt -notmatch 'NARIS_HERO_VISUAL_QA MeshVisible=1'){exit 84};" ^
  "Write-Host '[P0-05] Packaged combat regression PASS'"
 if errorlevel 1 goto :rollback_logqa
@@ -163,7 +163,7 @@ if not "%RB%"=="0" exit /b 99
 powershell -NoProfile -Command ^
  "$ErrorActionPreference='Stop';" ^
  "$r=Get-Content -Raw -LiteralPath '%ROLLBACK_REPORT%'|ConvertFrom-Json;" ^
- "if($r.status -ne 'PASS' -or $r.rolled_back -ne $true -or $r.active_preserved -ne $true){exit 99}"
+ "if($r.status -ne 'PASS' -or $r.rolled_back -ne $true -or $r.active_preserved -ne $true -or $r.persisted -ne $true){exit 99}"
 if errorlevel 1 exit /b 99
 powershell -NoProfile -ExecutionPolicy Bypass -Command ^
  "$ErrorActionPreference='Stop';" ^

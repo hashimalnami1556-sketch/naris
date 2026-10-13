@@ -79,7 +79,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -Command ^
  "if($t -notmatch 'NARIS_BOSS_ART_READY Mesh=SK_NARIS_AshWarden_Production'){exit 161};" ^
  "if($t -notmatch 'NARIS_BOSS_QA Spawned=1'){exit 162};" ^
  "if($t -notmatch 'NARIS_BOSS_PHASE2'){exit 163};" ^
- "if($t -match 'Fatal error:|LowLevelFatalError|Unhandled Exception|Assertion failed:'){exit 164};" ^
+ "if($t -match 'Fatal error:|LowLevelFatalError|Unhandled Exception|Ensure condition failed|Assertion failed:'){exit 164};" ^
  "Write-Host '[ASH-WARDEN-04] Native art + Phase2 QA PASS'"
 if errorlevel 1 (
   set "FAIL_REASON=boss_phase2_qa_failed"
@@ -120,7 +120,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -Command ^
  "$l='%PACKAGED_QA_LOG%';if(-not(Test-Path -LiteralPath $l)){exit 171};$t=Get-Content -Raw -LiteralPath $l;" ^
  "if($t -notmatch 'NARIS_COMBAT_QA_RESULT Pass=1'){exit 172};" ^
  "if($t -notmatch 'NARIS_BOSS_ART_READY Mesh=SK_NARIS_AshWarden_Production'){exit 173};" ^
- "if($t -match 'Fatal error:|LowLevelFatalError|Unhandled Exception|Assertion failed:'){exit 174};" ^
+ "if($t -match 'Fatal error:|LowLevelFatalError|Unhandled Exception|Ensure condition failed|Assertion failed:'){exit 174};" ^
  "Write-Host '[ASH-WARDEN-04] Packaged D3D12 regression PASS'"
 if errorlevel 1 (
   set "FAIL_REASON=packaged_log_qa_failed"
