@@ -110,18 +110,26 @@
   },
   "local_execution": {
     "device": "AsusRog",
-    "status": "queued_waiting_for_runner",
-    "device_status": "offline",
-    "device_last_seen": "26h ago",
+    "status": "blocked_waiting_for_execution_channel",
+    "device_status": "connected_and_paired",
+    "remote_desktop_commander": {
+      "ping": "reachable",
+      "file_terminal_actions": "paused_by_monthly_usage_limit",
+      "note": "Do not retry file/terminal operations until usage resets."
+    },
+    "github_self_hosted_runner": {
+      "latest_run_id": 38410439576,
+      "latest_run_head": "d83cf39895b3812ae9a988c36f810e57bd6b5f64",
+      "latest_run_status": "pending",
+      "latest_run_conclusion": null,
+      "note": "Job has not started; no local Blender/Unreal evidence exists from this run."
+    },
     "blockers": [
-      "AsusRog is currently Offline in Remote Desktop Commander"
+      "Remote Desktop Commander file/terminal actions paused by monthly usage limit",
+      "GitHub self-hosted Windows runner has not picked up the canonical P0 job"
     ],
-    "latest_self_hosted_run_id": 38410098727,
-    "latest_self_hosted_run_head": "58a93ddb9b9b5dc6622b38fc3039d4590c935f82",
-    "latest_self_hosted_run_status": "queued",
-    "latest_self_hosted_run_conclusion": null,
     "concurrency_policy": "latest canonical run only; older queued runs cancelled automatically",
-    "note": "When the Windows self-hosted runner returns online, GitHub can execute P0-01 through P0-04B. P0-05 remains blocked by hash-bound visual approval."
+    "note": "Repository and external structural evidence are valid, but no claim is made that P0-01 through P0-04B executed on AsusRog in the latest canonical run."
   },
   "current_working_hero": {
     "asset": "SK_NARIS_AshenVessel_v3",
@@ -141,7 +149,12 @@
       "Unreal project integrity": "success",
       "MCP TypeScript build": "success"
     },
-    "note": "Repository/static contracts are green. This does not substitute for P0-03/P0-04A/P0-04B local Unreal execution."
+    "note": "Repository/static contracts are green. This does not substitute for P0-03/P0-04A/P0-04B local Unreal execution.",
+    "latest_cloud_checks": {
+      "NARIS Unreal Validate": "success",
+      "NARIS Content Validation": "success",
+      "NARIS CI": "queued"
+    }
   },
   "external_candidate_execution": {
     "environment": "conversation sandbox using uploaded 3D asset",
