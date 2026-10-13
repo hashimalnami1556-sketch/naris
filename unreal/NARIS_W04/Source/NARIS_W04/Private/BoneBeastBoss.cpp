@@ -153,7 +153,7 @@ void ABoneBeastBoss::StartEncounter()
     UNarisRuntimeSubsystem* Runtime =
         GameInstance ? GameInstance->GetSubsystem<UNarisRuntimeSubsystem>() : nullptr;
 
-    if (!Runtime || !Runtime->IsCompanionUnlocked(RequiredCompanionId))
+    if (!Runtime || (!RequiredCompanionId.IsEmpty() && !Runtime->IsCompanionUnlocked(RequiredCompanionId)))
     {
         EmitBossEvent(TEXT("EncounterLocked"));
         return;
