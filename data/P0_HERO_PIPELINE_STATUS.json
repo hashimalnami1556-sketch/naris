@@ -61,29 +61,37 @@
     },
     {
       "id": "P0-04B",
-      "name": "Reversible D3D12 Candidate Runtime QA",
+      "name": "Hash-Bound D3D12 Visual + Runtime QA",
       "status": "ready_in_repository",
-      "script": "tools/windows/run_p0_04b_candidate_runtime_qa.ps1",
-      "output_report": "Reports/P0-04B_runtime_candidate_qa.json",
-      "evidence": [
-        "Reports/P0-04B_candidate_runtime.log",
-        "Reports/P0-04B_candidate.png"
+      "scripts": [
+        "tools/unreal/p0_04b_prepare_visual_qa.py",
+        "tools/windows/Invoke-P0HeroMasterQA.ps1"
       ],
-      "gate": "temporary candidate activation + NARISEditor build + D3D12 combat QA + no fatal/missing/skeleton errors + source restored",
-      "replacement_allowed": false
+      "outputs": [
+        "Reports/P0-04B_visual_scene.json",
+        "Reports/P0-04B_render_evidence.json",
+        "Reports/P0-04B_runtime_qa.json",
+        "Reports/P0-04B_combat_d3d12.log",
+        "Saved/Screenshots/Windows/P0-04B_HeroCompare.png"
+      ],
+      "gate": "P0-04A PASS + candidate source SHA256 chain + D3D12 side-by-side render + fresh screenshot hash/bytes + combat regression + zero fatal findings",
+      "replacement_allowed": false,
+      "pipeline_revision": "p0-04b-hashbound-camera-v2+candidate-source-sha",
+      "visual_approval_file": "data/P0_HERO_VISUAL_APPROVAL.json"
     },
     {
       "id": "P0-05",
-      "name": "Atomic Hero Promotion and Rollback",
+      "name": "Hash-Bound Atomic Promotion + Rollback + Packaged Regression",
       "status": "ready_in_repository",
-      "script": "tools/windows/run_p0_05_promote_hero.ps1",
-      "required_inputs": [
-        "Reports/P0-04B_runtime_candidate_qa.json",
-        "Reports/P0-04B_visual_decision.json"
+      "scripts": [
+        "tools/unreal/p0_05_promote_hero.py",
+        "tools/unreal/p0_05_rollback_hero.py",
+        "tools/windows/run_p0_05_promote_and_regress.bat"
       ],
-      "output_report": "Reports/P0-05_hero_promotion.json",
-      "gate": "P0-04B runtime PASS + accepted screenshot SHA256 + Editor/Game build + D3D12 combat QA + package + packaged combat QA",
-      "rollback": "automatic restore of HeroV3 source and rebuild on any failure"
+      "workflow": ".github/workflows/p0-hero-promote-self-hosted.yml",
+      "gate": "approved screenshot hash/bytes + candidate source SHA256 + exact git SHA/workflow run ID + provenance + skeleton match + transactional promotion + full cook/stage/pak/archive + packaged combat regression",
+      "rollback": "transactional; ACTIVE must never be left empty",
+      "replacement_allowed": "only_after_all_checks_pass"
     }
   ],
   "runners": [
@@ -91,6 +99,7 @@
     "tools/windows/run_p0_hero_atomic_pipeline.bat",
     "tools/windows/run_p0_hero_to_unreal.bat",
     "tools/windows/run_p0_hero_local_atomic.bat",
+    "tools/windows/Invoke-P0HeroMasterQA.ps1",
     "tools/windows/run_p0_05_promote_and_regress.bat"
   ],
   "repository": {
@@ -102,18 +111,17 @@
     "device": "AsusRog",
     "status": "blocked",
     "blockers": [
-      "AsusRog is offline in Remote Desktop Commander",
-      "GitHub self-hosted job 38283661904 is queued with zero steps started"
+      "Remote Desktop Commander monthly usage limit reached",
+      "Latest self-hosted P0 Hero run was not picked up by a Windows runner and was cancelled"
     ],
-    "github_run_id": 38283661904,
-    "github_run_status": "queued",
-    "github_run_conclusion": null,
-    "note": "No claim is made that P0-03/P0-04A/P0-04B executed inside the AsusRog Unreal project.",
-    "blocker": "Remote Desktop Commander monthly usage limit reached; previous self-hosted GitHub runner attempt was not picked up and was cancelled"
+    "latest_self_hosted_run_id": 38242226299,
+    "latest_self_hosted_run_status": "completed",
+    "latest_self_hosted_run_conclusion": "cancelled",
+    "note": "Repository/static gates are ready. No claim is made that local P0-03/P0-04A/P0-04B/P0-05 executed on AsusRog in this pass."
   },
   "current_working_hero": {
     "asset": "SK_NARIS_AshenVessel_v3",
-    "policy": "retain until P0-05 passes"
+    "policy": "retain until canonical P0-05 passes"
   },
   "required_visual_pipeline_revision": "p0-04b-hashbound-camera-v2+candidate-source-sha",
   "repository_verification": {
