@@ -1,7 +1,7 @@
 {
-  "requested_at": "2026-10-13T17:06:00+03:00",
+  "requested_at": "2026-10-13T17:18:00+03:00",
   "product": "CALL OF NARIS",
-  "pipeline": "P0 Hero Canonical Hash-Bound Production",
+  "pipeline": "P0 Hero Canonical Self-Hosted Production",
   "source_green_head": "5bb9e28bcd825853e404a82c4663a8b9a67f11b8",
   "stages": [
     "P0-01",
@@ -29,12 +29,15 @@
   ],
   "policy": "No hero replacement until exact screenshot provenance is visually approved and P0-05 packaged regression passes.",
   "request_id": "p0-hero-rerun-20261012-2031",
-  "reason": "Rerun latest canonical pipeline after GLB SHA256 binding was added to P0-03.",
+  "reason": "Requeue latest canonical pipeline after manifest, packaged regression, and approval-preflight hardening.",
   "keep_working_hero": "SK_NARIS_AshenVessel_v3 until P0-05 promotion regression passes",
   "required_head_note": "Must include GLB source hash binding before Unreal import.",
   "requested_by": "ChatGPT autonomous production pass",
   "request_reason": "Final canonical queue after workflow stabilization; execute P0-01 through P0-04B when AsusRog returns online",
   "expected_head": "main",
   "do_not_promote_without_visual_approval": true,
-  "note": "FINAL QUEUE REQUEST. Do not promote without hash-bound visual approval. No further P0 workflow edits should supersede this run."
+  "note": "FINAL QUEUE REQUEST. Do not promote without hash-bound visual approval. No further P0 workflow edits should supersede this run.",
+  "canonical_branch": "main",
+  "required_visual_pipeline_revision": "p0-04b-hashbound-camera-v2",
+  "promotion_policy": "Do not replace SK_NARIS_AshenVessel_v3; P0-05 requires hash-bound visual approval."
 }
