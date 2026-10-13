@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0.0",
-  "updated_at": "2026-10-12",
+  "updated_at": "2026-10-13",
   "product": "CALL OF NARIS",
   "technical_namespace": "NARIS",
   "pipeline": "P0 Hero Production",
@@ -61,30 +61,29 @@
     },
     {
       "id": "P0-04B",
-      "name": "D3D12 Visual + Combat Evidence",
+      "name": "Reversible D3D12 Candidate Runtime QA",
       "status": "ready_in_repository",
-      "runner": "tools/windows/Invoke-P0HeroMasterQA.ps1",
-      "outputs": [
-        "Reports/P0-04B_visual_scene.json",
-        "Reports/P0-04B_render_evidence.json",
-        "Reports/P0-04B_runtime_qa.json",
-        "Reports/P0-04B_combat_d3d12.log",
-        "Saved/Screenshots/Windows/P0-04B_HeroCompare.png"
+      "script": "tools/windows/run_p0_04b_candidate_runtime_qa.ps1",
+      "output_report": "Reports/P0-04B_runtime_candidate_qa.json",
+      "evidence": [
+        "Reports/P0-04B_candidate_runtime.log",
+        "Reports/P0-04B_candidate.png"
       ],
-      "gate": "scene prepared + P0-04A candidate SHA bound into scene/render/runtime evidence + fresh D3D12 screenshot + screenshot SHA256/bytes/git SHA/workflow run ID + NARIS_COMBAT_QA_RESULT Pass=1 + fatal_count=0",
+      "gate": "temporary candidate activation + NARISEditor build + D3D12 combat QA + no fatal/missing/skeleton errors + source restored",
       "replacement_allowed": false
     },
     {
       "id": "P0-05",
-      "name": "Hero Promotion + Package Regression",
+      "name": "Atomic Hero Promotion and Rollback",
       "status": "ready_in_repository",
-      "runner": "tools/windows/run_p0_05_promote_and_regress.bat",
-      "gate": "P0-04A PASS + P0-04B runtime PASS_EVIDENCE_READY + exact candidate source SHA256 chain + hash-bound visual approval + matching screenshot SHA256/bytes/candidate/baseline/qa_map/git SHA/workflow run ID + same Skeleton",
-      "rollback": "transactional asset rollback on any Win64 build, clean cook, package, packaged D3D12 combat QA, or log QA failure",
-      "replacement_allowed": "only_after_full_packaged_regression_pass",
-      "promotion_script": "tools/unreal/p0_05_promote_hero.py",
-      "rollback_script": "tools/unreal/p0_05_rollback_hero.py",
-      "approval_contract": "data/P0_HERO_VISUAL_APPROVAL.json"
+      "script": "tools/windows/run_p0_05_promote_hero.ps1",
+      "required_inputs": [
+        "Reports/P0-04B_runtime_candidate_qa.json",
+        "Reports/P0-04B_visual_decision.json"
+      ],
+      "output_report": "Reports/P0-05_hero_promotion.json",
+      "gate": "P0-04B runtime PASS + accepted screenshot SHA256 + Editor/Game build + D3D12 combat QA + package + packaged combat QA",
+      "rollback": "automatic restore of HeroV3 source and rebuild on any failure"
     }
   ],
   "runners": [
@@ -101,7 +100,7 @@
   },
   "local_execution": {
     "device": "AsusRog",
-    "status": "queued_waiting_for_self_hosted_runner",
+    "status": "blocked",
     "blockers": [
       "AsusRog is offline in Remote Desktop Commander",
       "GitHub self-hosted job 38283661904 is queued with zero steps started"
@@ -109,11 +108,12 @@
     "github_run_id": 38283661904,
     "github_run_status": "queued",
     "github_run_conclusion": null,
-    "note": "No claim is made that P0-03/P0-04A/P0-04B executed inside the AsusRog Unreal project."
+    "note": "No claim is made that P0-03/P0-04A/P0-04B executed inside the AsusRog Unreal project.",
+    "blocker": "Remote Desktop Commander monthly usage limit reached; previous self-hosted GitHub runner attempt was not picked up and was cancelled"
   },
   "current_working_hero": {
     "asset": "SK_NARIS_AshenVessel_v3",
-    "policy": "retain until P0-05 full packaged regression passes"
+    "policy": "retain until P0-05 passes"
   },
   "required_visual_pipeline_revision": "p0-04b-hashbound-camera-v2+candidate-source-sha",
   "repository_verification": {
