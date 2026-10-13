@@ -233,12 +233,29 @@ for key,value in {
         unreal.EditorAssetLibrary.set_metadata_tag(promoted,unreal.Name(key),str(value))
     except Exception:
         pass
-unreal.EditorAssetLibrary.save_loaded_asset(promoted)
-unreal.EditorAssetLibrary.save_directory("/Game/NARIS/Characters/HeroV3",False,True)
+def recover_after_save_failure(reason):
+    # Keep the baseline recoverable and never report an unsaved swap as PASS.
+    restored=False
+    try:
+        moved_back=unreal.EditorAssetLibrary.rename_asset(ACTIVE,CANDIDATE)
+        restored=unreal.EditorAssetLibrary.rename_asset(ARCHIVE,ACTIVE) if moved_back else False
+        persisted=bool(restored and unreal.EditorAssetLibrary.save_directory("/Game/NARIS/Characters",False,True))
+    except Exception as exc:
+        fail(reason,{"rolled_back":False,"critical":True,"recovery_error":str(exc)})
+    fail(reason,{"rolled_back":persisted,"active_preserved":restored,"critical":not persisted})
+
+try:
+    asset_saved=unreal.EditorAssetLibrary.save_loaded_asset(promoted)
+    directory_saved=unreal.EditorAssetLibrary.save_directory("/Game/NARIS/Characters",False,True) if asset_saved else False
+except Exception as exc:
+    recover_after_save_failure("promotion_save_exception: "+str(exc))
+if not asset_saved or not directory_saved:
+    recover_after_save_failure("promotion_save_failed")
 
 result={
     "status":"PASS",
     "promoted":True,
+    "persisted":True,
     "active_path":ACTIVE,
     "archive_path":ARCHIVE,
     "candidate_original_path":CANDIDATE,

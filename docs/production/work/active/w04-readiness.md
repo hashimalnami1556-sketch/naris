@@ -33,3 +33,24 @@ last_updated: 2026-10-01
 - Missing sources: 18 attachment paths announced for this session were absent; no asset contents were inspected.
 - Next action: when Windows is online, run `tools/windows/Invoke-NarisBlenderMasterBuilder.ps1 -ExportCoreAssets` and retain its blend/validation/manifest/export evidence; then compile NARIS_W04Editor, run the W04 Environment Factory bridge and production blockout authoring, retain all reports, and execute Development package/runtime smoke before attempting the strict W04_AshenForest Shipping RC.
 - Acceptance: a passing static check alone cannot close engine, DCC import, backend deployment or gameplay gates.
+
+## 2026-10-13 execution claim
+- Executing agent: Codex.
+- Scope: four P0 Windows JSON writers, P0-05 promotion/report failure gates, source-level regression checks and status reconciliation.
+- Baseline: canonical main 6afcca1.
+- No engine execution or asset promotion is claimed by this repair.
+- Completed: four runner repairs and four regression checks; canonical status/gap register reconciled with this repair.
+- Evidence: repository validator, 340 CI source/contract tests, 6 AssetForge tests, git diff --check.
+- Blocker: actual Windows CMD/PowerShell and Unreal validation not performed.
+- Next action: execute the repaired P0 runners on the Windows host and preserve fresh reports before closing engine gates.
+- Claim released: implementation complete; host validation remains open.
+
+## 2026-10-13 follow-up execution claim
+- Executing agent: Codex.
+- Scope: P0 hero promotion/rollback persistence failures and packaged ensure-log rejection.
+- Baseline: PR #42 head 6db90b6; all four GitHub PR workflows passed.
+- No asset approval, production promotion or Unreal execution is authorized by these source repairs.
+- Completed: persistence guards and recovery reporting, packaged ensure rejection, seven executable mock-based recovery tests.
+- Validation: 347 CI tests, 6 AssetForge tests, repository validator and diff checks pass locally.
+- Claim released: source repair complete; engine/Windows validation remains open.
+- Next action: verify saves/rename/rollback in the actual Unreal editor, then run the Windows packaged regressions.

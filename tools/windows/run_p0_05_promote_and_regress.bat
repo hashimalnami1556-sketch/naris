@@ -14,6 +14,8 @@ set "ARCHIVE=%PROJECT%\Builds\NARIS_Win64_Dev"
 set "PACKAGED=%ARCHIVE%\Windows\NARIS.exe"
 set "PACKAGED_INTERNAL=%ARCHIVE%\Windows\NARIS\Binaries\Win64\NARIS.exe"
 set "QA_LOG=%PROJECT%\Reports\P0-05_packaged_combat_qa.log"
+set "PROMOTION_REPORT=%PROJECT%\Reports\P0-05_promotion.json"
+set "ROLLBACK_REPORT=%PROJECT%\Reports\P0-05_rollback.json"
 set "REPORT=%PROJECT%\Reports\P0-05_final_acceptance.json"
 
 echo ============================================================
@@ -28,15 +30,26 @@ for %%F in ("%UECMD%" "%UBT%" "%UAT%" "%UPROJECT%" "%PROMOTE%" "%ROLLBACK%" "%AP
 )
 
 powershell -NoProfile -ExecutionPolicy Bypass -Command ^
+ "$ErrorActionPreference='Stop';" ^
  "$j=Get-Content -Raw -LiteralPath '%APPROVAL%'|ConvertFrom-Json;" ^
  "if($j.approved -ne $true){Write-Host '[P0-05] BLOCKED: visual approval is not true';exit 71};" ^
  "if($j.decision -notin @('APPROVE','APPROVED','PASS')){Write-Host '[P0-05] BLOCKED: visual decision invalid';exit 72};" ^
  "Write-Host ('[P0-05] Visual evidence accepted: '+$j.screenshot)"
 if errorlevel 1 exit /b %errorlevel%
 
+rem Remove old acceptance/promotion evidence before this attempt.
+for %%F in ("%REPORT%" "%PROMOTION_REPORT%") do (
+  if exist "%%~F" del /q "%%~F"
+  if exist "%%~F" exit /b 74
+)
 echo [P0-05] Promoting candidate asset...
 "%UECMD%" "%UPROJECT%" -unattended -nop4 -nosplash -ExecutePythonScript="%PROMOTE%" -stdout -FullStdOutLogOutput
 if errorlevel 1 exit /b 73
+powershell -NoProfile -Command ^
+ "$ErrorActionPreference='Stop';" ^
+ "$p=Get-Content -Raw -LiteralPath '%PROMOTION_REPORT%'|ConvertFrom-Json;" ^
+ "if($p.status -ne 'PASS' -or $p.promoted -ne $true -or $p.persisted -ne $true -or $p.active_path -ne '/Game/NARIS/Characters/HeroV3/SK_NARIS_AshenVessel_v3'){exit 75}"
+if errorlevel 1 exit /b 75
 
 set "ComSpec=C:\Windows\System32\cmd.exe"
 set "SHELL=%ComSpec%"
@@ -64,6 +77,7 @@ if exist "%QA_LOG%" del /q "%QA_LOG%"
 
 echo [P0-05] Running packaged D3D12 combat regression on internal game binary...
 powershell -NoProfile -ExecutionPolicy Bypass -Command ^
+ "$ErrorActionPreference='Stop';" ^
  "$exe='%PACKAGED_INTERNAL%';" ^
  "$log='%QA_LOG%';" ^
  "$started=Get-Date;" ^
@@ -76,16 +90,18 @@ powershell -NoProfile -ExecutionPolicy Bypass -Command ^
 if errorlevel 1 goto :rollback_runtime
 
 powershell -NoProfile -ExecutionPolicy Bypass -Command ^
+ "$ErrorActionPreference='Stop';" ^
  "$l='%QA_LOG%';" ^
  "if(-not(Test-Path -LiteralPath $l)){exit 81};" ^
  "$txt=Get-Content -Raw -LiteralPath $l;" ^
  "if($txt -notmatch 'NARIS_COMBAT_QA_RESULT Pass=1'){exit 82};" ^
- "if($txt -match 'Fatal error|LowLevelFatalError|Unhandled Exception|Assertion failed'){exit 83};" ^
+ "if($txt -match 'Fatal error|LowLevelFatalError|Unhandled Exception|Ensure condition failed|Assertion failed'){exit 83};" ^
  "if($txt -notmatch 'NARIS_HERO_VISUAL_QA MeshVisible=1'){exit 84};" ^
  "Write-Host '[P0-05] Packaged combat regression PASS'"
 if errorlevel 1 goto :rollback_logqa
 
 powershell -NoProfile -ExecutionPolicy Bypass -Command ^
+ "$ErrorActionPreference='Stop';" ^
  "$exe='%PACKAGED_INTERNAL%';$log='%QA_LOG%';$approval='%APPROVAL%';$promotion='%PROJECT%\Reports\P0-05_promotion.json';" ^
  "$a=Get-Content -Raw -LiteralPath $approval|ConvertFrom-Json;" ^
  "$o=[ordered]@{" ^
@@ -108,12 +124,16 @@ powershell -NoProfile -ExecutionPolicy Bypass -Command ^
  " build='Win64 Development';" ^
  " package='Full Clean Cook/Stage/Pak/Archive';" ^
  "};" ^
- "$o|ConvertTo-Json -Depth 6|Set-Content -Encoding utf8NoBOM -LiteralPath '%REPORT%'"
+ "[System.IO.File]::WriteAllText('%REPORT%',($o|ConvertTo-Json -Depth 6),[System.Text.UTF8Encoding]::new($false))"
+if errorlevel 1 goto :rollback_report
 echo ============================================================
 echo [P0-05] PASS - PROMOTED HERO SURVIVED PACKAGED COMBAT QA
 echo ============================================================
 exit /b 0
 
+:rollback_report
+set "FAIL_REASON=acceptance_report_write_failed"
+goto :rollback
 :rollback_build
 set "FAIL_REASON=win64_build_failed"
 goto :rollback
@@ -135,11 +155,21 @@ goto :rollback
 
 :rollback
 echo [P0-05] FAILURE: !FAIL_REASON! - rolling back working HeroV3...
+if exist "%ROLLBACK_REPORT%" del /q "%ROLLBACK_REPORT%"
+if exist "%ROLLBACK_REPORT%" exit /b 99
 "%UECMD%" "%UPROJECT%" -unattended -nop4 -nosplash -ExecutePythonScript="%ROLLBACK%" -stdout -FullStdOutLogOutput
 set "RB=%ERRORLEVEL%"
+if not "%RB%"=="0" exit /b 99
+powershell -NoProfile -Command ^
+ "$ErrorActionPreference='Stop';" ^
+ "$r=Get-Content -Raw -LiteralPath '%ROLLBACK_REPORT%'|ConvertFrom-Json;" ^
+ "if($r.status -ne 'PASS' -or $r.rolled_back -ne $true -or $r.active_preserved -ne $true -or $r.persisted -ne $true){exit 99}"
+if errorlevel 1 exit /b 99
 powershell -NoProfile -ExecutionPolicy Bypass -Command ^
+ "$ErrorActionPreference='Stop';" ^
  "$o=[ordered]@{status='FAIL';promoted=$false;failure_reason='!FAIL_REASON!';rollback_exit_code=!RB!};" ^
- "$o|ConvertTo-Json|Set-Content -Encoding utf8NoBOM -LiteralPath '%REPORT%'"
+ "[System.IO.File]::WriteAllText('%REPORT%',($o|ConvertTo-Json),[System.Text.UTF8Encoding]::new($false))"
+if errorlevel 1 exit /b 98
 if not "%RB%"=="0" (
   echo [P0-05] CRITICAL: rollback also failed.
   exit /b 99

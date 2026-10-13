@@ -66,8 +66,17 @@ else:
                     "candidate_restored_to_original_path":candidate_restored,
                     "note":None if candidate_restored else "Working HeroV3 restored; promoted candidate remains safely staged at rollback temp path."
                 }
-                unreal.EditorAssetLibrary.save_directory("/Game/NARIS/Characters",False,True)
 
+# A rename in the loaded editor is insufficient: recovery must persist to disk.
+if result.get("rolled_back"):
+    try:
+        saved=unreal.EditorAssetLibrary.save_directory("/Game/NARIS/Characters",False,True)
+        if not saved:
+            raise RuntimeError("save_directory_returned_false")
+        result["persisted"]=True
+    except Exception as exc:
+        result.update({"status":"FAIL","rolled_back":False,"persisted":False,
+                       "recovered_in_memory":True,"reason":"rollback_save_failed","save_error":str(exc)})
 write_result(result)
 if not result.get("rolled_back"):
     raise RuntimeError(result.get("reason","rollback_failed"))

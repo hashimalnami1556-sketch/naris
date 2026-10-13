@@ -50,6 +50,7 @@ if errorlevel 1 (
 )
 
 powershell -NoProfile -ExecutionPolicy Bypass -Command ^
+ "$ErrorActionPreference='Stop';" ^
  "$dir='%SCREEN_DIR%';" ^
  "$canonical='%SHOT%';" ^
  "$started=[DateTimeOffset]::Parse('%RENDER_START%').UtcDateTime;" ^
@@ -82,7 +83,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -Command ^
  " screenshot_written_utc=$latest.LastWriteTimeUtc.ToString('o');" ^
  " workflow_run_id=('local-boss-'+$stamp);" ^
  "};" ^
- "$e|ConvertTo-Json -Depth 8|Set-Content -Encoding utf8NoBOM -LiteralPath '%EVIDENCE%';" ^
+ "[System.IO.File]::WriteAllText('%EVIDENCE%',($e|ConvertTo-Json -Depth 8),[System.Text.UTF8Encoding]::new($false));" ^
  "Write-Host ('[ASH-WARDEN-VISUAL] SCREENSHOT='+$canonical);" ^
  "Write-Host ('[ASH-WARDEN-VISUAL] SHA256='+$hash);" ^
  "Write-Host ('[ASH-WARDEN-VISUAL] BYTES='+$bytes);" ^
