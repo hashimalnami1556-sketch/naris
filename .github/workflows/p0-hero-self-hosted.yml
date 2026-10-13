@@ -4,6 +4,15 @@ on:
   push:
     paths:
       - data/P0_HERO_RUN_REQUEST.json
+      - data/P0_HERO_PIPELINE_STATUS.json
+      - tools/blender/p0_01_hero_oneshot.py
+      - tools/blender/p0_02_hero_rig_pbr.py
+      - tools/unreal/p0_03_import_hero.py
+      - tools/unreal/p0_04a_hero_technical_qa.py
+      - tools/unreal/p0_04b_prepare_visual_qa.py
+      - tools/windows/run_p0_hero_to_unreal.bat
+      - tools/windows/Invoke-P0HeroMasterQA.ps1
+      - .github/workflows/p0-hero-self-hosted.yml
   workflow_dispatch:
 
 permissions:
