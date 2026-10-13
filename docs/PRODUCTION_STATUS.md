@@ -1,7 +1,7 @@
 # CALL OF NARIS — Production Status
 
 **Snapshot:** 2026-10-01
-**Canonical engine path:** Unreal Engine 5.4+  
+**Canonical repository engine association:** Unreal Engine 5.7 (`unreal/NARIS_W04/NARIS_W04.uproject`; verified from the checked-in descriptor, not a successful build)  
 **Primary target:** Windows PC  
 **Primary vertical slice:** W04 — Ashen Forest  
 **Release gate:** Internal playtest only
@@ -193,3 +193,10 @@ Executed directly on **AsusRog** against Unreal Engine 5.7 and `/Game/NARIS/Maps
 - The pass reported **0 missing modular assets**.
 - The map was saved and `Reports/production-pass04.json` was emitted with status `production_layout_pass`.
 - This improves the map from the earlier blockout/modular state, but does not yet close the remaining BasicShapes cleanup, materials, traversal/collision, packaged gameplay or performance gates.
+
+## Engine baseline reconciliation — 2026-10-14
+
+- The checked-in W04 `.uproject` currently declares `EngineAssociation: 5.7`. Earlier `5.4` and `5.4+` references in historical notes are stale baseline descriptions, not instructions to downgrade.
+- The workstation's `Game/NARIS_UE57/NARIS.uproject` and repository's `unreal/NARIS_W04/NARIS_W04.uproject` are distinct project paths; their content equivalence has **not** been established. Do not overwrite either without a manifest/diff and backup.
+- Documentation and descriptor inspection are **source-level checks only**. UnrealBuildTool compilation, editor map validation, packaged Windows smoke, save/load, boss completion, EN/AR UI and 60 FPS acceptance remain open until independently evidenced.
+- Next required evidence: Windows build logs with engine path/version, artifact hashes, W04 map and asset registry audit, packaged smoke results, crash logs and measured frame-time statistics.
