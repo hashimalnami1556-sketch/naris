@@ -49,6 +49,8 @@ def import_demon(path):
     animations = [x for x in assets if isinstance(x, unreal.AnimSequence)]
     if not skeletal:
         fail("Import did not produce SkeletalMesh; no map edited")
+    if not animations:
+        fail("No animation clips were imported; refusing to place boss")
     unreal.EditorAssetLibrary.save_directory(DEST, only_if_is_dirty=True, recursive=True)
     return skeletal[0], animations, task.imported_object_paths
 
