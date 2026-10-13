@@ -6,7 +6,7 @@ Updated: 2026-10-01. Evidence: repository source inspection, prior CI evidence, 
 
 The earlier register incorrectly described the repository as containing only README/assets/docs and reported the Unreal project, C++ tree and Gameplay Tags as missing. These now exist:
 
-- [Unreal descriptor](../unreal/NARIS_W04/NARIS_W04.uproject), selecting EngineAssociation 5.4.
+- [Unreal descriptor](../unreal/NARIS_W04/NARIS_W04.uproject), currently selecting EngineAssociation 5.7 (verified from the checked-in descriptor; historical 5.4 reference corrected 2026-10-14).
 - [C++ source](../unreal/NARIS_W04/Source/), including player, companion, combat and boss components.
 - [Registered Gameplay Tags](../unreal/NARIS_W04/Config/DefaultGameplayTags.ini).
 - [CI workflow](../.github/workflows/naris-ci.yml), including a manually invoked self-hosted Windows build job.
@@ -67,3 +67,15 @@ No engine upgrade, new product direction, asset approval or public release is im
 - Visible percentages are planning estimates, not QA evidence.
 - AsusRog state during synchronization: **online**.
 - Critical blockers remain Windows Unreal build evidence, production map/assets, unresolved animation/audio/Niagara payloads, packaged playtest evidence and performance acceptance.
+
+## Evidence reconciliation — 2026-10-14
+
+| Priority | Open verification | Acceptance evidence |
+|---|---|---|
+| P0 | Engine baseline drift between older documentation and checked-in descriptor | Descriptor now specifies UE 5.7; confirm installed Windows engine and successful UnrealBuildTool compile |
+| P0 | Local AsusRog project versus repository W04 project | Backup, compare file manifests and asset hashes, reconcile without overwriting uncommitted local maps/assets |
+| P0 | W04 gameplay and production map | Real editor and packaged playthrough, including Ash Gate, companion, Bone Beast and DemoEnd |
+| P1 | Presentation and art payloads | Resolve 16 audio, 14 Niagara and 10 animation montage references; pass engine asset gates |
+| P1 | Shipping readiness | EN/AR and RTL tests, save/load restart, crash-free packaged launch, frame-time capture and provenance audit |
+
+**Verification boundary:** These entries reconcile repository evidence and do not claim any Unreal build, gameplay test, Windows package or 60 FPS benchmark was executed in this change.
