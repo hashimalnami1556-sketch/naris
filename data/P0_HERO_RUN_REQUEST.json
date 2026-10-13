@@ -1,5 +1,5 @@
 {
-  "requested_at": "2026-10-13T16:53:00+03:00",
+  "requested_at": "2026-10-13T17:06:00+03:00",
   "product": "CALL OF NARIS",
   "pipeline": "P0 Hero Canonical Hash-Bound Production",
   "source_green_head": "5bb9e28bcd825853e404a82c4663a8b9a67f11b8",
@@ -33,8 +33,8 @@
   "keep_working_hero": "SK_NARIS_AshenVessel_v3 until P0-05 promotion regression passes",
   "required_head_note": "Must include GLB source hash binding before Unreal import.",
   "requested_by": "ChatGPT autonomous production pass",
-  "request_reason": "Run latest canonical P0-01..P0-04B pipeline when AsusRog self-hosted runner returns online",
+  "request_reason": "Final canonical queue after workflow stabilization; execute P0-01 through P0-04B when AsusRog returns online",
   "expected_head": "main",
   "do_not_promote_without_visual_approval": true,
-  "note": "Use canonical Invoke-P0HeroMasterQA.ps1 and hash-bound evidence. Working HeroV3 remains active until P0-05 passes."
+  "note": "FINAL QUEUE REQUEST. Do not promote without hash-bound visual approval. No further P0 workflow edits should supersede this run."
 }
