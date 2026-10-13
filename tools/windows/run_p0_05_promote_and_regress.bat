@@ -86,7 +86,8 @@ powershell -NoProfile -ExecutionPolicy Bypass -Command ^
 if errorlevel 1 goto :rollback_logqa
 
 powershell -NoProfile -ExecutionPolicy Bypass -Command ^
- "$exe='%PACKAGED_INTERNAL%';$log='%QA_LOG%';" ^
+ "$exe='%PACKAGED_INTERNAL%';$log='%QA_LOG%';$approval='%APPROVAL%';$promotion='%PROJECT%\Reports\P0-05_promotion.json';" ^
+ "$a=Get-Content -Raw -LiteralPath $approval|ConvertFrom-Json;" ^
  "$o=[ordered]@{" ^
  " status='PASS';" ^
  " promoted=$true;" ^
@@ -94,6 +95,11 @@ powershell -NoProfile -ExecutionPolicy Bypass -Command ^
  " d3d12=$true;" ^
  " active_hero='/Game/NARIS/Characters/HeroV3/SK_NARIS_AshenVessel_v3';" ^
  " rollback_asset='/Game/NARIS/Characters/HeroV3/Archive/SK_NARIS_AshenVessel_v3_PreP0';" ^
+ " candidate_source_sha256=([string]$a.candidate_source_sha256).ToLowerInvariant();" ^
+ " evidence_git_sha=[string]$a.evidence_git_sha;" ^
+ " evidence_workflow_run_id=[string]$a.evidence_workflow_run_id;" ^
+ " visual_approval_sha256=(Get-FileHash -Algorithm SHA256 -LiteralPath $approval).Hash.ToLowerInvariant();" ^
+ " promotion_report_sha256=(Get-FileHash -Algorithm SHA256 -LiteralPath $promotion).Hash.ToLowerInvariant();" ^
  " packaged_internal=$exe;" ^
  " packaged_exe_sha256=(Get-FileHash -Algorithm SHA256 -LiteralPath $exe).Hash.ToLowerInvariant();" ^
  " log=$log;" ^
