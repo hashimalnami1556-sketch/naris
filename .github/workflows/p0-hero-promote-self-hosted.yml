@@ -48,6 +48,11 @@ jobs:
               and bool(str(data.get("evidence_workflow_run_id") or "").strip())
               and bool(str(data.get("approved_by") or "").strip())
               and bool(str(data.get("approved_at") or "").strip())
+              and bool(re.fullmatch(r"[0-9a-fA-F]{64}", str(data.get("candidate_source_sha256") or "")))
+              and data.get("candidate") == "/Game/NARIS/Characters/HeroProduction/SK_NARIS_AshenVessel_Production"
+              and data.get("baseline") == "/Game/NARIS/Characters/HeroV3/SK_NARIS_AshenVessel_v3"
+              and data.get("qa_map") == "/Game/NARIS/QA/L_HeroCandidate_QA"
+              and data.get("screenshot") == "P0-04B_HeroCompare.png"
               and data.get("pipeline_revision") == "p0-04b-hashbound-camera-v2"
           )
           print("P0_05_APPROVAL_READY=" + ("1" if approved else "0"))
