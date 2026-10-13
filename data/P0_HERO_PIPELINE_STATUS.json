@@ -76,8 +76,9 @@
       ],
       "gate": "P0-04A PASS + candidate source SHA256 chain + D3D12 side-by-side render + fresh screenshot hash/bytes + combat regression + zero fatal findings",
       "replacement_allowed": false,
-      "pipeline_revision": "p0-04b-hashbound-camera-v2+candidate-source-sha",
-      "visual_approval_file": "data/P0_HERO_VISUAL_APPROVAL.json"
+      "pipeline_revision": "p0-04b-hashbound-camera-v2",
+      "visual_approval_file": "data/P0_HERO_VISUAL_APPROVAL.json",
+      "hash_binding": "candidate_source_sha256 is mandatory and validated separately across P0-04A/scene/render/runtime/approval"
     },
     {
       "id": "P0-05",
@@ -126,7 +127,7 @@
     "asset": "SK_NARIS_AshenVessel_v3",
     "policy": "retain until canonical P0-05 passes"
   },
-  "required_visual_pipeline_revision": "p0-04b-hashbound-camera-v2+candidate-source-sha",
+  "required_visual_pipeline_revision": "p0-04b-hashbound-camera-v2",
   "repository_verification": {
     "status": "PASS",
     "commit": "238d0d581db59839437ac1f173a07b7984d6b2e9",
