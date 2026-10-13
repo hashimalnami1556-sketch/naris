@@ -4,7 +4,6 @@ on:
   push:
     paths:
       - data/P0_HERO_RUN_REQUEST.json
-      - data/P0_HERO_PIPELINE_STATUS.json
       - tools/blender/p0_01_hero_oneshot.py
       - tools/blender/p0_02_hero_rig_pbr.py
       - tools/unreal/p0_03_import_hero.py
