@@ -281,6 +281,11 @@ class HeroProductionPipelineContract(unittest.TestCase):
             "Get-FileHash -Algorithm SHA256",
             "qa_log_sha256",
             "packaged_exe_sha256",
+            "visual_approval_sha256",
+            "promotion_report_sha256",
+            "candidate_source_sha256",
+            "evidence_git_sha",
+            "evidence_workflow_run_id",
             "goto :rollback_runtime",
         ):
             self.assertIn(token, src)
