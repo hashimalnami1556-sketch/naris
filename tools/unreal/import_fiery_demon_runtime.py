@@ -96,7 +96,8 @@ def spawn_boss_position(actors,target):
         fail("Missing production Ash Gate anchor NARIS_AshGate_0001; no map saved")
     origin=anchor.get_actor_location()
     forward=anchor.get_actor_forward_vector()
-    return tuple(origin + forward * 650 + unreal.Vector(0,0,120))
+    position=origin + forward * 650 + unreal.Vector(0,0,120)
+    return (position.x,position.y,position.z)
 
 
 def place_boss(actors,mesh,animations,target):
