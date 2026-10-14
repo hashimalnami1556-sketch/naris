@@ -68,7 +68,7 @@ class FieryDemonBuildPipelineContract(unittest.TestCase):
 
     def test_launch_can_keep_game_running_after_success(self):
         self.assertIn("[switch]$SmokeOnly", self.ps)
-        self.assertIn("if ($SmokeOnly)", self.ps)
+        self.assertIn("if ($SmokeOnly -or -not $smokeAccepted)", self.ps)
 
     def test_new_qa_archive_isolated_by_timestamp(self):
         self.assertIn('ToString("yyyyMMdd_HHmmss")', self.ps)
