@@ -43,7 +43,7 @@ void ANarisFieryDemonBoss::BeginPlay()
 void ANarisFieryDemonBoss::Tick(float DeltaSeconds)
 {
     Super::Tick(DeltaSeconds);
-    if (!GetWorld() || IsEncounterComplete()) { return; }
+    if (!GetWorld() || IsEncounterComplete() || bEnraging) { return; }
 
     APawn* PlayerPawn = UGameplayStatics::GetPlayerPawn(this, 0);
     if (!IsValid(PlayerPawn)) { return; }
@@ -78,7 +78,7 @@ void ANarisFieryDemonBoss::Tick(float DeltaSeconds)
 void ANarisFieryDemonBoss::ResolveQueuedImpact()
 {
     bStrikeQueued = false;
-    if (!IsEncounterActive() || IsEncounterComplete())
+    if (!IsEncounterActive() || IsEncounterComplete() || bEnraging)
     {
         CancelAttack();
         return;
@@ -107,24 +107,53 @@ void ANarisFieryDemonBoss::RestoreIdleAnimation()
     }
 }
 
+void ANarisFieryDemonBoss::EndEnrage()
+{
+    bEnraging = false;
+    if (IsEncounterActive() && !IsEncounterComplete())
+    {
+        bAutoAttack = true;
+        RestoreIdleAnimation();
+    }
+}
+
 void ANarisFieryDemonBoss::OnDemonBossEvent(FName EventName)
 {
-    if (EventName == TEXT("Death") || EventName == TEXT("EncounterComplete"))
+    if (EventName == TEXT("Death") || EventName == TEXT("EncounterComplete")
+        || EventName == TEXT("EncounterRestoredComplete"))
     {
         GetWorldTimerManager().ClearTimer(ImpactTimer);
         GetWorldTimerManager().ClearTimer(IdleTimer);
+        bEnraging = false;
+        bAutoAttack = false;
         bStrikeQueued = false;
         CancelAttack();
+        if (EventName == TEXT("Death") && DeathAnimation)
+        {
+            if (USkeletalMeshComponent* Skel = GetMesh())
+            {
+                Skel->PlayAnimation(DeathAnimation, false);
+            }
+        }
         return;
     }
     if (EventName == TEXT("PhaseTransition") && EnrageAnimation)
     {
+        GetWorldTimerManager().ClearTimer(ImpactTimer);
+        bStrikeQueued = false;
+        CancelAttack();
+        bEnraging = true;
+        bAutoAttack = false;
         if (USkeletalMeshComponent* Skel = GetMesh())
         {
             Skel->PlayAnimation(EnrageAnimation, false);
             GetWorldTimerManager().SetTimer(
-                IdleTimer, this, &ANarisFieryDemonBoss::RestoreIdleAnimation,
+                IdleTimer, this, &ANarisFieryDemonBoss::EndEnrage,
                 1.2f, false);
+        }
+        else
+        {
+            EndEnrage();
         }
     }
 }
