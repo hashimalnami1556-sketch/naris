@@ -35,7 +35,7 @@ class FieryDemonBuildPipelineContract(unittest.TestCase):
             self.assertIn(token, self.blender)
 
     def test_windows_build_gates_on_input_asset_and_engine(self):
-        for token in ("[string]$DemonGlb", "Test-Path -LiteralPath $DemonGlb",
+        for token in ("[string]$DemonGlb", "Assert-File $DemonGlb", "Test-Path -LiteralPath $Path -PathType Leaf",
                       "UnrealEditor-Cmd.exe", "RunUAT.bat", "Build.bat"):
             self.assertIn(token, self.ps)
 
