@@ -61,6 +61,14 @@ class FieryDemonBuildPipelineContract(unittest.TestCase):
         self.assertIn('Get-Process -Name UnrealEditor', self.ps)
         self.assertIn('throw', self.ps)
 
+    def test_one_click_launcher_uses_fresh_build_and_user_assets(self):
+        launcher = (ROOT / "tools/windows/RUN_NARIS_FIERY_DEMON.cmd").read_text(encoding="utf-8")
+        self.assertIn("Invoke-NarisFieryDemonBuild.ps1",launcher)
+        self.assertIn("NARIS_Fiery_Demon_COMBAT_PROXY_Rigged.glb",launcher)
+        self.assertIn("-Package -Launch",launcher)
+        self.assertIn("if exist",launcher)
+        self.assertIn("exit /b",launcher)
+
     def test_localization_is_built_before_cooking(self):
         self.assertIn("Invoke-NarisLocalization.ps1", self.ps)
         self.assertLess(self.ps.index("Invoke-NarisLocalization.ps1"),
