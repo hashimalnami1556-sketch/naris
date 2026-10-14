@@ -61,6 +61,18 @@ class FieryDemonBuildPipelineContract(unittest.TestCase):
         self.assertIn('Get-Process -Name UnrealEditor', self.ps)
         self.assertIn('throw', self.ps)
 
+    def test_localization_is_built_before_cooking(self):
+        self.assertIn("Invoke-NarisLocalization.ps1", self.ps)
+        self.assertLess(self.ps.index("Invoke-NarisLocalization.ps1"),
+                        self.ps.index('"BuildCookRun"'))
+
+    def test_launch_can_keep_game_running_after_success(self):
+        self.assertIn("[switch]$SmokeOnly", self.ps)
+        self.assertIn("if ($SmokeOnly)", self.ps)
+
+    def test_new_qa_archive_isolated_by_timestamp(self):
+        self.assertIn('ToString("yyyyMMdd_HHmmss")', self.ps)
+
     def test_importer_keeps_production_edit_guard(self):
         self.assertIn('NARIS_ALLOW_MAP_EDIT', self.importer)
         self.assertIn('NARIS_TARGET_MAP', self.importer)
