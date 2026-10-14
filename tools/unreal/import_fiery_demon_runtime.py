@@ -24,7 +24,8 @@ def import_fbx(path, folder, skeletal=False):
     task.destination_path=folder
     task.automated=True
     task.save=True
-    task.replace_existing=False
+    # Re-import into this dedicated W04 boss folder rather than creating _1 duplicates.
+    task.replace_existing=True
     options=unreal.FbxImportUI()
     options.import_mesh=True
     options.import_as_skeletal=bool(skeletal)
@@ -86,10 +87,23 @@ def place_environment(actors,fbx):
     if hasattr(component,"set_static_mesh"):component.set_static_mesh(meshes[0])
     else:component.set_editor_property("static_mesh",meshes[0])
 
-def place_boss(actors,mesh,animations):
+def spawn_boss_position(actors,target):
+    if target==QA_MAP:
+        return (450,0,130)
+    # Do not inject an elite boss near the global origin or player spawn.
+    anchor=actor_by_label(actors,"NARIS_AshGate_0001")
+    if not anchor:
+        fail("Missing production Ash Gate anchor NARIS_AshGate_0001; no map saved")
+    origin=anchor.get_actor_location()
+    forward=anchor.get_actor_forward_vector()
+    return tuple(origin + forward * 650 + unreal.Vector(0,0,120))
+
+
+def place_boss(actors,mesh,animations,target):
+    position=spawn_boss_position(actors,target)
     boss_class=unreal.load_class(None,BOSS_CLASS)
     if not boss_class:fail("Native Fiery Demon boss class missing; compile NARIS_W04Editor")
-    boss=spawn_once(actors,boss_class,ACTOR_LABEL,(450,0,130))
+    boss=spawn_once(actors,boss_class,ACTOR_LABEL,position)
     if not boss.get_class().is_child_of(boss_class):
         fail("Existing actor with same label is not Fiery Demon Boss")
     comp=boss.get_mesh()
@@ -128,7 +142,7 @@ def main():
         place_ground_and_player(actors)
         place_environment(actors,os.environ.get("NARIS_ENV_FBX",""))
         spawn_once(actors,unreal.DirectionalLight,"NARIS_QA_Sun",(0,0,800))
-    boss,bindings=place_boss(actors,meshes[0],animation_assets)
+    boss,bindings=place_boss(actors,meshes[0],animation_assets,target)
     unreal.EditorLevelLibrary.save_current_level()
     report={"status":"editor_map_saved","map":target,"boss":boss.get_path_name(),
         "mesh":meshes[0].get_path_name(),"animations_imported":len(animation_assets),
