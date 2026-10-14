@@ -100,7 +100,8 @@ def place_boss(actors,mesh,animations):
         ("idle_animation",choose_animation(names,"idle","breath")),
         ("smash_animation",choose_animation(names,"groundsmash","clawswipe")),
         ("nova_animation",choose_animation(names,"embernova","flame")),
-        ("enrage_animation",choose_animation(names,"enrage"))]
+        ("enrage_animation",choose_animation(names,"enrage")),
+        ("death_animation",choose_animation(names,"death","defeat","die"))]
     if any(a is None for _,a in binding[:3]):
         fail("Required boss attack animations missing; no map saved")
     for name,anim in binding:
