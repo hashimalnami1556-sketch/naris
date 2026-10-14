@@ -39,14 +39,19 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="NARIS|FieryDemon|Animation")
     TObjectPtr<UAnimSequence> EnrageAnimation = nullptr;
 
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="NARIS|FieryDemon|Animation")
+    TObjectPtr<UAnimSequence> DeathAnimation = nullptr;
+
 private:
     UFUNCTION()
     void OnDemonBossEvent(FName EventName);
 
     void ResolveQueuedImpact();
     void RestoreIdleAnimation();
+    void EndEnrage();
 
     FTimerHandle ImpactTimer;
     FTimerHandle IdleTimer;
     bool bStrikeQueued = false;
+    bool bEnraging = false;
 };
