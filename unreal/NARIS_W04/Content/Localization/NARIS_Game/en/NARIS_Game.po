@@ -62,6 +62,10 @@ msgctxt "NARIS,HUDBoneBeastDefeated"
 msgid "Bone Beast Defeated"
 msgstr "Bone Beast Defeated"
 
+msgctxt "NARIS,HUDFieryDemon"
+msgid "Fiery Demon"
+msgstr "Fiery Demon"
+
 msgctxt "NARIS,HUDBoneBeast"
 msgid "Bone Beast"
 msgstr "Bone Beast"
