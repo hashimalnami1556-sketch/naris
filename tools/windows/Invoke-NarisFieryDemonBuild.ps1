@@ -20,6 +20,7 @@ param(
     [switch]$AllowProductionMapEdit,
     [switch]$Package,
     [switch]$Launch,
+    [switch]$SmokeOnly,
     [int]$LaunchSmokeSeconds = 20
 )
 $ErrorActionPreference = "Stop"
@@ -46,6 +47,9 @@ $RepoRoot = (Resolve-Path -LiteralPath $RepoRoot).Path
 
 if ($Launch -and -not $Package) {
     throw "Launch requires -Package; refuse to run a stale EXE"
+}
+if ($SmokeOnly -and -not $Launch) {
+    throw "SmokeOnly requires -Launch"
 }
 if ($LaunchSmokeSeconds -lt 5 -or $LaunchSmokeSeconds -gt 180) {
     throw "LaunchSmokeSeconds must be between 5 and 180"
@@ -92,7 +96,7 @@ if ($runningEditors.Count -gt 0) {
 
 $ReportsRoot = Join-Path $RepoRoot "artifacts\fiery_demon_qa"
 $PrepDir = Join-Path $ReportsRoot "intermediate"
-$ArchiveDir = Join-Path $ReportsRoot "WindowsDevelopment"
+$ArchiveDir = Join-Path $ReportsRoot ("WindowsDevelopment_" + [DateTime]::UtcNow.ToString("yyyyMMdd_HHmmss"))
 New-Item -ItemType Directory -Path $PrepDir -Force | Out-Null
 
 $DemonFbx = Join-Path $PrepDir "NARIS_Fiery_Demon_COMBAT_PROXY_Rigged.fbx"
@@ -168,6 +172,12 @@ if ($Package) {
     if ($TargetMap -ne "/Game/NARIS/W04/Maps/L_FieryDemon_QA") {
         throw "Windows QA packaging is restricted to isolated Fiery Demon QA level"
     }
+    # Regenerate English/Arabic localization resources after adding HUDFieryDemon.
+    $LocalizationScript = Join-Path $RepoRoot "tools\windows\Invoke-NarisLocalization.ps1"
+    Assert-File $LocalizationScript "localization cook script"
+    Write-Host "[NARIS] Gathering/compiling EN+AR localization before cook"
+    & $LocalizationScript -RepoRoot $RepoRoot -UnrealEngineRoot $UnrealEngineRoot
+    Assert-Exit "Unreal localization gather/compile"
     Write-Host "[NARIS] 5/6 BuildCookRun: cooking Fiery Demon QA map for Windows"
     $uatArgs = @(
         "BuildCookRun", "-project=$Project", "-noP4", "-platform=Win64",
@@ -181,7 +191,7 @@ if ($Package) {
     if ($candidateExe.Count -eq 0) { throw "No NARIS_W04.exe in fresh QA build" }
     $exe = $candidateExe | Sort-Object LastWriteTimeUtc -Descending | Select-Object -First 1
     $report.package_status = "buildcookrun_pass"
-    $report.package_exe = $exe.FullName
+    $report["package_exe"] = $exe.FullName
     Write-Json $BuildReport $report
 
     if ($Launch) {
@@ -195,6 +205,7 @@ if ($Package) {
         if ($process.WaitForExit($LaunchSmokeSeconds * 1000)) {
             throw "Packaged QA game exited early with code $($process.ExitCode)"
         }
+        $smokeAccepted = $false
         try {
             $roots = @($ArchiveDir, (Join-Path $env:LOCALAPPDATA "NARIS_W04\Saved\Logs"))
             $fresh = foreach ($directory in $roots) {
@@ -212,11 +223,18 @@ if ($Package) {
                 throw "No FRESH L_FieryDemon_QA map-load marker found in packaged log"
             }
             $report.launch_status = "process_alive_and_map_marker_found"
+            $report["process_id"] = $process.Id
             Write-Json $BuildReport $report
+            $smokeAccepted = $true
         } finally {
-            if (-not $process.HasExited) {
-                Stop-Process -Id $process.Id -Force -ErrorAction SilentlyContinue
+            if ($SmokeOnly -or -not $smokeAccepted) {
+                if (-not $process.HasExited) {
+                    Stop-Process -Id $process.Id -Force -ErrorAction SilentlyContinue
+                }
             }
+        }
+        if ($smokeAccepted -and -not $SmokeOnly) {
+            Write-Host "[NARIS] Game remains running. PID: $($process.Id)"
         }
     }
 }
