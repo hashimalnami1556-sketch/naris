@@ -504,3 +504,27 @@ msgctxt "NARIS,UMGPauseStatus"
 msgid "OPERATION STATUS"
 msgstr "OPERATION STATUS"
 
+msgctxt "NARIS,P20HeroName"
+msgid "ASHEN VESSEL"
+msgstr "ASHEN VESSEL"
+
+msgctxt "NARIS,P20AttackKey"
+msgid "[{0}] Attack"
+msgstr "[{0}] Attack"
+
+msgctxt "NARIS,P20DodgeParryKeys"
+msgid "[{0}] Dodge     [{1}] Parry"
+msgstr "[{0}] Dodge     [{1}] Parry"
+
+msgctxt "NARIS,P20BossPhase1"
+msgid "PHASE I"
+msgstr "PHASE I"
+
+msgctxt "NARIS,P20BossPhase2"
+msgid "PHASE II"
+msgstr "PHASE II"
+
+msgctxt "NARIS,P20BossPhase3"
+msgid "PHASE III"
+msgstr "PHASE III"
+

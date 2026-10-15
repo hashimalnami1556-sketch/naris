@@ -54,6 +54,15 @@ private:
     TObjectPtr<ANarisPlayerController> Controller;
 
     UPROPERTY(Transient)
+    TObjectPtr<UBorder> BackdropPanel;
+
+    UPROPERTY(Transient)
+    TObjectPtr<UBorder> MenuPanelRef;
+
+    UPROPERTY(Transient)
+    TObjectPtr<UBorder> StatusPanelRef;
+
+    UPROPERTY(Transient)
     TObjectPtr<UTextBlock> BrandText;
 
     UPROPERTY(Transient)
@@ -89,4 +98,5 @@ private:
     int32 LastVisibleCount = INDEX_NONE;
     int32 LastSelectedIndex = INDEX_NONE;
     bool bLastMenuOpen = false;
+    bool bLastFrontEndLayout = false;
 };

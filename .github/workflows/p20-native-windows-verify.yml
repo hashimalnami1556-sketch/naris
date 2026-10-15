@@ -1,0 +1,65 @@
+name: P20 Native UI Windows Verification
+
+on:
+  push:
+    branches: [feature/p20-native-ui-20261015]
+    paths:
+      - '.github/workflows/p20-native-windows-verify.yml'
+      - 'tools/windows/Invoke-NarisP20NativeUI.ps1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: p20-native-windows-verify
+  cancel-in-progress: true
+
+jobs:
+  p20-w04-build:
+    name: Compile native P20 UI on authorised Windows runner
+    runs-on: [self-hosted, windows]
+    timeout-minutes: 50
+    steps:
+      - name: Checkout candidate source
+        uses: actions/checkout@v4
+
+      - name: Preflight and guarded W04 build
+        shell: powershell
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $project = Join-Path $env:GITHUB_WORKSPACE 'unreal\NARIS_W04'
+          $engine = 'C:\Program Files\Epic Games\UE_5.7'
+          # This is the canonical W04 project, not the separate local NARIS_UE57.
+          # Author a *development-only* map when missing; never overwrite a map.
+          $args = @{
+            RepoRoot = $env:GITHUB_WORKSPACE
+            ProjectRoot = $project
+            EngineRoot = $engine
+            BootstrapIfMissing = $true
+            Launch = $true
+          }
+          & (Join-Path $env:GITHUB_WORKSPACE 'tools\windows\Invoke-NarisP20NativeUI.ps1') @args
+          if ($LASTEXITCODE -ne 0) { throw "P20 native helper failed: $LASTEXITCODE" }
+
+      - name: Collect build and runtime logs if available
+        if: always()
+        shell: powershell
+        run: |
+          $logs = Join-Path $env:GITHUB_WORKSPACE 'unreal\NARIS_W04\Saved\Logs'
+          $dest = Join-Path $env:GITHUB_WORKSPACE 'artifacts\p20_native'
+          New-Item -ItemType Directory -Force -Path $dest | Out-Null
+          if (Test-Path -LiteralPath $logs) {
+            Get-ChildItem -LiteralPath $logs -Filter '*.log' -File -ErrorAction SilentlyContinue |
+              Sort-Object LastWriteTime -Descending | Select-Object -First 3 |
+              Copy-Item -Destination $dest -Force
+          }
+
+      - name: Upload P20 W04 verification evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: NARIS-P20-Native-W04-Build-Evidence
+          path: artifacts/p20_native
+          retention-days: 7
+          if-no-files-found: warn
