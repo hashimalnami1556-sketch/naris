@@ -323,9 +323,14 @@ void ANarisHUD::DrawBossHUD(float Scale, float Safe)
         const float X = (Canvas->ClipX - W) * 0.5f;
         const float Y = Safe;
 
+        const bool bFieryDemon = Boss->BossProgressId == TEXT("FieryDemon");
+        const FText BossLabel = bFieryDemon
+            ? NSLOCTEXT("NARIS", "HUDFieryDemon", "Fiery Demon")
+            : NSLOCTEXT("NARIS", "HUDBoneBeast", "Bone Beast");
+
         DrawText(
-            NSLOCTEXT("NARIS", "HUDBoneBeast", "Bone Beast").ToString(),
-            FNarisUIStyle::Bone(),
+            BossLabel.ToString(),
+            bFieryDemon ? FNarisUIStyle::Danger() : FNarisUIStyle::Bone(),
             X,
             Y,
             nullptr,

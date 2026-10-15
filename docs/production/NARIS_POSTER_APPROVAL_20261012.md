@@ -1,0 +1,7 @@
+# NARIS latest poster — art-direction adoption (2026-10-12)
+
+The owner approved the most recent CALL OF NARIS concept collage as the game's **visual design target**. It depicts six named protagonists/allies (Ashen Vessel, Elemental Sage, Bronze Sentinel, Moon Shadow, Black Nomad, Bellkeeper), four major bosses (Ash Dragon, Chained Giant, Bellmaster's Echo, Prince of Shadows), seven regions (Ash Gate, Bell Marsh, Twilight Citadel, Naris City, Forgotten Desert, Frozen Peaks, Deep Forest) and gameplay systems including world exploration, combat, inventory, skill trees, crafting, trading, mounts, companions, base-building, fishing, quests, cinematics, map, Arabic/English HUD.
+
+**Production truth:** this is a concept image, not a runtime screenshot or source for an Unreal level. Existing verified asset handoffs contain six GLB variants from only three distinct rigged meshes and four environment variants from only two distinct meshes. None of the poster's newly pictured systems can be marked implemented solely because the concept image shows them. The owner handoff `NARIS_POSTER_IMPLEMENTATION_20261012.zip` includes a machine-readable 36-item scope registry and five passing offline consistency tests.
+
+Release gates: verify model provenance, model and rig actual required characters, implement real UE5.7 levels/AI/combat/menus/systems, test PIE and packaged builds, then profile 60 FPS. The user's AsusRog remote device was offline at the time of this commit. Keep PR draft until engine-side evidence exists.
