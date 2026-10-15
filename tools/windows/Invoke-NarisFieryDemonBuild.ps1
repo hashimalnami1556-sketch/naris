@@ -214,13 +214,16 @@ if ($Package) {
                         Where-Object { $_.LastWriteTimeUtc -ge $launchedAt.AddSeconds(-3) }
                 }
             }
+            # Map paths appear in launch arguments too; only a real Unreal
+            # LogLoad: LoadMap event proves that the intended level was opened.
+            $expectedMapLogRegex = 'LogLoad:\s*LoadMap:\s*/Game/NARIS/W04/Maps/L_FieryDemon_QA(?![A-Za-z0-9_])'
             $mapLoadFound = $false
             foreach ($log in @($fresh)) {
                 $text = Get-Content -LiteralPath $log.FullName -Raw -ErrorAction SilentlyContinue
-                if ($text -match "L_FieryDemon_QA") { $mapLoadFound = $true; break }
+                if ($text -match $expectedMapLogRegex) { $mapLoadFound = $true; break }
             }
             if (-not $mapLoadFound) {
-                throw "No FRESH L_FieryDemon_QA map-load marker found in packaged log"
+                throw "No FRESH Unreal LogLoad: LoadMap event for L_FieryDemon_QA in packaged log"
             }
             $report.launch_status = "process_alive_and_map_marker_found"
             $report["process_id"] = $process.Id
