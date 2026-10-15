@@ -73,23 +73,22 @@ void ANarisHUD::DrawPlayerVitals(ANarisHeroCharacter* Hero, float Scale, float S
 
     if (Hero->Combat)
     {
-        const UNarisCombatComponent* Combat = Hero->Combat;
-        DrawBar(TEXT(""), Combat->Health, Combat->MaxHealth,
+        DrawBar(TEXT(""), Hero->Combat->Health, Hero->Combat->MaxHealth,
             InnerX, Y + 48.f * Scale, MeterW, 10.f * Scale,
             FNarisUIStyle::Danger(), Scale);
-        DrawBar(TEXT(""), Combat->Resonance, Combat->MaxResonance,
+        DrawBar(TEXT(""), Hero->Combat->Resonance, Hero->Combat->MaxResonance,
             InnerX, Y + 86.f * Scale, MeterW, 6.f * Scale,
             FNarisUIStyle::Violet(), Scale);
         DrawText(
             FString::Printf(TEXT("%s  %d / %d"),
-                *NSLOCTEXT("NARIS", "P20HealthLabel", "HEALTH").ToString(),
-                FMath::RoundToInt(Combat->Health),
-                FMath::RoundToInt(Combat->MaxHealth)),
+                *NSLOCTEXT("NARIS", "HUDHealth", "Health").ToString(),
+                FMath::RoundToInt(Hero->Combat->Health),
+                FMath::RoundToInt(Hero->Combat->MaxHealth)),
             FNarisUIStyle::Muted(), InnerX, Y + 34.f * Scale,
             nullptr, 0.60f * Scale, false
         );
         DrawText(
-            NSLOCTEXT("NARIS", "P20ResonanceLabel", "RESONANCE").ToString(),
+            NSLOCTEXT("NARIS", "HUDResonance", "Resonance").ToString(),
             FNarisUIStyle::Muted(), InnerX, Y + 72.f * Scale,
             nullptr, 0.60f * Scale, false
         );
@@ -97,15 +96,16 @@ void ANarisHUD::DrawPlayerVitals(ANarisHeroCharacter* Hero, float Scale, float S
 
     if (Hero->Energy)
     {
-        const UNarisEnergyComponent* Energy = Hero->Energy;
-        DrawBar(TEXT(""), Energy->Energy, Energy->MaxEnergy,
+        DrawBar(TEXT(""), Hero->Energy->Energy, Hero->Energy->MaxEnergy,
             InnerX, Y + 116.f * Scale, MeterW, 6.f * Scale,
             FNarisUIStyle::Cyan(), Scale);
         DrawText(
-            FText::Format(
-                NSLOCTEXT("NARIS", "P20EssenceLabel", "ESSENCE: {0}"),
-                Energy->GetActiveEssenceDisplayName()
-            ).ToString(),
+            FString::Printf(
+                TEXT("%s - %s: %s"),
+                *NSLOCTEXT("NARIS", "HUDEnergy", "Energy").ToString(),
+                *NSLOCTEXT("NARIS", "HUDEssence", "Essence").ToString(),
+                *Hero->Energy->GetActiveEssenceDisplayName().ToString()
+            ),
             FNarisUIStyle::Muted(), InnerX, Y + 102.f * Scale,
             nullptr, 0.61f * Scale, false
         );
