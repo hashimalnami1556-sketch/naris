@@ -56,6 +56,18 @@ void ANarisFieryDemonBoss::BeginPlay()
 {
     Super::BeginPlay();
     OnBossEvent.AddDynamic(this, &ANarisFieryDemonBoss::OnDemonBossEvent);
+    const bool bMeshReady = GetMesh() && GetMesh()->GetSkeletalMeshAsset();
+    const bool bClipsReady = IdleAnimation && SmashAnimation && NovaAnimation;
+    if (bMeshReady && bClipsReady)
+    {
+        UE_LOG(LogTemp, Display, TEXT("NARIS_FIERY_DEMON_RUNTIME_READY"));
+    }
+    else
+    {
+        UE_LOG(LogTemp, Error,
+            TEXT("NARIS_FIERY_DEMON_ASSET_BINDING_FAILED mesh=%d clips=%d"),
+            bMeshReady ? 1 : 0, bClipsReady ? 1 : 0);
+    }
     RestoreIdleAnimation();
 }
 
