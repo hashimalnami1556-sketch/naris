@@ -5,6 +5,7 @@ on:
     branches: [feature/p20-native-ui-20261015]
     paths:
       - '.github/workflows/p20-native-windows-verify.yml'
+      - 'tools/windows/Invoke-NarisP20NativeUI.ps1'
   workflow_dispatch:
 
 permissions:
@@ -29,17 +30,14 @@ jobs:
           $ErrorActionPreference = 'Stop'
           $project = Join-Path $env:GITHUB_WORKSPACE 'unreal\NARIS_W04'
           $engine = 'C:\Program Files\Epic Games\UE_5.7'
-          $maps = @(Get-ChildItem -LiteralPath (Join-Path $project 'Content') -Filter '*.umap' -Recurse -File -ErrorAction SilentlyContinue | Select-Object -First 1)
+          # This is the canonical W04 project, not the separate local NARIS_UE57.
+          # Author a *development-only* map when missing; never overwrite a map.
           $args = @{
             RepoRoot = $env:GITHUB_WORKSPACE
             ProjectRoot = $project
             EngineRoot = $engine
-          }
-          if ($maps.Count -gt 0) {
-            Write-Host 'P20_LAUNCH_ELIGIBLE=1 (W04 map found)'
-            $args.Launch = $true
-          } else {
-            Write-Host 'P20_LAUNCH_ELIGIBLE=0 (no .umap in checkout; compile only)'
+            BootstrapIfMissing = $true
+            Launch = $true
           }
           & (Join-Path $env:GITHUB_WORKSPACE 'tools\windows\Invoke-NarisP20NativeUI.ps1') @args
           if ($LASTEXITCODE -ne 0) { throw "P20 native helper failed: $LASTEXITCODE" }
