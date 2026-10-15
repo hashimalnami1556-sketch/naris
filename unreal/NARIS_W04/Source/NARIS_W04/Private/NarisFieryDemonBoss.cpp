@@ -5,6 +5,7 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "Engine/World.h"
+#include "CollisionQueryParams.h"
 #include "TimerManager.h"
 
 ANarisFieryDemonBoss::ANarisFieryDemonBoss()
@@ -31,6 +32,24 @@ ANarisFieryDemonBoss::ANarisFieryDemonBoss()
         Movement->MaxWalkSpeed = 260.f;
         Movement->bOrientRotationToMovement = true;
     }
+}
+
+bool ANarisFieryDemonBoss::RequestPhaseAttack()
+{
+    if (!IsEncounterActive() || IsEncounterComplete() || bEnraging)
+    {
+        return false;
+    }
+    // Bone Beast retains ClawSweep/BoneCharge; Fiery Demon uses its own cues.
+    if (GetPhase() == ENarisBossPhase::Phase1)
+    {
+        return RequestAttack(TEXT("GroundSmash"), Phase1AttackDamage);
+    }
+    if (GetPhase() == ENarisBossPhase::Phase2)
+    {
+        return RequestAttack(TEXT("EmberNova"), Phase2AttackDamage);
+    }
+    return false;
 }
 
 void ANarisFieryDemonBoss::BeginPlay()
@@ -84,8 +103,23 @@ void ANarisFieryDemonBoss::ResolveQueuedImpact()
         return;
     }
     APawn* PlayerPawn = UGameplayStatics::GetPlayerPawn(this, 0);
-    if (IsValid(PlayerPawn) && FVector::DistSquared(GetActorLocation(), PlayerPawn->GetActorLocation())
-        <= FMath::Square(FMath::Max(AttackRange, 1.f)))
+    const bool bInRange = IsValid(PlayerPawn)
+        && FVector::DistSquared(GetActorLocation(), PlayerPawn->GetActorLocation())
+            <= FMath::Square(FMath::Max(AttackRange, 1.f));
+    bool bClearLineOfSight = false;
+    if (bInRange && GetWorld())
+    {
+        FHitResult Hit;
+        FCollisionQueryParams QueryParams;
+        QueryParams.AddIgnoredActor(this);
+        const FVector Source = GetActorLocation() + FVector(0.f, 0.f, 85.f);
+        const FVector Target = PlayerPawn->GetActorLocation() + FVector(0.f, 0.f, 65.f);
+        const bool bBlockingHit = GetWorld()->LineTraceSingleByChannel(
+            Hit, Source, Target, ECC_Visibility, QueryParams);
+        bClearLineOfSight = !bBlockingHit || Hit.GetActor() == PlayerPawn;
+    }
+
+    if (bInRange && bClearLineOfSight)
     {
         CommitAttackImpact(PlayerPawn);
     }
