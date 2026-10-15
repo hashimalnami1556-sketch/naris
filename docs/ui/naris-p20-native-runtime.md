@@ -2,7 +2,7 @@
 
 **Date:** 2026-10-15  
 **Target:** Unreal Engine 5.7, Windows PC / W04.  
-**Evidence level:** Native source changes, awaiting CI and Unreal build. NOT an installed/running local game.
+**Evidence level:** Native source changes and 4/4 GitHub static workflows PASS; Unreal build and interactive launch pending. NOT an installed/running local game.
 
 ## Why this implementation differs from the browser reference
 
@@ -24,7 +24,7 @@ P20's HTML is a **separate interaction prototype** using a user-supplied demon i
 
 ## Runtime/install verification required
 
-1. Merge the candidate branch only after CI static checks and source review.
+1. CI static checks passed for candidate SHA ce0ccef. Merge the draft candidate only after Unreal build, a real playtest and review.
 2. On an authorized Windows host with UE 5.7 and a complete W04 asset/level installation, run the launcher script with `-Launch`, setting `-ProjectRoot` to the **W04 project** and `-EngineRoot` to the actual UE installation. The script refuses to launch with no cooked/authoring `.umap`.
 3. Confirm native front-end, keyboard/gamepad navigation, Health/Energy/Resonance values, Bone Beast phase changes and English/Arabic localization in the actual editor/game.
 4. Capture fresh build/launch logs, real screenshots and measured performance. Only then claim installed/running.
