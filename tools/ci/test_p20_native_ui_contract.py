@@ -37,6 +37,14 @@ class TestP20NativeIntegration(unittest.TestCase):
             self.assertIn(f'GetActionKeyDisplayName(TEXT("{action}"))', self.hud)
         self.assertNotIn("document.getElementById", self.hud)
 
+    def test_hidden_menu_does_not_intercept_gameplay_input(self):
+        # A Collapsed root could stop Tick and prevent the menu reopening.
+        # Opacity zero alone allows invisible child buttons to consume clicks.
+        self.assertIn("ESlateVisibility::HitTestInvisible", self.menu)
+        self.assertIn("ESlateVisibility::SelfHitTestInvisible", self.menu)
+        self.assertIn("SetRenderOpacity(bOpen ? 1.f : 0.f)", self.menu)
+        self.assertIn("SetVisibility(bOpen", self.menu)
+
     def test_cinematic_front_end_and_opaque_submenus(self):
         self.assertIn("bFrontEndLayout", self.menu)
         self.assertIn("BackdropPanel->SetBrushColor", self.menu)
