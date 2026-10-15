@@ -55,7 +55,7 @@ public:
     bool RequestAttack(FName AttackId, float Damage);
 
     UFUNCTION(BlueprintCallable, Category="NARIS|Boss|Attack")
-    bool RequestPhaseAttack();
+    virtual bool RequestPhaseAttack();
 
     UFUNCTION(BlueprintPure, Category="NARIS|Boss|Attack")
     float GetPendingAttackDamage() const { return PendingAttackDamage; }
