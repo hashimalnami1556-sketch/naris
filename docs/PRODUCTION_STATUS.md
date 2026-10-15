@@ -200,3 +200,7 @@ Executed directly on **AsusRog** against Unreal Engine 5.7 and `/Game/NARIS/Maps
 - The workstation's `Game/NARIS_UE57/NARIS.uproject` and repository's `unreal/NARIS_W04/NARIS_W04.uproject` are distinct project paths; their content equivalence has **not** been established. Do not overwrite either without a manifest/diff and backup.
 - Documentation and descriptor inspection are **source-level checks only**. UnrealBuildTool compilation, editor map validation, packaged Windows smoke, save/load, boss completion, EN/AR UI and 60 FPS acceptance remain open until independently evidenced.
 - Next required evidence: Windows build logs with engine path/version, artifact hashes, W04 map and asset registry audit, packaged smoke results, crash logs and measured frame-time statistics.
+
+## P13/P15 connectivity repair — 2026-10-15
+
+Actual-source repair and test scope: [P15 skin repair](production/P15_SKIN_REPAIR_20261015.md). Candidate skeleton connectivity and root-motion binding were repaired; anatomical deformation, Blender/Unreal visual checks, combat, packaged gameplay and performance remain open.

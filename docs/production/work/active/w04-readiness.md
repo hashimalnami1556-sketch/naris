@@ -33,3 +33,14 @@ last_updated: 2026-10-01
 - Missing sources: 18 attachment paths announced for this session were absent; no asset contents were inspected.
 - Next action: when Windows is online, run `tools/windows/Invoke-NarisBlenderMasterBuilder.ps1 -ExportCoreAssets` and retain its blend/validation/manifest/export evidence; then compile NARIS_W04Editor, run the W04 Environment Factory bridge and production blockout authoring, retain all reports, and execute Development package/runtime smoke before attempting the strict W04_AshenForest Shipping RC.
 - Acceptance: a passing static check alone cannot close engine, DCC import, backend deployment or gameplay gates.
+
+## 2026-10-15 P13/P15 source repair claim
+- Executing agent: Codex.
+- Scope: inspect actual archived P13/P15 bytes; repair disconnected skin hierarchies without claiming animation quality or engine acceptance.
+- Sources: NARIS_P13_ACTUAL_SKINS.zip v2 and NARIS_P15_ROOT_MOTION.zip v2.
+- AsusRog is offline at inspection; Unreal execution remains blocked.
+- Completed: repaired three P15 candidates, connected skeletons and root-motion binding, six regression tests, numerical/Khronos checks, canonical status/gap reconciliation.
+- Local validation: 342 CI tests, 6 AssetForge tests and repository validator passed.
+- Limits: two character tangent-space warnings; no DCC/engine visual, combat or performance acceptance.
+- Next: import into an isolated Unreal candidate folder, inspect root motion and deformation, then exercise Ash Gate combat and packaging gates.
+- Claim released; runtime gates stay open.

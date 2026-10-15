@@ -79,3 +79,7 @@ No engine upgrade, new product direction, asset approval or public release is im
 | P1 | Shipping readiness | EN/AR and RTL tests, save/load restart, crash-free packaged launch, frame-time capture and provenance audit |
 
 **Verification boundary:** These entries reconcile repository evidence and do not claim any Unreal build, gameplay test, Windows package or 60 FPS benchmark was executed in this change.
+
+## P13/P15 connectivity repair — 2026-10-15
+
+Actual-source repair and test scope: [P15 skin repair](production/P15_SKIN_REPAIR_20261015.md). Candidate skeleton connectivity and root-motion binding were repaired; anatomical deformation, Blender/Unreal visual checks, combat, packaged gameplay and performance remain open.
