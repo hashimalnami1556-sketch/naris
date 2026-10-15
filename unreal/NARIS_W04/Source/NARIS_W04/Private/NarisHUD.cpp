@@ -57,67 +57,84 @@ void ANarisHUD::DrawPlayerVitals(ANarisHeroCharacter* Hero, float Scale, float S
         return;
     }
 
-    const float PanelW = 350.f * Scale;
-    const float PanelH = 126.f * Scale;
+    // P20 native combat HUD. All meters read W04 gameplay components; no demo-only values.
+    const float W = FMath::Min(430.f * Scale, Canvas->ClipX * 0.44f);
     const float X = Safe;
-    const float Y = Canvas->ClipY - Safe - PanelH;
+    const float Y = Safe + 14.f * Scale;
+    const float InnerX = X + 22.f * Scale;
+    const float MeterW = W - 44.f * Scale;
+    DrawPanel(X, Y, W, 145.f * Scale, FLinearColor(0.012f, 0.014f, 0.018f, 0.79f));
 
-    DrawPanel(X, Y, PanelW, PanelH, FLinearColor(0.025f, 0.032f, 0.043f, 0.74f));
+    DrawText(
+        NSLOCTEXT("NARIS", "P20HeroName", "ASHEN VESSEL").ToString(),
+        FNarisUIStyle::Bone(),
+        InnerX, Y + 12.f * Scale, nullptr, 0.88f * Scale, false
+    );
 
     if (Hero->Combat)
     {
-        DrawBar(
-            NSLOCTEXT("NARIS", "HUDHealth", "Health").ToString(),
-            Hero->Combat->Health,
-            Hero->Combat->MaxHealth,
-            X + 18.f * Scale,
-            Y + 34.f * Scale,
-            PanelW - 36.f * Scale,
-            8.f * Scale,
-            FNarisUIStyle::Danger(),
-            Scale
+        const UNarisCombatComponent* Combat = Hero->Combat;
+        DrawBar(TEXT(""), Combat->Health, Combat->MaxHealth,
+            InnerX, Y + 48.f * Scale, MeterW, 10.f * Scale,
+            FNarisUIStyle::Danger(), Scale);
+        DrawBar(TEXT(""), Combat->Resonance, Combat->MaxResonance,
+            InnerX, Y + 86.f * Scale, MeterW, 6.f * Scale,
+            FNarisUIStyle::Violet(), Scale);
+        DrawText(
+            FString::Printf(TEXT("%s  %d / %d"),
+                *NSLOCTEXT("NARIS", "P20HealthLabel", "HEALTH").ToString(),
+                FMath::RoundToInt(Combat->Health),
+                FMath::RoundToInt(Combat->MaxHealth)),
+            FNarisUIStyle::Muted(), InnerX, Y + 34.f * Scale,
+            nullptr, 0.60f * Scale, false
         );
-
-        DrawBar(
-            NSLOCTEXT("NARIS", "HUDResonance", "Resonance").ToString(),
-            Hero->Combat->Resonance,
-            Hero->Combat->MaxResonance,
-            X + 18.f * Scale,
-            Y + 68.f * Scale,
-            PanelW - 36.f * Scale,
-            6.f * Scale,
-            FNarisUIStyle::Violet(),
-            Scale
+        DrawText(
+            NSLOCTEXT("NARIS", "P20ResonanceLabel", "RESONANCE").ToString(),
+            FNarisUIStyle::Muted(), InnerX, Y + 72.f * Scale,
+            nullptr, 0.60f * Scale, false
         );
     }
 
     if (Hero->Energy)
     {
-        DrawBar(
-            NSLOCTEXT("NARIS", "HUDEnergy", "Energy").ToString(),
-            Hero->Energy->Energy,
-            Hero->Energy->MaxEnergy,
-            X + 18.f * Scale,
-            Y + 100.f * Scale,
-            PanelW - 36.f * Scale,
-            6.f * Scale,
-            FNarisUIStyle::Cyan(),
-            Scale
+        const UNarisEnergyComponent* Energy = Hero->Energy;
+        DrawBar(TEXT(""), Energy->Energy, Energy->MaxEnergy,
+            InnerX, Y + 116.f * Scale, MeterW, 6.f * Scale,
+            FNarisUIStyle::Cyan(), Scale);
+        DrawText(
+            FText::Format(
+                NSLOCTEXT("NARIS", "P20EssenceLabel", "ESSENCE: {0}"),
+                Energy->GetActiveEssenceDisplayName()
+            ).ToString(),
+            FNarisUIStyle::Muted(), InnerX, Y + 102.f * Scale,
+            nullptr, 0.61f * Scale, false
         );
+    }
 
-        const FString EssenceText = FString::Printf(
-            TEXT("%s: %s"),
-            *NSLOCTEXT("NARIS", "HUDEssence", "Essence").ToString(),
-            *Hero->Energy->GetActiveEssenceDisplayName().ToString()
+    // Show action prompts from live remappable bindings, not P20 HTML's J/K demo keys.
+    const ANarisPlayerController* Controller = Cast<ANarisPlayerController>(PlayerOwner);
+    if (Controller)
+    {
+        const FString AttackKey = Controller->GetActionKeyDisplayName(TEXT("LightAttack")).ToString();
+        const FString DodgeKey = Controller->GetActionKeyDisplayName(TEXT("Dodge")).ToString();
+        const FString ParryKey = Controller->GetActionKeyDisplayName(TEXT("Parry")).ToString();
+
+        const float HelpY = Canvas->ClipY - Safe - 78.f * Scale;
+        DrawPanel(X, HelpY, W, 67.f * Scale, FLinearColor(0.010f, 0.012f, 0.015f, 0.83f));
+        DrawText(
+            FText::Format(
+                NSLOCTEXT("NARIS", "P20AttackKey", "[{0}] Attack"),
+                FText::FromString(AttackKey)).ToString(),
+            FNarisUIStyle::Bone(),
+            InnerX, HelpY + 13.f * Scale, nullptr, 0.67f * Scale, false
         );
         DrawText(
-            EssenceText,
-            FNarisUIStyle::Bone(),
-            X + PanelW - 152.f * Scale,
-            Y + 82.f * Scale,
-            nullptr,
-            0.68f * Scale,
-            false
+            FText::Format(
+                NSLOCTEXT("NARIS", "P20DodgeParryKeys", "[{0}] Dodge     [{1}] Parry"),
+                FText::FromString(DodgeKey),
+                FText::FromString(ParryKey)).ToString(),
+            FNarisUIStyle::Muted(),
+            InnerX, HelpY + 40.f * Scale, nullptr, 0.62f * Scale, false
         );
     }
 }
@@ -312,36 +329,48 @@ void ANarisHUD::DrawBossHUD(float Scale, float Safe)
 
     for (TActorIterator<ABoneBeastBoss> It(GetWorld()); It; ++It)
     {
-        ABoneBeastBoss* Boss = *It;
+        const ABoneBeastBoss* Boss = *It;
         if (!Boss || !Boss->IsEncounterActive())
         {
             continue;
         }
 
-        const float W = FMath::Min(Canvas->ClipX * 0.46f, 820.f * Scale);
-        const float H = 56.f * Scale;
+        // P20 combat composition: a restrained center-bottom encounter frame.
+        // Name and phase deliberately identify the real W04 Bone Beast, not the
+        // illustrative Ash Gatekeeper enemy from the browser reference.
+        const float W = FMath::Min(Canvas->ClipX * 0.60f, 790.f * Scale);
+        const float H = 98.f * Scale;
         const float X = (Canvas->ClipX - W) * 0.5f;
-        const float Y = Safe;
+        const float Y = Canvas->ClipY - Safe - H;
 
+        DrawPanel(X, Y, W, H, FLinearColor(0.008f, 0.010f, 0.013f, 0.87f));
         DrawText(
             NSLOCTEXT("NARIS", "HUDBoneBeast", "Bone Beast").ToString(),
             FNarisUIStyle::Bone(),
-            X,
-            Y,
-            nullptr,
-            0.88f * Scale,
-            false
+            X + 18.f * Scale, Y + 12.f * Scale, nullptr, 0.94f * Scale, false
         );
-        DrawBar(
-            TEXT(""),
-            Boss->GetCurrentHealth(),
-            Boss->GetConfiguredMaxHealth(),
-            X,
-            Y + 28.f * Scale,
-            W,
-            9.f * Scale,
-            FNarisUIStyle::Danger(),
-            Scale
+
+        const float HP = Boss->GetCurrentHealth();
+        const float MaxHP = Boss->GetConfiguredMaxHealth();
+        const float Ratio = FNarisUIStyle::SafeRatio(HP, MaxHP);
+        DrawBar(TEXT(""), HP, MaxHP,
+            X + 18.f * Scale, Y + 46.f * Scale, W - 36.f * Scale,
+            10.f * Scale, FNarisUIStyle::Danger(), Scale);
+
+        const FText PhaseLabel = Boss->GetPhase() == ENarisBossPhase::Phase3
+            ? NSLOCTEXT("NARIS", "P20BossPhase3", "PHASE III")
+            : Boss->GetPhase() == ENarisBossPhase::Phase2
+                ? NSLOCTEXT("NARIS", "P20BossPhase2", "PHASE II")
+                : NSLOCTEXT("NARIS", "P20BossPhase1", "PHASE I");
+        DrawText(
+            PhaseLabel.ToString(),
+            FNarisUIStyle::Gold(), X + 18.f * Scale,
+            Y + 68.f * Scale, nullptr, 0.66f * Scale, false
+        );
+        DrawText(
+            FString::Printf(TEXT("%d%%"), FMath::RoundToInt(Ratio * 100.f)),
+            FNarisUIStyle::Muted(), X + W - 70.f * Scale,
+            Y + 68.f * Scale, nullptr, 0.66f * Scale, false
         );
         break;
     }
