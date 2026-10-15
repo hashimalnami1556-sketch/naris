@@ -217,15 +217,28 @@ if ($Package) {
             # Map paths appear in launch arguments too; only a real Unreal
             # LogLoad: LoadMap event proves that the intended level was opened.
             $expectedMapLogRegex = 'LogLoad:\s*LoadMap:\s*/Game/NARIS/W04/Maps/L_FieryDemon_QA(?![A-Za-z0-9_])'
+            # The READY marker is emitted by ANarisFieryDemonBoss::BeginPlay only
+            # when its SkeletalMesh and three required AnimSequences are bound.
+            $expectedBossLogRegex = 'LogTemp:\s*(?:Display:\s*)?NARIS_FIERY_DEMON_RUNTIME_READY(?![A-Za-z0-9_])'
             $mapLoadFound = $false
+            $bossReadyFound = $false
             foreach ($log in @($fresh)) {
                 $text = Get-Content -LiteralPath $log.FullName -Raw -ErrorAction SilentlyContinue
-                if ($text -match $expectedMapLogRegex) { $mapLoadFound = $true; break }
+                if ($text -match $expectedMapLogRegex) {
+                    $mapLoadFound = $true
+                    if ($text -match $expectedBossLogRegex) {
+                        $bossReadyFound = $true
+                        break
+                    }
+                }
             }
             if (-not $mapLoadFound) {
                 throw "No FRESH Unreal LogLoad: LoadMap event for L_FieryDemon_QA in packaged log"
             }
-            $report.launch_status = "process_alive_and_map_marker_found"
+            if (-not $bossReadyFound) {
+                throw "Fiery Demon actor/mesh/animation readiness marker missing from packaged runtime log"
+            }
+            $report.launch_status = "process_alive_map_loaded_and_demon_actor_ready"
             $report["process_id"] = $process.Id
             Write-Json $BuildReport $report
             $smokeAccepted = $true
