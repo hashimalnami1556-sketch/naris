@@ -56,9 +56,7 @@ if ($LASTEXITCODE -ne 0) {
 }
 Write-Host '[P20] Native source compiled. This is not a playtest result.'
 if (-not $Launch) { return }
-$arguments = @('"' + $uproject + '"', '-game', '-windowed', '-ResX=1280', '-ResY=720', '-log', '-NarisSkipFrontEnd')
-# Remove the skip flag: the launch must open the P20 front-end, not bypass it.
-$arguments = $arguments | Where-Object { $_ -ne '-NarisSkipFrontEnd' }
+$arguments = @('"' + $uproject + '"', '-game', '-windowed', '-ResX=1280', '-ResY=720', '-log')
 $process = Start-Process -FilePath $editor -ArgumentList $arguments -PassThru
 Start-Sleep -Seconds 10
 $process.Refresh()
