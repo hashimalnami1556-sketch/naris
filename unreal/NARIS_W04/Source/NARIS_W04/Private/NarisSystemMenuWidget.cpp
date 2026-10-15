@@ -69,7 +69,9 @@ void UNarisSystemMenuWidget::NativeConstruct()
     }
 
     Controller = Cast<ANarisPlayerController>(GetOwningPlayer());
-    SetVisibility(ESlateVisibility::SelfHitTestInvisible);
+    // Keep the widget ticking while closed so it can reopen. Suppress
+    // hit testing on both the root and its descendants during gameplay.
+    SetVisibility(ESlateVisibility::HitTestInvisible);
     SetRenderOpacity(0.f);
 }
 
@@ -83,6 +85,11 @@ void UNarisSystemMenuWidget::NativeTick(const FGeometry& MyGeometry, float InDel
     }
 
     const bool bOpen = Controller && Controller->IsSystemMenuOpen();
+    // HitTestInvisible keeps NativeTick alive yet cannot intercept hidden
+    // mouse input; Collapsed/Hidden could prevent this tick-driven reopen.
+    SetVisibility(bOpen
+        ? ESlateVisibility::SelfHitTestInvisible
+        : ESlateVisibility::HitTestInvisible);
     SetRenderOpacity(bOpen ? 1.f : 0.f);
 
     if (!bOpen)
