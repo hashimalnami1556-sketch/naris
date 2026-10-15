@@ -17,6 +17,7 @@ public:
     ANarisFieryDemonBoss();
     virtual void BeginPlay() override;
     virtual void Tick(float DeltaSeconds) override;
+    virtual bool RequestPhaseAttack() override;
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="NARIS|FieryDemon")
     float AggroRadius = 1300.f;
