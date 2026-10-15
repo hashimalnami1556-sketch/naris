@@ -132,6 +132,7 @@ void UNarisSystemMenuWidget::BuildInterface()
     WidgetTree->RootWidget = Root;
 
     UBorder* Backdrop = MakePanel(NarsicUMG::Obsidian, FMargin(0.f));
+    BackdropPanel = Backdrop;
     UCanvasPanelSlot* BackdropSlot = Root->AddChildToCanvas(Backdrop);
     BackdropSlot->SetAnchors(FAnchors(0.f, 0.f, 1.f, 1.f));
     BackdropSlot->SetOffsets(FMargin(0.f));
@@ -161,6 +162,7 @@ void UNarisSystemMenuWidget::BuildInterface()
     ContextSlot->SetVerticalAlignment(VAlign_Center);
 
     UBorder* MenuPanel = MakePanel(NarsicUMG::BlackSteel, FMargin(18.f));
+    MenuPanelRef = MenuPanel;
     UCanvasPanelSlot* MenuPanelSlot = Root->AddChildToCanvas(MenuPanel);
     MenuPanelSlot->SetAnchors(FAnchors(0.035f, 0.155f, 0.605f, 0.90f));
     MenuPanelSlot->SetOffsets(FMargin(0.f));
@@ -253,6 +255,7 @@ void UNarisSystemMenuWidget::BuildInterface()
         FLinearColor(0.016f, 0.014f, 0.014f, 0.96f),
         FMargin(24.f)
     );
+    StatusPanelRef = StatusPanel;
     UCanvasPanelSlot* StatusSlot = Root->AddChildToCanvas(StatusPanel);
     StatusSlot->SetAnchors(FAnchors(0.635f, 0.155f, 0.965f, 0.90f));
     StatusSlot->SetOffsets(FMargin(0.f));
@@ -353,6 +356,44 @@ void UNarisSystemMenuWidget::RefreshInterface()
     if (!Controller)
     {
         return;
+    }
+
+    // P20 title mode leaves the 3D world visible; settings and inventory
+    // retain the dense, opaque layout required for legibility and controller input.
+    const bool bFrontEndLayout =
+        Controller->GetMenuContext() == ENarisMenuContext::FrontEnd
+        && Controller->GetPauseMenuPage() == ENarisPauseMenuPage::Main;
+    if (bFrontEndLayout != bLastFrontEndLayout)
+    {
+        if (BackdropPanel)
+        {
+            BackdropPanel->SetBrushColor(
+                bFrontEndLayout
+                    ? FLinearColor(0.004f, 0.005f, 0.007f, 0.46f)
+                    : NarsicUMG::Obsidian
+            );
+        }
+
+        if (MenuPanelRef)
+        {
+            if (UCanvasPanelSlot* PanelSlot = Cast<UCanvasPanelSlot>(MenuPanelRef->Slot))
+            {
+                PanelSlot->SetAnchors(
+                    bFrontEndLayout
+                        ? FAnchors(0.06f, 0.24f, 0.42f, 0.81f)
+                        : FAnchors(0.035f, 0.155f, 0.605f, 0.90f)
+                );
+            }
+        }
+        if (StatusPanelRef)
+        {
+            StatusPanelRef->SetVisibility(
+                bFrontEndLayout
+                    ? ESlateVisibility::Collapsed
+                    : ESlateVisibility::SelfHitTestInvisible
+            );
+        }
+        bLastFrontEndLayout = bFrontEndLayout;
     }
 
     const int32 Count = FMath::Clamp(
