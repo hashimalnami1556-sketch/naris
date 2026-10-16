@@ -1,0 +1,23 @@
+{
+  "source_base": "75f9d1886e7a4de5c79a0bb6c723506ff8feb3bc",
+  "commands": [
+    {
+      "command": "python3 tools/ci/validate_naris.py",
+      "exit_code": 0,
+      "scope": "repository validation"
+    },
+    {
+      "command": "python3 -m unittest discover -s tools/ci -v",
+      "exit_code": 0,
+      "tests_run": 336,
+      "scope": "existing source contracts"
+    },
+    {
+      "command": "python3 -m unittest discover -s tools/assetforge -v",
+      "exit_code": 0,
+      "tests_run": 6,
+      "scope": "AssetForge behavior"
+    }
+  ],
+  "not_unreal_engine_evidence": true
+}

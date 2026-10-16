@@ -1,0 +1,127 @@
+{
+  "schema_version": 1,
+  "scope": "P15 combat repair source delivery",
+  "self_excluded": "Reports/manifest.json",
+  "files": [
+    {
+      "path": ".gitignore",
+      "bytes": 75,
+      "sha256": "88c596ae26bfb1d6b2a0fbae8108f9860bc80b4415f6c959ace978a60e3d2fa8"
+    },
+    {
+      "path": "Plugins/NarisCombat/Config/DefaultNarisCombat.ini",
+      "bytes": 139,
+      "sha256": "640a9c32071e4e837d542b983bf014594d5c931c063ac180110c9d60cb533834"
+    },
+    {
+      "path": "Plugins/NarisCombat/NarisCombat.uplugin",
+      "bytes": 391,
+      "sha256": "89eb0a4f3b367e89e565945869901ac11c3e11be2f84a3cb919a8caeb5404661"
+    },
+    {
+      "path": "Plugins/NarisCombat/Source/NarisCombat/NarisCombat.Build.cs",
+      "bytes": 308,
+      "sha256": "a347a7fc29ca8885ad2e13dfe381b5aba1d41597d7523c723faf9759659eac0c"
+    },
+    {
+      "path": "Plugins/NarisCombat/Source/NarisCombat/Private/NarisCombat.cpp",
+      "bytes": 86,
+      "sha256": "6b4cbfda150dc8efeb87bfae071aacf9f16258282f71117316311d8f04a5011f"
+    },
+    {
+      "path": "Plugins/NarisCombat/Source/NarisCombat/Private/NarisP15AttackWindowNotify.cpp",
+      "bytes": 1015,
+      "sha256": "397233e101b15eb0dc659bc3a07946dae6f92710cb0b1e33c62d2bf93049f049"
+    },
+    {
+      "path": "Plugins/NarisCombat/Source/NarisCombat/Private/NarisP15CombatComponent.cpp",
+      "bytes": 9379,
+      "sha256": "b018cabf02ecb1b743b33237f532ea50d701ccda5e4a363008da1315cdf43d22"
+    },
+    {
+      "path": "Plugins/NarisCombat/Source/NarisCombat/Public/NarisCombatRules.h",
+      "bytes": 5103,
+      "sha256": "ebdc7f898c811da15244fd2e972ad164194d14c76a8f83358b117ed8fad1ad9d"
+    },
+    {
+      "path": "Plugins/NarisCombat/Source/NarisCombat/Public/NarisP15AttackWindowNotify.h",
+      "bytes": 643,
+      "sha256": "28784db9181ca0a95a8c8d22e8eb0b4eb2bde51b727b136c7e69c3540357a6d9"
+    },
+    {
+      "path": "Plugins/NarisCombat/Source/NarisCombat/Public/NarisP15CombatComponent.h",
+      "bytes": 4612,
+      "sha256": "acf9bc8ff60764e4cb891a521b11dca3281c76785135124e4dd16a937ce763ee"
+    },
+    {
+      "path": "README.md",
+      "bytes": 8784,
+      "sha256": "ffa5f3fc4148f08d3e86c24e6eba47ba03e404ba0ad48d7ecdd93501ce58885a"
+    },
+    {
+      "path": "Reports/P14_REFERENCE.json",
+      "bytes": 176,
+      "sha256": "86bbedded3760b0cdc954f2646a3c3f5d638033e92635d0fd4e2d934e4f07e73"
+    },
+    {
+      "path": "Reports/local_tests.txt",
+      "bytes": 5593,
+      "sha256": "b6f56f04943eca7fd3c01efbd474c3a3f9fe78da1cc29fb34b7db2fd2e1200fe"
+    },
+    {
+      "path": "Reports/repository_checks.json",
+      "bytes": 583,
+      "sha256": "d4cf114415c0714fe218ddf6545fadb009bbddfc30f22bbcd83a2fc275d7ea40"
+    },
+    {
+      "path": "Reports/source_archive.json",
+      "bytes": 2366,
+      "sha256": "92d5560e0ac4efe5879869945d1c6ff2fc511e142aadeae6467c770e7f01213d"
+    },
+    {
+      "path": "Reports/verification.json",
+      "bytes": 460,
+      "sha256": "8af602b9c198e8a5fbeaced2e7f2904c785090f37dc6b6f1164d5efe18ab085a"
+    },
+    {
+      "path": "Scripts/build_win64.bat",
+      "bytes": 271,
+      "sha256": "4366aa45ae93a2d8d24d6b0866f56d906c44f3451563c0ed8d201a2518655b9b"
+    },
+    {
+      "path": "Scripts/build_win64.ps1",
+      "bytes": 4281,
+      "sha256": "4146187914a14a4b2e5c3791eb45f6c972bfe5bcb8b61807ea2265f25d0b35c2"
+    },
+    {
+      "path": "Scripts/run_local_tests.py",
+      "bytes": 1590,
+      "sha256": "ad33121bdaf49da769531d2d8cc2bd5cf356c8efba144a3fdfe0666b7a266c40"
+    },
+    {
+      "path": "Scripts/validate_project.py",
+      "bytes": 3294,
+      "sha256": "2a08baaff879664a92e601507d074f34e901d88692ebbbe7d665ce6957fc62a1"
+    },
+    {
+      "path": "Scripts/verify_package.py",
+      "bytes": 2626,
+      "sha256": "8f05e52fb4a48bf135dfa56f8d2920965de79547ef3b3b72202612b96b51b490"
+    },
+    {
+      "path": "Tests/combat_rules_test.cpp",
+      "bytes": 6422,
+      "sha256": "e3ec2b181f4aef949b225d0fbc363f08403955d9acf4cc88a6d74c2fe941a09f"
+    },
+    {
+      "path": "Tests/test_delivery.py",
+      "bytes": 12322,
+      "sha256": "6fb9b9192d69edea5347e681536f21a7e9485f7d9324e8b59e46f7aa5b752435"
+    },
+    {
+      "path": "Unreal/import_and_verify.py",
+      "bytes": 6207,
+      "sha256": "8bee167dcbbb9489435e1f848554567579cff4f3fda9815d5ef292d88f7ffc3d"
+    }
+  ]
+}

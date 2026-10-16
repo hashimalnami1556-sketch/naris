@@ -1,6 +1,13 @@
 # CALL OF NARIS current work
 
-Updated: 2026-10-01
+Updated: 2026-10-16
+
+## 2026-10-16 P15 combat repair
+
+- Work scope: the **combat delivery** `NARIS_P15_DELIVERY_20261016.zip`, separate from the P15 animation archives.
+- Repaired source and integration/test instructions: [P15 combat](source/p15-combat/README.md). W04's existing combat implementation is preserved; the plugin uses a separate reflected class and is not auto-enabled.
+- Local verification covers compiled portable combat rules plus mocked importer, read-only preflight and package-artifact failure cases. Unreal UHT/UBT, Windows launcher execution and gameplay remain separate open gates.
+- Execution blocker checked 2026-10-16: no local Unreal binaries; AsusRog offline. Continue with the guarded test-project build once the Windows engine host is reachable; retain actual logs and playtest evidence before closing P15.
 
 ## 2026-10-01 repository sync — UI4.1 + packaged Windows evidence
 

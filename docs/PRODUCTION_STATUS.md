@@ -6,6 +6,12 @@
 **Primary vertical slice:** W04 — Ashen Forest  
 **Release gate:** Internal playtest only
 
+### 2026-10-16 P15 combat-source package correction
+
+The inspected input is `NARIS_P15_DELIVERY_20261016.zip` (combat plugin/import/build tooling), not the similarly named P15 animation archive. Its repaired source is isolated in [source/p15-combat](../source/p15-combat/README.md). It preserves W04 gameplay, avoids the duplicate reflected component name, and adds shared portable combat rules, montage-owned hit-window source, server-side weapon tracing, fail-closed import/preflight and fresh Windows package checks. Local behavioral evidence is recorded in that package's `Reports/`.
+
+These results do not close Unreal gates. No local Unreal installation is available, and AsusRog was reported **offline** on 2026-10-16. UHT/UBT, actual import, animation/collision/PIE networking, packaged Windows gameplay and performance remain unexecuted in this repair. The P15 plugin is not automatically attached to W04 actors or enabled in the canonical project; P16/P17/P18 acceptance is unchanged.
+
 ## Repository baseline
 
 - Canonical branch: `main`

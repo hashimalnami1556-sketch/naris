@@ -1,8 +1,20 @@
 ---
 status: active
-last_updated: 2026-10-01
+last_updated: 2026-10-16
 ---
 # W04 readiness handoff
+
+## 2026-10-16 P15 combat-delivery repair claim
+
+- Executing agent: Codex.
+- Claimed scope: the `NARIS_P15_DELIVERY_20261016.zip` combat plugin, importer, build runner and behavioral tests, maintained under `source/p15-combat/`; this is separate from P15 animation archives.
+- Preserve canonical W04 gameplay classes; avoid the incoming plugin's duplicate `UNarisCombatComponent` reflection name.
+- Validate portable combat rules and importer failure paths locally. Unreal UHT/UBT, Windows packaging and playtests require the offline AsusRog host and remain open.
+- Source base: main at `75f9d1886e7a4de5c79a0bb6c723506ff8feb3bc`.
+- Completed: isolated corrected P15 combat delivery; renamed reflected component and migration redirect; shared validated rules; montage/notify and server trace source; fail-closed importer; read-only installation/engine/map preflight; fresh package/artifact verification; CI integration and integration README.
+- Executed evidence: 61 delivery behavioral tests passed (25 compile/run the shared C++ header, 20 mocked import tests, 8 project preflight tests, 8 package-artifact tests); 336 existing CI-contract tests and 6 AssetForge tests passed; `tools/ci/validate_naris.py` passed.
+- Not executed: UHT/UBT/plugin link, PowerShell locally, actual Unreal import/PIE, Windows packaging/launch or performance. The plugin is not auto-enabled in W04.
+- Next action: use a backed-up UE 5.7 test project on the engine host; install the exact plugin; wire authored montages/slots/sockets/notify, run the README encounter checklist and guarded Windows pipeline, and retain real logs before closing the gate.
 
 - Task ID: NARIS-W04-READINESS
 - Human decision owner: project owner.

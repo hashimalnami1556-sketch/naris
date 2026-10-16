@@ -46,6 +46,16 @@ Presence is not proof of successful compilation or correct gameplay. Historical 
 
 ## Remaining work, ordered by dependency
 
+### P15 combat delivery repair — 2026-10-16
+
+- Correct target: `NARIS_P15_DELIVERY_20261016.zip`, the combat plugin delivery. See [repaired source and integration instructions](../source/p15-combat/README.md).
+- Source defects addressed: nonfinite/negative settings; repeated actions; incomplete defense timing; per-swing hit deduplication; duplicate reflected class name with W04; empty/stale/unverified imports; build continuation and weak executable checks.
+- Portable C++ rules execute locally; importer, project preflight and package-artifact checks execute against temporary fixtures. These are not engine, native Windows launcher or gameplay results.
+- Open P0: compile the repaired plugin with actual UE 5.7/UHT/UBT, wire authored montages/sockets and the notify state on a test Character, run hit/wall/defense/death and two-client ownership tests, then retain a fresh Development package and a recorded encounter. W04's existing combat owner must not be replaced or duplicated implicitly.
+- AsusRog was offline when checked on 2026-10-16. No EXE, production montage, boss integration or release acceptance is claimed.
+
+### W04 dependencies
+
 | Priority | Gap | Evidence required to close |
 |---|---|---|
 | P0 | Unreal compilation after source repairs | Passing Windows UnrealBuildTool log for NARIS_W04Editor |
