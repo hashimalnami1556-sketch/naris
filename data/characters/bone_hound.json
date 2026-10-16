@@ -1,0 +1,214 @@
+{
+  "asset_id": "NARIS-CHR-BONE-HOUND-0001",
+  "name": "Bone Hound",
+  "type": "quadrupedal_skeletal_creature",
+  "role": "pack_enemy",
+  "status": "production_locked",
+  "version": "V001",
+  "world": "W10",
+  "batch": "07",
+  "domains": ["CHR", "ENE"],
+
+  "skeleton": {
+    "total_bones": 29,
+    "structure": {
+      "root": "Armature",
+      "spine_chain": ["Spine.001", "Spine.002", "Spine.003", "Chest"],
+      "left_front_leg": ["LeftFrontShoulder", "LeftFrontUpperLeg", "LeftFrontLowerLeg", "LeftFrontPaw"],
+      "right_front_leg": ["RightFrontShoulder", "RightFrontUpperLeg", "RightFrontLowerLeg", "RightFrontPaw"],
+      "left_back_leg": ["LeftBackShoulder", "LeftBackUpperLeg", "LeftBackLowerLeg", "LeftBackPaw"],
+      "right_back_leg": ["RightBackShoulder", "RightBackUpperLeg", "RightBackLowerLeg", "RightBackPaw"],
+      "head_chain": ["Neck", "Head", "LeftJaw", "RightJaw", "UpperJaw"],
+      "tail": ["TailBase", "TailMid", "TailTip"]
+    }
+  },
+
+  "scale": {
+    "width_m": 1.4,
+    "height_m": 0.9,
+    "length_m": 2.1,
+    "unit": "meters"
+  },
+
+  "visual_identity": {
+    "material": "bone_and_decay",
+    "primary_color": "#D9D4C5",
+    "accent_color": "#8B7355",
+    "glow": "none",
+    "surface": "weathered bone with ash residue",
+    "special_features": ["exposed_spine", "jaw_deformation_capable", "skeletal_gaps", "bone_cracks"]
+  },
+
+  "combat": {
+    "hp": 180,
+    "armor": 0,
+    "status_immunities": ["freeze"],
+    "status_vulnerabilities": ["bleed", "fire"]
+  },
+
+  "movement": {
+    "walk_speed_ms": 5.5,
+    "sprint_speed_ms": 11.0,
+    "acceleration": 3.2,
+    "turning_radius": 0.8
+  },
+
+  "ai": {
+    "ai_type": "PACK_AGGRO",
+    "pack_size": 3,
+    "pack_cohesion": 2.5,
+    "aggro_range": 15.0,
+    "attack_range": 1.8,
+    "idle_behavior": "patrol"
+  },
+
+  "abilities": {
+    "bite": {
+      "name": "Bite Attack",
+      "animation": "Bite",
+      "damage": 35,
+      "status_effect": "bleed",
+      "bleed_damage_per_tick": 8,
+      "bleed_duration_seconds": 6,
+      "cooldown_seconds": 3.0,
+      "cast_time_seconds": 0.5,
+      "jaw_deformation": true
+    },
+    "pack_howl": {
+      "name": "Pack Howl",
+      "animation": "Howl",
+      "effect": "buff_allies",
+      "buff_type": "damage_increase",
+      "buff_amount": 1.15,
+      "buff_duration_seconds": 8.0,
+      "cooldown_seconds": 12.0,
+      "range": 30.0
+    },
+    "charge": {
+      "name": "Charge Attack",
+      "animation": "Charge",
+      "damage": 45,
+      "knockback": 3.0,
+      "cooldown_seconds": 8.0
+    }
+  },
+
+  "animations": {
+    "idle": {
+      "name": "Idle",
+      "duration_seconds": 2.0,
+      "loop": true,
+      "events": []
+    },
+    "walk": {
+      "name": "Walk",
+      "duration_seconds": 1.2,
+      "loop": true,
+      "events": [
+        {"frame": 0.25, "event": "footstep_left"},
+        {"frame": 0.75, "event": "footstep_right"}
+      ]
+    },
+    "sprint": {
+      "name": "Sprint",
+      "duration_seconds": 0.8,
+      "loop": true,
+      "events": [
+        {"frame": 0.2, "event": "footstep_left"},
+        {"frame": 0.6, "event": "footstep_right"}
+      ]
+    },
+    "bite": {
+      "name": "Bite",
+      "duration_seconds": 1.0,
+      "loop": false,
+      "events": [
+        {"frame": 0.0, "event": "ability_start"},
+        {"frame": 0.4, "event": "bite_impact"},
+        {"frame": 0.6, "event": "jaw_deformation_peak"},
+        {"frame": 1.0, "event": "ability_end"}
+      ]
+    },
+    "death": {
+      "name": "Death",
+      "duration_seconds": 2.5,
+      "loop": false,
+      "events": [
+        {"frame": 0.0, "event": "death_start"},
+        {"frame": 1.2, "event": "ragdoll_enable"},
+        {"frame": 2.5, "event": "loot_drop"}
+      ]
+    },
+    "howl": {
+      "name": "Howl",
+      "duration_seconds": 1.8,
+      "loop": false,
+      "events": [
+        {"frame": 0.6, "event": "howl_sound"},
+        {"frame": 0.8, "event": "buff_apply"},
+        {"frame": 1.8, "event": "animation_end"}
+      ]
+    },
+    "charge": {
+      "name": "Charge",
+      "duration_seconds": 1.5,
+      "loop": false,
+      "events": [
+        {"frame": 0.0, "event": "charge_start"},
+        {"frame": 0.7, "event": "charge_impact"},
+        {"frame": 1.5, "event": "charge_end"}
+      ]
+    },
+    "hit_light": {
+      "name": "HitLight",
+      "duration_seconds": 0.6,
+      "loop": false,
+      "events": [
+        {"frame": 0.0, "event": "hit_reaction_start"}
+      ]
+    },
+    "hit_heavy": {
+      "name": "HitHeavy",
+      "duration_seconds": 1.2,
+      "loop": false,
+      "events": [
+        {"frame": 0.0, "event": "knockdown_start"},
+        {"frame": 0.8, "event": "recovery_start"}
+      ]
+    }
+  },
+
+  "state_machine": "bone_hound_state_machine.json",
+
+  "loot_table": {
+    "common": [
+      {"item": "bone_fragment", "weight": 0.6, "min_quantity": 1, "max_quantity": 3},
+      {"item": "ash_dust", "weight": 0.3, "min_quantity": 2, "max_quantity": 5}
+    ],
+    "uncommon": [
+      {"item": "hound_fang", "weight": 0.8, "min_quantity": 1, "max_quantity": 2},
+      {"item": "bone_marrow", "weight": 0.5, "min_quantity": 1, "max_quantity": 1}
+    ],
+    "rare": [
+      {"item": "spectral_bone", "weight": 0.15, "min_quantity": 1, "max_quantity": 1}
+    ]
+  },
+
+  "sfx": {
+    "footsteps": "sfx_bone_clatter_light",
+    "idle": "sfx_bone_hound_breathing",
+    "howl": "sfx_bone_hound_howl",
+    "bite": "sfx_bone_hound_bite",
+    "death": "sfx_bone_hound_death"
+  },
+
+  "production_gates": ["concept", "skeleton", "rigged", "animated", "combat_coded", "sfx_integrated", "qa", "approved", "release"],
+  "acceptance_criteria": [
+    "Skeleton: 29 bones matching specification",
+    "Jaw: full deformation during Bite animation",
+    "AI: PACK_AGGRO with 3-hound cohesion",
+    "Animations: all 8 clips implemented with event markers",
+    "Combat: Bite applies bleed status effect",
+    "Death: ragdoll and loot drop correctly"
+  ]
+}

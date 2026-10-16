@@ -1,0 +1,511 @@
+{
+  "state_machine_id": "NARIS-SME-ASHEN-VESSEL-0001",
+  "name": "Ashen Vessel Combat State Machine",
+  "version": "V001",
+  "character_id": "NARIS-CHR-ASHEN-VESSEL-0001",
+  "batch": "07",
+  "role": "player_character",
+
+  "parameters": {
+    "float": [
+      {"name": "movement_speed", "default": 0.0},
+      {"name": "aim_angle", "default": 0.0}
+    ],
+    "bool": [
+      {"name": "is_moving", "default": false},
+      {"name": "is_attacking", "default": false},
+      {"name": "is_casting_ability", "default": false},
+      {"name": "is_parrying", "default": false},
+      {"name": "is_dodging", "default": false},
+      {"name": "is_sprinting", "default": false},
+      {"name": "is_falling", "default": false},
+      {"name": "is_dead", "default": false},
+      {"name": "is_interacting", "default": false}
+    ],
+    "int": [
+      {"name": "combo_stage", "default": 0},
+      {"name": "current_weapon", "default": 0},
+      {"name": "stamina_level", "default": 100}
+    ]
+  },
+
+  "states": [
+    {
+      "name": "Idle",
+      "type": "state",
+      "animation": "Idle",
+      "animation_blend_in": 0.3,
+      "animation_blend_out": 0.3,
+      "loop": true,
+      "events": []
+    },
+    {
+      "name": "Walk",
+      "type": "state",
+      "animation": "Walk",
+      "animation_blend_in": 0.3,
+      "animation_blend_out": 0.3,
+      "loop": true,
+      "motion_type": "locomotion",
+      "speed_parameter": "movement_speed",
+      "events": []
+    },
+    {
+      "name": "Run",
+      "type": "state",
+      "animation": "Run",
+      "animation_blend_in": 0.2,
+      "animation_blend_out": 0.3,
+      "loop": true,
+      "motion_type": "locomotion",
+      "speed_parameter": "movement_speed",
+      "speed_multiplier": 1.5,
+      "events": []
+    },
+    {
+      "name": "Sprint",
+      "type": "state",
+      "animation": "Sprint",
+      "animation_blend_in": 0.15,
+      "animation_blend_out": 0.25,
+      "loop": true,
+      "motion_type": "locomotion",
+      "speed_parameter": "movement_speed",
+      "speed_multiplier": 2.0,
+      "resource_drain": "stamina",
+      "drain_rate": 20.0,
+      "events": []
+    },
+    {
+      "name": "Combo01",
+      "type": "state",
+      "animation": "Combo01",
+      "animation_blend_in": 0.05,
+      "animation_blend_out": 0.1,
+      "loop": false,
+      "events": [
+        {"trigger": "combo_start", "effect": "set_parameter", "parameter": "combo_stage", "value": 1},
+        {"trigger": "first_strike", "effect": "play_hit_stop", "duration": 0.05},
+        {"trigger": "second_strike", "effect": "play_hit_stop", "duration": 0.05},
+        {"trigger": "combo_end_point", "effect": "allow_next_combo"}
+      ]
+    },
+    {
+      "name": "Combo02",
+      "type": "state",
+      "animation": "Combo02",
+      "animation_blend_in": 0.05,
+      "animation_blend_out": 0.1,
+      "loop": false,
+      "events": [
+        {"trigger": "combo_continue", "effect": "set_parameter", "parameter": "combo_stage", "value": 2},
+        {"trigger": "third_strike", "effect": "play_hit_stop", "duration": 0.05},
+        {"trigger": "final_strike", "effect": "play_hit_stop", "duration": 0.08}
+      ]
+    },
+    {
+      "name": "RuneSlash",
+      "type": "state",
+      "animation": "RuneSlash",
+      "animation_blend_in": 0.1,
+      "animation_blend_out": 0.15,
+      "loop": false,
+      "events": [
+        {"trigger": "ability_start", "effect": "consume_stamina", "amount": 35},
+        {"trigger": "rune_activate", "effect": "play_hit_stop", "duration": 0.08},
+        {"trigger": "slash_impact", "effect": "camera_shake", "intensity": 0.8, "duration": 0.2}
+      ]
+    },
+    {
+      "name": "AetherStep",
+      "type": "state",
+      "animation": "AetherStep",
+      "animation_blend_in": 0.05,
+      "animation_blend_out": 0.1,
+      "loop": false,
+      "events": [
+        {"trigger": "ability_start", "effect": "consume_mana", "amount": 20}
+      ]
+    },
+    {
+      "name": "DodgeRoll",
+      "type": "state",
+      "animation": "DodgeRoll",
+      "animation_blend_in": 0.05,
+      "animation_blend_out": 0.1,
+      "loop": false,
+      "events": [
+        {"trigger": "dodge_start", "effect": "consume_stamina", "amount": 30},
+        {"trigger": "invulnerability", "effect": "set_invulnerability", "duration": 0.6}
+      ]
+    },
+    {
+      "name": "Parry",
+      "type": "state",
+      "animation": "Parry",
+      "animation_blend_in": 0.05,
+      "animation_blend_out": 0.1,
+      "loop": false,
+      "events": [
+        {"trigger": "parry_start", "effect": "enable_block", "duration": 0.3},
+        {"trigger": "weapon_contact", "effect": "play_parry_sfx"}
+      ]
+    },
+    {
+      "name": "HitLight",
+      "type": "state",
+      "animation": "HitLight",
+      "animation_blend_in": 0.05,
+      "animation_blend_out": 0.1,
+      "loop": false,
+      "events": []
+    },
+    {
+      "name": "HitHeavy",
+      "type": "state",
+      "animation": "HitHeavy",
+      "animation_blend_in": 0.05,
+      "animation_blend_out": 0.15,
+      "loop": false,
+      "events": [
+        {"trigger": "knockback_apply", "effect": "apply_knockback", "distance": 2.0},
+        {"trigger": "recovery_start", "effect": "enable_movement"}
+      ]
+    },
+    {
+      "name": "Stagger",
+      "type": "state",
+      "animation": "Stagger",
+      "animation_blend_in": 0.05,
+      "animation_blend_out": 0.1,
+      "loop": false,
+      "events": [
+        {"trigger": "stagger_start", "effect": "disable_movement", "duration": 0.5}
+      ]
+    },
+    {
+      "name": "Interact",
+      "type": "state",
+      "animation": "Interact",
+      "animation_blend_in": 0.2,
+      "animation_blend_out": 0.2,
+      "loop": false,
+      "events": [
+        {"trigger": "interaction_start", "effect": "disable_movement"},
+        {"trigger": "interaction_end", "effect": "enable_movement"}
+      ]
+    },
+    {
+      "name": "Fall",
+      "type": "state",
+      "animation": "Fall",
+      "animation_blend_in": 0.1,
+      "animation_blend_out": 0.1,
+      "loop": true,
+      "motion_type": "air",
+      "events": []
+    },
+    {
+      "name": "Land",
+      "type": "state",
+      "animation": "Land",
+      "animation_blend_in": 0.05,
+      "animation_blend_out": 0.2,
+      "loop": false,
+      "events": [
+        {"trigger": "land_impact", "effect": "camera_shake", "intensity": 0.3}
+      ]
+    },
+    {
+      "name": "DeathDramatic",
+      "type": "state",
+      "animation": "DeathDramatic",
+      "animation_blend_in": 0.1,
+      "animation_blend_out": 0.0,
+      "loop": false,
+      "events": [
+        {"trigger": "death_start", "effect": "disable_combat"},
+        {"trigger": "ragdoll_enable", "effect": "enable_ragdoll_physics"}
+      ]
+    }
+  ],
+
+  "transitions": [
+    {
+      "from": "Idle",
+      "to": "Walk",
+      "condition": "is_moving == true && is_sprinting == false",
+      "ordered": true
+    },
+    {
+      "from": "Idle",
+      "to": "Sprint",
+      "condition": "is_sprinting == true",
+      "ordered": true
+    },
+    {
+      "from": "Idle",
+      "to": "Combo01",
+      "condition": "is_attacking == true && combo_stage == 0",
+      "ordered": true
+    },
+    {
+      "from": "Idle",
+      "to": "DodgeRoll",
+      "condition": "is_dodging == true",
+      "ordered": true
+    },
+    {
+      "from": "Idle",
+      "to": "Parry",
+      "condition": "is_parrying == true",
+      "ordered": true
+    },
+    {
+      "from": "Idle",
+      "to": "Interact",
+      "condition": "is_interacting == true",
+      "ordered": true
+    },
+    {
+      "from": "Walk",
+      "to": "Idle",
+      "condition": "is_moving == false",
+      "ordered": true
+    },
+    {
+      "from": "Walk",
+      "to": "Sprint",
+      "condition": "is_sprinting == true",
+      "ordered": true
+    },
+    {
+      "from": "Walk",
+      "to": "Combo01",
+      "condition": "is_attacking == true",
+      "ordered": true
+    },
+    {
+      "from": "Walk",
+      "to": "DodgeRoll",
+      "condition": "is_dodging == true",
+      "ordered": true
+    },
+    {
+      "from": "Sprint",
+      "to": "Walk",
+      "condition": "is_sprinting == false && is_moving == true",
+      "ordered": true
+    },
+    {
+      "from": "Sprint",
+      "to": "Idle",
+      "condition": "is_moving == false",
+      "ordered": true
+    },
+    {
+      "from": "Combo01",
+      "to": "Combo02",
+      "condition": "is_attacking == true && combo_stage == 1",
+      "window": 0.5,
+      "ordered": true
+    },
+    {
+      "from": "Combo01",
+      "to": "Idle",
+      "condition": "animation_finished == true && is_moving == false",
+      "ordered": true
+    },
+    {
+      "from": "Combo02",
+      "to": "Idle",
+      "condition": "animation_finished == true && is_moving == false",
+      "ordered": true
+    },
+    {
+      "from": "Combo02",
+      "to": "Walk",
+      "condition": "animation_finished == true && is_moving == true",
+      "ordered": true
+    },
+    {
+      "from": "RuneSlash",
+      "to": "Idle",
+      "condition": "animation_finished == true",
+      "ordered": true
+    },
+    {
+      "from": "AetherStep",
+      "to": "Idle",
+      "condition": "animation_finished == true",
+      "ordered": true
+    },
+    {
+      "from": "DodgeRoll",
+      "to": "Idle",
+      "condition": "animation_finished == true && is_moving == false",
+      "ordered": true
+    },
+    {
+      "from": "DodgeRoll",
+      "to": "Walk",
+      "condition": "animation_finished == true && is_moving == true",
+      "ordered": true
+    },
+    {
+      "from": "Parry",
+      "to": "Idle",
+      "condition": "animation_finished == true",
+      "ordered": true
+    },
+    {
+      "from": "HitLight",
+      "to": "Idle",
+      "condition": "animation_finished == true",
+      "ordered": true
+    },
+    {
+      "from": "HitHeavy",
+      "to": "Idle",
+      "condition": "animation_finished == true",
+      "ordered": true
+    },
+    {
+      "from": "Stagger",
+      "to": "Idle",
+      "condition": "animation_finished == true",
+      "ordered": true
+    },
+    {
+      "from": "Interact",
+      "to": "Idle",
+      "condition": "animation_finished == true",
+      "ordered": true
+    },
+    {
+      "from": "Fall",
+      "to": "Land",
+      "condition": "is_falling == false",
+      "ordered": true
+    },
+    {
+      "from": "Land",
+      "to": "Idle",
+      "condition": "animation_finished == true",
+      "ordered": true
+    },
+    {
+      "from": "any_state",
+      "to": "Fall",
+      "condition": "is_falling == true",
+      "priority": 5,
+      "ordered": true
+    },
+    {
+      "from": "any_state",
+      "to": "HitLight",
+      "condition": "stamina_level > 0 && is_hit == true",
+      "priority": 10,
+      "ordered": true
+    },
+    {
+      "from": "any_state",
+      "to": "HitHeavy",
+      "condition": "stamina_level <= 0 && is_hit == true",
+      "priority": 10,
+      "ordered": true
+    },
+    {
+      "from": "any_state",
+      "to": "DeathDramatic",
+      "condition": "is_dead == true",
+      "priority": 100,
+      "ordered": true
+    },
+    {
+      "from": "any_state",
+      "to": "RuneSlash",
+      "condition": "is_casting_ability == true",
+      "priority": 15,
+      "ordered": true
+    }
+  ],
+
+  "ik_setup": {
+    "full_body": {
+      "enabled": true,
+      "type": "generic_full_body_ik"
+    },
+    "hands": {
+      "enabled": true,
+      "type": "hand_ik",
+      "for_weapon": true
+    },
+    "feet": {
+      "enabled": true,
+      "type": "foot_ik",
+      "ground_alignment": 0.8
+    },
+    "head": {
+      "enabled": true,
+      "type": "aim_ik",
+      "look_at_weight": 0.3
+    }
+  },
+
+  "resources": [
+    {
+      "name": "stamina",
+      "max_value": 100,
+      "regeneration_rate": 30.0,
+      "regeneration_delay": 1.0
+    },
+    {
+      "name": "mana",
+      "max_value": 150,
+      "regeneration_rate": 25.0,
+      "regeneration_delay": 0.5
+    }
+  ],
+
+  "weapon_systems": [
+    {
+      "weapon_slot": 0,
+      "weapon_id": "emberedge",
+      "attack_combos": ["Combo01", "Combo02"],
+      "ability": "RuneSlash"
+    },
+    {
+      "weapon_slot": 1,
+      "weapon_id": "aether_spear",
+      "attack_animation": "Thrust",
+      "ability": "AetherThrust"
+    },
+    {
+      "weapon_slot": 2,
+      "weapon_id": "ash_bow",
+      "attack_animation": "BowShot",
+      "ability": "AetherArrowRain"
+    }
+  ],
+
+  "combat_feedback": {
+    "hit_stop_enabled": true,
+    "camera_shake_enabled": true,
+    "screen_flash_enabled": true,
+    "damage_numbers_enabled": true
+  },
+
+  "acceptance_criteria": [
+    "All states present and transitioning correctly",
+    "Combo system allows Combo01 → Combo02 chaining",
+    "Dodge Roll provides 0.6s invulnerability",
+    "Parry blocks incoming damage",
+    "Stamina drains on Sprint and ability use",
+    "Resource regeneration working (stamina/mana)",
+    "Hit reactions prioritize based on stamina",
+    "Death animation triggers ragdoll properly",
+    "IK constraints maintain foot/hand/head positioning",
+    "Weapon switching functional with correct abilities"
+  ]
+}
