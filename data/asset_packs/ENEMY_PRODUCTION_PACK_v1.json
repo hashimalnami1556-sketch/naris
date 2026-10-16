@@ -1,0 +1,13 @@
+{
+  "packId": "NARIS-ENEMY-PRODUCTION-v1",
+  "runtime": "Babylon.js",
+  "webFormat": "GLB/glTF 2.0",
+  "cinematicFormat": "FBX",
+  "status": "production-scaffold",
+  "assets": [
+    {"id":"NARIS-W04-ENM-ASHEN-SHADE-0001","type":"enemy","key":"ashen-shade","realm":"ashen-forest","health":220,"damage":24,"speed":3.8,"attackRange":2.8,"lod":[0,1,2],"flying":true,"sockets":["SOCKET_VFX_CORE","SOCKET_ATTACK","SOCKET_HIT","SOCKET_PROJECTILE"]},
+    {"id":"NARIS-W07-ENM-THORN-CREATURE-0001","type":"enemy","key":"thorn-creature","realm":"bell-swamp","health":300,"damage":32,"speed":4.6,"attackRange":2.2,"lod":[0,1,2],"flying":false,"sockets":["SOCKET_VFX_CORE","SOCKET_ATTACK","SOCKET_HIT"]},
+    {"id":"NARIS-W08-ENM-STONE-GUARDIAN-0001","type":"enemy","key":"stone-guardian","realm":"twilight-castle","health":650,"damage":55,"speed":1.7,"attackRange":3.2,"lod":[0,1,2],"flying":false,"sockets":["SOCKET_VFX_CORE","SOCKET_ATTACK","SOCKET_HIT"]},
+    {"id":"NARIS-GG-001","type":"boss","key":"gate-guardian","realm":"ash-gate","health":1800,"damage":55,"speed":2.6,"attackRange":3.2,"lod":[0,1,2],"phases":[70,40,12],"flying":false,"sockets":["SOCKET_VFX_CORE","SOCKET_ATTACK","SOCKET_HIT","SOCKET_PROJECTILE"]}
+  ]
+}
