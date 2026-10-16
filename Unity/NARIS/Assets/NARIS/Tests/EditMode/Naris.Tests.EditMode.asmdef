@@ -1,0 +1,7 @@
+{
+  "name": "Naris.Tests.EditMode",
+  "references": ["Naris.Runtime"],
+  "optionalUnityReferences": ["TestAssemblies"],
+  "includePlatforms": ["Editor"],
+  "autoReferenced": false
+}
