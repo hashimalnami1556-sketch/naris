@@ -6,6 +6,7 @@ Updated: 2026-09-23. This is a routing layer over existing repository documents,
 |---|---|---|
 | Shared agent policy | [AGENTS](../../AGENTS.md) | Operating guide |
 | Current objective and handoff | [Project state](../../PROJECT_STATE.md) | Current work only |
+| Player-facing UI product context | [Product context](../../PRODUCT.md) | Durable routing; not a second GDD or readiness ledger |
 | Scope and identity | [README](../../README.md) | Existing project baseline |
 | Directory governance | [Repository map](../REPOSITORY_MAP.md) | Existing taxonomy |
 | Production readiness | [Production status](../PRODUCTION_STATUS.md) | Release gates and evidence |
