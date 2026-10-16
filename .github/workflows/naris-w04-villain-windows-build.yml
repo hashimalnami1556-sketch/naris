@@ -1,0 +1,78 @@
+name: NARIS W04 Villain Windows Build
+
+on:
+  push:
+    branches:
+      - feature/w04-villain-runtime-rebased-20261012
+    paths:
+      - "unreal/NARIS_W04/**"
+      - "tools/windows/Invoke-NarisW04Villain*.ps1"
+      - ".github/workflows/naris-w04-villain-windows-build.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: naris-w04-villain-windows
+  cancel-in-progress: false
+
+jobs:
+  w04-villain-editor:
+    name: W04 villain native build and development encounter authoring
+    runs-on: [self-hosted, windows, unreal]
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Verify engine 5.7 and game project
+        shell: powershell
+        run: |
+          $candidate = 'C:\Program Files\Epic Games\UE_5.7'
+          if (-not $env:UNREAL_ENGINE_ROOT -or -not (Test-Path $env:UNREAL_ENGINE_ROOT)) {
+            if (-not (Test-Path $candidate)) { throw 'UE 5.7 path not available on this runner.' }
+            $env:UNREAL_ENGINE_ROOT = $candidate
+          }
+          "UNREAL_ENGINE_ROOT=$env:UNREAL_ENGINE_ROOT" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+          $project = Join-Path $env:GITHUB_WORKSPACE 'unreal\NARIS_W04\NARIS_W04.uproject'
+          if (-not (Test-Path $project)) { throw "Missing project: $project" }
+          $descriptor = Get-Content -Raw $project | ConvertFrom-Json
+          if ($descriptor.EngineAssociation -ne '5.7') { throw 'W04 engine association is not 5.7.' }
+          Write-Host 'NARIS_VILLAIN_WINDOWS_PREREQUISITES=PASS'
+
+      - name: Compile C++ and author W04 villains blockout
+        shell: powershell
+        run: |
+          & "$env:GITHUB_WORKSPACE\tools\windows\Invoke-NarisW04VillainIntegration.ps1" -RepoRoot $env:GITHUB_WORKSPACE -UnrealEngineRoot $env:UNREAL_ENGINE_ROOT
+
+      - name: Capture W04 validation evidence
+        if: always()
+        shell: powershell
+        run: |
+          $src = Join-Path $env:GITHUB_WORKSPACE 'unreal\NARIS_W04\Saved'
+          $dst = Join-Path $env:GITHUB_WORKSPACE 'artifacts\w04_villains'
+          New-Item -ItemType Directory -Path $dst -Force | Out-Null
+          foreach ($part in @('Logs','TestReports')) {
+            $path = Join-Path $src $part
+            if (Test-Path $path) {
+              $dest = Join-Path $dst $part
+              Copy-Item $path $dest -Recurse -Force -ErrorAction Continue
+            }
+          }
+          @"
+          branch=$env:GITHUB_REF_NAME
+          commit=$env:GITHUB_SHA
+          workflow_run=$env:GITHUB_RUN_ID
+          stage=development-only
+          rigged-art-import=NOT_RUN_BINARY_PACKAGE_NOT_CHECKED_IN
+          shipped=false
+          "@ | Out-File -FilePath (Join-Path $dst 'BUILD_CONTEXT.txt') -Encoding utf8
+
+      - name: Upload build/authoring logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: NARIS-W04-Villain-Windows-Build-Evidence
+          path: artifacts/w04_villains
+          retention-days: 7
+          if-no-files-found: warn
