@@ -1,0 +1,16 @@
+{
+  "target_minutes": 12,
+  "flow": [
+    "main_menu",
+    "intro_cinematic",
+    "wake_area",
+    "movement_combat_tutorial",
+    "memory_crystal",
+    "naris_first_whisper",
+    "bone_beast",
+    "ash_gate",
+    "celestial_wolf_reveal",
+    "ash_giant",
+    "demo_end"
+  ]
+}
