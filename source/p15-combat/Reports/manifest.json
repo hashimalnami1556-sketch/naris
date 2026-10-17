@@ -121,7 +121,7 @@
     {
       "path": "Scripts/build_win64.ps1",
       "bytes": 5580,
-      "sha256": "edbe14cb5b7de5270b39adcfa97d13c209ef3a5db81ebf5b1c888bfee50cc2d0"
+      "sha256": "d078415fed17645c3224246d119cbc29b61b860810b7c4f22511b4355043f6fa"
     },
     {
       "path": "Scripts/run_local_tests.py",

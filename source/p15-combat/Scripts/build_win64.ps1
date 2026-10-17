@@ -67,8 +67,8 @@ try {
         '-run=pythonscript', "-script=$(Join-Path $delivery 'Unreal/validate_combat_map.py')")
     if (!(Test-Path -LiteralPath $env:NARIS_COMBAT_REPORT)) { throw 'Editor produced no combat-map report' }
     $combat = Get-Content -LiteralPath $env:NARIS_COMBAT_REPORT -Raw | ConvertFrom-Json
-    if ($combat.verified -ne $true -or $combat.run_id -ne $runId -or $combat.map -ne $Map
-        -or @($combat.playable_actors).Count -eq 0 -or @($combat.targets).Count -eq 0) {
+    if ($combat.verified -ne $true -or $combat.run_id -ne $runId -or $combat.map -ne $Map -or
+        @($combat.playable_actors).Count -eq 0 -or @($combat.targets).Count -eq 0) {
         throw 'Combat-map report failed, is empty or does not match this run/map'
     }
     $archive = Join-Path $runDir 'Archive'
