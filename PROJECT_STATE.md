@@ -2,6 +2,13 @@
 
 Updated: 2026-10-17
 
+## 2026-10-17 montage lifecycle continuation
+
+- P15 rules now commit stamina/defense only after accepted montage playback, reserve against reentrant requests and cancel attack/parry/invulnerability on interruption without refunding costs or bypassing recovery.
+- Native component setup diagnostics and a read-only combat-map configuration gate are wired before Windows packaging. Missing montages/Skeletons/sockets/notify windows, absent targets and mixed W04/P15 health owners cannot pass the inspected map gate.
+- 135 portable/mocked delivery tests passed (44 execute the shared C++ rules); the existing 336 source-contract tests, 6 AssetForge tests and repository validator also passed. Engine callbacks/native diagnostics remain uncompiled and unexecuted in Unreal.
+- AsusRog was offline again (last seen 33 hours ago). Authored combat motion quality, input/Slot evaluation, PIE damage/networking, Windows package/playthrough and profiling stay open. No new production animation clips are claimed.
+
 ## 2026-10-17 attached-source integration
 
 - Actual five GLBs and source archive inspected. The supplied Character1 rig declares Skin 0 but never attaches it to its mesh; attaching it alone also exposes invalid rest-pose inverse-bind matrices.

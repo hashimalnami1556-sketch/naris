@@ -2,12 +2,15 @@
 
 #include "Animation/AnimInstance.h"
 #include "Animation/AnimMontage.h"
+#include "Animation/Skeleton.h"
 #include "Components/SkeletalMeshComponent.h"
+#include "Engine/SkeletalMesh.h"
 #include "Engine/World.h"
 #include "GameFramework/Character.h"
 #include "GameFramework/DamageType.h"
 #include "Kismet/GameplayStatics.h"
 #include "Net/UnrealNetwork.h"
+#include "NarisP15AttackWindowNotify.h"
 
 UNarisP15CombatComponent::UNarisP15CombatComponent()
 {
@@ -55,10 +58,127 @@ void UNarisP15CombatComponent::BeginPlay()
     // حتى السيرفر المخصص يحتاج تحديث العظام وإشعارات الحركة.
     CharacterMesh->VisibilityBasedAnimTickOption = EVisibilityBasedAnimTickOption::AlwaysTickPoseAndRefreshBones;
     AddTickPrerequisiteComponent(CharacterMesh);
+    BindAnimationInstance();
     GetOwner()->OnTakeAnyDamage.AddDynamic(this, &UNarisP15CombatComponent::HandleAnyDamage);
     if (!GetOwner()->GetIsReplicated() && GetNetMode() != NM_Standalone)
         UE_LOG(LogTemp, Warning, TEXT("NARIS P15 owner must replicate for network RPCs."));
     SyncVitals();
+}
+
+TArray<FString> UNarisP15CombatComponent::GetSetupIssues() const
+{
+    TArray<FString> Issues;
+    const ACharacter* Character = Cast<ACharacter>(GetOwner());
+    const USkeletalMeshComponent* Mesh = Character ? Character->GetMesh() : nullptr;
+    const USkeletalMesh* Asset = Mesh ? Mesh->GetSkeletalMeshAsset() : nullptr;
+    if (!Asset || !Asset->GetSkeleton())
+    {
+        Issues.Add(TEXT("A Character with an assigned skeletal mesh and Skeleton is required."));
+        return Issues;
+    }
+    if (!Mesh->GetAnimClass()) Issues.Add(TEXT("Assign an Animation Blueprint that evaluates the combat montage Slot."));
+    if (!Mesh->DoesSocketExist(WeaponBaseSocket) || !Mesh->DoesSocketExist(WeaponTipSocket))
+        Issues.Add(TEXT("The character mesh is missing weapon base/tip sockets."));
+    const UAnimMontage* Montages[] = {LightAttackMontage, DodgeMontage, ParryMontage};
+    const TCHAR* Names[] = {TEXT("LightAttack"), TEXT("Dodge"), TEXT("Parry")};
+    for (int32 Index = 0; Index < 3; ++Index)
+    {
+        const UAnimMontage* Montage = Montages[Index];
+        if (!Montage)
+        {
+            Issues.Add(FString::Printf(TEXT("Assign the %s montage."), Names[Index]));
+            continue;
+        }
+        if (Montage->GetSkeleton() != Asset->GetSkeleton())
+            Issues.Add(FString::Printf(TEXT("%s montage must use the character mesh Skeleton."), Names[Index]));
+        if (!FMath::IsFinite(Montage->GetPlayLength()) || Montage->GetPlayLength() <= 0.f
+            || !FMath::IsFinite(Montage->RateScale) || !FMath::IsNearlyEqual(Montage->RateScale, 1.f))
+            Issues.Add(FString::Printf(TEXT("%s montage requires a positive duration and RateScale 1."), Names[Index]));
+        if (Montage->SlotAnimTracks.IsEmpty())
+            Issues.Add(FString::Printf(TEXT("%s montage has no Slot track."), Names[Index]));
+    }
+    if (LightAttackMontage)
+    {
+        bool bHasWindow = false;
+        for (const FAnimNotifyEvent& Event : LightAttackMontage->Notifies)
+        {
+            if (Cast<UNarisP15AttackWindowNotify>(Event.NotifyStateClass))
+            {
+                const float Start = Event.GetTime(), Duration = Event.GetDuration();
+                if (FMath::IsFinite(Start) && FMath::IsFinite(Duration) && Start >= 0.f
+                    && Duration > 0.f && Start + Duration <= LightAttackMontage->GetPlayLength() + KINDA_SMALL_NUMBER)
+                    bHasWindow = true;
+                else Issues.Add(TEXT("Attack-window notify timing is outside the montage."));
+            }
+        }
+        if (!bHasWindow) Issues.Add(TEXT("LightAttack needs a positive NARIS P15 Attack Window notify state."));
+    }
+    NarisP15::Config Config;
+    Config.MaxHealth = MaxHealth; Config.MaxStamina = MaxStamina;
+    Config.AttackCost = LightAttackCost; Config.DodgeCost = DodgeCost; Config.ParryCost = ParryCost;
+    Config.RegenPerSecond = StaminaRegenPerSecond; Config.RegenDelay = RegenDelaySeconds;
+    Config.DodgeInvulnerabilityStart = DodgeInvulnerabilityStart;
+    Config.DodgeInvulnerabilityEnd = DodgeInvulnerabilityEnd;
+    if (DodgeMontage) Config.DodgeDuration = DodgeMontage->GetPlayLength();
+    if (!Config.IsValid()) Issues.Add(TEXT("Invalid health, stamina, cost or defense-window configuration."));
+    if (LightAttackCost > MaxStamina || DodgeCost > MaxStamina || ParryCost > MaxStamina)
+        Issues.Add(TEXT("Each action cost must be affordable at full stamina."));
+    if (!FMath::IsFinite(TraceRadius) || TraceRadius <= 0.f
+        || !FMath::IsFinite(MaxWeaponReach) || MaxWeaponReach <= 0.f
+        || !FMath::IsFinite(LightAttackDamage) || LightAttackDamage <= 0.f)
+        Issues.Add(TEXT("Weapon damage, radius and reach must be finite and positive."));
+    if (DamageableTag.IsNone()) Issues.Add(TEXT("Assign a damageable target Actor Tag."));
+    return Issues;
+}
+
+void UNarisP15CombatComponent::BindAnimationInstance()
+{
+    UAnimInstance* Next = CharacterMesh ? CharacterMesh->GetAnimInstance() : nullptr;
+    if (BoundAnimInstance.Get() == Next) return;
+    if (UAnimInstance* Previous = BoundAnimInstance.Get())
+    {
+        Previous->OnMontageBlendingOut.RemoveDynamic(this, &UNarisP15CombatComponent::HandleMontageBlendingOut);
+        Previous->OnMontageEnded.RemoveDynamic(this, &UNarisP15CombatComponent::HandleMontageEnded);
+    }
+    CancelActiveAction();
+    BoundAnimInstance = Next;
+    if (Next)
+    {
+        Next->OnMontageBlendingOut.AddDynamic(this, &UNarisP15CombatComponent::HandleMontageBlendingOut);
+        Next->OnMontageEnded.AddDynamic(this, &UNarisP15CombatComponent::HandleMontageEnded);
+    }
+}
+
+void UNarisP15CombatComponent::CancelActiveAction(bool bNotifyClients)
+{
+    Rules.CancelAction();
+    UAnimMontage* Cancelled = ActiveMontage;
+    ActiveMontage = nullptr;
+    bHasPreviousTip = false;
+    if (bNotifyClients && Cancelled && GetOwner() && GetOwner()->HasAuthority())
+        MulticastCancelAction(Cancelled);
+}
+
+void UNarisP15CombatComponent::HandleMontageBlendingOut(UAnimMontage* Montage, bool bInterrupted)
+{
+    if (bInterrupted && Montage == ActiveMontage) CancelActiveAction();
+}
+
+void UNarisP15CombatComponent::HandleMontageEnded(UAnimMontage* Montage, bool)
+{
+    if (Montage == ActiveMontage) CancelActiveAction();
+}
+
+void UNarisP15CombatComponent::EndPlay(const EEndPlayReason::Type EndPlayReason)
+{
+    if (UAnimInstance* Previous = BoundAnimInstance.Get())
+    {
+        Previous->OnMontageBlendingOut.RemoveDynamic(this, &UNarisP15CombatComponent::HandleMontageBlendingOut);
+        Previous->OnMontageEnded.RemoveDynamic(this, &UNarisP15CombatComponent::HandleMontageEnded);
+    }
+    if (GetOwner()) GetOwner()->OnTakeAnyDamage.RemoveDynamic(this, &UNarisP15CombatComponent::HandleAnyDamage);
+    CancelActiveAction(false);
+    Super::EndPlay(EndPlayReason);
 }
 
 void UNarisP15CombatComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
@@ -111,6 +231,7 @@ void UNarisP15CombatComponent::ServerRequestAction_Implementation(ENarisP15Actio
 void UNarisP15CombatComponent::CommitAction(ENarisP15Action Action)
 {
     if (!bReady || !GetOwner()->HasAuthority() || !CharacterMesh || !CharacterMesh->GetAnimInstance()) return;
+    BindAnimationInstance();
     UAnimMontage* Montage = GetMontage(Action);
     if (!Montage || !FMath::IsFinite(Montage->GetPlayLength()) || Montage->GetPlayLength() <= 0.f) return;
     NarisP15::Action Requested;
@@ -123,7 +244,20 @@ void UNarisP15CombatComponent::CommitAction(ENarisP15Action Action)
     case ENarisP15Action::Parry: Requested = NarisP15::Action::Parry; break;
     default: return;
     }
-    if (!Rules.TryStart(Requested)) return;
+    UAnimInstance* Instance = CharacterMesh->GetAnimInstance();
+    bool bPlaybackStarted = false;
+    const bool bCommitted = Rules.TryStartPresented(Requested, [this, Instance, Montage, &bPlaybackStarted]()
+        {
+            const float Played = Instance->Montage_Play(Montage);
+            bPlaybackStarted = FMath::IsFinite(Played) && Played > 0.f;
+            return bPlaybackStarted && CharacterMesh && CharacterMesh->GetAnimInstance() == Instance;
+        });
+    if (!bCommitted)
+    {
+        if (bPlaybackStarted && IsValid(Instance)) Instance->Montage_Stop(.1f, Montage);
+        return;
+    }
+    ActiveMontage = Montage;
     bHasPreviousTip = false;
     SyncVitals();
     MulticastPresentAction(Action);
@@ -131,9 +265,15 @@ void UNarisP15CombatComponent::CommitAction(ENarisP15Action Action)
 
 void UNarisP15CombatComponent::MulticastPresentAction_Implementation(ENarisP15Action Action)
 {
-    if (CharacterMesh && CharacterMesh->GetAnimInstance() && GetMontage(Action))
+    if (GetOwner() && !GetOwner()->HasAuthority() && CharacterMesh && CharacterMesh->GetAnimInstance() && GetMontage(Action))
         CharacterMesh->GetAnimInstance()->Montage_Play(GetMontage(Action));
     OnActionPresented(Action);
+}
+
+void UNarisP15CombatComponent::MulticastCancelAction_Implementation(UAnimMontage* Montage)
+{
+    if (GetOwner() && !GetOwner()->HasAuthority() && CharacterMesh && CharacterMesh->GetAnimInstance() && Montage)
+        CharacterMesh->GetAnimInstance()->Montage_Stop(.1f, Montage);
 }
 
 void UNarisP15CombatComponent::ApplyCombatDamage(float Amount)
@@ -144,7 +284,10 @@ void UNarisP15CombatComponent::ApplyCombatDamage(float Amount)
     if (Outcome == NarisP15::DamageOutcome::Evaded || Outcome == NarisP15::DamageOutcome::Parried)
         OnDefenseResolved(Outcome == NarisP15::DamageOutcome::Evaded, Outcome == NarisP15::DamageOutcome::Parried);
     if (Outcome == NarisP15::DamageOutcome::Killed && CharacterMesh && CharacterMesh->GetAnimInstance())
+    {
+        CancelActiveAction();
         CharacterMesh->GetAnimInstance()->Montage_Stop(.1f);
+    }
 }
 
 void UNarisP15CombatComponent::HandleAnyDamage(AActor*, float Damage, const UDamageType*, AController*, AActor*)
@@ -212,7 +355,12 @@ void UNarisP15CombatComponent::TickComponent(float DeltaTime, ELevelTick TickTyp
 {
     Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
     if (!bReady || !GetOwner() || !GetOwner()->HasAuthority()) return;
+    BindAnimationInstance();
     Rules.Tick(DeltaTime);
+    if (Rules.GetAction() != NarisP15::Action::Idle
+        && (!CharacterMesh || !CharacterMesh->GetAnimInstance() || !ActiveMontage
+            || !CharacterMesh->GetAnimInstance()->Montage_IsPlaying(ActiveMontage)))
+        CancelActiveAction();
     SyncVitals();
     TraceWeapon();
 }

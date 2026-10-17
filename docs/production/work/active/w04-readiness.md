@@ -4,6 +4,15 @@ last_updated: 2026-10-17
 ---
 # W04 readiness handoff
 
+## 2026-10-17 montage lifecycle and map integration claim
+
+- Executing agent: Codex; scope: accepted montage playback before stamina/defense commitment, immediate interrupted-action cancellation, component setup diagnostics and a read-only combat-map gate before packaging.
+- Continue PR #46 from `8620898077ceac3364d502541a60ffa2c38d949d`; preserve W04 actors and the pinned original GLB inputs.
+- Host check: AsusRog offline, last seen 33 hours ago. Local C++/Python checks can run; Unreal/UHT/UBT and authored-motion visual QA remain unavailable.
+- Completed: guarded playback acceptance, reentrant request reservation, cancellation that preserves cost/recovery, native montage lifecycle callbacks/client cancellation and teardown cleanup, native setup diagnostics, read-only map gate and build integration.
+- Executed: 135 delivery tests passed (44 compiled C++ rule cases, 21 mocked combat-map cases and 70 existing intake/preflight/artifact cases), plus 336 existing CI contracts, 6 AssetForge cases and repository validation. Native Unreal callbacks/diagnostics are uncompiled and map validation has only mock evidence here.
+- Next action: install the exact updated plugin in a backed-up UE 5.7 test project, compile UHT/UBT, wire compatible authored combat montages/Slot/sockets/notify, tag the placed test hero `NarisP15Playable`, add a separate damageable Character target, then execute the guarded pipeline and record PIE/packaged encounter evidence. No W04 actor is replaced automatically.
+
 ## 2026-10-17 P15 source-asset integration claim
 
 - Executing agent: Codex; scope: actual attached GLB intake, digest/class import contract, pre-import validation and P15 build wiring. Preserve W04 runtime and original source bytes.

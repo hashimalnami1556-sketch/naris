@@ -20,6 +20,8 @@ The newly available five GLBs were inspected from bytes. The Character1 prototyp
 
 ## Repository baseline
 
+P15 montage lifecycle continuation (2026-10-17): accepted playback now precedes stamina/defense commitment; interruption cancels combat effects while retaining recovery. Native setup diagnostics and a read-only map-configuration gate now precede packaging. 135 delivery tests passed, including 44 compiled portable C++ cases and 21 mocked map-gate cases. This is source/portable verification only; UHT/UBT, actual Editor map validation, authored motion and gameplay gates remain open while the engine host is offline. See the [P15 integration instructions](../source/p15-combat/README.md).
+
 - Canonical branch: `main`
 - Asset registry: `data/MASTER_ASSET_REGISTRY.json`
 - Production pipeline: `docs/MASTER_PRODUCTION_PIPELINE.md`

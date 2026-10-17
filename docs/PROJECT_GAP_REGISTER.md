@@ -56,6 +56,8 @@ Presence is not proof of successful compilation or correct gameplay. Historical 
 
 ### W04 dependencies
 
+Montage lifecycle continuation: P15 source now handles failed playback, reentrant action requests and interrupted defenses, and rejects incomplete inspected combat-map setup before packaging. Portable and mocked tests cover these paths; native callbacks, montage diagnostics, real input/Slot evaluation, weapon hits and networking still require Unreal evidence. The one-idle source rig has not gained authored combat clips in this change.
+
 Source-intake update (2026-10-17): the supplied rig's unreferenced Skin and rest-bind matrices have been repaired in a separate GLB. All originals are retained and the importer/build runner now enforce the exact hashed source inventory. The 18-joint/one-idle prototype still lacks authored attack/dodge/parry clips, weapon sockets and engine validation; Character 1/3 raw meshes remain unskinned static sources. A source repair cannot close the animation, collision or gameplay gates below.
 
 | Priority | Gap | Evidence required to close |

@@ -45,16 +45,66 @@ public:
         Stamina = Settings.MaxStamina;
         Time = StartedAt = BusyUntil = RegenStartsAt = 0.;
         Current = Action::Idle;
-        AttackWindow = ParryConsumed = false;
+        AttackWindow = ParryConsumed = ActionCancelled = false;
+        PresentationPending = false;
         HitActors.clear();
         Ready = true;
         return true;
     }
 
+    bool CanStart(Action Requested) const
+    {
+        if (!Ready || Health <= 0.f || PresentationPending || Time < BusyUntil) return false;
+        float Cost = 0.f, Duration = 0.f;
+        return ActionParameters(Requested, Cost, Duration) && Stamina >= Cost;
+    }
+
+    // لا نستهلك التحمل ولا نمنح دفاعًا إذا رفض المحرك تشغيل الحركة.
+    template<class Presenter>
+    bool TryStartPresented(Action Requested, Presenter&& Present)
+    {
+        if (!CanStart(Requested)) return false;
+        bool Accepted = false;
+        {
+            struct PresentationGuard
+            {
+                bool& Pending;
+                explicit PresentationGuard(bool& InPending) : Pending(InPending) { Pending = true; }
+                ~PresentationGuard() { Pending = false; }
+            } Guard(PresentationPending);
+            Accepted = Present();
+        }
+        return Accepted && TryStart(Requested);
+    }
+
     bool TryStart(Action Requested)
     {
-        if (!Ready || Health <= 0.f || GetAction() != Action::Idle) return false;
+        if (!CanStart(Requested)) return false;
         float Cost = 0.f, Duration = 0.f;
+        if (!ActionParameters(Requested, Cost, Duration)) return false;
+        Stamina -= Cost;
+        StartedAt = Time;
+        BusyUntil = Time + Duration;
+        RegenStartsAt = Time + Settings.RegenDelay;
+        Current = Requested;
+        AttackWindow = ParryConsumed = ActionCancelled = false;
+        HitActors.clear();
+        return true;
+    }
+
+    bool CancelAction()
+    {
+        if (GetAction() == Action::Idle) return false;
+        ActionCancelled = true;
+        AttackWindow = false;
+        ParryConsumed = true;
+        // نحفظ كلفة الحركة وفترة التعافي؛ الإلغاء ليس استرجاعًا أو تجاوزًا للمهلة.
+        return true;
+    }
+
+private:
+    bool ActionParameters(Action Requested, float& Cost, float& Duration) const
+    {
         switch (Requested)
         {
         case Action::LightAttack: Cost = Settings.AttackCost; Duration = Settings.AttackDuration; break;
@@ -62,17 +112,10 @@ public:
         case Action::Parry: Cost = Settings.ParryCost; Duration = Settings.ParryDuration; break;
         default: return false;
         }
-        if (Stamina < Cost) return false;
-        Stamina -= Cost;
-        StartedAt = Time;
-        BusyUntil = Time + Duration;
-        RegenStartsAt = Time + Settings.RegenDelay;
-        Current = Requested;
-        AttackWindow = ParryConsumed = false;
-        HitActors.clear();
         return true;
     }
 
+public:
     void Tick(float DeltaSeconds)
     {
         if (!Ready || !std::isfinite(DeltaSeconds) || DeltaSeconds <= 0.f) return;
@@ -120,14 +163,15 @@ public:
         return true;
     }
 
-    Action GetAction() const { return Ready && Health > 0.f && Time < BusyUntil ? Current : Action::Idle; }
+    Action GetAction() const { return Ready && Health > 0.f && !ActionCancelled && Time < BusyUntil ? Current : Action::Idle; }
     bool IsAttackWindowOpen() const { return AttackWindow && GetAction() == Action::LightAttack; }
     float GetHealth() const { return Health; }
     float GetStamina() const { return Stamina; }
 
 private:
     Config Settings;
-    bool Ready = false, AttackWindow = false, ParryConsumed = false;
+    bool Ready = false, AttackWindow = false, ParryConsumed = false, ActionCancelled = false;
+    bool PresentationPending = false;
     Action Current = Action::Idle;
     float Health = 0.f, Stamina = 0.f;
     double Time = 0., StartedAt = 0., BusyUntil = 0., RegenStartsAt = 0.;

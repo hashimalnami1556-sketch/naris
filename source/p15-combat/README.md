@@ -4,6 +4,21 @@ This repairs **NARIS_P15_DELIVERY_20261016.zip**, the combat-source package. It 
 
 ## Changes and evidence
 
+### Montage lifecycle and combat-map gate
+
+The authority now calls `Montage_Play` before spending stamina or activating defense. The same portable rules tested by GCC reserve the presentation step against reentrant requests, reject failed playback without a cost or defense window, and recheck death/state before commitment. Accepted actions are not played a second time on the server by the multicast.
+
+Interrupted/ended montages or an AnimInstance replacement cancel active hits/parry/invulnerability immediately, while preserving spent stamina and the original recovery deadline. Server cancellation stops the matching client montage. Actor teardown removes animation/damage delegates without sending teardown RPCs. These engine hooks are source changes; UHT/UBT and multiplayer execution remain unverified here.
+
+`GetSetupIssues()` exposes native editor diagnostics for a missing mesh/Skeleton/AnimBlueprint, incompatible montage Skeletons, invalid rates/durations/costs, missing sockets, missing Slot tracks or absent/out-of-bounds attack-window notifies. A checked Slot track and assigned AnimBlueprint do **not** prove that the graph evaluates that Slot or that input is wired.
+
+The Windows pipeline now runs `Unreal/validate_combat_map.py` after import and before packaging. In the explicitly selected test map:
+
+- Tag each **placed test Character** that should be inspected `NarisP15Playable`; attach exactly one P15 combat component and complete its native setup diagnostics.
+- Add a separate Character target with one P15 health owner, damage enabled and the Actor Tag configured by the hero's `DamageableTag` (default `NarisDamageable`). A hero cannot satisfy its own target requirement. The gate rejects mixed W04/P15 health owners on either side.
+- The validator reads the map and actor properties without creating/saving/retagging anything. Missing configuration produces a fresh failed report and prevents packaging. It checks loaded Editor actors; it does not verify streamed/unloaded gameplay content or a GameMode's dynamically spawned pawn.
+- `combat_map_report.json` always keeps `runtime_tested:false`, `input_wiring_verified:false` and `anim_blueprint_slot_evaluated:false`. PIE damage, input, visual motion, networking and performance remain required.
+
 ### 2026-10-17 actual attached-source intake
 
 The supplied prototype has 18 joints and one idle clip, but its mesh node never references the Skin. Attaching it alone is insufficient: its inverse-bind data also fails the conservative rest-pose gate. `Scripts/build_asset_intake.py` preserves the original and produces `Character1_NARIS_Rigged_Prototype_FIXED.glb`, attaches Skin 0 and rebuilds column-major inverse binds as `inverse(jointWorld) * meshWorld`. Mesh, textures, weights and original animation data are preserved. It does not manufacture attack/dodge/parry clips or improve skin-weight artistry.
@@ -34,7 +49,7 @@ Run local tests with Python 3.9+ and a C++17 GCC/Clang compiler (the supplied te
 python Scripts/run_local_tests.py
 ```
 
-The 25 C++ behavioral cases compile the **same header consumed by the component**. Python tests exercise the actual importer with a fake Unreal API and the read-only preflight using temporary projects. No Unreal API stubs are used to claim an engine compile. See `Reports/verification.json` and `Reports/local_tests.txt` for the executed results.
+The 44 C++ behavioral cases compile the **same header consumed by the component**. Python tests exercise source fixtures, the actual importer and combat-map runner with a fake Unreal API, plus read-only preflight/artifact checks using temporary projects. No Unreal API stubs are used to claim an engine compile. See `Reports/verification.json` and `Reports/local_tests.txt` for the executed results.
 
 ## Install without overwriting W04 combat
 

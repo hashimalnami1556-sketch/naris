@@ -1,7 +1,41 @@
+test_configured_map_passes_as_configuration_only (test_combat_map.CombatMapTests.test_configured_map_passes_as_configuration_only) ... ok
+test_custom_damageable_tag (test_combat_map.CombatMapTests.test_custom_damageable_tag) ... ok
+test_damage_disabled_on_target (test_combat_map.CombatMapTests.test_damage_disabled_on_target) ... ok
+test_does_not_change_actor_tags_or_components (test_combat_map.CombatMapTests.test_does_not_change_actor_tags_or_components) ... ok
+test_duplicate_health_owners (test_combat_map.CombatMapTests.test_duplicate_health_owners) ... ok
+test_empty_map (test_combat_map.CombatMapTests.test_empty_map) ... ok
+test_failed_level_load (test_combat_map.CombatMapTests.test_failed_level_load) ... ok
+test_map_path_traversal (test_combat_map.CombatMapTests.test_map_path_traversal) ... ok
+test_missing_attack_notify_propagates_native_diagnostic (test_combat_map.CombatMapTests.test_missing_attack_notify_propagates_native_diagnostic) ... ok
+test_missing_combat_component (test_combat_map.CombatMapTests.test_missing_combat_component) ... ok
+test_missing_map_name (test_combat_map.CombatMapTests.test_missing_map_name) ... ok
+test_missing_montage_propagates_native_diagnostic (test_combat_map.CombatMapTests.test_missing_montage_propagates_native_diagnostic) ... ok
+test_mixed_w04_and_p15_hero_health_fails (test_combat_map.CombatMapTests.test_mixed_w04_and_p15_hero_health_fails) ... ok
+test_mixed_w04_and_p15_target_health_fails (test_combat_map.CombatMapTests.test_mixed_w04_and_p15_target_health_fails) ... ok
+test_no_playable_tag (test_combat_map.CombatMapTests.test_no_playable_tag) ... ok
+test_no_target (test_combat_map.CombatMapTests.test_no_target) ... ok
+test_player_cannot_target_itself (test_combat_map.CombatMapTests.test_player_cannot_target_itself) ... ok
+test_stale_success_report_replaced (test_combat_map.CombatMapTests.test_stale_success_report_replaced) ... ok
+test_target_requires_character_health_owner (test_combat_map.CombatMapTests.test_target_requires_character_health_owner) ... ok
+test_target_without_health_owner (test_combat_map.CombatMapTests.test_target_without_health_owner) ... ok
+test_untagged_actors_do_not_satisfy_target_requirement (test_combat_map.CombatMapTests.test_untagged_actors_do_not_satisfy_target_requirement) ... ok
+test_accepted_playback_spends_once (test_delivery.CombatRulesTests.test_accepted_playback_spends_once) ... ok
+test_cancel_attack_closes_hits (test_delivery.CombatRulesTests.test_cancel_attack_closes_hits) ... ok
+test_cancel_cannot_restart_or_replay (test_delivery.CombatRulesTests.test_cancel_cannot_restart_or_replay) ... ok
+test_cancel_dodge_revokes_invulnerability (test_delivery.CombatRulesTests.test_cancel_dodge_revokes_invulnerability) ... ok
+test_cancel_idle_is_noop (test_delivery.CombatRulesTests.test_cancel_idle_is_noop) ... ok
+test_cancel_keeps_regen_delay (test_delivery.CombatRulesTests.test_cancel_keeps_regen_delay) ... ok
+test_cancel_parry_revokes_defense (test_delivery.CombatRulesTests.test_cancel_parry_revokes_defense) ... ok
+test_cancel_preserves_recovery_and_cost (test_delivery.CombatRulesTests.test_cancel_preserves_recovery_and_cost) ... ok
 test_cooldown_expires (test_delivery.CombatRulesTests.test_cooldown_expires) ... ok
+test_death_during_presentation_aborts_commit (test_delivery.CombatRulesTests.test_death_during_presentation_aborts_commit) ... ok
 test_dodge_recovery_vulnerable (test_delivery.CombatRulesTests.test_dodge_recovery_vulnerable) ... ok
 test_dodge_startup_vulnerable (test_delivery.CombatRulesTests.test_dodge_startup_vulnerable) ... ok
 test_dodge_window (test_delivery.CombatRulesTests.test_dodge_window) ... ok
+test_failed_dodge_grants_no_defense (test_delivery.CombatRulesTests.test_failed_dodge_grants_no_defense) ... ok
+test_failed_parry_grants_no_defense (test_delivery.CombatRulesTests.test_failed_parry_grants_no_defense) ... ok
+test_failed_playback_spends_nothing (test_delivery.CombatRulesTests.test_failed_playback_spends_nothing) ... ok
+test_failed_presentation_allows_retry (test_delivery.CombatRulesTests.test_failed_presentation_allows_retry) ... ok
 test_hit_window_expires (test_delivery.CombatRulesTests.test_hit_window_expires) ... ok
 test_hit_window_required (test_delivery.CombatRulesTests.test_hit_window_required) ... ok
 test_initial_vitals (test_delivery.CombatRulesTests.test_initial_vitals) ... ok
@@ -12,15 +46,21 @@ test_invalid_damage (test_delivery.CombatRulesTests.test_invalid_damage) ... ok
 test_invalid_delta (test_delivery.CombatRulesTests.test_invalid_delta) ... ok
 test_invalid_window (test_delivery.CombatRulesTests.test_invalid_window) ... ok
 test_lethal_damage (test_delivery.CombatRulesTests.test_lethal_damage) ... ok
+test_new_action_after_cancel_resets_state (test_delivery.CombatRulesTests.test_new_action_after_cancel_resets_state) ... ok
 test_next_swing_resets_hits (test_delivery.CombatRulesTests.test_next_swing_resets_hits) ... ok
 test_no_actions_before_initialize (test_delivery.CombatRulesTests.test_no_actions_before_initialize) ... ok
 test_once_per_swing (test_delivery.CombatRulesTests.test_once_per_swing) ... ok
 test_parry_expires (test_delivery.CombatRulesTests.test_parry_expires) ... ok
 test_parry_single_use (test_delivery.CombatRulesTests.test_parry_single_use) ... ok
+test_presentation_blocks_reentrant_requests (test_delivery.CombatRulesTests.test_presentation_blocks_reentrant_requests) ... ok
+test_presentation_exception_releases_reservation (test_delivery.CombatRulesTests.test_presentation_exception_releases_reservation) ... ok
+test_presentation_has_no_early_invulnerability (test_delivery.CombatRulesTests.test_presentation_has_no_early_invulnerability) ... ok
 test_regen_capped (test_delivery.CombatRulesTests.test_regen_capped) ... ok
 test_regen_crossing_frame (test_delivery.CombatRulesTests.test_regen_crossing_frame) ... ok
 test_regen_delay (test_delivery.CombatRulesTests.test_regen_delay) ... ok
 test_regen_frame_independent (test_delivery.CombatRulesTests.test_regen_frame_independent) ... ok
+test_rejected_action_never_plays (test_delivery.CombatRulesTests.test_rejected_action_never_plays) ... ok
+test_spam_does_not_replay (test_delivery.CombatRulesTests.test_spam_does_not_replay) ... ok
 test_spam_rejected (test_delivery.CombatRulesTests.test_spam_rejected) ... ok
 test_zero_cost_still_locked (test_delivery.CombatRulesTests.test_zero_cost_still_locked) ... ok
 test_bad_skin_blocks_all_imports (test_delivery.ImportTests.test_bad_skin_blocks_all_imports) ... ok
@@ -95,6 +135,6 @@ test_exact_sources_pass (test_source_assets.SourceContractTests.test_exact_sourc
 test_extra_source_fails (test_source_assets.SourceContractTests.test_extra_source_fails) ... ok
 
 ----------------------------------------------------------------------
-Ran 95 tests in 0.782s
+Ran 135 tests in 0.865s
 
 OK

@@ -9,6 +9,7 @@ class UAnimMontage;
 class USkeletalMeshComponent;
 class UDamageType;
 class AController;
+class UAnimInstance;
 
 UENUM(BlueprintType)
 enum class ENarisP15Action : uint8 { LightAttack, Dodge, Parry };
@@ -48,6 +49,7 @@ public:
     UFUNCTION(BlueprintCallable, Category="Naris|Combat") void RequestParry();
     UFUNCTION(BlueprintCallable, BlueprintAuthorityOnly, Category="Naris|Combat") void ApplyCombatDamage(float Amount);
     UFUNCTION(BlueprintPure, Category="Naris|Combat") bool IsDead() const { return Health <= 0.f; }
+    UFUNCTION(BlueprintPure, Category="Naris|Combat") TArray<FString> GetSetupIssues() const;
     UFUNCTION(BlueprintImplementableEvent, Category="Naris|Combat") void OnVitalsChanged();
     // عرض فقط؛ الصحة وإصابات السلاح يحسبها السيرفر.
     UFUNCTION(BlueprintImplementableEvent, Category="Naris|Combat") void OnActionPresented(ENarisP15Action Action);
@@ -59,11 +61,15 @@ public:
 
 protected:
     virtual void BeginPlay() override;
+    virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
     UFUNCTION(Server, Reliable) void ServerRequestAction(ENarisP15Action Action);
     UFUNCTION(NetMulticast, Reliable) void MulticastPresentAction(ENarisP15Action Action);
+    UFUNCTION(NetMulticast, Reliable) void MulticastCancelAction(UAnimMontage* Montage);
     UFUNCTION() void OnRep_Vitals();
     UFUNCTION() void HandleAnyDamage(AActor* DamagedActor, float Damage, const UDamageType* DamageType,
         AController* InstigatedBy, AActor* DamageCauser);
+    UFUNCTION() void HandleMontageBlendingOut(UAnimMontage* Montage, bool bInterrupted);
+    UFUNCTION() void HandleMontageEnded(UAnimMontage* Montage, bool bInterrupted);
 
 private:
     NarisP15::Rules Rules;
@@ -71,9 +77,13 @@ private:
     bool bHasPreviousTip = false;
     FVector PreviousTip = FVector::ZeroVector;
     UPROPERTY() TObjectPtr<USkeletalMeshComponent> CharacterMesh;
+    UPROPERTY() TObjectPtr<UAnimMontage> ActiveMontage;
+    TWeakObjectPtr<UAnimInstance> BoundAnimInstance;
     UAnimMontage* GetMontage(ENarisP15Action Action) const;
     void RequestAction(ENarisP15Action Action);
     void CommitAction(ENarisP15Action Action);
     void SyncVitals();
     void TraceWeapon();
+    void BindAnimationInstance();
+    void CancelActiveAction(bool bNotifyClients = true);
 };

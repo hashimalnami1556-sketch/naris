@@ -14,6 +14,61 @@ static Rules Fresh(const Config& C = Config()) { Rules R; Check(R.Initialize(C))
 int main(int Argc, char** Argv)
 {
     const std::map<std::string, void(*)()> Cases = {
+        {"presentation_blocks_reentrant_requests", [] { auto R=Fresh();
+            Check(R.TryStartPresented(Action::Dodge, [&] {
+                Check(!R.TryStart(Action::LightAttack)); Check(!R.CanStart(Action::Parry)); return true;
+            })); Near(R.GetStamina(),70); }},
+        {"presentation_has_no_early_invulnerability", [] { auto R=Fresh();
+            Check(R.TryStartPresented(Action::Dodge, [&] {
+                Check(R.Damage(10)==DamageOutcome::Applied); return true;
+            })); Near(R.GetHealth(),90); }},
+        {"death_during_presentation_aborts_commit", [] { auto R=Fresh();
+            Check(!R.TryStartPresented(Action::Dodge, [&] { R.Damage(100); return true; }));
+            Near(R.GetStamina(),100); Check(R.GetAction()==Action::Idle); }},
+        {"failed_presentation_allows_retry", [] { auto R=Fresh();
+            Check(!R.TryStartPresented(Action::Dodge, [] { return false; }));
+            Check(R.TryStartPresented(Action::Dodge, [] { return true; })); Near(R.GetStamina(),70); }},
+        {"presentation_exception_releases_reservation", [] { auto R=Fresh(); bool Threw=false;
+            try { R.TryStartPresented(Action::Dodge, []()->bool { throw std::runtime_error("callback"); }); }
+            catch(const std::runtime_error&) { Threw=true; }
+            Check(Threw); Check(R.CanStart(Action::Dodge)); Near(R.GetStamina(),100); }},
+        {"failed_playback_spends_nothing", [] { auto R=Fresh();
+            Check(!R.TryStartPresented(Action::LightAttack, [] { return false; }));
+            Near(R.GetStamina(),100); Check(R.CanStart(Action::LightAttack)); }},
+        {"failed_dodge_grants_no_defense", [] { auto R=Fresh();
+            Check(!R.TryStartPresented(Action::Dodge, [] { return false; })); R.Tick(.15f);
+            Check(R.Damage(10)==DamageOutcome::Applied); Near(R.GetStamina(),100); }},
+        {"failed_parry_grants_no_defense", [] { auto R=Fresh();
+            Check(!R.TryStartPresented(Action::Parry, [] { return false; }));
+            Check(R.Damage(10)==DamageOutcome::Applied); }},
+        {"accepted_playback_spends_once", [] { auto R=Fresh(); int Calls=0;
+            Check(R.TryStartPresented(Action::LightAttack, [&] { ++Calls; return true; }));
+            Check(Calls==1); Near(R.GetStamina(),80); }},
+        {"rejected_action_never_plays", [] { Config C; C.MaxStamina=1; auto R=Fresh(C); int Calls=0;
+            Check(!R.TryStartPresented(Action::Dodge, [&] { ++Calls; return true; })); Check(Calls==0); }},
+        {"spam_does_not_replay", [] { auto R=Fresh(); int Calls=0;
+            Check(R.TryStartPresented(Action::Dodge, [&] { ++Calls; return true; }));
+            Check(!R.TryStartPresented(Action::Dodge, [&] { ++Calls; return true; })); Check(Calls==1); }},
+        {"cancel_attack_closes_hits", [] { auto R=Fresh(); Check(R.TryStart(Action::LightAttack));
+            R.SetAttackWindow(true); Check(R.CancelAction()); Check(!R.RegisterHit(1));
+            R.SetAttackWindow(true); Check(!R.RegisterHit(1)); }},
+        {"cancel_dodge_revokes_invulnerability", [] { auto R=Fresh(); Check(R.TryStart(Action::Dodge));
+            R.Tick(.15f); Check(R.CancelAction()); Check(R.Damage(10)==DamageOutcome::Applied); }},
+        {"cancel_parry_revokes_defense", [] { auto R=Fresh(); Check(R.TryStart(Action::Parry));
+            Check(R.CancelAction()); Check(R.Damage(10)==DamageOutcome::Applied); }},
+        {"cancel_preserves_recovery_and_cost", [] { auto R=Fresh(); Check(R.TryStart(Action::Dodge));
+            Check(R.CancelAction()); Near(R.GetStamina(),70); Check(R.GetAction()==Action::Idle);
+            Check(!R.CanStart(Action::Dodge)); R.Tick(.6f); Check(R.CanStart(Action::Dodge)); }},
+        {"cancel_cannot_restart_or_replay", [] { auto R=Fresh(); Check(R.TryStart(Action::Dodge));
+            Check(R.CancelAction()); int Calls=0;
+            Check(!R.TryStartPresented(Action::LightAttack,[&]{++Calls;return true;})); Check(Calls==0); }},
+        {"cancel_keeps_regen_delay", [] { auto R=Fresh(); Check(R.TryStart(Action::Dodge));
+            R.CancelAction(); R.Tick(.75f); Near(R.GetStamina(),70); R.Tick(.25f); Near(R.GetStamina(),74.5f); }},
+        {"cancel_idle_is_noop", [] { auto R=Fresh(); Check(!R.CancelAction());
+            Near(R.GetStamina(),100); Check(R.CanStart(Action::Dodge)); }},
+        {"new_action_after_cancel_resets_state", [] { auto R=Fresh(); Check(R.TryStart(Action::Parry));
+            R.CancelAction(); R.Tick(.25f); Check(R.TryStart(Action::Parry));
+            Check(R.Damage(10)==DamageOutcome::Parried); }},
         {"initial_vitals", [] { auto R=Fresh(); Near(R.GetHealth(),100); Near(R.GetStamina(),100); }},
         {"spam_rejected", [] { auto R=Fresh(); Check(R.TryStart(Action::LightAttack));
             for(int I=0;I<100;++I) { Check(!R.TryStart(Action::LightAttack)); }

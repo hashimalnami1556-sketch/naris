@@ -24,9 +24,9 @@ report = {'scope': 'portable-rules-and-mocked-editor-io', 'exit_code': result.re
           'gameplay_playtested': False}
 match = re.search(r'Ran (\d+) tests?', output)
 report['tests_run'] = int(match.group(1)) if match else 0
-report['groups'] = {group: len(re.findall(r'\(test_(?:delivery|source_assets)\.' + group + r'\.', output))
+report['groups'] = {group: len(re.findall(r'\(test_(?:delivery|source_assets|combat_map)\.' + group + r'\.', output))
                     for group in ('CombatRulesTests', 'ImportTests', 'ProjectPreflightTests', 'PackageTests',
-                                  'SourceAssetTests', 'SourceContractTests')}
+                                  'SourceAssetTests', 'SourceContractTests', 'CombatMapTests')}
 (reports / 'verification.json').write_text(json.dumps(report, indent=2) + '\n', encoding='utf-8')
 print(output, end='')
 raise SystemExit(result.returncode)

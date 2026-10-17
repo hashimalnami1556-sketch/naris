@@ -45,7 +45,8 @@ try {
     }
     Invoke-Step 'editor-build' $build @($preflight.editor_target, 'Win64', 'Development',
         "-Project=$Project", '-WaitMutex', '-NoHotReloadFromIDE')
-    foreach ($name in @('NARIS_ASSET_DIR','NARIS_IMPORT_REPORT','NARIS_IMPORT_RUN_ID','NARIS_IMPORT_SPEC')) {
+    foreach ($name in @('NARIS_ASSET_DIR','NARIS_IMPORT_REPORT','NARIS_IMPORT_RUN_ID','NARIS_IMPORT_SPEC',
+        'NARIS_COMBAT_MAP','NARIS_COMBAT_REPORT','NARIS_COMBAT_RUN_ID')) {
         $savedEnvironment[$name] = [Environment]::GetEnvironmentVariable($name, 'Process')
     }
     $env:NARIS_ASSET_DIR = $AssetDir
@@ -58,6 +59,17 @@ try {
     $import = Get-Content -LiteralPath $env:NARIS_IMPORT_REPORT -Raw | ConvertFrom-Json
     if ($import.verified -ne $true -or $import.run_id -ne $runId -or @($import.results).Count -eq 0) {
         throw 'Import report failed, is empty or belongs to another run'
+    }
+    $env:NARIS_COMBAT_MAP = $Map
+    $env:NARIS_COMBAT_REPORT = Join-Path $runDir 'combat_map_report.json'
+    $env:NARIS_COMBAT_RUN_ID = $runId
+    Invoke-Step 'combat-map' $editor @($Project, '-unattended', '-nop4', '-NullRHI',
+        '-run=pythonscript', "-script=$(Join-Path $delivery 'Unreal/validate_combat_map.py')")
+    if (!(Test-Path -LiteralPath $env:NARIS_COMBAT_REPORT)) { throw 'Editor produced no combat-map report' }
+    $combat = Get-Content -LiteralPath $env:NARIS_COMBAT_REPORT -Raw | ConvertFrom-Json
+    if ($combat.verified -ne $true -or $combat.run_id -ne $runId -or $combat.map -ne $Map
+        -or @($combat.playable_actors).Count -eq 0 -or @($combat.targets).Count -eq 0) {
+        throw 'Combat-map report failed, is empty or does not match this run/map'
     }
     $archive = Join-Path $runDir 'Archive'
     Invoke-Step 'package' $uat @('BuildCookRun', "-project=$Project", '-noP4', '-utf8output',
