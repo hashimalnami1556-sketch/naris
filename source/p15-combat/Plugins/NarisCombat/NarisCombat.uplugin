@@ -1,0 +1,16 @@
+{
+  "FileVersion": 3,
+  "Version": 4,
+  "VersionName": "0.4.0-input-response",
+  "FriendlyName": "NARIS Combat Prototype",
+  "Description": "P15 combat repair source; requires UE 5.7 compilation and runtime validation",
+  "Category": "Gameplay",
+  "CanContainContent": false,
+  "Modules": [
+    {
+      "Name": "NarisCombat",
+      "Type": "Runtime",
+      "LoadingPhase": "Default"
+    }
+  ]
+}

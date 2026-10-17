@@ -38,13 +38,15 @@ jobs:
         run: |
           python -m unittest discover -s tools/assetforge -v
           python -m unittest discover -s tools/ci -v
+      - name: Test P15 combat rules and import/build preflight behavior
+        run: python -m unittest discover -s source/p15-combat/Tests -v
       - name: Validate NARIS repository
         run: python tools/ci/validate_naris.py
       - name: Parse Windows production launchers
         shell: pwsh
         run: |
           $failed = $false
-          Get-ChildItem "tools/windows" -Filter "*.ps1" | ForEach-Object {
+          Get-ChildItem -Path "tools/windows", "source/p15-combat/Scripts" -Filter "*.ps1" | ForEach-Object {
             $tokens = $null
             $errors = $null
             [System.Management.Automation.Language.Parser]::ParseFile(

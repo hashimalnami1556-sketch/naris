@@ -1,0 +1,86 @@
+{
+  "verified": true,
+  "files_checked": 16,
+  "records": [
+    {
+      "path": "CorrectedUSD/fdb365cc-0ad2-487b.usdc",
+      "preserved": true,
+      "sha256": "aca97111f4ebc1d3fe6d9042b13757d1d74d648b3f50f0be81cc63523abf9d89"
+    },
+    {
+      "path": "Data/import_spec.json",
+      "preserved": true,
+      "sha256": "f4a7e96cd8984b5112f2c1d8630129fc4323c08a5ced703db93ac840a823f875"
+    },
+    {
+      "path": "Data/source_uploads.json",
+      "preserved": true,
+      "sha256": "acf349c22ce848c60e1b7ae8116b410bdcf7631c18163c1a525ac6d19b7b7624"
+    },
+    {
+      "path": "Originals/Character 1.glb",
+      "preserved": true,
+      "sha256": "d3d83628a982079a614541295334f11cafe616af86f621cd0947190afb1acc75"
+    },
+    {
+      "path": "Originals/Character 1.zip",
+      "preserved": true,
+      "sha256": "390705615481f86841c4b78617505db7deed89614882ce184747d571dae453f9"
+    },
+    {
+      "path": "Originals/Character 3.glb",
+      "preserved": true,
+      "sha256": "ac36ad54c102b7d755359195997afc009160689b28b0cfb4b53b77987dbb72b5"
+    },
+    {
+      "path": "Originals/Character1_NARIS_Rigged_Prototype.glb",
+      "preserved": true,
+      "sha256": "83e4d41f347c959e61ec57355fd682db99ed4652dfabba622ae0784b8cd9b628"
+    },
+    {
+      "path": "Originals/City 1.glb",
+      "preserved": true,
+      "sha256": "2032dd3208d9215a5531f1fa880a2ea2e6ab4962a0836a4a6acb12dd8ec36e52"
+    },
+    {
+      "path": "Originals/Environmental 1.glb",
+      "preserved": true,
+      "sha256": "64780ab4c7abb5c38d10fe5035d740f294ba5aed4824c897c9bcc494f30b4271"
+    },
+    {
+      "path": "Originals/fdb365cc-0ad2-487b.usdz",
+      "preserved": true,
+      "sha256": "aca97111f4ebc1d3fe6d9042b13757d1d74d648b3f50f0be81cc63523abf9d89"
+    },
+    {
+      "path": "Originals/\u0627\u0631\u0634\u0627\u062f\u0627\u062a.txt",
+      "preserved": true,
+      "sha256": "371aa70b7d0b4f69f4931eaad164ff779a58d37eaa96fe18cce5848876ea99ad"
+    },
+    {
+      "path": "SourceAssets/Character 1.glb",
+      "preserved": true,
+      "sha256": "d3d83628a982079a614541295334f11cafe616af86f621cd0947190afb1acc75"
+    },
+    {
+      "path": "SourceAssets/Character 3.glb",
+      "preserved": true,
+      "sha256": "ac36ad54c102b7d755359195997afc009160689b28b0cfb4b53b77987dbb72b5"
+    },
+    {
+      "path": "SourceAssets/Character1_NARIS_Rigged_Prototype_FIXED.glb",
+      "preserved": true,
+      "sha256": "299b2c879c9faad25aa9c834ebba8859d26edbb18e15e94933e683355cd16589"
+    },
+    {
+      "path": "SourceAssets/City 1.glb",
+      "preserved": true,
+      "sha256": "2032dd3208d9215a5531f1fa880a2ea2e6ab4962a0836a4a6acb12dd8ec36e52"
+    },
+    {
+      "path": "SourceAssets/Environmental 1.glb",
+      "preserved": true,
+      "sha256": "64780ab4c7abb5c38d10fe5035d740f294ba5aed4824c897c9bcc494f30b4271"
+    }
+  ]
+}

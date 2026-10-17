@@ -1,6 +1,34 @@
 # CALL OF NARIS current work
 
-Updated: 2026-10-01
+Updated: 2026-10-17
+
+### 2026-10-17 smooth-control source integration
+
+P15 now includes the CharacterMovement baseline, bounded desired lock heading, free/combat SpringArm profiles, replicated control phase, notify-owned cancel windows with retained cost/recovery, hit recovery and locomotion data for an authored animation graph. [P15 integration](source/p15-combat/README.md) and its [verification report](source/p15-combat/Reports/repository_checks.json) are the current source/evidence owners. Fresh checks passed: 184 P15 tests (93 compiled shared C++ cases), 336 repository contracts, 6 AssetForge tests and repository validation.
+
+PR #46 remains a draft. P15 is not automatically attached to W04 actors. Actual Blend Space/Animation Blueprint/Foot IK assets and compatible movement clips remain missing; UHT/UBT, PIE, input-to-display latency and packaged gameplay remain unverified. AsusRog was offline at the live check (last seen 37 hours ago). Next: compile and wire the updated plugin in the backed-up UE 5.7 test project, then execute the [engine acceptance matrix](source/p15-combat/Docs/CONTROL_ACCEPTANCE_AR.md).
+
+## 2026-10-17 montage lifecycle continuation
+
+- P15 rules now commit stamina/defense only after accepted montage playback, reserve against reentrant requests and cancel attack/parry/invulnerability on interruption without refunding costs or bypassing recovery.
+- Native component setup diagnostics and a read-only combat-map configuration gate are wired before Windows packaging. Missing montages/Skeletons/sockets/notify windows, absent targets and mixed W04/P15 health owners cannot pass the inspected map gate.
+- 135 portable/mocked delivery tests passed (44 execute the shared C++ rules); the existing 336 source-contract tests, 6 AssetForge tests and repository validator also passed. Engine callbacks/native diagnostics remain uncompiled and unexecuted in Unreal.
+- AsusRog was offline again (last seen 33 hours ago). Authored combat motion quality, input/Slot evaluation, PIE damage/networking, Windows package/playthrough and profiling stay open. No new production animation clips are claimed.
+
+## 2026-10-17 attached-source integration
+
+- Actual five GLBs and source archive inspected. The supplied Character1 rig declares Skin 0 but never attaches it to its mesh; attaching it alone also exposes invalid rest-pose inverse-bind matrices.
+- The intake builder preserves all eight originals and emits a repaired rig with an explicit skin reference and rebuilt column-major inverse binds. Mesh/texture/weight/animation binary data is preserved. Source hashes and required Unreal output classes are pinned in `source/p15-combat/Data/`.
+- The `.usdz`-named source has a raw USDC header; the delivery includes a byte-identical `.usdc` copy without claiming USDZ or USD semantic validation.
+- 95 delivery tests, 336 existing CI-contract tests, 6 AssetForge tests and repository validation passed. Actual source-intake and independent rest-pose CPU evidence are retained under the P15 package's `Reports/`.
+- The rig remains an 18-joint, one-idle prototype. No authored combat clips or Unreal runtime acceptance is claimed. AsusRog was offline at the 2026-10-17 host check.
+
+## 2026-10-16 P15 combat repair
+
+- Work scope: the **combat delivery** `NARIS_P15_DELIVERY_20261016.zip`, separate from the P15 animation archives.
+- Repaired source and integration/test instructions: [P15 combat](source/p15-combat/README.md). W04's existing combat implementation is preserved; the plugin uses a separate reflected class and is not auto-enabled.
+- Local verification covers compiled portable combat rules plus mocked importer, read-only preflight and package-artifact failure cases. Unreal UHT/UBT, Windows launcher execution and gameplay remain separate open gates.
+- Execution blocker checked 2026-10-16: no local Unreal binaries; AsusRog offline. Continue with the guarded test-project build once the Windows engine host is reachable; retain actual logs and playtest evidence before closing P15.
 
 ## 2026-10-01 repository sync — UI4.1 + packaged Windows evidence
 
@@ -43,7 +71,7 @@ Updated: 2026-10-01
 - Next action: bring AsusRog/self-hosted Windows online; run `tools/windows/Invoke-NarisBlenderMasterBuilder.ps1 -ExportCoreAssets`, retain the generated blend/manifest/validation evidence, then execute the registry-gated Ashen Forest Factory v2 Blender->Unreal bridge and compile NARIS_W04Editor. Only validated/approved generated assets may be promoted toward the 7 core production meshes; 2 approved master materials, 10 production AnimMontages, 16 SFX WAV masters and 14 Niagara systems remain required before strict W04_AshenForest Shipping RC can pass.
 - Blockers: AsusRog connectivity must be re-checked at execution time; no Windows UnrealBuildTool/package/playtest evidence yet; production W04_AshenForest .umap is not verified; core meshes/master materials/10 montages/16 Audio/14 Niagara payloads remain unresolved production content; no bound Neon project ID; no Claude Code session available here; the 18 announced attachment paths were absent.
 
-Do not treat static validation, Figma design, Blender source/export contracts or Neon schema files as engine/runtime evidence. The checked-in Unreal descriptor selects 5.4; changing that baseline needs an explicit migration and build evidence.
+Do not treat static validation, Figma design, Blender source/export contracts or Neon schema files as engine/runtime evidence. The checked-in Unreal descriptor selects 5.7; that source setting does not prove a successful build. Historical 5.4 references are not downgrade instructions.
 
 ## 2026-10-01 repository synchronization
 - Public/product brand: **NARSIC**.

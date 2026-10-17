@@ -1,0 +1,193 @@
+{
+  "scope": "source-intake-not-engine-acceptance",
+  "originals_preserved": true,
+  "raw_sources": {
+    "Environmental 1.glb": {
+      "sha256": "64780ab4c7abb5c38d10fe5035d740f294ba5aed4824c897c9bcc494f30b4271",
+      "bytes": 1210488,
+      "meshes": 1,
+      "skins": 0,
+      "joint_counts": [],
+      "animation_names": [],
+      "triangles": 17880,
+      "errors": [],
+      "scope": "limited-embedded-glb-and-rest-bind-check",
+      "unreal_verified": false,
+      "combat_ready": false,
+      "verified": true
+    },
+    "Character 3.glb": {
+      "sha256": "ac36ad54c102b7d755359195997afc009160689b28b0cfb4b53b77987dbb72b5",
+      "bytes": 1052664,
+      "meshes": 1,
+      "skins": 0,
+      "joint_counts": [],
+      "animation_names": [],
+      "triangles": 18210,
+      "errors": [],
+      "scope": "limited-embedded-glb-and-rest-bind-check",
+      "unreal_verified": false,
+      "combat_ready": false,
+      "verified": true
+    },
+    "Character1_NARIS_Rigged_Prototype.glb": {
+      "sha256": "83e4d41f347c959e61ec57355fd682db99ed4652dfabba622ae0784b8cd9b628",
+      "bytes": 2828520,
+      "meshes": 1,
+      "skins": 1,
+      "joint_counts": [
+        18
+      ],
+      "animation_names": [
+        "A_Character1_Idle"
+      ],
+      "triangles": 49886,
+      "errors": [
+        "Skin 0 is not attached to a mesh node"
+      ],
+      "scope": "limited-embedded-glb-and-rest-bind-check",
+      "unreal_verified": false,
+      "combat_ready": false,
+      "verified": false
+    },
+    "City 1.glb": {
+      "sha256": "2032dd3208d9215a5531f1fa880a2ea2e6ab4962a0836a4a6acb12dd8ec36e52",
+      "bytes": 1525136,
+      "meshes": 1,
+      "skins": 0,
+      "joint_counts": [],
+      "animation_names": [],
+      "triangles": 18161,
+      "errors": [],
+      "scope": "limited-embedded-glb-and-rest-bind-check",
+      "unreal_verified": false,
+      "combat_ready": false,
+      "verified": true
+    },
+    "Character 1.glb": {
+      "sha256": "d3d83628a982079a614541295334f11cafe616af86f621cd0947190afb1acc75",
+      "bytes": 2177340,
+      "meshes": 1,
+      "skins": 0,
+      "joint_counts": [],
+      "animation_names": [],
+      "triangles": 49886,
+      "errors": [],
+      "scope": "limited-embedded-glb-and-rest-bind-check",
+      "unreal_verified": false,
+      "combat_ready": false,
+      "verified": true
+    }
+  },
+  "active_sources": {
+    "Environmental 1.glb": {
+      "sha256": "64780ab4c7abb5c38d10fe5035d740f294ba5aed4824c897c9bcc494f30b4271",
+      "bytes": 1210488,
+      "meshes": 1,
+      "skins": 0,
+      "joint_counts": [],
+      "animation_names": [],
+      "triangles": 17880,
+      "errors": [],
+      "scope": "limited-embedded-glb-and-rest-bind-check",
+      "unreal_verified": false,
+      "combat_ready": false,
+      "verified": true
+    },
+    "Character 3.glb": {
+      "sha256": "ac36ad54c102b7d755359195997afc009160689b28b0cfb4b53b77987dbb72b5",
+      "bytes": 1052664,
+      "meshes": 1,
+      "skins": 0,
+      "joint_counts": [],
+      "animation_names": [],
+      "triangles": 18210,
+      "errors": [],
+      "scope": "limited-embedded-glb-and-rest-bind-check",
+      "unreal_verified": false,
+      "combat_ready": false,
+      "verified": true
+    },
+    "Character1_NARIS_Rigged_Prototype_FIXED.glb": {
+      "sha256": "299b2c879c9faad25aa9c834ebba8859d26edbb18e15e94933e683355cd16589",
+      "bytes": 2828532,
+      "meshes": 1,
+      "skins": 1,
+      "joint_counts": [
+        18
+      ],
+      "animation_names": [
+        "A_Character1_Idle"
+      ],
+      "triangles": 49886,
+      "errors": [],
+      "scope": "limited-embedded-glb-and-rest-bind-check",
+      "unreal_verified": false,
+      "combat_ready": false,
+      "rest_bind_max_error": 0,
+      "verified": true
+    },
+    "City 1.glb": {
+      "sha256": "2032dd3208d9215a5531f1fa880a2ea2e6ab4962a0836a4a6acb12dd8ec36e52",
+      "bytes": 1525136,
+      "meshes": 1,
+      "skins": 0,
+      "joint_counts": [],
+      "animation_names": [],
+      "triangles": 18161,
+      "errors": [],
+      "scope": "limited-embedded-glb-and-rest-bind-check",
+      "unreal_verified": false,
+      "combat_ready": false,
+      "verified": true
+    },
+    "Character 1.glb": {
+      "sha256": "d3d83628a982079a614541295334f11cafe616af86f621cd0947190afb1acc75",
+      "bytes": 2177340,
+      "meshes": 1,
+      "skins": 0,
+      "joint_counts": [],
+      "animation_names": [],
+      "triangles": 49886,
+      "errors": [],
+      "scope": "limited-embedded-glb-and-rest-bind-check",
+      "unreal_verified": false,
+      "combat_ready": false,
+      "verified": true
+    }
+  },
+  "attach_without_rebuilding_matrices": {
+    "sha256": "403669d98790c878c8db9055ea8a29b84ae0a21e1f572b617587580dd049697e",
+    "bytes": 2828532,
+    "meshes": 1,
+    "skins": 1,
+    "joint_counts": [
+      18
+    ],
+    "animation_names": [
+      "A_Character1_Idle"
+    ],
+    "triangles": 49886,
+    "errors": [
+      "Rest-pose inverse-bind matrices do not preserve mesh placement"
+    ],
+    "scope": "limited-embedded-glb-and-rest-bind-check",
+    "unreal_verified": false,
+    "combat_ready": false,
+    "rest_bind_max_error": 0.9100000262260437,
+    "verified": false
+  },
+  "repairs": [
+    "Attach skin 0 to the single mesh node",
+    "Recompute inverse binds as inverse(jointWorld) * meshWorld and serialize column-major"
+  ],
+  "archive_glbs_identical_to_uploads": true,
+  "usd": {
+    "input": "fdb365cc-0ad2-487b.usdz",
+    "detected": "PXR-USDC",
+    "correction": "extension-only byte-identical copy",
+    "semantic_validation_executed": false
+  },
+  "unreal_imported": false,
+  "combat_ready": false
+}

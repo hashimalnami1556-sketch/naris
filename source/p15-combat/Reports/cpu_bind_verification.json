@@ -1,0 +1,10 @@
+{
+  "verified": true,
+  "scope": "independent-rest-pose-cpu-skinning",
+  "vertices_checked": 32373,
+  "max_coordinate_error": 1.4971010386943817e-07,
+  "preserved_non_bind_binary_bytes": true,
+  "preserved_original_animation": true,
+  "unreal_verified": false,
+  "animation_visual_quality_verified": false
+}
