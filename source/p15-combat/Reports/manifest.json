@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "scope": "P15 code, pinned-source contracts and portable verification; Unreal hooks uncompiled",
+  "scope": "P15 input response source and portable verification; native Unreal hooks uncompiled",
   "self_excluded": "Reports/manifest.json",
   "files": [
     {
@@ -25,8 +25,8 @@
     },
     {
       "path": "Plugins/NarisCombat/NarisCombat.uplugin",
-      "bytes": 399,
-      "sha256": "94e987663aefd05bbe91937d4d5d3d29cde47745aeb0ac98e8289bfc379ebf5c"
+      "bytes": 395,
+      "sha256": "963d592a6c7a2ed98dee4c8ae84296e5ed8ab49e54bfe40ba566b11c5311215c"
     },
     {
       "path": "Plugins/NarisCombat/Source/NarisCombat/NarisCombat.Build.cs",
@@ -45,13 +45,23 @@
     },
     {
       "path": "Plugins/NarisCombat/Source/NarisCombat/Private/NarisP15CombatComponent.cpp",
-      "bytes": 16583,
-      "sha256": "fddd844c3b449c0699652954a91764f9fd40edca85c15e434a3724af54f6c628"
+      "bytes": 17588,
+      "sha256": "a2de307dedc581e228cfdb532e8e9b7bf24fef76e6f04bb75c58b2617cc282ee"
+    },
+    {
+      "path": "Plugins/NarisCombat/Source/NarisCombat/Private/NarisP15MovementInputComponent.cpp",
+      "bytes": 2641,
+      "sha256": "b7b66292849187368ace7db1c9a7cfdd5f2647dd22ebf88711f674e0607ae249"
     },
     {
       "path": "Plugins/NarisCombat/Source/NarisCombat/Public/NarisCombatRules.h",
-      "bytes": 6698,
-      "sha256": "28667c0f4889ea43fc34d700877f6118dc9c4e8a4490e2f242c9ad8a4645c87a"
+      "bytes": 8194,
+      "sha256": "91c9ce65c828159f77a429058c9b5284426e923f070f92b922020b861ad0caa8"
+    },
+    {
+      "path": "Plugins/NarisCombat/Source/NarisCombat/Public/NarisMoveInput.h",
+      "bytes": 2015,
+      "sha256": "83ad368299bdde21d57e04bdb20ffbe1fae462a94cc6c4228a1c3a1396a9cea5"
     },
     {
       "path": "Plugins/NarisCombat/Source/NarisCombat/Public/NarisP15AttackWindowNotify.h",
@@ -60,13 +70,18 @@
     },
     {
       "path": "Plugins/NarisCombat/Source/NarisCombat/Public/NarisP15CombatComponent.h",
-      "bytes": 5265,
-      "sha256": "1fe980b741c1b96968e670128c4ff95b6ff59022d456bc72827009fc813bf7b1"
+      "bytes": 5568,
+      "sha256": "76cc2f5e779aee2f4cc94339e8a0a7214d99ee0efa56680f37aff48416ad6ade"
+    },
+    {
+      "path": "Plugins/NarisCombat/Source/NarisCombat/Public/NarisP15MovementInputComponent.h",
+      "bytes": 1737,
+      "sha256": "12b9e011fafeaaae05f8c90badc9851510ce539346557e7e84dde811d20d3fbd"
     },
     {
       "path": "README.md",
-      "bytes": 13820,
-      "sha256": "26fa45d5c2b301fedd6ea641e21f8e37497edc69a94cafe2e882ab86cb30728c"
+      "bytes": 18354,
+      "sha256": "a3ea3744934f538e1b38097c7d56834434fb3db5bfb774bad044df2cd3ff88cf"
     },
     {
       "path": "Reports/P14_REFERENCE.json",
@@ -80,13 +95,13 @@
     },
     {
       "path": "Reports/local_tests.txt",
-      "bytes": 13419,
-      "sha256": "e6c1b9f2c6da62e1e109d8fc05bb23128d7f92bff3a8f0ae8d3f810e17153b4e"
+      "bytes": 15667,
+      "sha256": "df50b6f15faaa50dcdef3bca9e43de458f1b9234c216bb750cfda81a1ce57909"
     },
     {
       "path": "Reports/repository_checks.json",
-      "bytes": 679,
-      "sha256": "0c287da76d72ea4bcd881b488c80d87d68946f2111e8c900941f3104eafb802d"
+      "bytes": 682,
+      "sha256": "a37ae4803c1cbab1a88b1c925ccf4b51bfaa8da0704ed6deddb0300395e9b5ff"
     },
     {
       "path": "Reports/source_archive.json",
@@ -106,7 +121,7 @@
     {
       "path": "Reports/verification.json",
       "bytes": 545,
-      "sha256": "f08e7d9a771340710a0c4d8dd74953c2dc7df20f2000db480979e180d31475b3"
+      "sha256": "9f6862174f806c82dba3b757c98e299a318501dc69f6edf187589baec814787f"
     },
     {
       "path": "Scripts/build_asset_intake.py",
@@ -150,8 +165,8 @@
     },
     {
       "path": "Tests/combat_rules_test.cpp",
-      "bytes": 10979,
-      "sha256": "54bd943d8031fd89255846d68aea062a2fdbfa07fac45b7acfa95d57a8cc73c2"
+      "bytes": 16022,
+      "sha256": "49547fe05b54b86258abb6a222af4806e2611f75066a1145dd7de0d0e874c623"
     },
     {
       "path": "Tests/glb_fixtures.py",

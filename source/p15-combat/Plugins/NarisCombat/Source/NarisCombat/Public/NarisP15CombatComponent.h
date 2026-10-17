@@ -31,6 +31,7 @@ public:
     UPROPERTY(EditDefaultsOnly, Category="Naris|Combat") float ParryCost = 15.f;
     UPROPERTY(EditDefaultsOnly, Category="Naris|Combat") float StaminaRegenPerSecond = 18.f;
     UPROPERTY(EditDefaultsOnly, Category="Naris|Combat") float RegenDelaySeconds = .75f;
+    UPROPERTY(EditDefaultsOnly, Category="Naris|Input", meta=(ClampMin="0", ClampMax="0.3")) float InputBufferSeconds = .15f;
     UPROPERTY(EditDefaultsOnly, Category="Naris|Combat") float DodgeInvulnerabilityStart = .1f;
     UPROPERTY(EditDefaultsOnly, Category="Naris|Combat") float DodgeInvulnerabilityEnd = .35f;
 
@@ -47,6 +48,7 @@ public:
     UFUNCTION(BlueprintCallable, Category="Naris|Combat") void RequestLightAttack();
     UFUNCTION(BlueprintCallable, Category="Naris|Combat") void RequestDodge();
     UFUNCTION(BlueprintCallable, Category="Naris|Combat") void RequestParry();
+    UFUNCTION(BlueprintCallable, Category="Naris|Input") void ClearBufferedInput();
     UFUNCTION(BlueprintCallable, BlueprintAuthorityOnly, Category="Naris|Combat") void ApplyCombatDamage(float Amount);
     UFUNCTION(BlueprintPure, Category="Naris|Combat") bool IsDead() const { return Health <= 0.f; }
     UFUNCTION(BlueprintPure, Category="Naris|Combat") TArray<FString> GetSetupIssues() const;
@@ -62,6 +64,7 @@ public:
 protected:
     virtual void BeginPlay() override;
     virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
+    UFUNCTION(Server, Reliable) void ServerClearBufferedInput();
     UFUNCTION(Server, Reliable) void ServerRequestAction(ENarisP15Action Action);
     UFUNCTION(NetMulticast, Reliable) void MulticastPresentAction(ENarisP15Action Action);
     UFUNCTION(NetMulticast, Reliable) void MulticastCancelAction(UAnimMontage* Montage);
@@ -85,5 +88,5 @@ private:
     void SyncVitals();
     void TraceWeapon();
     void BindAnimationInstance();
-    void CancelActiveAction(bool bNotifyClients = true);
+    void CancelActiveAction(bool bNotifyClients = true, bool bClearBuffered = true);
 };

@@ -2,6 +2,10 @@
 
 Updated: 2026-10-17
 
+### 2026-10-17 input responsiveness source
+
+P15 now includes a 150 ms single-entry server combat buffer and an opt-in ground-movement input component (radial dead zone/curve, exponential response, diagonal cap and optional CharacterMovement profile). W04 movement ownership is preserved. 155 portable/mocked tests passed, including 64 compiled shared C++ cases. No new animation graphs/clips, UHT/UBT, movement playtest, networking acceptance or EXE is claimed. See [P15 integration instructions](source/p15-combat/README.md).
+
 ## 2026-10-17 montage lifecycle continuation
 
 - P15 rules now commit stamina/defense only after accepted montage playback, reserve against reentrant requests and cancel attack/parry/invulnerability on interruption without refunding costs or bypassing recovery.

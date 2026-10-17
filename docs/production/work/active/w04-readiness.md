@@ -4,6 +4,14 @@ last_updated: 2026-10-17
 ---
 # W04 readiness handoff
 
+## 2026-10-17 input responsiveness claim
+
+- Executing agent: Codex. Scope: P15 bounded combat input buffering and an opt-in movement-input shaping component; portable behavior tests and integration guidance. Preserve canonical W04 movement/input ownership and existing assets.
+- Starting revision: 4df1894e179e1e6bdd948de932114f8efb376b10; refreshed from origin before edits.
+- Completed: one-entry server buffer with expiry/consume-once/cancellation semantics and an opt-in grounded movement-input component; W04 sources and bindings unchanged.
+- Evidence: 155 portable/mocked tests passed (64 compiled shared C++ cases). Unreal compilation, authored animation transitions and visual movement acceptance remain separate open gates.
+- Next: compile the optional plugin in the UE test project, bind one movement producer and reset events, then measure keyboard/controller starts/stops/reversals and montage recovery.
+
 ## 2026-10-17 montage lifecycle and map integration claim
 
 - Executing agent: Codex; scope: accepted montage playback before stamina/defense commitment, immediate interrupted-action cancellation, component setup diagnostics and a read-only combat-map gate before packaging.

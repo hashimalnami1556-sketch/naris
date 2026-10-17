@@ -39,6 +39,7 @@ void UNarisP15CombatComponent::BeginPlay()
         }
     }
     NarisP15::Config Config;
+    Config.InputBufferSeconds = InputBufferSeconds;
     Config.MaxHealth = MaxHealth; Config.MaxStamina = MaxStamina;
     Config.AttackCost = LightAttackCost; Config.DodgeCost = DodgeCost; Config.ParryCost = ParryCost;
     Config.RegenPerSecond = StaminaRegenPerSecond; Config.RegenDelay = RegenDelaySeconds;
@@ -114,6 +115,7 @@ TArray<FString> UNarisP15CombatComponent::GetSetupIssues() const
         if (!bHasWindow) Issues.Add(TEXT("LightAttack needs a positive NARIS P15 Attack Window notify state."));
     }
     NarisP15::Config Config;
+    Config.InputBufferSeconds = InputBufferSeconds;
     Config.MaxHealth = MaxHealth; Config.MaxStamina = MaxStamina;
     Config.AttackCost = LightAttackCost; Config.DodgeCost = DodgeCost; Config.ParryCost = ParryCost;
     Config.RegenPerSecond = StaminaRegenPerSecond; Config.RegenDelay = RegenDelaySeconds;
@@ -149,8 +151,9 @@ void UNarisP15CombatComponent::BindAnimationInstance()
     }
 }
 
-void UNarisP15CombatComponent::CancelActiveAction(bool bNotifyClients)
+void UNarisP15CombatComponent::CancelActiveAction(bool bNotifyClients, bool bClearBuffered)
 {
+    if (bClearBuffered) Rules.ClearBufferedAction();
     Rules.CancelAction();
     UAnimMontage* Cancelled = ActiveMontage;
     ActiveMontage = nullptr;
@@ -164,9 +167,9 @@ void UNarisP15CombatComponent::HandleMontageBlendingOut(UAnimMontage* Montage, b
     if (bInterrupted && Montage == ActiveMontage) CancelActiveAction();
 }
 
-void UNarisP15CombatComponent::HandleMontageEnded(UAnimMontage* Montage, bool)
+void UNarisP15CombatComponent::HandleMontageEnded(UAnimMontage* Montage, bool bInterrupted)
 {
-    if (Montage == ActiveMontage) CancelActiveAction();
+    if (Montage == ActiveMontage) CancelActiveAction(true, bInterrupted);
 }
 
 void UNarisP15CombatComponent::EndPlay(const EEndPlayReason::Type EndPlayReason)
@@ -219,6 +222,15 @@ void UNarisP15CombatComponent::RequestLightAttack() { RequestAction(ENarisP15Act
 void UNarisP15CombatComponent::RequestDodge() { RequestAction(ENarisP15Action::Dodge); }
 void UNarisP15CombatComponent::RequestParry() { RequestAction(ENarisP15Action::Parry); }
 
+void UNarisP15CombatComponent::ClearBufferedInput()
+{
+    if (!GetOwner()) return;
+    if (GetOwner()->HasAuthority()) Rules.ClearBufferedAction();
+    else if (GetOwner()->HasLocalNetOwner()) ServerClearBufferedInput();
+}
+
+void UNarisP15CombatComponent::ServerClearBufferedInput_Implementation() { Rules.ClearBufferedAction(); }
+
 void UNarisP15CombatComponent::RequestAction(ENarisP15Action Action)
 {
     if (!GetOwner()) return;
@@ -244,6 +256,7 @@ void UNarisP15CombatComponent::CommitAction(ENarisP15Action Action)
     case ENarisP15Action::Parry: Requested = NarisP15::Action::Parry; break;
     default: return;
     }
+    if (Rules.BufferAction(Requested)) return;
     UAnimInstance* Instance = CharacterMesh->GetAnimInstance();
     bool bPlaybackStarted = false;
     const bool bCommitted = Rules.TryStartPresented(Requested, [this, Instance, Montage, &bPlaybackStarted]()
@@ -361,6 +374,17 @@ void UNarisP15CombatComponent::TickComponent(float DeltaTime, ELevelTick TickTyp
         && (!CharacterMesh || !CharacterMesh->GetAnimInstance() || !ActiveMontage
             || !CharacterMesh->GetAnimInstance()->Montage_IsPlaying(ActiveMontage)))
         CancelActiveAction();
+    NarisP15::Action Buffered;
+    if (Rules.TakeBufferedAction(Buffered))
+    {
+        switch (Buffered)
+        {
+        case NarisP15::Action::LightAttack: CommitAction(ENarisP15Action::LightAttack); break;
+        case NarisP15::Action::Dodge: CommitAction(ENarisP15Action::Dodge); break;
+        case NarisP15::Action::Parry: CommitAction(ENarisP15Action::Parry); break;
+        default: break;
+        }
+    }
     SyncVitals();
     TraceWeapon();
 }

@@ -93,3 +93,27 @@ Outputs: `Builds/<run-id>/preflight.json`, `editor-build.log`, `import.log`, `im
 Unreal is absent from the local Linux environment; AsusRog was reported offline again on 2026-10-17. UHT/UBT compilation, engine importing, montage/socket collision, PIE networking, Windows EXE generation and frame-time profiling remain unexecuted. The remaining W04 release gates stay open. This repair does not claim the game, P15 production acceptance, P16 AI, P17 world/UI or P18 release is complete.
 
 Epic references: [RPC execution/ownership](https://dev.epicgames.com/documentation/en-us/unreal-engine/remote-procedure-calls-in-unreal-engine?application_version=5.7), [Animation Notifies](https://dev.epicgames.com/documentation/en-us/unreal-engine/animation-notifies-in-unreal-engine?application_version=5.7), [Packaging projects](https://dev.epicgames.com/documentation/en-us/unreal-engine/packaging-your-project).
+
+
+## Input responsiveness continuation — 2026-10-17
+
+The optional P15 plugin now offers a **150 ms, one-entry combat input buffer**. Requests received only within the last buffer interval of recovery can be queued. The latest different valid request replaces the pending one; repeating the same request does not extend its expiry. Buffering spends no stamina and grants no defense. The server consumes the pending request once when recovery ends, through the existing accepted-playback path. Failed playback is not retried automatically. Death, interrupted playback, AnimInstance replacement and teardown clear pending input. Normal montage completion preserves the queued request until recovery/expiry. A frame hitch beyond expiry drops it. Set `InputBufferSeconds=0` to disable; supported range is 0–0.3 seconds. There are no early cancel windows or client prediction in this change.
+
+### Opt-in ground movement input
+
+`UNarisP15MovementInputComponent` shapes 2D input, without directly modifying velocity, physics or replication. It is **not attached automatically** and does not alter W04's existing axis bindings. Use a backed-up standalone P15 test Character; do not add a second movement producer to W04.
+
+1. Add the component to the test Character. Feed `SetMoveInput` with X=right, Y=forward from your existing input binding. For Enhanced Input, use an Axis2D action's `Triggered` value; connect both `Completed` and `Canceled` to `ResetMoveInput`. Bind combat requests to a single press/`Started`, not a continuously firing `Triggered` action.
+2. Remove direct `AddMovementInput` calls for those same axes. Use exactly one source. The component applies camera-yaw-relative input only to the locally controlled, unblocked, grounded Character. Air/swim/AI movement is outside this component's scope.
+3. Call combat `ClearBufferedInput` before pausing/changing input mode (it forwards to the owning server). Reset movement input explicitly on pause, focus loss, UI input-mode changes and unpossession; callbacks may stop arriving when a mapping is removed. Held raw input is otherwise retained until the binding sends zero/reset. Do not rely solely on a paused Tick to clear input.
+4. Initial filter values: radial dead zone 0.12, exponent 1.4, response time constant 0.04 s. Disable equivalent Enhanced Input modifiers to avoid applying the curve/dead zone twice; alternatively set this component's dead zone to 0 and exponent to 1. The exponential filter is frame-independent for constant input; release clears input immediately so CharacterMovement owns braking. Diagonal magnitude is capped at 1.
+5. `bApplyMovementProfile` defaults to **false**. Enable only in the test Character to try yaw 450 deg/s, acceleration 1600 cm/s², walking braking deceleration 1400 cm/s² and separate braking friction 2. Existing walk/sprint speed, ground friction, capsule, camera and asset settings are preserved. These are exploratory values, not accepted production tuning. Existing `BrakingFrictionFactor` still multiplies braking friction. Higher deceleration generally stops faster; too little can extend sliding.
+6. Build UHT/UBT before claiming integration. Test keyboard and controller at 30/60/120 FPS, starts/stops/180-degree reversals, slow stick movement, diagonal movement, pause/focus recovery, root-motion montage interruption, and one queued action at recovery. Record response time, stopping distance, foot slip, Slot evaluation and client/server behavior separately.
+
+### Unclosed presentation work
+
+No Blend Space, Start/Stop/Pivot clips, Foot IK/Control Rig, motion/stride/orientation warping graph, upper-body layer or new combat animation was authored here. The supplied repaired rig still contains one idle animation. These require compatible authored content, skeleton/bone/curve inspection and actual Unreal visual acceptance. The canonical W04 controller continues using its existing legacy bindings; no Enhanced Input asset migration is claimed.
+
+Evidence: 155 portable/mocked tests pass, including 64 compiled C++ cases exercising shared combat/filter headers. The new reflected component, montage callbacks and CharacterMovement profile have not been compiled or executed in Unreal. No EXE or measured gameplay improvement is claimed.
+
+Official references: [CharacterMovementComponent](https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Runtime/Engine/UCharacterMovementComponent), [Enhanced Input](https://dev.epicgames.com/documentation/en-us/unreal-engine/enhanced-input-in-unreal-engine).

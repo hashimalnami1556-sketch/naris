@@ -20,6 +20,10 @@ The newly available five GLBs were inspected from bytes. The Character1 prototyp
 
 ## Repository baseline
 
+### 2026-10-17 input responsiveness source
+
+P15 now includes a 150 ms single-entry server combat buffer and an opt-in ground-movement input component (radial dead zone/curve, exponential response, diagonal cap and optional CharacterMovement profile). W04 movement ownership is preserved. 155 portable/mocked tests passed, including 64 compiled shared C++ cases. No new animation graphs/clips, UHT/UBT, movement playtest, networking acceptance or EXE is claimed. See [P15 integration instructions](../source/p15-combat/README.md).
+
 P15 montage lifecycle continuation (2026-10-17): accepted playback now precedes stamina/defense commitment; interruption cancels combat effects while retaining recovery. Native setup diagnostics and a read-only map-configuration gate now precede packaging. 135 delivery tests passed, including 44 compiled portable C++ cases and 21 mocked map-gate cases. This is source/portable verification only; UHT/UBT, actual Editor map validation, authored motion and gameplay gates remain open while the engine host is offline. See the [P15 integration instructions](../source/p15-combat/README.md).
 
 - Canonical branch: `main`

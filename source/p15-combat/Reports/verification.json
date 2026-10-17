@@ -8,9 +8,9 @@
   "powershell_executed_locally": false,
   "windows_packaged": false,
   "gameplay_playtested": false,
-  "tests_run": 135,
+  "tests_run": 155,
   "groups": {
-    "CombatRulesTests": 44,
+    "CombatRulesTests": 64,
     "ImportTests": 24,
     "ProjectPreflightTests": 8,
     "PackageTests": 8,

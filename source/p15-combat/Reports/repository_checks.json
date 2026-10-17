@@ -1,5 +1,5 @@
 {
-  "source_base": "8620898077ceac3364d502541a60ffa2c38d949d",
+  "source_base": "4df1894e179e1e6bdd948de932114f8efb376b10",
   "commands": [
     {
       "command": "python3 tools/ci/validate_naris.py",
@@ -21,5 +21,5 @@
   ],
   "not_unreal_engine_evidence": true,
   "continuation_date": "2026-10-17",
-  "continuation": "montage-lifecycle-and-combat-map-gate"
+  "continuation": "input-response-and-bounded-combat-buffer"
 }

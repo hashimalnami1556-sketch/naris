@@ -1,4 +1,5 @@
 #include "NarisCombatRules.h"
+#include "NarisMoveInput.h"
 #include <cstdlib>
 #include <iostream>
 #include <limits>
@@ -14,6 +15,66 @@ static Rules Fresh(const Config& C = Config()) { Rules R; Check(R.Initialize(C))
 int main(int Argc, char** Argv)
 {
     const std::map<std::string, void(*)()> Cases = {
+        {"buffer_near_recovery_starts_once", [] { auto R=Fresh(); Action Out=Action::Idle;
+            R.TryStart(Action::LightAttack); R.Tick(.55f); Check(R.BufferAction(Action::Dodge));
+            Near(R.GetStamina(),80); Check(!R.TakeBufferedAction(Out)); R.Tick(.11f);
+            Check(R.TakeBufferedAction(Out)); Check(Out==Action::Dodge);
+            Check(R.TryStartPresented(Out,[]{return true;})); Near(R.GetStamina(),50);
+            Check(!R.TakeBufferedAction(Out)); }},
+        {"buffer_rejects_early_input", [] { auto R=Fresh(); R.TryStart(Action::LightAttack);
+            Check(!R.BufferAction(Action::Dodge)); }},
+        {"buffer_expired_after_hitch", [] { auto R=Fresh(); Action Out=Action::Idle;
+            R.TryStart(Action::LightAttack); R.Tick(.55f); R.BufferAction(Action::Dodge);
+            R.Tick(.2f); Check(!R.TakeBufferedAction(Out)); Near(R.GetStamina(),80); }},
+        {"buffer_latest_valid_action_wins", [] { auto R=Fresh(); Action Out=Action::Idle;
+            R.TryStart(Action::LightAttack); R.Tick(.55f); R.BufferAction(Action::Dodge);
+            Check(!R.BufferAction(Action::Idle)); R.BufferAction(Action::Parry); R.Tick(.11f);
+            Check(R.TakeBufferedAction(Out)); Check(Out==Action::Parry); }},
+        {"buffer_duplicate_does_not_extend_expiry", [] { auto R=Fresh(); Action Out=Action::Idle;
+            R.TryStart(Action::LightAttack); R.Tick(.55f); R.BufferAction(Action::Dodge);
+            R.Tick(.08f); R.BufferAction(Action::Dodge); R.Tick(.08f);
+            Check(!R.TakeBufferedAction(Out)); }},
+        {"buffer_cleared_on_interruption", [] { auto R=Fresh(); Action Out=Action::Idle;
+            R.TryStart(Action::LightAttack); R.Tick(.55f); R.BufferAction(Action::Dodge);
+            R.ClearBufferedAction(); R.CancelAction(); R.Tick(.11f);
+            Check(!R.TakeBufferedAction(Out)); Check(R.CanStart(Action::Dodge)); Near(R.GetStamina(),80); }},
+        {"buffer_cleared_on_death", [] { auto R=Fresh(); Action Out=Action::Idle;
+            R.TryStart(Action::LightAttack); R.Tick(.55f); R.BufferAction(Action::Dodge);
+            R.Damage(100); R.Tick(.11f); Check(!R.TakeBufferedAction(Out)); }},
+        {"buffer_failed_playback_is_not_retried", [] { auto R=Fresh(); Action Out=Action::Idle;
+            R.TryStart(Action::LightAttack); R.Tick(.55f); R.BufferAction(Action::Dodge); R.Tick(.11f);
+            Check(R.TakeBufferedAction(Out)); Check(!R.TryStartPresented(Out,[]{return false;}));
+            Check(!R.TakeBufferedAction(Out)); Near(R.GetStamina(),80); }},
+        {"buffer_disabled_and_invalid_config", [] { Config C; C.InputBufferSeconds=0; auto R=Fresh(C);
+            R.TryStart(Action::LightAttack); R.Tick(.55f); Check(!R.BufferAction(Action::Dodge));
+            C.InputBufferSeconds=.31f; Check(!C.IsValid()); }},
+        {"buffer_not_allowed_during_presentation", [] { auto R=Fresh();
+            Check(R.TryStartPresented(Action::Dodge,[&]{Check(!R.BufferAction(Action::Parry));return true;})); }},
+        {"buffer_rejects_unaffordable_request", [] { Config C; C.MaxStamina=25; auto R=Fresh(C);
+            R.TryStart(Action::LightAttack); R.Tick(.55f); Check(!R.BufferAction(Action::Parry)); }},
+        {"move_radial_dead_zone", [] { MoveInputFilter F; auto V=F.Step({.05,.05},.016,.12,1.4,.04);
+            Near(V.X,0); Near(V.Y,0); }},
+        {"move_diagonal_speed_capped", [] { MoveInputFilter F; auto V=F.Step({1,1},1,.12,1.4,0);
+            Near(std::hypot(V.X,V.Y),1); Near(V.X,V.Y); }},
+        {"move_release_has_no_input_tail", [] { MoveInputFilter F; F.Step({1,0},1,.12,1.4,.04);
+            auto V=F.Step({},.016,.12,1.4,.04); Near(V.X,0); Near(V.Y,0); }},
+        {"move_filter_frame_independent", [] { MoveInputFilter A,B; auto V=A.Step({.7,.2},.1,.12,1.4,.04);
+            MoveInput W; for(int I=0;I<10;++I) W=B.Step({.7,.2},.01,.12,1.4,.04);
+            Near(V.X,W.X); Near(V.Y,W.Y); }},
+        {"move_curve_preserves_analog_range", [] { MoveInputFilter F; auto V=F.Step({.56,0},1,.12,2,0);
+            Near(V.X,.25); Near(V.Y,0); }},
+        {"move_reversal_remains_bounded", [] { MoveInputFilter F; F.Step({1,0},1,0,1,.04);
+            auto V=F.Step({-1,0},.01,0,1,.04); Check(V.X>0 && V.X<1);
+            V=F.Step({-1,0},1,0,1,.04); Near(V.X,-1); }},
+        {"move_invalid_input_resets", [] { MoveInputFilter F; F.Step({1,0},1,0,1,0);
+            auto V=F.Step({std::numeric_limits<double>::quiet_NaN(),0},.01,0,1,.04);
+            Near(V.X,0); Check(!MoveInputFilter::Valid(1,1,.04));
+            Check(!MoveInputFilter::Valid(.12,0,.04)); Check(!MoveInputFilter::Valid(.12,1,-1)); }},
+        {"move_invalid_delta_does_not_advance", [] { MoveInputFilter F;
+            auto V=F.Step({1,0},-1,0,1,.04); Near(V.X,0);
+            V=F.Step({1,0},std::numeric_limits<double>::infinity(),0,1,.04); Near(V.X,0); }},
+        {"move_reset_clears_history", [] { MoveInputFilter F; F.Step({1,0},1,0,1,.04); F.Reset();
+            auto V=F.Step({0,1},.01,0,1,.04); Near(V.X,0); Check(V.Y>0 && V.Y<1); }},
         {"presentation_blocks_reentrant_requests", [] { auto R=Fresh();
             Check(R.TryStartPresented(Action::Dodge, [&] {
                 Check(!R.TryStart(Action::LightAttack)); Check(!R.CanStart(Action::Parry)); return true;
