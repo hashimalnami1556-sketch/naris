@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "scope": "Repository P15 smooth-control text source and portable/mocked verification; binary source assets remain in the separate delivery ZIP; native Unreal hooks uncompiled",
+  "scope": "P15 stale-input repair source and portable verification; native Unreal integration uncompiled",
   "self_excluded": "Reports/manifest.json",
   "files": [
     {
@@ -20,8 +20,8 @@
     },
     {
       "path": "Docs/CONTROL_ACCEPTANCE_AR.md",
-      "bytes": 4892,
-      "sha256": "f08ce1e8699be5355875dd88c830673249327a02f3faf55da5b875eec840a22c"
+      "bytes": 5457,
+      "sha256": "b31feba555986393adaed0c84a2fe9364ff8f150d5d4e5af8f559c3fccac0ab9"
     },
     {
       "path": "Plugins/NarisCombat/Config/DefaultNarisCombat.ini",
@@ -30,8 +30,8 @@
     },
     {
       "path": "Plugins/NarisCombat/NarisCombat.uplugin",
-      "bytes": 395,
-      "sha256": "963d592a6c7a2ed98dee4c8ae84296e5ed8ab49e54bfe40ba566b11c5311215c"
+      "bytes": 397,
+      "sha256": "8f25ed11756a67d8324c691663f12c127a241b3b1fa99cf01f4a429390795eb3"
     },
     {
       "path": "Plugins/NarisCombat/Source/NarisCombat/NarisCombat.Build.cs",
@@ -65,8 +65,8 @@
     },
     {
       "path": "Plugins/NarisCombat/Source/NarisCombat/Private/NarisP15MovementInputComponent.cpp",
-      "bytes": 12574,
-      "sha256": "bf7add87548ec48cda15cdfa82109c4f37961b3b63c40642a64f59d9cd8d8338"
+      "bytes": 13588,
+      "sha256": "fe304402eb0435a1de3c8b937f0f5f8f22471d4c6f5af5edab643a0b9f2410df"
     },
     {
       "path": "Plugins/NarisCombat/Source/NarisCombat/Public/NarisCombatRules.h",
@@ -80,8 +80,8 @@
     },
     {
       "path": "Plugins/NarisCombat/Source/NarisCombat/Public/NarisMoveInput.h",
-      "bytes": 2015,
-      "sha256": "83ad368299bdde21d57e04bdb20ffbe1fae462a94cc6c4228a1c3a1396a9cea5"
+      "bytes": 3101,
+      "sha256": "6e144d69699045291c2a64b6eb14585793a18e71375e2955c375a04ff3c6065b"
     },
     {
       "path": "Plugins/NarisCombat/Source/NarisCombat/Public/NarisP15AttackWindowNotify.h",
@@ -105,13 +105,13 @@
     },
     {
       "path": "Plugins/NarisCombat/Source/NarisCombat/Public/NarisP15MovementInputComponent.h",
-      "bytes": 4988,
-      "sha256": "17a78a73ad3d47a440df1af0ed194546607d805f4f3ecf0134c7ba2e01e22ad7"
+      "bytes": 5252,
+      "sha256": "1f28e471e71cdfbc809de3a39b840d27cc62463e53276b905342933126aa1937"
     },
     {
       "path": "README.md",
-      "bytes": 9626,
-      "sha256": "40292725e7dfe318125d388f558968e4ef48f8fa103cb9048a65d9e46c58bb7e"
+      "bytes": 11047,
+      "sha256": "71b3448d2650aba8b68ae73562794ca1276b3980f98bc353b6bb1af2369a2035"
     },
     {
       "path": "Reports/P14_REFERENCE.json",
@@ -155,13 +155,13 @@
     },
     {
       "path": "Reports/local_tests.txt",
-      "bytes": 19031,
-      "sha256": "7e8a5cd62053c26e53527614c6cde41310f6805bc0831d66ff1c47fd6fe7cae7"
+      "bytes": 20325,
+      "sha256": "5104f3c7099a8d332e486955bf39f5265523e0d2a398053d85808629b49d3aae"
     },
     {
       "path": "Reports/repository_checks.json",
-      "bytes": 1680,
-      "sha256": "1ecb62548df7c86d2c578988ba18a5eaa4ef94677d5da6d33d77eeee5c28353b"
+      "bytes": 1638,
+      "sha256": "a03391b47532b638840e65c30d7496d4b0d73685a67b91e3323e6f48a061907e"
     },
     {
       "path": "Reports/source_archive.json",
@@ -179,14 +179,19 @@
       "sha256": "df3b70d31b282125e8135bf43f18445c91fea3598dbcaeb5f9b44929404627c6"
     },
     {
+      "path": "Reports/stale_input_regression_before.txt",
+      "bytes": 486,
+      "sha256": "bfe0131f88885097280c1e3b13d977e4e324d923fd43f025cd6eec8484d2152c"
+    },
+    {
       "path": "Reports/verification.json",
-      "bytes": 771,
-      "sha256": "85c25d2e6bb0ccbea0dc7a911206b40f2011b15f13820937b989a33041e34fac"
+      "bytes": 772,
+      "sha256": "6a38e8061c6f0a16c0f33e8cb044f672b9c7a7cfdc1fcd6a14697b72a8f4a227"
     },
     {
       "path": "START_HERE_AR.md",
-      "bytes": 7796,
-      "sha256": "1d8f8fc9c8af19d677437ea4f2f04cd976191a65930890d589ce0b14d54c9eed"
+      "bytes": 9204,
+      "sha256": "34549ca2e2296f5ace5bd4cc16ea8c643c8e171197a7af6b4f45d3f2b1a94dce"
     },
     {
       "path": "Scripts/build_asset_intake.py",
@@ -230,8 +235,8 @@
     },
     {
       "path": "Tests/combat_rules_test.cpp",
-      "bytes": 23703,
-      "sha256": "bc3bcf2891f8882f37e9276e5c10dbc2c802590544313d4cf2c77fd555d01bd4"
+      "bytes": 26129,
+      "sha256": "b028a1b7624e346564dd51dc55f77cf7f597cc958df168cae5361eac519161a1"
     },
     {
       "path": "Tests/glb_fixtures.py",

@@ -1,6 +1,10 @@
 # CALL OF NARIS current work
 
-Updated: 2026-10-17
+Updated: 2026-10-18
+
+### 2026-10-18 stale movement-input correction
+
+P15 movement samples now expire after 0.12 real seconds without refresh and are scoped to their Controller. Release at zero/invalid frame delta clears the shared filter. Native pause/ignored input and look guards were added; explicit input/reset bindings remain required. Fresh portable/mocked evidence: 195 tests (104 compiled C++ cases). Unreal callbacks, pause/focus/possession integration and movement acceptance remain unverified; AsusRog is offline (47 hours at this check). No W04 runtime or original asset bytes were replaced.
 
 ### 2026-10-17 smooth-control source integration
 

@@ -63,6 +63,15 @@ test_hit_recovery_from_idle (test_delivery.CombatRulesTests.test_hit_recovery_fr
 test_hit_window_expires (test_delivery.CombatRulesTests.test_hit_window_expires) ... ok
 test_hit_window_required (test_delivery.CombatRulesTests.test_hit_window_required) ... ok
 test_initial_vitals (test_delivery.CombatRulesTests.test_initial_vitals) ... ok
+test_input_lease_clock_reversal_clears (test_delivery.CombatRulesTests.test_input_lease_clock_reversal_clears) ... ok
+test_input_lease_expired_cannot_revive (test_delivery.CombatRulesTests.test_input_lease_expired_cannot_revive) ... ok
+test_input_lease_expires_at_boundary (test_delivery.CombatRulesTests.test_input_lease_expires_at_boundary) ... ok
+test_input_lease_holds_only_while_fresh (test_delivery.CombatRulesTests.test_input_lease_holds_only_while_fresh) ... ok
+test_input_lease_invalid_time_and_timeout (test_delivery.CombatRulesTests.test_input_lease_invalid_time_and_timeout) ... ok
+test_input_lease_invalid_value_clears (test_delivery.CombatRulesTests.test_input_lease_invalid_value_clears) ... ok
+test_input_lease_refresh_keeps_held_key (test_delivery.CombatRulesTests.test_input_lease_refresh_keeps_held_key) ... ok
+test_input_lease_requires_sample (test_delivery.CombatRulesTests.test_input_lease_requires_sample) ... ok
+test_input_lease_reset_requires_fresh_input (test_delivery.CombatRulesTests.test_input_lease_reset_requires_fresh_input) ... ok
 test_input_response_budget_for_supported_frame_rates (test_delivery.CombatRulesTests.test_input_response_budget_for_supported_frame_rates) ... ok
 test_insufficient_stamina (test_delivery.CombatRulesTests.test_insufficient_stamina) ... ok
 test_invalid_action (test_delivery.CombatRulesTests.test_invalid_action) ... ok
@@ -75,11 +84,13 @@ test_move_curve_preserves_analog_range (test_delivery.CombatRulesTests.test_move
 test_move_diagonal_speed_capped (test_delivery.CombatRulesTests.test_move_diagonal_speed_capped) ... ok
 test_move_filter_frame_independent (test_delivery.CombatRulesTests.test_move_filter_frame_independent) ... ok
 test_move_invalid_delta_does_not_advance (test_delivery.CombatRulesTests.test_move_invalid_delta_does_not_advance) ... ok
+test_move_invalid_delta_release_clears (test_delivery.CombatRulesTests.test_move_invalid_delta_release_clears) ... ok
 test_move_invalid_input_resets (test_delivery.CombatRulesTests.test_move_invalid_input_resets) ... ok
 test_move_radial_dead_zone (test_delivery.CombatRulesTests.test_move_radial_dead_zone) ... ok
 test_move_release_has_no_input_tail (test_delivery.CombatRulesTests.test_move_release_has_no_input_tail) ... ok
 test_move_reset_clears_history (test_delivery.CombatRulesTests.test_move_reset_clears_history) ... ok
 test_move_reversal_remains_bounded (test_delivery.CombatRulesTests.test_move_reversal_remains_bounded) ... ok
+test_move_zero_delta_release_clears (test_delivery.CombatRulesTests.test_move_zero_delta_release_clears) ... ok
 test_new_action_after_cancel_resets_state (test_delivery.CombatRulesTests.test_new_action_after_cancel_resets_state) ... ok
 test_next_swing_resets_hits (test_delivery.CombatRulesTests.test_next_swing_resets_hits) ... ok
 test_no_actions_before_initialize (test_delivery.CombatRulesTests.test_no_actions_before_initialize) ... ok
@@ -184,6 +195,6 @@ test_exact_sources_pass (test_source_assets.SourceContractTests.test_exact_sourc
 test_extra_source_fails (test_source_assets.SourceContractTests.test_extra_source_fails) ... ok
 
 ----------------------------------------------------------------------
-Ran 184 tests in 1.229s
+Ran 195 tests in 1.153s
 
 OK

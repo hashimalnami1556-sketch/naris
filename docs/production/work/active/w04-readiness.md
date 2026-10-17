@@ -1,8 +1,16 @@
 ---
 status: active
-last_updated: 2026-10-17
+last_updated: 2026-10-18
 ---
 # W04 readiness handoff
+
+## 2026-10-18 stale input repair claim
+
+- Executing agent: Codex. Scope: fail-closed movement sample lifetime, controller ownership, paused/ignored input and release handling; preserve the freshly synchronized smooth-control implementation.
+- Starting revision: `afb3792c164d50490bf669ca1eba1fa1b15da481`. AsusRog is offline at this check (last seen 47 hours ago).
+- Native Unreal compilation and runtime acceptance remain open. No original source asset or canonical W04 actor is to be replaced.
+- Completed: real-time sample lease, Controller-scoped reset, paused/ignored input guards, ignored-look lock yaw guard and zero/invalid-delta release correction. One real shared-filter regression failed before repair; 195 portable/mocked tests now pass (104 compiled C++ cases).
+- Next: compile UE 5.7 and execute timeout/pause/focus/possession rows in the engine acceptance matrix. Preserve explicit reset events; the lease is a fallback, not a focus detector.
 
 ## 2026-10-17 smooth-control repository integration
 

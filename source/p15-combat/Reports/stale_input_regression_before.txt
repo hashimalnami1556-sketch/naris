@@ -1,0 +1,10 @@
+Baseline: afb3792c164d50490bf669ca1eba1fa1b15da481
+Compiler: g++ -std=c++17 -Wall -Wextra -Werror -pedantic
+Case: move_zero_delta_release_clears
+Exit: 1
+FAIL move_zero_delta_release_clears: behavior assertion failed
+
+The real shared filter returned its previous nonzero movement output when
+release arrived with Delta=0. Native SetMoveInput also retained its latest
+value without a refresh deadline; this second issue was established by
+inspection, not an executed Unreal reproduction.

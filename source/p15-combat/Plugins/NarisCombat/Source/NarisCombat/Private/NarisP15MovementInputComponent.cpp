@@ -5,6 +5,8 @@
 #include "GameFramework/Controller.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Net/UnrealNetwork.h"
+#include "HAL/PlatformTime.h"
+#include "Kismet/GameplayStatics.h"
 
 namespace
 {
@@ -15,6 +17,7 @@ bool NonNegative(float Value) { return FMath::IsFinite(Value) && Value >= 0.f; }
 UNarisP15MovementInputComponent::UNarisP15MovementInputComponent()
 {
     PrimaryComponentTick.bCanEverTick = true;
+    PrimaryComponentTick.bTickEvenWhenPaused = true;
     PrimaryComponentTick.TickGroup = TG_PrePhysics;
     SetIsReplicatedByDefault(true);
 }
@@ -22,6 +25,7 @@ UNarisP15MovementInputComponent::UNarisP15MovementInputComponent()
 bool UNarisP15MovementInputComponent::IsMotionConfigurationValid() const
 {
     return NarisP15::MoveInputFilter::Valid(DeadZone, ResponseExponent, ResponseSeconds)
+        && NarisP15::MoveInputLease::ValidTimeout(InputTimeoutSeconds)
         && (!bApplyMovementProfile || (Positive(WalkSpeed) && Positive(Acceleration)
             && Positive(BrakingDeceleration) && NonNegative(GroundFriction) && NonNegative(BrakingFriction)))
         && (!bManageRotation || (Positive(YawDegreesPerSecond) && Positive(LockYawAcceleration)))
@@ -213,12 +217,20 @@ void UNarisP15MovementInputComponent::RefreshRotationMode(ACharacter* Character)
 
 void UNarisP15MovementInputComponent::SetMoveInput(FVector2D Value)
 {
-    RawInput = Value.ContainsNaN() ? FVector2D::ZeroVector : Value;
+    ACharacter* Character = Cast<ACharacter>(GetOwner());
+    if (!Character || !Character->IsLocallyControlled() || !Character->GetController()
+        || Character->IsMoveInputIgnored() || UGameplayStatics::IsGamePaused(this)
+        || Value.ContainsNaN())
+    { ResetMoveInput(); return; }
+    if (InputController.Get() != Character->GetController()) ResetMoveInput();
+    InputController = Character->GetController();
+    if (!InputLease.Refresh({Value.X, Value.Y}, FPlatformTime::Seconds())) ResetMoveInput();
 }
 
 void UNarisP15MovementInputComponent::ResetMoveInput()
 {
-    RawInput = FVector2D::ZeroVector;
+    InputLease.Reset();
+    InputController.Reset();
     Filter.Reset();
 }
 
@@ -227,14 +239,15 @@ void UNarisP15MovementInputComponent::TickComponent(float DeltaTime, ELevelTick 
 {
     Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
     ACharacter* Character = Cast<ACharacter>(GetOwner());
-    if (!Character || !bProfileReady || !FMath::IsFinite(DeltaTime) || DeltaTime <= 0.f)
-    { ResetMoveInput(); return; }
+    if (!Character || !bProfileReady || UGameplayStatics::IsGamePaused(this)
+        || !FMath::IsFinite(DeltaTime) || DeltaTime <= 0.f)
+    { Facing.Reset(); ResetMoveInput(); return; }
     if (!Combat.IsValid()) Combat = Character->FindComponentByClass<UNarisP15CombatComponent>();
     if (GetOwner()->HasAuthority() && LockOnTarget && !IsValidLockTarget(LockOnTarget.Get()))
     { LockOnTarget = nullptr; OnRep_ControlMode(); }
     RefreshRotationMode(Character);
-    if (!Character->IsLocallyControlled() || !Character->GetController())
-    { ResetMoveInput(); return; }
+    if (!Character->IsLocallyControlled() || !Character->GetController() || Character->IsMoveInputIgnored())
+    { Facing.Reset(); ResetMoveInput(); return; }
     const bool bLocked = Combat.IsValid() && Combat->IsControlLocked();
     if (bApplyCameraProfile)
         if (USpringArmComponent* Boom = CameraBoom.Get())
@@ -245,7 +258,8 @@ void UNarisP15MovementInputComponent::TickComponent(float DeltaTime, ELevelTick 
             Boom->CameraRotationLagSpeed = FMath::FInterpTo(Boom->CameraRotationLagSpeed,
                 bCombat ? CombatCameraRotationLagSpeed : FreeCameraRotationLagSpeed, DeltaTime, 12.f);
         }
-    if (bManageRotation && !bLocked && IsValidLockTarget(LockOnTarget.Get()))
+    if (bManageRotation && !bLocked && !Character->GetController()->IsLookInputIgnored()
+        && IsValidLockTarget(LockOnTarget.Get()))
     {
         const FVector Offset = LockOnTarget->GetActorLocation() - Character->GetActorLocation();
         if (Offset.SizeSquared2D() > 1.f)
@@ -260,7 +274,11 @@ void UNarisP15MovementInputComponent::TickComponent(float DeltaTime, ELevelTick 
     else Facing.Reset();
     if (bLocked || Character->IsMoveInputIgnored() || !Character->GetCharacterMovement()->IsMovingOnGround())
     { ResetMoveInput(); return; }
-    const NarisP15::MoveInput Input = Filter.Step({RawInput.X, RawInput.Y}, DeltaTime,
+    NarisP15::MoveInput Raw;
+    if (InputController.Get() != Character->GetController()
+        || !InputLease.Sample(FPlatformTime::Seconds(), InputTimeoutSeconds, Raw))
+    { ResetMoveInput(); return; }
+    const NarisP15::MoveInput Input = Filter.Step(Raw, DeltaTime,
         DeadZone, ResponseExponent, ResponseSeconds);
     const float ControlYaw = Character->GetController()->GetControlRotation().Yaw;
     if (!FMath::IsFinite(ControlYaw)) { ResetMoveInput(); return; }

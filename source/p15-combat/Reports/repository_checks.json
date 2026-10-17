@@ -1,30 +1,30 @@
 {
   "schema_version": 2,
-  "scope": "P15 control source integration on the existing review branch; source/portable/mocked checks only",
-  "checked_at_utc": "2026-10-17T11:09:40.468320+00:00",
-  "base_revision": "3b488e00c65327b0a0535db3fcffee97c3f615e7",
+  "scope": "P15 stale movement-input repair; source/portable/mocked checks only",
+  "checked_at_utc": "2026-10-17T21:04:40Z",
+  "base_revision": "afb3792c164d50490bf669ca1eba1fa1b15da481",
   "inherited_from_previous_archive": false,
   "rerun_for_control_revision": true,
   "checks": [
     {
-      "command": "python source/p15-combat/Scripts/run_local_tests.py",
+      "command": "python3 source/p15-combat/Scripts/run_local_tests.py",
       "exit_code": 0,
-      "tests": 184,
-      "compiled_portable_cpp_cases": 93
+      "tests": 195,
+      "compiled_portable_cpp_cases": 104
     },
     {
-      "command": "python -m unittest discover -s tools/ci -v",
+      "command": "python3 -m unittest discover -s tools/ci",
       "exit_code": 0,
       "tests": 336,
       "evidence": "repository source contracts"
     },
     {
-      "command": "python -m unittest discover -s tools/assetforge -v",
+      "command": "python3 -m unittest discover -s tools/assetforge",
       "exit_code": 0,
       "tests": 6
     },
     {
-      "command": "python tools/ci/validate_naris.py",
+      "command": "python3 tools/ci/validate_naris.py",
       "exit_code": 0
     },
     {
@@ -32,11 +32,11 @@
       "exit_code": 0
     }
   ],
-  "tests_total": 526,
+  "tests_total": 537,
   "windows_host": {
     "name": "AsusRog",
     "status": "offline",
-    "last_seen_hours": 37
+    "last_seen_hours": 47
   },
   "unreal_compiled": false,
   "project_installed": false,

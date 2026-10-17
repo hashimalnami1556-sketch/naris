@@ -16,6 +16,36 @@ static Rules Fresh(const Config& C = Config()) { Rules R; Check(R.Initialize(C))
 int main(int Argc, char** Argv)
 {
     const std::map<std::string, void(*)()> Cases = {
+        {"move_zero_delta_release_clears", [] { MoveInputFilter F; F.Step({1,0},1,0,1,.025);
+            auto V=F.Step({},0,0,1,.025); Near(V.X,0); Near(V.Y,0); }},
+        {"move_invalid_delta_release_clears", [] { MoveInputFilter F; F.Step({1,0},1,0,1,.025);
+            auto V=F.Step({},std::numeric_limits<double>::quiet_NaN(),0,1,.025); Near(V.X,0); }},
+        {"input_lease_requires_sample", [] { MoveInputLease L; MoveInput Out{1,1};
+            Check(!L.Sample(1,.125,Out)); Near(Out.X,0); Near(Out.Y,0); }},
+        {"input_lease_holds_only_while_fresh", [] { MoveInputLease L; MoveInput Out;
+            Check(L.Refresh({.5,-.25},1)); Check(L.Sample(1.0625,.125,Out));
+            Near(Out.X,.5); Near(Out.Y,-.25); }},
+        {"input_lease_expires_at_boundary", [] { MoveInputLease L; MoveInput Out;
+            L.Refresh({1,0},1); Check(!L.Sample(1.125,.125,Out)); Near(Out.X,0); }},
+        {"input_lease_expired_cannot_revive", [] { MoveInputLease L; MoveInput Out;
+            L.Refresh({1,0},1); Check(!L.Sample(10,.125,Out)); Check(!L.Sample(1.0625,.125,Out)); }},
+        {"input_lease_refresh_keeps_held_key", [] { MoveInputLease L; MoveInput Out;
+            for(int I=0;I<120;++I) { double T=I/30.; Check(L.Refresh({1,0},T));
+                Check(L.Sample(T+1./60.,.125,Out)); Near(Out.X,1); } }},
+        {"input_lease_reset_requires_fresh_input", [] { MoveInputLease L; MoveInput Out;
+            L.Refresh({1,0},1); L.Reset(); Check(!L.Sample(1,.125,Out));
+            L.Refresh({0,1},2); Check(L.Sample(2,.125,Out)); Near(Out.X,0); Near(Out.Y,1); }},
+        {"input_lease_clock_reversal_clears", [] { MoveInputLease L; MoveInput Out;
+            L.Refresh({1,0},2); Check(!L.Sample(1,.125,Out));
+            L.Refresh({1,0},2); Check(!L.Refresh({0,1},1)); Check(!L.Sample(2,.125,Out)); }},
+        {"input_lease_invalid_value_clears", [] { MoveInputLease L; MoveInput Out;
+            L.Refresh({1,0},1); Check(!L.Refresh({std::numeric_limits<double>::infinity(),0},1));
+            Check(!L.Sample(1,.125,Out)); }},
+        {"input_lease_invalid_time_and_timeout", [] { MoveInputLease L; MoveInput Out;
+            Check(!L.Refresh({1,0},std::numeric_limits<double>::quiet_NaN()));
+            Check(!L.Refresh({1,0},-1)); Check(!MoveInputLease::ValidTimeout(0));
+            Check(!MoveInputLease::ValidTimeout(.51)); L.Refresh({1,0},1);
+            Check(!L.Sample(1,0,Out)); Near(Out.X,0); }},
         {"cancel_window_required", [] { auto R=Fresh(); R.TryStart(Action::LightAttack);
             Check(!R.TryCancelInWindow()); Check(R.GetAction()==Action::LightAttack); }},
         {"cancel_window_closes_and_preserves_lock", [] { auto R=Fresh(); R.TryStart(Action::LightAttack);

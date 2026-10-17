@@ -4,6 +4,14 @@ This repository directory contains the P15 control/combat plugin, source contrac
 
 ## Implemented source changes
 
+### 2026-10-18 input lifetime correction
+
+Held movement values must now be refreshed every frame. `InputTimeoutSeconds` defaults to 0.12 real seconds (valid range 0.05–0.5); an expired sample clears the filter and requires new input. A monotonic platform timestamp keeps this deadline independent of gameplay pause/time dilation. The native component rejects paused/ignored/nonlocal input, resets on paused ticks, binds samples to the current Controller and respects ignored look input before driving lock yaw. Controller changes reset filter history. This does not stop existing physical momentum; CharacterMovement still owns braking.
+
+The shared filter also clears released/dead-zone input when frame delta is zero or invalid. `Reports/stale_input_regression_before.txt` records the failing real-header case before repair. Fresh evidence: 195 portable/mocked tests, including 104 compiled shared C++ cases. Native integration remains uncompiled/unplayed here.
+
+Keep explicit Completed/Canceled, pause/UI/focus/possession resets. The timeout bounds missing refresh; it does not detect every viewport-focus change or replace event wiring. Paused-tick and Controller behavior require engine acceptance. The combat buffer still requires explicit `ClearBufferedInput` at UI/pause boundaries. Bindings that set a held movement value only once must migrate to per-frame refresh; otherwise the value expires intentionally.
+
 - An explicitly attached `NarisP15MovementInputComponent` now owns ground movement input and a baseline CharacterMovement profile: speed 400 cm/s, acceleration 1600 cm/s², braking deceleration 1000 cm/s², ground friction 5, separate braking friction 2 and yaw rate 450 degrees/s. Fresh components enable the profile; existing Blueprint instances may retain previously serialized overrides.
 - The radial input filter defaults to a 25 ms response constant, with immediate release/reset and the existing diagonal cap. It is a time constant, not a measured device-to-display latency.
 - Free movement uses CharacterMovement's orient-to-movement rotation. Combat uses controller-desired rotation. A validated lock target drives a bounded, acceleration-limited desired controller heading. CharacterMovement remains the actor-rotation owner; the component never calls SetActorRotation. Skip ordinary look-yaw input while locked on.

@@ -7,6 +7,7 @@
 #include "NarisP15MovementInputComponent.generated.h"
 
 class ACharacter;
+class AController;
 class UCharacterMovementComponent;
 class USpringArmComponent;
 class UNarisP15CombatComponent;
@@ -21,6 +22,8 @@ public:
     UPROPERTY(EditDefaultsOnly, Category="Naris|Input") float DeadZone = .12f;
     UPROPERTY(EditDefaultsOnly, Category="Naris|Input") float ResponseExponent = 1.4f;
     UPROPERTY(EditDefaultsOnly, Category="Naris|Input") float ResponseSeconds = .025f;
+    // Triggered/axis callbacks must refresh the held value every frame.
+    UPROPERTY(EditDefaultsOnly, Category="Naris|Input", meta=(ClampMin="0.05", ClampMax="0.5")) float InputTimeoutSeconds = .12f;
     UPROPERTY(EditDefaultsOnly, Category="Naris|Movement") bool bApplyMovementProfile = true;
     UPROPERTY(EditDefaultsOnly, Category="Naris|Movement") float WalkSpeed = 400.f;
     UPROPERTY(EditDefaultsOnly, Category="Naris|Movement") float Acceleration = 1600.f;
@@ -62,7 +65,8 @@ private:
     TWeakObjectPtr<UNarisP15CombatComponent> Combat;
     TWeakObjectPtr<UCharacterMovementComponent> ManagedMovement;
     TWeakObjectPtr<USpringArmComponent> CameraBoom;
-    FVector2D RawInput = FVector2D::ZeroVector;
+    TWeakObjectPtr<AController> InputController;
+    NarisP15::MoveInputLease InputLease;
     NarisP15::MoveInputFilter Filter;
     NarisP15::YawDriver Facing;
     bool bProfileReady = false;

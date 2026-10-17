@@ -13,9 +13,9 @@
   "end_to_end_input_latency_measured": false,
   "animation_graph_authored": false,
   "foot_placement_verified": false,
-  "tests_run": 184,
+  "tests_run": 195,
   "groups": {
-    "CombatRulesTests": 93,
+    "CombatRulesTests": 104,
     "ImportTests": 24,
     "ProjectPreflightTests": 8,
     "PackageTests": 8,

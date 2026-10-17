@@ -20,6 +20,8 @@ The newly available five GLBs were inspected from bytes. The Character1 prototyp
 
 ## Repository baseline
 
+P15 input-lifetime repair (2026-10-18): 195 portable/mocked cases pass (104 compiled shared C++ cases). The source now limits unrefreshed movement samples, resets on Controller change and handles zero-delta release. Paused/ignored-input native guards require UHT/UBT and PIE verification. This does not close animation, gameplay, networking or Windows package gates.
+
 ### 2026-10-17 smooth-control source integration
 
 P15 now includes the CharacterMovement baseline, bounded desired lock heading, free/combat SpringArm profiles, replicated control phase, notify-owned cancel windows with retained cost/recovery, hit recovery and locomotion data for an authored animation graph. [P15 integration](../source/p15-combat/README.md) and its [verification report](../source/p15-combat/Reports/repository_checks.json) are the current source/evidence owners. Fresh checks passed: 184 P15 tests (93 compiled shared C++ cases), 336 repository contracts, 6 AssetForge tests and repository validation.
