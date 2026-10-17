@@ -4,6 +4,17 @@ last_updated: 2026-10-17
 ---
 # W04 readiness handoff
 
+## 2026-10-17 smooth-control repository integration
+
+- Executing agent: Codex. Scope: reconcile the completed P15 control source delivery with PR #46; run repository checks and retain engine acceptance as a separate gate.
+- Starting revision: `3b488e00c65327b0a0535db3fcffee97c3f615e7`, freshly inspected. The prior source-inclusive delivery matches every overlapping repository file except its intentionally repository-scoped manifest.
+- Claimed paths: `source/p15-combat/`, `PROJECT_STATE.md`, this work record and `docs/PRODUCTION_STATUS.md`. Preserve canonical W04 actor/input/health ownership, registry approvals and original asset bytes.
+- Live host check: AsusRog offline, last seen 37 hours ago. No local Unreal installation is available. No UHT/UBT, project installation, animation graph authoring or gameplay result is claimed.
+- Completed: integrated the prior delivery into `source/p15-combat/`, retained repository-scoped manifests and external asset provenance, and updated current-state/acceptance documentation. Native additions cover baseline movement, bounded lock heading, camera modes, replicated action/hit/recovery phase, cancel notifies and locomotion data.
+- Fresh validation: 184 P15 tests (93 compiled portable C++ cases), 336 repository contracts, 6 AssetForge tests and repository validation passed; see `source/p15-combat/Reports/repository_checks.json`. No source asset or canonical W04 runtime actor was replaced.
+- Open: authored Blend Space/Animation Blueprint/Foot IK and compatible movement clips; UHT/UBT, engine callbacks, input/camera/foot placement, networking, package/playthrough and latency acceptance.
+- Next: pull the updated PR #46 branch on the engine host, install the exact plugin in the backed-up UE 5.7 test project and complete `source/p15-combat/Docs/CONTROL_ACCEPTANCE_AR.md`. Keep this work active until engine evidence exists; do not merge as runtime-ready.
+
 ## 2026-10-17 input responsiveness claim
 
 - Executing agent: Codex. Scope: P15 bounded combat input buffering and an opt-in movement-input shaping component; portable behavior tests and integration guidance. Preserve canonical W04 movement/input ownership and existing assets.
@@ -65,7 +76,7 @@ last_updated: 2026-10-17
 - Presentation source intake: 16 deterministic WAV source slots + SFX generation contracts exist; WAV import validates PCM 48 kHz/24-bit, channels, duration, digital silence and -1 dBFS peak ceiling. Niagara binding/profile authoring rejects systems with zero emitter handles.
 - Windows packaging readiness: Development authoring/package/runtime smoke, material/core-asset/animation reports, fatal-log/crash QA and bilingual CSV/GPU/LLM profiling are scripted. Shipping RC enforces strict animation/core-asset/material/presentation gates plus the production Ashen Forest map before Shipping BuildCookRun. Neither Windows path has executed in this session.
 - CI evidence: NARIS CI run 35904765067 success; Content Validation run 35904765117 success; Unreal Validate run 35904765189 success. Manual Windows execution remains unperformed.
-- Confirmed constraint: Unreal descriptor currently selects 5.4; Windows PC remains primary.
+- Confirmed constraint: the checked-in Unreal descriptor selects 5.7; Windows PC remains primary. This descriptor read is not engine build evidence.
 - Runtime blocker: registered AsusRog remote host is offline, so neither Blender nor Unreal can be executed from this session yet.
 - Backend blocker: Neon connector requires a concrete project ID and the repository has no bound .neon/neon.json project metadata; no migration was applied.
 - Open issues: Windows compile/package/runtime evidence; actual W04_AshenForest production map; seven core production meshes; approved surface/water master materials + generated instances; 16 Audio + 14 Niagara payloads; 10 production AnimMontages; real Blender-to-Unreal Factory v2 run; Arabic visual/RTL QA; measured hardware performance; strict Shipping RC evidence.

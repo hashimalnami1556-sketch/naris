@@ -1,5 +1,6 @@
 #include "NarisCombatRules.h"
 #include "NarisMoveInput.h"
+#include "NarisControlMotion.h"
 #include <cstdlib>
 #include <iostream>
 #include <limits>
@@ -15,12 +16,104 @@ static Rules Fresh(const Config& C = Config()) { Rules R; Check(R.Initialize(C))
 int main(int Argc, char** Argv)
 {
     const std::map<std::string, void(*)()> Cases = {
+        {"cancel_window_required", [] { auto R=Fresh(); R.TryStart(Action::LightAttack);
+            Check(!R.TryCancelInWindow()); Check(R.GetAction()==Action::LightAttack); }},
+        {"cancel_window_closes_and_preserves_lock", [] { auto R=Fresh(); R.TryStart(Action::LightAttack);
+            R.SetCancelWindow(true); Check(R.TryCancelInWindow()); Near(R.GetStamina(),80);
+            Check(R.GetControlPhase()==ControlPhase::Recovery); Check(!R.CanStart(Action::Dodge));
+            R.SetCancelWindow(true); Check(!R.TryCancelInWindow()); R.Tick(.65f);
+            Check(R.GetControlPhase()==ControlPhase::Free); Check(R.CanStart(Action::Dodge)); }},
+        {"cancel_window_not_inherited_by_next_action", [] { auto R=Fresh(); R.TryStart(Action::Parry);
+            R.SetCancelWindow(true); R.Tick(.25f); R.TryStart(Action::LightAttack);
+            Check(!R.TryCancelInWindow()); }},
+        {"closed_cancel_window_rejects_request", [] { auto R=Fresh(); R.TryStart(Action::Dodge);
+            R.SetCancelWindow(true); R.SetCancelWindow(false); Check(!R.TryCancelInWindow()); }},
+        {"hit_interrupts_defense_and_preserves_old_recovery", [] { auto R=Fresh();
+            R.TryStart(Action::Dodge); Check(R.Damage(10)==DamageOutcome::Applied);
+            Check(R.GetControlPhase()==ControlPhase::Hit); R.Tick(.15f);
+            Check(R.Damage(10)==DamageOutcome::Applied); Near(R.GetStamina(),70);
+            R.Tick(.21f); Check(R.GetControlPhase()==ControlPhase::Recovery);
+            Check(!R.CanStart(Action::Parry)); R.Tick(.25f); Check(R.CanStart(Action::Parry)); }},
+        {"hit_recovery_from_idle", [] { auto R=Fresh(); R.Damage(1);
+            Check(R.GetControlPhase()==ControlPhase::Hit); Check(!R.CanStart(Action::Dodge));
+            R.Tick(.21f); Check(R.GetControlPhase()==ControlPhase::Free); }},
+        {"hit_recovery_can_be_disabled", [] { Config C; C.HitRecoverySeconds=0; auto R=Fresh(C);
+            R.Damage(1); Check(R.GetControlPhase()==ControlPhase::Free); }},
+        {"evade_and_parry_do_not_start_hit_recovery", [] { auto R=Fresh(); R.TryStart(Action::Dodge);
+            R.Tick(.15f); Check(R.Damage(1)==DamageOutcome::Evaded);
+            Check(R.GetControlPhase()==ControlPhase::Action); R.Tick(.5f); R.TryStart(Action::Parry);
+            Check(R.Damage(1)==DamageOutcome::Parried); Check(R.GetControlPhase()==ControlPhase::Action); }},
+        {"death_overrides_hit_and_cancel", [] { auto R=Fresh(); R.TryStart(Action::LightAttack);
+            R.SetCancelWindow(true); R.Damage(100); Check(R.GetControlPhase()==ControlPhase::Dead);
+            Check(!R.TryCancelInWindow()); }},
+        {"failed_presentation_leaves_control_free", [] { auto R=Fresh();
+            Check(!R.TryStartPresented(Action::Dodge,[]{return false;}));
+            Check(R.GetControlPhase()==ControlPhase::Free); }},
+        {"yaw_shortest_path_and_rate_cap", [] { YawDriver Y; double Angle=179;
+            Angle=Y.Step(Angle,-179,1./60.,450,1800); Check(Angle>179 && Angle<=181);
+            Check(std::abs(ShortestYawDelta(179,Angle))<=450./60.+1e-8); }},
+        {"yaw_acceleration_cap", [] { YawDriver Y; Y.Step(0,90,.01,450,1800);
+            Check(Y.GetVelocity()<=18.+1e-8); }},
+        {"yaw_braking_after_target_change_is_bounded", [] { YawDriver Y; double Angle=0;
+            for(int I=0;I<24;++I) Angle=Y.Step(Angle,170,1./120.,450,1800);
+            const double Before=Y.GetVelocity(); Y.Step(Angle,Angle+.1,1./120.,450,1800);
+            Check(std::abs(Y.GetVelocity()-Before)<=15.+1e-7); }},
+        {"yaw_frame_rates_agree", [] { double Results[3]; int Index=0;
+            for(int FPS:{30,60,120}) { YawDriver Y; double Angle=0;
+                for(int I=0;I<FPS;++I) Angle=Y.Step(Angle,170,1./FPS,450,1800);
+                Results[Index++]=Angle; } Near(Results[0],Results[1]); Near(Results[1],Results[2]); }},
+        {"yaw_no_overshoot", [] { YawDriver Y; double Angle=0;
+            for(int I=0;I<240;++I) { Angle=Y.Step(Angle,15,1./120.,450,1800); Check(Angle<=15.+1e-8); }
+            Near(Angle,15); Near(Y.GetVelocity(),0); }},
+        {"yaw_hitch_is_bounded", [] { YawDriver Y; double Angle=Y.Step(0,180,20,450,1800);
+            Check(std::abs(Angle)<=45.); }},
+        {"yaw_bad_values_are_safe", [] { YawDriver Y; Near(Y.Step(10,90,-1,450,1800),10);
+            Near(Y.Step(10,std::numeric_limits<double>::infinity(),.1,450,1800),10); }},
+        {"signals_idle_start_stop", [] { LocomotionSignals S;
+            auto V=S.Step(0,0,0,0,false,.016); Check(!V.Starting && !V.Stopping);
+            V=S.Step(40,0,100,0,false,.016); Check(V.Starting);
+            V=S.Step(40,0,0,0,false,.016); Check(V.Stopping && !V.Starting); }},
+        {"signals_pivot_requires_speed_and_opposite_input", [] { LocomotionSignals S;
+            auto V=S.Step(200,0,-100,0,false,.016); Check(V.Pivoting);
+            S.Reset(); V=S.Step(20,0,-100,0,false,.016); Check(!V.Pivoting); }},
+        {"signals_direction_is_body_relative", [] { LocomotionSignals S;
+            auto V=S.Step(0,200,0,100,false,.016); Near(V.DirectionDegrees,90); Near(V.Speed,200); }},
+        {"signals_airborne_resets_start_and_pivot", [] { LocomotionSignals S;
+            auto V=S.Step(200,0,-100,0,true,.016); Check(V.Falling && !V.Pivoting && !V.Starting); }},
+        {"signals_lean_is_limited", [] { LocomotionSignals S;
+            auto V=S.Step(200,0,0,1000,false,.1); Check(std::abs(V.LeanDegrees)<=8.); }},
+        {"signals_invalid_sample_resets", [] { LocomotionSignals S;
+            auto V=S.Step(std::numeric_limits<double>::infinity(),0,0,0,false,.1);
+            Near(V.Speed,0); Near(V.LeanDegrees,0); }},
+        {"input_response_budget_for_supported_frame_rates", [] {
+            for(int FPS:{30,60,120}) { MoveInputFilter F; double Time=0; MoveInput V;
+                while(V.Y < .9 && Time < .2) { V=F.Step({0,1},1./FPS,.12,1.4,.025); Time+=1./FPS; }
+                Check(Time<=.1+1e-9); } }},
+        {"cancel_request_clears_queued_action", [] { auto R=Fresh(); Action Out=Action::Idle;
+            R.TryStart(Action::LightAttack); R.Tick(.55f); R.BufferAction(Action::Dodge);
+            R.SetCancelWindow(true); Check(R.TryCancelInWindow()); R.Tick(.11f);
+            Check(!R.TakeBufferedAction(Out)); Near(R.GetStamina(),80); }},
+        {"hit_recovery_configuration_validation", [] { Config C;
+            for(float V:{-1.f,3.f,std::numeric_limits<float>::infinity(),std::numeric_limits<float>::quiet_NaN()})
+            { C.HitRecoverySeconds=V; Check(!C.IsValid()); } }},
+        {"yaw_randomized_rate_and_finiteness", [] { YawDriver Y; double Angle=0;
+            unsigned State=17; for(int I=0;I<2000;++I) {
+                State=State*1664525u+1013904223u;
+                const double Target=static_cast<int>(State%720u)-360.;
+                const double Next=Y.Step(Angle,Target,1./60.,450,1800);
+                Check(std::isfinite(Next)); Check(std::abs(ShortestYawDelta(Angle,Next))<=7.5+1e-7);
+                Check(std::abs(Y.GetVelocity())<=450.+1e-7); Angle=Next;
+            } }},
         {"buffer_near_recovery_starts_once", [] { auto R=Fresh(); Action Out=Action::Idle;
             R.TryStart(Action::LightAttack); R.Tick(.55f); Check(R.BufferAction(Action::Dodge));
             Near(R.GetStamina(),80); Check(!R.TakeBufferedAction(Out)); R.Tick(.11f);
             Check(R.TakeBufferedAction(Out)); Check(Out==Action::Dodge);
             Check(R.TryStartPresented(Out,[]{return true;})); Near(R.GetStamina(),50);
             Check(!R.TakeBufferedAction(Out)); }},
+        {"buffer_accepts_exact_expiry_boundary", [] { Config C; C.AttackDuration=.5f; C.InputBufferSeconds=.125f;
+            auto R=Fresh(C); Action Out=Action::Idle; R.TryStart(Action::LightAttack); R.Tick(.375f);
+            Check(R.BufferAction(Action::Dodge)); R.Tick(.125f);
+            Check(R.TakeBufferedAction(Out)); Check(Out==Action::Dodge); }},
         {"buffer_rejects_early_input", [] { auto R=Fresh(); R.TryStart(Action::LightAttack);
             Check(!R.BufferAction(Action::Dodge)); }},
         {"buffer_expired_after_hitch", [] { auto R=Fresh(); Action Out=Action::Idle;
@@ -80,9 +173,12 @@ int main(int Argc, char** Argv)
                 Check(!R.TryStart(Action::LightAttack)); Check(!R.CanStart(Action::Parry)); return true;
             })); Near(R.GetStamina(),70); }},
         {"presentation_has_no_early_invulnerability", [] { auto R=Fresh();
-            Check(R.TryStartPresented(Action::Dodge, [&] {
+            Check(!R.TryStartPresented(Action::Dodge, [&] {
                 Check(R.Damage(10)==DamageOutcome::Applied); return true;
-            })); Near(R.GetHealth(),90); }},
+            })); Near(R.GetHealth(),90); Near(R.GetStamina(),100);
+            Check(R.GetControlPhase()==ControlPhase::Hit); }},
+        {"yaw_wraps_multiple_turns", [] { Near(ShortestYawDelta(359,-359),2);
+            Near(ShortestYawDelta(-359,359),-2); Near(ShortestYawDelta(719,-719),2); }},
         {"death_during_presentation_aborts_commit", [] { auto R=Fresh();
             Check(!R.TryStartPresented(Action::Dodge, [&] { R.Damage(100); return true; }));
             Near(R.GetStamina(),100); Check(R.GetAction()==Action::Idle); }},

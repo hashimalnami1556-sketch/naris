@@ -20,6 +20,7 @@ test_target_requires_character_health_owner (test_combat_map.CombatMapTests.test
 test_target_without_health_owner (test_combat_map.CombatMapTests.test_target_without_health_owner) ... ok
 test_untagged_actors_do_not_satisfy_target_requirement (test_combat_map.CombatMapTests.test_untagged_actors_do_not_satisfy_target_requirement) ... ok
 test_accepted_playback_spends_once (test_delivery.CombatRulesTests.test_accepted_playback_spends_once) ... ok
+test_buffer_accepts_exact_expiry_boundary (test_delivery.CombatRulesTests.test_buffer_accepts_exact_expiry_boundary) ... ok
 test_buffer_cleared_on_death (test_delivery.CombatRulesTests.test_buffer_cleared_on_death) ... ok
 test_buffer_cleared_on_interruption (test_delivery.CombatRulesTests.test_buffer_cleared_on_interruption) ... ok
 test_buffer_disabled_and_invalid_config (test_delivery.CombatRulesTests.test_buffer_disabled_and_invalid_config) ... ok
@@ -38,18 +39,31 @@ test_cancel_idle_is_noop (test_delivery.CombatRulesTests.test_cancel_idle_is_noo
 test_cancel_keeps_regen_delay (test_delivery.CombatRulesTests.test_cancel_keeps_regen_delay) ... ok
 test_cancel_parry_revokes_defense (test_delivery.CombatRulesTests.test_cancel_parry_revokes_defense) ... ok
 test_cancel_preserves_recovery_and_cost (test_delivery.CombatRulesTests.test_cancel_preserves_recovery_and_cost) ... ok
+test_cancel_request_clears_queued_action (test_delivery.CombatRulesTests.test_cancel_request_clears_queued_action) ... ok
+test_cancel_window_closes_and_preserves_lock (test_delivery.CombatRulesTests.test_cancel_window_closes_and_preserves_lock) ... ok
+test_cancel_window_not_inherited_by_next_action (test_delivery.CombatRulesTests.test_cancel_window_not_inherited_by_next_action) ... ok
+test_cancel_window_required (test_delivery.CombatRulesTests.test_cancel_window_required) ... ok
+test_closed_cancel_window_rejects_request (test_delivery.CombatRulesTests.test_closed_cancel_window_rejects_request) ... ok
 test_cooldown_expires (test_delivery.CombatRulesTests.test_cooldown_expires) ... ok
 test_death_during_presentation_aborts_commit (test_delivery.CombatRulesTests.test_death_during_presentation_aborts_commit) ... ok
+test_death_overrides_hit_and_cancel (test_delivery.CombatRulesTests.test_death_overrides_hit_and_cancel) ... ok
 test_dodge_recovery_vulnerable (test_delivery.CombatRulesTests.test_dodge_recovery_vulnerable) ... ok
 test_dodge_startup_vulnerable (test_delivery.CombatRulesTests.test_dodge_startup_vulnerable) ... ok
 test_dodge_window (test_delivery.CombatRulesTests.test_dodge_window) ... ok
+test_evade_and_parry_do_not_start_hit_recovery (test_delivery.CombatRulesTests.test_evade_and_parry_do_not_start_hit_recovery) ... ok
 test_failed_dodge_grants_no_defense (test_delivery.CombatRulesTests.test_failed_dodge_grants_no_defense) ... ok
 test_failed_parry_grants_no_defense (test_delivery.CombatRulesTests.test_failed_parry_grants_no_defense) ... ok
 test_failed_playback_spends_nothing (test_delivery.CombatRulesTests.test_failed_playback_spends_nothing) ... ok
 test_failed_presentation_allows_retry (test_delivery.CombatRulesTests.test_failed_presentation_allows_retry) ... ok
+test_failed_presentation_leaves_control_free (test_delivery.CombatRulesTests.test_failed_presentation_leaves_control_free) ... ok
+test_hit_interrupts_defense_and_preserves_old_recovery (test_delivery.CombatRulesTests.test_hit_interrupts_defense_and_preserves_old_recovery) ... ok
+test_hit_recovery_can_be_disabled (test_delivery.CombatRulesTests.test_hit_recovery_can_be_disabled) ... ok
+test_hit_recovery_configuration_validation (test_delivery.CombatRulesTests.test_hit_recovery_configuration_validation) ... ok
+test_hit_recovery_from_idle (test_delivery.CombatRulesTests.test_hit_recovery_from_idle) ... ok
 test_hit_window_expires (test_delivery.CombatRulesTests.test_hit_window_expires) ... ok
 test_hit_window_required (test_delivery.CombatRulesTests.test_hit_window_required) ... ok
 test_initial_vitals (test_delivery.CombatRulesTests.test_initial_vitals) ... ok
+test_input_response_budget_for_supported_frame_rates (test_delivery.CombatRulesTests.test_input_response_budget_for_supported_frame_rates) ... ok
 test_insufficient_stamina (test_delivery.CombatRulesTests.test_insufficient_stamina) ... ok
 test_invalid_action (test_delivery.CombatRulesTests.test_invalid_action) ... ok
 test_invalid_configuration (test_delivery.CombatRulesTests.test_invalid_configuration) ... ok
@@ -80,8 +94,23 @@ test_regen_crossing_frame (test_delivery.CombatRulesTests.test_regen_crossing_fr
 test_regen_delay (test_delivery.CombatRulesTests.test_regen_delay) ... ok
 test_regen_frame_independent (test_delivery.CombatRulesTests.test_regen_frame_independent) ... ok
 test_rejected_action_never_plays (test_delivery.CombatRulesTests.test_rejected_action_never_plays) ... ok
+test_signals_airborne_resets_start_and_pivot (test_delivery.CombatRulesTests.test_signals_airborne_resets_start_and_pivot) ... ok
+test_signals_direction_is_body_relative (test_delivery.CombatRulesTests.test_signals_direction_is_body_relative) ... ok
+test_signals_idle_start_stop (test_delivery.CombatRulesTests.test_signals_idle_start_stop) ... ok
+test_signals_invalid_sample_resets (test_delivery.CombatRulesTests.test_signals_invalid_sample_resets) ... ok
+test_signals_lean_is_limited (test_delivery.CombatRulesTests.test_signals_lean_is_limited) ... ok
+test_signals_pivot_requires_speed_and_opposite_input (test_delivery.CombatRulesTests.test_signals_pivot_requires_speed_and_opposite_input) ... ok
 test_spam_does_not_replay (test_delivery.CombatRulesTests.test_spam_does_not_replay) ... ok
 test_spam_rejected (test_delivery.CombatRulesTests.test_spam_rejected) ... ok
+test_yaw_acceleration_cap (test_delivery.CombatRulesTests.test_yaw_acceleration_cap) ... ok
+test_yaw_bad_values_are_safe (test_delivery.CombatRulesTests.test_yaw_bad_values_are_safe) ... ok
+test_yaw_braking_after_target_change_is_bounded (test_delivery.CombatRulesTests.test_yaw_braking_after_target_change_is_bounded) ... ok
+test_yaw_frame_rates_agree (test_delivery.CombatRulesTests.test_yaw_frame_rates_agree) ... ok
+test_yaw_hitch_is_bounded (test_delivery.CombatRulesTests.test_yaw_hitch_is_bounded) ... ok
+test_yaw_no_overshoot (test_delivery.CombatRulesTests.test_yaw_no_overshoot) ... ok
+test_yaw_randomized_rate_and_finiteness (test_delivery.CombatRulesTests.test_yaw_randomized_rate_and_finiteness) ... ok
+test_yaw_shortest_path_and_rate_cap (test_delivery.CombatRulesTests.test_yaw_shortest_path_and_rate_cap) ... ok
+test_yaw_wraps_multiple_turns (test_delivery.CombatRulesTests.test_yaw_wraps_multiple_turns) ... ok
 test_zero_cost_still_locked (test_delivery.CombatRulesTests.test_zero_cost_still_locked) ... ok
 test_bad_skin_blocks_all_imports (test_delivery.ImportTests.test_bad_skin_blocks_all_imports) ... ok
 test_duplicate_names_have_distinct_destinations (test_delivery.ImportTests.test_duplicate_names_have_distinct_destinations) ... ok
@@ -155,6 +184,6 @@ test_exact_sources_pass (test_source_assets.SourceContractTests.test_exact_sourc
 test_extra_source_fails (test_source_assets.SourceContractTests.test_extra_source_fails) ... ok
 
 ----------------------------------------------------------------------
-Ran 155 tests in 0.859s
+Ran 184 tests in 1.229s
 
 OK

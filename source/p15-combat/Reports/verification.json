@@ -1,5 +1,5 @@
 {
-  "scope": "portable-rules-and-mocked-editor-io",
+  "scope": "portable-combat-input-yaw-motion-signals-and-mocked-editor-io",
   "exit_code": 0,
   "python": "3.12.14",
   "compiler": "g++ (Ubuntu 13.3.0-6ubuntu2~24.04) 13.3.0",
@@ -8,9 +8,14 @@
   "powershell_executed_locally": false,
   "windows_packaged": false,
   "gameplay_playtested": false,
-  "tests_run": 155,
+  "native_movement_component_compiled": false,
+  "camera_runtime_tested": false,
+  "end_to_end_input_latency_measured": false,
+  "animation_graph_authored": false,
+  "foot_placement_verified": false,
+  "tests_run": 184,
   "groups": {
-    "CombatRulesTests": 64,
+    "CombatRulesTests": 93,
     "ImportTests": 24,
     "ProjectPreflightTests": 8,
     "PackageTests": 8,

@@ -1,0 +1,15 @@
+test_yaw_braking_after_target_change_is_bounded (test_delivery.CombatRulesTests.test_yaw_braking_after_target_change_is_bounded) ... FAIL
+
+======================================================================
+FAIL: test_yaw_braking_after_target_change_is_bounded (test_delivery.CombatRulesTests.test_yaw_braking_after_target_change_is_bounded)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/46b5791aca3d/naris-control/work/NARIS_P15_INPUT_RESPONSE_20261017/Tests/test_delivery.py", line 341, in test
+    self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+AssertionError: 1 != 0 : FAIL yaw_braking_after_target_change_is_bounded: behavior assertion failed
+
+
+----------------------------------------------------------------------
+Ran 1 test in 1.017s
+
+FAILED (failures=1)

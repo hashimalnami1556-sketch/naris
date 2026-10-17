@@ -20,9 +20,11 @@ The newly available five GLBs were inspected from bytes. The Character1 prototyp
 
 ## Repository baseline
 
-### 2026-10-17 input responsiveness source
+### 2026-10-17 smooth-control source integration
 
-P15 now includes a 150 ms single-entry server combat buffer and an opt-in ground-movement input component (radial dead zone/curve, exponential response, diagonal cap and optional CharacterMovement profile). W04 movement ownership is preserved. 155 portable/mocked tests passed, including 64 compiled shared C++ cases. No new animation graphs/clips, UHT/UBT, movement playtest, networking acceptance or EXE is claimed. See [P15 integration instructions](../source/p15-combat/README.md).
+P15 now includes the CharacterMovement baseline, bounded desired lock heading, free/combat SpringArm profiles, replicated control phase, notify-owned cancel windows with retained cost/recovery, hit recovery and locomotion data for an authored animation graph. [P15 integration](../source/p15-combat/README.md) and its [verification report](../source/p15-combat/Reports/repository_checks.json) are the current source/evidence owners. Fresh checks passed: 184 P15 tests (93 compiled shared C++ cases), 336 repository contracts, 6 AssetForge tests and repository validation.
+
+PR #46 remains a draft. P15 is not automatically attached to W04 actors. Actual Blend Space/Animation Blueprint/Foot IK assets and compatible movement clips remain missing; UHT/UBT, PIE, input-to-display latency and packaged gameplay remain unverified. AsusRog was offline at the live check (last seen 37 hours ago). Next: compile and wire the updated plugin in the backed-up UE 5.7 test project, then execute the [engine acceptance matrix](../source/p15-combat/Docs/CONTROL_ACCEPTANCE_AR.md).
 
 P15 montage lifecycle continuation (2026-10-17): accepted playback now precedes stamina/defense commitment; interruption cancels combat effects while retaining recovery. Native setup diagnostics and a read-only map-configuration gate now precede packaging. 135 delivery tests passed, including 44 compiled portable C++ cases and 21 mocked map-gate cases. This is source/portable verification only; UHT/UBT, actual Editor map validation, authored motion and gameplay gates remain open while the engine host is offline. See the [P15 integration instructions](../source/p15-combat/README.md).
 

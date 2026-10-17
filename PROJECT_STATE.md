@@ -2,9 +2,11 @@
 
 Updated: 2026-10-17
 
-### 2026-10-17 input responsiveness source
+### 2026-10-17 smooth-control source integration
 
-P15 now includes a 150 ms single-entry server combat buffer and an opt-in ground-movement input component (radial dead zone/curve, exponential response, diagonal cap and optional CharacterMovement profile). W04 movement ownership is preserved. 155 portable/mocked tests passed, including 64 compiled shared C++ cases. No new animation graphs/clips, UHT/UBT, movement playtest, networking acceptance or EXE is claimed. See [P15 integration instructions](source/p15-combat/README.md).
+P15 now includes the CharacterMovement baseline, bounded desired lock heading, free/combat SpringArm profiles, replicated control phase, notify-owned cancel windows with retained cost/recovery, hit recovery and locomotion data for an authored animation graph. [P15 integration](source/p15-combat/README.md) and its [verification report](source/p15-combat/Reports/repository_checks.json) are the current source/evidence owners. Fresh checks passed: 184 P15 tests (93 compiled shared C++ cases), 336 repository contracts, 6 AssetForge tests and repository validation.
+
+PR #46 remains a draft. P15 is not automatically attached to W04 actors. Actual Blend Space/Animation Blueprint/Foot IK assets and compatible movement clips remain missing; UHT/UBT, PIE, input-to-display latency and packaged gameplay remain unverified. AsusRog was offline at the live check (last seen 37 hours ago). Next: compile and wire the updated plugin in the backed-up UE 5.7 test project, then execute the [engine acceptance matrix](source/p15-combat/Docs/CONTROL_ACCEPTANCE_AR.md).
 
 ## 2026-10-17 montage lifecycle continuation
 
@@ -69,7 +71,7 @@ P15 now includes a 150 ms single-entry server combat buffer and an opt-in ground
 - Next action: bring AsusRog/self-hosted Windows online; run `tools/windows/Invoke-NarisBlenderMasterBuilder.ps1 -ExportCoreAssets`, retain the generated blend/manifest/validation evidence, then execute the registry-gated Ashen Forest Factory v2 Blender->Unreal bridge and compile NARIS_W04Editor. Only validated/approved generated assets may be promoted toward the 7 core production meshes; 2 approved master materials, 10 production AnimMontages, 16 SFX WAV masters and 14 Niagara systems remain required before strict W04_AshenForest Shipping RC can pass.
 - Blockers: AsusRog connectivity must be re-checked at execution time; no Windows UnrealBuildTool/package/playtest evidence yet; production W04_AshenForest .umap is not verified; core meshes/master materials/10 montages/16 Audio/14 Niagara payloads remain unresolved production content; no bound Neon project ID; no Claude Code session available here; the 18 announced attachment paths were absent.
 
-Do not treat static validation, Figma design, Blender source/export contracts or Neon schema files as engine/runtime evidence. The checked-in Unreal descriptor selects 5.4; changing that baseline needs an explicit migration and build evidence.
+Do not treat static validation, Figma design, Blender source/export contracts or Neon schema files as engine/runtime evidence. The checked-in Unreal descriptor selects 5.7; that source setting does not prove a successful build. Historical 5.4 references are not downgrade instructions.
 
 ## 2026-10-01 repository synchronization
 - Public/product brand: **NARSIC**.

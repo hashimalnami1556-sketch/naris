@@ -11,6 +11,14 @@
 #include "Kismet/GameplayStatics.h"
 #include "Net/UnrealNetwork.h"
 #include "NarisP15AttackWindowNotify.h"
+#include "NarisP15CancelWindowNotify.h"
+
+static_assert(static_cast<uint8>(ENarisP15ControlPhase::Unavailable) == static_cast<uint8>(NarisP15::ControlPhase::Unavailable));
+static_assert(static_cast<uint8>(ENarisP15ControlPhase::Free) == static_cast<uint8>(NarisP15::ControlPhase::Free));
+static_assert(static_cast<uint8>(ENarisP15ControlPhase::Action) == static_cast<uint8>(NarisP15::ControlPhase::Action));
+static_assert(static_cast<uint8>(ENarisP15ControlPhase::Recovery) == static_cast<uint8>(NarisP15::ControlPhase::Recovery));
+static_assert(static_cast<uint8>(ENarisP15ControlPhase::Hit) == static_cast<uint8>(NarisP15::ControlPhase::Hit));
+static_assert(static_cast<uint8>(ENarisP15ControlPhase::Dead) == static_cast<uint8>(NarisP15::ControlPhase::Dead));
 
 UNarisP15CombatComponent::UNarisP15CombatComponent()
 {
@@ -40,6 +48,7 @@ void UNarisP15CombatComponent::BeginPlay()
     }
     NarisP15::Config Config;
     Config.InputBufferSeconds = InputBufferSeconds;
+    Config.HitRecoverySeconds = HitRecoverySeconds;
     Config.MaxHealth = MaxHealth; Config.MaxStamina = MaxStamina;
     Config.AttackCost = LightAttackCost; Config.DodgeCost = DodgeCost; Config.ParryCost = ParryCost;
     Config.RegenPerSecond = StaminaRegenPerSecond; Config.RegenDelay = RegenDelaySeconds;
@@ -97,6 +106,20 @@ TArray<FString> UNarisP15CombatComponent::GetSetupIssues() const
             Issues.Add(FString::Printf(TEXT("%s montage requires a positive duration and RateScale 1."), Names[Index]));
         if (Montage->SlotAnimTracks.IsEmpty())
             Issues.Add(FString::Printf(TEXT("%s montage has no Slot track."), Names[Index]));
+        TArray<FVector2D> CancelWindows;
+        for (const FAnimNotifyEvent& Event : Montage->Notifies)
+        {
+            if (!Cast<UNarisP15CancelWindowNotify>(Event.NotifyStateClass)) continue;
+            const float Start = Event.GetTime(), Duration = Event.GetDuration();
+            if (!FMath::IsFinite(Start) || !FMath::IsFinite(Duration) || Start <= 0.f
+                || Duration <= 0.f || Start + Duration > Montage->GetPlayLength() + KINDA_SMALL_NUMBER)
+                Issues.Add(FString::Printf(TEXT("%s cancel window must begin after time zero and stay inside its montage."), Names[Index]));
+            else CancelWindows.Add(FVector2D(Start, Start + Duration));
+        }
+        CancelWindows.Sort([](const FVector2D& A, const FVector2D& B) { return A.X < B.X; });
+        for (int32 Window = 1; Window < CancelWindows.Num(); ++Window)
+            if (CancelWindows[Window].X < CancelWindows[Window - 1].Y)
+                Issues.Add(FString::Printf(TEXT("%s cancel windows must not overlap."), Names[Index]));
     }
     if (LightAttackMontage)
     {
@@ -116,6 +139,7 @@ TArray<FString> UNarisP15CombatComponent::GetSetupIssues() const
     }
     NarisP15::Config Config;
     Config.InputBufferSeconds = InputBufferSeconds;
+    Config.HitRecoverySeconds = HitRecoverySeconds;
     Config.MaxHealth = MaxHealth; Config.MaxStamina = MaxStamina;
     Config.AttackCost = LightAttackCost; Config.DodgeCost = DodgeCost; Config.ParryCost = ParryCost;
     Config.RegenPerSecond = StaminaRegenPerSecond; Config.RegenDelay = RegenDelaySeconds;
@@ -160,6 +184,37 @@ void UNarisP15CombatComponent::CancelActiveAction(bool bNotifyClients, bool bCle
     bHasPreviousTip = false;
     if (bNotifyClients && Cancelled && GetOwner() && GetOwner()->HasAuthority())
         MulticastCancelAction(Cancelled);
+    if (bNotifyClients) SyncControlPhase();
+}
+
+void UNarisP15CombatComponent::StopActiveMontage()
+{
+    UAnimMontage* Cancelled = ActiveMontage;
+    CancelActiveAction();
+    if (Cancelled && CharacterMesh && CharacterMesh->GetAnimInstance())
+        CharacterMesh->GetAnimInstance()->Montage_Stop(.12f, Cancelled);
+}
+
+void UNarisP15CombatComponent::RequestCancelCurrentAction()
+{
+    if (!GetOwner()) return;
+    if (GetOwner()->HasAuthority()) TryCancelCurrentAction();
+    else if (GetOwner()->HasLocalNetOwner()) ServerRequestCancelCurrentAction();
+}
+
+void UNarisP15CombatComponent::ServerRequestCancelCurrentAction_Implementation() { TryCancelCurrentAction(); }
+
+void UNarisP15CombatComponent::TryCancelCurrentAction()
+{
+    if (bReady && GetOwner() && GetOwner()->HasAuthority() && Rules.TryCancelInWindow())
+        StopActiveMontage();
+}
+
+void UNarisP15CombatComponent::SetCancelWindow(bool bOpen, UAnimSequenceBase* SourceAnimation)
+{
+    if (bReady && GetOwner() && GetOwner()->HasAuthority() && ActiveMontage
+        && SourceAnimation == ActiveMontage.Get())
+        Rules.SetCancelWindow(bOpen);
 }
 
 void UNarisP15CombatComponent::HandleMontageBlendingOut(UAnimMontage* Montage, bool bInterrupted)
@@ -191,6 +246,16 @@ void UNarisP15CombatComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProper
     DOREPLIFETIME(UNarisP15CombatComponent, Stamina);
     DOREPLIFETIME(UNarisP15CombatComponent, MaxHealth);
     DOREPLIFETIME(UNarisP15CombatComponent, MaxStamina);
+    DOREPLIFETIME(UNarisP15CombatComponent, ControlPhase);
+}
+
+void UNarisP15CombatComponent::OnRep_ControlPhase() { OnControlPhaseChanged(); }
+
+void UNarisP15CombatComponent::SyncControlPhase()
+{
+    if (!GetOwner() || !GetOwner()->HasAuthority()) return;
+    const auto Next = static_cast<ENarisP15ControlPhase>(Rules.GetControlPhase());
+    if (Next != ControlPhase) { ControlPhase = Next; OnControlPhaseChanged(); }
 }
 
 void UNarisP15CombatComponent::OnRep_Vitals()
@@ -202,6 +267,7 @@ void UNarisP15CombatComponent::OnRep_Vitals()
 
 void UNarisP15CombatComponent::SyncVitals()
 {
+    SyncControlPhase();
     const bool bChanged = Health != Rules.GetHealth() || Stamina != Rules.GetStamina();
     Health = Rules.GetHealth(); Stamina = Rules.GetStamina();
     if (bChanged) OnVitalsChanged();
@@ -293,6 +359,8 @@ void UNarisP15CombatComponent::ApplyCombatDamage(float Amount)
 {
     if (!bReady || !GetOwner() || !GetOwner()->HasAuthority()) return;
     const NarisP15::DamageOutcome Outcome = Rules.Damage(Amount);
+    if (Outcome == NarisP15::DamageOutcome::Applied && HitRecoverySeconds > 0.f)
+        StopActiveMontage();
     SyncVitals();
     if (Outcome == NarisP15::DamageOutcome::Evaded || Outcome == NarisP15::DamageOutcome::Parried)
         OnDefenseResolved(Outcome == NarisP15::DamageOutcome::Evaded, Outcome == NarisP15::DamageOutcome::Parried);
