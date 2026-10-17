@@ -1,12 +1,22 @@
 {
   "schema_version": 1,
-  "scope": "P15 combat repair source delivery",
+  "scope": "P15 code, source contracts and evidence; binary sources in separate delivery",
   "self_excluded": "Reports/manifest.json",
   "files": [
     {
       "path": ".gitignore",
       "bytes": 75,
       "sha256": "88c596ae26bfb1d6b2a0fbae8108f9860bc80b4415f6c959ace978a60e3d2fa8"
+    },
+    {
+      "path": "Data/import_spec.json",
+      "bytes": 1162,
+      "sha256": "f4a7e96cd8984b5112f2c1d8630129fc4323c08a5ced703db93ac840a823f875"
+    },
+    {
+      "path": "Data/source_uploads.json",
+      "bytes": 1830,
+      "sha256": "acf349c22ce848c60e1b7ae8116b410bdcf7631c18163c1a525ac6d19b7b7624"
     },
     {
       "path": "Plugins/NarisCombat/Config/DefaultNarisCombat.ini",
@@ -55,8 +65,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 8784,
-      "sha256": "ffa5f3fc4148f08d3e86c24e6eba47ba03e404ba0ad48d7ecdd93501ce58885a"
+      "bytes": 11490,
+      "sha256": "bd48c75b5e1bf9d118fae4ba10a17ad6cfcbd269969fc2954964e2464087816e"
     },
     {
       "path": "Reports/P14_REFERENCE.json",
@@ -64,14 +74,19 @@
       "sha256": "86bbedded3760b0cdc954f2646a3c3f5d638033e92635d0fd4e2d934e4f07e73"
     },
     {
+      "path": "Reports/cpu_bind_verification.json",
+      "bytes": 308,
+      "sha256": "2d91398c529df1650ab5591f6a138d8c80c731729a6750c721b4043465de22b1"
+    },
+    {
       "path": "Reports/local_tests.txt",
-      "bytes": 5593,
-      "sha256": "b6f56f04943eca7fd3c01efbd474c3a3f9fe78da1cc29fb34b7db2fd2e1200fe"
+      "bytes": 8962,
+      "sha256": "5c1e745df5000f06f787e3bd92a766fcdf599f249487e41e04a0b039998156d5"
     },
     {
       "path": "Reports/repository_checks.json",
-      "bytes": 583,
-      "sha256": "d4cf114415c0714fe218ddf6545fadb009bbddfc30f22bbcd83a2fc275d7ea40"
+      "bytes": 620,
+      "sha256": "0f83a46d9178a7a67f3bd1d7acb94efda4b23cf3f6093f53cded43edcb1103d3"
     },
     {
       "path": "Reports/source_archive.json",
@@ -79,24 +94,39 @@
       "sha256": "92d5560e0ac4efe5879869945d1c6ff2fc511e142aadeae6467c770e7f01213d"
     },
     {
+      "path": "Reports/source_asset_audit.json",
+      "bytes": 5603,
+      "sha256": "73e485dc9d8654dea8e68a8ded570d1b3ee9bc8df045ed38fef24485fa94fac2"
+    },
+    {
+      "path": "Reports/source_assets_check.json",
+      "bytes": 2319,
+      "sha256": "df3b70d31b282125e8135bf43f18445c91fea3598dbcaeb5f9b44929404627c6"
+    },
+    {
       "path": "Reports/verification.json",
-      "bytes": 460,
-      "sha256": "8af602b9c198e8a5fbeaced2e7f2904c785090f37dc6b6f1164d5efe18ab085a"
+      "bytes": 518,
+      "sha256": "56b97effaac7663a94959dfc40f0293ac772cf71f25c68ad7ff2d333eddcd2f8"
+    },
+    {
+      "path": "Scripts/build_asset_intake.py",
+      "bytes": 4537,
+      "sha256": "39ca7ec8879bdd4da475756fa28742fe81cb26e8ed1c5a385d0d5519fdfc1cf5"
     },
     {
       "path": "Scripts/build_win64.bat",
-      "bytes": 271,
-      "sha256": "4366aa45ae93a2d8d24d6b0866f56d906c44f3451563c0ed8d201a2518655b9b"
+      "bytes": 438,
+      "sha256": "27ff90806050e060cb446f7fcd8ee64e35306b71bfacf17ba6ccd98979fb205b"
     },
     {
       "path": "Scripts/build_win64.ps1",
-      "bytes": 4281,
-      "sha256": "4146187914a14a4b2e5c3791eb45f6c972bfe5bcb8b61807ea2265f25d0b35c2"
+      "bytes": 4719,
+      "sha256": "cfca0b77d67c18de7d9792bd393db7e3fd3a2f36b543bb33f05fa396ca689732"
     },
     {
       "path": "Scripts/run_local_tests.py",
-      "bytes": 1590,
-      "sha256": "ad33121bdaf49da769531d2d8cc2bd5cf356c8efba144a3fdfe0666b7a266c40"
+      "bytes": 1685,
+      "sha256": "ec993288ced9030b4455189a35a2dce426efb6c4f340ecdf736e77de030bd8d0"
     },
     {
       "path": "Scripts/validate_project.py",
@@ -109,19 +139,44 @@
       "sha256": "8f05e52fb4a48bf135dfa56f8d2920965de79547ef3b3b72202612b96b51b490"
     },
     {
+      "path": "Scripts/verify_sources.py",
+      "bytes": 2064,
+      "sha256": "5c8b51f47f652fb5a79bfa2981592ef5cdfd291260a937cfe1a55d76ed71d200"
+    },
+    {
+      "path": "Tests/check_real_bind.py",
+      "bytes": 3729,
+      "sha256": "5ffb5599d29e91acda1600d86baa39b8923a3a1b6b8e2e6184f68a4726adc04e"
+    },
+    {
       "path": "Tests/combat_rules_test.cpp",
       "bytes": 6422,
       "sha256": "e3ec2b181f4aef949b225d0fbc363f08403955d9acf4cc88a6d74c2fe941a09f"
     },
     {
+      "path": "Tests/glb_fixtures.py",
+      "bytes": 1972,
+      "sha256": "fcfa9d387d944ecd58d40c717d98385c107333362d7858fb1cbd74aa55b5c523"
+    },
+    {
       "path": "Tests/test_delivery.py",
-      "bytes": 12322,
-      "sha256": "6fb9b9192d69edea5347e681536f21a7e9485f7d9324e8b59e46f7aa5b752435"
+      "bytes": 13366,
+      "sha256": "bfaece58933e88dbf6663fc1ff62ecdd705d1d5efdabd01eb058c7ae06a9ec6d"
+    },
+    {
+      "path": "Tests/test_source_assets.py",
+      "bytes": 7415,
+      "sha256": "b6ae307e137fb5f8703ddb0194b9cd258a11489c648574e36942f94b97741c98"
     },
     {
       "path": "Unreal/import_and_verify.py",
-      "bytes": 6207,
-      "sha256": "8bee167dcbbb9489435e1f848554567579cff4f3fda9815d5ef292d88f7ffc3d"
+      "bytes": 6675,
+      "sha256": "172bffb08134877e8026419ce6c6b863b4160870cc77654b6835a45be02442b1"
+    },
+    {
+      "path": "Unreal/source_assets.py",
+      "bytes": 16250,
+      "sha256": "8f646e214b83cc0591910de558085bee26a5ef87929969b91ca1b6b46cda1986"
     }
   ]
 }

@@ -4,6 +4,23 @@ This repairs **NARIS_P15_DELIVERY_20261016.zip**, the combat-source package. It 
 
 ## Changes and evidence
 
+### 2026-10-17 actual attached-source intake
+
+The supplied prototype has 18 joints and one idle clip, but its mesh node never references the Skin. Attaching it alone is insufficient: its inverse-bind data also fails the conservative rest-pose gate. `Scripts/build_asset_intake.py` preserves the original and produces `Character1_NARIS_Rigged_Prototype_FIXED.glb`, attaches Skin 0 and rebuilds column-major inverse binds as `inverse(jointWorld) * meshWorld`. Mesh, textures, weights and original animation data are preserved. It does not manufacture attack/dodge/parry clips or improve skin-weight artistry.
+
+`Data/source_uploads.json` pins all eight supplied source files. `Data/import_spec.json` pins the exact five active GLBs, their hashes and required Unreal classes. Raw Character 1/3 are static source meshes; the repaired prototype requires SkeletalMesh, Skeleton and AnimSequence outputs. No source is automatically approved for W04 production. The supplied `.usdz` is a raw `PXR-USDC` layer: an extension-corrected `.usdc` copy is provided separately, with the original retained; no USD semantic validation or USDZ conversion is claimed.
+
+The Python-only gate checks embedded GLB framing, buffers/accessors, finite mesh data, triangle indices, hierarchy, skin attachment, vertex weights and **rest-pose bind preservation**. It deliberately rejects unsupported sparse/external-buffer/nontriangle inputs. It is a limited prototype intake, not the complete Khronos validator; a valid glTF authored with a non-bind rest pose may require a different pipeline. Windows now validates the exact hashed input set before compiling and again before editor import; stale inherited import-spec environment variables are replaced and restored.
+
+To reproduce a source-inclusive delivery from the pinned uploads (no existing output directory is overwritten):
+
+```sh
+python Scripts/build_asset_intake.py --inputs /path/to/project_sources --output /new/path/NARIS_P15_INTEGRATION
+python Scripts/verify_sources.py --assets /new/path/NARIS_P15_INTEGRATION/SourceAssets --spec Data/import_spec.json --report Reports/source_assets_check.json
+```
+
+`Tests/check_real_bind.py` is an additional independent NumPy CPU check for this translation-only uploaded rig; it checks all vertex positions in the rest pose and verifies that non-bind binary bytes and the idle animation remain unchanged. It is distinct from the dependency-free local unit suite and is not Unreal gameplay evidence.
+
 - Shared C++17 rules now reject nonfinite/negative configuration, invalid damage/time and insufficient stamina. An active action prevents repeated attack/dodge/parry requests. Regeneration accounts only for time after its delay.
 - Dodge has a startup, invulnerability window and vulnerable recovery. Parry consumes one valid incoming hit. Death blocks actions and hit windows.
 - Unreal source adds montage presentation via server-initiated multicast, a native attack-window notify, socket sweeps, obstruction checks and once-per-target damage per attack. Server damage uses `ApplyDamage` / `OnTakeAnyDamage`. These engine paths are **not compiled or playtested here**.
@@ -35,11 +52,11 @@ The 25 C++ behavioral cases compile the **same header consumed by the component*
 4. Bind Enhanced Input started events to `RequestLightAttack`, `RequestDodge`, `RequestParry`. Drive HUD through `OnVitalsChanged`; `OnActionPresented` is cosmetic and must not apply damage. Incoming test damage should call `ApplyDamage` once; the component receives it through `OnTakeAnyDamage`.
 5. For dodge travel, supply an appropriate root-motion montage and configure Character/AnimBlueprint root-motion handling. This package supplies timed defense, not fabricated animation data or a new movement controller.
 6. For networking, enable replication on the Character and ensure the requesting client owns it. Requests are checked on authority, and accepted presentation is multicasted. There is no client prediction, rollback, GAS, replicated boss AI or late-join montage recovery. Validate standalone and two-client PIE separately.
-7. Verify in Editor: attack hit/miss; wall obstruction; one damage application per target per swing; zero hits outside notify; stamina depletion/recovery; dodge startup/window/recovery; single-use parry; death; interrupted montages; server ownership and client HUD. Record actual results. No authored montages, skeleton fixes, boss level or final art are bundled.
+7. Verify in Editor: attack hit/miss; wall obstruction; one damage application per target per swing; zero hits outside notify; stamina depletion/recovery; dodge startup/window/recovery; single-use parry; death; interrupted montages; server ownership and client HUD. Record actual results. No authored combat montages, boss level or approved final art are bundled.
 
 ## Import and package on Windows
 
-Extract the separate P14 source assets; they are not bundled and their older report is not proof of this import. An optional `NARIS_IMPORT_SPEC` JSON maps **every relative GLB path** to required class names, for example `{"hero.glb":["SkeletalMesh","AnimSequence"]}`. Use actual inspected filenames. A successful import only proves the checked editor objects loaded and saved, not motion quality, rig connectivity, animation count or registry approval. New outputs go to `/Game/NARIS/Imported/P15_<run-id>` for review and are not promoted to production registry bindings automatically.
+Use the source-inclusive delivery's `SourceAssets` and version 2 `Data/import_spec.json`, or supply your own inspected and hashed version 2 contract. The build runner requires it. The standalone Editor importer also accepts the legacy class-only `NARIS_IMPORT_SPEC` mapping for compatibility; that weaker form does not pin content hashes. A successful import only proves the checked editor objects loaded and saved, not visual motion quality, animation counts, material quality or registry approval. New outputs go to `/Game/NARIS/Imported/P15_<run-id>` for review and are not promoted to production registry bindings automatically.
 
 From the extracted delivery directory, in PowerShell:
 
@@ -48,15 +65,16 @@ From the extracted delivery directory, in PowerShell:
   -Project 'C:\NARIS_TEST\CallOfNaris.uproject' `
   -EngineRoot 'C:\Program Files\Epic Games\UE_5.7' `
   -Map '/Game/Maps/CombatTest' `
-  -AssetDir 'C:\NARIS_P14\SourceAssets'
+  -AssetDir 'C:\NARIS_P15_INTEGRATION\SourceAssets' `
+  -ImportSpec 'C:\NARIS_P15_INTEGRATION\Data\import_spec.json'
 ```
 
-The map must already exist and contain the wired Character/targets. The expected Editor target is `<ProjectName>Editor`. This is a Development test build, not Shipping acceptance. The `.bat` wrapper accepts these same four positional paths; the second argument is now **EngineRoot**, replacing the original RunUAT filename. The runner does not change system execution policy. If local policy blocks a script, use the machine's approved script-signing/run process.
+The map must already exist and contain the wired Character/targets. The expected Editor target is `<ProjectName>Editor`. This is a Development test build, not Shipping acceptance. The `.bat` wrapper accepts the four positional paths plus an optional fifth import-spec path; without it the contract must exist at `<AssetDir>/../Data/import_spec.json`. The second argument is **EngineRoot**, replacing the original RunUAT filename. The runner does not change system execution policy. If local policy blocks a script, use the machine's approved script-signing/run process.
 
 Outputs: `Builds/<run-id>/preflight.json`, `editor-build.log`, `import.log`, `import_result.json`, `package.log`, `package_artifacts.json`, `Archive/`, `build_result.json`. Artifact verification requires the project's own Windows game binary under `Binaries/Win64` and a nonempty cooked PAK; a bootstrap or crash reporter alone cannot pass. A package report always keeps `runtime_tested:false`. Preserve the executable and logs, then launch and record a real encounter/playthrough before closing P15 or moving to P16 acceptance.
 
 ## Current boundary
 
-Unreal is absent from the local Linux environment; AsusRog was reported offline on 2026-10-16. UHT/UBT compilation, engine importing, montage/socket collision, PIE networking, Windows EXE generation and frame-time profiling remain unexecuted. The remaining W04 release gates stay open. This repair does not claim the game, P15 production acceptance, P16 AI, P17 world/UI or P18 release is complete.
+Unreal is absent from the local Linux environment; AsusRog was reported offline again on 2026-10-17. UHT/UBT compilation, engine importing, montage/socket collision, PIE networking, Windows EXE generation and frame-time profiling remain unexecuted. The remaining W04 release gates stay open. This repair does not claim the game, P15 production acceptance, P16 AI, P17 world/UI or P18 release is complete.
 
 Epic references: [RPC execution/ownership](https://dev.epicgames.com/documentation/en-us/unreal-engine/remote-procedure-calls-in-unreal-engine?application_version=5.7), [Animation Notifies](https://dev.epicgames.com/documentation/en-us/unreal-engine/animation-notifies-in-unreal-engine?application_version=5.7), [Packaging projects](https://dev.epicgames.com/documentation/en-us/unreal-engine/packaging-your-project).

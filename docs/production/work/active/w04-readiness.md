@@ -1,8 +1,18 @@
 ---
 status: active
-last_updated: 2026-10-16
+last_updated: 2026-10-17
 ---
 # W04 readiness handoff
+
+## 2026-10-17 P15 source-asset integration claim
+
+- Executing agent: Codex; scope: actual attached GLB intake, digest/class import contract, pre-import validation and P15 build wiring. Preserve W04 runtime and original source bytes.
+- Input: five attached GLBs, their duplicate source archive, instructions and a `.usdz`-named binary whose header is `PXR-USDC`.
+- Host check: AsusRog offline (last seen 26 hours ago); engine compilation and playtesting remain blocked.
+- Repository baseline for this continuation: P15 branch at `8f54e2124def07e8a4d56bbbe32bbfeed3d1ae7e`; continue the existing review rather than declaring a new completed production phase.
+- Completed: inspect all five actual GLBs; repair the missing mesh Skin binding and transposed/incorrect inverse binds in a new prototype copy; preserve original eight inputs; pin hashes/classes; validate all sources before any editor import; wire the same source contract into the Windows launcher; document actual-source and engine boundaries.
+- Local verification: 95 P15 behavioral tests, 336 existing CI-contract tests and 6 AssetForge tests passed; repository validation passed. `Reports/source_asset_audit.json`, `source_assets_check.json` and `cpu_bind_verification.json` record actual-file results, separate from mocked editor tests.
+- Pending: actual UE 5.7 compile/import, compatible combat montages/slots/sockets, two-client PIE, packaged encounter and profiling. The raw sources are not promoted into the canonical production registry and W04 actors are not replaced.
 
 ## 2026-10-16 P15 combat-delivery repair claim
 

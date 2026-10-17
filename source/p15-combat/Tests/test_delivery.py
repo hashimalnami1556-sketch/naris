@@ -8,6 +8,7 @@ import subprocess
 import tempfile
 import types
 import unittest
+from glb_fixtures import encode, mesh
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -42,7 +43,7 @@ class ImportTests(unittest.TestCase):
         self.source.mkdir()
         self.report = Path(self.temp.name) / 'new' / 'report.json'
         self.asset = self.source / 'hero.glb'
-        self.asset.write_bytes(b'glTF' + b'\x00' * 20)
+        self.asset.write_bytes(encode(*mesh()))
         self.objects = {}
         self.mode = 'static'
         self.u = types.SimpleNamespace(StaticMesh=StaticMesh, SkeletalMesh=SkeletalMesh,
@@ -169,6 +170,28 @@ class ImportTests(unittest.TestCase):
         except OSError:
             self.skipTest('Symlinks unavailable')
         self.assert_failure()
+
+    def test_hashed_spec_passes(self):
+        import hashlib
+        spec = {'schema_version': 2, 'assets': {'hero.glb': {
+            'sha256': hashlib.sha256(self.asset.read_bytes()).hexdigest(), 'required_classes': ['StaticMesh']}}}
+        self.assertTrue(self.run_import(spec=spec)['verified'])
+
+    def test_hash_mismatch_before_import(self):
+        self.assert_failure(spec={'schema_version': 2, 'assets': {'hero.glb': {
+            'sha256': '0' * 64, 'required_classes': ['StaticMesh']}}})
+        self.assertEqual(self.objects, {})
+
+    def test_invalid_spec_before_import(self):
+        self.assert_failure(spec={'schema_version': 2, 'assets': {'hero.glb': {
+            'sha256': 'bad', 'required_classes': ['StaticMesh']}}})
+        self.assertEqual(self.objects, {})
+
+    def test_bad_skin_blocks_all_imports(self):
+        from glb_fixtures import skinned
+        (self.source / 'bad.glb').write_bytes(encode(*skinned()))
+        self.assert_failure()
+        self.assertEqual(self.objects, {})
 
 
 class ProjectPreflightTests(unittest.TestCase):

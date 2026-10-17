@@ -23,11 +23,15 @@ test_regen_delay (test_delivery.CombatRulesTests.test_regen_delay) ... ok
 test_regen_frame_independent (test_delivery.CombatRulesTests.test_regen_frame_independent) ... ok
 test_spam_rejected (test_delivery.CombatRulesTests.test_spam_rejected) ... ok
 test_zero_cost_still_locked (test_delivery.CombatRulesTests.test_zero_cost_still_locked) ... ok
+test_bad_skin_blocks_all_imports (test_delivery.ImportTests.test_bad_skin_blocks_all_imports) ... ok
 test_duplicate_names_have_distinct_destinations (test_delivery.ImportTests.test_duplicate_names_have_distinct_destinations) ... ok
 test_empty_directory_fails (test_delivery.ImportTests.test_empty_directory_fails) ... ok
 test_existing_destination_fails (test_delivery.ImportTests.test_existing_destination_fails) ... ok
+test_hash_mismatch_before_import (test_delivery.ImportTests.test_hash_mismatch_before_import) ... ok
+test_hashed_spec_passes (test_delivery.ImportTests.test_hashed_spec_passes) ... ok
 test_import_exception_fails (test_delivery.ImportTests.test_import_exception_fails) ... ok
 test_invalid_glb_fails (test_delivery.ImportTests.test_invalid_glb_fails) ... ok
+test_invalid_spec_before_import (test_delivery.ImportTests.test_invalid_spec_before_import) ... ok
 test_matching_spec_passes (test_delivery.ImportTests.test_matching_spec_passes) ... ok
 test_missing_asset_fails (test_delivery.ImportTests.test_missing_asset_fails) ... ok
 test_missing_source_fails (test_delivery.ImportTests.test_missing_source_fails) ... ok
@@ -59,8 +63,38 @@ test_old_duplicate_class_fails (test_delivery.ProjectPreflightTests.test_old_dup
 test_path_traversal_fails (test_delivery.ProjectPreflightTests.test_path_traversal_fails) ... ok
 test_preflight_passes (test_delivery.ProjectPreflightTests.test_preflight_passes) ... ok
 test_wrong_engine_fails (test_delivery.ProjectPreflightTests.test_wrong_engine_fails) ... ok
+test_accessor_out_of_bounds (test_source_assets.SourceAssetTests.test_accessor_out_of_bounds) ... ok
+test_correct_skin_passes (test_source_assets.SourceAssetTests.test_correct_skin_passes) ... ok
+test_cycle (test_source_assets.SourceAssetTests.test_cycle) ... ok
+test_external_image (test_source_assets.SourceAssetTests.test_external_image) ... ok
+test_incorrect_inverse_bind_fails_gate (test_source_assets.SourceAssetTests.test_incorrect_inverse_bind_fails_gate) ... ok
+test_invalid_stride (test_source_assets.SourceAssetTests.test_invalid_stride) ... ok
+test_legacy_contract_preserved (test_source_assets.SourceAssetTests.test_legacy_contract_preserved) ... ok
+test_misaligned_chunk (test_source_assets.SourceAssetTests.test_misaligned_chunk) ... ok
+test_multiple_parents (test_source_assets.SourceAssetTests.test_multiple_parents) ... ok
+test_negative_accessor (test_source_assets.SourceAssetTests.test_negative_accessor) ... ok
+test_negative_buffer_view (test_source_assets.SourceAssetTests.test_negative_buffer_view) ... ok
+test_negative_mesh (test_source_assets.SourceAssetTests.test_negative_mesh) ... ok
+test_nonfinite_position (test_source_assets.SourceAssetTests.test_nonfinite_position) ... ok
+test_out_of_range_joint_fails (test_source_assets.SourceAssetTests.test_out_of_range_joint_fails) ... ok
+test_repair_attaches_skin_and_writes_column_major_bind (test_source_assets.SourceAssetTests.test_repair_attaches_skin_and_writes_column_major_bind) ... ok
+test_repair_is_idempotent (test_source_assets.SourceAssetTests.test_repair_is_idempotent) ... ok
+test_repair_refuses_ambiguous_ownership (test_source_assets.SourceAssetTests.test_repair_refuses_ambiguous_ownership) ... ok
+test_triangle_passes (test_source_assets.SourceAssetTests.test_triangle_passes) ... ok
+test_truncated_chunk (test_source_assets.SourceAssetTests.test_truncated_chunk) ... ok
+test_unattached_skin_fails_gate (test_source_assets.SourceAssetTests.test_unattached_skin_fails_gate) ... ok
+test_versioned_contract_requires_digest (test_source_assets.SourceAssetTests.test_versioned_contract_requires_digest) ... ok
+test_view_out_of_bounds (test_source_assets.SourceAssetTests.test_view_out_of_bounds) ... ok
+test_wrong_declared_length (test_source_assets.SourceAssetTests.test_wrong_declared_length) ... ok
+test_wrong_version (test_source_assets.SourceAssetTests.test_wrong_version) ... ok
+test_zero_weights_fail (test_source_assets.SourceAssetTests.test_zero_weights_fail) ... ok
+test_changed_source_fails (test_source_assets.SourceContractTests.test_changed_source_fails) ... ok
+test_class_only_contract_rejected_for_build (test_source_assets.SourceContractTests.test_class_only_contract_rejected_for_build) ... ok
+test_empty_source_fails (test_source_assets.SourceContractTests.test_empty_source_fails) ... ok
+test_exact_sources_pass (test_source_assets.SourceContractTests.test_exact_sources_pass) ... ok
+test_extra_source_fails (test_source_assets.SourceContractTests.test_extra_source_fails) ... ok
 
 ----------------------------------------------------------------------
-Ran 61 tests in 0.829s
+Ran 95 tests in 0.782s
 
 OK

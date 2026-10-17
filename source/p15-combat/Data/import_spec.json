@@ -1,0 +1,42 @@
+{
+  "schema_version": 2,
+  "assets": {
+    "Environmental 1.glb": {
+      "sha256": "64780ab4c7abb5c38d10fe5035d740f294ba5aed4824c897c9bcc494f30b4271",
+      "required_classes": [
+        "StaticMesh"
+      ],
+      "production_approved": false
+    },
+    "Character 3.glb": {
+      "sha256": "ac36ad54c102b7d755359195997afc009160689b28b0cfb4b53b77987dbb72b5",
+      "required_classes": [
+        "StaticMesh"
+      ],
+      "production_approved": false
+    },
+    "Character1_NARIS_Rigged_Prototype_FIXED.glb": {
+      "sha256": "299b2c879c9faad25aa9c834ebba8859d26edbb18e15e94933e683355cd16589",
+      "required_classes": [
+        "SkeletalMesh",
+        "Skeleton",
+        "AnimSequence"
+      ],
+      "production_approved": false
+    },
+    "City 1.glb": {
+      "sha256": "2032dd3208d9215a5531f1fa880a2ea2e6ab4962a0836a4a6acb12dd8ec36e52",
+      "required_classes": [
+        "StaticMesh"
+      ],
+      "production_approved": false
+    },
+    "Character 1.glb": {
+      "sha256": "d3d83628a982079a614541295334f11cafe616af86f621cd0947190afb1acc75",
+      "required_classes": [
+        "StaticMesh"
+      ],
+      "production_approved": false
+    }
+  }
+}

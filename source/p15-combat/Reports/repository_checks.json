@@ -1,5 +1,5 @@
 {
-  "source_base": "75f9d1886e7a4de5c79a0bb6c723506ff8feb3bc",
+  "source_base": "8f54e2124def07e8a4d56bbbe32bbfeed3d1ae7e",
   "commands": [
     {
       "command": "python3 tools/ci/validate_naris.py",
@@ -19,5 +19,6 @@
       "scope": "AssetForge behavior"
     }
   ],
-  "not_unreal_engine_evidence": true
+  "not_unreal_engine_evidence": true,
+  "continuation_date": "2026-10-17"
 }

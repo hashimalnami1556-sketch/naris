@@ -12,6 +12,12 @@ The inspected input is `NARIS_P15_DELIVERY_20261016.zip` (combat plugin/import/b
 
 These results do not close Unreal gates. No local Unreal installation is available, and AsusRog was reported **offline** on 2026-10-16. UHT/UBT, actual import, animation/collision/PIE networking, packaged Windows gameplay and performance remain unexecuted in this repair. The P15 plugin is not automatically attached to W04 actors or enabled in the canonical project; P16/P17/P18 acceptance is unchanged.
 
+### 2026-10-17 actual GLB intake
+
+The newly available five GLBs were inspected from bytes. The Character1 prototype's Skin was unreferenced by its mesh; its inverse-bind data also failed a conservative rest-pose check once attached. A separate repaired source binds Skin 0 and rebuilds the matrices without replacing vertex, texture, weight or animation bytes. The [P15 source package](../source/p15-combat/README.md) now pins all eight uploaded inputs and the exact five active GLBs, runs the hashed source gate before engine compilation/import, and retains audit/CPU evidence. The malformed-extension USD source is preserved with an extension-corrected USDC copy; no USD semantic verification is claimed.
+
+95 delivery tests and the existing repository suites passed locally. The character still has 18 joints and one idle clip. This is a source repair, not a completed rig/art/animation quality gate or a playable encounter. AsusRog remains offline at the new host check; Unreal and Windows gameplay gates stay open.
+
 ## Repository baseline
 
 - Canonical branch: `main`

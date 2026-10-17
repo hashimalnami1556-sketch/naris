@@ -4,6 +4,7 @@ param(
     [Parameter(Mandatory=$true)][string]$EngineRoot,
     [Parameter(Mandatory=$true)][string]$Map,
     [Parameter(Mandatory=$true)][string]$AssetDir,
+    [string]$ImportSpec = '',
     [string]$Python = 'python',
     [string]$OutputRoot = (Join-Path $PSScriptRoot '../Builds')
 )
@@ -27,7 +28,11 @@ try {
     $Project = (Resolve-Path -LiteralPath $Project).Path
     $EngineRoot = (Resolve-Path -LiteralPath $EngineRoot).Path
     $AssetDir = (Resolve-Path -LiteralPath $AssetDir).Path
+    if (!$ImportSpec) { $ImportSpec = Join-Path $AssetDir '../Data/import_spec.json' }
+    $ImportSpec = (Resolve-Path -LiteralPath $ImportSpec).Path
     $delivery = (Resolve-Path (Join-Path $PSScriptRoot '..')).Path
+    Invoke-Step 'source-assets' $Python @((Join-Path $PSScriptRoot 'verify_sources.py'),
+        '--assets', $AssetDir, '--spec', $ImportSpec, '--report', (Join-Path $runDir 'source_assets.json'))
     Invoke-Step 'preflight' $Python @((Join-Path $PSScriptRoot 'validate_project.py'),
         '--project', $Project, '--engine', $EngineRoot, '--map', $Map,
         '--report', (Join-Path $runDir 'preflight.json'))
@@ -40,12 +45,13 @@ try {
     }
     Invoke-Step 'editor-build' $build @($preflight.editor_target, 'Win64', 'Development',
         "-Project=$Project", '-WaitMutex', '-NoHotReloadFromIDE')
-    foreach ($name in @('NARIS_ASSET_DIR','NARIS_IMPORT_REPORT','NARIS_IMPORT_RUN_ID')) {
+    foreach ($name in @('NARIS_ASSET_DIR','NARIS_IMPORT_REPORT','NARIS_IMPORT_RUN_ID','NARIS_IMPORT_SPEC')) {
         $savedEnvironment[$name] = [Environment]::GetEnvironmentVariable($name, 'Process')
     }
     $env:NARIS_ASSET_DIR = $AssetDir
     $env:NARIS_IMPORT_REPORT = Join-Path $runDir 'import_result.json'
     $env:NARIS_IMPORT_RUN_ID = $runId
+    $env:NARIS_IMPORT_SPEC = $ImportSpec
     Invoke-Step 'import' $editor @($Project, '-unattended', '-nop4', '-NullRHI',
         '-run=pythonscript', "-script=$(Join-Path $delivery 'Unreal/import_and_verify.py')")
     if (!(Test-Path -LiteralPath $env:NARIS_IMPORT_REPORT)) { throw 'Editor produced no import report' }

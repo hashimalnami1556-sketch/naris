@@ -1,6 +1,14 @@
 # CALL OF NARIS current work
 
-Updated: 2026-10-16
+Updated: 2026-10-17
+
+## 2026-10-17 attached-source integration
+
+- Actual five GLBs and source archive inspected. The supplied Character1 rig declares Skin 0 but never attaches it to its mesh; attaching it alone also exposes invalid rest-pose inverse-bind matrices.
+- The intake builder preserves all eight originals and emits a repaired rig with an explicit skin reference and rebuilt column-major inverse binds. Mesh/texture/weight/animation binary data is preserved. Source hashes and required Unreal output classes are pinned in `source/p15-combat/Data/`.
+- The `.usdz`-named source has a raw USDC header; the delivery includes a byte-identical `.usdc` copy without claiming USDZ or USD semantic validation.
+- 95 delivery tests, 336 existing CI-contract tests, 6 AssetForge tests and repository validation passed. Actual source-intake and independent rest-pose CPU evidence are retained under the P15 package's `Reports/`.
+- The rig remains an 18-joint, one-idle prototype. No authored combat clips or Unreal runtime acceptance is claimed. AsusRog was offline at the 2026-10-17 host check.
 
 ## 2026-10-16 P15 combat repair
 

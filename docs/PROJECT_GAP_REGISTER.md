@@ -56,6 +56,8 @@ Presence is not proof of successful compilation or correct gameplay. Historical 
 
 ### W04 dependencies
 
+Source-intake update (2026-10-17): the supplied rig's unreferenced Skin and rest-bind matrices have been repaired in a separate GLB. All originals are retained and the importer/build runner now enforce the exact hashed source inventory. The 18-joint/one-idle prototype still lacks authored attack/dodge/parry clips, weapon sockets and engine validation; Character 1/3 raw meshes remain unskinned static sources. A source repair cannot close the animation, collision or gameplay gates below.
+
 | Priority | Gap | Evidence required to close |
 |---|---|---|
 | P0 | Unreal compilation after source repairs | Passing Windows UnrealBuildTool log for NARIS_W04Editor |

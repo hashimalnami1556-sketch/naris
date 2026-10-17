@@ -1,11 +1,16 @@
 """UE Editor Python entry point. Fails on empty input, stale output or invalid assets."""
 import hashlib
 import importlib
+import importlib.util
 import json
 import os
 from pathlib import Path
 import re
 import uuid
+
+_source_spec = importlib.util.spec_from_file_location('naris_p15_sources', Path(__file__).with_name('source_assets.py'))
+SOURCES = importlib.util.module_from_spec(_source_spec)
+_source_spec.loader.exec_module(SOURCES)
 
 
 def write_report(path, report):
@@ -31,9 +36,15 @@ def execute(source, report_path, unreal, run_id=None, spec=None):
             raise ValueError('No GLB assets found; an empty import cannot pass')
         if any(not p.resolve().is_relative_to(source) for p in assets):
             raise ValueError('Asset symlink escapes the source directory')
+        entries = SOURCES.normalize_spec(spec)
         relative_names = {p.relative_to(source).as_posix() for p in assets}
-        if spec is not None and (not isinstance(spec, dict) or set(spec) != relative_names):
+        if entries is not None and set(entries) != relative_names:
             raise ValueError('Import spec must describe every GLB exactly once')
+        # فحص جميع الملفات قبل إجراء أي تغيير في مشروع Unreal.
+        report['source_checks'] = {
+            p.relative_to(source).as_posix(): SOURCES.check_source(p.read_bytes(),
+                entries[p.relative_to(source).as_posix()] if entries is not None else None)
+            for p in assets}
         destination = '/Game/NARIS/Imported/P15_' + run_id
         report['destination'] = destination
         if unreal.EditorAssetLibrary.does_directory_exist(destination):
@@ -45,9 +56,9 @@ def execute(source, report_path, unreal, run_id=None, spec=None):
             report['results'].append(result)
             try:
                 payload = asset.read_bytes()
-                if len(payload) < 12 or payload[:4] != b'glTF':
-                    raise ValueError('Not a nonempty GLB file')
                 result['sha256'] = hashlib.sha256(payload).hexdigest()
+                if result['sha256'] != report['source_checks'][relative]['sha256']:
+                    raise ValueError('Source changed after the initial validation')
                 result['size_bytes'] = len(payload)
                 stem = re.sub(r'[^A-Za-z0-9_]', '_', asset.stem)
                 suffix = hashlib.sha256(relative.encode()).hexdigest()[:8]
@@ -80,9 +91,7 @@ def execute(source, report_path, unreal, run_id=None, spec=None):
                     if isinstance(mesh, unreal.SkeletalMesh) and mesh.get_editor_property('skeleton') is None:
                         raise ValueError('Skeletal mesh has no Skeleton')
                 result['classes'] = sorted({obj.get_class().get_name() for obj in loaded})
-                required = spec[relative] if spec is not None else []
-                if not isinstance(required, list) or any(not isinstance(v, str) for v in required):
-                    raise ValueError('Spec entries must be arrays of required Unreal class names')
+                required = entries[relative]['required_classes'] if entries is not None else []
                 if not set(required).issubset(result['classes']):
                     raise ValueError('Missing required classes: ' + repr(set(required) - set(result['classes'])))
                 result['verified'] = True
