@@ -1,0 +1,110 @@
+{
+  "revision": "P15 smooth-control source integration",
+  "created_at_utc": "2026-10-17T10:55:09.589003+00:00",
+  "target_engine": "Unreal Engine 5.7",
+  "baseline_archive_sha256": "4567540e10af31dffd65efa7e4154f6d08f93cfa5a4b135d24f25b4d8013c896",
+  "baseline_tests": 155,
+  "tests_run": 184,
+  "compiled_portable_cpp_cases": 93,
+  "checks": [
+    {
+      "command": "python3 Scripts/run_local_tests.py",
+      "exit_code": 0,
+      "scope": "portable-combat-input-yaw-motion-signals-and-mocked-editor-io"
+    },
+    {
+      "command": "python3 Scripts/verify_sources.py --assets SourceAssets --spec Data/import_spec.json --report Reports/source_assets_check.json",
+      "exit_code": 0,
+      "scope": "actual pinned source assets"
+    },
+    {
+      "command": "compare original, active, corrected and contract files with baseline ZIP",
+      "exit_code": 0,
+      "files_checked": 16
+    }
+  ],
+  "regression_evidence": [
+    "Reports/control_regression_before.txt",
+    "Reports/control_buffer_boundary_before.txt",
+    "Reports/control_yaw_braking_before.txt"
+  ],
+  "acceptance": [
+    {
+      "criterion": "bounded lock-heading acceleration and sampled input response",
+      "status": "partial",
+      "portable_cpp_confirmed": true,
+      "native_runtime_tested": false
+    },
+    {
+      "criterion": "cancel windows, paid recovery, damage during presentation and buffer boundary",
+      "status": "partial",
+      "portable_cpp_confirmed": true,
+      "montage_notify_runtime_tested": false
+    },
+    {
+      "criterion": "CharacterMovement baseline, rotation ownership and camera modes",
+      "status": "partial",
+      "source_implemented": true,
+      "uht_ubt_compiled": false
+    },
+    {
+      "criterion": "start/stop/pivot/lean and turn-in-place data",
+      "status": "partial",
+      "portable_signals_confirmed": true,
+      "animation_graph_authored": false
+    },
+    {
+      "criterion": "planted feet, visual blending, input-to-display below 100ms",
+      "status": "unverified"
+    },
+    {
+      "criterion": "multiplayer RPC/replication and packaged playtest",
+      "status": "unverified"
+    }
+  ],
+  "unreal_editor_available_in_path": false,
+  "unreal_compiled": false,
+  "project_installed": false,
+  "windows_packaged": false,
+  "gameplay_playtested": false,
+  "foot_placement_verified": false,
+  "new_animation_clips": 0,
+  "new_bones": 0,
+  "repository_updated": true,
+  "source_assets_preserved": true,
+  "notes": [
+    "Controls must be attached and animation assets authored/wired in an actual UE project.",
+    "Cancel stops presentation/effects without bypassing the old recovery deadline.",
+    "Input-filter sampling is not device-to-display latency evidence.",
+    "The reflected engine classes and RPCs were source-reviewed but not compiled with UHT/UBT."
+  ],
+  "repository_integration_base": "3b488e00c65327b0a0535db3fcffee97c3f615e7",
+  "repository_checks": "Reports/repository_checks.json",
+  "repository_scope": "Existing PR #46; P15 text source and reports, not installed W04 actors or binary assets",
+  "audit": {
+    "question": "Does the P15 source implement the requested six control layers, and which criteria have actual engine evidence?",
+    "expectation": "Input buffering, progressive movement/rotation, authored animation transitions, camera response and bounded cancel/recovery with no failed-playback cost.",
+    "evidence_level": "Portable C++ and mocked Editor tests plus native source inspection; no Unreal runtime evidence.",
+    "source_matches": [
+      "input buffer and paid recovery semantics",
+      "baseline movement and camera properties",
+      "bounded desired lock heading",
+      "start/stop/pivot/lean signals"
+    ],
+    "implementation_gaps": [
+      "actual Blend Space and Animation Blueprint asset wiring",
+      "compatible Start/Stop/Pivot/Turn clips",
+      "Foot IK/foot placement graph"
+    ],
+    "validation_gaps": [
+      "UHT/UBT",
+      "PIE input, montage callbacks and networking",
+      "camera and visible foot sliding",
+      "device-to-display latency",
+      "packaged encounter"
+    ],
+    "confidence": "High for executed portable logic; native engine behavior remains unverified.",
+    "owner_action": "Project integrator: use the updated plugin in the backed-up UE 5.7 test project and complete Docs/CONTROL_ACCEPTANCE_AR.md when AsusRog is reachable.",
+    "current_state_updated": true
+  }
+}

@@ -1,0 +1,277 @@
+{
+  "schema_version": 1,
+  "scope": "P15 stale-input repair source and portable verification; native Unreal integration uncompiled",
+  "self_excluded": "Reports/manifest.json",
+  "files": [
+    {
+      "path": ".gitignore",
+      "bytes": 75,
+      "sha256": "88c596ae26bfb1d6b2a0fbae8108f9860bc80b4415f6c959ace978a60e3d2fa8"
+    },
+    {
+      "path": "Data/import_spec.json",
+      "bytes": 1162,
+      "sha256": "f4a7e96cd8984b5112f2c1d8630129fc4323c08a5ced703db93ac840a823f875"
+    },
+    {
+      "path": "Data/source_uploads.json",
+      "bytes": 1830,
+      "sha256": "acf349c22ce848c60e1b7ae8116b410bdcf7631c18163c1a525ac6d19b7b7624"
+    },
+    {
+      "path": "Docs/CONTROL_ACCEPTANCE_AR.md",
+      "bytes": 5457,
+      "sha256": "b31feba555986393adaed0c84a2fe9364ff8f150d5d4e5af8f559c3fccac0ab9"
+    },
+    {
+      "path": "Plugins/NarisCombat/Config/DefaultNarisCombat.ini",
+      "bytes": 139,
+      "sha256": "640a9c32071e4e837d542b983bf014594d5c931c063ac180110c9d60cb533834"
+    },
+    {
+      "path": "Plugins/NarisCombat/NarisCombat.uplugin",
+      "bytes": 397,
+      "sha256": "8f25ed11756a67d8324c691663f12c127a241b3b1fa99cf01f4a429390795eb3"
+    },
+    {
+      "path": "Plugins/NarisCombat/Source/NarisCombat/NarisCombat.Build.cs",
+      "bytes": 308,
+      "sha256": "a347a7fc29ca8885ad2e13dfe381b5aba1d41597d7523c723faf9759659eac0c"
+    },
+    {
+      "path": "Plugins/NarisCombat/Source/NarisCombat/Private/NarisCombat.cpp",
+      "bytes": 86,
+      "sha256": "6b4cbfda150dc8efeb87bfae071aacf9f16258282f71117316311d8f04a5011f"
+    },
+    {
+      "path": "Plugins/NarisCombat/Source/NarisCombat/Private/NarisP15AttackWindowNotify.cpp",
+      "bytes": 1015,
+      "sha256": "397233e101b15eb0dc659bc3a07946dae6f92710cb0b1e33c62d2bf93049f049"
+    },
+    {
+      "path": "Plugins/NarisCombat/Source/NarisCombat/Private/NarisP15CancelWindowNotify.cpp",
+      "bytes": 1037,
+      "sha256": "9feef065a98c9802c534646f4ba65767fe3687e9e5d8f013ee848cd6de03269e"
+    },
+    {
+      "path": "Plugins/NarisCombat/Source/NarisCombat/Private/NarisP15CombatComponent.cpp",
+      "bytes": 21150,
+      "sha256": "f8d1624d10664f9169593346e172ff30d0cac392a834f9e3c0a07e5b6a7b0772"
+    },
+    {
+      "path": "Plugins/NarisCombat/Source/NarisCombat/Private/NarisP15LocomotionAnimInstance.cpp",
+      "bytes": 2304,
+      "sha256": "fb4b30b23462f83be98b654bca9b0552a6eb5365ded969bce3032ffbaa442d6d"
+    },
+    {
+      "path": "Plugins/NarisCombat/Source/NarisCombat/Private/NarisP15MovementInputComponent.cpp",
+      "bytes": 13588,
+      "sha256": "fe304402eb0435a1de3c8b937f0f5f8f22471d4c6f5af5edab643a0b9f2410df"
+    },
+    {
+      "path": "Plugins/NarisCombat/Source/NarisCombat/Public/NarisCombatRules.h",
+      "bytes": 9616,
+      "sha256": "38766d2162bd440c92d855b07f120b3e8921e2f7a4cc5398546bf6e28ce55a7a"
+    },
+    {
+      "path": "Plugins/NarisCombat/Source/NarisCombat/Public/NarisControlMotion.h",
+      "bytes": 4046,
+      "sha256": "19bd81a7b8376a4fa510f5fefc0121264d6db96ddf0c2a983dc21023b21b9c32"
+    },
+    {
+      "path": "Plugins/NarisCombat/Source/NarisCombat/Public/NarisMoveInput.h",
+      "bytes": 3101,
+      "sha256": "6e144d69699045291c2a64b6eb14585793a18e71375e2955c375a04ff3c6065b"
+    },
+    {
+      "path": "Plugins/NarisCombat/Source/NarisCombat/Public/NarisP15AttackWindowNotify.h",
+      "bytes": 643,
+      "sha256": "28784db9181ca0a95a8c8d22e8eb0b4eb2bde51b727b136c7e69c3540357a6d9"
+    },
+    {
+      "path": "Plugins/NarisCombat/Source/NarisCombat/Public/NarisP15CancelWindowNotify.h",
+      "bytes": 643,
+      "sha256": "0d9e3b2967f413cb41e93b06726b3cd713a135c2b5b9d42ce5f1cb31e06a374f"
+    },
+    {
+      "path": "Plugins/NarisCombat/Source/NarisCombat/Public/NarisP15CombatComponent.h",
+      "bytes": 6704,
+      "sha256": "0989e799ba554085f70ee3ff86dbfeb75d2505d427ea36ef2b66c300ea6368bd"
+    },
+    {
+      "path": "Plugins/NarisCombat/Source/NarisCombat/Public/NarisP15LocomotionAnimInstance.h",
+      "bytes": 1610,
+      "sha256": "9d97cea7232927c22217935b6284ade2812cc4855138cbec48188ec11820cac7"
+    },
+    {
+      "path": "Plugins/NarisCombat/Source/NarisCombat/Public/NarisP15MovementInputComponent.h",
+      "bytes": 5252,
+      "sha256": "1f28e471e71cdfbc809de3a39b840d27cc62463e53276b905342933126aa1937"
+    },
+    {
+      "path": "README.md",
+      "bytes": 11047,
+      "sha256": "71b3448d2650aba8b68ae73562794ca1276b3980f98bc353b6bb1af2369a2035"
+    },
+    {
+      "path": "Reports/P14_REFERENCE.json",
+      "bytes": 176,
+      "sha256": "86bbedded3760b0cdc954f2646a3c3f5d638033e92635d0fd4e2d934e4f07e73"
+    },
+    {
+      "path": "Reports/control_asset_preservation.json",
+      "bytes": 2797,
+      "sha256": "bef0c81c46f3de8794a66d23deccbe41186fd406ae64a866554292daa90097e5"
+    },
+    {
+      "path": "Reports/control_baseline.json",
+      "bytes": 545,
+      "sha256": "9f6862174f806c82dba3b757c98e299a318501dc69f6edf187589baec814787f"
+    },
+    {
+      "path": "Reports/control_buffer_boundary_before.txt",
+      "bytes": 846,
+      "sha256": "d38955df852b67bee541f9346bcc3bbf0c35543764648a28c34993263ff0f0e8"
+    },
+    {
+      "path": "Reports/control_regression_before.txt",
+      "bytes": 271,
+      "sha256": "99023a13e321e369c5b6ebe2317d1b8d6f7ee8d9540fd337571df1a5177f5f2a"
+    },
+    {
+      "path": "Reports/control_revision.json",
+      "bytes": 4406,
+      "sha256": "7f0ab6aa449d3248aa4b59e4ca02294a4c5d4f761d60618a62527c3afa1d328b"
+    },
+    {
+      "path": "Reports/control_yaw_braking_before.txt",
+      "bytes": 876,
+      "sha256": "69db706b02fd1f339f889812392c6274e7bc423076314a00effbcfb6f97aff78"
+    },
+    {
+      "path": "Reports/cpu_bind_verification.json",
+      "bytes": 308,
+      "sha256": "2d91398c529df1650ab5591f6a138d8c80c731729a6750c721b4043465de22b1"
+    },
+    {
+      "path": "Reports/local_tests.txt",
+      "bytes": 20325,
+      "sha256": "5104f3c7099a8d332e486955bf39f5265523e0d2a398053d85808629b49d3aae"
+    },
+    {
+      "path": "Reports/repository_checks.json",
+      "bytes": 1638,
+      "sha256": "a03391b47532b638840e65c30d7496d4b0d73685a67b91e3323e6f48a061907e"
+    },
+    {
+      "path": "Reports/source_archive.json",
+      "bytes": 2366,
+      "sha256": "92d5560e0ac4efe5879869945d1c6ff2fc511e142aadeae6467c770e7f01213d"
+    },
+    {
+      "path": "Reports/source_asset_audit.json",
+      "bytes": 5603,
+      "sha256": "73e485dc9d8654dea8e68a8ded570d1b3ee9bc8df045ed38fef24485fa94fac2"
+    },
+    {
+      "path": "Reports/source_assets_check.json",
+      "bytes": 2319,
+      "sha256": "df3b70d31b282125e8135bf43f18445c91fea3598dbcaeb5f9b44929404627c6"
+    },
+    {
+      "path": "Reports/stale_input_regression_before.txt",
+      "bytes": 486,
+      "sha256": "bfe0131f88885097280c1e3b13d977e4e324d923fd43f025cd6eec8484d2152c"
+    },
+    {
+      "path": "Reports/verification.json",
+      "bytes": 772,
+      "sha256": "6a38e8061c6f0a16c0f33e8cb044f672b9c7a7cfdc1fcd6a14697b72a8f4a227"
+    },
+    {
+      "path": "START_HERE_AR.md",
+      "bytes": 9204,
+      "sha256": "34549ca2e2296f5ace5bd4cc16ea8c643c8e171197a7af6b4f45d3f2b1a94dce"
+    },
+    {
+      "path": "Scripts/build_asset_intake.py",
+      "bytes": 4537,
+      "sha256": "39ca7ec8879bdd4da475756fa28742fe81cb26e8ed1c5a385d0d5519fdfc1cf5"
+    },
+    {
+      "path": "Scripts/build_win64.bat",
+      "bytes": 438,
+      "sha256": "27ff90806050e060cb446f7fcd8ee64e35306b71bfacf17ba6ccd98979fb205b"
+    },
+    {
+      "path": "Scripts/build_win64.ps1",
+      "bytes": 5580,
+      "sha256": "d078415fed17645c3224246d119cbc29b61b860810b7c4f22511b4355043f6fa"
+    },
+    {
+      "path": "Scripts/run_local_tests.py",
+      "bytes": 1950,
+      "sha256": "1c3756c8b2944494f77b0daa310a6f37fb89d8cb033970d603f23cb599a63ac5"
+    },
+    {
+      "path": "Scripts/validate_project.py",
+      "bytes": 3294,
+      "sha256": "2a08baaff879664a92e601507d074f34e901d88692ebbbe7d665ce6957fc62a1"
+    },
+    {
+      "path": "Scripts/verify_package.py",
+      "bytes": 2626,
+      "sha256": "8f05e52fb4a48bf135dfa56f8d2920965de79547ef3b3b72202612b96b51b490"
+    },
+    {
+      "path": "Scripts/verify_sources.py",
+      "bytes": 2064,
+      "sha256": "5c8b51f47f652fb5a79bfa2981592ef5cdfd291260a937cfe1a55d76ed71d200"
+    },
+    {
+      "path": "Tests/check_real_bind.py",
+      "bytes": 3729,
+      "sha256": "5ffb5599d29e91acda1600d86baa39b8923a3a1b6b8e2e6184f68a4726adc04e"
+    },
+    {
+      "path": "Tests/combat_rules_test.cpp",
+      "bytes": 26129,
+      "sha256": "b028a1b7624e346564dd51dc55f77cf7f597cc958df168cae5361eac519161a1"
+    },
+    {
+      "path": "Tests/glb_fixtures.py",
+      "bytes": 1972,
+      "sha256": "fcfa9d387d944ecd58d40c717d98385c107333362d7858fb1cbd74aa55b5c523"
+    },
+    {
+      "path": "Tests/test_combat_map.py",
+      "bytes": 6365,
+      "sha256": "92a876c4ecb5157c5483442bad7a98f9623fba864ca8bb2d82aa236edffca147"
+    },
+    {
+      "path": "Tests/test_delivery.py",
+      "bytes": 13366,
+      "sha256": "bfaece58933e88dbf6663fc1ff62ecdd705d1d5efdabd01eb058c7ae06a9ec6d"
+    },
+    {
+      "path": "Tests/test_source_assets.py",
+      "bytes": 7415,
+      "sha256": "b6ae307e137fb5f8703ddb0194b9cd258a11489c648574e36942f94b97741c98"
+    },
+    {
+      "path": "Unreal/import_and_verify.py",
+      "bytes": 6675,
+      "sha256": "172bffb08134877e8026419ce6c6b863b4160870cc77654b6835a45be02442b1"
+    },
+    {
+      "path": "Unreal/source_assets.py",
+      "bytes": 16250,
+      "sha256": "8f646e214b83cc0591910de558085bee26a5ef87929969b91ca1b6b46cda1986"
+    },
+    {
+      "path": "Unreal/validate_combat_map.py",
+      "bytes": 5285,
+      "sha256": "c1bf0bc5e0d0dd95308e6ae8c4a834424856063a9f37d36b1dd6297155e04a64"
+    }
+  ]
+}

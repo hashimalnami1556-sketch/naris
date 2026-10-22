@@ -6,7 +6,29 @@
 **Primary vertical slice:** W04 — Ashen Forest  
 **Release gate:** Internal playtest only
 
+### 2026-10-16 P15 combat-source package correction
+
+The inspected input is `NARIS_P15_DELIVERY_20261016.zip` (combat plugin/import/build tooling), not the similarly named P15 animation archive. Its repaired source is isolated in [source/p15-combat](../source/p15-combat/README.md). It preserves W04 gameplay, avoids the duplicate reflected component name, and adds shared portable combat rules, montage-owned hit-window source, server-side weapon tracing, fail-closed import/preflight and fresh Windows package checks. Local behavioral evidence is recorded in that package's `Reports/`.
+
+These results do not close Unreal gates. No local Unreal installation is available, and AsusRog was reported **offline** on 2026-10-16. UHT/UBT, actual import, animation/collision/PIE networking, packaged Windows gameplay and performance remain unexecuted in this repair. The P15 plugin is not automatically attached to W04 actors or enabled in the canonical project; P16/P17/P18 acceptance is unchanged.
+
+### 2026-10-17 actual GLB intake
+
+The newly available five GLBs were inspected from bytes. The Character1 prototype's Skin was unreferenced by its mesh; its inverse-bind data also failed a conservative rest-pose check once attached. A separate repaired source binds Skin 0 and rebuilds the matrices without replacing vertex, texture, weight or animation bytes. The [P15 source package](../source/p15-combat/README.md) now pins all eight uploaded inputs and the exact five active GLBs, runs the hashed source gate before engine compilation/import, and retains audit/CPU evidence. The malformed-extension USD source is preserved with an extension-corrected USDC copy; no USD semantic verification is claimed.
+
+95 delivery tests and the existing repository suites passed locally. The character still has 18 joints and one idle clip. This is a source repair, not a completed rig/art/animation quality gate or a playable encounter. AsusRog remains offline at the new host check; Unreal and Windows gameplay gates stay open.
+
 ## Repository baseline
+
+P15 input-lifetime repair (2026-10-18): 195 portable/mocked cases pass (104 compiled shared C++ cases). The source now limits unrefreshed movement samples, resets on Controller change and handles zero-delta release. Paused/ignored-input native guards require UHT/UBT and PIE verification. This does not close animation, gameplay, networking or Windows package gates.
+
+### 2026-10-17 smooth-control source integration
+
+P15 now includes the CharacterMovement baseline, bounded desired lock heading, free/combat SpringArm profiles, replicated control phase, notify-owned cancel windows with retained cost/recovery, hit recovery and locomotion data for an authored animation graph. [P15 integration](../source/p15-combat/README.md) and its [verification report](../source/p15-combat/Reports/repository_checks.json) are the current source/evidence owners. Fresh checks passed: 184 P15 tests (93 compiled shared C++ cases), 336 repository contracts, 6 AssetForge tests and repository validation.
+
+PR #46 remains a draft. P15 is not automatically attached to W04 actors. Actual Blend Space/Animation Blueprint/Foot IK assets and compatible movement clips remain missing; UHT/UBT, PIE, input-to-display latency and packaged gameplay remain unverified. AsusRog was offline at the live check (last seen 37 hours ago). Next: compile and wire the updated plugin in the backed-up UE 5.7 test project, then execute the [engine acceptance matrix](../source/p15-combat/Docs/CONTROL_ACCEPTANCE_AR.md).
+
+P15 montage lifecycle continuation (2026-10-17): accepted playback now precedes stamina/defense commitment; interruption cancels combat effects while retaining recovery. Native setup diagnostics and a read-only map-configuration gate now precede packaging. 135 delivery tests passed, including 44 compiled portable C++ cases and 21 mocked map-gate cases. This is source/portable verification only; UHT/UBT, actual Editor map validation, authored motion and gameplay gates remain open while the engine host is offline. See the [P15 integration instructions](../source/p15-combat/README.md).
 
 - Canonical branch: `main`
 - Asset registry: `data/MASTER_ASSET_REGISTRY.json`

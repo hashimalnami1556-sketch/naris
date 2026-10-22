@@ -1,0 +1,69 @@
+{
+  "archive": "NARIS_P15_DELIVERY_20261016.zip",
+  "size_bytes": 9692,
+  "sha256": "3cc6704e48f6caadaffe8b951c08ef5c3ae2e25949d4a7a0c5eb7182bffdbdb9",
+  "scope": "combat plugin, importer and Windows build script; not the P15 animation archive",
+  "preserved_original": true,
+  "original_files": [
+    {
+      "path": "README.md",
+      "bytes": 1807,
+      "sha256": "b4e11ee2898d318c26d656c666a720f7529593084e3e54abaaab0d40412ed744"
+    },
+    {
+      "path": "Reports/local_tests.txt",
+      "bytes": 505,
+      "sha256": "6af1bc20c640e1ba5a3807ba146bb8c7e2ef8c0c4226a00efc7c378bf31e3344"
+    },
+    {
+      "path": "Reports/manifest.json",
+      "bytes": 2172,
+      "sha256": "333a4ebd1f687f9b2528ee3f7c24cb55467a4b3fa9e77a28abf40e130897047d"
+    },
+    {
+      "path": "Reports/P14_REFERENCE.json",
+      "bytes": 176,
+      "sha256": "86bbedded3760b0cdc954f2646a3c3f5d638033e92635d0fd4e2d934e4f07e73"
+    },
+    {
+      "path": "Tests/test_delivery.py",
+      "bytes": 1054,
+      "sha256": "117921d083e9a75fae17464bcb2ae1571b52a1e238aa307a4c2bbff657a9114b"
+    },
+    {
+      "path": "Scripts/build_win64.bat",
+      "bytes": 472,
+      "sha256": "762c963e5c4ac0986e91e4894fba2780629e131f44dccb53c5f14405c48c584d"
+    },
+    {
+      "path": "Unreal/import_and_verify.py",
+      "bytes": 1302,
+      "sha256": "5d96fc815e35bd083a4667135da9b683891382fd0c190b4a3f2fb0b49be9ec6e"
+    },
+    {
+      "path": "Plugins/NarisCombat/NarisCombat.uplugin",
+      "bytes": 352,
+      "sha256": "214219956ed51549d825b907412487e231352fd90a39e9cf3bde16a28cc9a00f"
+    },
+    {
+      "path": "Plugins/NarisCombat/Source/NarisCombat/NarisCombat.Build.cs",
+      "bytes": 308,
+      "sha256": "a347a7fc29ca8885ad2e13dfe381b5aba1d41597d7523c723faf9759659eac0c"
+    },
+    {
+      "path": "Plugins/NarisCombat/Source/NarisCombat/Private/NarisCombat.cpp",
+      "bytes": 86,
+      "sha256": "6b4cbfda150dc8efeb87bfae071aacf9f16258282f71117316311d8f04a5011f"
+    },
+    {
+      "path": "Plugins/NarisCombat/Source/NarisCombat/Private/NarisCombatComponent.cpp",
+      "bytes": 2422,
+      "sha256": "013b39af0429e618b0274bbfc034c566e50e5bc75e81f06483b1cb204e95d782"
+    },
+    {
+      "path": "Plugins/NarisCombat/Source/NarisCombat/Public/NarisCombatComponent.h",
+      "bytes": 2323,
+      "sha256": "e662f558387fb00abb2f546d32f566ed3050f113e17965c5131143478ebd9263"
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+Expected feature-gap failure. Baseline before adding cases: 155 passed.
+Tests/combat_rules_test.cpp:3:10: fatal error: NarisControlMotion.h: No such file or directory
+    3 | #include "NarisControlMotion.h"
+      |          ^~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.

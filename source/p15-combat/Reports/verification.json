@@ -1,0 +1,26 @@
+{
+  "scope": "portable-combat-input-yaw-motion-signals-and-mocked-editor-io",
+  "exit_code": 0,
+  "python": "3.12.14",
+  "compiler": "g++ (Ubuntu 13.3.0-6ubuntu2~24.04) 13.3.0",
+  "unreal_compiled": false,
+  "unreal_import_executed": false,
+  "powershell_executed_locally": false,
+  "windows_packaged": false,
+  "gameplay_playtested": false,
+  "native_movement_component_compiled": false,
+  "camera_runtime_tested": false,
+  "end_to_end_input_latency_measured": false,
+  "animation_graph_authored": false,
+  "foot_placement_verified": false,
+  "tests_run": 195,
+  "groups": {
+    "CombatRulesTests": 104,
+    "ImportTests": 24,
+    "ProjectPreflightTests": 8,
+    "PackageTests": 8,
+    "SourceAssetTests": 25,
+    "SourceContractTests": 5,
+    "CombatMapTests": 21
+  }
+}

@@ -1,0 +1,5 @@
+__pycache__/
+*.py[cod]
+Builds/
+Plugins/*/Binaries/
+Plugins/*/Intermediate/

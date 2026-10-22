@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "scope": "user supplied source candidates, not approved production assets",
+  "files": [
+    {
+      "workspace_name": "16-Environmental-1.glb",
+      "uploaded_name": "Environmental 1.glb",
+      "sha256": "64780ab4c7abb5c38d10fe5035d740f294ba5aed4824c897c9bcc494f30b4271",
+      "bytes": 1210488
+    },
+    {
+      "workspace_name": "17-Character-3.glb",
+      "uploaded_name": "Character 3.glb",
+      "sha256": "ac36ad54c102b7d755359195997afc009160689b28b0cfb4b53b77987dbb72b5",
+      "bytes": 1052664
+    },
+    {
+      "workspace_name": "18-Character1_NARIS_Rigged_Prototype.glb",
+      "uploaded_name": "Character1_NARIS_Rigged_Prototype.glb",
+      "sha256": "83e4d41f347c959e61ec57355fd682db99ed4652dfabba622ae0784b8cd9b628",
+      "bytes": 2828520
+    },
+    {
+      "workspace_name": "19-City-1.glb",
+      "uploaded_name": "City 1.glb",
+      "sha256": "2032dd3208d9215a5531f1fa880a2ea2e6ab4962a0836a4a6acb12dd8ec36e52",
+      "bytes": 1525136
+    },
+    {
+      "workspace_name": "20-fdb365cc-0ad2-487b.usdz",
+      "uploaded_name": "fdb365cc-0ad2-487b.usdz",
+      "sha256": "aca97111f4ebc1d3fe6d9042b13757d1d74d648b3f50f0be81cc63523abf9d89",
+      "bytes": 1763041
+    },
+    {
+      "workspace_name": "21-Character-1.glb",
+      "uploaded_name": "Character 1.glb",
+      "sha256": "d3d83628a982079a614541295334f11cafe616af86f621cd0947190afb1acc75",
+      "bytes": 2177340
+    },
+    {
+      "workspace_name": "22-Character-1.zip",
+      "uploaded_name": "Character 1.zip",
+      "sha256": "390705615481f86841c4b78617505db7deed89614882ce184747d571dae453f9",
+      "bytes": 6717666
+    },
+    {
+      "workspace_name": "23-txt",
+      "uploaded_name": "ارشادات.txt",
+      "sha256": "371aa70b7d0b4f69f4931eaad164ff779a58d37eaa96fe18cce5848876ea99ad",
+      "bytes": 809
+    }
+  ]
+}
