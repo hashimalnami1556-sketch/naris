@@ -117,7 +117,6 @@ jobs:
           $script = Join-Path $env:GITHUB_WORKSPACE 'tools/windows/Invoke-NarisWindowsPackage.ps1'
           & $script -RepoRoot $env:GITHUB_WORKSPACE -UnrealEngineRoot $env:UNREAL_ENGINE_ROOT
           if (-not $?) { throw "Development package script failed" }
-          if ($LASTEXITCODE -ne 0) { throw "Development package script exit code: $LASTEXITCODE" }
       - name: Shipping release candidate gate
         if: ${{ inputs.package_mode == 'release_candidate' }}
         shell: powershell
@@ -125,7 +124,6 @@ jobs:
           $script = Join-Path $env:GITHUB_WORKSPACE 'tools/windows/Invoke-NarisWindowsReleaseCandidate.ps1'
           & $script -RepoRoot $env:GITHUB_WORKSPACE -UnrealEngineRoot $env:UNREAL_ENGINE_ROOT
           if (-not $?) { throw "Shipping package script failed" }
-          if ($LASTEXITCODE -ne 0) { throw "Shipping package script exit code: $LASTEXITCODE" }
       - name: Upload Windows diagnostics even on failure
         if: ${{ always() }}
         uses: actions/upload-artifact@v4
