@@ -85,8 +85,18 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Validate .uproject JSON
-        run: python -c "import json; json.load(open('unreal/NARIS_W04/NARIS_W04.uproject', encoding='utf-8')); print('Unreal .uproject JSON OK')"
+      - name: Validate Unreal 5.7 descriptor and module
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p = Path("unreal/NARIS_W04/NARIS_W04.uproject")
+          descriptor = json.loads(p.read_text(encoding="utf-8"))
+          assert descriptor.get("EngineAssociation") == "5.7", "W04 must target Unreal Engine 5.7"
+          modules = descriptor.get("Modules", [])
+          assert any(m.get("Name") == "NARIS_W04" and m.get("Type") == "Runtime" for m in modules), "Missing NARIS_W04 runtime module"
+          print("W04 Unreal Engine 5.7 descriptor and runtime module OK")
+          PY
 
   unreal-build-self-hosted:
     name: Unreal Windows package gate
@@ -112,8 +122,22 @@ jobs:
         run: |
           $script = Join-Path $env:GITHUB_WORKSPACE 'tools/windows/Invoke-NarisWindowsReleaseCandidate.ps1'
           & $script -RepoRoot $env:GITHUB_WORKSPACE -UnrealEngineRoot $env:UNREAL_ENGINE_ROOT
+      - name: Upload Windows diagnostics even on failure
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: NARIS_W04-Windows-Diagnostics
+          path: |
+            Reports/**
+            reports/**
+            artifacts/**/*.json
+            artifacts/**/*.log
+            unreal/NARIS_W04/Saved/Logs/**
+            unreal/NARIS_W04/Saved/Crashes/**
+          if-no-files-found: warn
+          retention-days: 14
       - name: Upload Development smoke build
-        if: ${{ inputs.package_mode == 'development' }}
+        if: ${{ success() && inputs.package_mode == 'development' }}
         uses: actions/upload-artifact@v4
         with:
           name: NARIS_W04-Windows-Development
@@ -121,7 +145,7 @@ jobs:
           retention-days: 7
           compression-level: 0
       - name: Upload Shipping release candidate
-        if: ${{ inputs.package_mode == 'release_candidate' }}
+        if: ${{ success() && inputs.package_mode == 'release_candidate' }}
         uses: actions/upload-artifact@v4
         with:
           name: NARIS_W04-Windows-Shipping-RC
