@@ -134,8 +134,8 @@ if ($ShippingMap.status -ne "pass") {
 
 Write-Host "[NARIS RC] Compiling localization"
 & $Localization -RepoRoot $RepoRoot -UnrealEngineRoot $UnrealEngineRoot
-if ($LASTEXITCODE -ne 0) {
-    throw "Localization failed with exit code $LASTEXITCODE"
+if (-not $?) {
+    throw "Shipping localization PowerShell script failed"
 }
 
 Write-Host "[NARIS RC] Building Shipping package"
