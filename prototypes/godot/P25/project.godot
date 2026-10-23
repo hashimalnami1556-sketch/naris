@@ -1,0 +1,7 @@
+config_version=5
+
+[application]
+config/name="NARIS P26 Regression Harness"
+
+[rendering]
+renderer/rendering_method="gl_compatibility"
