@@ -47,8 +47,8 @@ if ($LASTEXITCODE -ne 0) {
 
 Write-Host "[NARIS] Generating W04 runtime-smoke map/assets"
 & $Bootstrap -RepoRoot $RepoRoot -UnrealEngineRoot $UnrealEngineRoot
-if ($LASTEXITCODE -ne 0) {
-    throw "W04 authoring bootstrap failed with exit code $LASTEXITCODE"
+if (-not $?) {
+    throw "W04 authoring bootstrap PowerShell script failed"
 }
 
 foreach ($generated in @($GeneratedMap, $GeneratedBossData, $GeneratedPresentationProfile)) {
@@ -124,8 +124,8 @@ Copy-Item $PresentationAuthoringReport (Join-Path $ArchiveDir "naris_presentatio
 
 Write-Host "[NARIS] Gathering and compiling EN/AR localization"
 & $Localization -RepoRoot $RepoRoot -UnrealEngineRoot $UnrealEngineRoot
-if ($LASTEXITCODE -ne 0) {
-    throw "Localization pipeline failed with exit code $LASTEXITCODE"
+if (-not $?) {
+    throw "Localization pipeline PowerShell script failed"
 }
 
 Write-Host "[NARIS] BuildCookRun Win64 Development"
