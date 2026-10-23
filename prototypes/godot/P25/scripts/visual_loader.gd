@@ -3,12 +3,12 @@ class_name NarisVisualLoader
 
 static func attach_visual(parent: Node3D, resource_path: String, fallback_color: Color, visual_scale: float = 1.0) -> Node3D:
     if ResourceLoader.exists(resource_path):
-        var scene := load(resource_path) as PackedScene
+        var scene := ResourceLoader.load(resource_path, "PackedScene") as PackedScene
         if scene != null:
             var instance := scene.instantiate() as Node3D
             if instance != null:
                 instance.name = "ImportedVisual"
-                instance.scale = Vector3.ONE * visual_scale
+                instance.scale = Vector3.ONE * (visual_scale if is_finite(visual_scale) and visual_scale > 0.0 else 1.0)
                 parent.add_child(instance)
                 return instance
     var fallback := MeshInstance3D.new()
@@ -25,6 +25,8 @@ static func attach_visual(parent: Node3D, resource_path: String, fallback_color:
     return fallback
 
 static func play_named_animation(visual: Node, aliases: PackedStringArray, one_shot: bool = false) -> bool:
+    if visual == null or aliases.is_empty():
+        return false
     var players: Array[AnimationPlayer] = []
     _collect_players(visual, players)
     for ap in players:
@@ -35,11 +37,14 @@ static func play_named_animation(visual: Node, aliases: PackedStringArray, one_s
             for anim_name in library.get_animation_list():
                 var key := String(anim_name).to_lower()
                 for alias in aliases:
-                    if key.contains(alias.to_lower()):
-                        var qualified := String(anim_name) if String(library_name).is_empty() else String(library_name) + "/" + String(anim_name)
-                        if ap.current_animation != qualified or not ap.is_playing():
-                            ap.play(qualified, 0.12)
-                        return true
+                    if alias.is_empty() or not key.contains(alias.to_lower()):
+                        continue
+                    var qualified := String(anim_name) if String(library_name).is_empty() else String(library_name) + "/" + String(anim_name)
+                    if ap.current_animation == qualified:
+                        if ap.is_playing() or one_shot:
+                            return true
+                    ap.play(qualified, 0.12)
+                    return true
     return false
 
 static func _collect_players(node: Node, out: Array[AnimationPlayer]) -> void:
