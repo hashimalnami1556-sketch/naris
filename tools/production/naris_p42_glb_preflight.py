@@ -17,7 +17,7 @@ def inspect_glb(path):
             raise ValueError("Invalid GLB header")
         if length > size - 20 or length > 64 * 1024 * 1024:
             raise ValueError("Invalid JSON length")
-        doc = json.loads(stream.read(length).decode("utf-8").rstrip(" \\x00"))
+        doc = json.loads(stream.read(length).decode("utf-8").rstrip(" " + chr(0)))
     return {"meshes": len(doc.get("meshes", [])), "skins": len(doc.get("skins", [])), "animations": len(doc.get("animations", []))}
 
 def main():
