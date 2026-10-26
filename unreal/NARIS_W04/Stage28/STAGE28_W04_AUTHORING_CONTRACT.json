@@ -1,0 +1,49 @@
+{
+  "schema": "naris.w04.stage28.authoring.v1",
+  "production_map": "/Game/NARIS/W04/Maps/W04_AshenForest",
+  "zones": [
+    {
+      "id": "Z01_FOREST_ENTRANCE",
+      "xy_cm": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "Z02_BROKEN_SHRINE",
+      "xy_cm": [
+        17000,
+        0
+      ]
+    },
+    {
+      "id": "Z03_RUINED_BRIDGE",
+      "xy_cm": [
+        34000,
+        0
+      ]
+    },
+    {
+      "id": "Z04_WHISPER_LAKE",
+      "xy_cm": [
+        51000,
+        0
+      ]
+    },
+    {
+      "id": "Z05_ASH_GATE",
+      "xy_cm": [
+        68000,
+        0
+      ]
+    },
+    {
+      "id": "Z06_BONE_BEAST_ARENA",
+      "xy_cm": [
+        85000,
+        0
+      ]
+    }
+  ],
+  "status": "authoring_prototype_not_shipping"
+}
