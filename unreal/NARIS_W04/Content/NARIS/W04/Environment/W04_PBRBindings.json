@@ -1,0 +1,11 @@
+{
+  "schema":"naris.w04.pbr-bindings.v1",
+  "policy":"No baked studio lighting. Production assets require valid UVs and physically based texture inputs.",
+  "masters":[
+    {"role":"ground","path":"/Game/NARIS/W04/Environment/Materials/M_Ground_Master","required":["BaseColor","Normal","Roughness","AO"],"features":["macro_tiling","detail_normal","breakup_mask","ash_mud_stone_aether_scorch_blend"]},
+    {"role":"tree","path":"/Game/NARIS/W04/Environment/Materials/M_Tree_Master","required":["BaseColor","Normal","Roughness","AO"],"features":["bark_leaf_separation_if_available","wind_ready","ash_breakup"]},
+    {"role":"ruins","path":"/Game/NARIS/W04/Environment/Materials/M_Ruins_Master","required":["BaseColor","Normal","Roughness","AO"],"features":["stone_variation","edge_breakup","moss_ash_overlay"]}
+  ],
+  "texture_suffixes":{"BaseColor":"_BC","Normal":"_N","Roughness":"_R","Metallic":"_M","AO":"_AO","Height":"_H"},
+  "acceptance":"PENDING_UNREAL_VISUAL_QA"
+}
