@@ -1,0 +1,6 @@
+{
+ "Characters":{"Ash Wanderer":"RIG_BIND_PENDING","Demon Warrior":"RIG_BIND_PENDING"},
+ "Creatures":{"Bone Hound x3":"RIG_BIND_PENDING","Aether Serpent":"RIG_BIND_PENDING","Dragon":"SOURCE_CONVERSION_AND_RIG_PENDING"},
+ "Environment":{"Environmental 1":"STATIC_READY","City 1":"STATIC_READY","Ground":"LAYERED_MATERIAL_PENDING","403 Dressing Markers":"FINAL_MESH_REPLACEMENT_PENDING"},
+ "Weapons":{"Naris Hammer":"SOCKET_COLLISION_PENDING"}
+}
