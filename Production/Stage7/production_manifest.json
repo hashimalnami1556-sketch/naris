@@ -1,0 +1,10 @@
+{
+  "project": "NARIS REALMS",
+  "stage": "Stage 7 Production Assembly",
+  "status": "APPROVED_FOR_EXECUTION",
+  "visual_direction": "Stage 6 V2 cinematic direction approved",
+  "rig_targets": {"Ash Wanderer":92,"Bone Hound":82,"Demon Warrior":106,"Aether Serpent":78,"Dragon":146},
+  "prototype_policy": "REFERENCE_ONLY",
+  "production_ready": false,
+  "production_order": ["Ash rig/skin/deformation","Hound quadruped rig/gait","Demon rig/weapon","Serpent centerline/overlap","Dragon wing-tail-neck rig","Replace prototype actors","Layered ground/materials","Final prop dressing/optimization","Collision/NavMesh","AI encounters","Lumen/Niagara/atmosphere","Runtime QA/performance"]
+}
