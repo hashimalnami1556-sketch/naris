@@ -1,6 +1,6 @@
 ---
 status: active
-last_updated: 2026-10-22
+last_updated: 2026-10-26
 ---
 # W04 readiness handoff
 
@@ -43,3 +43,21 @@ last_updated: 2026-10-22
 5. Gate release on packaged progression/save-load, EN/AR/RTL, fatal/crash logs and measured FPS evidence.
 
 **Evidence status:** documentation handoff only. No workstation execution, Unreal compilation or Windows package test was performed during this update.
+
+## 2026-10-26 Stage8 executing claim
+
+- Executing agent: Codex (current session).
+- Authorized scope: apply owner-approved canonical zones, fix Windows build entry point, harden map promotion and retained evidence, test and update main without replacing production assets.
+- Owner instruction: implement and activate all currently canonical zones. This is design/implementation authorization; asset QA and release gates remain mandatory.
+- Workstation check: AsusRog reported offline. Unreal and Windows package execution are not available in this session.
+- Active changes: shipping wrapper, candidate-map validation and focused regression coverage.
+
+### Stage8 source changes completed
+
+- Replaced the invalid shipping commandlet call with canonical Development/Shipping routing and engine-version checks.
+- Added isolated package directories, historical-report quarantine, executable hashes and explicit unresolved runtime approval fields.
+- Added data-driven structural map checks and candidate preflight without renaming or removing actors.
+- Recorded owner authorization for all canonical W04 zones; kept registry technical approvals unchanged.
+- Verified 350 CI tests, 6 AssetForge tests and repository validation locally. PowerShell parsing is assigned to hosted CI because pwsh is not installed in this execution environment.
+- Remaining blocker: authorized AsusRog device is offline; Windows Unreal build, production .umap, EXE and playtest are not produced here. The main-push Shipping workflow now exposes the engine phase on the configured self-hosted runner.
+- Next action: retain hosted CI results and the self-hosted build status; when a Windows Unreal runner executes, address its first strict-gate failure and retain diagnostics rather than marking missing artifacts complete.

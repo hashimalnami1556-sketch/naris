@@ -7,10 +7,31 @@ from __future__ import annotations
 import json
 from pathlib import Path
 import unreal
+from naris_shipping_map_rules import evaluate_snapshot
 
 REQUIREMENTS_RELATIVE = (
     Path("NARIS") / "W04" / "Maps" / "W04_ProductionMapRequirements.json"
 )
+
+def collect_snapshot(requirements):
+    actors = unreal.get_editor_subsystem(unreal.EditorActorSubsystem)
+    names = set(requirements.get("required_actor_classes", []))
+    names.update(requirements.get("required_actor_label_classes", {}).values())
+    result = []
+    for actor in actors.get_all_level_actors():
+        class_names = {actor.get_class().get_name()}
+        for name in names:
+            cls = getattr(unreal, name, None)
+            if cls is not None and isinstance(actor, cls):
+                class_names.add(name)
+        paths = []
+        for component in actor.get_components_by_class(unreal.StaticMeshComponent):
+            mesh = component.get_editor_property("static_mesh")
+            if mesh is not None:
+                paths.append(mesh.get_path_name())
+        result.append({"label": actor.get_actor_label(), "class_names": sorted(class_names), "static_mesh_paths": paths})
+    return result
+
 
 def main():
     content_dir = Path(unreal.Paths.project_content_dir())
@@ -51,25 +72,12 @@ def main():
     else:
         levels = unreal.get_editor_subsystem(unreal.LevelEditorSubsystem)
         actors = unreal.get_editor_subsystem(unreal.EditorActorSubsystem)
-        if not levels.load_level(production_map):
+        if levels.is_in_play_in_editor() or unreal.EditorLoadingAndSavingUtils.get_dirty_map_packages():
+            report["errors"].append("Unsaved map or active PIE preserved; stop and save before validation")
+        elif not levels.load_level(production_map):
             report["errors"].append(f"Could not load production map: {production_map}")
         else:
-            all_actors = list(actors.get_all_level_actors())
-            labels = {a.get_actor_label() for a in all_actors}
-            class_names = {a.get_class().get_name() for a in all_actors}
-
-            report["missing_labels"] = sorted(required_labels - labels)
-            report["missing_actor_classes"] = sorted(required_classes - class_names)
-            report["forbidden_labels_found"] = sorted(forbidden_labels & labels)
-            report["forbidden_prefix_labels_found"] = sorted(
-                label for label in labels
-                if any(label.startswith(prefix) for prefix in forbidden_prefixes)
-            )
-
-            if report["missing_labels"]:
-                report["errors"].append("Required production actors/zones are missing")
-            if report["missing_actor_classes"]:
-                report["errors"].append("Required navigation/lighting actors are missing")
+            report.update(evaluate_snapshot(requirements, collect_snapshot(requirements)))
             if report["forbidden_labels_found"] or report["forbidden_prefix_labels_found"]:
                 report["errors"].append("Development/smoke/blockout actors exist in production map")
 

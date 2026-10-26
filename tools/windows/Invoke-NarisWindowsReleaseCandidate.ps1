@@ -5,13 +5,14 @@ param(
 )
 
 $ErrorActionPreference = "Stop"
+$RunId = [DateTime]::UtcNow.ToString("yyyyMMddTHHmmssfffZ") + "_" + [Guid]::NewGuid().ToString("N")
 
 if (-not $UnrealEngineRoot -or -not (Test-Path $UnrealEngineRoot)) {
     throw "UNREAL_ENGINE_ROOT is not configured or does not exist."
 }
 
 if (-not $ArchiveDir) {
-    $ArchiveDir = Join-Path $RepoRoot "artifacts\windows\NARIS_W04_RC"
+    $ArchiveDir = Join-Path $RepoRoot ("artifacts\windows\NARIS_W04_RC\" + $RunId)
 }
 
 $UProject = Join-Path $RepoRoot "unreal\NARIS_W04\NARIS_W04.uproject"
@@ -33,7 +34,18 @@ foreach ($path in @($UProject, $BuildBat, $RunUAT, $Bootstrap, $Localization, $S
     }
 }
 
+if ((Test-Path -LiteralPath $ArchiveDir) -and @(Get-ChildItem -LiteralPath $ArchiveDir -Force).Count -gt 0) {
+    throw "Archive directory is not empty; previous package evidence is preserved. Select a fresh ArchiveDir."
+}
 New-Item -ItemType Directory -Force -Path $ArchiveDir | Out-Null
+# Preserve previous reports outside the paths read by this run's strict gate.
+$PreviousReports = Join-Path (Split-Path $ShippingMapReport -Parent) ("previous_runs\" + $RunId)
+foreach ($OldReport in @($AnimationReport, $ProductionAssetReport, $MaterialReport, $PresentationReport, $ShippingMapReport)) {
+    if (Test-Path -LiteralPath $OldReport) {
+        New-Item -ItemType Directory -Force -Path $PreviousReports | Out-Null
+        Move-Item -LiteralPath $OldReport -Destination (Join-Path $PreviousReports (Split-Path $OldReport -Leaf))
+    }
+}
 
 Write-Host "[NARIS RC] Building editor"
 & $BuildBat "NARIS_W04Editor" "Win64" "Development" $UProject "-WaitMutex"
@@ -172,6 +184,10 @@ $Report = [ordered]@{
     platform = "Win64"
     configuration = "Shipping"
     executable = $Executable.FullName
+    executable_sha256 = (Get-FileHash -LiteralPath $Executable.FullName -Algorithm SHA256).Hash
+    run_id = $RunId
+    runtime_validation_status = "not_run"
+    release_approved = $false
     shipping_map = "/Game/NARIS/W04/Maps/W04_AshenForest"
     shipping_map_validation_status = $ShippingMap.status
     shipping_map_missing_labels = @($ShippingMap.missing_labels)

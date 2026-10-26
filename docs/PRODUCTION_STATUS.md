@@ -200,3 +200,13 @@ Executed directly on **AsusRog** against Unreal Engine 5.7 and `/Game/NARIS/Maps
 - The workstation's `Game/NARIS_UE57/NARIS.uproject` and repository's `unreal/NARIS_W04/NARIS_W04.uproject` are distinct project paths; their content equivalence has **not** been established. Do not overwrite either without a manifest/diff and backup.
 - Documentation and descriptor inspection are **source-level checks only**. UnrealBuildTool compilation, editor map validation, packaged Windows smoke, save/load, boss completion, EN/AR UI and 60 FPS acceptance remain open until independently evidenced.
 - Next required evidence: Windows build logs with engine path/version, artifact hashes, W04 map and asset registry audit, packaged smoke results, crash logs and measured frame-time statistics.
+
+## Stage8 activation and canonical-zone authorization — 2026-10-26
+
+The owner authorized implementation of every currently canonical W04 zone in [LEVEL_LAYOUT](../NARIS_MASTER/09_WORLD/Ashen_Forest/LEVEL_LAYOUT.json). All zones remain in scope; no zone was removed or silently replaced with the separate five-zone Stage7 reference layout. This authorizes implementation, not promotion of unresolved art or a successful runtime assertion.
+
+The Windows entry point now delegates Shipping to the existing strict release-candidate pipeline and Development to the packaged smoke pipeline. The previous non-existent NarisValidateShippingMap commandlet invocation was removed. Each call uses a unique output directory; the strict release path preserves old reports separately and refuses non-empty archives. Package reports include executable SHA-256 and explicitly leave runtime/release approval open.
+
+Map promotion now checks a source snapshot before copying. Required actor labels must match their configured native base classes, duplicates are rejected, and review/prototype labels plus Engine BasicShapes cannot pass by renaming. The final map remains untouched if already present. These are structural gates, not navigation, progression, lighting or performance proof.
+
+Fresh local evidence: 350 CI/static/unit tests and 6 AssetForge tests passed; repository validation passed. AsusRog was reported offline by Desktop Commander. No Unreal compilation, final .umap authoring, Windows EXE, packaged smoke, clean-machine test or FPS measurement was produced in this session. The Shipping workflow now runs source gates on relevant main-branch pushes and queues the gated build for a Windows Unreal self-hosted runner. A queued or failed workflow is not a completed Windows build.

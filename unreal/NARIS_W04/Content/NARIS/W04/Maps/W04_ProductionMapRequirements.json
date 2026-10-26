@@ -82,5 +82,14 @@
     "fill": "cool mist skylight",
     "volumetric": "dense localized fog",
     "readability_rule": "Gameplay readability overrides cinematic darkness."
+  },
+  "required_actor_label_classes": {
+    "PlayerStart": "PlayerStart",
+    "NARIS_Waystone_0001": "NarisWaystone",
+    "NARIS_MemoryCrystal_0001": "NarisMemoryCrystal",
+    "NARIS_AshGate_0001": "NarisAshGate",
+    "NARIS_CelestialWolf_0001": "CelestialWolf",
+    "NARIS_BoneBeastBoss_0001": "BoneBeastBoss",
+    "NARIS_BossArenaController": "NarisBossArenaController"
   }
 }
