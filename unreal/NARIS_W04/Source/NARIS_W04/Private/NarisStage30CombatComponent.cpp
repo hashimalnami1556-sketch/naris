@@ -1,0 +1,13 @@
+#include "NarisStage30CombatComponent.h"
+#include "GameFramework/Actor.h"
+#include "Engine/World.h"
+#include "CollisionQueryParams.h"
+UNarisStage30CombatComponent::UNarisStage30CombatComponent(){PrimaryComponentTick.bCanEverTick=true;}
+void UNarisStage30CombatComponent::BeginPlay(){Super::BeginPlay();Health=FMath::Clamp(Health,0.f,MaxHealth);Stamina=MaxStamina;}
+bool UNarisStage30CombatComponent::TryAttack(){if(Action!=ENarisCombatAction::Idle||Stamina<AttackCost||Health<=0.f)return false;Stamina-=AttackCost;Action=ENarisCombatAction::Attacking;RecoveryLeft=RecoverySeconds;bDamageWindowOpen=false;HitActors.Reset();return true;}
+bool UNarisStage30CombatComponent::TryDodge(){if(Action!=ENarisCombatAction::Idle||Stamina<DodgeCost||Health<=0.f)return false;Stamina-=DodgeCost;Action=ENarisCombatAction::Dodging;RecoveryLeft=RecoverySeconds;bDamageWindowOpen=false;HitActors.Reset();return true;}
+void UNarisStage30CombatComponent::OpenDamageWindow(){if(Action==ENarisCombatAction::Attacking)bDamageWindowOpen=true;}
+void UNarisStage30CombatComponent::CloseDamageWindow(){bDamageWindowOpen=false;if(Action==ENarisCombatAction::Attacking)Action=ENarisCombatAction::Recovering;}
+void UNarisStage30CombatComponent::InterruptAction(){bDamageWindowOpen=false;HitActors.Reset();if(Action!=ENarisCombatAction::Dead)Action=ENarisCombatAction::Recovering;}
+void UNarisStage30CombatComponent::ReceiveCombatDamage(float Damage){if(Damage<=0.f||Health<=0.f)return;Health=FMath::Max(0.f,Health-Damage);if(Health<=0.f){Action=ENarisCombatAction::Dead;bDamageWindowOpen=false;HitActors.Reset();}else InterruptAction();}
+void UNarisStage30CombatComponent::TickComponent(float Dt,ELevelTick T,FActorComponentTickFunction* Fn){Super::TickComponent(Dt,T,Fn);if(Action==ENarisCombatAction::Dead)return;if(Action==ENarisCombatAction::Idle)Stamina=FMath::Min(MaxStamina,Stamina+RegenPerSecond*Dt);else{RecoveryLeft-=Dt;if(RecoveryLeft<=0.f){Action=ENarisCombatAction::Idle;bDamageWindowOpen=false;HitActors.Reset();}}if(!bDamageWindowOpen||Action!=ENarisCombatAction::Attacking||!GetOwner())return;const FVector Start=GetOwner()->GetActorLocation()+FVector(0,0,70.f);const FVector End=Start+GetOwner()->GetActorForwardVector()*AttackReachCm;FCollisionQueryParams Params(SCENE_QUERY_STAT(NarisCombat),false,GetOwner());TArray<FHitResult> Hits;if(GetWorld()->SweepMultiByChannel(Hits,Start,End,FQuat::Identity,ECC_Pawn,FCollisionShape::MakeSphere(55.f),Params)){for(const FHitResult& Hit:Hits){AActor* Target=Hit.GetActor();if(!IsValid(Target)||HitActors.Contains(Target))continue;if(auto* Combat=Target->FindComponentByClass<UNarisStage30CombatComponent>()){HitActors.Add(Target);Combat->ReceiveCombatDamage(AttackDamage);}}}}
