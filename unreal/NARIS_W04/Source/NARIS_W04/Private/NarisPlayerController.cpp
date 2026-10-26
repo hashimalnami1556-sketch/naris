@@ -8,6 +8,7 @@
 #include "NarisRuntimeSubsystem.h"
 #include "Misc/Parse.h"
 #include "Misc/CommandLine.h"
+#include "Misc/PackageName.h"
 #include "Kismet/KismetSystemLibrary.h"
 #include "Engine/World.h"
 #include "Engine/GameInstance.h"
@@ -1336,16 +1337,46 @@ void ANarisPlayerController::StartNewGameFromMenu()
         return;
     }
 
-    Runtime->RequestFrontEndBypassOnce();
-
-    const FString CurrentLevel =
-        UGameplayStatics::GetCurrentLevelName(this, true);
-    if (CurrentLevel.IsEmpty())
+    static const FString ShippingMapPackage =
+        TEXT("/Game/NARIS/W04/Maps/W04_AshenForest");
+    FString ShippingMapFilename;
+    if (FPackageName::DoesPackageExist(
+            ShippingMapPackage,
+            &ShippingMapFilename))
     {
+        Runtime->RequestFrontEndBypassOnce();
+        UGameplayStatics::OpenLevel(
+            this,
+            FName(TEXT("W04_AshenForest"))
+        );
         return;
     }
 
-    UGameplayStatics::OpenLevel(this, FName(*CurrentLevel));
+    // Prototype fallback is explicit and development-only. A missing production
+    // map must never silently turn a Shipping New Game into W04_Prototype.
+    const bool bAllowPrototypeFallback =
+        FParse::Param(
+            FCommandLine::Get(),
+            TEXT("NarisAllowPrototypeFallback")
+        );
+    if (!bAllowPrototypeFallback)
+    {
+        UE_LOG(
+            LogTemp,
+            Error,
+            TEXT("NARIS New Game blocked: production map %s is missing."),
+            *ShippingMapPackage
+        );
+        return;
+    }
+
+    const FString CurrentLevel =
+        UGameplayStatics::GetCurrentLevelName(this, true);
+    if (!CurrentLevel.IsEmpty())
+    {
+        Runtime->RequestFrontEndBypassOnce();
+        UGameplayStatics::OpenLevel(this, FName(*CurrentLevel));
+    }
 }
 
 void ANarisPlayerController::ContinueGameFromMenu()
