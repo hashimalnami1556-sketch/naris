@@ -1,0 +1,54 @@
+{
+  "stage": "30",
+  "status": "ENGINE_VALIDATION_PENDING",
+  "engine": "Unreal Engine 5.7",
+  "animation": {
+    "required": [
+      "AnimBP",
+      "Locomotion Idle/Walk/Run",
+      "Attack Montage",
+      "Dodge Montage",
+      "Foot IK",
+      "AnimNotifies"
+    ],
+    "transitions": [
+      "Idle>Walk",
+      "Walk>Run",
+      "Run>Stop",
+      "Pivot 45/90/135/180",
+      "Attack>Recovery",
+      "Dodge>Recovery"
+    ],
+    "acceptance": "PENDING_UE57"
+  },
+  "materials": {
+    "required_channels": [
+      "BaseColor",
+      "Normal",
+      "Roughness",
+      "AO"
+    ],
+    "optional_channels": [
+      "Metallic",
+      "Height"
+    ],
+    "targets": [
+      "ground",
+      "trees",
+      "ruins"
+    ],
+    "uv_required": true,
+    "acceptance": "PENDING_VISUAL_QA"
+  },
+  "runtime": {
+    "required": [
+      "C++ Development Editor build",
+      "W04_AshenForest load",
+      "PIE combat",
+      "PIE map traversal",
+      "Output Log clean"
+    ],
+    "shipping_blocked_until_pass": true,
+    "acceptance": "PENDING_ASUSROG_ONLINE"
+  }
+}
