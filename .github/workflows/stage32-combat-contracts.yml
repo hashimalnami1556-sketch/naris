@@ -1,0 +1,21 @@
+name: Stage32 Combat Source Contracts
+on:
+  push:
+    paths:
+      - 'unreal/NARIS_W04/Source/NARIS_W04/**/NarisStage32CombatComponent.*'
+      - 'tests/stage32/**'
+      - '.github/workflows/stage32-combat-contracts.yml'
+  pull_request:
+    paths:
+      - 'unreal/NARIS_W04/Source/NARIS_W04/**/NarisStage32CombatComponent.*'
+      - 'tests/stage32/**'
+      - '.github/workflows/stage32-combat-contracts.yml'
+jobs:
+  source-contracts:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m unittest discover -s tests/stage32 -p 'test_*.py' -v
