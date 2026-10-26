@@ -8,6 +8,7 @@
 #include "EngineUtils.h"
 #include "Components/InputComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "Animation/AnimInstance.h"
 #include "GameFramework/Controller.h"
 #include "GameFramework/PlayerController.h"
 #include "GameFramework/SpringArmComponent.h"
@@ -312,8 +313,23 @@ void ANarisHeroCharacter::Dodge()
         return;
     }
 
+    // Production dodge is animation-driven. The Blueprint/AnimBP must return
+    // true only after a valid dodge montage actually starts. This prevents
+    // spending energy or granting i-frames when animation playback fails.
+    const bool bDodgeAnimationStarted = OnDodgeRequested();
+    if (!bDodgeAnimationStarted)
+    {
+        return;
+    }
+
     if (Energy && !Energy->Spend(DodgeEnergyCost))
     {
+        // Montage may have started, but gameplay authority rejects the dodge
+        // when the resource cost cannot be committed.
+        if (UAnimInstance* AnimInstance = GetMesh() ? GetMesh()->GetAnimInstance() : nullptr)
+        {
+            AnimInstance->Montage_Stop(0.10f);
+        }
         return;
     }
 
@@ -321,8 +337,6 @@ void ANarisHeroCharacter::Dodge()
     {
         Combat->OpenInvulnerabilityWindow(DodgeInvulnerabilitySeconds);
     }
-
-    GetCharacterMovement()->Velocity += GetActorForwardVector() * 650.f;
 
     if (Presentation)
     {
