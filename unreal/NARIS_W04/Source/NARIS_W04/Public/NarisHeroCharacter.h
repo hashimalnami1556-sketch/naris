@@ -95,7 +95,7 @@ public:
     float ParryEnergyCost = 8.f;
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="NARIS|Combat|Animation")
-    bool bImmediateSmokeAttackHit = true;
+    bool bImmediateSmokeAttackHit = false;
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="NARIS|Respawn")
     float RespawnDelaySeconds = 2.f;
@@ -138,6 +138,9 @@ public:
 
     UFUNCTION(BlueprintImplementableEvent, Category="NARIS|Combat|Animation")
     void OnAttackRequested(ENarisAttackKind AttackKind);
+
+    UFUNCTION(BlueprintImplementableEvent, Category="NARIS|Combat|Animation")
+    bool OnDodgeRequested();
 
     UFUNCTION(BlueprintCallable, Category="NARIS|Energy")
     void NextEssence();
