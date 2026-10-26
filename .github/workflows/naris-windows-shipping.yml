@@ -1,0 +1,20 @@
+name: NARIS Windows Shipping
+on:
+  workflow_dispatch:
+jobs:
+  shipping:
+    runs-on: [self-hosted, windows, unreal]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Stage 8 repository validation
+        shell: powershell
+        run: python tools/ci/validate_naris.py
+      - name: Build Windows Shipping
+        shell: powershell
+        run: .\tools\windows\Build-NarisWindows.ps1 -Configuration Shipping
+      - name: Upload Windows package
+        uses: actions/upload-artifact@v4
+        with:
+          name: NARIS-Windows-Shipping
+          path: Builds/Windows_Shipping/**
+          if-no-files-found: error
