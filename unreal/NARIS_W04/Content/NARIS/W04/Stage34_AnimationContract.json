@@ -1,0 +1,34 @@
+{
+  "version": "stage34",
+  "character_roles": {
+    "hero": {
+      "skeleton_source": "Character1_NARIS_Rigged_Prototype.glb",
+      "required_states": ["Idle", "Walk", "Run", "Attack", "Dodge", "Hit", "Death"],
+      "locomotion": {"walk_speed_cm_s": 240, "run_speed_cm_s": 520, "blend_axis": "GroundSpeed"},
+      "transitions": [
+        {"from": "Idle", "to": "Walk", "when": "GroundSpeed > 10"},
+        {"from": "Walk", "to": "Run", "when": "GroundSpeed > 350"},
+        {"from": "Run", "to": "Walk", "when": "GroundSpeed < 300"},
+        {"from": "Walk", "to": "Idle", "when": "GroundSpeed < 8"}
+      ],
+      "attack_montage_slot": "DefaultGroup.UpperBody",
+      "attack_hit_notify_begin": "BeginHitWindow",
+      "attack_hit_notify_end": "EndHitWindow",
+      "dodge_montage_slot": "DefaultGroup.FullBody",
+      "combat_component": "NarisStage32CombatComponent"
+    },
+    "guardian": {
+      "skeleton_source": "NARIS_Gate_Guardian_12_Animations_v2.glb",
+      "required_states": ["Idle", "Walk", "Run", "Attack", "Hit", "Death"],
+      "team_id": 2
+    }
+  },
+  "blocking_gates": [
+    "Unreal import must preserve skeleton and skin weights",
+    "AnimBP and both attack/dodge montages must exist",
+    "Skeleton-specific animation retarget validation",
+    "Montage notifies and end callbacks must be wired",
+    "PIE movement and combat test at 30 and 60 FPS"
+  ],
+  "tested_in_unreal": false
+}
