@@ -1,0 +1,78 @@
+{
+  "schema": "naris.stage32.release-matrix.v1",
+  "engine": "5.7",
+  "status": "RUNTIME_EVIDENCE_PENDING",
+  "gates": [
+    {
+      "id": "G01_CPP",
+      "requirement": "NARIS_W04Editor Win64 Development compile",
+      "status": "PENDING_WINDOWS"
+    },
+    {
+      "id": "G02_FINAL_MAP",
+      "requirement": "/Game/NARIS/W04/Maps/W04_AshenForest exists and shipping validator passes",
+      "status": "PENDING_EDITOR_BINARY"
+    },
+    {
+      "id": "G03_ANIMBP",
+      "requirement": "Hero production AnimBP locomotion Idle/Walk/Run/Stop/Pivot",
+      "status": "PENDING_EDITOR_BINARY"
+    },
+    {
+      "id": "G04_MONTAGES",
+      "requirement": "10 W04 production AnimMontages resolve with required notifies",
+      "status": "PENDING_EDITOR_BINARY"
+    },
+    {
+      "id": "G05_DODGE",
+      "requirement": "Dodge montage start gates energy and i-frames",
+      "status": "SOURCE_IMPLEMENTED_ENGINE_TEST_PENDING"
+    },
+    {
+      "id": "G06_PBR",
+      "requirement": "Ground/Tree/Ruins masters + valid UV + BC/N/R/AO",
+      "status": "PENDING_EDITOR_BINARY"
+    },
+    {
+      "id": "G07_CORE_ART",
+      "requirement": "Hero/Wolf/Bone Beast/Waystone/Memory Crystal/Ash Gate/Sword technical asset gates",
+      "status": "PENDING_EDITOR_BINARY"
+    },
+    {
+      "id": "G08_AUDIO",
+      "requirement": "16 unresolved production audio payloads resolved",
+      "status": "PENDING_CONTENT"
+    },
+    {
+      "id": "G09_NIAGARA",
+      "requirement": "14 unresolved Niagara payloads resolved and non-empty",
+      "status": "PENDING_CONTENT"
+    },
+    {
+      "id": "G10_GAMEPLAY",
+      "requirement": "PIE full W04 loop including boss and DemoEnd",
+      "status": "PENDING_INTERACTIVE"
+    },
+    {
+      "id": "G11_SAVE",
+      "requirement": "Packaged save/restart/load/respawn",
+      "status": "PENDING_PACKAGE"
+    },
+    {
+      "id": "G12_LOCALIZATION",
+      "requirement": "EN/AR/RTL runtime QA",
+      "status": "PENDING_PACKAGE"
+    },
+    {
+      "id": "G13_PERF",
+      "requirement": "CSV/GPU/LLM measured performance evidence",
+      "status": "PENDING_PACKAGE"
+    },
+    {
+      "id": "G14_EXE",
+      "requirement": "Windows Shipping executable + clean launch/crash log + SHA256",
+      "status": "PENDING_WINDOWS"
+    }
+  ],
+  "shipping_policy": "FAIL_CLOSED"
+}
