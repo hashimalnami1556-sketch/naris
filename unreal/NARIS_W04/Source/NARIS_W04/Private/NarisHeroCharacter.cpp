@@ -45,7 +45,7 @@ ANarisHeroCharacter::ANarisHeroCharacter()
     FollowCamera->SetupAttachment(CameraBoom);
     FollowCamera->bUsePawnControlRotation = false;
 
-    GetCharacterMovement()->MaxWalkSpeed = WalkSpeed;
+    GetCharacterMovement()->JumpZVelocity = 600.f;\n    GetCharacterMovement()->AirControl = 0.8f;\n    GetCharacterMovement()->GravityScale = 1.5f;\n    GetCharacterMovement()->MaxWalkSpeed = WalkSpeed;
     GetCharacterMovement()->bOrientRotationToMovement = true;
     bUseControllerRotationYaw = false;
 }
@@ -105,7 +105,7 @@ void ANarisHeroCharacter::SetupPlayerInputComponent(UInputComponent* Input)
     Input->BindAxis(TEXT("LookYaw"), this, &ANarisHeroCharacter::LookYaw);
     Input->BindAxis(TEXT("LookPitch"), this, &ANarisHeroCharacter::LookPitch);
 
-    Input->BindAction(TEXT("LightAttack"), IE_Pressed, this, &ANarisHeroCharacter::LightAttack);
+    Input->BindAction(TEXT("Jump"), IE_Pressed, this, &ACharacter::Jump);\n    Input->BindAction(TEXT("Jump"), IE_Released, this, &ACharacter::StopJumping);\n\n    Input->BindAction(TEXT("LightAttack"), IE_Pressed, this, &ANarisHeroCharacter::LightAttack);
     Input->BindAction(TEXT("HeavyAttack"), IE_Pressed, this, &ANarisHeroCharacter::HeavyAttack);
     Input->BindAction(TEXT("Dodge"), IE_Pressed, this, &ANarisHeroCharacter::Dodge);
     Input->BindAction(TEXT("Parry"), IE_Pressed, this, &ANarisHeroCharacter::Parry);
