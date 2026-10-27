@@ -1,0 +1,7 @@
+# Stage31 — Local master reconciliation (2026-10-28)
+
+The current ChatGPT master archive is a collection of ten stage packages, **not** a clone of the user's latest Windows machine. Actual local project path verified from user's PowerShell output: `C:\Users\Admin\NARIS_CANON\unreal\NARIS_W04\NARIS_W04.uproject`. The user's local filesystem also contains multiple W04 .umap review/prototype files, UE 5.7 installation, and Windows EXEs, contrary to earlier blanket claims of no EXE. **EXE presence does not establish a working shipping build**.
+
+Stage31 delivers a read-only PowerShell inventory script `Invoke-NarisStage31.ps1` in a downloadable archive. It records map paths, NARIS executables, source 3D files, UE5.7 editor presence and Stage28/29/30 installation markers to `artifacts/stage31_audit/NARIS_STAGE31_INVENTORY.json`. Optional `-StageArchives` extracts the ten nested stage ZIP archives into a **separate audit directory** and skips existing files, without importing assets or modifying game maps.
+
+Offline static validation and archive CRC passed. Remote AsusRog remained offline; no local script run, Unreal editor validation, or Windows build occurred. Next action is to run the inventory on the user's PC, reconcile local project state and stage assets, then execute Unreal import/PIE and packaging evidence gates.
