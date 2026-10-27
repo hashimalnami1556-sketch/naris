@@ -1,0 +1,3 @@
+# Stage32 readiness gate
+
+The Stage32 downloadable archive contains `Tools/Test-NarisStage32.ps1`. It consumes the JSON inventory emitted by Stage31, checks project/UE5.7/Stage28/29/30/map/source-file presence, writes `artifacts/stage32_readiness/NARIS_STAGE32_READINESS.json`, and exits with code 2 for missing structural prerequisites. It never modifies game assets or maps. Exit code 0 means **only** structural prerequisites are present; UE runtime, PIE, combat, retargeting, packaging and Windows Shipping are unverified. Remote AsusRog is offline and the local Stage31 report has not been supplied.
