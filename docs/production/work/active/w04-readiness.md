@@ -61,3 +61,18 @@ last_updated: 2026-10-26
 - Verified 350 CI tests, 6 AssetForge tests and repository validation locally. PowerShell parsing is assigned to hosted CI because pwsh is not installed in this execution environment.
 - Remaining blocker: authorized AsusRog device is offline; Windows Unreal build, production .umap, EXE and playtest are not produced here. The main-push Shipping workflow now exposes the engine phase on the configured self-hosted runner.
 - Next action: retain hosted CI results and the self-hosted build status; when a Windows Unreal runner executes, address its first strict-gate failure and retain diagnostics rather than marking missing artifacts complete.
+
+## 2026-10-27 Stage29 G1 executing claim
+- Executing agent: Codex. Owner requests actual Stage29 script review, preflight and separate G1/G2/G3 gates.
+- Scope: recover the Stage29 attachment, inspect its 136 placements, add a fail-closed review placement/preflight path and report evaluator; preserve current Stage33 bindings and canonical combat implementation.
+- Source recovered: NARIS_STAGE29_MAP_MATERIAL_ANIMATION_BINDING.zip, SHA-256 retained in review notes. Authoritative W04 layout remains 1600 x 1200 m, centered coordinates; do not substitute 0..1600 bounds.
+- Host check: AsusRog offline. Engine results and PIE visibility cannot be claimed.
+
+### Stage29 source handoff
+- Completed actual installer review and retained the received manifest unchanged. The package describes 20% compression plus centering; all received scales are 1.0. All 136 received placements are globally in bounds but outside their declared canonical zones.
+- Added reproducible zone-cluster translation candidate, preserving identity, local distances, scale, rotation and trace seed Z; explicit collision intent and exact asset override policy.
+- Added default read-only UE preflight, all-assets-before-map boundary, measured placement, ground-template requirement, per-run reports/new staging copies, limited rollback/quarantine and separate fail-closed G1 evaluator.
+- Changed: Stage29 Production JSONs, naris_stage29_rules.py, naris_stage29_place.py, tools/assets/remap_stage29_zones.py, focused regression tests, Stage29 review and production status. Preserved existing Stage33 bindings and component-based combat.
+- Evidence: 378 local CI/unit tests, 6 AssetForge tests, repository validation and Python compilation pass. Fake-Unreal test verifies missing source assets cause no map mutation; it is not engine evidence.
+- Blocker: AsusRog offline. G1 engine report, G2 binding, G3 combat, final map acceptance and Windows package/playtest remain open.
+- Next: pull current main on authorized Windows, run read-only Stage29 preflight, resolve its first failure, then author against an inspected terrain template. Retain run-specific G1 report and PIE route evidence before G2. GAS/Motion Matching are proposed migrations, not installed features.

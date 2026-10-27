@@ -1,0 +1,3436 @@
+{
+  "schema": "naris.stage29.map-placements.v1",
+  "coordinate_correction": "Review candidate: translate each received zone XY centroid to canonical LEVEL_LAYOUT center; no rotation, scale, clamp or within-zone distance change. Z requires engine ground trace.",
+  "target_map": "/Game/NARIS/W04/Maps/W04_Stage29_Staging",
+  "source_stage": "Stage27",
+  "placements": [
+    {
+      "id": "Z01_FOREST_ENTRANCE_Checkpoint_Brazier_01",
+      "zone": "Z01_FOREST_ENTRANCE",
+      "source": "Props/Checkpoint_Brazier.glb",
+      "asset_key": "Checkpoint_Brazier",
+      "transform": {
+        "location_cm": [
+          -65741.79999999999,
+          42489.63333333333,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          249,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z01_FOREST_ENTRANCE_Checkpoint_Brazier_02",
+      "zone": "Z01_FOREST_ENTRANCE",
+      "source": "Props/Checkpoint_Brazier.glb",
+      "asset_key": "Checkpoint_Brazier",
+      "transform": {
+        "location_cm": [
+          -65741.79999999999,
+          44189.63333333333,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          330,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z01_FOREST_ENTRANCE_Stone_Arch_01",
+      "zone": "Z01_FOREST_ENTRANCE",
+      "source": "Props/Stone_Arch.glb",
+      "asset_key": "Stone_Arch",
+      "transform": {
+        "location_cm": [
+          -65583.0,
+          46288.63333333333,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          338,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z01_FOREST_ENTRANCE_Stone_Arch_02",
+      "zone": "Z01_FOREST_ENTRANCE",
+      "source": "Props/Stone_Arch.glb",
+      "asset_key": "Stone_Arch",
+      "transform": {
+        "location_cm": [
+          -63461.99999999999,
+          38006.23333333333,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          20,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z01_FOREST_ENTRANCE_Ash_Tombstone_01",
+      "zone": "Z01_FOREST_ENTRANCE",
+      "source": "Props/Ash_Tombstone.glb",
+      "asset_key": "Ash_Tombstone",
+      "transform": {
+        "location_cm": [
+          -64523.399999999994,
+          44102.03333333333,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          353,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z01_FOREST_ENTRANCE_Ash_Tombstone_02",
+      "zone": "Z01_FOREST_ENTRANCE",
+      "source": "Props/Ash_Tombstone.glb",
+      "asset_key": "Ash_Tombstone",
+      "transform": {
+        "location_cm": [
+          -65948.0,
+          37704.83333333333,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          312,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z01_FOREST_ENTRANCE_Ash_Tombstone_03",
+      "zone": "Z01_FOREST_ENTRANCE",
+      "source": "Props/Ash_Tombstone.glb",
+      "asset_key": "Ash_Tombstone",
+      "transform": {
+        "location_cm": [
+          -65215.799999999996,
+          43730.63333333333,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          247,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z01_FOREST_ENTRANCE_Ash_Tombstone_04",
+      "zone": "Z01_FOREST_ENTRANCE",
+      "source": "Props/Ash_Tombstone.glb",
+      "asset_key": "Ash_Tombstone",
+      "transform": {
+        "location_cm": [
+          -67639.19999999998,
+          36957.23333333333,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          183,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z01_FOREST_ENTRANCE_Ash_Tombstone_05",
+      "zone": "Z01_FOREST_ENTRANCE",
+      "source": "Props/Ash_Tombstone.glb",
+      "asset_key": "Ash_Tombstone",
+      "transform": {
+        "location_cm": [
+          -66667.0,
+          43827.83333333333,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          151,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z01_FOREST_ENTRANCE_Broken_Pillar_01",
+      "zone": "Z01_FOREST_ENTRANCE",
+      "source": "Props/Broken_Pillar.glb",
+      "asset_key": "Broken_Pillar",
+      "transform": {
+        "location_cm": [
+          -67365.6,
+          45570.63333333333,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          239,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z01_FOREST_ENTRANCE_Broken_Pillar_02",
+      "zone": "Z01_FOREST_ENTRANCE",
+      "source": "Props/Broken_Pillar.glb",
+      "asset_key": "Broken_Pillar",
+      "transform": {
+        "location_cm": [
+          -64697.6,
+          37435.03333333333,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          275,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z01_FOREST_ENTRANCE_Broken_Pillar_03",
+      "zone": "Z01_FOREST_ENTRANCE",
+      "source": "Props/Broken_Pillar.glb",
+      "asset_key": "Broken_Pillar",
+      "transform": {
+        "location_cm": [
+          -64763.99999999999,
+          44989.83333333333,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          73,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z01_FOREST_ENTRANCE_Loot_Chest_01",
+      "zone": "Z01_FOREST_ENTRANCE",
+      "source": "Props/Loot_Chest.glb",
+      "asset_key": "Loot_Chest",
+      "transform": {
+        "location_cm": [
+          -62372.399999999994,
+          45902.433333333334,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          324,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z01_FOREST_ENTRANCE_Loot_Chest_02",
+      "zone": "Z01_FOREST_ENTRANCE",
+      "source": "Props/Loot_Chest.glb",
+      "asset_key": "Loot_Chest",
+      "transform": {
+        "location_cm": [
+          -66593.79999999999,
+          37553.433333333334,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          77,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z01_FOREST_ENTRANCE_Ash_Wanderer_01",
+      "zone": "Z01_FOREST_ENTRANCE",
+      "source": "Characters/Ash_Wanderer.glb",
+      "asset_key": "Ash_Wanderer",
+      "transform": {
+        "location_cm": [
+          -67578.0,
+          45580.03333333333,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          231,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z01_FOREST_ENTRANCE_Ash_Wanderer_02",
+      "zone": "Z01_FOREST_ENTRANCE",
+      "source": "Characters/Ash_Wanderer.glb",
+      "asset_key": "Ash_Wanderer",
+      "transform": {
+        "location_cm": [
+          -63684.99999999999,
+          38107.03333333333,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          58,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z01_FOREST_ENTRANCE_Bone_Hound_01",
+      "zone": "Z01_FOREST_ENTRANCE",
+      "source": "Characters/Bone_Hound.glb",
+      "asset_key": "Bone_Hound",
+      "transform": {
+        "location_cm": [
+          -61695.99999999999,
+          46031.03333333333,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          41,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z01_FOREST_ENTRANCE_Bone_Hound_02",
+      "zone": "Z01_FOREST_ENTRANCE",
+      "source": "Characters/Bone_Hound.glb",
+      "asset_key": "Bone_Hound",
+      "transform": {
+        "location_cm": [
+          -60725.6,
+          37533.83333333333,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          354,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z02_BROKEN_SHRINE_Ancient_Altar_01",
+      "zone": "Z02_BROKEN_SHRINE",
+      "source": "Props/Ancient_Altar.glb",
+      "asset_key": "Ancient_Altar",
+      "transform": {
+        "location_cm": [
+          -24548.770370370374,
+          27403.45925925926,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          90,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z02_BROKEN_SHRINE_Rune_Obelisk_01",
+      "zone": "Z02_BROKEN_SHRINE",
+      "source": "Props/Rune_Obelisk.glb",
+      "asset_key": "Rune_Obelisk",
+      "transform": {
+        "location_cm": [
+          -22991.770370370374,
+          30034.25925925926,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          95,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z02_BROKEN_SHRINE_Rune_Obelisk_02",
+      "zone": "Z02_BROKEN_SHRINE",
+      "source": "Props/Rune_Obelisk.glb",
+      "asset_key": "Rune_Obelisk",
+      "transform": {
+        "location_cm": [
+          -27547.370370370372,
+          22815.05925925926,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          45,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z02_BROKEN_SHRINE_Rune_Obelisk_03",
+      "zone": "Z02_BROKEN_SHRINE",
+      "source": "Props/Rune_Obelisk.glb",
+      "asset_key": "Rune_Obelisk",
+      "transform": {
+        "location_cm": [
+          -24472.97037037037,
+          30414.85925925926,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          140,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z02_BROKEN_SHRINE_Ash_Tombstone_01",
+      "zone": "Z02_BROKEN_SHRINE",
+      "source": "Props/Ash_Tombstone.glb",
+      "asset_key": "Ash_Tombstone",
+      "transform": {
+        "location_cm": [
+          -25487.170370370375,
+          31729.05925925926,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          72,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z02_BROKEN_SHRINE_Ash_Tombstone_02",
+      "zone": "Z02_BROKEN_SHRINE",
+      "source": "Props/Ash_Tombstone.glb",
+      "asset_key": "Ash_Tombstone",
+      "transform": {
+        "location_cm": [
+          -27230.570370370377,
+          23767.25925925926,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          140,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z02_BROKEN_SHRINE_Ash_Tombstone_03",
+      "zone": "Z02_BROKEN_SHRINE",
+      "source": "Props/Ash_Tombstone.glb",
+      "asset_key": "Ash_Tombstone",
+      "transform": {
+        "location_cm": [
+          -25922.770370370374,
+          30331.45925925926,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          219,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z02_BROKEN_SHRINE_Ash_Tombstone_04",
+      "zone": "Z02_BROKEN_SHRINE",
+      "source": "Props/Ash_Tombstone.glb",
+      "asset_key": "Ash_Tombstone",
+      "transform": {
+        "location_cm": [
+          -25485.570370370377,
+          23641.05925925926,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          92,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z02_BROKEN_SHRINE_Ash_Tombstone_05",
+      "zone": "Z02_BROKEN_SHRINE",
+      "source": "Props/Ash_Tombstone.glb",
+      "asset_key": "Ash_Tombstone",
+      "transform": {
+        "location_cm": [
+          -22971.170370370375,
+          29642.05925925926,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          110,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z02_BROKEN_SHRINE_Ash_Tombstone_06",
+      "zone": "Z02_BROKEN_SHRINE",
+      "source": "Props/Ash_Tombstone.glb",
+      "asset_key": "Ash_Tombstone",
+      "transform": {
+        "location_cm": [
+          -20868.570370370377,
+          23391.05925925926,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          327,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z02_BROKEN_SHRINE_Ash_Tombstone_07",
+      "zone": "Z02_BROKEN_SHRINE",
+      "source": "Props/Ash_Tombstone.glb",
+      "asset_key": "Ash_Tombstone",
+      "transform": {
+        "location_cm": [
+          -28653.170370370375,
+          31108.65925925926,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          153,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z02_BROKEN_SHRINE_Ash_Tombstone_08",
+      "zone": "Z02_BROKEN_SHRINE",
+      "source": "Props/Ash_Tombstone.glb",
+      "asset_key": "Ash_Tombstone",
+      "transform": {
+        "location_cm": [
+          -26027.97037037037,
+          23526.25925925926,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          162,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z02_BROKEN_SHRINE_Broken_Pillar_01",
+      "zone": "Z02_BROKEN_SHRINE",
+      "source": "Props/Broken_Pillar.glb",
+      "asset_key": "Broken_Pillar",
+      "transform": {
+        "location_cm": [
+          -23633.97037037037,
+          32502.25925925926,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          302,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z02_BROKEN_SHRINE_Broken_Pillar_02",
+      "zone": "Z02_BROKEN_SHRINE",
+      "source": "Props/Broken_Pillar.glb",
+      "asset_key": "Broken_Pillar",
+      "transform": {
+        "location_cm": [
+          -26345.97037037037,
+          24661.65925925926,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          91,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z02_BROKEN_SHRINE_Broken_Pillar_03",
+      "zone": "Z02_BROKEN_SHRINE",
+      "source": "Props/Broken_Pillar.glb",
+      "asset_key": "Broken_Pillar",
+      "transform": {
+        "location_cm": [
+          -25401.370370370372,
+          32557.25925925926,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          245,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z02_BROKEN_SHRINE_Broken_Pillar_04",
+      "zone": "Z02_BROKEN_SHRINE",
+      "source": "Props/Broken_Pillar.glb",
+      "asset_key": "Broken_Pillar",
+      "transform": {
+        "location_cm": [
+          -24461.370370370372,
+          22650.05925925926,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          241,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z02_BROKEN_SHRINE_Broken_Pillar_05",
+      "zone": "Z02_BROKEN_SHRINE",
+      "source": "Props/Broken_Pillar.glb",
+      "asset_key": "Broken_Pillar",
+      "transform": {
+        "location_cm": [
+          -21741.370370370372,
+          29519.65925925926,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          95,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z02_BROKEN_SHRINE_Broken_Pillar_06",
+      "zone": "Z02_BROKEN_SHRINE",
+      "source": "Props/Broken_Pillar.glb",
+      "asset_key": "Broken_Pillar",
+      "transform": {
+        "location_cm": [
+          -27942.170370370375,
+          25123.25925925926,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          171,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z02_BROKEN_SHRINE_Broken_Pillar_07",
+      "zone": "Z02_BROKEN_SHRINE",
+      "source": "Props/Broken_Pillar.glb",
+      "asset_key": "Broken_Pillar",
+      "transform": {
+        "location_cm": [
+          -20412.170370370375,
+          29621.25925925926,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          210,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z02_BROKEN_SHRINE_Stone_Stairs_01",
+      "zone": "Z02_BROKEN_SHRINE",
+      "source": "Props/Stone_Stairs.glb",
+      "asset_key": "Stone_Stairs",
+      "transform": {
+        "location_cm": [
+          -21098.570370370377,
+          30683.25925925926,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          219,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z02_BROKEN_SHRINE_Stone_Stairs_02",
+      "zone": "Z02_BROKEN_SHRINE",
+      "source": "Props/Stone_Stairs.glb",
+      "asset_key": "Stone_Stairs",
+      "transform": {
+        "location_cm": [
+          -25578.97037037037,
+          25562.25925925926,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          250,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z02_BROKEN_SHRINE_Loot_Chest_01",
+      "zone": "Z02_BROKEN_SHRINE",
+      "source": "Props/Loot_Chest.glb",
+      "asset_key": "Loot_Chest",
+      "transform": {
+        "location_cm": [
+          -22016.570370370377,
+          31195.25925925926,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          288,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z02_BROKEN_SHRINE_Loot_Chest_02",
+      "zone": "Z02_BROKEN_SHRINE",
+      "source": "Props/Loot_Chest.glb",
+      "asset_key": "Loot_Chest",
+      "transform": {
+        "location_cm": [
+          -26097.570370370377,
+          25129.05925925926,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          124,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z02_BROKEN_SHRINE_Loot_Chest_03",
+      "zone": "Z02_BROKEN_SHRINE",
+      "source": "Props/Loot_Chest.glb",
+      "asset_key": "Loot_Chest",
+      "transform": {
+        "location_cm": [
+          -28683.370370370372,
+          32506.65925925926,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          189,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z02_BROKEN_SHRINE_Castle_Warden_01",
+      "zone": "Z02_BROKEN_SHRINE",
+      "source": "Characters/Castle_Warden.glb",
+      "asset_key": "Castle_Warden",
+      "transform": {
+        "location_cm": [
+          -27895.97037037037,
+          29701.05925925926,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          54,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z02_BROKEN_SHRINE_Castle_Warden_02",
+      "zone": "Z02_BROKEN_SHRINE",
+      "source": "Characters/Castle_Warden.glb",
+      "asset_key": "Castle_Warden",
+      "transform": {
+        "location_cm": [
+          -25058.770370370374,
+          25207.65925925926,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          145,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z02_BROKEN_SHRINE_Marsh_Seer_01",
+      "zone": "Z02_BROKEN_SHRINE",
+      "source": "Characters/Marsh_Seer.glb",
+      "asset_key": "Marsh_Seer",
+      "transform": {
+        "location_cm": [
+          -26423.97037037037,
+          31574.85925925926,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          353,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z03_RUINED_BRIDGE_Forest_Bridge_01",
+      "zone": "Z03_RUINED_BRIDGE",
+      "source": "Props/Forest_Bridge.glb",
+      "asset_key": "Forest_Bridge",
+      "transform": {
+        "location_cm": [
+          7801.3499999999985,
+          8175.14,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          13,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z03_RUINED_BRIDGE_Stone_Arch_01",
+      "zone": "Z03_RUINED_BRIDGE",
+      "source": "Props/Stone_Arch.glb",
+      "asset_key": "Stone_Arch",
+      "transform": {
+        "location_cm": [
+          6637.549999999999,
+          11724.54,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          153,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z03_RUINED_BRIDGE_Stone_Arch_02",
+      "zone": "Z03_RUINED_BRIDGE",
+      "source": "Props/Stone_Arch.glb",
+      "asset_key": "Stone_Arch",
+      "transform": {
+        "location_cm": [
+          4281.3499999999985,
+          4612.34,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          93,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z03_RUINED_BRIDGE_Broken_Pillar_01",
+      "zone": "Z03_RUINED_BRIDGE",
+      "source": "Props/Broken_Pillar.glb",
+      "asset_key": "Broken_Pillar",
+      "transform": {
+        "location_cm": [
+          5786.3499999999985,
+          12382.54,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          326,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z03_RUINED_BRIDGE_Broken_Pillar_02",
+      "zone": "Z03_RUINED_BRIDGE",
+      "source": "Props/Broken_Pillar.glb",
+      "asset_key": "Broken_Pillar",
+      "transform": {
+        "location_cm": [
+          8424.949999999999,
+          5859.14,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          309,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z03_RUINED_BRIDGE_Broken_Pillar_03",
+      "zone": "Z03_RUINED_BRIDGE",
+      "source": "Props/Broken_Pillar.glb",
+      "asset_key": "Broken_Pillar",
+      "transform": {
+        "location_cm": [
+          6637.749999999998,
+          11138.94,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          118,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z03_RUINED_BRIDGE_Broken_Pillar_04",
+      "zone": "Z03_RUINED_BRIDGE",
+      "source": "Props/Broken_Pillar.glb",
+      "asset_key": "Broken_Pillar",
+      "transform": {
+        "location_cm": [
+          9198.949999999999,
+          4906.9400000000005,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          70,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z03_RUINED_BRIDGE_Broken_Pillar_05",
+      "zone": "Z03_RUINED_BRIDGE",
+      "source": "Props/Broken_Pillar.glb",
+      "asset_key": "Broken_Pillar",
+      "transform": {
+        "location_cm": [
+          3906.949999999997,
+          10262.74,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          188,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z03_RUINED_BRIDGE_Broken_Pillar_06",
+      "zone": "Z03_RUINED_BRIDGE",
+      "source": "Props/Broken_Pillar.glb",
+      "asset_key": "Broken_Pillar",
+      "transform": {
+        "location_cm": [
+          11923.55,
+          3036.1400000000003,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          295,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z03_RUINED_BRIDGE_Broken_Pillar_07",
+      "zone": "Z03_RUINED_BRIDGE",
+      "source": "Props/Broken_Pillar.glb",
+      "asset_key": "Broken_Pillar",
+      "transform": {
+        "location_cm": [
+          3776.5499999999993,
+          10774.34,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          62,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z03_RUINED_BRIDGE_Broken_Pillar_08",
+      "zone": "Z03_RUINED_BRIDGE",
+      "source": "Props/Broken_Pillar.glb",
+      "asset_key": "Broken_Pillar",
+      "transform": {
+        "location_cm": [
+          11015.55,
+          4426.540000000001,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          137,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z03_RUINED_BRIDGE_Citadel_Banner_01",
+      "zone": "Z03_RUINED_BRIDGE",
+      "source": "Props/Citadel_Banner.glb",
+      "asset_key": "Citadel_Banner",
+      "transform": {
+        "location_cm": [
+          6916.949999999999,
+          10714.34,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          333,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z03_RUINED_BRIDGE_Citadel_Banner_02",
+      "zone": "Z03_RUINED_BRIDGE",
+      "source": "Props/Citadel_Banner.glb",
+      "asset_key": "Citadel_Banner",
+      "transform": {
+        "location_cm": [
+          9908.749999999998,
+          3284.54,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          75,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z03_RUINED_BRIDGE_Citadel_Banner_03",
+      "zone": "Z03_RUINED_BRIDGE",
+      "source": "Props/Citadel_Banner.glb",
+      "asset_key": "Citadel_Banner",
+      "transform": {
+        "location_cm": [
+          11709.949999999999,
+          10212.54,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          139,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z03_RUINED_BRIDGE_Citadel_Banner_04",
+      "zone": "Z03_RUINED_BRIDGE",
+      "source": "Props/Citadel_Banner.glb",
+      "asset_key": "Citadel_Banner",
+      "transform": {
+        "location_cm": [
+          11554.55,
+          4742.9400000000005,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          159,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z03_RUINED_BRIDGE_Bone_Hound_01",
+      "zone": "Z03_RUINED_BRIDGE",
+      "source": "Characters/Bone_Hound.glb",
+      "asset_key": "Bone_Hound",
+      "transform": {
+        "location_cm": [
+          11440.149999999998,
+          10899.74,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          161,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z03_RUINED_BRIDGE_Bone_Hound_02",
+      "zone": "Z03_RUINED_BRIDGE",
+      "source": "Characters/Bone_Hound.glb",
+      "asset_key": "Bone_Hound",
+      "transform": {
+        "location_cm": [
+          8913.749999999998,
+          5848.14,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          43,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z03_RUINED_BRIDGE_Bone_Hound_03",
+      "zone": "Z03_RUINED_BRIDGE",
+      "source": "Characters/Bone_Hound.glb",
+      "asset_key": "Bone_Hound",
+      "transform": {
+        "location_cm": [
+          4690.549999999999,
+          12636.14,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          63,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z03_RUINED_BRIDGE_Ash_Wanderer_01",
+      "zone": "Z03_RUINED_BRIDGE",
+      "source": "Characters/Ash_Wanderer.glb",
+      "asset_key": "Ash_Wanderer",
+      "transform": {
+        "location_cm": [
+          7399.149999999998,
+          10351.34,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          174,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z03_RUINED_BRIDGE_Ash_Wanderer_02",
+      "zone": "Z03_RUINED_BRIDGE",
+      "source": "Characters/Ash_Wanderer.glb",
+      "asset_key": "Ash_Wanderer",
+      "transform": {
+        "location_cm": [
+          8075.3499999999985,
+          4010.9400000000005,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          359,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z04_WHISPER_LAKE_Marsh_Lantern_01",
+      "zone": "Z04_WHISPER_LAKE",
+      "source": "Props/Marsh_Lantern.glb",
+      "asset_key": "Marsh_Lantern",
+      "transform": {
+        "location_cm": [
+          32345.942857142858,
+          27743.20952380952,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          98,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z04_WHISPER_LAKE_Marsh_Lantern_02",
+      "zone": "Z04_WHISPER_LAKE",
+      "source": "Props/Marsh_Lantern.glb",
+      "asset_key": "Marsh_Lantern",
+      "transform": {
+        "location_cm": [
+          31490.142857142855,
+          21763.009523809524,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          15,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z04_WHISPER_LAKE_Marsh_Lantern_03",
+      "zone": "Z04_WHISPER_LAKE",
+      "source": "Props/Marsh_Lantern.glb",
+      "asset_key": "Marsh_Lantern",
+      "transform": {
+        "location_cm": [
+          33320.74285714286,
+          27344.009523809524,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          162,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z04_WHISPER_LAKE_Marsh_Lantern_04",
+      "zone": "Z04_WHISPER_LAKE",
+      "source": "Props/Marsh_Lantern.glb",
+      "asset_key": "Marsh_Lantern",
+      "transform": {
+        "location_cm": [
+          31696.542857142857,
+          22948.40952380952,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          268,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z04_WHISPER_LAKE_Marsh_Lantern_05",
+      "zone": "Z04_WHISPER_LAKE",
+      "source": "Props/Marsh_Lantern.glb",
+      "asset_key": "Marsh_Lantern",
+      "transform": {
+        "location_cm": [
+          38637.54285714286,
+          30391.20952380952,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          115,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z04_WHISPER_LAKE_Marsh_Lantern_06",
+      "zone": "Z04_WHISPER_LAKE",
+      "source": "Props/Marsh_Lantern.glb",
+      "asset_key": "Marsh_Lantern",
+      "transform": {
+        "location_cm": [
+          35646.34285714285,
+          22330.40952380952,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          319,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z04_WHISPER_LAKE_Marsh_Lantern_07",
+      "zone": "Z04_WHISPER_LAKE",
+      "source": "Props/Marsh_Lantern.glb",
+      "asset_key": "Marsh_Lantern",
+      "transform": {
+        "location_cm": [
+          33412.94285714286,
+          29609.40952380952,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          315,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z04_WHISPER_LAKE_Marsh_Lantern_08",
+      "zone": "Z04_WHISPER_LAKE",
+      "source": "Props/Marsh_Lantern.glb",
+      "asset_key": "Marsh_Lantern",
+      "transform": {
+        "location_cm": [
+          37200.54285714286,
+          22158.40952380952,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          164,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z04_WHISPER_LAKE_Rune_Obelisk_01",
+      "zone": "Z04_WHISPER_LAKE",
+      "source": "Props/Rune_Obelisk.glb",
+      "asset_key": "Rune_Obelisk",
+      "transform": {
+        "location_cm": [
+          36596.54285714286,
+          28088.809523809523,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          229,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z04_WHISPER_LAKE_Rune_Obelisk_02",
+      "zone": "Z04_WHISPER_LAKE",
+      "source": "Props/Rune_Obelisk.glb",
+      "asset_key": "Rune_Obelisk",
+      "transform": {
+        "location_cm": [
+          38089.34285714285,
+          21126.009523809524,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          129,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z04_WHISPER_LAKE_Rune_Obelisk_03",
+      "zone": "Z04_WHISPER_LAKE",
+      "source": "Props/Rune_Obelisk.glb",
+      "asset_key": "Rune_Obelisk",
+      "transform": {
+        "location_cm": [
+          39191.34285714285,
+          30752.40952380952,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          268,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z04_WHISPER_LAKE_Ash_Tombstone_01",
+      "zone": "Z04_WHISPER_LAKE",
+      "source": "Props/Ash_Tombstone.glb",
+      "asset_key": "Ash_Tombstone",
+      "transform": {
+        "location_cm": [
+          37932.74285714286,
+          29454.009523809524,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          156,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z04_WHISPER_LAKE_Ash_Tombstone_02",
+      "zone": "Z04_WHISPER_LAKE",
+      "source": "Props/Ash_Tombstone.glb",
+      "asset_key": "Ash_Tombstone",
+      "transform": {
+        "location_cm": [
+          37357.94285714286,
+          22213.20952380952,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          201,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z04_WHISPER_LAKE_Ash_Tombstone_03",
+      "zone": "Z04_WHISPER_LAKE",
+      "source": "Props/Ash_Tombstone.glb",
+      "asset_key": "Ash_Tombstone",
+      "transform": {
+        "location_cm": [
+          35852.54285714286,
+          28276.809523809523,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          111,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z04_WHISPER_LAKE_Ash_Tombstone_04",
+      "zone": "Z04_WHISPER_LAKE",
+      "source": "Props/Ash_Tombstone.glb",
+      "asset_key": "Ash_Tombstone",
+      "transform": {
+        "location_cm": [
+          35158.94285714286,
+          22567.20952380952,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          332,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z04_WHISPER_LAKE_Loot_Chest_01",
+      "zone": "Z04_WHISPER_LAKE",
+      "source": "Props/Loot_Chest.glb",
+      "asset_key": "Loot_Chest",
+      "transform": {
+        "location_cm": [
+          37829.34285714285,
+          28818.009523809524,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          154,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z04_WHISPER_LAKE_Loot_Chest_02",
+      "zone": "Z04_WHISPER_LAKE",
+      "source": "Props/Loot_Chest.glb",
+      "asset_key": "Loot_Chest",
+      "transform": {
+        "location_cm": [
+          39025.54285714286,
+          22310.009523809524,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          326,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z04_WHISPER_LAKE_Celestial_Wolf_01",
+      "zone": "Z04_WHISPER_LAKE",
+      "source": "Characters/Celestial_Wolf.glb",
+      "asset_key": "Celestial_Wolf",
+      "transform": {
+        "location_cm": [
+          37098.54285714286,
+          28084.609523809522,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          46,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z04_WHISPER_LAKE_Mist_Guardian_01",
+      "zone": "Z04_WHISPER_LAKE",
+      "source": "Characters/Mist_Guardian.glb",
+      "asset_key": "Mist_Guardian",
+      "transform": {
+        "location_cm": [
+          36950.74285714286,
+          28499.609523809522,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          109,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z04_WHISPER_LAKE_Mist_Guardian_02",
+      "zone": "Z04_WHISPER_LAKE",
+      "source": "Characters/Mist_Guardian.glb",
+      "asset_key": "Mist_Guardian",
+      "transform": {
+        "location_cm": [
+          34067.142857142855,
+          23436.609523809522,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          178,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z04_WHISPER_LAKE_Aether_Serpent_01",
+      "zone": "Z04_WHISPER_LAKE",
+      "source": "Characters/Aether_Serpent.glb",
+      "asset_key": "Aether_Serpent",
+      "transform": {
+        "location_cm": [
+          37098.54285714286,
+          28084.609523809522,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          189,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z05_ASH_GATE_Aether_Gate_01",
+      "zone": "Z05_ASH_GATE",
+      "source": "Props/Aether_Gate.glb",
+      "asset_key": "Aether_Gate",
+      "transform": {
+        "location_cm": [
+          60663.74736842105,
+          -4819.421052631579,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          51,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z05_ASH_GATE_Citadel_Banner_01",
+      "zone": "Z05_ASH_GATE",
+      "source": "Props/Citadel_Banner.glb",
+      "asset_key": "Citadel_Banner",
+      "transform": {
+        "location_cm": [
+          59806.947368421046,
+          -1354.8210526315793,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          225,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z05_ASH_GATE_Citadel_Banner_02",
+      "zone": "Z05_ASH_GATE",
+      "source": "Props/Citadel_Banner.glb",
+      "asset_key": "Citadel_Banner",
+      "transform": {
+        "location_cm": [
+          62164.74736842105,
+          -7603.82105263158,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          51,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z05_ASH_GATE_Citadel_Banner_03",
+      "zone": "Z05_ASH_GATE",
+      "source": "Props/Citadel_Banner.glb",
+      "asset_key": "Citadel_Banner",
+      "transform": {
+        "location_cm": [
+          64792.947368421046,
+          -1672.8210526315793,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          193,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z05_ASH_GATE_Citadel_Banner_04",
+      "zone": "Z05_ASH_GATE",
+      "source": "Props/Citadel_Banner.glb",
+      "asset_key": "Citadel_Banner",
+      "transform": {
+        "location_cm": [
+          61161.74736842105,
+          -9988.821052631578,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          332,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z05_ASH_GATE_Citadel_Banner_05",
+      "zone": "Z05_ASH_GATE",
+      "source": "Props/Citadel_Banner.glb",
+      "asset_key": "Citadel_Banner",
+      "transform": {
+        "location_cm": [
+          60942.14736842105,
+          551.7789473684206,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          40,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z05_ASH_GATE_Citadel_Banner_06",
+      "zone": "Z05_ASH_GATE",
+      "source": "Props/Citadel_Banner.glb",
+      "asset_key": "Citadel_Banner",
+      "transform": {
+        "location_cm": [
+          63240.54736842105,
+          -6625.82105263158,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          344,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z05_ASH_GATE_Stone_Arch_01",
+      "zone": "Z05_ASH_GATE",
+      "source": "Props/Stone_Arch.glb",
+      "asset_key": "Stone_Arch",
+      "transform": {
+        "location_cm": [
+          62813.74736842105,
+          -2931.8210526315793,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          128,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z05_ASH_GATE_Stone_Arch_02",
+      "zone": "Z05_ASH_GATE",
+      "source": "Props/Stone_Arch.glb",
+      "asset_key": "Stone_Arch",
+      "transform": {
+        "location_cm": [
+          58946.14736842105,
+          -6532.221052631579,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          276,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z05_ASH_GATE_Stone_Arch_03",
+      "zone": "Z05_ASH_GATE",
+      "source": "Props/Stone_Arch.glb",
+      "asset_key": "Stone_Arch",
+      "transform": {
+        "location_cm": [
+          64813.34736842105,
+          -1227.2210526315794,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          143,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z05_ASH_GATE_Stone_Arch_04",
+      "zone": "Z05_ASH_GATE",
+      "source": "Props/Stone_Arch.glb",
+      "asset_key": "Stone_Arch",
+      "transform": {
+        "location_cm": [
+          58327.34736842105,
+          -6897.82105263158,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          274,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z05_ASH_GATE_Checkpoint_Brazier_01",
+      "zone": "Z05_ASH_GATE",
+      "source": "Props/Checkpoint_Brazier.glb",
+      "asset_key": "Checkpoint_Brazier",
+      "transform": {
+        "location_cm": [
+          59163.74736842105,
+          -3979.421052631579,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          172,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z05_ASH_GATE_Checkpoint_Brazier_02",
+      "zone": "Z05_ASH_GATE",
+      "source": "Props/Checkpoint_Brazier.glb",
+      "asset_key": "Checkpoint_Brazier",
+      "transform": {
+        "location_cm": [
+          59163.74736842105,
+          -2279.421052631579,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          61,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z05_ASH_GATE_Castle_Warden_01",
+      "zone": "Z05_ASH_GATE",
+      "source": "Characters/Castle_Warden.glb",
+      "asset_key": "Castle_Warden",
+      "transform": {
+        "location_cm": [
+          60695.947368421046,
+          481.378947368421,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          357,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z05_ASH_GATE_Castle_Warden_02",
+      "zone": "Z05_ASH_GATE",
+      "source": "Characters/Castle_Warden.glb",
+      "asset_key": "Castle_Warden",
+      "transform": {
+        "location_cm": [
+          61707.34736842105,
+          -7452.621052631579,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          130,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z05_ASH_GATE_Castle_Warden_03",
+      "zone": "Z05_ASH_GATE",
+      "source": "Characters/Castle_Warden.glb",
+      "asset_key": "Castle_Warden",
+      "transform": {
+        "location_cm": [
+          56535.54736842105,
+          -2613.621052631579,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          198,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z05_ASH_GATE_Veil_Mother_01",
+      "zone": "Z05_ASH_GATE",
+      "source": "Characters/Veil_Mother.glb",
+      "asset_key": "Veil_Mother",
+      "transform": {
+        "location_cm": [
+          62463.74736842105,
+          -2219.421052631579,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          188,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z05_ASH_GATE_Loot_Chest_01",
+      "zone": "Z05_ASH_GATE",
+      "source": "Props/Loot_Chest.glb",
+      "asset_key": "Loot_Chest",
+      "transform": {
+        "location_cm": [
+          61764.947368421046,
+          -635.4210526315792,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          87,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z05_ASH_GATE_Loot_Chest_02",
+      "zone": "Z05_ASH_GATE",
+      "source": "Props/Loot_Chest.glb",
+      "asset_key": "Loot_Chest",
+      "transform": {
+        "location_cm": [
+          59831.54736842105,
+          -8198.621052631579,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          206,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z06_BONE_BEAST_ARENA_Stone_Arch_01",
+      "zone": "Z06_BONE_BEAST_ARENA",
+      "source": "Props/Stone_Arch.glb",
+      "asset_key": "Stone_Arch",
+      "transform": {
+        "location_cm": [
+          65639.10322580645,
+          -37082.438709677415,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          118,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z06_BONE_BEAST_ARENA_Stone_Arch_02",
+      "zone": "Z06_BONE_BEAST_ARENA",
+      "source": "Props/Stone_Arch.glb",
+      "asset_key": "Stone_Arch",
+      "transform": {
+        "location_cm": [
+          68625.30322580645,
+          -44498.23870967742,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          181,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z06_BONE_BEAST_ARENA_Stone_Arch_03",
+      "zone": "Z06_BONE_BEAST_ARENA",
+      "source": "Props/Stone_Arch.glb",
+      "asset_key": "Stone_Arch",
+      "transform": {
+        "location_cm": [
+          72335.70322580644,
+          -38157.038709677414,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          20,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z06_BONE_BEAST_ARENA_Stone_Arch_04",
+      "zone": "Z06_BONE_BEAST_ARENA",
+      "source": "Props/Stone_Arch.glb",
+      "asset_key": "Stone_Arch",
+      "transform": {
+        "location_cm": [
+          67960.10322580645,
+          -44568.63870967742,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          350,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z06_BONE_BEAST_ARENA_Stone_Arch_05",
+      "zone": "Z06_BONE_BEAST_ARENA",
+      "source": "Props/Stone_Arch.glb",
+      "asset_key": "Stone_Arch",
+      "transform": {
+        "location_cm": [
+          72062.30322580645,
+          -37317.83870967742,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          257,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z06_BONE_BEAST_ARENA_Ash_Tombstone_01",
+      "zone": "Z06_BONE_BEAST_ARENA",
+      "source": "Props/Ash_Tombstone.glb",
+      "asset_key": "Ash_Tombstone",
+      "transform": {
+        "location_cm": [
+          71220.10322580645,
+          -38309.438709677415,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          15,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z06_BONE_BEAST_ARENA_Ash_Tombstone_02",
+      "zone": "Z06_BONE_BEAST_ARENA",
+      "source": "Props/Ash_Tombstone.glb",
+      "asset_key": "Ash_Tombstone",
+      "transform": {
+        "location_cm": [
+          72486.90322580645,
+          -42724.83870967742,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          156,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z06_BONE_BEAST_ARENA_Ash_Tombstone_03",
+      "zone": "Z06_BONE_BEAST_ARENA",
+      "source": "Props/Ash_Tombstone.glb",
+      "asset_key": "Ash_Tombstone",
+      "transform": {
+        "location_cm": [
+          70464.30322580645,
+          -36720.438709677415,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          275,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z06_BONE_BEAST_ARENA_Ash_Tombstone_04",
+      "zone": "Z06_BONE_BEAST_ARENA",
+      "source": "Props/Ash_Tombstone.glb",
+      "asset_key": "Ash_Tombstone",
+      "transform": {
+        "location_cm": [
+          71884.10322580645,
+          -44665.23870967742,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          86,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z06_BONE_BEAST_ARENA_Ash_Tombstone_05",
+      "zone": "Z06_BONE_BEAST_ARENA",
+      "source": "Props/Ash_Tombstone.glb",
+      "asset_key": "Ash_Tombstone",
+      "transform": {
+        "location_cm": [
+          65781.50322580646,
+          -35769.63870967742,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          132,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z06_BONE_BEAST_ARENA_Ash_Tombstone_06",
+      "zone": "Z06_BONE_BEAST_ARENA",
+      "source": "Props/Ash_Tombstone.glb",
+      "asset_key": "Ash_Tombstone",
+      "transform": {
+        "location_cm": [
+          70441.10322580645,
+          -43098.438709677415,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          292,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z06_BONE_BEAST_ARENA_Ash_Tombstone_07",
+      "zone": "Z06_BONE_BEAST_ARENA",
+      "source": "Props/Ash_Tombstone.glb",
+      "asset_key": "Ash_Tombstone",
+      "transform": {
+        "location_cm": [
+          69359.90322580645,
+          -37063.83870967742,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          289,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z06_BONE_BEAST_ARENA_Ash_Tombstone_08",
+      "zone": "Z06_BONE_BEAST_ARENA",
+      "source": "Props/Ash_Tombstone.glb",
+      "asset_key": "Ash_Tombstone",
+      "transform": {
+        "location_cm": [
+          71318.50322580646,
+          -45519.83870967742,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          118,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z06_BONE_BEAST_ARENA_Ash_Tombstone_09",
+      "zone": "Z06_BONE_BEAST_ARENA",
+      "source": "Props/Ash_Tombstone.glb",
+      "asset_key": "Ash_Tombstone",
+      "transform": {
+        "location_cm": [
+          68112.70322580644,
+          -35479.23870967742,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          41,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z06_BONE_BEAST_ARENA_Broken_Pillar_01",
+      "zone": "Z06_BONE_BEAST_ARENA",
+      "source": "Props/Broken_Pillar.glb",
+      "asset_key": "Broken_Pillar",
+      "transform": {
+        "location_cm": [
+          69533.90322580645,
+          -36041.038709677414,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          236,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z06_BONE_BEAST_ARENA_Broken_Pillar_02",
+      "zone": "Z06_BONE_BEAST_ARENA",
+      "source": "Props/Broken_Pillar.glb",
+      "asset_key": "Broken_Pillar",
+      "transform": {
+        "location_cm": [
+          66493.30322580645,
+          -42895.038709677414,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          233,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z06_BONE_BEAST_ARENA_Broken_Pillar_03",
+      "zone": "Z06_BONE_BEAST_ARENA",
+      "source": "Props/Broken_Pillar.glb",
+      "asset_key": "Broken_Pillar",
+      "transform": {
+        "location_cm": [
+          71765.50322580646,
+          -36230.83870967742,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          23,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z06_BONE_BEAST_ARENA_Broken_Pillar_04",
+      "zone": "Z06_BONE_BEAST_ARENA",
+      "source": "Props/Broken_Pillar.glb",
+      "asset_key": "Broken_Pillar",
+      "transform": {
+        "location_cm": [
+          67476.10322580645,
+          -45731.83870967742,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          221,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z06_BONE_BEAST_ARENA_Broken_Pillar_05",
+      "zone": "Z06_BONE_BEAST_ARENA",
+      "source": "Props/Broken_Pillar.glb",
+      "asset_key": "Broken_Pillar",
+      "transform": {
+        "location_cm": [
+          72323.70322580644,
+          -37794.438709677415,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          108,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z06_BONE_BEAST_ARENA_Broken_Pillar_06",
+      "zone": "Z06_BONE_BEAST_ARENA",
+      "source": "Props/Broken_Pillar.glb",
+      "asset_key": "Broken_Pillar",
+      "transform": {
+        "location_cm": [
+          67446.90322580645,
+          -44131.438709677415,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          101,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z06_BONE_BEAST_ARENA_Broken_Pillar_07",
+      "zone": "Z06_BONE_BEAST_ARENA",
+      "source": "Props/Broken_Pillar.glb",
+      "asset_key": "Broken_Pillar",
+      "transform": {
+        "location_cm": [
+          72521.10322580645,
+          -38905.63870967742,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          284,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z06_BONE_BEAST_ARENA_Rune_Obelisk_01",
+      "zone": "Z06_BONE_BEAST_ARENA",
+      "source": "Props/Rune_Obelisk.glb",
+      "asset_key": "Rune_Obelisk",
+      "transform": {
+        "location_cm": [
+          72941.50322580645,
+          -37938.83870967742,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          58,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z06_BONE_BEAST_ARENA_Rune_Obelisk_02",
+      "zone": "Z06_BONE_BEAST_ARENA",
+      "source": "Props/Rune_Obelisk.glb",
+      "asset_key": "Rune_Obelisk",
+      "transform": {
+        "location_cm": [
+          72894.30322580645,
+          -42768.038709677414,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          224,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z06_BONE_BEAST_ARENA_Rune_Obelisk_03",
+      "zone": "Z06_BONE_BEAST_ARENA",
+      "source": "Props/Rune_Obelisk.glb",
+      "asset_key": "Rune_Obelisk",
+      "transform": {
+        "location_cm": [
+          71707.30322580645,
+          -37250.83870967742,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          125,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z06_BONE_BEAST_ARENA_Rune_Obelisk_04",
+      "zone": "Z06_BONE_BEAST_ARENA",
+      "source": "Props/Rune_Obelisk.glb",
+      "asset_key": "Rune_Obelisk",
+      "transform": {
+        "location_cm": [
+          69172.70322580644,
+          -42854.438709677415,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          94,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z06_BONE_BEAST_ARENA_Ash_Giant_01",
+      "zone": "Z06_BONE_BEAST_ARENA",
+      "source": "Characters/Ash_Giant.glb",
+      "asset_key": "Ash_Giant",
+      "transform": {
+        "location_cm": [
+          71479.10322580645,
+          -38130.83870967742,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          283,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z06_BONE_BEAST_ARENA_Bone_Hound_01",
+      "zone": "Z06_BONE_BEAST_ARENA",
+      "source": "Characters/Bone_Hound.glb",
+      "asset_key": "Bone_Hound",
+      "transform": {
+        "location_cm": [
+          71490.10322580645,
+          -38650.63870967742,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          288,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z06_BONE_BEAST_ARENA_Bone_Hound_02",
+      "zone": "Z06_BONE_BEAST_ARENA",
+      "source": "Characters/Bone_Hound.glb",
+      "asset_key": "Bone_Hound",
+      "transform": {
+        "location_cm": [
+          69419.50322580646,
+          -43134.83870967742,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          168,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z06_BONE_BEAST_ARENA_Bone_Hound_03",
+      "zone": "Z06_BONE_BEAST_ARENA",
+      "source": "Characters/Bone_Hound.glb",
+      "asset_key": "Bone_Hound",
+      "transform": {
+        "location_cm": [
+          72113.70322580644,
+          -37168.63870967742,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          151,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z06_BONE_BEAST_ARENA_Bone_Hound_04",
+      "zone": "Z06_BONE_BEAST_ARENA",
+      "source": "Characters/Bone_Hound.glb",
+      "asset_key": "Bone_Hound",
+      "transform": {
+        "location_cm": [
+          67128.90322580645,
+          -43826.038709677414,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          355,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    },
+    {
+      "id": "Z06_BONE_BEAST_ARENA_Loot_Chest_01",
+      "zone": "Z06_BONE_BEAST_ARENA",
+      "source": "Props/Loot_Chest.glb",
+      "asset_key": "Loot_Chest",
+      "transform": {
+        "location_cm": [
+          66400.70322580644,
+          -35571.438709677415,
+          0.0
+        ],
+        "rotation_deg": [
+          0,
+          338,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "status": "planned_stage29_staging_only",
+      "collision": "requires_ground_trace_and_collision_qa"
+    }
+  ],
+  "zone_translation_cm": {
+    "Z01_FOREST_ENTRANCE": [
+      -1741.7999999999956,
+      41649.63333333333
+    ],
+    "Z02_BROKEN_SHRINE": [
+      12951.229629629626,
+      26403.45925925926
+    ],
+    "Z03_RUINED_BRIDGE": [
+      20301.35,
+      7975.14
+    ],
+    "Z04_WHISPER_LAKE": [
+      22798.542857142857,
+      25884.609523809522
+    ],
+    "Z05_ASH_GATE": [
+      23163.74736842105,
+      -4819.421052631579
+    ],
+    "Z06_BONE_BEAST_ARENA": [
+      7179.1032258064515,
+      -40730.83870967742
+    ]
+  },
+  "status": "review_candidate_not_engine_verified",
+  "received_manifest_sha256": "5e219a5e0717ff01d5c9a034e3997651f5c956122a9037a8744e7f7f5f074b44"
+}

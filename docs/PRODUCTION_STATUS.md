@@ -210,3 +210,9 @@ The Windows entry point now delegates Shipping to the existing strict release-ca
 Map promotion now checks a source snapshot before copying. Required actor labels must match their configured native base classes, duplicates are rejected, and review/prototype labels plus Engine BasicShapes cannot pass by renaming. The final map remains untouched if already present. These are structural gates, not navigation, progression, lighting or performance proof.
 
 Fresh local evidence: 350 CI/static/unit tests and 6 AssetForge tests passed; repository validation passed. AsusRog was reported offline by Desktop Commander. No Unreal compilation, final .umap authoring, Windows EXE, packaged smoke, clean-machine test or FPS measurement was produced in this session. The Shipping workflow now runs source gates on relevant main-branch pushes and queues the gated build for a Windows Unreal self-hosted runner. A queued or failed workflow is not a completed Windows build.
+
+## Stage29 G1 review — 2026-10-27
+
+[Stage29 actual review](production/stage29/REVIEW_AND_GATES.md) recovers the received 136 placements and preserves them verbatim. They are globally in bounds but all 136 lie outside their assigned canonical zone rectangles. A separate review candidate translates zone clusters to canonical centers without changing within-zone spacing, scale, rotation or source identities. The guarded UE installer defaults to dry-run, rejects unresolved/ambiguous meshes and material/collision failures before map creation, requires an existing ground-bearing template, measures transforms and cleans up only the new run map on failure.
+
+G1 remains blocked: AsusRog was offline; Unreal preflight/authoring, PIE visibility, terrain/traversal and streaming review were not performed here. G2/G3 and Stage30/31 remain unexecuted. 378 local CI checks, 6 AssetForge tests and repository validation passed. No GAS migration, production-map promotion or new Windows EXE is claimed.

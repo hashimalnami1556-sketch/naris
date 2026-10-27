@@ -1,0 +1,135 @@
+{
+  "schema": "naris.stage29.placement-policy.v1",
+  "roles": {
+    "Aether_Gate": {
+      "collision": "solid",
+      "ground_mode": "bounds_bottom_to_trace",
+      "note": "Review collision intent; actual shape and traversal remain unverified.",
+      "domain": "environment"
+    },
+    "Aether_Serpent": {
+      "collision": "decoration",
+      "ground_mode": "bounds_bottom_to_trace",
+      "note": "Visual review actor only; no gameplay or ABP binding.",
+      "domain": "character_review"
+    },
+    "Ancient_Altar": {
+      "collision": "solid",
+      "ground_mode": "bounds_bottom_to_trace",
+      "note": "Review collision intent; actual shape and traversal remain unverified.",
+      "domain": "environment"
+    },
+    "Ash_Giant": {
+      "collision": "decoration",
+      "ground_mode": "bounds_bottom_to_trace",
+      "note": "Visual review actor only; no gameplay or ABP binding.",
+      "domain": "character_review"
+    },
+    "Ash_Tombstone": {
+      "collision": "solid",
+      "ground_mode": "bounds_bottom_to_trace",
+      "note": "Review collision intent; actual shape and traversal remain unverified.",
+      "domain": "environment"
+    },
+    "Ash_Wanderer": {
+      "collision": "decoration",
+      "ground_mode": "bounds_bottom_to_trace",
+      "note": "Visual review actor only; no gameplay or ABP binding.",
+      "domain": "character_review"
+    },
+    "Bone_Hound": {
+      "collision": "decoration",
+      "ground_mode": "bounds_bottom_to_trace",
+      "note": "Visual review actor only; no gameplay or ABP binding.",
+      "domain": "character_review"
+    },
+    "Broken_Pillar": {
+      "collision": "solid",
+      "ground_mode": "bounds_bottom_to_trace",
+      "note": "Review collision intent; actual shape and traversal remain unverified.",
+      "domain": "environment"
+    },
+    "Castle_Warden": {
+      "collision": "decoration",
+      "ground_mode": "bounds_bottom_to_trace",
+      "note": "Visual review actor only; no gameplay or ABP binding.",
+      "domain": "character_review"
+    },
+    "Celestial_Wolf": {
+      "collision": "decoration",
+      "ground_mode": "bounds_bottom_to_trace",
+      "note": "Visual review actor only; no gameplay or ABP binding.",
+      "domain": "character_review"
+    },
+    "Checkpoint_Brazier": {
+      "collision": "solid",
+      "ground_mode": "bounds_bottom_to_trace",
+      "note": "Review collision intent; actual shape and traversal remain unverified.",
+      "domain": "environment"
+    },
+    "Citadel_Banner": {
+      "collision": "decoration",
+      "ground_mode": "bounds_bottom_to_trace",
+      "note": "Review collision intent; actual shape and traversal remain unverified.",
+      "domain": "environment"
+    },
+    "Forest_Bridge": {
+      "collision": "solid",
+      "ground_mode": "bounds_bottom_to_trace",
+      "note": "Review collision intent; actual shape and traversal remain unverified.",
+      "domain": "environment"
+    },
+    "Loot_Chest": {
+      "collision": "solid",
+      "ground_mode": "bounds_bottom_to_trace",
+      "note": "Review collision intent; actual shape and traversal remain unverified.",
+      "domain": "environment"
+    },
+    "Marsh_Lantern": {
+      "collision": "solid",
+      "ground_mode": "bounds_bottom_to_trace",
+      "note": "Review collision intent; actual shape and traversal remain unverified.",
+      "domain": "environment"
+    },
+    "Marsh_Seer": {
+      "collision": "decoration",
+      "ground_mode": "bounds_bottom_to_trace",
+      "note": "Visual review actor only; no gameplay or ABP binding.",
+      "domain": "character_review"
+    },
+    "Mist_Guardian": {
+      "collision": "decoration",
+      "ground_mode": "bounds_bottom_to_trace",
+      "note": "Visual review actor only; no gameplay or ABP binding.",
+      "domain": "character_review"
+    },
+    "Rune_Obelisk": {
+      "collision": "solid",
+      "ground_mode": "bounds_bottom_to_trace",
+      "note": "Review collision intent; actual shape and traversal remain unverified.",
+      "domain": "environment"
+    },
+    "Stone_Arch": {
+      "collision": "solid",
+      "ground_mode": "bounds_bottom_to_trace",
+      "note": "Review collision intent; actual shape and traversal remain unverified.",
+      "domain": "environment"
+    },
+    "Stone_Stairs": {
+      "collision": "solid",
+      "ground_mode": "bounds_bottom_to_trace",
+      "note": "Review collision intent; actual shape and traversal remain unverified.",
+      "domain": "environment"
+    },
+    "Veil_Mother": {
+      "collision": "decoration",
+      "ground_mode": "bounds_bottom_to_trace",
+      "note": "Visual review actor only; no gameplay or ABP binding.",
+      "domain": "character_review"
+    }
+  },
+  "asset_path_overrides": {},
+  "trace_half_height_cm": 50000,
+  "ground_tolerance_cm": 1.0,
+  "environment_material_budget_proposed": 80
+}
