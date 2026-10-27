@@ -76,3 +76,14 @@ last_updated: 2026-10-26
 - Evidence: 378 local CI/unit tests, 6 AssetForge tests, repository validation and Python compilation pass. Fake-Unreal test verifies missing source assets cause no map mutation; it is not engine evidence.
 - Blocker: AsusRog offline. G1 engine report, G2 binding, G3 combat, final map acceptance and Windows package/playtest remain open.
 - Next: pull current main on authorized Windows, run read-only Stage29 preflight, resolve its first failure, then author against an inspected terrain template. Retain run-specific G1 report and PIE route evidence before G2. GAS/Motion Matching are proposed migrations, not installed features.
+
+## Stage29 unattended execution handoff claim — 2026-10-27
+- Executing agent: Codex; owner requests continuation from G1.
+- Current device check: AsusRog offline (last seen 9h). Prior commit 0cc675d hosted NARIS CI, Content Validation and Unreal Validate all succeeded; none is runtime evidence.
+- Scope: guarded Windows G1 entry point and invocation-specific receipt verification; dry-run default, explicit Apply only; preserve production content and separate PIE/G2/G3 gates.
+
+### Unattended invocation source handoff
+- Added `Invoke-NarisStage29G1.ps1` and `naris_stage29_batch.py`: default preflight, explicit authoring against a terrain template, engine-baseline checks, unique invocation directories, receipt/report pairing, 136-placement completeness check, checksums and restored environment.
+- Added five behavioral tests covering preflight/authoring semantics, no false G1 acceptance, partial-result failure, exception receipts and stale-receipt rejection.
+- Evidence: 383 local tests, 6 AssetForge tests, repository validation and Python compilation pass. Prior 0cc675d hosted CI/content/Unreal source validations succeeded. New Windows invocation and PowerShell execution are not local evidence; hosted CI parses Windows scripts.
+- Remaining blocker and next step: authorized AsusRog offline. Pull latest main and execute the documented default G1 preflight on Windows, retain the invocation diagnostics, fix its first real failure, then author and inspect PIE before moving to G2.

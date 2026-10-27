@@ -81,3 +81,23 @@ References: [Epic World Partition](https://dev.epicgames.com/documentation/en-us
 ## Local validation
 
 378 CI/unit checks, 6 AssetForge tests, repository validation and Python syntax compilation pass. Eight focused tests include missing-assets -> zero map mutations, all 136 received zone violations, corrected zone membership, translation invariants, duplicate/invalid numeric rejection, ambiguous mesh rejection and stale/partial G1 evidence rejection. These are source tests using a fake Unreal boundary where appropriate; **not Unreal tests**.
+
+## Unattended Windows entry point — 2026-10-27 follow-up
+
+From a current checkout, the following starts a new unattended UE editor process for **read-only preflight** (save/close other editor sessions first):
+
+```powershell
+.\tools\windows\Invoke-NarisStage29G1.ps1
+```
+
+Specify `-EngineRoot` for a non-default install. The wrapper validates the installed engine major/minor against the project descriptor; it does not install/compile Unreal or fabricate missing editor binaries. Resolve each preflight error before authoring. To author the new review map against an existing inspected terrain template:
+
+```powershell
+.\tools\windows\Invoke-NarisStage29G1.ps1 -Apply -TemplateMap /Game/NARIS/W04/Maps/W04_AshenForest_Blockout
+```
+
+Each invocation retains its receipt, copied measured report, SHA-256 checksums and editor log in `Saved/TestReports/Stage29Invocation_<id>/`. The separate source report retains its own run ID. A nonzero editor exit, missing receipt, source failure, mismatched report or fewer than 136 measured/saved placements rejects completion. Prior process environment variables are restored. The Python batch bridge also records failure when the placement entry point raises; existing receipts are refused before execution.
+
+A successful command means **preflight completed** or **review authoring completed**, according to the mode. It never means G1 PASS, PIE visibility or G2/G3 success. `-NullRHI` deliberately provides no visual evidence. Retain this invocation directory for diagnosis, then open the authored review map interactively to perform the runtime review.
+
+Validation for this follow-up: 383 local tests and 6 AssetForge tests pass; Python compilation and repository validation pass. PowerShell is not installed in this local execution host; parser validation is assigned to the existing hosted NARIS CI job which parses all `tools/windows/*.ps1`. No Windows/Unreal invocation of this new wrapper has occurred. The prior commit's hosted [NARIS CI](https://github.com/hashimalnami1556-sketch/naris/actions/runs/40518556336), [Content Validation](https://github.com/hashimalnami1556-sketch/naris/actions/runs/40518556322) and [Unreal Validate](https://github.com/hashimalnami1556-sketch/naris/actions/runs/40518556456) completed successfully; their names do not imply an Unreal runtime test.

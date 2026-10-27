@@ -216,3 +216,7 @@ Fresh local evidence: 350 CI/static/unit tests and 6 AssetForge tests passed; re
 [Stage29 actual review](production/stage29/REVIEW_AND_GATES.md) recovers the received 136 placements and preserves them verbatim. They are globally in bounds but all 136 lie outside their assigned canonical zone rectangles. A separate review candidate translates zone clusters to canonical centers without changing within-zone spacing, scale, rotation or source identities. The guarded UE installer defaults to dry-run, rejects unresolved/ambiguous meshes and material/collision failures before map creation, requires an existing ground-bearing template, measures transforms and cleans up only the new run map on failure.
 
 G1 remains blocked: AsusRog was offline; Unreal preflight/authoring, PIE visibility, terrain/traversal and streaming review were not performed here. G2/G3 and Stage30/31 remain unexecuted. 378 local CI checks, 6 AssetForge tests and repository validation passed. No GAS migration, production-map promotion or new Windows EXE is claimed.
+
+### Stage29 invocation follow-up
+
+The Windows G1 wrapper now provides a dry-run default and explicit review authoring mode, per-invocation logs/receipts/report hashes and rejection of missing/stale/incomplete results. It does not launch PIE, claim G1 acceptance or progress to G2/G3. The prior 0cc675d hosted source checks all passed. Current local evidence: 383 tests, 6 AssetForge tests, repository validation and Python compilation pass. AsusRog remains offline; Windows execution of the new wrapper is unverified.
