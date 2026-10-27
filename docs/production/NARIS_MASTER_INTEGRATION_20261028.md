@@ -13,7 +13,7 @@ Canonical production runtime: Unreal Engine 5.7 / unreal/NARIS_W04.
 - PR #69 Stage28 PBR/animation/cinematic handoff documentation.
 - PR #70 Stage29 corrected W04 placement coordinates.
 - PR #71 Stage29 map/PBR/animation QA gate.
-- Stage37 native combat hit-window AnimNotifyState and animation linkage audit, rebased into main.
+- Stage37 native combat hit-window AnimNotifyState and animation linkage audit, rebased into main.\n- W04 villain runtime: native villain character C++, encounter roster, authoring/import scripts and guarded Windows integration.
 - Stage33 asset binder: material instances -> canonical PBR textures and Hero AnimBP/Montage validation.
 
 ## Deliberately not merged into canonical runtime
@@ -32,3 +32,7 @@ Invoke-NarisStage33BindAssets.ps1
 -> Invoke-NarisStage32Release.ps1
 -> interactive PIE/full-loop QA
 -> Windows Shipping artifact + SHA256.
+
+
+## Conflict policy after consolidation
+PR #18, #35 and #42 are not merged wholesale because they now conflict with the newer canonical main. Their useful fixes must be forward-ported individually only when current-source inspection proves the fix is still absent. This prevents regression of the newer menu, combat, map, animation and release pipeline.
