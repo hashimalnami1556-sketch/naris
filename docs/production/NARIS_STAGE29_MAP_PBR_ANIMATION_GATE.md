@@ -1,0 +1,9 @@
+# Stage29 — PBR map population / animation verification gate
+
+2026-10-27. Uses Stage27 placement manifest (136 instances, 23 asset keys, six W04 zones), Stage28 GLB files with embedded PBR textures, and existing W04_AshenForest_Blockout.umap. The previous Stage27 coordinates extended to **625,000 cm (6,250 m)**, exceeding W04's 1,600m X range. Stage29 transforms XY coordinates by **0.256** and preserves Z and scale. This is an offline staging fix, not Unreal QA.
+
+A new, never-overwriting editor script duplicates the blockout as `/Game/NARIS/W04/Maps/W04_Stage29_PBRPopulation` and attempts 136 actor spawns from Stage28 imported StaticMesh/SkeletalMesh assets. It emits `Saved/TestReports/naris_stage29_placement.json`, noting missing imports and multi-mesh ambiguities. A read-only animation auditor reports skeletal assets, animations and skeleton matching to `naris_stage29_animation_audit.json`. Both scripts require engine execution to verify outcomes.
+
+Download `NARIS_STAGE29_MAP_PBR_ANIMATION_INTEGRATION.zip` from the ChatGPT deliverable; it contains the normalized manifest, script, PowerShell prep, offline test and README. Offline test passed: 136 placements, six zones, 23 sources, bounds sanity, unique labels, original coordinate retention, zip integrity. Stage28 archive remains separate; run its quarantined asset importer before Stage29 population.
+
+**Blocked pending UE5.7**: placement report, PBR fidelity, all mesh parts (multi-mesh GLBs only primary mesh selected), missing actor gameplay logic, animations actually bound and retargeted, montage authoring, collision, PIE, full cinematic and Windows Shipping build. The remote AsusRog host was offline as of Stage28; no UE run claimed.
