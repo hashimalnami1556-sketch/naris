@@ -1,0 +1,35 @@
+{
+  "schema": "naris.char001.skeleton-contract.v1",
+  "id": "CHAR-001-G0",
+  "asset": "Ash Wanderer",
+  "engine": "Unreal Engine 5.7",
+  "target_deform_bones": 92,
+  "coordinate_contract": {
+    "unreal": "Z-up, X-forward, centimeters",
+    "root": "single root at world origin; scale 1.0; no inherited non-uniform scale",
+    "pelvis": "direct child of root; anatomical hip pivot"
+  },
+  "export_policy": {
+    "format": "glTF/GLB audit + Unreal import smoke",
+    "export_deform_skeleton_only": true,
+    "control_rig_exported": false,
+    "duplicate_nodes_allowed": false,
+    "unused_nodes_allowed": false,
+    "max_influences_per_vertex": 4
+  },
+  "classes": {
+    "DEFORM": "May influence skin and is exported.",
+    "TWIST": "Deform bone distributing axial rotation; exported.",
+    "HELPER": "Non-skin helper; excluded unless explicitly required by runtime.",
+    "ATTACHMENT": "Gameplay attachment marker/socket target; no skin influence.",
+    "CONTROL": "Animator control only; never exported."
+  },
+  "gates": [
+    "T1_NAMES_HIERARCHY",
+    "T2_CLASSIFICATION",
+    "T3_ROOT_AXES_IMPORT_SMOKE",
+    "T4_GLTF_EXPORT_AUDIT",
+    "T5_12_STRUCTURAL_TESTS"
+  ],
+  "status": "SPEC_LOCKED_ENGINE_EVIDENCE_PENDING"
+}
