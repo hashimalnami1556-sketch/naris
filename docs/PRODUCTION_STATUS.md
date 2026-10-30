@@ -220,3 +220,7 @@ G1 remains blocked: AsusRog was offline; Unreal preflight/authoring, PIE visibil
 ### Stage29 invocation follow-up
 
 The Windows G1 wrapper now provides a dry-run default and explicit review authoring mode, per-invocation logs/receipts/report hashes and rejection of missing/stale/incomplete results. It does not launch PIE, claim G1 acceptance or progress to G2/G3. The prior 0cc675d hosted source checks all passed. Current local evidence: 383 tests, 6 AssetForge tests, repository validation and Python compilation pass. AsusRog remains offline; Windows execution of the new wrapper is unverified.
+
+## 2026-10-30 character priority gate
+
+CHAR-001 is the P0 production gate: [specification and acceptance checklist](characters/char-001/execution-checklist.md), tracked by issue #86. G0 is DRAFT and G1–G6 are NOT STARTED. Freeze monster rig expansion until Ash passes through real Unreal/package evidence. NET-001 is separate; multiplayer readiness requires both gates. No production-ready character, new rig or runtime evidence is asserted by this specification update.

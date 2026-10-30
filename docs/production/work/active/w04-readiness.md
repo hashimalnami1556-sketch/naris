@@ -87,3 +87,23 @@ last_updated: 2026-10-26
 - Added five behavioral tests covering preflight/authoring semantics, no false G1 acceptance, partial-result failure, exception receipts and stale-receipt rejection.
 - Evidence: 383 local tests, 6 AssetForge tests, repository validation and Python compilation pass. Prior 0cc675d hosted CI/content/Unreal source validations succeeded. New Windows invocation and PowerShell execution are not local evidence; hosted CI parses Windows scripts.
 - Remaining blocker and next step: authorized AsusRog offline. Pull latest main and execute the documented default G1 preflight on Windows, retain the invocation diagnostics, fix its first real failure, then author and inspect PIE before moving to G2.
+
+## 2026-10-30 CHAR-001-G0 specification claim
+
+- Executing agent: Codex; scope: Ash 92-node skeleton draft and G0–G6 executable acceptance checklist, issue #86.
+- Owner directs freeze of monster rig expansion until Ash passes all character gates. NET-001 stays independent.
+- Specification: [CHAR-001](../../../characters/char-001/execution-checklist.md). G0 remains OPEN pending geometry/rest-transform review. No rig or runtime changes.
+- Base: 40d19fec01311c11c5a4ce12249ee7358f70487a; clean tree before branch feature/CHAR-001-G0.
+- Next: inspect Ash source identity/topology, resolve transforms, review G0, then capture implementation baseline for G1.
+- Verification: 92 unique CSV nodes, one root, ordered existing parents/acyclic hierarchy and explicit export allowlist passed. Repository validation and 6 AssetForge tests passed. These checks validate specification structure only; G1 structural tests and G0 geometry review remain unexecuted.
+
+### CHAR-001 recovered-source reconciliation — 2026-10-30
+- Recovered Advanced Organic Rig v1 from Library; retained original Ash JSON and source hashes under docs/characters/char-001. Superseded earlier CSV allocation; original contains 12 cape bones rather than 8 garment bones.
+- Fresh source checks: 92 nodes, exact/casefold unique names, single root, existing parents and acyclic hierarchy passed. V3 synthetic suite: 10 passed. Available Character1 GLB independently has 18 skin joints/19 nodes; canonical Ash identity remains unresolved.
+- G0 OPEN: source requires reviewed anatomical landmarks and roll/rest matrices; V3 schema differs and needs an explicit mapping. G1 and all monster expansion remain frozen. No engine or model modifications. Publication remains pending the previously requested explicit approval after auto-review rejection; no push retry.
+
+### 2026-10-30 integration and auditor repair
+- Owner explicitly authorizes branch integration and repository publication. Repository URL/owner and push permission verified through connected GitHub metadata.
+- Merged current origin/main, reviewed documentation branches for #85 and #75 into candidate without conflicts. Other remote branches inventoried in docs/production/branch-integration-20261030.json; outstanding code/prototype branches require individual review and runtime evidence, not a blind merge.
+- Fixed CHAR-001 structural auditor accepting wrong counts, duplicate/out-of-range joints, cyclic hierarchy and multiple parents; added subprocess behavior regressions. Reconciled contract status to G0 OPEN and linked original source specification.
+- No character, animation, map or game runtime changed. Blender/Unreal/Windows build and performance gates remain NOT_RUN. Revert integration commit(s) to roll back tool/docs only.

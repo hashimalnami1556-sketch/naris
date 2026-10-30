@@ -1,0 +1,660 @@
+{
+  "schema_version": 1,
+  "name": "Ash_Wanderer",
+  "classification": "DESIGN_CONTRACT_NOT_FITTED",
+  "joint_count": 92,
+  "count_includes_motion_root": true,
+  "bones": [
+    {
+      "name": "root",
+      "parent": null,
+      "role": "motion_root",
+      "driver": null
+    },
+    {
+      "name": "pelvis",
+      "parent": "root",
+      "role": "deform",
+      "driver": null
+    },
+    {
+      "name": "spine_01",
+      "parent": "pelvis",
+      "role": "deform",
+      "driver": null
+    },
+    {
+      "name": "spine_02",
+      "parent": "spine_01",
+      "role": "deform",
+      "driver": null
+    },
+    {
+      "name": "spine_03",
+      "parent": "spine_02",
+      "role": "deform",
+      "driver": null
+    },
+    {
+      "name": "spine_04",
+      "parent": "spine_03",
+      "role": "deform",
+      "driver": null
+    },
+    {
+      "name": "spine_05",
+      "parent": "spine_04",
+      "role": "deform",
+      "driver": null
+    },
+    {
+      "name": "neck_01",
+      "parent": "spine_05",
+      "role": "deform",
+      "driver": null
+    },
+    {
+      "name": "neck_02",
+      "parent": "neck_01",
+      "role": "deform",
+      "driver": null
+    },
+    {
+      "name": "neck_03",
+      "parent": "neck_02",
+      "role": "deform",
+      "driver": null
+    },
+    {
+      "name": "head",
+      "parent": "neck_03",
+      "role": "deform",
+      "driver": null
+    },
+    {
+      "name": "jaw",
+      "parent": "head",
+      "role": "deform",
+      "driver": null
+    },
+    {
+      "name": "eye_L",
+      "parent": "head",
+      "role": "deform",
+      "driver": null
+    },
+    {
+      "name": "eye_R",
+      "parent": "head",
+      "role": "deform",
+      "driver": null
+    },
+    {
+      "name": "clavicle_L",
+      "parent": "spine_05",
+      "role": "deform",
+      "driver": null
+    },
+    {
+      "name": "shoulder_L",
+      "parent": "clavicle_L",
+      "role": "deform",
+      "driver": null
+    },
+    {
+      "name": "upperarm_L",
+      "parent": "shoulder_L",
+      "role": "deform",
+      "driver": null
+    },
+    {
+      "name": "lowerarm_L",
+      "parent": "upperarm_L",
+      "role": "deform",
+      "driver": null
+    },
+    {
+      "name": "hand_L",
+      "parent": "lowerarm_L",
+      "role": "deform",
+      "driver": null
+    },
+    {
+      "name": "upperarm_L_twist_01",
+      "parent": "upperarm_L",
+      "role": "twist_deform",
+      "driver": {
+        "source": "upperarm_L",
+        "target": "lowerarm_L",
+        "fraction": 0.3333333333333333,
+        "method": "swing_twist_distribution"
+      }
+    },
+    {
+      "name": "upperarm_L_twist_02",
+      "parent": "upperarm_L",
+      "role": "twist_deform",
+      "driver": {
+        "source": "upperarm_L",
+        "target": "lowerarm_L",
+        "fraction": 0.6666666666666666,
+        "method": "swing_twist_distribution"
+      }
+    },
+    {
+      "name": "lowerarm_L_twist_01",
+      "parent": "lowerarm_L",
+      "role": "twist_deform",
+      "driver": {
+        "source": "lowerarm_L",
+        "target": "hand_L",
+        "fraction": 0.3333333333333333,
+        "method": "swing_twist_distribution"
+      }
+    },
+    {
+      "name": "lowerarm_L_twist_02",
+      "parent": "lowerarm_L",
+      "role": "twist_deform",
+      "driver": {
+        "source": "lowerarm_L",
+        "target": "hand_L",
+        "fraction": 0.6666666666666666,
+        "method": "swing_twist_distribution"
+      }
+    },
+    {
+      "name": "thumb_L_01",
+      "parent": "hand_L",
+      "role": "deform",
+      "driver": null
+    },
+    {
+      "name": "thumb_L_02",
+      "parent": "thumb_L_01",
+      "role": "deform",
+      "driver": null
+    },
+    {
+      "name": "thumb_L_03",
+      "parent": "thumb_L_02",
+      "role": "deform",
+      "driver": null
+    },
+    {
+      "name": "index_L_01",
+      "parent": "hand_L",
+      "role": "deform",
+      "driver": null
+    },
+    {
+      "name": "index_L_02",
+      "parent": "index_L_01",
+      "role": "deform",
+      "driver": null
+    },
+    {
+      "name": "index_L_03",
+      "parent": "index_L_02",
+      "role": "deform",
+      "driver": null
+    },
+    {
+      "name": "middle_L_01",
+      "parent": "hand_L",
+      "role": "deform",
+      "driver": null
+    },
+    {
+      "name": "middle_L_02",
+      "parent": "middle_L_01",
+      "role": "deform",
+      "driver": null
+    },
+    {
+      "name": "middle_L_03",
+      "parent": "middle_L_02",
+      "role": "deform",
+      "driver": null
+    },
+    {
+      "name": "ring_L_01",
+      "parent": "hand_L",
+      "role": "deform",
+      "driver": null
+    },
+    {
+      "name": "ring_L_02",
+      "parent": "ring_L_01",
+      "role": "deform",
+      "driver": null
+    },
+    {
+      "name": "ring_L_03",
+      "parent": "ring_L_02",
+      "role": "deform",
+      "driver": null
+    },
+    {
+      "name": "pinky_L_01",
+      "parent": "hand_L",
+      "role": "deform",
+      "driver": null
+    },
+    {
+      "name": "pinky_L_02",
+      "parent": "pinky_L_01",
+      "role": "deform",
+      "driver": null
+    },
+    {
+      "name": "pinky_L_03",
+      "parent": "pinky_L_02",
+      "role": "deform",
+      "driver": null
+    },
+    {
+      "name": "thigh_L",
+      "parent": "pelvis",
+      "role": "deform",
+      "driver": null
+    },
+    {
+      "name": "calf_L",
+      "parent": "thigh_L",
+      "role": "deform",
+      "driver": null
+    },
+    {
+      "name": "foot_L",
+      "parent": "calf_L",
+      "role": "deform",
+      "driver": null
+    },
+    {
+      "name": "ball_L",
+      "parent": "foot_L",
+      "role": "deform",
+      "driver": null
+    },
+    {
+      "name": "toe_L",
+      "parent": "ball_L",
+      "role": "deform",
+      "driver": null
+    },
+    {
+      "name": "thigh_L_twist_01",
+      "parent": "thigh_L",
+      "role": "twist_deform",
+      "driver": {
+        "source": "thigh_L",
+        "target": "calf_L",
+        "fraction": 0.3333333333333333,
+        "method": "swing_twist_distribution"
+      }
+    },
+    {
+      "name": "thigh_L_twist_02",
+      "parent": "thigh_L",
+      "role": "twist_deform",
+      "driver": {
+        "source": "thigh_L",
+        "target": "calf_L",
+        "fraction": 0.6666666666666666,
+        "method": "swing_twist_distribution"
+      }
+    },
+    {
+      "name": "calf_L_twist_01",
+      "parent": "calf_L",
+      "role": "twist_deform",
+      "driver": {
+        "source": "calf_L",
+        "target": "foot_L",
+        "fraction": 0.3333333333333333,
+        "method": "swing_twist_distribution"
+      }
+    },
+    {
+      "name": "calf_L_twist_02",
+      "parent": "calf_L",
+      "role": "twist_deform",
+      "driver": {
+        "source": "calf_L",
+        "target": "foot_L",
+        "fraction": 0.6666666666666666,
+        "method": "swing_twist_distribution"
+      }
+    },
+    {
+      "name": "clavicle_R",
+      "parent": "spine_05",
+      "role": "deform",
+      "driver": null
+    },
+    {
+      "name": "shoulder_R",
+      "parent": "clavicle_R",
+      "role": "deform",
+      "driver": null
+    },
+    {
+      "name": "upperarm_R",
+      "parent": "shoulder_R",
+      "role": "deform",
+      "driver": null
+    },
+    {
+      "name": "lowerarm_R",
+      "parent": "upperarm_R",
+      "role": "deform",
+      "driver": null
+    },
+    {
+      "name": "hand_R",
+      "parent": "lowerarm_R",
+      "role": "deform",
+      "driver": null
+    },
+    {
+      "name": "upperarm_R_twist_01",
+      "parent": "upperarm_R",
+      "role": "twist_deform",
+      "driver": {
+        "source": "upperarm_R",
+        "target": "lowerarm_R",
+        "fraction": 0.3333333333333333,
+        "method": "swing_twist_distribution"
+      }
+    },
+    {
+      "name": "upperarm_R_twist_02",
+      "parent": "upperarm_R",
+      "role": "twist_deform",
+      "driver": {
+        "source": "upperarm_R",
+        "target": "lowerarm_R",
+        "fraction": 0.6666666666666666,
+        "method": "swing_twist_distribution"
+      }
+    },
+    {
+      "name": "lowerarm_R_twist_01",
+      "parent": "lowerarm_R",
+      "role": "twist_deform",
+      "driver": {
+        "source": "lowerarm_R",
+        "target": "hand_R",
+        "fraction": 0.3333333333333333,
+        "method": "swing_twist_distribution"
+      }
+    },
+    {
+      "name": "lowerarm_R_twist_02",
+      "parent": "lowerarm_R",
+      "role": "twist_deform",
+      "driver": {
+        "source": "lowerarm_R",
+        "target": "hand_R",
+        "fraction": 0.6666666666666666,
+        "method": "swing_twist_distribution"
+      }
+    },
+    {
+      "name": "thumb_R_01",
+      "parent": "hand_R",
+      "role": "deform",
+      "driver": null
+    },
+    {
+      "name": "thumb_R_02",
+      "parent": "thumb_R_01",
+      "role": "deform",
+      "driver": null
+    },
+    {
+      "name": "thumb_R_03",
+      "parent": "thumb_R_02",
+      "role": "deform",
+      "driver": null
+    },
+    {
+      "name": "index_R_01",
+      "parent": "hand_R",
+      "role": "deform",
+      "driver": null
+    },
+    {
+      "name": "index_R_02",
+      "parent": "index_R_01",
+      "role": "deform",
+      "driver": null
+    },
+    {
+      "name": "index_R_03",
+      "parent": "index_R_02",
+      "role": "deform",
+      "driver": null
+    },
+    {
+      "name": "middle_R_01",
+      "parent": "hand_R",
+      "role": "deform",
+      "driver": null
+    },
+    {
+      "name": "middle_R_02",
+      "parent": "middle_R_01",
+      "role": "deform",
+      "driver": null
+    },
+    {
+      "name": "middle_R_03",
+      "parent": "middle_R_02",
+      "role": "deform",
+      "driver": null
+    },
+    {
+      "name": "ring_R_01",
+      "parent": "hand_R",
+      "role": "deform",
+      "driver": null
+    },
+    {
+      "name": "ring_R_02",
+      "parent": "ring_R_01",
+      "role": "deform",
+      "driver": null
+    },
+    {
+      "name": "ring_R_03",
+      "parent": "ring_R_02",
+      "role": "deform",
+      "driver": null
+    },
+    {
+      "name": "pinky_R_01",
+      "parent": "hand_R",
+      "role": "deform",
+      "driver": null
+    },
+    {
+      "name": "pinky_R_02",
+      "parent": "pinky_R_01",
+      "role": "deform",
+      "driver": null
+    },
+    {
+      "name": "pinky_R_03",
+      "parent": "pinky_R_02",
+      "role": "deform",
+      "driver": null
+    },
+    {
+      "name": "thigh_R",
+      "parent": "pelvis",
+      "role": "deform",
+      "driver": null
+    },
+    {
+      "name": "calf_R",
+      "parent": "thigh_R",
+      "role": "deform",
+      "driver": null
+    },
+    {
+      "name": "foot_R",
+      "parent": "calf_R",
+      "role": "deform",
+      "driver": null
+    },
+    {
+      "name": "ball_R",
+      "parent": "foot_R",
+      "role": "deform",
+      "driver": null
+    },
+    {
+      "name": "toe_R",
+      "parent": "ball_R",
+      "role": "deform",
+      "driver": null
+    },
+    {
+      "name": "thigh_R_twist_01",
+      "parent": "thigh_R",
+      "role": "twist_deform",
+      "driver": {
+        "source": "thigh_R",
+        "target": "calf_R",
+        "fraction": 0.3333333333333333,
+        "method": "swing_twist_distribution"
+      }
+    },
+    {
+      "name": "thigh_R_twist_02",
+      "parent": "thigh_R",
+      "role": "twist_deform",
+      "driver": {
+        "source": "thigh_R",
+        "target": "calf_R",
+        "fraction": 0.6666666666666666,
+        "method": "swing_twist_distribution"
+      }
+    },
+    {
+      "name": "calf_R_twist_01",
+      "parent": "calf_R",
+      "role": "twist_deform",
+      "driver": {
+        "source": "calf_R",
+        "target": "foot_R",
+        "fraction": 0.3333333333333333,
+        "method": "swing_twist_distribution"
+      }
+    },
+    {
+      "name": "calf_R_twist_02",
+      "parent": "calf_R",
+      "role": "twist_deform",
+      "driver": {
+        "source": "calf_R",
+        "target": "foot_R",
+        "fraction": 0.6666666666666666,
+        "method": "swing_twist_distribution"
+      }
+    },
+    {
+      "name": "cape_L_01",
+      "parent": "spine_05",
+      "role": "deform",
+      "driver": null
+    },
+    {
+      "name": "cape_L_02",
+      "parent": "cape_L_01",
+      "role": "deform",
+      "driver": null
+    },
+    {
+      "name": "cape_L_03",
+      "parent": "cape_L_02",
+      "role": "deform",
+      "driver": null
+    },
+    {
+      "name": "cape_L_04",
+      "parent": "cape_L_03",
+      "role": "deform",
+      "driver": null
+    },
+    {
+      "name": "cape_C_01",
+      "parent": "spine_05",
+      "role": "deform",
+      "driver": null
+    },
+    {
+      "name": "cape_C_02",
+      "parent": "cape_C_01",
+      "role": "deform",
+      "driver": null
+    },
+    {
+      "name": "cape_C_03",
+      "parent": "cape_C_02",
+      "role": "deform",
+      "driver": null
+    },
+    {
+      "name": "cape_C_04",
+      "parent": "cape_C_03",
+      "role": "deform",
+      "driver": null
+    },
+    {
+      "name": "cape_R_01",
+      "parent": "spine_05",
+      "role": "deform",
+      "driver": null
+    },
+    {
+      "name": "cape_R_02",
+      "parent": "cape_R_01",
+      "role": "deform",
+      "driver": null
+    },
+    {
+      "name": "cape_R_03",
+      "parent": "cape_R_02",
+      "role": "deform",
+      "driver": null
+    },
+    {
+      "name": "cape_R_04",
+      "parent": "cape_R_03",
+      "role": "deform",
+      "driver": null
+    }
+  ],
+  "sockets": [
+    {
+      "name": "weapon_r",
+      "parent": "hand_R"
+    },
+    {
+      "name": "weapon_l",
+      "parent": "hand_L"
+    },
+    {
+      "name": "mouth_fx",
+      "parent": "head"
+    }
+  ],
+  "coordinate_contract": "landmarks: metres, Blender Z-up, local armature space; glTF conversion only by exporter",
+  "landmarks_status": "REQUIRED",
+  "weights_status": "NOT_CREATED",
+  "drivers_status": "NOT_IMPLEMENTED",
+  "animations_status": "PROTOTYPE_REQUIRES_RETARGET_AND_REVIEW"
+}

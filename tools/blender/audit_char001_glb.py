@@ -27,12 +27,23 @@ if not skins: die("no skin")
 joints=set()
 for s in skins: joints.update(s.get("joints",[]))
 if not joints: die("skin has zero joints")
+if len(skins)!=1: die("CHAR-001 requires one skin")
+if len(skins[0].get("joints",[]))!=92 or len(joints)!=92: die("expected 92 unique skin joints")
+if any(type(j) is not int or not 0<=j<len(nodes) for j in joints): die("invalid joint index")
 control=[names[i] for i in joints if i<len(names) and any(k in names[i].lower() for k in ("ctrl","control","ik_target","pole"))]
 if control: die("control/helper-like nodes exported as skin joints: "+",".join(control[:20]))
 roots=[]
 parents={}
 for i,n in enumerate(nodes):
- for c in n.get("children",[]): parents[c]=i
+ for c in n.get("children",[]):
+  if type(c) is not int or not 0<=c<len(nodes): die("invalid child index")
+  if c in parents: die("multiple parents or duplicate child")
+  parents[c]=i
+for start in range(len(nodes)):
+ seen=set(); cursor=start
+ while cursor in parents:
+  if cursor in seen: die("node hierarchy cycle")
+  seen.add(cursor); cursor=parents[cursor]
 for j in joints:
  if j not in parents or parents[j] not in joints: roots.append(j)
 if len(roots)!=1: die(f"skin root count={len(roots)}")

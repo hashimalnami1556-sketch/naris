@@ -20,4 +20,6 @@ Lock the production skeleton contract before Advanced Rig construction. Target: 
 - T5: 12 structural tests in CHAR-001-G0-TESTS.md.
 
 ## Gate
-G1 is BLOCKED until T1–T5 have evidence. Current status: SPEC_LOCKED_ENGINE_EVIDENCE_PENDING.
+G1 is BLOCKED until T1–T5 have evidence. Current status: G0_OPEN_ANATOMICAL_FIT_AND_ENGINE_EVIDENCE_PENDING.
+
+Recovered source hierarchy and remaining anatomical-fit requirements: [CHAR-001 checklist](../../characters/char-001/execution-checklist.md). The 92 count includes the motion root; it does not imply all nodes must carry skin weights. Source specification is not yet fitted or approved.
