@@ -31,5 +31,6 @@
     "T4_GLTF_EXPORT_AUDIT",
     "T5_12_STRUCTURAL_TESTS"
   ],
-  "status": "SPEC_LOCKED_ENGINE_EVIDENCE_PENDING"
+  "status": "G0_OPEN_ANATOMICAL_FIT_AND_ENGINE_EVIDENCE_PENDING",
+  "source_spec": "docs/characters/char-001/ash-wanderer-source-spec-v1.json"
 }

@@ -1,0 +1,3 @@
+# Stage36 build evidence fix
+
+A corrected Stage36 PowerShell script is delivered in `NARIS_STAGE36_FIXED_BUILD_REPORT.zip` (chat artifact). The previous `Invoke-NarisFirst24h.ps1` could abort under `$ErrorActionPreference='Stop'` when `Build.bat` exited nonzero, losing the JSON evidence report. The patched version temporarily uses `Continue` for the native build invocation, captures exit code, restores the original preference, and writes the report even when the compile fails. LFS probing now uses `Content/probe.<extension>` so Content-scoped attributes can be detected. No G1–G7 runtime tests have been performed; AsusRog is offline. ZIP integrity passed; PowerShell runtime testing is pending on Windows.

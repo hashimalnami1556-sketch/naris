@@ -1,0 +1,410 @@
+{
+  "base": "f3bb4b963afd15091ea2681da9598207fac7fb42",
+  "branches": [
+    {
+      "branch": "origin",
+      "commits_not_in_main": 0,
+      "state": "ALREADY_IN_MAIN"
+    },
+    {
+      "branch": "origin/ci/w04-engine-gate-diagnostics-20261022",
+      "commits_not_in_main": 0,
+      "state": "ALREADY_IN_MAIN"
+    },
+    {
+      "branch": "origin/ci/w04-retain-validation-reports-20261022",
+      "commits_not_in_main": 2,
+      "state": "PENDING_REVIEW_NO_BULK_MERGE"
+    },
+    {
+      "branch": "origin/claude/batch-07-08-manifests-2phl3t",
+      "commits_not_in_main": 29,
+      "state": "PENDING_REVIEW_NO_BULK_MERGE"
+    },
+    {
+      "branch": "origin/codex/companion-approach-20261008",
+      "commits_not_in_main": 5,
+      "state": "PENDING_REVIEW_NO_BULK_MERGE"
+    },
+    {
+      "branch": "origin/codex/naris-product-context-20260929",
+      "commits_not_in_main": 1,
+      "state": "PENDING_REVIEW_NO_BULK_MERGE"
+    },
+    {
+      "branch": "origin/codex/naris-product-design-meshy-game-studio",
+      "commits_not_in_main": 40,
+      "state": "PENDING_REVIEW_NO_BULK_MERGE"
+    },
+    {
+      "branch": "origin/docs/w04-next-execution-handoff-20261022",
+      "commits_not_in_main": 1,
+      "state": "PENDING_REVIEW_NO_BULK_MERGE"
+    },
+    {
+      "branch": "origin/feat/asset-generation-pipeline-v1",
+      "commits_not_in_main": 0,
+      "state": "ALREADY_IN_MAIN"
+    },
+    {
+      "branch": "origin/feat/assetforge-r16-biome-export",
+      "commits_not_in_main": 2,
+      "state": "PENDING_REVIEW_NO_BULK_MERGE"
+    },
+    {
+      "branch": "origin/feat/environment-quest-triggers-20261003",
+      "commits_not_in_main": 4,
+      "state": "PENDING_REVIEW_NO_BULK_MERGE"
+    },
+    {
+      "branch": "origin/feat/mcp-asset-registry",
+      "commits_not_in_main": 4,
+      "state": "PENDING_REVIEW_NO_BULK_MERGE"
+    },
+    {
+      "branch": "origin/feat/naris-npc-daily-routines-20261003",
+      "commits_not_in_main": 5,
+      "state": "PENDING_REVIEW_NO_BULK_MERGE"
+    },
+    {
+      "branch": "origin/feat/naris-water-runtime-20261003",
+      "commits_not_in_main": 16,
+      "state": "PENDING_REVIEW_NO_BULK_MERGE"
+    },
+    {
+      "branch": "origin/feat/w04-asset-expansion",
+      "commits_not_in_main": 1,
+      "state": "PENDING_REVIEW_NO_BULK_MERGE"
+    },
+    {
+      "branch": "origin/feat/w04-character-intake-20261012",
+      "commits_not_in_main": 51,
+      "state": "PENDING_REVIEW_NO_BULK_MERGE"
+    },
+    {
+      "branch": "origin/feat/weather-environment-gameplay-20261003",
+      "commits_not_in_main": 9,
+      "state": "PENDING_REVIEW_NO_BULK_MERGE"
+    },
+    {
+      "branch": "origin/feat/world-clock-weather-bridge-20261003",
+      "commits_not_in_main": 7,
+      "state": "PENDING_REVIEW_NO_BULK_MERGE"
+    },
+    {
+      "branch": "origin/feature/bionemo-agent-foundation",
+      "commits_not_in_main": 7,
+      "state": "PENDING_REVIEW_NO_BULK_MERGE"
+    },
+    {
+      "branch": "origin/feature/naris-expansion-v2-3-audit",
+      "commits_not_in_main": 54,
+      "state": "PENDING_REVIEW_NO_BULK_MERGE"
+    },
+    {
+      "branch": "origin/feature/naris-md-components-integration",
+      "commits_not_in_main": 1,
+      "state": "PENDING_REVIEW_NO_BULK_MERGE"
+    },
+    {
+      "branch": "origin/feature/p20-native-ui-20261015",
+      "commits_not_in_main": 19,
+      "state": "PENDING_REVIEW_NO_BULK_MERGE"
+    },
+    {
+      "branch": "origin/feature/product-design-meshy-game-studio",
+      "commits_not_in_main": 11,
+      "state": "PENDING_REVIEW_NO_BULK_MERGE"
+    },
+    {
+      "branch": "origin/feature/runtime-core-v2",
+      "commits_not_in_main": 34,
+      "state": "PENDING_REVIEW_NO_BULK_MERGE"
+    },
+    {
+      "branch": "origin/feature/stage24-poster-motion-integration-20261026",
+      "commits_not_in_main": 2,
+      "state": "PENDING_REVIEW_NO_BULK_MERGE"
+    },
+    {
+      "branch": "origin/feature/stage25-release-evidence-gates-20261026",
+      "commits_not_in_main": 1,
+      "state": "PENDING_REVIEW_NO_BULK_MERGE"
+    },
+    {
+      "branch": "origin/feature/stage26-w04-map-build-gates-20261026",
+      "commits_not_in_main": 3,
+      "state": "PENDING_REVIEW_NO_BULK_MERGE"
+    },
+    {
+      "branch": "origin/feature/stage27-safe-structure-integration-20261027",
+      "commits_not_in_main": 1,
+      "state": "PENDING_REVIEW_NO_BULK_MERGE"
+    },
+    {
+      "branch": "origin/feature/stage28-material-animation-cinematic-20261027",
+      "commits_not_in_main": 1,
+      "state": "PENDING_REVIEW_NO_BULK_MERGE"
+    },
+    {
+      "branch": "origin/feature/stage28-w04-authoring-preview-20261027",
+      "commits_not_in_main": 3,
+      "state": "PENDING_REVIEW_NO_BULK_MERGE"
+    },
+    {
+      "branch": "origin/feature/stage29-pbr-map-population-20261027",
+      "commits_not_in_main": 2,
+      "state": "PENDING_REVIEW_NO_BULK_MERGE"
+    },
+    {
+      "branch": "origin/feature/stage29-placement-correction-20261027",
+      "commits_not_in_main": 1,
+      "state": "PENDING_REVIEW_NO_BULK_MERGE"
+    },
+    {
+      "branch": "origin/feature/stage30-combat-pbr-source-20261027",
+      "commits_not_in_main": 3,
+      "state": "PENDING_REVIEW_NO_BULK_MERGE"
+    },
+    {
+      "branch": "origin/feature/stage31-combat-reliability-20261027",
+      "commits_not_in_main": 1,
+      "state": "PENDING_REVIEW_NO_BULK_MERGE"
+    },
+    {
+      "branch": "origin/feature/stage31-local-master-reconciliation-20261028",
+      "commits_not_in_main": 1,
+      "state": "PENDING_REVIEW_NO_BULK_MERGE"
+    },
+    {
+      "branch": "origin/feature/stage32-combat-integration-20261027",
+      "commits_not_in_main": 5,
+      "state": "PENDING_REVIEW_NO_BULK_MERGE"
+    },
+    {
+      "branch": "origin/feature/stage32-readiness-gate-20261028",
+      "commits_not_in_main": 1,
+      "state": "PENDING_REVIEW_NO_BULK_MERGE"
+    },
+    {
+      "branch": "origin/feature/stage33-verified-master-20261028",
+      "commits_not_in_main": 1,
+      "state": "PENDING_REVIEW_NO_BULK_MERGE"
+    },
+    {
+      "branch": "origin/feature/stage33-visual-reference-registry-20261027",
+      "commits_not_in_main": 1,
+      "state": "PENDING_REVIEW_NO_BULK_MERGE"
+    },
+    {
+      "branch": "origin/feature/stage34-anim-material-build-gates-20261027",
+      "commits_not_in_main": 4,
+      "state": "PENDING_REVIEW_NO_BULK_MERGE"
+    },
+    {
+      "branch": "origin/feature/stage35-ue-integration-gates-20261027",
+      "commits_not_in_main": 3,
+      "state": "PENDING_REVIEW_NO_BULK_MERGE"
+    },
+    {
+      "branch": "origin/feature/stage36-asset-class-audit-20261027",
+      "commits_not_in_main": 2,
+      "state": "PENDING_REVIEW_NO_BULK_MERGE"
+    },
+    {
+      "branch": "origin/feature/stage37-combat-animation-wiring-20261027",
+      "commits_not_in_main": 10,
+      "state": "PENDING_REVIEW_NO_BULK_MERGE"
+    },
+    {
+      "branch": "origin/feature/ui5-2-ashen-gate-20261002",
+      "commits_not_in_main": 1,
+      "state": "PENDING_REVIEW_NO_BULK_MERGE"
+    },
+    {
+      "branch": "origin/feature/ui5-3-gate-quest-v9-20261003",
+      "commits_not_in_main": 2,
+      "state": "PENDING_REVIEW_NO_BULK_MERGE"
+    },
+    {
+      "branch": "origin/feature/ui5-4-bell-marsh-20261003",
+      "commits_not_in_main": 3,
+      "state": "PENDING_REVIEW_NO_BULK_MERGE"
+    },
+    {
+      "branch": "origin/feature/vs001-veilmother-audit-20261026",
+      "commits_not_in_main": 1,
+      "state": "PENDING_REVIEW_NO_BULK_MERGE"
+    },
+    {
+      "branch": "origin/feature/w04-naris-villain-runtime-20261012",
+      "commits_not_in_main": 25,
+      "state": "PENDING_REVIEW_NO_BULK_MERGE"
+    },
+    {
+      "branch": "origin/feature/w04-runbook-v2-acceptance-board",
+      "commits_not_in_main": 1,
+      "state": "REVIEWED_DOCS_MERGED_IN_CANDIDATE"
+    },
+    {
+      "branch": "origin/feature/w04-villain-runtime-current-20261013",
+      "commits_not_in_main": 11,
+      "state": "PENDING_REVIEW_NO_BULK_MERGE"
+    },
+    {
+      "branch": "origin/feature/w04-villain-runtime-rebased-20261012",
+      "commits_not_in_main": 13,
+      "state": "PENDING_REVIEW_NO_BULK_MERGE"
+    },
+    {
+      "branch": "origin/fix/map-ui-runtime-diagnostics-20261012",
+      "commits_not_in_main": 1,
+      "state": "PENDING_REVIEW_NO_BULK_MERGE"
+    },
+    {
+      "branch": "origin/fix/mcp-lockfile-ci",
+      "commits_not_in_main": 3,
+      "state": "PENDING_REVIEW_NO_BULK_MERGE"
+    },
+    {
+      "branch": "origin/fix/naris-windows-launch-recovery-20261011",
+      "commits_not_in_main": 6,
+      "state": "PENDING_REVIEW_NO_BULK_MERGE"
+    },
+    {
+      "branch": "origin/fix/p15-combat-delivery-20261016",
+      "commits_not_in_main": 7,
+      "state": "PENDING_REVIEW_NO_BULK_MERGE"
+    },
+    {
+      "branch": "origin/fix/p15-skeleton-connectivity-20261015",
+      "commits_not_in_main": 1,
+      "state": "PENDING_REVIEW_NO_BULK_MERGE"
+    },
+    {
+      "branch": "origin/fix/production-gaps-20261013",
+      "commits_not_in_main": 2,
+      "state": "PENDING_REVIEW_NO_BULK_MERGE"
+    },
+    {
+      "branch": "origin/fix/shipping-localization-exit-check-20261023",
+      "commits_not_in_main": 1,
+      "state": "PENDING_REVIEW_NO_BULK_MERGE"
+    },
+    {
+      "branch": "origin/fix/stage36-preserve-compile-report-20261028",
+      "commits_not_in_main": 1,
+      "state": "REVIEWED_DOCS_MERGED_IN_CANDIDATE"
+    },
+    {
+      "branch": "origin/fix/ui-controller-contract-and-layout-20261002",
+      "commits_not_in_main": 3,
+      "state": "PENDING_REVIEW_NO_BULK_MERGE"
+    },
+    {
+      "branch": "origin/fix/w04-engine-baseline-evidence-20261014",
+      "commits_not_in_main": 0,
+      "state": "ALREADY_IN_MAIN"
+    },
+    {
+      "branch": "origin/fix/w04-jump-input-routing",
+      "commits_not_in_main": 7,
+      "state": "PENDING_REVIEW_NO_BULK_MERGE"
+    },
+    {
+      "branch": "origin/fix/w04-ue57-build",
+      "commits_not_in_main": 13,
+      "state": "PENDING_REVIEW_NO_BULK_MERGE"
+    },
+    {
+      "branch": "origin/fix/w04-visual-review-launcher-20261002",
+      "commits_not_in_main": 4,
+      "state": "PENDING_REVIEW_NO_BULK_MERGE"
+    },
+    {
+      "branch": "origin/fix/windows-script-exit-state-20261023",
+      "commits_not_in_main": 1,
+      "state": "PENDING_REVIEW_NO_BULK_MERGE"
+    },
+    {
+      "branch": "origin/ha-42-production-cockpit-evidence-ui",
+      "commits_not_in_main": 5,
+      "state": "PENDING_REVIEW_NO_BULK_MERGE"
+    },
+    {
+      "branch": "origin/integration/aaa-ui-art-20261001-r2",
+      "commits_not_in_main": 13,
+      "state": "PENDING_REVIEW_NO_BULK_MERGE"
+    },
+    {
+      "branch": "origin/integration/adalo-environment-vault",
+      "commits_not_in_main": 0,
+      "state": "ALREADY_IN_MAIN"
+    },
+    {
+      "branch": "origin/integration/adalo-environment-vault-v2",
+      "commits_not_in_main": 8,
+      "state": "PENDING_REVIEW_NO_BULK_MERGE"
+    },
+    {
+      "branch": "origin/integration/ashen-wastes-playable-slice-0-1",
+      "commits_not_in_main": 25,
+      "state": "PENDING_REVIEW_NO_BULK_MERGE"
+    },
+    {
+      "branch": "origin/integration/desktop-audit-20260927",
+      "commits_not_in_main": 31,
+      "state": "PENDING_REVIEW_NO_BULK_MERGE"
+    },
+    {
+      "branch": "origin/integration/master-build-ue57",
+      "commits_not_in_main": 4,
+      "state": "PENDING_REVIEW_NO_BULK_MERGE"
+    },
+    {
+      "branch": "origin/integration/master-handoff-20261001",
+      "commits_not_in_main": 0,
+      "state": "ALREADY_IN_MAIN"
+    },
+    {
+      "branch": "origin/integration/naris-master-0-2",
+      "commits_not_in_main": 32,
+      "state": "PENDING_REVIEW_NO_BULK_MERGE"
+    },
+    {
+      "branch": "origin/naris-v2-web3d-integration",
+      "commits_not_in_main": 6,
+      "state": "PENDING_REVIEW_NO_BULK_MERGE"
+    },
+    {
+      "branch": "origin/prototype/godot-p21-validation",
+      "commits_not_in_main": 3,
+      "state": "PENDING_REVIEW_NO_BULK_MERGE"
+    },
+    {
+      "branch": "origin/prototype/godot-p25-stabilization",
+      "commits_not_in_main": 4,
+      "state": "PENDING_REVIEW_NO_BULK_MERGE"
+    },
+    {
+      "branch": "origin/prototype/godot-p26-runtime-gates",
+      "commits_not_in_main": 10,
+      "state": "PENDING_REVIEW_NO_BULK_MERGE"
+    },
+    {
+      "branch": "origin/ui/aaa-runtime-interface-v2",
+      "commits_not_in_main": 18,
+      "state": "PENDING_REVIEW_NO_BULK_MERGE"
+    },
+    {
+      "branch": "origin/ui/naris-runtime-interface-foundation",
+      "commits_not_in_main": 7,
+      "state": "PENDING_REVIEW_NO_BULK_MERGE"
+    },
+    {
+      "branch": "origin/unity/cross-platform-systems-20260929",
+      "commits_not_in_main": 23,
+      "state": "PENDING_REVIEW_NO_BULK_MERGE"
+    }
+  ]
+}
