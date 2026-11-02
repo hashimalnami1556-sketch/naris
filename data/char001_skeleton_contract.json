@@ -1,36 +1,70 @@
 {
-  "schema": "naris.char001.skeleton-contract.v1",
+  "schema": "naris.char001.skeleton-contract.v2",
   "id": "CHAR-001-G0",
   "asset": "Ash Wanderer",
   "engine": "Unreal Engine 5.7",
-  "target_deform_bones": 92,
+  "source_glb_sha256": "06c07d245c3830bfac6b473b8ca24852171bd3185fb5e1e902b387d1ed02ecdf",
+  "authoring_entities": 92,
+  "runtime_bones": 87,
+  "skin_affecting_bones": 83,
+  "primary_deform_bones": 67,
+  "twist_deform_bones": 16,
+  "helpers": [
+    "root",
+    "cape_root",
+    "heel.L",
+    "heel.R"
+  ],
+  "sockets": [
+    {
+      "name": "weapon_r",
+      "parent": "hand.R"
+    },
+    {
+      "name": "weapon_l",
+      "parent": "hand.L"
+    },
+    {
+      "name": "head_ui",
+      "parent": "head"
+    },
+    {
+      "name": "shoulder_armor.L",
+      "parent": "clavicle.L"
+    },
+    {
+      "name": "shoulder_armor.R",
+      "parent": "clavicle.R"
+    }
+  ],
+  "current_stage": "G1-A",
+  "gate_status": "PENDING_BLENDER_STRUCTURAL_AND_VISUAL_EVIDENCE",
+  "blender_runtime_verified": false,
+  "unreal_runtime_verified": false,
   "coordinate_contract": {
+    "source_glb": "glTF Y-up; verify importer orientation in Blender",
+    "blender": "Z-up, meters, apply scale to unskinned WORKING copy only after saving baseline",
     "unreal": "Z-up, X-forward, centimeters",
-    "root": "single root at world origin; scale 1.0; no inherited non-uniform scale",
-    "pelvis": "direct child of root; anatomical hip pivot"
+    "root": "one root at world origin; transform identity; non-deform",
+    "pelvis": "direct child of root, Connected OFF; anatomical hip pivot"
   },
   "export_policy": {
-    "format": "glTF/GLB audit + Unreal import smoke",
-    "export_deform_skeleton_only": true,
+    "format": "GLB/FBX authoring export as validated; Unreal Editor smoke mandatory",
+    "export_runtime_skeleton_bones": 87,
+    "root_exported_for_root_motion": true,
     "control_rig_exported": false,
+    "attachment_sockets_exported_as_skin_bones": false,
     "duplicate_nodes_allowed": false,
-    "unused_nodes_allowed": false,
     "max_influences_per_vertex": 4
   },
-  "classes": {
-    "DEFORM": "May influence skin and is exported.",
-    "TWIST": "Deform bone distributing axial rotation; exported.",
-    "HELPER": "Non-skin helper; excluded unless explicitly required by runtime.",
-    "ATTACHMENT": "Gameplay attachment marker/socket target; no skin influence.",
-    "CONTROL": "Animator control only; never exported."
+  "classification": {
+    "PRIMARY_DEFORM": "67 skin-affecting anatomical and secondary bones",
+    "TWIST_DEFORM": "16 skin-affecting distributed axial twist bones",
+    "HELPER": "4 runtime motion/IK helpers with use_deform=False; root included in hierarchy",
+    "SOCKET": "5 Unreal Skeleton sockets, not Blender skin bones",
+    "CONTROL": "Separate Control Rig; excluded from exported skin"
   },
-  "gates": [
-    "T1_NAMES_HIERARCHY",
-    "T2_CLASSIFICATION",
-    "T3_ROOT_AXES_IMPORT_SMOKE",
-    "T4_GLTF_EXPORT_AUDIT",
-    "T5_12_STRUCTURAL_TESTS"
-  ],
-  "status": "G0_OPEN_ANATOMICAL_FIT_AND_ENGINE_EVIDENCE_PENDING",
-  "source_spec": "docs/characters/char-001/ash-wanderer-source-spec-v1.json"
+  "g0_status": "NUMERIC_CONTRACT_APPROVED_ANATOMICAL_FIT_AND_UNREAL_SMOKE_PENDING",
+  "legacy_spec": "docs/characters/char-001/ash-wanderer-source-spec-v1.json",
+  "legacy_policy": "Preserve original unfitted 92 bone source JSON for provenance; do not merge incompatible skeleton naming/hierarchy into v2 silently"
 }
