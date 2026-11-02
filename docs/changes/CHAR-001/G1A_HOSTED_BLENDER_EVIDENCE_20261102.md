@@ -41,3 +41,6 @@ The 87/83/5 budget is the owner-approved prospective target; the original incomp
 
 ## Rollback
 The hosted Blender scene is isolated from Unreal and the user's computer. GitHub change is documentation-only in `feature/CHAR-001-G1A`, can be reverted without deleting or modifying existing production assets.
+
+## Downloadable workstation handoff v5
+The ChatGPT conversation contains `Ash_Wanderer_CHAR001_G1A_Execution_v5.zip` (13,611,194 bytes), SHA-256 `1bce96b6a374711ebc1606ebaf8eb4ddf303a35baf354b6175e8b852a71d7b19`. ZIP integrity PASS, offline unit tests 9/9 PASS. Contains the unchanged source GLB and one-click Windows Blender builder, plus a persistent `.url` shortcut to the actual hosted Blender armature; **hosted `.blend` bytes are not embedded in this ZIP**. Source-specific visual validation remains pending.
