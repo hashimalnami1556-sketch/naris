@@ -44,3 +44,14 @@ Package contains source GLB; approved 87-bone target JSON; original 92-bone unfi
 - Performance delta: **NOT MEASURED**.
 
 Rollback: discard this *draft documentation branch*; it makes no production asset changes. Tracks #86.
+
+
+## 2026-11-02 — Local package v4 (prepared, NOT Blender-executed)
+- Corrected the branch's `data/char001_skeleton_contract.json` from inaccurate `target_deform_bones: 92` to owner-approved **92 authoring / 87 runtime / 83 deform / 4 helpers / 5 Unreal sockets**.
+- Updated contract CI test with explicit fail-closed stage-state checks; locally demonstrated RED against v1 and GREEN against v2.
+- Added an executable Windows double-click entrypoint `Run_G1A_OPEN_BLENDER.cmd` to the conversation ZIP. It calls a guarded Blender background builder, opens a blank factory scene, imports the original GLB, builds only 11 central bones, runs a distinct Blender validator and then opens Blender UI.
+- The package keeps original GLB unchanged, checks SHA-256 before import, refuses overwrite of a prior `.blend`, and runs `-ValidateOnly` on subsequent launches.
+- **ZIP**: `Ash_Wanderer_CHAR001_G1A_Execution_v4.zip`; **SHA-256** `6f2775c559fab0d90979c6399a25830897dd258488600caf09fc9dcbcbe6ff29`.
+- **Offline contract tests**: 9/9 PASS; Python syntax check PASS; ZIP integrity PASS.
+- **Blender**: NOT RUN (no Blender executable in this ChatGPT runtime; linked desktop connector unavailable on this attempt). No actual `.blend` or engine screenshot is claimed. User must execute the package on an authorized Blender host or reconnect a qualifying remote desktop link.
+- **G1-A**: BLOCKED pending physical Blender structural and joint-position visual evidence; G1-B remains blocked.
