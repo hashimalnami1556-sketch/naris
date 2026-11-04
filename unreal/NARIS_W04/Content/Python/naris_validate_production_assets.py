@@ -26,6 +26,14 @@ def material_count(asset, kind):
             count += 1
     return count
 
+def collision_count_errors(convex, simple):
+    """Require actual shapes, never the customized_collision editor flag alone."""
+    if convex < 0 or simple < 0:
+        return ["collision shape query failed"]
+    if convex == 0 and simple == 0:
+        return ["no simple/convex collision shapes"]
+    return []
+
 def main():
     path = Path(unreal.Paths.project_content_dir()) / RELATIVE
     data = json.loads(path.read_text(encoding="utf-8"))
@@ -69,6 +77,7 @@ def main():
             mats=material_count(asset,kind)
             triangles=asset.get_num_triangles(0) if lods > 0 else 0
             convex=static_subsystem.get_convex_collision_count(asset)
+            simple=static_subsystem.get_simple_collision_count(asset)
             customized=bool(asset.get_editor_property("customized_collision"))
             nanite_settings=asset.get_editor_property("nanite_settings")
             nanite_enabled=bool(
@@ -90,13 +99,14 @@ def main():
                     f"{aid}: LOD0 triangles {triangles} exceed "
                     f"budget {int(max_triangles)}"
                 )
-            if item.get("require_collision") and convex <= 0 and not customized:
-                errors.append(f"{aid}: no authored/simple collision evidence")
+            if item.get("require_collision"):
+                errors.extend(f"{aid}: {issue}" for issue in collision_count_errors(convex, simple))
             details[aid]={
                 "lod_count":lods,
                 "material_count":mats,
                 "triangle_count_lod0":triangles,
                 "convex_collision_count":convex,
+                "simple_collision_count":simple,
                 "customized_collision":customized,
                 "nanite_enabled":nanite_enabled,
             }

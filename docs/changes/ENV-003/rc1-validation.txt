@@ -1,0 +1,10 @@
+NARIS CI validation PASSED
+Validated JSON files: 80
+Validated Unreal project: unreal/NARIS_W04/NARIS_W04.uproject
+Validated Blender integration: tools/blender/naris_export.py
+Validated Blender Master Builder v1.1 W04 core-asset contract
+Validated Neon schema contract: backend/neon/schema/001_core.sql
+Validated Figma handoff contract: integrations/figma/README.md
+Validated Blender exchange schema and Unreal import bridge
+Validated W04 Unreal editor bootstrap and runtime map settings
+Validated NARIS localization catalogs and EN/AR staging

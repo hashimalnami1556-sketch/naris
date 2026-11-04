@@ -9,3 +9,5 @@
 ## 2026-11-04 — ENV-003
 - Fix Blender exchange collision helper UV/naming checks and exclude Unreal collision proxies from visible GLB exports while retaining FBX helpers.
 - Actual Blender synthetic roundtrip and Python regression evidence recorded in docs/changes/ENV-003; Unreal/gameplay validation remains unexecuted.
+
+- ENV-003 follow-up: owner-approved environment export RC1 (eight files total), hashed manifest, selected menu reference; fix false-positive collision flag acceptance. No runtime approval.

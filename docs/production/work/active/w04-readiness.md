@@ -116,3 +116,8 @@ last_updated: 2026-10-26
 - ENV-003 source repair completed: collision naming/UV validation and FBX/GLB selection. Evidence: [change report](../../../changes/ENV-003/report.md).
 - Blender 4.5.3 synthetic export/reimport executed; 413 CI tests + 6 AssetForge tests and repository validation succeeded. Original source GLBs untouched.
 - Runtime follow-up remains open: Unreal 5.7 import and walkable-section collision QA. No map, rig or production gate advanced.
+
+### ENV-003 RC1 follow-up — 2026-11-04
+- Codex scope: record owner RC1 approval and harden production collision presence checks.
+- Eight original exports hashed; no geometry changes. See docs/changes/ENV-003/rc1-approval.md.
+- Actual simple/convex count is now required instead of customized_collision flag. Unreal execution remains NOT_RUN; authoring scale/traversal review blocks full collision generation.
