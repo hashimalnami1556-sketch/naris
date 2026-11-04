@@ -1,0 +1,76 @@
+
+FBX export starting... '/tmp/tmp9c77ldif/NARIS-W04-ENV-WALL-0001.fbx'
+export finished in 0.0163 sec.
+INFO Draco mesh compression is available, use library at /tmp/naris_blender/blender-4.5.3-linux-x64/4.5/scripts/addons_core/io_scene_gltf2/libextern_draco.so
+09:39:16 | INFO: Starting glTF 2.0 export
+09:39:16 | INFO: Extracting primitive: Cube.001
+09:39:16 | INFO: Primitives created: 1
+09:39:16 | INFO: Finished glTF 2.0 export in 0.0028989315032958984 s
+
+{
+  "schema": "naris.blender.exchange.v1",
+  "asset_id": "NARIS-W04-ENV-WALL-0001",
+  "blend_file": "",
+  "registry_file": "/tmp/tmp9c77ldif/registry.json",
+  "registry_status": "registered",
+  "registry_entry": {
+    "id": "NARIS-W04-ENV-WALL-0001",
+    "world": "W04"
+  },
+  "objects": [
+    {
+      "name": "SM_TestWall_01",
+      "type": "MESH",
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation_euler": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "materials": [],
+      "uv_layers": [
+        "UVMap"
+      ]
+    },
+    {
+      "name": "UCX_SM_TestWall_01_00",
+      "type": "MESH",
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation_euler": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "materials": [],
+      "uv_layers": []
+    }
+  ],
+  "issues": [],
+  "status": "pass"
+}
+09:39:16 | INFO: Data are loaded, start creating Blender stuff
+09:39:16 | INFO: Blender create Mesh node Cube.001
+09:39:16 | INFO: glTF import finished in 0.00s
+FBX version: 7400
+ENV003_BLENDER_ROUNDTRIP {"blender": "4.5.3 LTS", "fixture": "synthetic cubes, not production collision", "unreal": "NOT_RUN", "before_issues": ["UCX_SM_TestWall_01_00: mesh has no UV map"], "glb_meshes": ["SM_TestWall_01"], "fbx_meshes": ["SM_TestWall_01", "UCX_SM_TestWall_01_00"], "roundtrip_assertions": "passed"}
+Blender 4.5.3 LTS (hash 67807e1800cc built 2025-09-09 01:38:15)
+
+Blender quit

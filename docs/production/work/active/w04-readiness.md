@@ -107,3 +107,21 @@ last_updated: 2026-10-26
 - Merged current origin/main, reviewed documentation branches for #85 and #75 into candidate without conflicts. Other remote branches inventoried in docs/production/branch-integration-20261030.json; outstanding code/prototype branches require individual review and runtime evidence, not a blind merge.
 - Fixed CHAR-001 structural auditor accepting wrong counts, duplicate/out-of-range joints, cyclic hierarchy and multiple parents; added subprocess behavior regressions. Reconciled contract status to G0 OPEN and linked original source specification.
 - No character, animation, map or game runtime changed. Blender/Unreal/Windows build and performance gates remain NOT_RUN. Revert integration commit(s) to roll back tool/docs only.
+
+### ENV-003 execution claim — 2026-11-04
+- Executing agent: Codex. Scope: tools/blender/naris_export.py collision validation/export selection, behavioral tests and change evidence.
+- Re-read main at 0d44d54cacab0443f28f4a11400d544ea4d0941f. No production geometry or character work authorized by this change.
+- Unreal runtime evidence remains required before map or collision production approval.
+
+- ENV-003 source repair completed: collision naming/UV validation and FBX/GLB selection. Evidence: [change report](../../../changes/ENV-003/report.md).
+- Blender 4.5.3 synthetic export/reimport executed; 413 CI tests + 6 AssetForge tests and repository validation succeeded. Original source GLBs untouched.
+- Runtime follow-up remains open: Unreal 5.7 import and walkable-section collision QA. No map, rig or production gate advanced.
+
+### ENV-003 RC1 follow-up — 2026-11-04
+- Codex scope: record owner RC1 approval and harden production collision presence checks.
+- Eight original exports hashed; no geometry changes. See docs/changes/ENV-003/rc1-approval.md.
+- Actual simple/convex count is now required instead of customized_collision flag. Unreal execution remains NOT_RUN; authoring scale/traversal review blocks full collision generation.
+
+- ENV-003 actual decomposition experiment: CoACD + Blender FBX roundtrip executed on both original sources; 64 hulls each. Precision gate FAILED and candidates are prohibited from production promotion. See docs/changes/ENV-003/split-review.md. Original source hashes unchanged; Unreal still NOT_RUN.
+
+- ENV-003 follow-up: standalone fail-closed precision/source preflight added; actual previous candidates rejected. 424 CI + 6 AssetForge tests succeeded. See docs/changes/ENV-003/precision-gate.md. Walkable-section authoring remains OPEN; no geometry repair or Unreal execution claimed.

@@ -1,0 +1,11 @@
+test_build_is_deterministic (test_world_generator.WorldGeneratorTests.test_build_is_deterministic) ... ok
+test_catalog_has_99_biomes (test_world_generator.WorldGeneratorTests.test_catalog_has_99_biomes) ... ok
+test_expected_shapes_and_chunks (test_world_generator.WorldGeneratorTests.test_expected_shapes_and_chunks) ... ok
+test_export (test_world_generator.WorldGeneratorTests.test_export) ... ok
+test_rejects_nonpositive_octaves (test_world_generator.WorldGeneratorTests.test_rejects_nonpositive_octaves) ... ok
+test_zero_counts_produce_no_features (test_world_generator.WorldGeneratorTests.test_zero_counts_produce_no_features) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.312s
+
+OK

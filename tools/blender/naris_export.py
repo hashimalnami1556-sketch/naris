@@ -23,6 +23,29 @@ ASSET_ID = re.compile(
 )
 ALLOWED_TYPES = {"MESH", "ARMATURE", "EMPTY"}
 EPS = 1e-4
+COLLISION_PREFIXES = ("UCX_", "UBX_", "UCP_", "USP_")
+
+
+def is_collision(obj) -> bool:
+    return obj.name.startswith(COLLISION_PREFIXES)
+
+
+def validate_collision_bindings(objects) -> list[str]:
+    """Check selected render targets; this does not prove convexity or gameplay fit."""
+    render_names = {o.name for o in objects if o.type == "MESH" and not is_collision(o)}
+    issues = []
+    if not render_names:
+        issues.append("Asset contains no render mesh")
+    for obj in objects:
+        if not is_collision(obj):
+            continue
+        target = obj.name[4:]
+        # Prefer an exact render name (which may itself end in digits).
+        if target not in render_names:
+            target = re.sub(r"_\d+$", "", target)
+            if target not in render_names:
+                issues.append(f"{obj.name}: collision target is not a selected render mesh")
+    return issues
 
 
 def parse_args() -> argparse.Namespace:
@@ -50,7 +73,7 @@ def validate_object(obj: bpy.types.Object) -> list[str]:
     if obj.type == "MESH":
         if not obj.data.polygons:
             issues.append(f"{obj.name}: mesh has no polygons")
-        if len(obj.data.uv_layers) == 0:
+        if not is_collision(obj) and len(obj.data.uv_layers) == 0:
             issues.append(f"{obj.name}: mesh has no UV map")
 
     if not all(near(v, 1.0) for v in obj.scale):
@@ -64,8 +87,8 @@ def validate_object(obj: bpy.types.Object) -> list[str]:
             f"{obj.name}: non-zero Euler rotation; apply transforms before final export"
         )
 
-    if obj.name.startswith("UCX_") and obj.type != "MESH":
-        issues.append(f"{obj.name}: UCX collision helper must be a mesh")
+    if is_collision(obj) and obj.type != "MESH":
+        issues.append(f"{obj.name}: collision helper must be a mesh")
 
     return issues
 
@@ -173,6 +196,7 @@ def main() -> int:
 
     for obj in selected:
         issues.extend(validate_object(obj))
+    issues.extend(validate_collision_bindings(selected))
 
     manifest = collect_manifest(
         asset_id,
@@ -210,6 +234,10 @@ def main() -> int:
         )
 
     if not args.no_gltf:
+        # glTF does not interpret Unreal UCX/UBX/UCP/USP naming as collision.
+        # Keep helpers in FBX, but exclude them from the visible GLB payload.
+        for obj in selected:
+            obj.select_set(not is_collision(obj))
         bpy.ops.export_scene.gltf(
             filepath=str(out / f"{asset_id}.glb"),
             export_format="GLB",

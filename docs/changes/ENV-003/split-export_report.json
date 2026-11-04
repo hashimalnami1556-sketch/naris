@@ -1,0 +1,78 @@
+[
+  {
+    "source": "19-City-1.glb",
+    "sha256": "2032dd3208d9215a5531f1fa880a2ea2e6ab4962a0836a4a6acb12dd8ec36e52",
+    "transform_baseline": {
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "dimensions": [
+        1.0000001192092896,
+        0.8746949434280396,
+        0.3314208984375
+      ]
+    },
+    "fbx": "SM_NARIS_City_COLLISION_REVIEW.fbx",
+    "render_objects": 1,
+    "ucx_count": 64,
+    "reimport_names_match": true,
+    "blender_version": "4.5.3 LTS",
+    "scale": "original source scale, gameplay scale NOT_VERIFIED",
+    "status": "VISUAL_REVIEW_REQUIRED",
+    "unreal": "NOT_RUN",
+    "geometry_precision_gate": "FAIL",
+    "runtime_promotion_allowed": false,
+    "fbx_materials": "NOT_VERIFIED; dark material observed on reimport",
+    "preview_material_source": "original GLB"
+  },
+  {
+    "source": "16-Environmental-1.glb",
+    "sha256": "64780ab4c7abb5c38d10fe5035d740f294ba5aed4824c897c9bcc494f30b4271",
+    "transform_baseline": {
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "dimensions": [
+        1.0000001192092896,
+        0.8594362139701843,
+        0.92071533203125
+      ]
+    },
+    "fbx": "SM_NARIS_Environment_COLLISION_REVIEW.fbx",
+    "render_objects": 1,
+    "ucx_count": 64,
+    "reimport_names_match": true,
+    "blender_version": "4.5.3 LTS",
+    "scale": "original source scale, gameplay scale NOT_VERIFIED",
+    "status": "VISUAL_REVIEW_REQUIRED",
+    "unreal": "NOT_RUN",
+    "geometry_precision_gate": "FAIL",
+    "runtime_promotion_allowed": false,
+    "fbx_materials": "NOT_VERIFIED; dark material observed on reimport",
+    "preview_material_source": "original GLB"
+  }
+]

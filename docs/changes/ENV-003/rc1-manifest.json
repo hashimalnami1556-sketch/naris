@@ -1,0 +1,190 @@
+{
+  "schema": "naris.environment.rc1-intake.v1",
+  "version": "ENV-RC1",
+  "approval": "OWNER_APPROVED_FOR_TESTING",
+  "approval_scope": "Eight exchange files total, two composite source assets, LOD0/LOD1 in FBX/GLB. Not a game release candidate.",
+  "stage_gate_1": "SOURCE_EXPORT_CANDIDATE_ACCEPTED_BY_OWNER",
+  "collision_gate": "OPEN_NOT_AUTHORED",
+  "unreal_import": "NOT_RUN",
+  "runtime": "NOT_RUN",
+  "files": [
+    {
+      "file": "SM_NARIS_City_LOD0.fbx",
+      "bytes": 1129452,
+      "sha256": "794c1517aefe9db786bd5bc0532241f10d10fa638b94ecf68ad1cfa8832c4d00"
+    },
+    {
+      "file": "SM_NARIS_City_LOD0.glb",
+      "bytes": 1525456,
+      "sha256": "3973d9bb90ee60604ffc52898111c29f8b5eeaaa35005503d4bebedb64275582"
+    },
+    {
+      "file": "SM_NARIS_City_LOD1.fbx",
+      "bytes": 1076428,
+      "sha256": "146a5d5cf4987a2a2979dac018a7027dc1d3e79b7fee66fe85f3b154ec093b2d"
+    },
+    {
+      "file": "SM_NARIS_City_LOD1.glb",
+      "bytes": 1465892,
+      "sha256": "2623eda30f9692f651d556151532f51e9bba1b5f51c5bb9f5dae9e79d7c2c576"
+    },
+    {
+      "file": "SM_NARIS_Environment_LOD0.fbx",
+      "bytes": 956060,
+      "sha256": "3fbbe186505ec9c0c110667e5a9b1d7c777c19012db07720c1c8940f19fca5f7"
+    },
+    {
+      "file": "SM_NARIS_Environment_LOD0.glb",
+      "bytes": 1210976,
+      "sha256": "38f14e6570a6e100391e81011e0071ef3f4cbd62fbf564549b31be3b48494416"
+    },
+    {
+      "file": "SM_NARIS_Environment_LOD1.fbx",
+      "bytes": 902572,
+      "sha256": "f9c26a6f956abb7b0c26ff052f1c504a8f67dc28412f2ffbf8feedda2f7c2428"
+    },
+    {
+      "file": "SM_NARIS_Environment_LOD1.glb",
+      "bytes": 1150464,
+      "sha256": "92de49f011f860ea67b9edb3e115594dc280e9e46ba2c7941a3bbb7cf4bd3c01"
+    }
+  ],
+  "source_evidence": [
+    {
+      "source": "19-City-1.glb",
+      "source_sha256": "2032dd3208d9215a5531f1fa880a2ea2e6ab4962a0836a4a6acb12dd8ec36e52",
+      "lods": [
+        {
+          "name": "SM_NARIS_City_LOD0",
+          "triangles": 18161,
+          "uv_layers": 1,
+          "materials": 1,
+          "bounds": [
+            1.0000001192092896,
+            0.8746949434280396,
+            0.3314208984375
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "SM_NARIS_City_LOD1",
+          "triangles": 15436,
+          "uv_layers": 1,
+          "materials": 1,
+          "bounds": [
+            1.0000001192092896,
+            0.8729249835014343,
+            0.3312835693359375
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        }
+      ],
+      "roundtrip": [
+        {
+          "file": "SM_NARIS_City_LOD0.glb",
+          "reimport_triangles": 18161,
+          "uv_and_material_present": true
+        },
+        {
+          "file": "SM_NARIS_City_LOD0.fbx",
+          "reimport_triangles": 18161,
+          "uv_and_material_present": true
+        },
+        {
+          "file": "SM_NARIS_City_LOD1.glb",
+          "reimport_triangles": 15436,
+          "uv_and_material_present": true
+        },
+        {
+          "file": "SM_NARIS_City_LOD1.fbx",
+          "reimport_triangles": 15436,
+          "uv_and_material_present": true
+        }
+      ],
+      "reduction_percent": 15.004680359011068,
+      "unreal_import": "NOT_RUN",
+      "collision": "NOT_CREATED",
+      "runtime": "NOT_TESTED",
+      "lod_distance": "UNSET"
+    },
+    {
+      "source": "16-Environmental-1.glb",
+      "source_sha256": "64780ab4c7abb5c38d10fe5035d740f294ba5aed4824c897c9bcc494f30b4271",
+      "lods": [
+        {
+          "name": "SM_NARIS_Environment_LOD0",
+          "triangles": 17880,
+          "uv_layers": 1,
+          "materials": 1,
+          "bounds": [
+            1.0000001192092896,
+            0.8594362139701843,
+            0.92071533203125
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "SM_NARIS_Environment_LOD1",
+          "triangles": 15197,
+          "uv_layers": 1,
+          "materials": 1,
+          "bounds": [
+            1.0000001192092896,
+            0.8594362139701843,
+            0.92071533203125
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        }
+      ],
+      "roundtrip": [
+        {
+          "file": "SM_NARIS_Environment_LOD0.glb",
+          "reimport_triangles": 17880,
+          "uv_and_material_present": true
+        },
+        {
+          "file": "SM_NARIS_Environment_LOD0.fbx",
+          "reimport_triangles": 17880,
+          "uv_and_material_present": true
+        },
+        {
+          "file": "SM_NARIS_Environment_LOD1.glb",
+          "reimport_triangles": 15197,
+          "uv_and_material_present": true
+        },
+        {
+          "file": "SM_NARIS_Environment_LOD1.fbx",
+          "reimport_triangles": 15197,
+          "uv_and_material_present": true
+        }
+      ],
+      "reduction_percent": 15.005592841163306,
+      "unreal_import": "NOT_RUN",
+      "collision": "NOT_CREATED",
+      "runtime": "NOT_TESTED",
+      "lod_distance": "UNSET"
+    }
+  ],
+  "menu_reference": {
+    "file": "151dedc7-05bf-43b3-b145-f82618a32666.png",
+    "sha256": "8d216d0a12d39e76a127ac00e20a121b0ca4833be873b00cddf170708e48882f",
+    "library_file_id": "libfile_eff3ea10c6b8819182f5ed47fcfc4419",
+    "status": "OWNER_SELECTED_REFERENCE_NOT_RUNTIME_UI"
+  }
+}

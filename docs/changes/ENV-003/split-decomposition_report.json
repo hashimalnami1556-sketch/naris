@@ -1,0 +1,58 @@
+[
+  {
+    "source": "19-City-1.glb",
+    "sha256": "2032dd3208d9215a5531f1fa880a2ea2e6ab4962a0836a4a6acb12dd8ec36e52",
+    "hulls": 64,
+    "hull_triangles": 6684,
+    "seconds": 52.77,
+    "source_bounds": [
+      [
+        -0.5000000596046448,
+        0.0,
+        -0.4373474717140198
+      ],
+      [
+        0.5000000596046448,
+        0.3314208984375,
+        0.4373474717140198
+      ]
+    ],
+    "preprocess": "auto; may alter openings",
+    "units": "source units; human scale unverified",
+    "status": "REVIEW_REQUIRED",
+    "unreal": "NOT_RUN",
+    "passage_clearance": "NOT_VERIFIED",
+    "measured_concavity": 0.06829770500452616,
+    "target_concavity": 0.03,
+    "precision_gate": "FAIL",
+    "runtime_promotion_allowed": false
+  },
+  {
+    "source": "16-Environmental-1.glb",
+    "sha256": "64780ab4c7abb5c38d10fe5035d740f294ba5aed4824c897c9bcc494f30b4271",
+    "hulls": 64,
+    "hull_triangles": 7812,
+    "seconds": 139.95,
+    "source_bounds": [
+      [
+        -0.5000000596046448,
+        0.0,
+        -0.42971810698509216
+      ],
+      [
+        0.5000000596046448,
+        0.92071533203125,
+        0.42971810698509216
+      ]
+    ],
+    "preprocess": "auto; may alter openings",
+    "units": "source units; human scale unverified",
+    "status": "REVIEW_REQUIRED",
+    "unreal": "NOT_RUN",
+    "passage_clearance": "NOT_VERIFIED",
+    "measured_concavity": 0.11413680379904367,
+    "target_concavity": 0.03,
+    "precision_gate": "FAIL",
+    "runtime_promotion_allowed": false
+  }
+]
