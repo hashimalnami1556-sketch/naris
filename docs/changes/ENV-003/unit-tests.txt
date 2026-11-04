@@ -1,0 +1,70 @@
+test_collision_does_not_require_uv (tools.ci.test_collision_export.CollisionExportTests.test_collision_does_not_require_uv) ... ok
+test_empty_helper_and_nonmesh_rejected (tools.ci.test_collision_export.CollisionExportTests.test_empty_helper_and_nonmesh_rejected) ... ok
+test_fbx_keeps_helpers_glb_excludes_them (tools.ci.test_collision_export.CollisionExportTests.test_fbx_keeps_helpers_glb_excludes_them) ... ok
+test_mismatch_and_blender_duplicate_suffix_rejected (tools.ci.test_collision_export.CollisionExportTests.test_mismatch_and_blender_duplicate_suffix_rejected) ... ok
+test_numbered_and_exact_targets (tools.ci.test_collision_export.CollisionExportTests.test_numbered_and_exact_targets) ... ok
+test_render_mesh_still_requires_uv (tools.ci.test_collision_export.CollisionExportTests.test_render_mesh_still_requires_uv) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.002s
+
+OK
+{
+  "schema": "naris.blender.exchange.v1",
+  "asset_id": "NARIS-W04-ENV-WALL-0001",
+  "blend_file": "fixture.blend",
+  "registry_file": "/tmp/tmprur5ulso/registry.json",
+  "registry_status": "registered",
+  "registry_entry": {
+    "id": "NARIS-W04-ENV-WALL-0001",
+    "world": "W04"
+  },
+  "objects": [
+    {
+      "name": "Wall",
+      "type": "MESH",
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation_euler": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "materials": [],
+      "uv_layers": [
+        "UVMap"
+      ]
+    },
+    {
+      "name": "UCX_Wall_00",
+      "type": "MESH",
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation_euler": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "materials": [],
+      "uv_layers": []
+    }
+  ],
+  "issues": [],
+  "status": "pass"
+}

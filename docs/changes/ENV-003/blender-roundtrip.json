@@ -1,0 +1,16 @@
+{
+  "blender": "4.5.3 LTS",
+  "fixture": "synthetic cubes, not production collision",
+  "unreal": "NOT_RUN",
+  "before_issues": [
+    "UCX_SM_TestWall_01_00: mesh has no UV map"
+  ],
+  "glb_meshes": [
+    "SM_TestWall_01"
+  ],
+  "fbx_meshes": [
+    "SM_TestWall_01",
+    "UCX_SM_TestWall_01_00"
+  ],
+  "roundtrip_assertions": "passed"
+}

@@ -1,0 +1,44 @@
+[
+  {
+    "file": "21-Character-1.glb",
+    "sha256": "d3d83628a982079a614541295334f11cafe616af86f621cd0947190afb1acc75",
+    "meshes": 1,
+    "skins": 0,
+    "animations": 0,
+    "skin_joints": []
+  },
+  {
+    "file": "17-Character-3.glb",
+    "sha256": "ac36ad54c102b7d755359195997afc009160689b28b0cfb4b53b77987dbb72b5",
+    "meshes": 1,
+    "skins": 0,
+    "animations": 0,
+    "skin_joints": []
+  },
+  {
+    "file": "16-Environmental-1.glb",
+    "sha256": "64780ab4c7abb5c38d10fe5035d740f294ba5aed4824c897c9bcc494f30b4271",
+    "meshes": 1,
+    "skins": 0,
+    "animations": 0,
+    "skin_joints": []
+  },
+  {
+    "file": "19-City-1.glb",
+    "sha256": "2032dd3208d9215a5531f1fa880a2ea2e6ab4962a0836a4a6acb12dd8ec36e52",
+    "meshes": 1,
+    "skins": 0,
+    "animations": 0,
+    "skin_joints": []
+  },
+  {
+    "file": "18-Character1_NARIS_Rigged_Prototype.glb",
+    "sha256": "83e4d41f347c959e61ec57355fd682db99ed4652dfabba622ae0784b8cd9b628",
+    "meshes": 1,
+    "skins": 1,
+    "animations": 1,
+    "skin_joints": [
+      18
+    ]
+  }
+]
