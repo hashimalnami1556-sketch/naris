@@ -1,0 +1,42 @@
+[
+  {
+    "file": "City_source_vs_collision.png",
+    "sha256": "725eb9ba4e7930779d275a5b983f04226b1f14e3b0e649ce330c897cca0adee8",
+    "bytes": 2392779
+  },
+  {
+    "file": "SM_NARIS_City_COLLISION_REVIEW.fbx",
+    "sha256": "5055c54a25a5123c6a207a3e785d4aa90dbbe75751c00546d118218f49f0a060",
+    "bytes": 1488524
+  },
+  {
+    "file": "Environment_source_vs_collision.png",
+    "sha256": "3113aa042f90a46218d94c7cc6249befecc113ac8edb73bb8b8586353cd19897",
+    "bytes": 2538554
+  },
+  {
+    "file": "Environment_COLLISION_REVIEW.glb",
+    "sha256": "dbd39874b33f0ff096cb4b912abab61772ed3d7ea99dc6763d66d79cedd325e9",
+    "bytes": 180780
+  },
+  {
+    "file": "Environment_COLLISION_REVIEW.blend",
+    "sha256": "289d07d137684927e1f1f3a0e900e3b667d8895fdb0531b3d78b3c31f4ba9453",
+    "bytes": 3486186
+  },
+  {
+    "file": "City_COLLISION_REVIEW.blend",
+    "sha256": "f9c7c0db7f7479f5715a22d83079966652ca0799d45b6b7b0d80c95aec794b6d",
+    "bytes": 3769735
+  },
+  {
+    "file": "City_COLLISION_REVIEW.glb",
+    "sha256": "ce8a0fd6ba6a1e76ca9e2a0cc0709d3ba986bae2cd98ec3dec1d3f5c2d259125",
+    "bytes": 159648
+  },
+  {
+    "file": "SM_NARIS_Environment_COLLISION_REVIEW.fbx",
+    "sha256": "0cea9e8fb78184f7790406fcecffd3d36ffd85e0860dd98fd696eae43b1b5e6d",
+    "bytes": 1356364
+  }
+]

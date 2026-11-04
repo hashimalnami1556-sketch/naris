@@ -11,3 +11,5 @@
 - Actual Blender synthetic roundtrip and Python regression evidence recorded in docs/changes/ENV-003; Unreal/gameplay validation remains unexecuted.
 
 - ENV-003 follow-up: owner-approved environment export RC1 (eight files total), hashed manifest, selected menu reference; fix false-positive collision flag acceptance. No runtime approval.
+
+- ENV-003: record executed two-asset split-collision review and failed precision gate. Keep candidates isolated; no runtime promotion.

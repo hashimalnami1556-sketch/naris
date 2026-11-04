@@ -121,3 +121,5 @@ last_updated: 2026-10-26
 - Codex scope: record owner RC1 approval and harden production collision presence checks.
 - Eight original exports hashed; no geometry changes. See docs/changes/ENV-003/rc1-approval.md.
 - Actual simple/convex count is now required instead of customized_collision flag. Unreal execution remains NOT_RUN; authoring scale/traversal review blocks full collision generation.
+
+- ENV-003 actual decomposition experiment: CoACD + Blender FBX roundtrip executed on both original sources; 64 hulls each. Precision gate FAILED and candidates are prohibited from production promotion. See docs/changes/ENV-003/split-review.md. Original source hashes unchanged; Unreal still NOT_RUN.
