@@ -1,0 +1,12 @@
+Actual unittest run summary (full output reviewed locally):
+test_acceptable_measurement_never_promotes_runtime (test_collision_candidate.CandidateTests.test_acceptable_measurement_never_promotes_runtime) ... ok
+test_empty_report_rejected (test_collision_candidate.CandidateTests.test_empty_report_rejected) ... ok
+test_failed_geometry_cannot_be_overridden_by_report_target (test_collision_candidate.CandidateTests.test_failed_geometry_cannot_be_overridden_by_report_target) ... ok
+test_missing_and_invalid_measurements_fail_closed (test_collision_candidate.CandidateTests.test_missing_and_invalid_measurements_fail_closed) ... ok
+test_modified_source_rejected (test_collision_candidate.CandidateTests.test_modified_source_rejected) ... ok
+test_unsafe_missing_and_duplicate_sources_rejected (test_collision_candidate.CandidateTests.test_unsafe_missing_and_duplicate_sources_rejected) ... ok
+test_upstream_failure_is_preserved (test_collision_candidate.CandidateTests.test_upstream_failure_is_preserved) ... ok
+Ran 424 tests in 0.679s
+OK
+AssetForge: 6 tests OK
+python tools/ci/validate_naris.py: PASSED

@@ -1,0 +1,28 @@
+{
+  "precision_status": "REJECTED",
+  "threshold": 0.03,
+  "assets": [
+    {
+      "source": "19-City-1.glb",
+      "errors": [
+        "measured concavity 0.06829771 exceeds 0.03",
+        "upstream precision failure remains unresolved"
+      ]
+    },
+    {
+      "source": "16-Environmental-1.glb",
+      "errors": [
+        "measured concavity 0.11413680 exceeds 0.03",
+        "upstream precision failure remains unresolved"
+      ]
+    }
+  ],
+  "runtime_promotion_allowed": false,
+  "remaining_gates": [
+    "physical scale",
+    "passage clearance",
+    "visual review",
+    "Unreal import and traversal",
+    "runtime performance"
+  ]
+}

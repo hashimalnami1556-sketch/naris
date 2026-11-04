@@ -13,3 +13,5 @@
 - ENV-003 follow-up: owner-approved environment export RC1 (eight files total), hashed manifest, selected menu reference; fix false-positive collision flag acceptance. No runtime approval.
 
 - ENV-003: record executed two-asset split-collision review and failed precision gate. Keep candidates isolated; no runtime promotion.
+
+- 2026-11-04 — ENV-003: add precision/source preflight rejecting failed or missing collision measurements; retain runtime prohibition. 424 CI tests; no production geometry change.
