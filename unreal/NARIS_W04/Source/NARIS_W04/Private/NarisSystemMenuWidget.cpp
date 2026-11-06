@@ -376,7 +376,7 @@ void UNarisSystemMenuWidget::RefreshInterface()
         {
             BackdropPanel->SetBrushColor(
                 bFrontEndLayout
-                    ? FLinearColor(0.004f, 0.005f, 0.007f, 0.46f)
+                    ? FLinearColor(0.004f, 0.005f, 0.007f, 0.22f)
                     : NarsicUMG::Obsidian
             );
         }
@@ -387,7 +387,7 @@ void UNarisSystemMenuWidget::RefreshInterface()
             {
                 PanelSlot->SetAnchors(
                     bFrontEndLayout
-                        ? FAnchors(0.06f, 0.24f, 0.42f, 0.81f)
+                        ? FAnchors(0.71f, 0.27f, 0.95f, 0.83f)
                         : FAnchors(0.035f, 0.155f, 0.605f, 0.90f)
                 );
             }
