@@ -1,0 +1,31 @@
+{
+  "version": "UI-002",
+  "product": "CALL OF NARIS",
+  "status": "ORIGINAL_IMAGES_PACKAGED_NOT_INSTALLED",
+  "images": [
+    {
+      "file": "UI_Character_Approved.png",
+      "screen": "character",
+      "asset_name": "T_Naris_Approved_Character",
+      "sha256": "ff2e0f04146edeb7c9ce75e624e9c5738d0e576b6b4c86a45e6e008a0b9e9f71",
+      "width": 1672,
+      "height": 941
+    },
+    {
+      "file": "UI_MainMenu_Approved.png",
+      "screen": "main_menu",
+      "asset_name": "T_Naris_Approved_MainMenu",
+      "sha256": "8d216d0a12d39e76a127ac00e20a121b0ca4833be873b00cddf170708e48882f",
+      "width": 2048,
+      "height": 1152
+    },
+    {
+      "file": "UI_Combat_Approved.png",
+      "screen": "combat",
+      "asset_name": "T_Naris_Approved_Combat",
+      "sha256": "19734e1aa77206378c915e39d2505d941cc6de4f962b5bd270636ba2ddaa25d6",
+      "width": 2048,
+      "height": 1152
+    }
+  ]
+}
