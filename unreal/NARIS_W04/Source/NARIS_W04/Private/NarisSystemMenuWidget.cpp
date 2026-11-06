@@ -500,26 +500,84 @@ void UNarisSystemMenuWidget::RefreshInterface()
         }
     }
 
-    FString Status = TEXT("ASHEN FOREST\n\n");
+    FString Status = TEXT("");
     if (Runtime)
     {
         const FNarisSaveState State = Runtime->GetState();
-        Status += FString::Printf(
-            TEXT("REGION\n%s\n\nCHECKPOINT\n%s\n\nACTIVE QUESTS  %d\nWAYSTONES      %d\nRELICS & ITEMS %d"),
-            State.MapId.IsEmpty() ? TEXT("ASHEN FOREST") : *State.MapId,
-            State.CheckpointId.IsEmpty() ? TEXT("--") : *State.CheckpointId,
-            State.ActiveQuests.Num(),
-            State.UnlockedWaystones.Num(),
-            State.InventoryItems.Num()
-        );
-    }
+        if (bInventoryPage)
+        {
+            // The approved character/inventory reference uses the right panel
+            // for actual equipment and loot, never placeholder statistics.
+            Status = FText::Format(
+                NSLOCTEXT("NARIS", "UMGInventoryCurrency", "Currency: {0}"),
+                FText::AsNumber(State.Currency)
+            ).ToString();
+            Status += TEXT("\n\n");
+            Status += NSLOCTEXT("NARIS", "UMGEquippedHeading", "EQUIPPED").ToString();
+            Status += TEXT("\n");
+            if (State.EquippedItems.IsEmpty())
+            {
+                Status += NSLOCTEXT("NARIS", "UMGNoEquipment", "No equipment assigned.").ToString();
+            }
+            else
+            {
+                const int32 VisibleEquipped = FMath::Min(State.EquippedItems.Num(), 5);
+                for (int32 Index = 0; Index < VisibleEquipped; ++Index)
+                {
+                    Status += FString::Printf(TEXT("• %s\n"), *State.EquippedItems[Index]);
+                }
+                if (State.EquippedItems.Num() > VisibleEquipped)
+                {
+                    Status += FText::Format(
+                        NSLOCTEXT("NARIS", "UMGExtraEquipped", "+{0} more equipped"),
+                        FText::AsNumber(State.EquippedItems.Num() - VisibleEquipped)
+                    ).ToString();
+                }
+            }
 
+            Status += TEXT("\n\n");
+            Status += NSLOCTEXT("NARIS", "UMGInventoryItemsHeading", "RELICS & ITEMS").ToString();
+            Status += TEXT("\n");
+            if (State.InventoryItems.IsEmpty())
+            {
+                Status += NSLOCTEXT("NARIS", "UMGNoInventory", "Your inventory is empty.").ToString();
+            }
+            else
+            {
+                const int32 VisibleItems = FMath::Min(State.InventoryItems.Num(), 7);
+                for (int32 Index = 0; Index < VisibleItems; ++Index)
+                {
+                    Status += FString::Printf(TEXT("• %s\n"), *State.InventoryItems[Index]);
+                }
+                if (State.InventoryItems.Num() > VisibleItems)
+                {
+                    Status += FText::Format(
+                        NSLOCTEXT("NARIS", "UMGExtraItems", "+{0} more items"),
+                        FText::AsNumber(State.InventoryItems.Num() - VisibleItems)
+                    ).ToString();
+                }
+            }
+        }
+        else
+        {
+            Status = FString::Printf(
+                TEXT("REGION\n%s\n\nCHECKPOINT\n%s\n\nACTIVE QUESTS  %d\nWAYSTONES      %d\nRELICS & ITEMS %d"),
+                State.MapId.IsEmpty() ? TEXT("ASHEN FOREST") : *State.MapId,
+                State.CheckpointId.IsEmpty() ? TEXT("--") : *State.CheckpointId,
+                State.ActiveQuests.Num(),
+                State.UnlockedWaystones.Num(),
+                State.InventoryItems.Num()
+            );
+        }
+    }
     StatusBodyText->SetText(FText::FromString(Status));
 
     StatusTitleText->SetText(
-        Controller->GetMenuContext() == ENarisMenuContext::FrontEnd
-        ? NSLOCTEXT("NARIS", "UMGFrontStatus", "JOURNEY STATUS")
-        : NSLOCTEXT("NARIS", "UMGPauseStatus", "OPERATION STATUS")
+        bInventoryPage
+        ? NSLOCTEXT("NARIS", "UMGEquipmentStatus", "EQUIPMENT & INVENTORY")
+        : Controller->GetMenuContext() == ENarisMenuContext::FrontEnd
+            ? NSLOCTEXT("NARIS", "UMGFrontStatus", "JOURNEY STATUS")
+            : NSLOCTEXT("NARIS", "UMGPauseStatus", "OPERATION STATUS")
     );
 
     FooterText->SetText(
