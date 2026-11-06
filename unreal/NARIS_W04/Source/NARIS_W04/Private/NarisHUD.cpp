@@ -335,13 +335,13 @@ void ANarisHUD::DrawBossHUD(float Scale, float Safe)
             continue;
         }
 
-        // P20 combat composition: a restrained center-bottom encounter frame.
-        // Name and phase deliberately identify the real W04 Bone Beast, not the
-        // illustrative Ash Gatekeeper enemy from the browser reference.
+        // UI-004: official reference positions the live boss encounter bar
+        // at top center, clear of the player abilities and bottom action area.
+        // This remains the real W04 Bone Beast (not the reference image's boss).
         const float W = FMath::Min(Canvas->ClipX * 0.60f, 790.f * Scale);
         const float H = 98.f * Scale;
         const float X = (Canvas->ClipX - W) * 0.5f;
-        const float Y = Canvas->ClipY - Safe - H;
+        const float Y = Safe + 12.f * Scale;
 
         DrawPanel(X, Y, W, H, FLinearColor(0.008f, 0.010f, 0.013f, 0.87f));
         DrawText(
