@@ -37,7 +37,16 @@
     "BuildCookRun": "NOT_RUN",
     "automation": "NOT_RUN",
     "server_two_clients": "NOT_RUN",
-    "fps_memory": "NOT_RUN"
+    "fps_memory": "NOT_RUN",
+    "github_actions": {
+      "WORLD-013 handoff contract": "PASS",
+      "NARIS Content Validation": "PASS",
+      "NARIS Unreal Validate (static checks)": "PASS",
+      "NARIS Codex PR Check": "PASS",
+      "NARIS CI": "PASS",
+      "commit_sha": "e0c054fa2ce3418f1cd79330c01c6ba87aaf79cf"
+    },
+    "localization_en_ar": "PASS_AFTER_8_NEW_KEYS_EACH"
   },
   "distribution": {
     "artifact": "NARIS_WORLD_013_REAL_GEOMETRY_AND_UE57.zip",
