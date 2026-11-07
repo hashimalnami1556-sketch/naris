@@ -528,3 +528,35 @@ msgctxt "NARIS,P20BossPhase3"
 msgid "PHASE III"
 msgstr "المرحلة الثالثة"
 
+msgctxt "NARIS,UMGEquipmentStatus"
+msgid "EQUIPMENT & INVENTORY"
+msgstr "المعدات والمخزون"
+
+msgctxt "NARIS,UMGEquippedHeading"
+msgid "EQUIPPED"
+msgstr "المعدات المجهزة"
+
+msgctxt "NARIS,UMGExtraEquipped"
+msgid "+{0} more equipped"
+msgstr "+{0} معدات أخرى"
+
+msgctxt "NARIS,UMGExtraItems"
+msgid "+{0} more items"
+msgstr "+{0} عناصر أخرى"
+
+msgctxt "NARIS,UMGInventoryCurrency"
+msgid "Currency: {0}"
+msgstr "العملة: {0}"
+
+msgctxt "NARIS,UMGInventoryItemsHeading"
+msgid "RELICS & ITEMS"
+msgstr "الآثار والعناصر"
+
+msgctxt "NARIS,UMGNoEquipment"
+msgid "No equipment assigned."
+msgstr "لا توجد معدات مجهزة."
+
+msgctxt "NARIS,UMGNoInventory"
+msgid "Your inventory is empty."
+msgstr "المخزون فارغ."
+
