@@ -35,7 +35,7 @@ Companion artifact `NARIS_WORLD_013_REAL_GEOMETRY_AND_UE57.zip` (provided in thi
 | Mesh topology / adjacent tile seam continuity | PASS |
 | WORLD-002 R16 height conversion vs original scatter altitudes | PASS |
 | Original source GLB/approved PNG SHA256 comparisons | PASS |
-| Local Python regression suite | **14/14 PASS** |
+| Local Python regression suite | **16/16 PASS** |
 | Python syntax check | PASS |
 | ZIP CRC | PASS |
 | Unreal Engine 5.7 editor import, World Partition map save | **NOT RUN** |
