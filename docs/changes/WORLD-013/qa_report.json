@@ -43,9 +43,10 @@
     "artifact": "NARIS_WORLD_013_REAL_GEOMETRY_AND_UE57.zip",
     "artifact_sha256": "d445248aef6718b7f7c01b15981a1916a1acb6c3ec21b8c7251d418f840614fe",
     "git_lfs_binary_files_committed": false,
-    "source_scripts_committed_in_git": true,
     "main_merged": false,
-    "windows_exe_built": false
+    "windows_exe_built": false,
+    "github_integration_helpers_committed": true,
+    "full_unreal_authoring_script_in_local_zip_only": true
   },
   "risks": [
     "GLB importer units/up-axis unverified",
