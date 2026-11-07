@@ -1,0 +1,46 @@
+{
+  "id": "WORLD-014",
+  "engine": "Unreal Engine 5.7",
+  "date": "2026-11-07",
+  "input_asset_package": "WORLD-013 user-provided originals",
+  "package": {
+    "filename": "NARIS_WORLD_014_REAL_GEOMETRY_UE57.zip",
+    "size_bytes": 25068918,
+    "sha256": "8c5ed811576af46a21cf30b72e1a7202a15f23726eab157b69b1b4764bbe6285",
+    "included_original_glb": 5,
+    "included_approved_png": 3,
+    "terrain_glb_tiles": 64,
+    "terrain_triangles": 508032
+  },
+  "defect_reproduced": true,
+  "fix": {
+    "AshenForest_ground_z_m": -13.8515625,
+    "TwilightCitadel_ground_z_m": -0.015625,
+    "source_heightmap": "1009x1009 R16",
+    "default_map_modified": false,
+    "new_review_map": "/Game/NARIS/W04/Maps/W04_AshenForest_Work014"
+  },
+  "tests": {
+    "local_unittest_count": 27,
+    "local_pass_count": 27,
+    "broken_before_fix": 2,
+    "offline_unreal_mock_count": 1,
+    "source_GLBS_unchanged": true,
+    "approved_UI_PNGS_unchanged": true,
+    "zip_crc_pass": true
+  },
+  "unmet_gates": {
+    "unreal_editor_executed": false,
+    "world_partition_saved_and_opened": false,
+    "playable_character_verified": false,
+    "final_rig_92_verified": false,
+    "UMG_visual_approved": false,
+    "all_2990_placements": false,
+    "build_cook_run": false,
+    "network_2_clients": false,
+    "performance_fps": false,
+    "before_after_diff": false,
+    "windows_exe_installed": false
+  },
+  "release_status": "DRAFT_NOT_RELEASE_APPROVED"
+}
