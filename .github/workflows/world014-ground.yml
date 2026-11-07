@@ -1,0 +1,25 @@
+name: WORLD-014 ground alignment
+on:
+  pull_request:
+    paths:
+      - 'tools/assetforge/world014_ground_alignment.py'
+      - 'tools/ci/test_world014_ground_alignment.py'
+      - 'tools/ci/verify_world014_package.py'
+      - 'tools/windows/Invoke-NarisWorld014.ps1'
+      - 'docs/changes/WORLD-014/**'
+      - '.github/workflows/world014-ground.yml'
+  workflow_dispatch:
+jobs:
+  offline-ground-checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Test WORLD-014 R16 ground alignment and immutability
+        run: python -m unittest discover -s tools/ci -p 'test_world014_ground_alignment.py' -v
+      - name: Syntax-check package preflight
+        run: python -m py_compile tools/assetforge/world014_ground_alignment.py tools/ci/verify_world014_package.py
+      - name: Evidence boundary
+        run: echo 'Offline gate only — not Unreal Editor execution or gameplay approval.'
