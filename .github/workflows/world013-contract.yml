@@ -1,0 +1,24 @@
+name: WORLD-013 handoff contract
+on:
+  pull_request:
+    paths:
+      - 'tools/ci/verify_world013_package.py'
+      - 'tools/ci/test_world013_gate.py'
+      - 'tools/windows/Invoke-NarisWorld013.ps1'
+      - 'docs/changes/WORLD-013/**'
+      - '.github/workflows/world013-contract.yml'
+  workflow_dispatch:
+jobs:
+  offline-gate-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Test fail-closed handoff validator
+        run: python -m unittest discover -s tools/ci -p 'test_world013_gate.py' -v
+      - name: Compile Python contract
+        run: python -m py_compile tools/ci/verify_world013_package.py tools/ci/test_world013_gate.py
+      - name: Record engine gate limitation
+        run: echo 'OFFLINE HANDOFF CI ONLY — UE5.7 import, PIE, network and BuildCookRun must run on Windows.'

@@ -1,0 +1,66 @@
+{
+  "id": "WORLD-013",
+  "date": "2026-11-07",
+  "engine_target": "UE5.7",
+  "source": "WORLD-002 R16 and user GLBs",
+  "terrain": {
+    "extent_m": [
+      -1000,
+      -1000,
+      1000,
+      1000
+    ],
+    "source_heightmap_resolution": 1009,
+    "tile_count": 64,
+    "triangles": 508032,
+    "sampled_spacing_m": 3.968253968,
+    "actual_glb_geometry_created": true,
+    "umap_created": false
+  },
+  "original_sources": {
+    "glb_count": 5,
+    "approved_png_count": 3,
+    "sha256_verified": true
+  },
+  "scatter": {
+    "locations": 2990,
+    "verified_per_kind_bindings": 0,
+    "actors_spawned_in_UE": 0
+  },
+  "testing": {
+    "offline_unit_tests_pass": 16,
+    "offline_unit_tests_fail": 0,
+    "python_compile": "PASS",
+    "zip_crc": "PASS",
+    "editor_import": "NOT_RUN",
+    "before_after_diff": "NOT_RUN",
+    "BuildCookRun": "NOT_RUN",
+    "automation": "NOT_RUN",
+    "server_two_clients": "NOT_RUN",
+    "fps_memory": "NOT_RUN",
+    "github_actions": {
+      "WORLD-013 handoff contract": "PASS",
+      "NARIS Content Validation": "PASS",
+      "NARIS Unreal Validate (static checks)": "PASS",
+      "NARIS Codex PR Check": "PASS",
+      "NARIS CI": "PASS",
+      "commit_sha": "e0c054fa2ce3418f1cd79330c01c6ba87aaf79cf"
+    },
+    "localization_en_ar": "PASS_AFTER_8_NEW_KEYS_EACH"
+  },
+  "distribution": {
+    "artifact": "NARIS_WORLD_013_REAL_GEOMETRY_AND_UE57.zip",
+    "artifact_sha256": "40cc5df281c42c89ce3e7243ca5db8344f23577e18e09896fa2c7421b1f28877",
+    "git_lfs_binary_files_committed": false,
+    "main_merged": false,
+    "windows_exe_built": false,
+    "github_integration_helpers_committed": true,
+    "full_unreal_authoring_script_in_local_zip_only": true
+  },
+  "risks": [
+    "GLB importer units/up-axis unverified",
+    "unmapped nine original mesh categories",
+    "rigged hero production G0 pending",
+    "editor remote connection unavailable"
+  ]
+}
