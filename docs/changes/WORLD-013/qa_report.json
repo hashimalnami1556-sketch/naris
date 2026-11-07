@@ -28,7 +28,7 @@
     "actors_spawned_in_UE": 0
   },
   "testing": {
-    "offline_unit_tests_pass": 14,
+    "offline_unit_tests_pass": 16,
     "offline_unit_tests_fail": 0,
     "python_compile": "PASS",
     "zip_crc": "PASS",
@@ -41,7 +41,7 @@
   },
   "distribution": {
     "artifact": "NARIS_WORLD_013_REAL_GEOMETRY_AND_UE57.zip",
-    "artifact_sha256": "d445248aef6718b7f7c01b15981a1916a1acb6c3ec21b8c7251d418f840614fe",
+    "artifact_sha256": "40cc5df281c42c89ce3e7243ca5db8344f23577e18e09896fa2c7421b1f28877",
     "git_lfs_binary_files_committed": false,
     "main_merged": false,
     "windows_exe_built": false,
