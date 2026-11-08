@@ -1,0 +1,24 @@
+name: WORLD-015 original GLB and SVG safety checks
+on:
+  pull_request:
+    paths:
+      - 'tools/assetforge/world015_gltf_gate.py'
+      - 'tools/ci/test_world015_gltf_gate.py'
+      - 'tools/world015/**'
+      - 'docs/changes/WORLD-015/**'
+      - '.github/workflows/world015-assets.yml'
+  workflow_dispatch:
+jobs:
+  python-source-and-glb-binary-contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Run genuine GLB BIN tests
+        run: python -m unittest discover -s tools/ci -p 'test_world015_*.py' -v
+      - name: Compile Python validators
+        run: python -m py_compile tools/assetforge/world015_gltf_gate.py tools/ci/test_world015_gltf_gate.py
+      - name: Document runtime QA boundary
+        run: echo 'OFFLINE FORMAT CHECK ONLY — Unreal 5.7 editor + PIE + BuildCookRun remain required.'

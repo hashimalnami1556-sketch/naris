@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 96 96" role="img" aria-labelledby="title desc">
+  <title id="title">Attack symbol</title><desc id="desc">Original dark-fantasy NARIS HUD vector icon, no text labels.</desc>
+  <defs>
+    <linearGradient id="glow" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff744f"/><stop offset="1" stop-color="#8a2422"/></linearGradient>
+    <linearGradient id="gem" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8a2422"/><stop offset="1" stop-color="#090b0c"/></linearGradient>
+  </defs>
+  <path d="M48 4 L91 48 L48 92 L5 48 Z" fill="#08090c" fill-opacity="0.72" stroke="#ff744f" stroke-opacity="0.52" stroke-width="1.5"/>
+  <path d="M48 10 L85 48 L48 86 L11 48 Z" fill="none" stroke="#ff744f" stroke-opacity="0.17" stroke-width="1.1"/>
+  <path d="M26 19 L32 22 L70 62 L65 67 L25 30 Z" fill="url(#gem)" stroke="url(#glow)" stroke-width="2.6" stroke-linejoin="round"/><path d="M70 19 L64 22 L26 62 L31 67 L71 30 Z" fill="url(#gem)" stroke="url(#glow)" stroke-width="2.6" stroke-linejoin="round"/><path d="M18 65 L35 77 M61 77 L78 65" fill="none" stroke="url(#glow)" stroke-width="5" stroke-linecap="round"/><circle cx="48" cy="48" r="5" fill="url(#glow)"/>
+</svg>
