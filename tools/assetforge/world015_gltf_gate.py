@@ -94,3 +94,27 @@ def check_tile_against_source(path, tile, tolerance=0.002):
         if field not in tile or abs(geom[field] - float(tile[field])) > tolerance:
             raise ValueError("Signed Y-up terrain elevation mismatch: " + field)
     return True
+
+
+def check_unreal_imported_tile(mesh, tile):
+    """Fail closed when UE mesh Z extrema do not match original glTF source Y.
+
+    Uses Unreal's own StaticMesh.get_bounding_box() without importing unreal
+    into this module, so a unit test can cover 1x/100x conversion cases.
+    """
+    box = mesh.get_bounding_box()
+    dx = float(box.max.x - box.min.x)
+    dy = float(box.max.y - box.min.y)
+    if dx <= 0 or dy <= 0:
+        raise ValueError("UE imported mesh bounds are degenerate")
+    scale = 25000.0 / dx
+    if not (abs(scale - 1.0) < 0.03 or abs(scale - 100.0) < 3.0):
+        raise ValueError("UE imported GLB scale is unrecognized")
+    if abs(dy * scale - 25000.0) > 750.0:
+        raise ValueError("UE imported mesh XY is not 250 metres")
+    for side, key in (("min", "height_min_m"), ("max", "height_max_m")):
+        actual_cm = float(getattr(getattr(box, side), "z")) * scale
+        expected_cm = float(tile[key]) * 100.0
+        if not math.isfinite(actual_cm) or abs(actual_cm - expected_cm) >= 200.0:
+            raise ValueError("UE imported terrain vertical axis / height mismatch: " + key)
+    return scale
