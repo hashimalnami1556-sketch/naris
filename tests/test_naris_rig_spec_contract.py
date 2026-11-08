@@ -4,7 +4,7 @@ These are structural tests, not an approval of any rig's rest pose or skinning.
 from copy import deepcopy
 import sys
 from pathlib import Path
-sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'repo_tools'))
+sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'tools'/'blender'))
 from naris_rig_spec_contract import check_armature_contract
 
 
