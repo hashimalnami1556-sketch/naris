@@ -34,3 +34,10 @@ Before UI-017 the six original SVG icons from WORLD-015 were imported only as pr
 - HUD layout can overlap at resolutions other than 1920x1080; test safe zones and A11y.
 - Asset source alpha/BlendMode may need an in-editor visual color review.
 - Revert UI017 source commits and untracked editor imported icons only after checking other dependencies; original maps/GLBs/UI screenshots unaffected.
+
+## 2026-11-08 — Responsive overlap regression fix (same UI-017 scope)
+- **RED reproduced in GitHub CI** at `9f03473385ebd393ad98e10c435e58dda24cd8d1`: three `test_ui017_responsive_combat_hud.py` checks failed. At 800×600 and 1024×768, top-center Bone Beast health bar and right-side quest objective occupied intersecting rectangles. At 320×480, objective began outside the viewport safe zone.
+- **Fix** in `NarisHUD.cpp` (commit `a3017af1620ad7d6247991e79ee36cb026ed7a6b`): clamp objective width to viewport safe zone; detect the **live active** Bone Beast and move the quest panel below its real bar only when horizontal bounds conflict; on widths below 720px, keep objective below player vitals. At 1920×1080 and normal desktop widths where panels do not overlap, retain the approved original placement.
+- **GREEN**: GitHub `NARIS Unreal Validate` at the fix commit completed successfully; 26/26 UI-017 source/geometry tests passed. `docs/changes/UI-017/responsive_geometry_matrix.csv` records **16 viewport/boss-state configurations**: four modeled intersections before, zero after. This geometry calculation is **not** an actual Unreal screenshot or DPI/RTL visual approval.
+- **Scope/risk**: no original SVG or PNG changed, gameplay state and input binding preserved. Long localized text can still overflow; run 720p/1080p/ultrawide and Arabic RTL in PIE before merging. The C++ runtime and network benchmarks remain unrun due to no linked UE5.7 machine.
+
