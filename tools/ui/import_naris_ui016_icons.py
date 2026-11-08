@@ -38,6 +38,15 @@ PINNED_ICON_PNG_SHA256 = {
     "map": "c4e90757fc2f07019e928099bcf0775d264ed593d3e1858c89931f88aa46e2a0",
 }
 
+PINNED_ICON_SVG_SHA256 = {
+    "health": "8a6bc5a0b4d6b6d685659c3e8de66db707ebe193480829db6fb4cb1d1120c67a",
+    "energy": "26a13bd67cdc2a3fc1ba9b3449eaab924ecf6d18a0c10852b720b24c48fbf2ee",
+    "mana": "73ad9eb1f4d59e903ae9459e50279e31c8e67ea0f23e940032304098be35dd66",
+    "attack": "2ffc06544fa04c80bf255d185130f042bd1d7b6d69a245f89b0bde6fa82bfcd6",
+    "defense": "094b724b6e6acfb5480b1b6ef020adf5379a32cd59255290585e0a57c215cdd7",
+    "map": "3e61eeb1b1909389662a5b0b66bd716531119b0833b6731571cbf42ff849bd9a",
+}
+
 def checksum(path):
     digest = hashlib.sha256()
     with path.open("rb") as handle:
@@ -80,6 +89,8 @@ def validate_inputs(root):
             raise ValueError("Unexpected SVG/PNG name mapping")
         if item["png_sha256"] != PINNED_ICON_PNG_SHA256[name]:
             raise ValueError("Icon PNG digest differs from locked source: " + name)
+        if item["svg_sha256"] != PINNED_ICON_SVG_SHA256[name]:
+            raise ValueError("Icon SVG digest differs from locked vector source: " + name)
         # The canonical package locations are UI/IconsPng and UI/IconsSvg.
         safe_file(root / "UI" / "IconsSvg", item["svg_filename"], item["svg_sha256"])
         out[name] = safe_file(
