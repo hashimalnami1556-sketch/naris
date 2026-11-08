@@ -29,10 +29,10 @@
     "zip_crc": "PASS",
     "github_static_test_counts": {
       "UI016": 17,
-      "UI017": 14
+      "UI017": 19
     },
-    "test_total": 31,
-    "ci_state": "PASS"
+    "test_total": 36,
+    "ci_state": "PASS at 053e6954877b2a26ca2c5257eb6d57070acbb18e"
   },
   "engine_gates": {
     "unreal_cplusplus_build": "NOT_RUN",
@@ -44,7 +44,8 @@
     "fps_memory": "NOT_RUN",
     "BuildCookRun": "NOT_RUN",
     "network_server_two_clients": "NOT_RUN",
-    "windows_executable": "NOT_BUILT"
+    "windows_executable": "NOT_BUILT",
+    "read_only_editor_audit": "NOT_RUN"
   },
   "risk": "Graphics may require scaling/contrast changes in actual game. No source or gameplay state was changed.",
   "rollback": "Revert feature UI-017; original assets untouched; UI016 remains on parent branch.",
