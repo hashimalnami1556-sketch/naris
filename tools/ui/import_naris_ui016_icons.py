@@ -21,6 +21,23 @@ REQUIRED_APPROVED = {
 }
 
 
+# Source-of-truth digests live in the repository, independent of the
+# packaged manifest. Replacing both an image and its package manifest is NOT
+# sufficient to pass this importer.
+PINNED_UI_SHA256 = {
+    "UI_MainMenu_Approved.png": "8d216d0a12d39e76a127ac00e20a121b0ca4833be873b00cddf170708e48882f",
+    "UI_Character_Approved.png": "ff2e0f04146edeb7c9ce75e624e9c5738d0e576b6b4c86a45e6e008a0b9e9f71",
+    "UI_Combat_Approved.png": "19734e1aa77206378c915e39d2505d941cc6de4f962b5bd270636ba2ddaa25d6",
+}
+PINNED_ICON_PNG_SHA256 = {
+    "health": "3cae48098ea8307fb852e6c486ebec1578e465d961d26a6ac9a525735239bb2b",
+    "energy": "c2a4797a5131cf1727927cc16aba460e94f436284a28e10a37ea3685cabb6013",
+    "mana": "51673d1c8196531254f18cab515fcafa00124011f09c7dcbd194e75aa5cbc479",
+    "attack": "a28c933ec06f801e007e87f0c5c3576dc5ef8e3ca1fcdee358258bc6a4be85e5",
+    "defense": "1182abcf9ed770f7a44a3af503c0f6c09cd8256ac3354cf1157804f0bd96b222",
+    "map": "c4e90757fc2f07019e928099bcf0775d264ed593d3e1858c89931f88aa46e2a0",
+}
+
 def checksum(path):
     digest = hashlib.sha256()
     with path.open("rb") as handle:
@@ -53,12 +70,16 @@ def validate_inputs(root):
     if len(ui) != 3 or {entry.get("filename") for entry in ui} != REQUIRED_APPROVED:
         raise ValueError("Three original approved screenshots absent")
     for item in ui:
+        if item["sha256"] != PINNED_UI_SHA256.get(item["filename"]):
+            raise ValueError("Original approved image digest differs from locked source")
         safe_file(root / "Approved_UI", item["filename"], item["sha256"])
     out = {}
     for item in icons:
         name = item["name"]
         if item["png_filename"] != name + ".png" or item["svg_filename"] != name + ".svg":
             raise ValueError("Unexpected SVG/PNG name mapping")
+        if item["png_sha256"] != PINNED_ICON_PNG_SHA256[name]:
+            raise ValueError("Icon PNG digest differs from locked source: " + name)
         # The canonical package locations are UI/IconsPng and UI/IconsSvg.
         safe_file(root / "UI" / "IconsSvg", item["svg_filename"], item["svg_sha256"])
         out[name] = safe_file(
@@ -122,4 +143,12 @@ def install():
 
 
 if __name__ == "__main__":
-    install()
+    import sys
+    if len(sys.argv) == 2 and sys.argv[1] == "--check":
+        root = os.environ.get("NARIS_UI016_ICON_ROOT")
+        if not root:
+            raise SystemExit("Set NARIS_UI016_ICON_ROOT before --check")
+        validated = validate_inputs(Path(root))
+        print("[UI-016] Offline byte-for-byte approved originals + six PNG/SVG assets PASS:", sorted(validated))
+    else:
+        install()
