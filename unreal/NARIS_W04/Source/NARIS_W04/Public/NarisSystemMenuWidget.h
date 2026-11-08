@@ -8,6 +8,8 @@
 class ANarisPlayerController;
 class UBorder;
 class UTextBlock;
+class UImage;
+class UTexture2D;
 class UVerticalBox;
 class UHorizontalBox;
 
@@ -47,6 +49,8 @@ private:
     void BuildInterface();
     void RefreshInterface();
     FString ResolveIcon(int32 Index) const;
+    FString ResolveVectorIconName(int32 Index) const;
+    void CacheVectorIcons();
     UTextBlock* MakeText(const FString& Value, int32 Size, const FLinearColor& Color) const;
     UBorder* MakePanel(const FLinearColor& Color, const FMargin& Padding) const;
 
@@ -88,6 +92,14 @@ private:
 
     UPROPERTY(Transient)
     TArray<TObjectPtr<UTextBlock>> IconTexts;
+
+    UPROPERTY(Transient)
+    TArray<TObjectPtr<UImage>> IconImages;
+
+    // Soft references are resolved once per menu initialization. The transient
+    // strong references keep UTexture2D brushes alive while the menu is open.
+    UPROPERTY(Transient)
+    TMap<FName, TObjectPtr<UTexture2D>> VectorIconTextures;
 
     UPROPERTY(Transient)
     TArray<TObjectPtr<UTextBlock>> LabelTexts;
