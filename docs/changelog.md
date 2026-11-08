@@ -1,3 +1,11 @@
+## 2026-11-08 — UI-017: six live HUD icons and viewport collision correction
+- **Why:** six previously approved original SVG icons were not wired into the live combat Canvas HUD; after adding icons, 800×600 and 1024×768 boss encounters exposed an overlapping quest card.
+- **What:** Actual `ANarisHUD` C++ draws six source-derived textures from existing stable icon paths and live combat state. The objective card now fits horizontal safe margins and moves below an *active* boss bar on narrow viewports; the owner-approved 1920×1080 placement remains unchanged.
+- **Evidence:** GitHub red: responsive contract failed 3 cases before the collision fix. Green: NARIS Unreal Validate with UI017 contract suite PASS (26/26); `docs/changes/UI-017/responsive_geometry_matrix.csv` contains 16 viewport/boss states, 4 computed overlaps before and 0 after.
+- **Performance:** FPS Δ: not measured; RAM Δ: not measured; package size Δ: not measured. No Unreal host authorized.
+- **Test/merge status:** C++ editor compile, PIE, screenshot before/after/diff, 2-client networking, BuildCookRun, RTL/A11y and actual Windows EXE NOT RUN; **feature PR #104 remains draft; do not merge**.
+- **Rollback:** Revert UI017 feature source and layout commits; retain original source SVG, approved screenshots, maps and save data.
+
 ## 2026-11-08 — UI-017: six original SVG icons in active W04 combat HUD
 - **Why:** UI-016 connected six Texture2D icons to native menus but actual `ANarisHUD` gameplay meters and objective had no icon bindings.
 - **What:** one-time six-icon loading from stable source-approved paths; actual health, resonance, energy, action hints and quest UI show original PNG alpha derived from SVG; maintain real component values and input mapping; optional missing texture leaves original text/values. New read-only editor asset audit rejects 256px dimension/class/missing-asset errors.
