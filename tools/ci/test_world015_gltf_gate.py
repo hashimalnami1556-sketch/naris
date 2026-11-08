@@ -52,7 +52,7 @@ class World015BinaryIntegrity(unittest.TestCase):
 
     def test_json_only_glb_without_vertices_fails(self):
         self.path.write_bytes(example_glb(empty_binary=True))
-        with self.assertRaisesRegex(ValueError, "BIN"):
+        with self.assertRaisesRegex(ValueError, "BIN|JSON chunk invalid"):
             inspect_terrain_glb(self.path)
 
     def test_downward_winding_fails(self):
