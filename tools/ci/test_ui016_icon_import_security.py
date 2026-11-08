@@ -74,6 +74,19 @@ class IconImportSafetyTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "Three original approved screenshots"):
             ui.validate_inputs(self.root)
 
+    def test_icon_svg_hash_cannot_be_redefined_by_manifest(self):
+        self.write_manifest()
+        approved = self.root / "Approved_UI"
+        approved.mkdir()
+        for name in ui.PINNED_UI_SHA256:
+            (approved / name).write_bytes(b"original-source-proxy")
+        self.valid_manifest["ui_vector_icons"][0]["svg_sha256"] = "f" * 64
+        self.write_manifest()
+        from unittest.mock import patch
+        with patch.object(ui, "checksum", side_effect=lambda path: ui.PINNED_UI_SHA256.get(path.name, "")):
+            with self.assertRaisesRegex(ValueError, "locked vector source"):
+                ui.validate_inputs(self.root)
+
     def test_icon_png_hash_cannot_be_redefined_by_manifest(self):
         # Verify screenshot files to reach the icon metadata check.
         self.write_manifest()
