@@ -8,6 +8,7 @@ class ANarisHeroCharacter;
 class ANarisPlayerController;
 class UNarisRuntimeSubsystem;
 class UNarisSystemMenuWidget;
+class UTexture2D;
 
 UCLASS(Blueprintable)
 class NARIS_W04_API ANarisHUD : public AHUD
@@ -22,7 +23,13 @@ private:
     UPROPERTY(Transient)
     TObjectPtr<UNarisSystemMenuWidget> SystemMenuWidget;
 
+    // Six optional original-source HUD textures retained by GC.
+    // Null textures never hide existing native gameplay numbers or labels.
+    UPROPERTY(Transient)
+    TMap<FName, TObjectPtr<UTexture2D>> GameplayIconTextures;
+
     void DrawPauseMenu();
+    void DrawGameIcon(const TCHAR* IconName, float X, float Y, float Size);
     void DrawContentPage(
         ANarisPlayerController* Controller,
         UNarisRuntimeSubsystem* Runtime,

@@ -4,6 +4,7 @@
 #include "CelestialWolf.h"
 #include "Engine/Canvas.h"
 #include "Engine/GameInstance.h"
+#include "Engine/Texture2D.h"
 #include "Engine/World.h"
 #include "EngineUtils.h"
 #include "NarisCombatComponent.h"
@@ -50,6 +51,24 @@ void ANarisHUD::DrawBar(
     DrawRect(FLinearColor(1.f, 1.f, 1.f, 0.08f), X, Y, Width * Ratio, FMath::Max(1.f, Height * 0.20f));
 }
 
+void ANarisHUD::DrawGameIcon(const TCHAR* IconName, float X, float Y, float Size)
+{
+    // Imported original SVG source icons are *optional decoration*.
+    // Gameplay health, energy, objectives and key hints remain visible if
+    // one or more images have not been imported into a cooked Windows build.
+    UTexture2D* IconTexture = GameplayIconTextures.FindRef(FName(IconName)).Get();
+    if (!Canvas || !IconTexture || Size <= 0.f)
+    {
+        return;
+    }
+
+    DrawTexture(
+        IconTexture, X, Y, Size, Size,
+        0.f, 0.f, 1.f, 1.f, FLinearColor::White,
+        BLEND_Translucent, 1.f, false, 0.f, FVector2D(0.5f, 0.5f)
+    );
+}
+
 void ANarisHUD::DrawPlayerVitals(ANarisHeroCharacter* Hero, float Scale, float Safe)
 {
     if (!Canvas || !Hero)
@@ -61,8 +80,8 @@ void ANarisHUD::DrawPlayerVitals(ANarisHeroCharacter* Hero, float Scale, float S
     const float W = FMath::Min(430.f * Scale, Canvas->ClipX * 0.44f);
     const float X = Safe;
     const float Y = Safe + 14.f * Scale;
-    const float InnerX = X + 22.f * Scale;
-    const float MeterW = W - 44.f * Scale;
+    const float InnerX = X + 50.f * Scale;
+    const float MeterW = W - 72.f * Scale;
     DrawPanel(X, Y, W, 145.f * Scale, FLinearColor(0.012f, 0.014f, 0.018f, 0.79f));
 
     DrawText(
@@ -73,6 +92,8 @@ void ANarisHUD::DrawPlayerVitals(ANarisHeroCharacter* Hero, float Scale, float S
 
     if (Hero->Combat)
     {
+        DrawGameIcon(TEXT("health"), X + 14.f * Scale, Y + 41.f * Scale, 28.f * Scale);
+        DrawGameIcon(TEXT("mana"), X + 14.f * Scale, Y + 78.f * Scale, 28.f * Scale);
         DrawBar(TEXT(""), Hero->Combat->Health, Hero->Combat->MaxHealth,
             InnerX, Y + 48.f * Scale, MeterW, 10.f * Scale,
             FNarisUIStyle::Danger(), Scale);
@@ -96,6 +117,7 @@ void ANarisHUD::DrawPlayerVitals(ANarisHeroCharacter* Hero, float Scale, float S
 
     if (Hero->Energy)
     {
+        DrawGameIcon(TEXT("energy"), X + 14.f * Scale, Y + 108.f * Scale, 28.f * Scale);
         DrawBar(TEXT(""), Hero->Energy->Energy, Hero->Energy->MaxEnergy,
             InnerX, Y + 116.f * Scale, MeterW, 6.f * Scale,
             FNarisUIStyle::Cyan(), Scale);
@@ -121,6 +143,8 @@ void ANarisHUD::DrawPlayerVitals(ANarisHeroCharacter* Hero, float Scale, float S
 
         const float HelpY = Canvas->ClipY - Safe - 78.f * Scale;
         DrawPanel(X, HelpY, W, 67.f * Scale, FLinearColor(0.010f, 0.012f, 0.015f, 0.83f));
+        DrawGameIcon(TEXT("attack"), X + 14.f * Scale, HelpY + 10.f * Scale, 26.f * Scale);
+        DrawGameIcon(TEXT("defense"), X + 14.f * Scale, HelpY + 37.f * Scale, 26.f * Scale);
         DrawText(
             FText::Format(
                 NSLOCTEXT("NARIS", "P20AttackKey", "[{0}] Attack"),
@@ -222,16 +246,48 @@ void ANarisHUD::DrawObjectiveCard(
 
     const bool bWolfBonded = Runtime->IsCompanionUnlocked(TEXT("CelestialWolf"));
 
-    const float W = 410.f * Scale;
+    // UI-017 responsive safety: at 1024/800-wide viewports the right-hand
+    // quest card formerly overlapped the top-centered Bone Beast health bar.
+    // Keep the user's original full-HD position and move the card only when
+    // the actual W04 boss encounter would intersect it.
+    const float W = FMath::Min(410.f * Scale, FMath::Max(1.f, Canvas->ClipX - 2.f * Safe));
     const float H = 112.f * Scale;
     const float X = Canvas->ClipX - Safe - W;
-    const float Y = Safe;
+    float Y = Safe;
+
+    if (GetWorld())
+    {
+        for (TActorIterator<ABoneBeastBoss> BossIt(GetWorld()); BossIt; ++BossIt)
+        {
+            const ABoneBeastBoss* Boss = *BossIt;
+            if (!Boss || !Boss->IsEncounterActive())
+            {
+                continue;
+            }
+
+            const float BossW = FMath::Min(Canvas->ClipX * 0.60f, 790.f * Scale);
+            const float BossRight = (Canvas->ClipX + BossW) * 0.5f;
+            if (X < BossRight + 12.f * Scale)
+            {
+                Y = Safe + 122.f * Scale;
+            }
+            break;
+        }
+    }
+
+    // At small window/mobile-aspect previews, keep the objective below the
+    // player vitals even when there is no active boss.
+    if (Canvas->ClipX < 720.f)
+    {
+        Y = FMath::Max(Y, Safe + 180.f * Scale);
+    }
 
     DrawPanel(X, Y, W, H, FLinearColor(0.025f, 0.032f, 0.043f, 0.70f));
+    DrawGameIcon(TEXT("map"), X + 14.f * Scale, Y + 11.f * Scale, 26.f * Scale);
     DrawText(
         NSLOCTEXT("NARIS", "HUDQuestCorruptedHeart", "Corrupted Heart").ToString(),
         FNarisUIStyle::Gold(),
-        X + 18.f * Scale,
+        X + 50.f * Scale,
         Y + 14.f * Scale,
         nullptr,
         0.72f * Scale,
@@ -701,6 +757,22 @@ void ANarisHUD::DrawContentPage(
 void ANarisHUD::BeginPlay()
 {
     Super::BeginPlay();
+
+    // Load each original SVG-derived Texture2D once, not every frame.
+    // Missing optional icons safely leave the live Canvas HUD untouched.
+    static const TCHAR* IconNames[] = {
+        TEXT("health"), TEXT("energy"), TEXT("mana"),
+        TEXT("attack"), TEXT("defense"), TEXT("map")
+    };
+    for (const TCHAR* Name : IconNames)
+    {
+        const FString Path = FString::Printf(
+            TEXT("/Game/NARIS/UI/Icons/%s.%s"), Name, Name);
+        if (UTexture2D* Texture = LoadObject<UTexture2D>(nullptr, *Path))
+        {
+            GameplayIconTextures.Add(FName(Name), Texture);
+        }
+    }
 
     if (PlayerOwner)
     {

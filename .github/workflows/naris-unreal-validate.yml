@@ -25,6 +25,7 @@ jobs:
           test -s unreal/NARIS_W04/Source/NARIS_W04/NARIS_W04.Build.cs
           python tools/ci/validate_naris.py
           python -m unittest discover -s tools/ci -p 'test_ui016_*.py' -v
+          python -m unittest discover -s tools/ci -p 'test_ui017_*.py' -v
           python -m py_compile tools/ui/import_naris_ui016_icons.py
           grep -F '+DirectoriesToAlwaysCook=(Path="/Game/NARIS/UI/Icons")' unreal/NARIS_W04/Config/DefaultGame.ini
           test -s unreal/NARIS_W04/Content/NARIS/W04/Data/W04_VerticalSliceManifest.json
