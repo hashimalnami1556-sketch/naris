@@ -7,7 +7,7 @@ import tempfile
 import unittest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "assetforge"))
-from world015_gltf_gate import inspect_terrain_glb, check_tile_against_source
+from world015_gltf_gate import inspect_terrain_glb, check_tile_against_source, check_unreal_imported_tile
 
 
 def example_glb(indices=(0, 1, 2, 1, 3, 2), empty_binary=False, bad_bounds=False):
@@ -76,6 +76,34 @@ class World015BinaryIntegrity(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "bounds"):
             inspect_terrain_glb(self.path)
 
+
+
+    def test_unreal_imported_vertical_bounds_valid_in_cm(self):
+        class Mesh:
+            def get_bounding_box(self):
+                class P: pass
+                class B: pass
+                box = B(); box.min = P(); box.max = P()
+                box.min.x, box.max.x = -12500., 12500.
+                box.min.y, box.max.y = -12500., 12500.
+                box.min.z, box.max.z = -1200., 3000.
+                return box
+        self.assertEqual(check_unreal_imported_tile(Mesh(), {
+            "height_min_m": -12., "height_max_m": 30.}), 1.)
+
+    def test_unreal_imported_flipped_vertical_bounds_fails(self):
+        class Mesh:
+            def get_bounding_box(self):
+                class P: pass
+                class B: pass
+                box = B(); box.min = P(); box.max = P()
+                box.min.x, box.max.x = -12500., 12500.
+                box.min.y, box.max.y = -12500., 12500.
+                box.min.z, box.max.z = 10000., 11000.
+                return box
+        with self.assertRaisesRegex(ValueError, "vertical"):
+            check_unreal_imported_tile(Mesh(), {
+                "height_min_m": -12., "height_max_m": 30.})
 
 if __name__ == "__main__":
     unittest.main()
