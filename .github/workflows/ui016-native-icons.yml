@@ -1,5 +1,8 @@
 name: UI-016 six native UMG icon bindings
 on:
+  push:
+    branches:
+      - feature/UI-016-native-icon-bindings
   pull_request:
     paths:
       - 'unreal/NARIS_W04/Source/NARIS_W04/Private/NarisSystemMenuWidget.cpp'
