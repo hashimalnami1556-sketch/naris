@@ -17,7 +17,7 @@ jobs:
         with:
           python-version: '3.11'
       - name: Run genuine GLB BIN tests
-        run: python -m unittest discover -s tools/ci -p 'test_world015_gltf_gate.py' -v
+        run: python -m unittest discover -s tools/ci -p 'test_world015_*.py' -v
       - name: Compile Python validators
         run: python -m py_compile tools/assetforge/world015_gltf_gate.py tools/ci/test_world015_gltf_gate.py
       - name: Document runtime QA boundary
