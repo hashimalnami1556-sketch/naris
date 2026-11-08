@@ -1,0 +1,52 @@
+{
+  "change_id": "UI-017",
+  "date": "2026-11-08",
+  "target": "CALL OF NARIS Unreal Engine 5.7",
+  "state": "CODE_CHECKED_PENDING_ENGINE",
+  "source_change": "Six original SHA-pinned SVG->PNG assets are now referenced by actual live Canvas gameplay HUD (AHUD::DrawTexture) instead of menus only.",
+  "mapping": {
+    "health": "real Hero->Combat->Health",
+    "mana": "real Hero->Combat->Resonance",
+    "energy": "real Hero->Energy->Energy",
+    "attack": "active LightAttack input hint",
+    "defense": "active Dodge/Parry hint",
+    "map": "W04 quest objective"
+  },
+  "originals": {
+    "source_svg": 6,
+    "png_exports": 6,
+    "original_approved_screens": 3,
+    "original_glb_modified": 0
+  },
+  "offline_evidence": {
+    "zip_file": "NARIS_UI016_SVG_TO_NATIVE_UMG_INSTALL_KIT.zip",
+    "verified_sha256": 15,
+    "verified_alpha_png": 6,
+    "png_dimensions": [
+      256,
+      256
+    ],
+    "zip_crc": "PASS",
+    "github_static_test_counts": {
+      "UI016": 17,
+      "UI017": 14
+    },
+    "test_total": 31,
+    "ci_state": "PASS"
+  },
+  "engine_gates": {
+    "unreal_cplusplus_build": "NOT_RUN",
+    "actual_texture_import": "NOT_RUN",
+    "map_open": "NOT_RUN",
+    "PIE_visual": "NOT_RUN",
+    "rtl_a11y": "NOT_RUN",
+    "before_after_diff": "NOT_RUN",
+    "fps_memory": "NOT_RUN",
+    "BuildCookRun": "NOT_RUN",
+    "network_server_two_clients": "NOT_RUN",
+    "windows_executable": "NOT_BUILT"
+  },
+  "risk": "Graphics may require scaling/contrast changes in actual game. No source or gameplay state was changed.",
+  "rollback": "Revert feature UI-017; original assets untouched; UI016 remains on parent branch.",
+  "merge_allowed": false
+}
