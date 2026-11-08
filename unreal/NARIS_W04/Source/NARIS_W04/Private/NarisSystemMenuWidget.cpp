@@ -6,11 +6,16 @@
 #include "Components/CanvasPanelSlot.h"
 #include "Components/HorizontalBox.h"
 #include "Components/HorizontalBoxSlot.h"
+#include "Components/Image.h"
+#include "Components/Overlay.h"
+#include "Components/OverlaySlot.h"
 #include "Components/SizeBox.h"
 #include "Components/TextBlock.h"
 #include "Components/VerticalBox.h"
 #include "Components/VerticalBoxSlot.h"
 #include "Engine/GameInstance.h"
+#include "Engine/Texture2D.h"
+#include "Misc/PackageName.h"
 #include "Engine/World.h"
 #include "NarisPlayerController.h"
 #include "NarisRuntimeSubsystem.h"
@@ -63,6 +68,7 @@ void UNarisSystemMenuWidget::NativeConstruct()
 {
     Super::NativeConstruct();
 
+    CacheVectorIcons();
     if (!WidgetTree->RootWidget)
     {
         BuildInterface();
@@ -237,7 +243,26 @@ void UNarisSystemMenuWidget::BuildInterface()
         );
         IconText->SetJustification(ETextJustify::Center);
         IconTexts.Add(IconText);
-        IconPlate->SetContent(IconText);
+
+        // Keep a real UImage in the widget tree so imported SVG->PNG
+        // Texture2D assets become renderable brush images, not text symbols.
+        // The overlay retains the original readable glyph fallback if this
+        // client has not imported the optional icon textures yet.
+        UOverlay* IconStack = WidgetTree->ConstructWidget<UOverlay>(UOverlay::StaticClass());
+        IconPlate->SetContent(IconStack);
+        USizeBox* IconTextureSize = WidgetTree->ConstructWidget<USizeBox>(USizeBox::StaticClass());
+        IconTextureSize->SetWidthOverride(34.f);
+        IconTextureSize->SetHeightOverride(34.f);
+        UImage* IconImage = WidgetTree->ConstructWidget<UImage>(UImage::StaticClass());
+        IconImage->SetVisibility(ESlateVisibility::Collapsed);
+        IconImages.Add(IconImage);
+        IconTextureSize->SetContent(IconImage);
+        UOverlaySlot* ImageSlot = IconStack->AddChildToOverlay(IconTextureSize);
+        ImageSlot->SetHorizontalAlignment(HAlign_Center);
+        ImageSlot->SetVerticalAlignment(VAlign_Center);
+        UOverlaySlot* GlyphSlot = IconStack->AddChildToOverlay(IconText);
+        GlyphSlot->SetHorizontalAlignment(HAlign_Center);
+        GlyphSlot->SetVerticalAlignment(VAlign_Center);
 
         UHorizontalBoxSlot* IconSlot = Row->AddChildToHorizontalBox(IconSize);
         IconSlot->SetSize(FSlateChildSize(ESlateSizeRule::Automatic));
@@ -294,6 +319,59 @@ void UNarisSystemMenuWidget::BuildInterface()
         NarsicUMG::MutedBone
     );
     FooterPanel->SetContent(FooterText);
+}
+
+void UNarisSystemMenuWidget::CacheVectorIcons()
+{
+    static const TCHAR* Names[] = {
+        TEXT("health"), TEXT("energy"), TEXT("mana"),
+        TEXT("attack"), TEXT("defense"), TEXT("map")
+    };
+    for (const TCHAR* Name : Names)
+    {
+        // Stable runtime path independent of WORLD-013/014/015 review levels.
+        // The editor import tool installs these six original-source textures
+        // before the packaging gate; if missing, text glyphs remain usable.
+        const FString PackagePath = FString::Printf(
+            TEXT("/Game/NARIS/UI/Icons/%s"), Name);
+        if (!FPackageName::DoesPackageExist(PackagePath))
+        {
+            continue;
+        }
+        const FString ObjectPath = PackagePath + TEXT(".") + Name;
+        if (UTexture2D* Texture = LoadObject<UTexture2D>(nullptr, *ObjectPath))
+        {
+            VectorIconTextures.Add(FName(Name), Texture);
+        }
+    }
+}
+
+FString UNarisSystemMenuWidget::ResolveVectorIconName(int32 Index) const
+{
+    if (!Controller || Index < 0)
+    {
+        return FString();
+    }
+    const ENarisPauseMenuPage Page = Controller->GetPauseMenuPage();
+    if (Page != ENarisPauseMenuPage::Main)
+    {
+        // Keep settings/controls row-specific symbols and their semantics.
+        return FString();
+    }
+
+    if (Controller->GetMenuContext() == ENarisMenuContext::FrontEnd)
+    {
+        static const TCHAR* Front[] = {
+            TEXT("attack"), TEXT("map"), TEXT("defense"),
+            TEXT("mana"), TEXT("energy")
+        };
+        return Index < UE_ARRAY_COUNT(Front) ? FString(Front[Index]) : FString();
+    }
+    static const TCHAR* Pause[] = {
+        TEXT("attack"), TEXT("energy"), TEXT("map"),
+        TEXT("mana"), TEXT("defense"), TEXT("health")
+    };
+    return Index < UE_ARRAY_COUNT(Pause) ? FString(Pause[Index]) : FString();
 }
 
 FString UNarisSystemMenuWidget::ResolveIcon(int32 Index) const
@@ -439,7 +517,25 @@ void UNarisSystemMenuWidget::RefreshInterface()
 
         LabelTexts[Index]->SetText(Controller->GetMenuItemLabel(Index));
         ValueTexts[Index]->SetText(Controller->GetMenuItemValue(Index));
-        IconTexts[Index]->SetText(FText::FromString(ResolveIcon(Index)));
+
+        const FString IconName = ResolveVectorIconName(Index);
+        UTexture2D* IconTexture = IconName.IsEmpty()
+            ? nullptr : VectorIconTextures.FindRef(FName(*IconName)).Get();
+        if (IconTexture)
+        {
+            IconImages[Index]->SetBrushFromTexture(IconTexture);
+            IconImages[Index]->SetColorAndOpacity(FLinearColor(
+                1.f, 1.f, 1.f, bSelected ? 1.f : 0.72f
+            ));
+            IconImages[Index]->SetVisibility(ESlateVisibility::HitTestInvisible);
+            IconTexts[Index]->SetVisibility(ESlateVisibility::Collapsed);
+        }
+        else
+        {
+            IconImages[Index]->SetVisibility(ESlateVisibility::Collapsed);
+            IconTexts[Index]->SetVisibility(ESlateVisibility::HitTestInvisible);
+            IconTexts[Index]->SetText(FText::FromString(ResolveIcon(Index)));
+        }
 
         RowPanels[Index]->SetBrushColor(
             FLinearColor(

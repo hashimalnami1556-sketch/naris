@@ -1,0 +1,33 @@
+name: UI-016 six native UMG icon bindings
+on:
+  push:
+    branches:
+      - feature/UI-016-native-icon-bindings
+  pull_request:
+    paths:
+      - 'unreal/NARIS_W04/Source/NARIS_W04/Private/NarisSystemMenuWidget.cpp'
+      - 'unreal/NARIS_W04/Source/NARIS_W04/Public/NarisSystemMenuWidget.h'
+      - 'unreal/NARIS_W04/Config/DefaultGame.ini'
+      - 'tools/ui/import_naris_ui016_icons.py'
+      - 'tools/ci/test_ui016_*.py'
+      - 'tools/windows/Invoke-NarisUI016.ps1'
+      - 'docs/changes/UI-016/**'
+      - '.github/workflows/ui016-native-icons.yml'
+  workflow_dispatch:
+jobs:
+  native-ui-source-and-hash-contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Run six native UMG binding and source integrity contracts
+        run: python -m unittest discover -s tools/ci -p 'test_ui016_*.py' -v
+      - name: Validate importer syntax
+        run: python -m py_compile tools/ui/import_naris_ui016_icons.py
+      - name: Check runtime icon cook inclusion
+        run: |
+          grep -F '+DirectoriesToAlwaysCook=(Path="/Game/NARIS/UI/Icons")' unreal/NARIS_W04/Config/DefaultGame.ini
+      - name: Mark test scope
+        run: echo 'Source-only contracts: UE5.7 compilation, PIE, full UMG, 2-client net, FPS and Windows build remain mandatory.'
