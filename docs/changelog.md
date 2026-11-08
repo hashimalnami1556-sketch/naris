@@ -1,3 +1,11 @@
+## 2026-11-08 — UI-017: six original SVG icons in active W04 combat HUD
+- **Why:** UI-016 connected six Texture2D icons to native menus but actual `ANarisHUD` gameplay meters and objective had no icon bindings.
+- **What:** one-time six-icon loading from stable source-approved paths; actual health, resonance, energy, action hints and quest UI show original PNG alpha derived from SVG; maintain real component values and input mapping; optional missing texture leaves original text/values. New read-only editor asset audit rejects 256px dimension/class/missing-asset errors.
+- **Evidence:** reproduced missing implementation in CI RED, then source HUD patch and 14 new UI017 contracts + 17 UI016 regression tests; NARIS Unreal Validate PASS in GitHub.
+- **Release blocker:** no UE5.7 Editor compilation, PIE/UMG visual screenshot, 2-client network, before/after/diff, performance or Windows BuildCookRun. No main merge.
+- **Rollback:** revert isolated UI-017 commit only; do not modify original user art or project maps.
+- **Tracking:** `docs/changes/UI-017/baseline.md`; PR #104.
+
 # NARIS development changelog (source changes; not shipping releases)
 
 ## 2026-11-08 — UI-016: six original SVG → native UMG image bindings
