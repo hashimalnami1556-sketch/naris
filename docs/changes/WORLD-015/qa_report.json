@@ -1,0 +1,62 @@
+{
+  "id": "WORLD-015",
+  "date": "2026-11-08",
+  "status": "OFFLINE_VALIDATED_DRAFT",
+  "engine": "UE 5.7",
+  "source_art": {
+    "original_glb": 5,
+    "owner_approved_png": 3,
+    "unchanged_sha256": true
+  },
+  "world": {
+    "width_m": 2000,
+    "height_m": 2000,
+    "source_r16_resolution": 1009,
+    "tile_count": 64,
+    "triangles": 508032,
+    "source_scatter_points": 2990,
+    "scatter_actors_verified_in_UE": 0
+  },
+  "ui": {
+    "new_original_svg_icons": [
+      "health",
+      "energy",
+      "mana",
+      "attack",
+      "defense",
+      "map"
+    ],
+    "png_icon_renders": 6,
+    "ue_tex_import_script_prepared": true,
+    "real_umg_bindings_tested": false
+  },
+  "local_tests": {
+    "suite": "python -m unittest discover -s Tests -v",
+    "total": 43,
+    "pass": 43,
+    "fail": 0,
+    "glb_actual_BIN_checked": true,
+    "vertical_import_bounds_simulated": true,
+    "zip_crc_pass": true
+  },
+  "package": {
+    "file": "NARIS_WORLD_015_REAL_UE57_SVG.zip",
+    "bytes": 25285410,
+    "sha256": "1a8ef6b722f3bf1715af2142c21d661720cb49ac6593474986c9a51cded63eda",
+    "archive_entries": 111
+  },
+  "quality_gates": {
+    "ue_import": "NOT_RUN",
+    "map_umap_saved": "NOT_RUN",
+    "umg": "NOT_RUN",
+    "before_after_diff": "NOT_RUN",
+    "buildcookrun": "NOT_RUN",
+    "Project_automation": "NOT_RUN",
+    "server_two_clients": "NOT_RUN",
+    "fps_memory": "NOT_RUN",
+    "win_exe": "NOT_BUILT"
+  },
+  "default_map_changed": false,
+  "pr_merge_allowed": false,
+  "rollback": "Revert isolated WORLD-015 branch; no existing default map modified."
+}
