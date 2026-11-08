@@ -40,7 +40,7 @@ class LiveCombatHUDIcons(unittest.TestCase):
     def test_draw_helper_uses_real_texture_with_null_fallback(self):
         self.assertIn("void ANarisHUD::DrawGameIcon(", self.s)
         helper = self.function("void ANarisHUD::DrawGameIcon(", "void ANarisHUD::DrawPlayerVitals(")
-        self.assertIn("if (!Canvas || !IconTexture)", helper)
+        self.assertIn("if (!Canvas || !IconTexture || Size <= 0.f)", helper)
         self.assertIn("DrawTexture(", helper)
 
     def test_live_health_resonance_and_energy_icons(self):
