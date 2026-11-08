@@ -78,3 +78,15 @@ def test_rejects_hierarchy_cycle_in_spec():
     s['bones'][0]['parent']=s['bones'][-1]['name'];m[0]['parent']=s['bones'][-1]['name']
     r=check_armature_contract(m,s)
     assert not r['contract_match'] and any('cycle' in x or 'root' in x for x in r['issues'])
+
+def test_recovered_ash_source_spec_is_exact_and_consistent():
+    # Validates the actual repository contract, not only synthetic fixtures.
+    import json
+    p=Path(__file__).resolve().parents[1]/'docs'/'characters'/'char-001'/'ash-wanderer-source-spec-v1.json'
+    spec=json.loads(p.read_text(encoding='utf-8'))
+    assert spec['joint_count']==len(spec['bones'])==92
+    assert sum(b['role']=='motion_root' for b in spec['bones'])==1
+    assert sum(b['role']=='deform' for b in spec['bones'])==75
+    assert sum(b['role']=='twist_deform' for b in spec['bones'])==16
+    result=check_armature_contract(make_actual(spec),spec)
+    assert result['contract_match'],result
