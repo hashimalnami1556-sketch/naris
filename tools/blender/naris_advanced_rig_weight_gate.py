@@ -1,7 +1,12 @@
 # NARIS Advanced Organic Rig — production weight/deformation gate
 # Run inside Blender 4.x. It audits the ACTIVE production mesh/armature without fabricating PASS.
-import bpy, json, math
+import bpy, json, math, sys
 from pathlib import Path
+
+# Run with Blender -b --python <script>; load the repository's exact Ash spec.
+_REPO_ROOT=Path(__file__).resolve().parents[2]
+sys.path.insert(0,str(Path(__file__).resolve().parent))
+from naris_rig_spec_contract import check_armature_contract, load_ash_spec
 
 TARGETS={"Ash Wanderer":92,"Bone Hound":82,"Demon Warrior":106,"Aether Serpent":78,"Dragon":146}
 MAX_INFLUENCES=4
@@ -72,12 +77,25 @@ for mesh,arm in mesh_armature_pairs():
     target=TARGETS.get(kind)
     weights=weight_audit(mesh); bleed=side_bleed(mesh); tested=pose_stress(arm)
     bone_count=len([b for b in arm.data.bones if b.use_deform])
-    structural=bool(target and bone_count>=target)
+    # Ash spec: 92 exported skeleton nodes = 1 motion root (non-deform) + 91 deform.
+    # The old bone_count >= 92 gate could reject the correct rig and pass incorrect extras.
+    contract=None
+    if kind=='Ash Wanderer':
+        spec=load_ash_spec(_REPO_ROOT)
+        observed=[{'name':b.name,'parent':b.parent.name if b.parent else None,
+                   'use_deform':b.use_deform} for b in arm.data.bones]
+        contract=check_armature_contract(observed,spec)
+        structural=contract['contract_match']
+    else:
+        structural=bool(target and bone_count>=target)
     numeric=(weights["unweighted_count"]==0 and weights["over_4_influences_count"]==0 and
              weights["non_normalized_count"]==0 and bleed["lr_bleed_suspect_count"]==0)
     # Visual deformation is intentionally not auto-passed.
     report["characters"].append({"class":kind or "UNCLASSIFIED","mesh":mesh.name,"armature":arm.name,
       "deform_bones":bone_count,"target_bones":target,"structural_target_met":structural,
+      "expected_deform_bones":91 if kind=='Ash Wanderer' else target,
+      "expected_export_nodes":92 if kind=='Ash Wanderer' else None,
+      "rig_contract":contract,
       "weights":weights,"bleed":bleed,"stress_bones_tested":len(tested),
       "numeric_weight_gate":"PASS" if numeric else "FAIL",
       "visual_deformation_gate":"PENDING_ARTIST_REVIEW",
