@@ -246,10 +246,41 @@ void ANarisHUD::DrawObjectiveCard(
 
     const bool bWolfBonded = Runtime->IsCompanionUnlocked(TEXT("CelestialWolf"));
 
-    const float W = 410.f * Scale;
+    // UI-017 responsive safety: at 1024/800-wide viewports the right-hand
+    // quest card formerly overlapped the top-centered Bone Beast health bar.
+    // Keep the user's original full-HD position and move the card only when
+    // the actual W04 boss encounter would intersect it.
+    const float W = FMath::Min(410.f * Scale, FMath::Max(1.f, Canvas->ClipX - 2.f * Safe));
     const float H = 112.f * Scale;
     const float X = Canvas->ClipX - Safe - W;
-    const float Y = Safe;
+    float Y = Safe;
+
+    if (GetWorld())
+    {
+        for (TActorIterator<ABoneBeastBoss> BossIt(GetWorld()); BossIt; ++BossIt)
+        {
+            const ABoneBeastBoss* Boss = *BossIt;
+            if (!Boss || !Boss->IsEncounterActive())
+            {
+                continue;
+            }
+
+            const float BossW = FMath::Min(Canvas->ClipX * 0.60f, 790.f * Scale);
+            const float BossRight = (Canvas->ClipX + BossW) * 0.5f;
+            if (X < BossRight + 12.f * Scale)
+            {
+                Y = Safe + 122.f * Scale;
+            }
+            break;
+        }
+    }
+
+    // At small window/mobile-aspect previews, keep the objective below the
+    // player vitals even when there is no active boss.
+    if (Canvas->ClipX < 720.f)
+    {
+        Y = FMath::Max(Y, Safe + 180.f * Scale);
+    }
 
     DrawPanel(X, Y, W, H, FLinearColor(0.025f, 0.032f, 0.043f, 0.70f));
     DrawGameIcon(TEXT("map"), X + 14.f * Scale, Y + 11.f * Scale, 26.f * Scale);
