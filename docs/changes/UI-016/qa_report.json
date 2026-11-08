@@ -1,0 +1,60 @@
+{
+  "schema": "naris.ui016.quality.v1",
+  "date": "2026-11-08",
+  "engine": "Unreal Engine 5.7",
+  "status": "SOURCE_REVIEW_DRAFT",
+  "integration": {
+    "source_widgets": "UMG UImage icons attached to native menu row buttons",
+    "source_icon_names": [
+      "health",
+      "energy",
+      "mana",
+      "attack",
+      "defense",
+      "map"
+    ],
+    "texture_asset_prefix": "/Game/NARIS/UI/Icons",
+    "rendering_if_missing": "existing Unicode glyph fallback",
+    "cooked_directory_included": true,
+    "ui_editor_import_executed": false
+  },
+  "provenance": {
+    "original_approved_images": 3,
+    "svg_source_files": 6,
+    "original_svg_png_exports": 6,
+    "original_3d_meshes_modified": 0
+  },
+  "offline_qa": {
+    "github_workflow": "NARIS Unreal Validate",
+    "github_workflow_result": "PASS_STATIC_ONLY",
+    "commit": "90cd2c85e3edce8f14b67341b039c077be1b6cfa",
+    "ui016_contracts": 17,
+    "exact_source_png_svg_hash_checks": 15,
+    "all_icon_png_256px_alpha": true,
+    "mutated_svg_and_forged_manifest_rejected": true,
+    "zip_crc": "PASS"
+  },
+  "delivery": {
+    "archive": "NARIS_UI016_SVG_TO_NATIVE_UMG_INSTALL_KIT.zip",
+    "archive_bytes": 12847010,
+    "archive_sha256": "cea5998dd722445f5b16abb9f0d7eadd62739338b44ae74ac0696d06040cf1c8",
+    "archived_files": 19,
+    "sources_in_GitHub": true,
+    "original_binary_assets_in_external_archive_only": true
+  },
+  "engine_gates": {
+    "UnrealEditor_5_7_Cplusplus_compile": "NOT_RUN",
+    "actual_Texture2D_import": "NOT_RUN",
+    "UMG_PIE_visual": "NOT_RUN",
+    "before_after_diff": "NOT_RUN",
+    "L10n_RTL": "NOT_RUN",
+    "Development_Build": "NOT_RUN",
+    "BuildCookRun": "NOT_RUN",
+    "Project_Automation": "NOT_RUN",
+    "multiplayer_server_two_clients": "NOT_RUN",
+    "fps_ram_vram": "NOT_RUN",
+    "win_exe_installed": "NOT_RUN"
+  },
+  "rollback": "Revert feature branch, inspect isolated /Game/NARIS/UI/Icons. No maps, game save schema, approved images or GLBs overwritten.",
+  "merge_allowed": false
+}
