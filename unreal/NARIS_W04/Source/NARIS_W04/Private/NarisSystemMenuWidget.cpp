@@ -605,7 +605,9 @@ void UNarisSystemMenuWidget::RefreshInterface()
     FString Status = TEXT("");
     if (Runtime)
     {
-        const FNarisSaveState State = Runtime->GetState();
+        // Borrow the current game-thread state for this refresh, without a
+        // deep copy of inventory, quests and waystone arrays each frame.
+        const FNarisSaveState& State = Runtime->GetStateView();
         if (bInventoryPage)
         {
             // The approved character/inventory reference uses the right panel
