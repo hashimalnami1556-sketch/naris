@@ -596,6 +596,12 @@ void UNarisSystemMenuWidget::RefreshInterface()
         }
     }
 
+    // UI-018: resolve the active page once before either inventory content
+    // or its heading uses the result. An undeclared bInventoryPage previously
+    // prevented this native UMG source file from compiling.
+    const bool bInventoryPage =
+        Controller->GetPauseMenuPage() == ENarisPauseMenuPage::Inventory;
+
     FString Status = TEXT("");
     if (Runtime)
     {
