@@ -102,6 +102,11 @@ public:
     UFUNCTION(BlueprintPure, Category="NARIS|Runtime")
     FNarisSaveState GetState() const { return State; }
 
+    // UI-019: read-only C++ view for on-frame native widgets. The Blueprint
+    // GetState() snapshot above intentionally retains its existing by-value ABI.
+    // Only read on the game thread and never retain across game state mutation.
+    const FNarisSaveState& GetStateView() const { return State; }
+
 private:
     FNarisSaveState State;
     bool bFrontEndBypassOnce = false;
