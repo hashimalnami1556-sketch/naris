@@ -1,3 +1,9 @@
+## 2026-11-09 — UI-018: correct native UMG Inventory page compile blocker
+- **Why:** `NarisSystemMenuWidget.cpp` used `bInventoryPage` twice but never declared it; prior source-only tests missed this C++ compile error.
+- **What:** Minimal one-scope `const bool bInventoryPage = Controller->GetPauseMenuPage() == ENarisPauseMenuPage::Inventory;` declaration in `RefreshInterface`. No changes to original art, SVG, network, gameplay save schema or map.
+- **Evidence:** GitHub Actions RED (2/4 new checks failed, run 42565855915) before fix; GREEN (47/47 targeted UI016+UI017+UI018 checks PASS, run 42565926629) after fix. Actual UE5.7 compiler, PIE, 2-client network, BuildCookRun, perf and before/after/diff remain **NOT RUN**.
+- **Rollback:** Revert one local variable declaration. Feature PR #105 remains draft, no main merge.
+
 ## 2026-11-08 — UI-017: six live HUD icons and viewport collision correction
 - **Why:** six previously approved original SVG icons were not wired into the live combat Canvas HUD; after adding icons, 800×600 and 1024×768 boss encounters exposed an overlapping quest card.
 - **What:** Actual `ANarisHUD` C++ draws six source-derived textures from existing stable icon paths and live combat state. The objective card now fits horizontal safe margins and moves below an *active* boss bar on narrow viewports; the owner-approved 1920×1080 placement remains unchanged.
