@@ -1,3 +1,10 @@
+## 2026-11-09 — UI-019: avoid cloning save arrays each open-menu frame
+- **Why:** Native UMG refresh was invoking by-value `Runtime->GetState()` every tick, copying save-state inventory/quest/waystone collections.
+- **What:** Add C++-only `const FNarisSaveState& GetStateView() const`, consume synchronously from UMG as `const FNarisSaveState&`; keep the BlueprintPure by-value snapshot API exactly unchanged.
+- **Evidence:** RED workflow 42566278277 proved two failing source tests before fix; GREEN 42566353585 ran 51/51 combined UI016–UI019 source tests successfully.
+- **Performance:** one per-refresh snapshot copy removed in code; **no FPS, frame-time or memory measurements** because Unreal host remains unpaired.
+- **Release risk and rollback:** Do not retain reference after call or across state mutation. Revert header plus menu callsite if needed. Draft PR #106; main unchanged, engine Build/Cook/PIE/network/A11y gates still pending.
+
 ## 2026-11-09 — UI-018: correct native UMG Inventory page compile blocker
 - **Why:** `NarisSystemMenuWidget.cpp` used `bInventoryPage` twice but never declared it; prior source-only tests missed this C++ compile error.
 - **What:** Minimal one-scope `const bool bInventoryPage = Controller->GetPauseMenuPage() == ENarisPauseMenuPage::Inventory;` declaration in `RefreshInterface`. No changes to original art, SVG, network, gameplay save schema or map.
