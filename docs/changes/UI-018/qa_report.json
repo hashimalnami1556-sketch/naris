@@ -1,0 +1,35 @@
+{
+  "id": "UI-018",
+  "date": "2026-11-09",
+  "engine_target": "Unreal Engine 5.7",
+  "reason": "undeclared bInventoryPage in UNarisSystemMenuWidget::RefreshInterface",
+  "test_driven": {
+    "red_commit": "6176b853b651c24b5683a3c13f1c1636c4c8d12b",
+    "red_workflow_run_id": 42565855915,
+    "red_failed_tests": 2,
+    "green_fix_commit": "6ab646a5a8ed90c502bd2034fa2afcd9d8c2b4b1",
+    "green_workflow_run_id": 42565926629,
+    "green_workflow_status": "success",
+    "ui016_cases": 17,
+    "ui017_cases": 26,
+    "ui018_cases": 4
+  },
+  "changes": {
+    "cpp": "one local const bool declaration",
+    "input_callbacks_unchanged": true,
+    "approved_svg_png_glb_unchanged": true,
+    "GameDefaultMap_unchanged": true
+  },
+  "engine": {
+    "Cplusplus_compiled": "NOT_RUN",
+    "editor_PIE": "NOT_RUN",
+    "before_after_diff": "NOT_RUN",
+    "Project_Automation": "NOT_RUN",
+    "BuildCookRun": "NOT_RUN",
+    "server_and_two_clients": "NOT_RUN",
+    "FPS_RAM_VRAM": "NOT_MEASURED",
+    "Windows_EXE": "NOT_BUILT"
+  },
+  "status": "SOURCE_TESTED_DRAFT_UNMERGED",
+  "rollback": "Revert local flag only; preserve original content."
+}
