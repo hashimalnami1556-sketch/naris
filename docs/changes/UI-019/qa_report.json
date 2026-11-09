@@ -1,0 +1,48 @@
+{
+  "id": "UI-019",
+  "date": "2026-11-09",
+  "status": "OFFLINE_SOURCE_VALIDATED_DRAFT",
+  "engine": "Unreal Engine 5.7",
+  "baseline": {
+    "unreal_build": "NOT_RUN",
+    "fps": null,
+    "ram_mb": null,
+    "frame_time_ms": null,
+    "seed": null,
+    "resolution": null,
+    "quality": null
+  },
+  "scope": {
+    "runtime_header_accessor": "const FNarisSaveState& GetStateView() const",
+    "blueprint_getstate_unchanged": true,
+    "menu_state_copy_removed": true,
+    "retained_reference_across_frames": false,
+    "change_in_saved_data_schema": false,
+    "source_assets_modified": false
+  },
+  "tdd": {
+    "red_commit": "071163cb11946636f0f4d07f1b3bd5a095533c3e",
+    "red_workflow_run": 42566278277,
+    "red_new_failures": 2,
+    "green_commit": "a0799b2dfa875c079233bf10b36266770500330b",
+    "green_workflow_run": 42566353585,
+    "ui016_tests": 17,
+    "ui017_tests": 26,
+    "ui018_tests": 4,
+    "ui019_tests": 4,
+    "all_targeted_green": 51
+  },
+  "unrun_gates": [
+    "UE5.7 Development compile",
+    "BuildCookRun",
+    "Project.* Automation",
+    "server + 2 clients",
+    "before/after/diff 1920x1080",
+    "-benchmark -fpschart",
+    "FPS/RAM/VRAM measurement",
+    "English/Arabic RTL visual A11y",
+    "Windows EXE"
+  ],
+  "main_merged": false,
+  "rollback": "Revert the C++ accessor and paired menu callsite together. No map or art changes."
+}
