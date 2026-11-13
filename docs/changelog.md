@@ -1,3 +1,10 @@
+## 2026-11-13 — CHAR-022: repair original prototype skin binding
+- **Why:** original 18-joint GLB had skin weights and an animation, but no mesh-to-skin assignment and incorrect inverse-bind matrix storage.
+- **What:** separate corrected GLB assigns skin 0, corrects all 18 bind matrices, removes inherited mesh offset; all original geometry, weights, texture bytes and animation data preserved.
+- **Evidence:** 10/10 local tests pass, maximum bind identity residual 0.9100000262 -> 1.1175870895e-8; original Idle keyframe CPU deformation 0 -> 0.0246787155m max. 21,911 vertices move >0.1mm. Offline preview only; no UE screenshot.
+- **Performance:** FPS/RAM/VRAM not measured. Actual Unreal import, cape collision, sockets, Retarget, IK, network, build/cook and packaged runtime NOT RUN. No production rig claim.
+- **Rollback:** retain byte-identical original GLB, revert source branch; no map or existing engine asset overwritten.
+
 ## 2026-11-09 — UI-019: avoid cloning save arrays each open-menu frame
 - **Why:** Native UMG refresh was invoking by-value `Runtime->GetState()` every tick, copying save-state inventory/quest/waystone collections.
 - **What:** Add C++-only `const FNarisSaveState& GetStateView() const`, consume synchronously from UMG as `const FNarisSaveState&`; keep the BlueprintPure by-value snapshot API exactly unchanged.
