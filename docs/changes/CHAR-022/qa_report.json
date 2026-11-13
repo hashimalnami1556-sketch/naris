@@ -1,0 +1,44 @@
+{
+  "id": "CHAR-022",
+  "date": "2026-11-13",
+  "source_sha256": "83e4d41f347c959e61ec57355fd682db99ed4652dfabba622ae0784b8cd9b628",
+  "output_sha256": "a9389d433d31886c1d4273e6acda0950ca6657fac20338063b9bb643ca95fdd9",
+  "before": {
+    "skin_bound": false,
+    "joints": 18,
+    "vertices": 32373,
+    "triangles": 49886,
+    "bind_identity_max_error": 0.9100000262260437,
+    "max_animation_displacement_m": 0
+  },
+  "after": {
+    "skin_bound": true,
+    "joints": 18,
+    "vertices": 32373,
+    "triangles": 49886,
+    "bind_identity_max_error": 1.1175870895385742e-8,
+    "max_animation_displacement_m": 0.024678715545867428,
+    "moving_vertices_gt_0_1mm": 21911
+  },
+  "art_preserved": {
+    "binary_outside_bind_accessor_identical": true,
+    "geometry_material_image_texture_weight_animation_unchanged": true,
+    "mesh_rest_offset_removed_m": 0.05
+  },
+  "offline_tests": {
+    "passed": 10,
+    "total": 10,
+    "scope": "original GLB and CPU skinning"
+  },
+  "unreal_gate": {
+    "import": "NOT_RUN",
+    "cape_collision": "NOT_RUN",
+    "weapon_sockets": "NOT_RUN",
+    "PIE": "NOT_RUN",
+    "BuildCookRun": "NOT_RUN",
+    "network": "NOT_RUN",
+    "fps_ram_vram": "NOT_MEASURED"
+  },
+  "status": "PROTOTYPE_REPAIRED_OFFLINE_DRAFT",
+  "merge_allowed": false
+}
