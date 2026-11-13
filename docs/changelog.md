@@ -1,3 +1,9 @@
+## 2026-11-14 — CHAR-022: conservative cape candidate section
+- **Why:** the repaired hero is one welded connected component, not separate cape/body/weapon objects.
+- **What:** partition existing triangles into two review primitives, using posterior burgundy texture and vertex coordinates. 19,731 cape-candidate triangles + 30,155 remaining triangles = 49,886. All 32,373 original vertex attributes, original material, texture, 18-joint skin and Idle unchanged. 872 shared boundary vertex indices.
+- **Evidence:** 8/8 local regression tests PASS; output ZIP CRC PASS. Actual mesh preview and exact face IDs distributed in external handoff. No change to appearance intended; candidate mask is not production cloth.
+- **Risks / rollback:** possible seam/upper-arm misclassification, incomplete collar and dark fabric. Do not assign cloth until reviewed. Return to original SkinFixed GLB. No UE import, cloth collision, FPS, BuildCookRun or network tested; PR #108 stays draft.
+
 ## 2026-11-13 — CHAR-022: repair original prototype skin binding
 - **Why:** original 18-joint GLB had skin weights and an animation, but no mesh-to-skin assignment and incorrect inverse-bind matrix storage.
 - **What:** separate corrected GLB assigns skin 0, corrects all 18 bind matrices, removes inherited mesh offset; all original geometry, weights, texture bytes and animation data preserved.
