@@ -28,6 +28,7 @@ class UE57CompileRegression(unittest.TestCase):
         header=(SOURCE/"Public/NarisSystemMenuWidget.h").read_text(encoding="utf-8")
         cpp=(SOURCE/"Private/NarisSystemMenuWidget.cpp").read_text(encoding="utf-8")
         self.assertNotRegex(header,r"MakePanel\([^;]*FMargin&\s+Padding\b")
+        self.assertRegex(header,r"UBorder\*\s+MakePanel\(\s*const FLinearColor& Color,\s*const FMargin& InPadding\s*\)\s*const\s*;")
         body=cpp.split("UBorder* UNarisSystemMenuWidget::MakePanel(",1)[1].split("void UNarisSystemMenuWidget::BuildInterface(",1)[0]
         self.assertIn("const FMargin& InPadding",body)
         self.assertIn("Panel->SetPadding(InPadding);",body)
