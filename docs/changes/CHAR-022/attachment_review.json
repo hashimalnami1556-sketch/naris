@@ -1,0 +1,86 @@
+{
+  "id": "CHAR-022-ATTACHMENT-REVIEW",
+  "date": "2026-11-15",
+  "source_sha256": {
+    "cape_glb": "8ee9a1577836373e2764fc75ceddbb21329806f6938a751dab499edc6ca3d887",
+    "manifold_obj": "03326926c3eb7ad5bb29f4fb71112bae40ef76ed83d8cf7cd764333d26d4a45f",
+    "mapping": "3fab7a003d44e4913a9478a104754a97f30bf2f9148b8afcd604925bc6970cdd"
+  },
+  "source_unchanged": true,
+  "previous_shoulder_radius_pins": 0,
+  "candidate_pins": 105,
+  "unique_source_pins": 100,
+  "components": [
+    {
+      "component": 0,
+      "faces": 2960,
+      "vertices": 1634,
+      "pins": 0,
+      "policy": "KEEP_ORIGINAL_SKINNED_STATIC"
+    },
+    {
+      "component": 1,
+      "faces": 16554,
+      "vertices": 8425,
+      "pins": 105,
+      "policy": "SIMULATION_REVIEW"
+    }
+  ],
+  "active_topology": {
+    "vertices": 8425,
+    "faces": 16554,
+    "components": 1,
+    "boundary_edges": 424,
+    "branching_boundary_vertices": 0,
+    "nonmanifold_edges": 0,
+    "orientation_conflicts": 0,
+    "duplicate_faces": 0,
+    "degenerate_faces": 0
+  },
+  "thresholds": {
+    "min_height_source_units": 0.6700000055134296,
+    "min_torso_weight": 0.5,
+    "fade_distance_source_units": 0.2,
+    "max_distance_source_units": 0.12
+  },
+  "max_vertex_lineage_error": 5.000000413701855e-10,
+  "max_face_corner_error": 8.570118792668684e-10,
+  "obj_roundtrip": true,
+  "original_idle_keyframes": [
+    {
+      "time_seconds": 0,
+      "source_pin_max_displacement_from_bind": 0.004625419698413829,
+      "body_source_pin_identity_count": 105
+    },
+    {
+      "time_seconds": 0.75,
+      "source_pin_max_displacement_from_bind": 0.004625470665724512,
+      "body_source_pin_identity_count": 105
+    },
+    {
+      "time_seconds": 1.5,
+      "source_pin_max_displacement_from_bind": 0.004625419698413829,
+      "body_source_pin_identity_count": 105
+    }
+  ],
+  "tests_local": {
+    "red": "missing module",
+    "green": 10
+  },
+  "scope": "Boundary and original shared source index plus torso weights, provisional geodesic profile. Original Idle CPU samples are not a dynamic seam simulation. No actual UE cloth or anatomical review.",
+  "output_obj_sha256": "2bd6368eb718e011d303569bee6a63d733cf609099a10206958cbe12af6b4cd0",
+  "artifact": {
+    "name": "NARIS_CHAR022_ATTACHMENT_REVIEW.zip",
+    "sha256": "4b1c74b882e9e263d03bf861d205515afd1aab14cc3c82170e869030b6dcb22c",
+    "bytes": 1050556,
+    "files": 16,
+    "crc": "PASS"
+  },
+  "candidate_gate": true,
+  "production_pin_gate": "NOT_APPROVED",
+  "chaos_cloth": "NOT_RUN",
+  "dynamic_collision": "NOT_RUN",
+  "engine_build": "NOT_RUN",
+  "release_approved": false,
+  "rollback": "Discard independent OBJ/profile; preserve render GLB, original skin, and existing assets."
+}
