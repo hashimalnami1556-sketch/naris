@@ -30,4 +30,5 @@ jobs:
         run: |
           grep -F '+DirectoriesToAlwaysCook=(Path="/Game/NARIS/UI/Icons")' unreal/NARIS_W04/Config/DefaultGame.ini
       - name: Mark test scope
-        run: echo 'Source-only contracts: UE5.7 compilation, PIE, full UMG, 2-client net, FPS and Windows build remain mandatory.'
+        run: |
+          echo 'Source-only contracts: UE5.7 compilation, PIE, full UMG, 2-client net, FPS and Windows build remain mandatory.'

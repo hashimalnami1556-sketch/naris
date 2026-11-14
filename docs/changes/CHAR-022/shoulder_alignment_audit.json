@@ -1,0 +1,54 @@
+{
+  "source_sha256": "8ee9a1577836373e2764fc75ceddbb21329806f6938a751dab499edc6ca3d887",
+  "radius_source_units": 0.04,
+  "scope": "nearest vertex only; not skeletal fit or triangle surface distance",
+  "shoulders": [
+    {
+      "joint": "upper_arm_L",
+      "location": [
+        -0.20000000298023224,
+        0.6899999864399433,
+        0
+      ],
+      "all": {
+        "closest_vertex": 7272,
+        "distance_source_units": 0.03357380322499431,
+        "vertices_within_radius": 13
+      },
+      "body_review": {
+        "closest_vertex": 7272,
+        "distance_source_units": 0.03357380322499431,
+        "vertices_within_radius": 13
+      },
+      "cape_candidate": {
+        "closest_vertex": 15328,
+        "distance_source_units": 0.12539762908645952,
+        "vertices_within_radius": 0
+      }
+    },
+    {
+      "joint": "upper_arm_R",
+      "location": [
+        0.20000000298023224,
+        0.6899999864399433,
+        0
+      ],
+      "all": {
+        "closest_vertex": 11066,
+        "distance_source_units": 0.1474011498074205,
+        "vertices_within_radius": 0
+      },
+      "body_review": {
+        "closest_vertex": 11066,
+        "distance_source_units": 0.1474011498074205,
+        "vertices_within_radius": 0
+      },
+      "cape_candidate": {
+        "closest_vertex": 18145,
+        "distance_source_units": 0.19371490332540953,
+        "vertices_within_radius": 0
+      }
+    }
+  ],
+  "decision": "No production anchors; inspect mesh-relative shoulder sockets and garment boundary; preserve rig and render source."
+}

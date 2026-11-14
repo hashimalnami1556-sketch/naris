@@ -127,12 +127,12 @@ UTextBlock* UNarisSystemMenuWidget::MakeText(
 
 UBorder* UNarisSystemMenuWidget::MakePanel(
     const FLinearColor& Color,
-    const FMargin& Padding
+    const FMargin& InPadding
 ) const
 {
     UBorder* Panel = WidgetTree->ConstructWidget<UBorder>(UBorder::StaticClass());
     Panel->SetBrushColor(Color);
-    Panel->SetPadding(Padding);
+    Panel->SetPadding(InPadding);
     return Panel;
 }
 

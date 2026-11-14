@@ -1,0 +1,61 @@
+{
+  "id": "CHAR-022-CLOTH-QA",
+  "date": "2026-11-14",
+  "source_sha256": "8ee9a1577836373e2764fc75ceddbb21329806f6938a751dab499edc6ca3d887",
+  "output_obj_sha256": "bd1d2293fef9d26f6b43cd70c80c92b64e70e0d20be2a43cb7b064df6c4f3ad2",
+  "weld_grid_source_units": 0.000001,
+  "minimum_component_faces": 100,
+  "before": {
+    "vertices": 10228,
+    "faces": 19731,
+    "components": 20,
+    "duplicate_faces": 22,
+    "degenerate_faces": 0,
+    "boundary_edges": 923,
+    "branching_boundary_vertices": 70,
+    "nonmanifold_edges": 33,
+    "orientation_conflicts": 0
+  },
+  "after": {
+    "vertices": 10128,
+    "faces": 19648,
+    "components": 2,
+    "component_faces": [
+      16599,
+      3049
+    ],
+    "duplicate_faces": 0,
+    "degenerate_faces": 0,
+    "boundary_edges": 842,
+    "branching_boundary_vertices": 65,
+    "nonmanifold_edges": 20,
+    "orientation_conflicts": 1
+  },
+  "removed_duplicate_faces": 22,
+  "removed_island_faces": 61,
+  "synthetic_tests_passed": 8,
+  "actual_asset_checks": [
+    "pinned source",
+    "reproduced topology counts",
+    "exact source face/vertex mapping",
+    "coordinate deviation below 2e-6 source units",
+    "OBJ roundtrip",
+    "blocked gate"
+  ],
+  "render_source_modified": false,
+  "topology_pass": false,
+  "simulation_status": "REVIEW_ONLY_BLOCKED",
+  "engine_import": "NOT_RUN",
+  "cloth_pin_weights": "NOT_AUTHORED",
+  "physics_collision": "NOT_RUN",
+  "performance": "NOT_MEASURED",
+  "windows_build": "QUEUED_UNVERIFIED",
+  "release_approved": false,
+  "artifact": {
+    "name": "NARIS_CHAR022_CLOTH_TOPOLOGY_QA.zip",
+    "sha256": "ce30f99cc6522f6ee39eb128bff8649b7ab47a6f0dda79209ff7fe26e756ce80",
+    "bytes": 1045025,
+    "zip_crc": "PASS"
+  },
+  "rollback": "Discard review OBJ; retain original CapeReview GLB"
+}
