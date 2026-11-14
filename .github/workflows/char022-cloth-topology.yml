@@ -7,6 +7,8 @@ on:
       - 'tools/assetforge/test_char022_cloth_topology.py'
       - 'tools/assetforge/manifold_review.py'
       - 'tools/assetforge/test_char022_manifold_review.py'
+      - 'tools/assetforge/attachment_review.py'
+      - 'tools/assetforge/test_char022_attachment_review.py'
       - '.github/workflows/char022-cloth-topology.yml'
   pull_request:
     paths:
@@ -14,6 +16,8 @@ on:
       - 'tools/assetforge/test_char022_cloth_topology.py'
       - 'tools/assetforge/manifold_review.py'
       - 'tools/assetforge/test_char022_manifold_review.py'
+      - 'tools/assetforge/attachment_review.py'
+      - 'tools/assetforge/test_char022_attachment_review.py'
       - '.github/workflows/char022-cloth-topology.yml'
   workflow_dispatch:
 permissions:
@@ -33,8 +37,9 @@ jobs:
         run: |
           python -m unittest discover -s tools/assetforge -p 'test_char022_cloth_topology.py' -v
           python -m unittest discover -s tools/assetforge -p 'test_char022_manifold_review.py' -v
+          python -m unittest discover -s tools/assetforge -p 'test_char022_attachment_review.py' -v
       - name: Check source syntax
-        run: python -m py_compile tools/assetforge/char022_cloth_topology.py tools/assetforge/manifold_review.py
+        run: python -m py_compile tools/assetforge/char022_cloth_topology.py tools/assetforge/manifold_review.py tools/assetforge/attachment_review.py
       - name: Mark evidence scope
         run: |
           echo 'Synthetic offline topology tests only; original asset review and actual Unreal physics remain separate gates.'
