@@ -5,11 +5,15 @@ on:
     paths:
       - 'tools/assetforge/char022_cloth_topology.py'
       - 'tools/assetforge/test_char022_cloth_topology.py'
+      - 'tools/assetforge/manifold_review.py'
+      - 'tools/assetforge/test_char022_manifold_review.py'
       - '.github/workflows/char022-cloth-topology.yml'
   pull_request:
     paths:
       - 'tools/assetforge/char022_cloth_topology.py'
       - 'tools/assetforge/test_char022_cloth_topology.py'
+      - 'tools/assetforge/manifold_review.py'
+      - 'tools/assetforge/test_char022_manifold_review.py'
       - '.github/workflows/char022-cloth-topology.yml'
   workflow_dispatch:
 permissions:
@@ -26,9 +30,11 @@ jobs:
       - name: Install NumPy
         run: python -m pip install numpy==2.2.6
       - name: Test topology cleanup and fail-closed gate
-        run: python -m unittest discover -s tools/assetforge -p 'test_char022_cloth_topology.py' -v
+        run: |
+          python -m unittest discover -s tools/assetforge -p 'test_char022_cloth_topology.py' -v
+          python -m unittest discover -s tools/assetforge -p 'test_char022_manifold_review.py' -v
       - name: Check source syntax
-        run: python -m py_compile tools/assetforge/char022_cloth_topology.py
+        run: python -m py_compile tools/assetforge/char022_cloth_topology.py tools/assetforge/manifold_review.py
       - name: Mark evidence scope
         run: |
           echo 'Synthetic offline topology tests only; original asset review and actual Unreal physics remain separate gates.'
