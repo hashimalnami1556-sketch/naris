@@ -1,3 +1,10 @@
+## 2026-11-14 — CHAR-022: simulation-only manifold repair and attachment audit
+- **Why:** previous cape review had 20 nonmanifold edges, 65 branching boundary vertices and 1 winding conflict.
+- **What:** add manifold_review.py, exact face/vertex lineage; remove 55 faces incident to nonmanifold edges, split disconnected vertex fans, propagate winding, prune 79 faces in small isolated components. Review-only OBJ: 19,648 -> 19,514 faces, 2 large components retained; all three index-topology defect counts now zero. Original GLB, approved appearance, textures, skin and animations untouched.
+- **Next gate executed:** actual 18-joint source shoulder locations; provisional pin radius 0.04 source units yields 0 pinned vertices across both components. Pin gate FAIL; nearest distances 0.2415064 / 0.1494546. Four provisional rest-pose thigh/calf capsule checks: 0 candidate vertices inside, minimum clearance 0.00712628 source units. No actual triangle/dynamic cloth collision proof.
+- **Tests/evidence:** 12 local synthetic tests passed; pinned real asset mapping and OBJ roundtrip passed; max coordinate deviation 5e-10 source units. Dedicated CI extended. External ZIP and comparison not committed as shipping binary.
+- **Risk / rollback:** topology-only success is not cloth approval. Seam duplicates may share positions; do not re-weld, fill holes or assign weights blindly. 100-face cutoff and pin/capsule dimensions are assistant-selected review settings. Keep PR draft; discard review OBJ to revert; UE import/build/network/perf not executed.
+
 ## 2026-11-14 — CHAR-022: additive cloth topology review and test coverage
 - **Why:** actual cape candidate has 20 welded vertex-connected components, 22 duplicate faces, 33 nonmanifold edges and 70 branching boundary vertices.
 - **What:** separate review-only OBJ, source-to-candidate face/vertex mapping, deterministic quantized welding and duplicate/small-island removal; 19,731 -> 19,648 triangles, 20 -> 2 components, duplicates 22 -> 0, nonmanifold 33 -> 20. No original GLB, texture, skin, design or animation changed.
