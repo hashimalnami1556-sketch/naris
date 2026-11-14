@@ -10,6 +10,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 MENU_CPP = ROOT / "unreal/NARIS_W04/Source/NARIS_W04/Private/NarisSystemMenuWidget.cpp"
 GAMEPLAY_TYPES = ROOT / "unreal/NARIS_W04/Source/NARIS_W04/Public/NarisGameplayTypes.h"
+MENU_HEADER = ROOT / "unreal/NARIS_W04/Source/NARIS_W04/Public/NarisSystemMenuWidget.h"
 
 
 class InventoryMenuCompileContract(unittest.TestCase):
@@ -48,6 +49,23 @@ class InventoryMenuCompileContract(unittest.TestCase):
         self.assertIn("Controller->SelectMenuIndex(MenuIndex)", text)
         self.assertIn("State.UnlockedWaystones.Num()", self.body)
 
+
+    def test_make_panel_padding_parameter_does_not_shadow_widget_member(self):
+        # ENV-020: UE 5.7.4 build blocker recorded at c325e866.
+        # UUserWidget has a Padding member; preserve the non-shadowing name
+        # consistently in the declaration, implementation and SetPadding call.
+        header = MENU_HEADER.read_text(encoding="utf-8")
+        cpp = MENU_CPP.read_text(encoding="utf-8")
+        self.assertRegex(
+            header,
+            r"UBorder\*\s+MakePanel\(\s*const FLinearColor& Color,\s*"
+            r"const FMargin& InPadding\s*\)\s*const\s*;",
+        )
+        body = cpp.split("UNarisSystemMenuWidget::MakePanel(", 1)[1].split(
+            "void UNarisSystemMenuWidget::BuildInterface()", 1
+        )[0]
+        self.assertRegex(body, r"const FMargin& InPadding\s*\)\s*const")
+        self.assertIn("Panel->SetPadding(InPadding);", body)
 
 if __name__ == "__main__":
     unittest.main()
