@@ -1,3 +1,9 @@
+## 2026-11-15 — CHAR-022: mesh-derived attachment review
+- Why: shoulder-radius trial found zero pins. Use actual shared body/cape boundary vertex IDs and torso skin weights rather than moving bones or expanding a radius blindly.
+- What: additive geodesic Max Distance review profile; 105 candidate review vertices / 100 unique original indices, one eligible component (8,425 vertices / 16,554 faces); unanchored lower component (1,634 vertices / 2,960 faces) remains on original skinning, no render geometry deleted. Original GLB and prior review hashes unchanged.
+- Evidence: 10/10 local synthetic tests; active index-topology zero defects in measured categories; original mapping and OBJ roundtrip verified; max face corner error 8.57e-10 source units. Original Idle keys evaluated on CPU only. External 16-file ZIP contains OBJ, CSV, mappings, full reproducible runner and comparison; not a production asset.
+- Risk / rollback: chest height 0.67, torso weight cutoff 0.5, geodesic fade 0.20 and max movement 0.12 source units are review assumptions. Candidate attachment gate passes, actual garment coverage, seam dynamics, Chaos Cloth, collisions, UE build/network/perf untested. Do not import CSV blindly or merge. Discard separate output to revert.
+
 ## 2026-11-14 — CHAR-022: simulation-only manifold repair and attachment audit
 - **Why:** previous cape review had 20 nonmanifold edges, 65 branching boundary vertices and 1 winding conflict.
 - **What:** add manifold_review.py, exact face/vertex lineage; remove 55 faces incident to nonmanifold edges, split disconnected vertex fans, propagate winding, prune 79 faces in small isolated components. Review-only OBJ: 19,648 -> 19,514 faces, 2 large components retained; all three index-topology defect counts now zero. Original GLB, approved appearance, textures, skin and animations untouched.
