@@ -52,7 +52,7 @@ private:
     FString ResolveVectorIconName(int32 Index) const;
     void CacheVectorIcons();
     UTextBlock* MakeText(const FString& Value, int32 Size, const FLinearColor& Color) const;
-    UBorder* MakePanel(const FLinearColor& Color, const FMargin& Padding) const;
+    UBorder* MakePanel(const FLinearColor& Color, const FMargin& InPadding) const;
 
     UPROPERTY(Transient)
     TObjectPtr<ANarisPlayerController> Controller;

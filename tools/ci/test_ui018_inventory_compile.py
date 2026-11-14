@@ -48,6 +48,5 @@ class InventoryMenuCompileContract(unittest.TestCase):
         self.assertIn("Controller->SelectMenuIndex(MenuIndex)", text)
         self.assertIn("State.UnlockedWaystones.Num()", self.body)
 
-
 if __name__ == "__main__":
     unittest.main()
