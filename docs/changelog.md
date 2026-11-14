@@ -1,3 +1,8 @@
+## 2026-11-14 — ENV-020: Windows execution recovery
+- Confirmed Shellway has no paired host in current account; alternate remote connectors unavailable. Existing UE5.7.4 source fixes inspected; strengthened ENV-020 regression contract.
+- Added host-verified isolated AsusRog W04 Development build/launch workflow; real GitHub run 43535171786 queued. No engine execution or game launch proven.
+- Fixed UI016 YAML block-scalar syntax; independent UI016 and NARIS Unreal Validate runs 43535256743 and 43535256778 both passed. Production project and art untouched. Keep PR #108 draft.
+
 ## 2026-11-14 — CHAR-022: conservative cape candidate section
 - **Why:** the repaired hero is one welded connected component, not separate cape/body/weapon objects.
 - **What:** partition existing triangles into two review primitives, using posterior burgundy texture and vertex coordinates. 19,731 cape-candidate triangles + 30,155 remaining triangles = 49,886. All 32,373 original vertex attributes, original material, texture, 18-joint skin and Idle unchanged. 872 shared boundary vertex indices.
