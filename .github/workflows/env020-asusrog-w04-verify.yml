@@ -1,0 +1,111 @@
+name: ENV-020 AsusRog W04 Build and Launch Verification
+
+on:
+  push:
+    branches: [feature/CHAR-022-skin-binding]
+    paths:
+      - '.github/workflows/env020-asusrog-w04-verify.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: env020-asusrog-w04-verify
+  cancel-in-progress: false
+
+jobs:
+  verify:
+    name: Build W04 on verified AsusRog
+    runs-on: [self-hosted, windows]
+    timeout-minutes: 60
+    steps:
+      - name: Verify authorized host before checkout
+        shell: powershell
+        run: |
+          $ErrorActionPreference = 'Stop'
+          if ($env:COMPUTERNAME -ine 'AsusRog') {
+            throw "Expected AsusRog; got $env:COMPUTERNAME. No checkout or build performed."
+          }
+          Write-Host "HOST_VERIFIED=$env:COMPUTERNAME"
+      - name: Checkout candidate in dedicated runner folder
+        uses: actions/checkout@v4
+        with:
+          path: env020_w04_candidate
+          lfs: true
+          persist-credentials: false
+      - name: Verify engine and build candidate
+        shell: powershell
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $root = Join-Path $env:GITHUB_WORKSPACE 'env020_w04_candidate'
+          $project = Join-Path $root 'unreal\NARIS_W04'
+          $engine = if ($env:UNREAL_ENGINE_ROOT) { $env:UNREAL_ENGINE_ROOT } else { 'C:\Program Files\Epic Games\UE_5.7' }
+          $versionPath = Join-Path $engine 'Engine\Build\Build.version'
+          $version = Get-Content -LiteralPath $versionPath -Raw | ConvertFrom-Json
+          if ($version.MajorVersion -ne 5 -or $version.MinorVersion -ne 7) {
+            throw 'Expected Unreal Engine 5.7.'
+          }
+          $descriptor = Get-Content -LiteralPath (Join-Path $project 'NARIS_W04.uproject') -Raw | ConvertFrom-Json
+          if ($descriptor.EngineAssociation -ne '5.7') { throw 'Project engine mismatch.' }
+          $sha = (& git -C $root rev-parse HEAD).Trim()
+          if ($LASTEXITCODE -ne 0 -or $sha -ne $env:GITHUB_SHA) { throw 'Candidate SHA mismatch.' }
+          $before = @(git -C $root status --porcelain)
+          if ($LASTEXITCODE -ne 0 -or $before.Count -gt 0) { throw 'Candidate checkout is not clean.' }
+          $evidence = Join-Path $env:GITHUB_WORKSPACE 'env020_w04_evidence'
+          New-Item -ItemType Directory -Force -Path $evidence | Out-Null
+          $session = [System.Diagnostics.Process]::GetCurrentProcess().SessionId
+          $report = [ordered]@{
+            schema = 'naris.env020.windows.v1'
+            host = $env:COMPUTERNAME
+            candidate_sha = $sha
+            engine = "$($version.MajorVersion).$($version.MinorVersion).$($version.PatchVersion)"
+            session_id = $session
+            build_status = 'NOT_RUN'
+            launch_status = 'NOT_RUN'
+            runtime_approval = $false
+            release_approved = $false
+          }
+          $reportPath = Join-Path $evidence 'env020_receipt.json'
+          $report | ConvertTo-Json | Set-Content -LiteralPath $reportPath -Encoding UTF8
+          $args = @{
+            RepoRoot = $root
+            ProjectRoot = $project
+            EngineRoot = $engine
+            BootstrapIfMissing = $true
+          }
+          # Session 0 is a non-interactive Windows service session: build only.
+          # The existing helper checks compilation and stops on missing map.
+          if ($session -ne 0) { $args.Launch = $true }
+          try {
+            & (Join-Path $root 'tools\windows\Invoke-NarisP20NativeUI.ps1') @args
+            if (-not $?) { throw 'Candidate helper failed.' }
+            $report.build_status = 'HELPER_RETURNED_SUCCESS'
+            $report.launch_status = if ($session -ne 0) { 'HELPER_LAUNCH_SMOKE_RETURNED' } else { 'BLOCKED_NONINTERACTIVE_SESSION' }
+          } catch {
+            $report.build_status = 'HELPER_FAILED_OR_INTERRUPTED'
+            $report.error = $_.Exception.Message
+            throw
+          } finally {
+            $report | ConvertTo-Json | Set-Content -LiteralPath $reportPath -Encoding UTF8
+          }
+      - name: Collect candidate logs
+        if: always()
+        shell: powershell
+        run: |
+          $root = Join-Path $env:GITHUB_WORKSPACE 'env020_w04_candidate'
+          $logs = Join-Path $root 'unreal\NARIS_W04\Saved\Logs'
+          $dest = Join-Path $env:GITHUB_WORKSPACE 'env020_w04_evidence'
+          if (Test-Path -LiteralPath $logs) {
+            New-Item -ItemType Directory -Force -Path $dest | Out-Null
+            Get-ChildItem -LiteralPath $logs -Filter '*.log' -File |
+              Copy-Item -Destination $dest -Force
+          }
+      - name: Retain execution evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ENV020-AsusRog-W04-${{ github.run_id }}
+          path: env020_w04_evidence
+          if-no-files-found: warn
+          retention-days: 7
