@@ -1,3 +1,9 @@
+## 2026-11-14 — CHAR-022: additive cloth topology review and test coverage
+- **Why:** actual cape candidate has 20 welded vertex-connected components, 22 duplicate faces, 33 nonmanifold edges and 70 branching boundary vertices.
+- **What:** separate review-only OBJ, source-to-candidate face/vertex mapping, deterministic quantized welding and duplicate/small-island removal; 19,731 -> 19,648 triangles, 20 -> 2 components, duplicates 22 -> 0, nonmanifold 33 -> 20. No original GLB, texture, skin, design or animation changed.
+- **Evidence:** 8/8 synthetic tests locally green; actual pinned GLB, mapping and OBJ roundtrip independently checked. Dedicated GitHub workflow added. Output and rear-projection comparison in external handoff, not shipping assets.
+- **Risk / decision:** 100-face island cutoff and 1e-6 source-unit weld grid chosen for review only, not art approval. 20 nonmanifold edges, 65 branching boundary vertices and 1 orientation conflict remain. No Cloth, pin weights, collision, UE import or performance approval. Windows runner 43535171786 queued at check; no engine proof. Rollback: discard review mesh; preserve original render source. PR #108 remains draft.
+
 ## 2026-11-14 — ENV-020: Windows execution recovery
 - Confirmed Shellway has no paired host in current account; alternate remote connectors unavailable. Existing UE5.7.4 source fixes inspected; strengthened ENV-020 regression contract.
 - Added host-verified isolated AsusRog W04 Development build/launch workflow; real GitHub run 43535171786 queued. No engine execution or game launch proven.
