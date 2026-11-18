@@ -2,9 +2,9 @@ name: ANIM-024 Source Motion Coverage
 on:
   push:
     branches: [feature/ANIM-024-source-coverage-gate]
-    paths: ['tools/assetforge/anim024_audit.py', 'tools/assetforge/anim024_dev_motion.py', 'tests/anim024/**', 'docs/changes/ANIM-024/**', '.github/workflows/anim024-coverage.yml']
+    paths: ['tools/assetforge/anim024_audit.py', 'tools/assetforge/anim024_dev_motion.py', 'tools/assetforge/render_anim024.py', 'tests/anim024/**', 'docs/changes/ANIM-024/**', '.github/workflows/anim024-coverage.yml']
   pull_request:
-    paths: ['tools/assetforge/anim024_audit.py', 'tools/assetforge/anim024_dev_motion.py', 'tests/anim024/**', '.github/workflows/anim024-coverage.yml']
+    paths: ['tools/assetforge/anim024_audit.py', 'tools/assetforge/anim024_dev_motion.py', 'tools/assetforge/render_anim024.py', 'tests/anim024/**', '.github/workflows/anim024-coverage.yml']
   workflow_dispatch:
 permissions:
   contents: read
@@ -21,7 +21,7 @@ jobs:
         run: python -m pip install numpy==2.3.5
       - name: Run original-asset-safe source and dev-motion contracts
         run: |
-          python -m py_compile tools/assetforge/anim024_audit.py tools/assetforge/anim024_dev_motion.py
+          python -m py_compile tools/assetforge/anim024_audit.py tools/assetforge/anim024_dev_motion.py tools/assetforge/render_anim024.py
           python -m unittest discover -s tests/anim024 -v
       - run: |
           echo 'Offline DEV motion logic only. Source GLB asset tests are in the user handoff and explicitly skipped in GitHub CI.'
