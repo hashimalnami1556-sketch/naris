@@ -1,0 +1,44 @@
+name: CHAR-023 Original Weapon Geometry Contracts
+on:
+  push:
+    branches: [feature/CHAR-023-rigid-weapon-review]
+    paths:
+      - 'tools/assetforge/char023_weapon_review.py'
+      - 'tools/assetforge/render_char023_evidence.py'
+      - 'tools/assetforge/char023_pose_audit.py'
+      - 'tools/assetforge/render_char023_pose.py'
+      - 'tests/char023/**'
+      - 'docs/changes/CHAR-023/**'
+      - '.github/workflows/char023-weapon-review.yml'
+  pull_request:
+    paths:
+      - 'tools/assetforge/char023_weapon_review.py'
+      - 'tools/assetforge/render_char023_evidence.py'
+      - 'tools/assetforge/char023_pose_audit.py'
+      - 'tools/assetforge/render_char023_pose.py'
+      - 'tests/char023/**'
+      - '.github/workflows/char023-weapon-review.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  weapon-source-contract:
+    name: Synthetic topology and rigid-pivot tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 7
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install minimal test dependencies
+        run: python -m pip install numpy==2.2.6 Pillow==11.2.1
+      - name: Verify CHAR-023 source and synthetic tests
+        run: |
+          python -m py_compile tools/assetforge/char023_weapon_review.py tools/assetforge/render_char023_evidence.py tools/assetforge/char023_pose_audit.py tools/assetforge/render_char023_pose.py
+          python -m unittest discover -s tests/char023 -v
+      - name: Explain evidence boundary
+        run: |
+          echo 'Actual GLB is in the user-supplied handoff and intentionally not committed.'
+          echo 'Real-GLB integration suites are explicitly SKIPPED in CI; original Idle and socket poses are evaluated separately with user-provided source.'
+          echo 'No UE build, socket creation, montage, real rotation or game release is certified.'

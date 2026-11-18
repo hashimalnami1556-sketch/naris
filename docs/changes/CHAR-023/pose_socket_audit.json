@@ -1,0 +1,110 @@
+{
+  "id": "CHAR-023-IDLE-POSE-SOCKET-AUDIT",
+  "date": "2026-11-18",
+  "scope": "Actual source glTF Idle plus mathematically synthesized wrist rotations. Not an Unreal runtime pass.",
+  "source_sha256": "a9389d433d31886c1d4273e6acda0950ca6657fac20338063b9bb643ca95fdd9",
+  "source_unchanged": true,
+  "source_animation": "A_Character1_Idle",
+  "animated_node": "chest",
+  "original_combat_anim_available": false,
+  "source_sword_candidate": {
+    "vertices": 1119,
+    "faces": 1834,
+    "measured_edges": 2940,
+    "min_edge_source_units": 0.00001
+  },
+  "candidate_socket": {
+    "parent": "hand_L",
+    "coordinate_system": "glTF Y-up",
+    "local_translation_source_units": [
+      0.2115246057510376,
+      -0.061397988349199295,
+      0.0351867601275444
+    ],
+    "rotation_xyzw": [
+      0,
+      0,
+      0,
+      1
+    ],
+    "bone_to_grip_distance_source_units": 0.2230481560106105,
+    "assessment": "Offset from bone origin is not by itself a defect; conversion and visual hand placement require engine review.",
+    "ue_socket_created": false
+  },
+  "sampled_original_idle": [
+    {
+      "time_s": 0,
+      "original_max_relative_edge_change": 0.3088021221282966,
+      "original_mean": 0.008130518669339823,
+      "rigid_max": 4.8120376408718834e-14
+    },
+    {
+      "time_s": 0.75,
+      "original_max_relative_edge_change": 0.30178090764602483,
+      "original_mean": 0.007464207964874182,
+      "original_p95": 0.03398966681197118,
+      "rigid_max": 2.8103360326855077e-14,
+      "mean_pose_difference_source_units": 0.009971695823841439,
+      "max_pose_difference_source_units": 0.016060402744737332
+    },
+    {
+      "time_s": 1.5,
+      "original_max_relative_edge_change": 0.3088021221282966,
+      "original_mean": 0.00813051866933982,
+      "rigid_max": 5.096624584354262e-14
+    }
+  ],
+  "synthetic_wrist_degrees": [
+    0,
+    90,
+    180,
+    270,
+    360
+  ],
+  "max_grip_constraint_error_source_units": 0,
+  "limitations": [
+    "30.18% is the maximum on one short measured edge, not whole-blade deformation",
+    "Rigid transform cannot establish visual hand grip or combat montage behavior",
+    "Original clip rotates chest only; no true hand motion sequence",
+    "glTF coordinates/units not yet validated against UE5.7 import"
+  ],
+  "local_tests": {
+    "synthetic": 12,
+    "real_source": 4,
+    "total_passed": 16
+  },
+  "github": {
+    "red_run": 44388350504,
+    "red_reason": "ModuleNotFoundError: char023_pose_audit",
+    "green_run": 44388945249,
+    "scope": "12 synthetic pose plus previous 10 source synthetic; original GLB integration suites skipped in CI"
+  },
+  "handoff": {
+    "filename": "NARIS_CHAR023_RIGID_SOCKET_POSE_QA.zip",
+    "bytes": 6866621,
+    "sha256": "8f6b6f4f172186458620a2e783f408e7ea6a3c9a8ff7ce095040bbe40d248205",
+    "zip_crc": "PASS",
+    "includes": [
+      "Pinned original GLB",
+      "Rigid weapon candidate GLB",
+      "Hero without weapon review GLB",
+      "Before/after Idle CPU screenshot",
+      "Pose reports CSV JSON",
+      "Reproduction scripts",
+      "12+4 tests"
+    ]
+  },
+  "unreal_gates": {
+    "source_import": "NOT_RUN",
+    "weapon_socket": "NOT_CREATED",
+    "combat_montages": "NOT_PRESENT",
+    "combat_animation": "NOT_RUN",
+    "PIE": "NOT_RUN",
+    "network_server_2_clients": "NOT_RUN",
+    "build_cook_run": "NOT_RUN",
+    "fps_memory": "NOT_MEASURED"
+  },
+  "status": "OFFLINE_AUDIT_PASSED_RUNTIME_BLOCKED",
+  "merge_allowed": false,
+  "rollback": "Discard detached asset and virtual socket QA; original source and existing Unreal content untouched."
+}
