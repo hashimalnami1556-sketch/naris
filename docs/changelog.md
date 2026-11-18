@@ -1,3 +1,10 @@
+## 2026-11-18 — ANIM-024: source animation coverage audit (draft)
+- **Why:** source GLB files lack the required locomotion/combat clips; retargeting without verified source motion would produce misleading readiness claims.
+- **What:** inspect four original GLB files by SHA256, verify clip/channel/node names, and add fail-closed named-clip coverage audit. The corrected hero and rigged prototype have one chest-only Idle clip each; Character 1/3 have no skins or animations. Missing Walk/Run/Attack/Dodge/Block/Death.
+- **Tests:** local RED missing module -> 5/5 GREEN including actual user hero GLB; GitHub source tests PASS, real user GLB integration skipped on CI (not committed). See docs/changes/ANIM-024/coverage_report.json.
+- **Perf:** not measured; no UE engine, content or gameplay modification.
+- **Risk/Rollback:** named clips are minimum only; UE IK Rig, Retargeter, BlendSpace, Montages, Foot IK, gameplay, network, build and before/after gates remain open. Revert audit branch, leave source untouched. Draft PR #110.
+
 ## 2026-11-18 — CHAR-023 continuation: source Idle skin deformation and virtual hand socket (review only)
 - **Why:** the original weapon has strong leg weights. A 0.223 source-unit distance from hand_L bone to grip is not itself proof of misalignment; the correct question is how the weapon follows hand pose.
 - **What:** additive source-pinned CPU glTF skin evaluation against rigid hand-relative attachment across the only actual Idle clip (chest rotation at 0, 0.75, 1.5 seconds), and separate synthetic wrist turns (0/90/180/270/360 degrees). Source GLB, independent original-texture weapon/body review assets and game code unchanged.
