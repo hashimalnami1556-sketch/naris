@@ -1,3 +1,10 @@
+## 2026-11-18 — CHAR-023: preserve original weapon visuals, add detached rigid review candidate
+- **Why:** actual source blade vertices inherit ~31.34% thigh_L, 24.16% calf_L, 20.52% foot_L but only ~1.13% hand_L skin weight on average; this is not a stable independent hand-mounted weapon.
+- **What:** pinned-SHA GLB review tool partitions original 49,886 triangles into hero 48,052 / guard 592 / blade 1,242, then exports independent rigid sword with original normal/UV/PBR JPEGs, and derived original-skin hero with candidate sword faces excluded. Source GLB, rest geometry, skins, original Idle and three embedded texture byte hashes preserved. In static rest pose CPU, actual exported hero+sword GLBs reassemble with max source vertex deviation 7.45e-9 and 0 differing raster pixels in two views.
+- **Tests:** TDD red missing module then 10/10 synthetic tests green; 9/9 real GLB integration tests green locally, three output GLBs load in trimesh. GitHub tests only source/synthetic; actual user GLB remains in external handoff ZIP.
+- **Risks:** guard segmentation review required; proposed grip has 0.223 source-unit gap from hand_L origin. No UE Socket/animation/net/build/cloth/perf certification. Never spawn original skinned sword and detached candidate simultaneously.
+- **Rollback:** discard independent review files or revert draft PR, leave original art untouched. Details: docs/changes/CHAR-023/{baseline.md,qa_report.json}.
+
 ## 2026-11-15 — CHAR-022: mesh-derived attachment review
 - Why: shoulder-radius trial found zero pins. Use actual shared body/cape boundary vertex IDs and torso skin weights rather than moving bones or expanding a radius blindly.
 - What: additive geodesic Max Distance review profile; 105 candidate review vertices / 100 unique original indices, one eligible component (8,425 vertices / 16,554 faces); unanchored lower component (1,634 vertices / 2,960 faces) remains on original skinning, no render geometry deleted. Original GLB and prior review hashes unchanged.
