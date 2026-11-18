@@ -15,10 +15,15 @@ def inspect_gltf(doc):
             if not isinstance(idx,int) or idx<0 or idx>=len(nodes):
                 raise ValueError('Animation target out of bounds')
             targets.append(nodes[idx].get('name',str(idx)));paths.append(t.get('path'))
-        clips.append({'name':anim.get('name',''),'channels':len(anim.get('channels',[])),
-                      'animated_nodes':sorted(set(targets)),'paths':sorted(set(paths))})
+        name=anim.get('name','')
+        extras=anim.get('extras',{})
+        development=bool(name.upper().startswith('DEV_ONLY_') or
+                         extras.get('naris_dev_only') or extras.get('production_approved') is False)
+        clips.append({'name':name,'channels':len(anim.get('channels',[])),
+                      'animated_nodes':sorted(set(targets)),'paths':sorted(set(paths)),
+                      'development_only':development})
     coverage={k:any(c['name'].casefold().startswith(k) or ('_'+k) in c['name'].casefold()
-                     for c in clips) for k in REQUIRED}
+                     for c in clips if not c['development_only']) for k in REQUIRED}
     return {'clip_count':len(clips),'clips':clips,'named_clip_coverage':coverage,
             'gate':gate(coverage),'runtime_verified':False}
 def inspect_file(path):
