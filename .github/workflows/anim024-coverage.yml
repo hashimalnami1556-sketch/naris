@@ -1,0 +1,25 @@
+name: ANIM-024 Source Motion Coverage
+on:
+  push:
+    branches: [feature/ANIM-024-source-coverage-gate]
+    paths: ['tools/assetforge/anim024_audit.py', 'tests/anim024/**', 'docs/changes/ANIM-024/**', '.github/workflows/anim024-coverage.yml']
+  pull_request:
+    paths: ['tools/assetforge/anim024_audit.py', 'tests/anim024/**', '.github/workflows/anim024-coverage.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  animation-source-contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: |
+          python -m py_compile tools/assetforge/anim024_audit.py
+          python -m unittest discover -s tests/anim024 -v
+      - run: |
+          echo 'Only source-file inspection. Original user GLBs are not in GitHub CI.'
+          echo 'No generated animation, UE retarget, PIE, network or release claim.'
