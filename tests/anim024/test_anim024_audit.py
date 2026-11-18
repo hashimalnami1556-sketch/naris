@@ -28,6 +28,19 @@ class AnimationContracts(unittest.TestCase):
     def test_invalid_target_rejected(self):
         with self.assertRaises(ValueError):
             inspect_gltf({'nodes':[],'animations':[{'channels':[{'target':{'node':2,'path':'rotation'}}]}]})
+    def test_dev_only_name_cannot_satisfy_production_gate(self):
+        document={'nodes':[], 'animations':[
+            {'name':'DEV_ONLY_Walk_InPlace',
+             'extras':{'naris_dev_only':True,'production_approved':False},'channels':[]},
+            {'name':'A_Dev_Attack',
+             'extras':{'production_approved':False},'channels':[]},
+            {'name':'A_Idle','channels':[]}]}
+        report=inspect_gltf(document)
+        self.assertTrue(report['named_clip_coverage']['idle'])
+        self.assertFalse(report['named_clip_coverage']['walk'])
+        self.assertFalse(report['named_clip_coverage']['attack'])
+        self.assertFalse(report['gate']['minimum_named_clip_coverage'])
+
     def test_real_source_when_present(self):
         source=os.environ.get('NARIS_ANIM024_SOURCE')
         if not source:self.skipTest('Original user GLB not present in GitHub CI')
