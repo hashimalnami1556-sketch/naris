@@ -73,4 +73,49 @@ class SourceIKContracts(unittest.TestCase):
         q=build_source_plan(Path(body),Path(preview))
         self.assertEqual(len(q['chains']),7)
         self.assertEqual(q['source_chain_gate'],'PASS')
+
+from anim024_unreal_ikrig_review import ASSET, dry_run, apply, check_imported_mesh
+
+class FakeModifier:
+    def __init__(self,parents):self.parents=parents
+    def get_all_bone_names(self):return list(self.parents)
+    def get_parent_name(self,name):return self.parents[name] or 'None'
+
+class UnrealInstallerOfflineContracts(unittest.TestCase):
+    @staticmethod
+    def plan():
+        return {'id':'ANIM-024-IK-SOURCE-REVIEW','source_sha256':dict(PINS),
+            'retarget_root':'pelvis','joint_count':18,'release_ready':False,
+            'chains':{name:{'start':a,'end':b} for name,(a,b) in CHAINS.items()}}
+    def test_exact_imported_tree_passes(self):
+        self.assertTrue(check_imported_mesh(FakeModifier(PARENT)))
+    def test_changed_hand_parent_rejected(self):
+        parents=dict(PARENT);parents['hand_L']='chest'
+        with self.assertRaises(ValueError):check_imported_mesh(FakeModifier(parents))
+    def test_tampered_chain_rejected(self):
+        p=self.plan();p['chains']['LeftArm']['start']='upper_arm_R'
+        with self.assertRaises(ValueError):dry_run(p,'/Game/Test/SK_Hero')
+    def test_wrong_digest_rejected(self):
+        p=self.plan();p['source_sha256']['preview']='0'*64
+        with self.assertRaises(ValueError):dry_run(p,'/Game/Test/SK_Hero')
+    def test_dry_run_never_claims_created(self):
+        r=dry_run(self.plan(),'/Game/Test/SK_Hero')
+        self.assertFalse(r['created']);self.assertEqual(r['new_review_path'],ASSET)
+    def test_no_consent_cannot_apply(self):
+        from unittest.mock import Mock,patch
+        with patch.dict(os.environ,{},clear=True):
+            with self.assertRaises(PermissionError):
+                apply(self.plan(),'/Game/Test/SK_Hero',Mock())
+    def test_existing_review_asset_cannot_be_overwritten(self):
+        from unittest.mock import Mock,patch
+        u=Mock();u.SystemLibrary.get_engine_version.return_value='5.7.3'
+        u.EditorAssetLibrary.does_asset_exist.return_value=True
+        with patch.dict(os.environ,{'NARIS_ANIM024_APPROVE_REVIEW':'1'}):
+            with self.assertRaises(FileExistsError):apply(self.plan(),'/Game/Test/SK_Hero',u)
+    def test_wrong_engine_refused(self):
+        from unittest.mock import Mock,patch
+        u=Mock();u.SystemLibrary.get_engine_version.return_value='5.6.1'
+        with patch.dict(os.environ,{'NARIS_ANIM024_APPROVE_REVIEW':'1'}):
+            with self.assertRaises(RuntimeError):apply(self.plan(),'/Game/Test/SK_Hero',u)
+
 if __name__=='__main__':unittest.main()
