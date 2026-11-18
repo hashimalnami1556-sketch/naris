@@ -1,0 +1,95 @@
+{
+  "id": "ANIM-024",
+  "date": "2026-11-18",
+  "scope": "Original user GLB source inspection, no Unreal runtime",
+  "assets": [
+    {
+      "name": "Character1_NARIS_CHAR022_SkinFixed_ORIGINAL.glb",
+      "sha256": "a9389d433d31886c1d4273e6acda0950ca6657fac20338063b9bb643ca95fdd9",
+      "skins": 1,
+      "clips": [
+        "A_Character1_Idle"
+      ],
+      "channels": 1,
+      "animated_nodes": [
+        "chest"
+      ],
+      "missing": [
+        "walk",
+        "run",
+        "attack",
+        "dodge",
+        "block",
+        "death"
+      ]
+    },
+    {
+      "name": "Character1_NARIS_Rigged_Prototype.glb",
+      "sha256": "83e4d41f347c959e61ec57355fd682db99ed4652dfabba622ae0784b8cd9b628",
+      "skins": 1,
+      "clips": [
+        "A_Character1_Idle"
+      ],
+      "channels": 1,
+      "animated_nodes": [
+        "chest"
+      ],
+      "missing": [
+        "walk",
+        "run",
+        "attack",
+        "dodge",
+        "block",
+        "death"
+      ]
+    },
+    {
+      "name": "Character 1.glb",
+      "sha256": "d3d83628a982079a614541295334f11cafe616af86f621cd0947190afb1acc75",
+      "skins": 0,
+      "clips": [],
+      "missing": [
+        "idle",
+        "walk",
+        "run",
+        "attack",
+        "dodge",
+        "block",
+        "death"
+      ]
+    },
+    {
+      "name": "Character 3.glb",
+      "sha256": "ac36ad54c102b7d755359195997afc009160689b28b0cfb4b53b77987dbb72b5",
+      "skins": 0,
+      "clips": [],
+      "missing": [
+        "idle",
+        "walk",
+        "run",
+        "attack",
+        "dodge",
+        "block",
+        "death"
+      ]
+    }
+  ],
+  "minimum_named_clip_coverage": "FAIL",
+  "runtime_ready": false,
+  "local_tdd": {
+    "red": "ModuleNotFoundError: anim024_audit",
+    "green": "5/5 including real original hero GLB"
+  },
+  "ue": {
+    "ik_rig": "NOT_CREATED",
+    "retargeter": "NOT_CREATED",
+    "blendspace": "NOT_CREATED",
+    "montages": "NOT_CREATED",
+    "foot_ik": "NOT_RUN",
+    "PIE": "NOT_RUN",
+    "BuildCookRun": "NOT_RUN",
+    "network": "NOT_RUN"
+  },
+  "release_approved": false,
+  "rollback": "Remove additive audit branch only; original GLB and UE project unchanged."
+}
