@@ -1,0 +1,83 @@
+{
+  "id": "CHAR-023",
+  "date": "2026-11-18",
+  "status": "OFFLINE_REVIEW_CANDIDATE",
+  "source_sha256": "a9389d433d31886c1d4273e6acda0950ca6657fac20338063b9bb643ca95fdd9",
+  "source_glb_original_unchanged": true,
+  "original_triangles": 49886,
+  "sections": {
+    "body": 48052,
+    "guard_candidate": 592,
+    "blade_candidate": 1242
+  },
+  "original_vertices": 32373,
+  "guard_unique_vertices": 372,
+  "blade_unique_vertices": 747,
+  "components_total": 529,
+  "blade_source_weight_means": {
+    "thigh_L": 0.31341981233522753,
+    "calf_L": 0.24158841551068316,
+    "foot_L": 0.20523921360412595,
+    "hand_L": 0.011273471187236638
+  },
+  "grip_candidate_source_units": [
+    -0.21847540140151978,
+    0.41860198974609375,
+    0.0351867601275444
+  ],
+  "hand_L_bind_distance_source_units": 0.2230481560106105,
+  "hand_R_bind_distance_source_units": 0.6523252076694408,
+  "proposed_hand_L_translation_offset_source_units": [
+    0.2115246057510376,
+    -0.061397988349199295,
+    0.0351867601275444
+  ],
+  "max_static_world_position_delta_source_units": 7.450580596923828e-9,
+  "CPU_preview": {
+    "source": "original plus TWO exported GLB files",
+    "front_right_recombined_pixel_differences": 0,
+    "unreal_screenshot": false
+  },
+  "asset_integrity": {
+    "original_embedded_JPEG_digests_unchanged": true,
+    "original_binary_prefix_preserved": true,
+    "source_skin_and_Idle_still_present_in_body_review": true,
+    "rigid_weapon_has_no_skin_or_animations": true,
+    "all_source_faces_reconstructed": true
+  },
+  "local_tests": {
+    "synthetic": 10,
+    "actual_asset_integration": 9,
+    "total_green": 19,
+    "real_asset_available_locally": true
+  },
+  "ci_scope": "source-only tests; actual source GLB not committed",
+  "outputs_sha256": {
+    "NARIS_CHAR023_SectionReview.glb": "c23bb7de9b9fbe4f2b5b097e5555c95f2b4d6fb5e67adfc1adfe3dcc66514e20",
+    "NARIS_CHAR023_HeroWithoutWeapon_REVIEW.glb": "2fc95a46ba69f23c4365390bea277f185bc83e187286140d56d22aa080e0780d",
+    "NARIS_CHAR023_RigidWeaponCandidate_REVIEW.glb": "c1b977e9c1ea60e8ea0116fec716a82d7a5d62d5a0761316ac9930cb4215c728"
+  },
+  "external_handoff": {
+    "name": "NARIS_CHAR023_WEAPON_REVIEW_AND_QA.zip",
+    "sha256": "e95444253fd12055587589e6b5ccf99e9715f9edd3d30522e96556ad6f8e1ef6",
+    "bytes": 9197424,
+    "zip_crc": "PASS"
+  },
+  "ue_checks": {
+    "sockets": "NOT_RUN",
+    "import": "NOT_RUN",
+    "turn_360": "NOT_RUN",
+    "montage": "NOT_RUN",
+    "BuildCookRun": "NOT_RUN",
+    "network_server_plus_2_clients": "NOT_RUN",
+    "FPS_RAM": "NOT_MEASURED"
+  },
+  "known_risks": [
+    "Some guard parts may include hand/cape fragments and require manual inspection",
+    "0.223 source-unit gap between hand_L bone origin and geometric grip",
+    "Never load full original hero and detached weapon together (double sword)",
+    "glTF source Y-up offset is not a valid UE socket transform"
+  ],
+  "release_approved": false,
+  "rollback": "Revert branch; discard derived GLBs; original source asset untouched."
+}
