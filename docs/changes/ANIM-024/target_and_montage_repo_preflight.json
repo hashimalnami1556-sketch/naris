@@ -1,0 +1,128 @@
+{
+  "id": "ANIM-024-REAL-REPO-TARGET-PREFLIGHT",
+  "capture_date": "2026-11-19",
+  "repo": "hashimalnami1556-sketch/naris",
+  "head_sha": "232e7b779a3eb8ac03f978a24d81ae6ba8405b48",
+  "source": "GitHub repository tree + live W04 bindings JSON + NARIS_W04.uproject",
+  "repo_tree_entries": 907,
+  "truncated": false,
+  "engine_association": "5.7",
+  "required_plugin_explicit_enablement": {
+    "PythonScriptPlugin": true,
+    "IKRig": false,
+    "MeshModelingToolset": false
+  },
+  "missing_plugin_explicit_enablement": [
+    "IKRig",
+    "MeshModelingToolset"
+  ],
+  "plugin_caveat": "Not explicitly enabled in .uproject does not prove disabled inside a user's Unreal editor",
+  "expected_montage_count": 10,
+  "checked_in_montage_candidates": 0,
+  "missing_checked_in_montage_candidates": 10,
+  "rows": [
+    {
+      "role": "hero_light_attack",
+      "expected_object_path": "/Game/NARIS/W04/Characters/Hero/Animations/AM_Hero_LightAttack.AM_Hero_LightAttack",
+      "expected_class": "AnimMontage",
+      "required_notify_classes": [
+        "NarisAttackWindowNotifyState",
+        "NarisAttackImpactNotify"
+      ],
+      "repo_file": "unreal/NARIS_W04/Content/NARIS/W04/Characters/Hero/Animations/AM_Hero_LightAttack.uasset",
+      "checked_in": false
+    },
+    {
+      "role": "hero_heavy_attack",
+      "expected_object_path": "/Game/NARIS/W04/Characters/Hero/Animations/AM_Hero_HeavyAttack.AM_Hero_HeavyAttack",
+      "expected_class": "AnimMontage",
+      "required_notify_classes": [
+        "NarisAttackWindowNotifyState",
+        "NarisAttackImpactNotify"
+      ],
+      "repo_file": "unreal/NARIS_W04/Content/NARIS/W04/Characters/Hero/Animations/AM_Hero_HeavyAttack.uasset",
+      "checked_in": false
+    },
+    {
+      "role": "hero_dodge",
+      "expected_object_path": "/Game/NARIS/W04/Characters/Hero/Animations/AM_Hero_Dodge.AM_Hero_Dodge",
+      "expected_class": "AnimMontage",
+      "required_notify_classes": [],
+      "repo_file": "unreal/NARIS_W04/Content/NARIS/W04/Characters/Hero/Animations/AM_Hero_Dodge.uasset",
+      "checked_in": false
+    },
+    {
+      "role": "hero_parry",
+      "expected_object_path": "/Game/NARIS/W04/Characters/Hero/Animations/AM_Hero_Parry.AM_Hero_Parry",
+      "expected_class": "AnimMontage",
+      "required_notify_classes": [],
+      "repo_file": "unreal/NARIS_W04/Content/NARIS/W04/Characters/Hero/Animations/AM_Hero_Parry.uasset",
+      "checked_in": false
+    },
+    {
+      "role": "celestial_wolf_attack",
+      "expected_object_path": "/Game/NARIS/W04/Characters/CelestialWolf/Animations/AM_CelestialWolf_Attack.AM_CelestialWolf_Attack",
+      "expected_class": "AnimMontage",
+      "required_notify_classes": [
+        "NarisWolfAttackImpactNotify"
+      ],
+      "repo_file": "unreal/NARIS_W04/Content/NARIS/W04/Characters/CelestialWolf/Animations/AM_CelestialWolf_Attack.uasset",
+      "checked_in": false
+    },
+    {
+      "role": "bone_beast_claw_sweep",
+      "expected_object_path": "/Game/NARIS/W04/Bosses/BoneBeast/Animations/AM_BoneBeast_ClawSweep.AM_BoneBeast_ClawSweep",
+      "expected_class": "AnimMontage",
+      "required_notify_classes": [
+        "BoneBeastAttackImpactNotify"
+      ],
+      "repo_file": "unreal/NARIS_W04/Content/NARIS/W04/Bosses/BoneBeast/Animations/AM_BoneBeast_ClawSweep.uasset",
+      "checked_in": false
+    },
+    {
+      "role": "bone_beast_bone_charge",
+      "expected_object_path": "/Game/NARIS/W04/Bosses/BoneBeast/Animations/AM_BoneBeast_BoneCharge.AM_BoneBeast_BoneCharge",
+      "expected_class": "AnimMontage",
+      "required_notify_classes": [
+        "BoneBeastAttackImpactNotify"
+      ],
+      "repo_file": "unreal/NARIS_W04/Content/NARIS/W04/Bosses/BoneBeast/Animations/AM_BoneBeast_BoneCharge.uasset",
+      "checked_in": false
+    },
+    {
+      "role": "bone_beast_ash_rupture",
+      "expected_object_path": "/Game/NARIS/W04/Bosses/BoneBeast/Animations/AM_BoneBeast_AshRupture.AM_BoneBeast_AshRupture",
+      "expected_class": "AnimMontage",
+      "required_notify_classes": [
+        "BoneBeastAttackImpactNotify"
+      ],
+      "repo_file": "unreal/NARIS_W04/Content/NARIS/W04/Bosses/BoneBeast/Animations/AM_BoneBeast_AshRupture.uasset",
+      "checked_in": false
+    },
+    {
+      "role": "bone_beast_phase_transition",
+      "expected_object_path": "/Game/NARIS/W04/Bosses/BoneBeast/Animations/AM_BoneBeast_PhaseTransition.AM_BoneBeast_PhaseTransition",
+      "expected_class": "AnimMontage",
+      "required_notify_classes": [],
+      "repo_file": "unreal/NARIS_W04/Content/NARIS/W04/Bosses/BoneBeast/Animations/AM_BoneBeast_PhaseTransition.uasset",
+      "checked_in": false
+    },
+    {
+      "role": "bone_beast_death",
+      "expected_object_path": "/Game/NARIS/W04/Bosses/BoneBeast/Animations/AM_BoneBeast_Death.AM_BoneBeast_Death",
+      "expected_class": "AnimMontage",
+      "required_notify_classes": [],
+      "repo_file": "unreal/NARIS_W04/Content/NARIS/W04/Bosses/BoneBeast/Animations/AM_BoneBeast_Death.uasset",
+      "checked_in": false
+    }
+  ],
+  "checked_in_ikrig_uassets": [],
+  "user_machine_unreal_assets": "NOT_INSPECTED",
+  "runtime_skeletal_mesh": "NOT_VERIFIED",
+  "runtime_montage_notify_evidence": "NOT_VERIFIED",
+  "target_bone_export": "NOT_AVAILABLE",
+  "retargeter": "NOT_CREATED",
+  "release_approved": false,
+  "merge_allowed": false,
+  "rollback": "No production assets changed by this evidence report."
+}
