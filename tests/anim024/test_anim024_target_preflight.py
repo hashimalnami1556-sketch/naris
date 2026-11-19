@@ -74,6 +74,13 @@ class TargetContract(unittest.TestCase):
     def test_retarget_root_must_match_root_chain_end(self):
         m=mapping();m["target_retarget_root"]="head"
         with self.assertRaises(ValueError):validate_manual_mapping(snapshot(),m)
+    def test_json_editor_flag_is_not_verified_runtime_evidence(self):
+        # An external JSON file can claim it was exported from Unreal without proof.
+        # Keep an evidence claim separate from an independently observed Editor session.
+        r=build_target_review(snapshot(),mapping())
+        self.assertFalse(r["verified_in_engine"])
+        self.assertTrue(r["reported_editor_capture"])
+
     def test_uncaptured_snapshot_will_not_be_approved(self):
         a=snapshot();a["is_unreal_editor_capture"]=False
         q=build_target_review(a,mapping())
