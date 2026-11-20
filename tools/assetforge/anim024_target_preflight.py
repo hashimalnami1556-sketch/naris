@@ -7,6 +7,7 @@ mapping exist. NEVER infer target Manny/Quinn bones from the source GLB.
 from __future__ import annotations
 import argparse
 import json
+import math
 import re
 from pathlib import Path
 
@@ -50,6 +51,28 @@ def _parents(snapshot: dict):
         while q is not None:
             if q in seen:raise ValueError("Cycle in target skeleton")
             seen.add(q);q=parents[q]
+
+    # Existing v1 JSON snapshots may omit transforms, but a partial, corrupt
+    # or non-finite reference-pose export must never pass structural review.
+    transform_keys=("reference_local_transform","reference_global_transform")
+    has_reference=any(any(k in bone for k in transform_keys) for bone in b)
+    if has_reference:
+        for bone in b:
+            if any(k not in bone for k in transform_keys):
+                raise ValueError("Incomplete reference transform coverage")
+            for key in transform_keys:
+                tr=bone[key]
+                if not isinstance(tr,dict) or set(tr)!={"translation","rotation","scale3d"}:
+                    raise ValueError("Malformed reference transform: "+key)
+                for field,count in (("translation",3),("rotation",4),("scale3d",3)):
+                    v=tr[field]
+                    if not isinstance(v,list) or len(v)!=count or any(
+                        isinstance(n,bool) or not isinstance(n,(int,float)) or not math.isfinite(n)
+                        for n in v
+                    ):
+                        raise ValueError("Non-finite or malformed reference transform: "+field)
+                if sum(n*n for n in tr["rotation"]) < 1e-12:
+                    raise ValueError("Zero reference quaternion")
     return parents,roots[0]
 
 
@@ -59,7 +82,7 @@ def validate_snapshot(snapshot: dict) -> dict:
     if snapshot.get("asset_modified") is True:
         raise ValueError("Snapshot says source asset modified")
     return {"root":root,"bone_count":len(parents),"parents":parents,
-            "claimed_editor_capture":is_engine,"engine_evidence":is_engine,
+            "claimed_editor_capture":is_engine,"engine_evidence":False,
             "skeletal_mesh_object_path":snapshot["skeletal_mesh_object_path"],
             "engine_version":snapshot["engine_version"],
             "production_ready":False}
@@ -147,6 +170,16 @@ def required_plugin_settings(uproject: dict) -> dict:
             "warning":"Missing .uproject entry does not prove engine plugin unavailable. Check Editor before enabling."}
 
 
+def _serialize_reference_transform(transform) -> dict:
+    """Convert Unreal 5.7 Transform (parent/global ref pose) to plain finite JSON."""
+    def vector3(v):
+        return [float(v.x),float(v.y),float(v.z)]
+    q=transform.rotation
+    return {"translation":vector3(transform.translation),
+            "rotation":[float(q.x),float(q.y),float(q.z),float(q.w)],
+            "scale3d":vector3(transform.scale3d)}
+
+
 def inspect_target_in_unreal(unreal,mesh_object_path: str) -> dict:
     # This only calls read accessors. No EditorAssetLibrary.save*, asset tools,
     # SkeletonModifier.commit, mesh edits or IK Rig authoring is allowed.
@@ -165,7 +198,9 @@ def inspect_target_in_unreal(unreal,mesh_object_path: str) -> dict:
     for name in names:
         raw=str(mod.get_parent_name(name))
         parent=None if raw in ("None","NAME_None","") else raw
-        bones.append({"name":name,"parent":parent})
+        bones.append({"name":name,"parent":parent,
+                      "reference_local_transform":_serialize_reference_transform(mod.get_bone_transform(name,False)),
+                      "reference_global_transform":_serialize_reference_transform(mod.get_bone_transform(name,True))})
     snapshot={"schema":SCHEMA,"skeletal_mesh_object_path":mesh_object_path,
               "engine_version":version,"bones":bones,
               "is_unreal_editor_capture":True,"asset_modified":False}
