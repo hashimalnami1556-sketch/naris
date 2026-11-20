@@ -48,6 +48,22 @@ class TargetContract(unittest.TestCase):
         a=snapshot();a["is_unreal_editor_capture"]=False
         result=validate_snapshot(a)
         self.assertFalse(result["engine_evidence"])
+    def test_forged_editor_flag_never_counts_as_runtime_evidence(self):
+        # JSON can be authored externally; its claim must not be runtime proof.
+        r=validate_snapshot(snapshot())
+        self.assertTrue(r["claimed_editor_capture"])
+        self.assertFalse(r["engine_evidence"])
+    def test_partial_reference_transform_snapshot_is_rejected(self):
+        a=snapshot()
+        a["bones"][0]["reference_local_transform"]={"translation":[1,2,3]}
+        with self.assertRaises(ValueError):validate_snapshot(a)
+    def test_non_finite_reference_transform_is_rejected(self):
+        a=snapshot()
+        x={"translation":[float("nan"),0,0],"rotation":[0,0,0,1],"scale3d":[1,1,1]}
+        for b in a["bones"]:
+            b["reference_local_transform"]=dict(x)
+            b["reference_global_transform"]={"translation":[0,0,0],"rotation":[0,0,0,1],"scale3d":[1,1,1]}
+        with self.assertRaises(ValueError):validate_snapshot(a)
     def test_wrong_engine_rejected(self):
         a=snapshot();a["engine_version"]="5.6.3"
         with self.assertRaises(ValueError):validate_snapshot(a)
@@ -92,6 +108,13 @@ class TargetContract(unittest.TestCase):
             def set_skeletal_mesh(self,mesh):self.mesh=mesh;return True
             def get_all_bone_names(self):return list(BONES)
             def get_parent_name(self,bone):return BONES[bone] if BONES[bone] else "None"
+            def get_bone_transform(self,bone,global_=False):
+                # Deterministic editor Transform stand-in, using actual UE property names.
+                from types import SimpleNamespace
+                vec=lambda x,y,z:SimpleNamespace(x=x,y=y,z=z)
+                return SimpleNamespace(translation=vec(4.0 if global_ else 1.0,2.0,3.0),
+                    rotation=SimpleNamespace(x=0.0,y=0.0,z=0.0,w=1.0),
+                    scale3d=vec(1.0,1.0,1.0))
         modifier=Modifier()
         unreal=Mock()
         unreal.SystemLibrary.get_engine_version.return_value="5.7.3"
@@ -100,6 +123,8 @@ class TargetContract(unittest.TestCase):
         unreal.SkeletonModifier.return_value=modifier
         result=inspect_target_in_unreal(unreal,"/Game/Review/SK_Target.SK_Target")
         self.assertEqual(len(result["bones"]),18)
+        self.assertEqual(result["bones"][0]["reference_local_transform"]["translation"],[1.0,2.0,3.0])
+        self.assertEqual(result["bones"][0]["reference_global_transform"]["translation"],[4.0,2.0,3.0])
         self.assertTrue(result["is_unreal_editor_capture"])
         self.assertFalse(result["asset_modified"])
         self.assertFalse(hasattr(modifier,"commit_skeleton_to_skeletal_mesh"))
