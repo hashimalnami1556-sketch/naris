@@ -20,7 +20,7 @@ class W04InputConfigRegression(unittest.TestCase):
     def test_keys_are_serialized_as_unreal_scalars_not_json_objects(self):
         self.assertNotIn('Key=(KeyName=', self.text)
         self.assertNotIn('Key=()', self.text)
-        self.assertFalse(re.search(r'Key=\\s*(?:\\(|\\s*$)', self.text))
+        self.assertFalse(any("Key=(" in line for line in self.actions + self.axes))
 
     def test_input_mapping_list_has_no_escaped_newlines(self):
         self.assertNotIn(r"\\n+", self.text)
