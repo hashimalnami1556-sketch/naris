@@ -176,7 +176,8 @@ void ABoneBeastBoss::Tick(float DeltaSeconds)
 
         // Probe after clients have joined; direct damage is intentionally
         // server-only and far below the boss's current HP. No completion/save.
-        if (HasAuthority() && !bBossNetProbeApplied && Now >= 12.f)
+        if (HasAuthority() && !bBossNetProbeApplied && Now >= 12.f
+            && !FParse::Param(FCommandLine::Get(), TEXT("NarisBossNetProbeNoDamage")))
         {
             bBossNetProbeApplied = true;
             const float Before = CurrentHealth;
