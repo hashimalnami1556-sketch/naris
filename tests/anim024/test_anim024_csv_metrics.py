@@ -62,6 +62,18 @@ class CsvProfilerNumericEvidence(unittest.TestCase):
         with self.assertRaises(ValueError):
             summarize_csv_text("EVENTS,FrameTime,GPUTime\n,10,fail\n")
 
+    def test_unreal_57_late_appended_dynamic_counter_is_not_a_corrupt_frame(self):
+        # Observed in actual 240-frame UE5.7.4 CSV: one extra trailing stat
+        # starts at frame 94; all known header-aligned numeric fields stay put.
+        r = summarize_csv_text("EVENTS,FrameTime,GPUTime\n,10,9\n,5,4,0\n", warmup_frames=0)
+        self.assertEqual(r["frame_count"], 2)
+        self.assertEqual(r["all"]["frame_time_ms"]["mean"], 7.5)
+        self.assertEqual(r["all"]["gpu_time_ms"]["mean"], 6.5)
+
+    def test_more_than_one_unadvertised_counter_still_fails_closed(self):
+        with self.assertRaises(ValueError):
+            summarize_csv_text("EVENTS,FrameTime,GPUTime\n,10,9,0,0\n", warmup_frames=0)
+
     def test_negative_warmup_rejected(self):
         with self.assertRaises(ValueError):
             summarize_csv_text(CSV, warmup_frames=-1)
