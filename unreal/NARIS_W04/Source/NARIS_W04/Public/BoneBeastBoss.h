@@ -146,10 +146,10 @@ protected:
     UPROPERTY(ReplicatedUsing=OnRep_CurrentPhase, VisibleAnywhere, BlueprintReadOnly, Category="NARIS|Boss")
     ENarisBossPhase CurrentPhase = ENarisBossPhase::Phase1;
 
-    UPROPERTY(Replicated, VisibleAnywhere, BlueprintReadOnly, Category="NARIS|Boss")
+    UPROPERTY(ReplicatedUsing=OnRep_EncounterActive, VisibleAnywhere, BlueprintReadOnly, Category="NARIS|Boss")
     bool bEncounterActive = false;
 
-    UPROPERTY(Replicated, VisibleAnywhere, BlueprintReadOnly, Category="NARIS|Boss")
+    UPROPERTY(ReplicatedUsing=OnRep_EncounterComplete, VisibleAnywhere, BlueprintReadOnly, Category="NARIS|Boss")
     bool bEncounterComplete = false;
 
 private:
@@ -158,6 +158,16 @@ private:
 
     UFUNCTION()
     void OnRep_CurrentPhase();
+
+    UFUNCTION()
+    void OnRep_EncounterActive();
+
+    UFUNCTION()
+    void OnRep_EncounterComplete();
+
+    // Transient client-only previous HP for distinguishing initial replication
+    // from subsequent combat damage. Not serialized or replicated.
+    float LastReplicatedHealth = -1.f;
 
 #if !UE_BUILD_SHIPPING
     bool bBossNetProbeApplied = false;
