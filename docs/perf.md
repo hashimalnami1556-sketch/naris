@@ -101,3 +101,18 @@ Actual packaged D3D12 new test map, requested 1920x1080 and fixed `BugItGo 1100 
 **Not comparable to earlier WolfLink map:** previously FrameTime 5.57992ms, but PlayerStart and initialization geometry changed in a different local QA map. Numeric cross-map differences (**+0.08656ms**, **−2.738 FPS-equivalent**, **+2.731MB**) have confounders; **authoritative performance Δ=N/A**, not a performance regression or game FPS claim. One-pass single-player benchmark, physical backbuffer and fixed Seed/actual gameplay animation not certified, no 2-client GPU FPS.
 
 Raw after CSV SHA256 **`4159A36B63999268EC15FF0F64E4EC4A24033CEBDFaf2841e6bbb36b9281fcde`**, local before/after comparison report SHA256 **`A2EE92B28323FEC15F585CDC611892FEF64EADAF4D02F4C19F15C12C301D4075`**. 1920×1080 fixed-camera screenshot new map differs from old by wide floor/viewport coverage (expected different spawn/camera setup), so image diff is **not zero**. Actual PIE `Project.Maps.PIE` **success 13 warnings / 0 errors**, Build Editor/Game and UAT CookArchive **pass**. Full report [Wolf positive client interaction](changes/ANIM-024/wolf_positive_interact_method_review_20261121.md). Production release FPS, RAM, VRAM and multiplayer combat performance still BLOCKED.
+
+## ANIM-024 — 2026-11-21: server-authoritative Bone Beast HP, client initial-hit suppression
+
+**Actual Unreal 5.7.4 developer network validation:** packaged **1 listen server + 2 NullRHI clients**, loopback `17938`, isolated WolfButtonReview map. 16-condition [actual log audit](changes/ANIM-024/boss_authoritative_hp_repnotify_20261121.md) **PASS**. Server single non-shipping QA direct `ApplyDamageToEncounter(18)` reduces Boss **100→82 HP**, two clients both `OnRep_CurrentHealth hp=100 damagefx=0` then `hp=82 damagefx=1`, and both `OnRep_EncounterActive active=1`; clients do not invoke server damage; 0 reported fatal/network errors. **Not a real Wolf animation collision/Notify or attack, Boss death/save, arena door visual or GPU-active network benchmark**. Live Coding in **another** Unreal project temporarily blocked the first Editor build (exit 6); after it exited, Editor **PASS exit 0** with no process interference. Game build, CookPakArchive, and `Project.Maps.PIE` **all PASS**, **13 existing PIE warnings / 0 errors**.
+
+**Static DEV D3D12 A/B on exactly same isolated map and camera**, two actual CSV files 240 frames each with first 60 excluded; seed/temporal alignment, physical back-buffer and background load not independently controlled:
+
+| Metric | Before Boss code changes | After | Observed after − before |
+| --- | ---: | ---: | ---: |
+| FrameTime mean | 5.66648 ms | 5.57645 ms | −0.09003 ms |
+| Derived FPS-equivalent `1000/mean(FrameTime)` | 176.476 | 179.326 | +2.850 equivalent |
+| GPUTime mean | 5.28366 ms | 5.26989 ms | −0.01377 ms |
+| GPUMem/LocalUsedMB mean | 714.682 MB | 713.926 MB | −0.756 MB |
+
+Before raw CSV SHA `4159A36B63999268EC15FF0F64E4EC4A24033CEBDFaf2841e6bbb36b9281fcde`, after CSV SHA `171DA607A9DB24A05B620799C55C9EE8FD72FC034E51DEDCCADED5EC755FB31D`; verified local pair `boss_notify_perf_pair_verified.json` SHA256 `61BF3F3620ED7DBA5529FF2535FF70E818B328DD14083CB922BF0784DD95461A`. Static same-camera screenshots identical SHA `0A1720D2DF521D720A38C927363826805D1FFDAAD104706E65921845E486817E` (no art change). **No statistically significant or representative multiplayer performance gain certified; production FPS Δ = N/A** and min-spec/RAM/VRAM budget gates remain open. Real network HP audit `boss_notify_network_gate_verified.json` SHA256 `F0ECEA30980BF9ABD25CFF59ECC728CC183CBE0FE9C4711464218B575AA62C47`.
