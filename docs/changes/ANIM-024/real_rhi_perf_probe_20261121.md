@@ -1,3 +1,5 @@
+> **Update, 2026-11-21:** This file documents *earlier failed* FPSChart/CSV probes. A later actual D3D12 `-ExecCmds="csvprofile frames=240"` run produced 240 numeric frame rows. The new limited DEV-map benchmark baseline and SHA256 are recorded at [perf_csv_verified_20261121.md](perf_csv_verified_20261121.md). **This does not certify production gameplay FPS, true full-screen 1080p, or before/after performance gains.** The earlier observations remain as a chronology, not as the final measurement status.
+
 # ANIM-024 — GPU performance probe: measurable FPS NOT established (2026-11-21)
 
 **Decision:** graphics-mode packaged execution occurred, but **FPS / frame time / memory Delta are NOT certified**. The local baseline is not tied to a stable Seed or matched before/after render screenshots. This file explicitly prevents a false performance PASS.
