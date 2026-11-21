@@ -86,6 +86,17 @@ void ACelestialWolf::BeginPlay()
         Mode = ENarisWolfMode::Follow;
         ForceNetUpdate();
     }
+
+    // Only in a disposable DEV test: enter the real Wolf TickAttack path
+    // without advancing campaign gates or altering authored assets.
+    if (FParse::Param(FCommandLine::Get(), TEXT("NarisWolfNetProbeCombatOnce")))
+    {
+        bBonded = true;
+        Mode = ENarisWolfMode::Attack;
+        AttackAcquireRadius = FMath::Max(AttackAcquireRadius, 2500.f);
+        bImmediateSmokeAttackImpact = true;
+        ForceNetUpdate();
+    }
 #endif
 
     if (Presentation)
@@ -464,7 +475,22 @@ bool ACelestialWolf::CommitAttackImpact()
         return false;
     }
 
+#if !UE_BUILD_SHIPPING
+    const float BossHPBeforeProbe = Target->GetCurrentHealth();
+#endif
     Target->ApplyDamageToEncounter(AttackDamage);
+
+#if !UE_BUILD_SHIPPING
+    if (FParse::Param(FCommandLine::Get(), TEXT("NarisWolfNetProbeCombatOnce")))
+    {
+        UE_LOG(LogTemp, Display,
+            TEXT("NARIS_WOLF_COMBAT_PROBE event=ServerWolfAttackImpact authority=%d before=%.2f after=%.2f damage=%.2f"),
+            HasAuthority() ? 1 : 0, BossHPBeforeProbe, Target->GetCurrentHealth(), AttackDamage);
+        // Stop at a single real RequestAttack->CommitAttackImpact call:
+        // no boss death, no quest completion and no autosave.
+        SetMode(ENarisWolfMode::Guard);
+    }
+#endif
 
     if (Presentation)
     {
