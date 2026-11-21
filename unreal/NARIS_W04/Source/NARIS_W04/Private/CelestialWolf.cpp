@@ -357,6 +357,21 @@ ABoneBeastBoss* ACelestialWolf::FindAttackTarget() const
 
 void ACelestialWolf::TickFollow()
 {
+#if !UE_BUILD_SHIPPING
+    // Deterministic, non-shipping QA probe only. It moves the real Character
+    // via AddMovementInput so a listen server and two clients can verify
+    // continuing *authoritative* replication after their initial join.
+    // No source assets, quest state, or save games are changed.
+    if (GetWorld() && FParse::Param(FCommandLine::Get(), TEXT("NarisWolfNetProbeMarch")))
+    {
+        const float Seconds = GetWorld()->GetTimeSeconds();
+        const FVector ProbeDestination = GuardAnchor
+            + FVector(600.f * FMath::Sin(Seconds * 0.45f), 0.f, 0.f);
+        MoveTowards(ProbeDestination, 12.f);
+        return;
+    }
+#endif
+
     APawn* PlayerPawn = UGameplayStatics::GetPlayerPawn(this, 0);
     if (PlayerPawn)
     {
