@@ -1,0 +1,133 @@
+{
+  "id": "ANIM-024-IK-SOURCE-PREP",
+  "date": "2026-11-19",
+  "source_assets": {
+    "body": {
+      "name": "NARIS_CHAR023_HeroWithoutWeapon_REVIEW.glb",
+      "sha256": "2fc95a46ba69f23c4365390bea277f185bc83e187286140d56d22aa080e0780d"
+    },
+    "preview": {
+      "name": "NARIS_ANIM024_DEV_MOTION_PREVIEW_ONLY.glb",
+      "sha256": "b5dc669cb81b81f93f3b7c2131446437823d0d5ae1cc5a4be85d47d2eb1a0015"
+    }
+  },
+  "measured": {
+    "joints": 18,
+    "source_binding_comparison": "MATCH",
+    "retarget_root": "pelvis",
+    "source_scene_root": "root",
+    "coordinate_space": "glTF Y-up, not verified Unreal coordinates",
+    "chains": [
+      {
+        "name": "Root",
+        "start": "root",
+        "end": "pelvis",
+        "length_source_units": 0.310000002
+      },
+      {
+        "name": "Spine",
+        "start": "pelvis",
+        "end": "chest",
+        "length_source_units": 0.310000002
+      },
+      {
+        "name": "Head",
+        "start": "neck",
+        "end": "head",
+        "length_source_units": 0.110000014
+      },
+      {
+        "name": "LeftArm",
+        "start": "upper_arm_L",
+        "end": "hand_L",
+        "length_source_units": 0.311670118
+      },
+      {
+        "name": "RightArm",
+        "start": "upper_arm_R",
+        "end": "hand_R",
+        "length_source_units": 0.311670118
+      },
+      {
+        "name": "LeftLeg",
+        "start": "thigh_L",
+        "end": "foot_L",
+        "length_source_units": 0.265656329
+      },
+      {
+        "name": "RightLeg",
+        "start": "thigh_R",
+        "end": "foot_R",
+        "length_source_units": 0.265656329
+      }
+    ],
+    "mirror_arm_length_delta": 0,
+    "mirror_leg_length_delta": 0,
+    "production_target_joint_count": 87,
+    "joint_count_gap_to_spec": 69,
+    "toe_bones": false,
+    "twist_bones": false,
+    "ik_effector_bones": false
+  },
+  "tests": {
+    "local": "37/37 using exact original GLB derived assets and mock Unreal interfaces",
+    "ci": "38 discovered, 36 passed, 2 skipped (two original GLB integrations)",
+    "ci_run": 44415490003,
+    "source_plan_gate": "PASS",
+    "imported_ue_mesh_gate": "NOT_RUN",
+    "engine_install_gate": "NOT_RUN"
+  },
+  "scripts": {
+    "repository": [
+      "tools/assetforge/anim024_ik_chain_contract.py",
+      "tools/assetforge/anim024_unreal_ikrig_review.py",
+      "tests/anim024/test_anim024_ik_chain_contract.py"
+    ],
+    "extended_handoff": [
+      "src/ik_chain_review.py",
+      "src/ikrig_unreal_57.py",
+      "src/render_ik_chains.py",
+      "tests/"
+    ],
+    "unreal_target_review_asset": "/Game/NARIS/Generated/Review/ANIM024/IK_NARIS_18J_REVIEW",
+    "actual_asset_created": false,
+    "explicit_apply_required": true,
+    "existing_asset_overwrite_forbidden": true,
+    "exact_import_bone_names_and_parents_required": true,
+    "target_retargeter_created": false
+  },
+  "external_handoff": {
+    "filename": "NARIS_ANIM024_IKRIG_18J_PREP_QA.zip",
+    "bytes": 4820631,
+    "sha256": "16922b5200f5b43d7afc8ce44473c4b5b48ef436b0c54e00166274760a79d963",
+    "zip_crc": "PASS",
+    "file_count": 23,
+    "image": "source_18joint_ik_chains.png",
+    "image_scope": "actual GLB source-space skeleton; not a screenshot of Unreal"
+  },
+  "gates": {
+    "source_7_chain_definition": "PASS",
+    "engine_source_SkeletalMesh": "NOT_VERIFIED",
+    "IKRig_uasset": "NOT_CREATED",
+    "IKRetargeter_uasset": "NOT_CREATED",
+    "target_manny_quinn_mapping": "NOT_VERIFIED",
+    "production_87_bone_rig": "NOT_MET",
+    "authorized_original_motion": "NOT_ACQUIRED",
+    "actual_animation_retarget": "NOT_RUN",
+    "FootIK": "NOT_RUN",
+    "PIE": "NOT_RUN",
+    "multiplayer_server_plus_two_clients": "NOT_RUN",
+    "BuildCookRun": "NOT_RUN",
+    "before_after_unreal_shots": "NOT_RUN",
+    "FPS_RAM": "NOT_MEASURED"
+  },
+  "risks": [
+    "Source 18-joint prototype still lacks 69 bones relative to the planned 87-bone runtime count; it is a count delta, not verified per-bone missingness",
+    "Missing toe/twist/IK effector bones and unverified skeleton target prevent production retarget acceptance",
+    "glTF Y-up bind coords must not be used as Unreal world transforms without import verification",
+    "UE Python 5.7 installer validated by offline mock tests only; editor plugin availability and runtime API checks unverified"
+  ],
+  "release_approved": false,
+  "merge_allowed": false,
+  "rollback": "No existing UE content touched; remove isolated review outputs or revert draft branch; keep original GLBs and skins untouched."
+}

@@ -3,11 +3,15 @@
 #include "BoneBeastBoss.h"
 #include "Engine/GameInstance.h"
 #include "Engine/World.h"
+#include "Engine/NetDriver.h"
 #include "EngineUtils.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "NarisPresentationComponent.h"
 #include "NarisRuntimeSubsystem.h"
+#include "Misc/CommandLine.h"
+#include "Misc/Parse.h"
+#include "Net/UnrealNetwork.h"
 
 namespace
 {
@@ -41,12 +45,26 @@ ACelestialWolf::ACelestialWolf()
     GetCharacterMovement()->MaxWalkSpeed = FollowSpeed;
 }
 
+void ACelestialWolf::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+    Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+    DOREPLIFETIME(ACelestialWolf, Mode);
+    DOREPLIFETIME(ACelestialWolf, bBonded);
+}
+
 void ACelestialWolf::BeginPlay()
 {
     Super::BeginPlay();
 
     GuardAnchor = GetActorLocation();
     GetCharacterMovement()->MaxWalkSpeed = FollowSpeed;
+
+    // Only the authoritative game instance may read campaign/save state.
+    // Simulated proxies receive Mode and bBonded via property replication.
+    if (!HasAuthority())
+    {
+        return;
+    }
 
     if (!GetWorld())
     {
@@ -60,6 +78,28 @@ void ACelestialWolf::BeginPlay()
     bBonded = Runtime && Runtime->IsCompanionUnlocked(CompanionId);
     Mode = bBonded ? ENarisWolfMode::Follow : ENarisWolfMode::Guard;
 
+#if !UE_BUILD_SHIPPING
+    // Explicit QA opt-in only: enables a moving, bonded Wolf in a disposable
+    // local server session without mutating the player's save/quest state.
+    if (FParse::Param(FCommandLine::Get(), TEXT("NarisWolfNetProbeFollow")))
+    {
+        bBonded = true;
+        Mode = ENarisWolfMode::Follow;
+        ForceNetUpdate();
+    }
+
+    // Only in a disposable DEV test: enter the real Wolf TickAttack path
+    // without advancing campaign gates or altering authored assets.
+    if (FParse::Param(FCommandLine::Get(), TEXT("NarisWolfNetProbeCombatOnce")))
+    {
+        bBonded = true;
+        Mode = ENarisWolfMode::Attack;
+        AttackAcquireRadius = FMath::Max(AttackAcquireRadius, 2500.f);
+        bImmediateSmokeAttackImpact = true;
+        ForceNetUpdate();
+    }
+#endif
+
     if (Presentation)
     {
         Presentation->TriggerCue(WolfModeCue(Mode));
@@ -68,6 +108,11 @@ void ACelestialWolf::BeginPlay()
 
 void ACelestialWolf::SetMode(ENarisWolfMode NewMode)
 {
+    if (!HasAuthority())
+    {
+        return;
+    }
+
     if (!bBonded)
     {
         NewMode = ENarisWolfMode::Guard;
@@ -86,11 +131,45 @@ void ACelestialWolf::SetMode(ENarisWolfMode NewMode)
     }
 
     OnModeChanged.Broadcast(Mode);
+    ForceNetUpdate();
 
     if (Presentation)
     {
         Presentation->TriggerCue(WolfModeCue(Mode));
     }
+}
+
+void ACelestialWolf::OnRep_Mode()
+{
+    OnModeChanged.Broadcast(Mode);
+    if (Presentation)
+    {
+        Presentation->TriggerCue(WolfModeCue(Mode));
+    }
+#if !UE_BUILD_SHIPPING
+    if (FParse::Param(FCommandLine::Get(), TEXT("NarisWolfNetProbe")))
+    {
+        UE_LOG(LogTemp, Display, TEXT("NARIS_WOLF_NET_PROBE event=OnRep_Mode mode=%d"), static_cast<int32>(Mode));
+    }
+#endif
+}
+
+void ACelestialWolf::OnRep_Bonded()
+{
+    if (bBonded)
+    {
+        OnBonded.Broadcast();
+        if (Presentation)
+        {
+            Presentation->TriggerCue(TEXT("Wolf.Bonded"));
+        }
+    }
+#if !UE_BUILD_SHIPPING
+    if (FParse::Param(FCommandLine::Get(), TEXT("NarisWolfNetProbe")))
+    {
+        UE_LOG(LogTemp, Display, TEXT("NARIS_WOLF_NET_PROBE event=OnRep_Bonded bonded=%d"), bBonded ? 1 : 0);
+    }
+#endif
 }
 
 void ACelestialWolf::EchoLink()
@@ -100,6 +179,11 @@ void ACelestialWolf::EchoLink()
 
 void ACelestialWolf::CycleMode()
 {
+    if (!HasAuthority())
+    {
+        return;
+    }
+
     if (!bBonded)
     {
         return;
@@ -147,6 +231,11 @@ FText ACelestialWolf::GetModeDisplayName() const
 
 void ACelestialWolf::SetTrackTarget(AActor* NewTarget)
 {
+    if (!HasAuthority())
+    {
+        return;
+    }
+
     TrackTarget = NewTarget;
 
     if (TrackTarget && bBonded)
@@ -169,6 +258,11 @@ FText ACelestialWolf::GetInteractionPrompt_Implementation() const
 
 bool ACelestialWolf::BondWithPlayer(AActor* InstigatorActor)
 {
+    if (!HasAuthority())
+    {
+        return false;
+    }
+
     if (!GetWorld())
     {
         return false;
@@ -212,6 +306,7 @@ bool ACelestialWolf::BondWithPlayer(AActor* InstigatorActor)
 
     bBonded = true;
     SetMode(ENarisWolfMode::Follow);
+    ForceNetUpdate();
     OnBonded.Broadcast();
 
     if (Presentation)
@@ -274,6 +369,21 @@ ABoneBeastBoss* ACelestialWolf::FindAttackTarget() const
 
 void ACelestialWolf::TickFollow()
 {
+#if !UE_BUILD_SHIPPING
+    // Deterministic, non-shipping QA probe only. It moves the real Character
+    // via AddMovementInput so a listen server and two clients can verify
+    // continuing *authoritative* replication after their initial join.
+    // No source assets, quest state, or save games are changed.
+    if (GetWorld() && FParse::Param(FCommandLine::Get(), TEXT("NarisWolfNetProbeMarch")))
+    {
+        const float Seconds = GetWorld()->GetTimeSeconds();
+        const FVector ProbeDestination = GuardAnchor
+            + FVector(600.f * FMath::Sin(Seconds * 0.45f), 0.f, 0.f);
+        MoveTowards(ProbeDestination, 12.f);
+        return;
+    }
+#endif
+
     APawn* PlayerPawn = UGameplayStatics::GetPlayerPawn(this, 0);
     if (PlayerPawn)
     {
@@ -288,6 +398,21 @@ void ACelestialWolf::TickGuard()
 
 void ACelestialWolf::TickAttack()
 {
+#if !UE_BUILD_SHIPPING
+    if (GetWorld() && FParse::Param(FCommandLine::Get(), TEXT("NarisWolfNetProbeCombatOnce")))
+    {
+        // Deterministic QA only: do not run the real server attack decision
+        // before both packaged remote clients have joined and observed HP=100.
+        // No gameplay attack delay or network dependency in normal builds.
+        const UNetDriver* Driver = GetWorld()->GetNetDriver();
+        if (!Driver || Driver->ClientConnections.Num() < 2
+            || GetWorld()->GetTimeSeconds() < 12.f)
+        {
+            return;
+        }
+    }
+#endif
+
     ABoneBeastBoss* Target = FindAttackTarget();
     if (!Target)
     {
@@ -316,7 +441,7 @@ void ACelestialWolf::TickAttack()
 
 bool ACelestialWolf::RequestAttack(ABoneBeastBoss* Target)
 {
-    if (!bBonded
+    if (!HasAuthority() || !bBonded
         || !IsValid(Target)
         || !Target->IsEncounterActive()
         || Target->IsEncounterComplete())
@@ -343,6 +468,13 @@ bool ACelestialWolf::RequestAttack(ABoneBeastBoss* Target)
 
 bool ACelestialWolf::CommitAttackImpact()
 {
+    // Montage notifies may execute on simulated clients. Never let them
+    // apply damage locally: only the server owns the authoritative hit.
+    if (!HasAuthority())
+    {
+        return false;
+    }
+
     ABoneBeastBoss* Target = PendingAttackTarget;
     if (!IsValid(Target)
         || !Target->IsEncounterActive()
@@ -359,7 +491,22 @@ bool ACelestialWolf::CommitAttackImpact()
         return false;
     }
 
+#if !UE_BUILD_SHIPPING
+    const float BossHPBeforeProbe = Target->GetCurrentHealth();
+#endif
     Target->ApplyDamageToEncounter(AttackDamage);
+
+#if !UE_BUILD_SHIPPING
+    if (FParse::Param(FCommandLine::Get(), TEXT("NarisWolfNetProbeCombatOnce")))
+    {
+        UE_LOG(LogTemp, Display,
+            TEXT("NARIS_WOLF_COMBAT_PROBE event=ServerWolfAttackImpact authority=%d before=%.2f after=%.2f damage=%.2f"),
+            HasAuthority() ? 1 : 0, BossHPBeforeProbe, Target->GetCurrentHealth(), AttackDamage);
+        // Stop at a single real RequestAttack->CommitAttackImpact call:
+        // no boss death, no quest completion and no autosave.
+        SetMode(ENarisWolfMode::Guard);
+    }
+#endif
 
     if (Presentation)
     {
@@ -413,7 +560,22 @@ void ACelestialWolf::Tick(float DeltaSeconds)
 {
     Super::Tick(DeltaSeconds);
 
-    if (!bBonded)
+#if !UE_BUILD_SHIPPING
+    if (GetWorld() && FParse::Param(FCommandLine::Get(), TEXT("NarisWolfNetProbe"))
+        && GetWorld()->GetTimeSeconds() >= NextNetProbeLogTime)
+    {
+        NextNetProbeLogTime = GetWorld()->GetTimeSeconds() + 1.f;
+        const FVector P = GetActorLocation();
+        UE_LOG(LogTemp, Display,
+            TEXT("NARIS_WOLF_NET_PROBE event=Tick authority=%d bonded=%d mode=%d x=%.2f y=%.2f z=%.2f speed2d=%.2f"),
+            HasAuthority() ? 1 : 0, bBonded ? 1 : 0, static_cast<int32>(Mode),
+            P.X, P.Y, P.Z, GetVelocity().Size2D());
+    }
+#endif
+
+    // CharacterMovement replicates the authoritative wolf movement; clients
+    // animate simulated proxies and must not run AI/combat/save-state ticks.
+    if (!HasAuthority() || !bBonded)
     {
         return;
     }
