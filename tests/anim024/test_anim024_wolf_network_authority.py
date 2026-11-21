@@ -103,6 +103,16 @@ class WolfServerAuthorityContract(unittest.TestCase):
         self.assertIn("event=ClientInteractRequest", tick)
         self.assertIn("event=ClientCycleMode", tick)
 
+    def test_opt_in_positive_client_button_probe_calls_normal_interact_method(self):
+        # Explicit input simulation must exercise the gameplay Interact()
+        # path, not only the preexisting direct ServerInteractWithWolf QA RPC.
+        # This is not a real keyboard/controller hardware event.
+        tick = body(HERO_CPP, "ANarisHeroCharacter", "Tick")
+        self.assertIn("NarisWolfNetProbeInputButton", tick)
+        self.assertIn("event=ClientInteractButton", tick)
+        self.assertIn("Interact();", tick)
+        self.assertIn("#if !UE_BUILD_SHIPPING", tick)
+
     def test_remote_interact_rejects_untrusted_wolf_with_server_proximity(self):
         server = body(HERO_CPP, "ANarisHeroCharacter", "ServerInteractWithWolf_Implementation")
         self.assertIn("Interaction->FindNearestInteractable() != Wolf", server)
