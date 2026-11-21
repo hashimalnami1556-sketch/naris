@@ -83,9 +83,20 @@ void ANarisHeroCharacter::Tick(float DeltaSeconds)
             }
             if (IsValid(Wolf))
             {
-                UE_LOG(LogTemp, Display, TEXT("NARIS_WOLF_NET_PROBE event=ClientInteractRequest actor=%s authority=0"),
-                    *Wolf->GetName());
-                ServerInteractWithWolf(Wolf);
+                if (FParse::Param(FCommandLine::Get(), TEXT("NarisWolfNetProbeInputButton")))
+                {
+                    // Exercise the SAME Interact() method bound to user input,
+                    // but trigger once via explicit QA CLI, not keyboard hardware.
+                    // Server is separately started with -NarisWolfNetProbeNoSave.
+                    UE_LOG(LogTemp, Display, TEXT("NARIS_WOLF_NET_PROBE event=ClientInteractButton authority=0"));
+                    Interact();
+                }
+                else
+                {
+                    UE_LOG(LogTemp, Display, TEXT("NARIS_WOLF_NET_PROBE event=ClientInteractRequest actor=%s authority=0"),
+                        *Wolf->GetName());
+                    ServerInteractWithWolf(Wolf);
+                }
             }
             else
             {
