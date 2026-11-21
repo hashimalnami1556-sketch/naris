@@ -1,6 +1,9 @@
 #include "CelestialWolf.h"
 
 #include "BoneBeastBoss.h"
+#include "Animation/AnimInstance.h"
+#include "Animation/AnimMontage.h"
+#include "Components/SkeletalMeshComponent.h"
 #include "Engine/GameInstance.h"
 #include "Engine/World.h"
 #include "Engine/NetDriver.h"
@@ -95,7 +98,7 @@ void ACelestialWolf::BeginPlay()
         bBonded = true;
         Mode = ENarisWolfMode::Attack;
         AttackAcquireRadius = FMath::Max(AttackAcquireRadius, 2500.f);
-        bImmediateSmokeAttackImpact = true;
+        bImmediateSmokeAttackImpact = !FParse::Param(FCommandLine::Get(), TEXT("NarisWolfNetProbeMontageOnce"));
         ForceNetUpdate();
     }
 #endif
@@ -457,6 +460,32 @@ bool ACelestialWolf::RequestAttack(ABoneBeastBoss* Target)
     }
 
     OnAttackRequested();
+
+#if !UE_BUILD_SHIPPING
+    if (FParse::Param(FCommandLine::Get(), TEXT("NarisWolfNetProbeMontageOnce")))
+    {
+        // Read the already-authored, matching-skeleton Bite montage only in
+        // isolated QA. NEVER create/overwrite .uasset or synthesize a hit.
+        static const TCHAR* BitePath =
+            TEXT("/Game/NARIS/W04/Characters/WolfPresentationV9/Combat/AM_Wolf_Bite.AM_Wolf_Bite");
+        UAnimMontage* Bite = LoadObject<UAnimMontage>(nullptr, BitePath);
+        UAnimInstance* Instance = GetMesh() ? GetMesh()->GetAnimInstance() : nullptr;
+        const float Duration = (Bite && Instance) ? Instance->Montage_Play(Bite) : 0.f;
+        UE_LOG(LogTemp, Display,
+            TEXT("NARIS_WOLF_COMBAT_PROBE event=ServerMontagePlay authority=%d valid_asset=%d valid_anim_instance=%d duration=%.3f"),
+            HasAuthority() ? 1 : 0, IsValid(Bite) ? 1 : 0,
+            IsValid(Instance) ? 1 : 0, Duration);
+        if (Duration <= 0.f)
+        {
+            CancelAttack();
+            SetMode(ENarisWolfMode::Guard);
+            return false;
+        }
+        // The existing NarisWolfAttackImpactNotify on AM_Wolf_Bite is now the
+        // ONLY path to CommitAttackImpact. No instant smoke fallback.
+        return true;
+    }
+#endif
 
     if (bImmediateSmokeAttackImpact)
     {
