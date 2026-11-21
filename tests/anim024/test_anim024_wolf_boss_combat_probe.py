@@ -37,6 +37,15 @@ class WolfBossAttackFlowProbe(unittest.TestCase):
         self.assertIn("AttackAcquireRadius", src)
         self.assertIn("ForceNetUpdate();", src)
 
+    def test_qa_attack_waits_for_both_real_clients_and_stable_server_time(self):
+        tick = method_body(WOLF, "TickAttack")
+        self.assertIn("#if !UE_BUILD_SHIPPING", tick)
+        self.assertIn("NarisWolfNetProbeCombatOnce", tick)
+        self.assertIn("GetNetDriver()", tick)
+        self.assertIn("ClientConnections.Num() < 2", tick)
+        self.assertIn("GetTimeSeconds() < 12.f", tick)
+        self.assertLess(tick.index("ClientConnections.Num() < 2"), tick.index("RequestAttack(Target);"))
+
     def test_qa_runs_real_wolf_attack_decision_and_impact_functions(self):
         attack = method_body(WOLF, "TickAttack")
         impact = method_body(WOLF, "CommitAttackImpact")
