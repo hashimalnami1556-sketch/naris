@@ -86,6 +86,36 @@ class WolfServerAuthorityContract(unittest.TestCase):
         self.assertIn("MoveTowards(ProbeDestination", follow)
         self.assertIn("#endif", follow)
 
+    def test_client_input_probe_is_opt_in_and_removed_from_shipping(self):
+        tick = body(HERO_CPP, "ANarisHeroCharacter", "Tick")
+        self.assertIn("#if !UE_BUILD_SHIPPING", tick)
+        self.assertIn("NarisWolfNetProbeInput", tick)
+        self.assertIn("IsLocallyControlled()", tick)
+        self.assertIn("!HasAuthority()", tick)
+        self.assertIn("NetWolfProbePhase", tick)
+        self.assertIn("#endif", tick)
+        self.assertIn("NetWolfProbePhase", HERO_H)
+
+    def test_client_input_probe_exercises_player_owned_rpc_and_regular_mode_button(self):
+        tick = body(HERO_CPP, "ANarisHeroCharacter", "Tick")
+        self.assertIn("ServerInteractWithWolf(Wolf);", tick)
+        self.assertIn("CycleCompanionMode();", tick)
+        self.assertIn("event=ClientInteractRequest", tick)
+        self.assertIn("event=ClientCycleMode", tick)
+
+    def test_remote_interact_rejects_untrusted_wolf_with_server_proximity(self):
+        server = body(HERO_CPP, "ANarisHeroCharacter", "ServerInteractWithWolf_Implementation")
+        self.assertIn("Interaction->FindNearestInteractable() != Wolf", server)
+        self.assertIn("event=ServerInteractRejected", server)
+        self.assertIn("event=ServerInteractAccepted", server)
+        self.assertLess(server.index("Interaction->FindNearestInteractable() != Wolf"),
+                        server.index("Interaction->Interact();"))
+
+    def test_mode_rpc_traces_actual_receipt_on_server_only_when_enabled(self):
+        server = body(HERO_CPP, "ANarisHeroCharacter", "ServerCycleCompanionMode_Implementation")
+        self.assertIn("event=ServerCycleMode", server)
+        self.assertIn("NarisWolfNetProbe", server)
+
     def test_debug_netprobe_emits_actual_authority_state_only_when_opted_in(self):
         self.assertIn("NarisWolfNetProbe", WOLF_CPP)
         self.assertIn("NARIS_WOLF_NET_PROBE", WOLF_CPP)
