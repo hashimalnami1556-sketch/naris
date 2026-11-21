@@ -3,6 +3,7 @@
 #include "BoneBeastBoss.h"
 #include "Engine/GameInstance.h"
 #include "Engine/World.h"
+#include "Engine/NetDriver.h"
 #include "EngineUtils.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Kismet/GameplayStatics.h"
@@ -397,6 +398,21 @@ void ACelestialWolf::TickGuard()
 
 void ACelestialWolf::TickAttack()
 {
+#if !UE_BUILD_SHIPPING
+    if (GetWorld() && FParse::Param(FCommandLine::Get(), TEXT("NarisWolfNetProbeCombatOnce")))
+    {
+        // Deterministic QA only: do not run the real server attack decision
+        // before both packaged remote clients have joined and observed HP=100.
+        // No gameplay attack delay or network dependency in normal builds.
+        const UNetDriver* Driver = GetWorld()->GetNetDriver();
+        if (!Driver || Driver->ClientConnections.Num() < 2
+            || GetWorld()->GetTimeSeconds() < 12.f)
+        {
+            return;
+        }
+    }
+#endif
+
     ABoneBeastBoss* Target = FindAttackTarget();
     if (!Target)
     {
