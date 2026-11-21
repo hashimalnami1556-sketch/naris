@@ -48,3 +48,20 @@ After recovering disk space, an isolated `W04_Prototype` was duplicated to `W04_
 Real before CSV SHA256 `728BB94115094D4D120DFD012A14593DAC8795648EE5318F81E69C15E72514B8`; after CSV SHA256 `408C64E64C0BFD22FA6FD9DF15EAF4AF82A122503B868535B469A800A70D22D8`. Full [ANIM-024 WolfLink review](changes/ANIM-024/wolflink_prototype_review_20261121.md). The first CSV started with 215 columns and added one dynamic late profiling counter after frame 93; a regression test and one-column fail-closed parser fix were committed.
 
 This is an **observational one-pass tiny DEV map comparison**, *not* the release performance gate. Rendering back-buffer resolution was not independently verified, Seed and animation phase were not pinned, shader cache/temperatures were not aligned, and both were `-benchmark` sessions. Gameplay replication was only a login smoke, and BoneBeast/hero/AAA effects remained absent. No credible full-game `ΔFPS`, `ΔVRAM` or 60fps production certification yet.
+
+## ANIM-024, 2026-11-21 — actual replicated Wolf movement and paired net-code DEV benchmark
+
+**Networking quality (not GPU FPS):** UE5.7.4 packaged Development `PackageReview_WolfNetMarch`, one listen server + two packaged clients on loopback `127.0.0.1:17927`, all `-nullrhi -NarisSkipFrontEnd -NarisWolfNetProbe`; server additionally `-NarisWolfNetProbeFollow -NarisWolfNetProbeMarch` *only under `!UE_BUILD_SHIPPING`*. Both clients received replicated Bonded/Follow and nonauthority state, and moved while server Wolf moved. Actual per-run server delta **467.65cm**, clients **37.21/41.18cm** over their own sampled windows; final server↔client positions were within **94.96/8.87cm**, but recorded at differing timestamps and **not** a latency/error or game-quality benchmark. **True combat replication, automatic player-follow target selection and animation remain OPEN.**
+
+**Single-package D3D12 DEV perf A/B with no active network:** same small cloned Wolf visual map and requested `1920×1080` CLI, actual same-camera `-benchmark`, 240 frames each, warmup first 60 excluded:
+
+| Counter | Before source authority fix | After authority fix | Observed Δ |
+| --- | ---: | ---: | ---: |
+| Mean `FrameTime` | 5.58739ms | 5.56408ms | **−0.02331ms** |
+| Derived `1000 / mean(FrameTime)` | 178.974 equivalent | 179.724 equivalent | +0.750 equivalent |
+| Mean `GPUTime` | 5.28820ms | 5.26875ms | −0.01945ms |
+| Mean `GPUMem/LocalUsedMB` | 711.929MB | 714.932MB | **+3.003MB** |
+
+Real raw before CSV SHA256 `408C64E64C0BFD22FA6FD9DF15EAF4AF82A122503B868535B469A800A70D22D8`; after CSV SHA256 `5D9B745E712ADD4865BF52B4801B0E7DE44FAE598787EE3F057C1CCC5D2604D8`. 1 pass each, full rendered framebuffer and same Seed/animation phase not independently certified. **No claim of +0.75 gameplay FPS** because both samples use static DEV Benchmark with menu pause, not two-client real gameplay rendering. No representative VRAM/RAM/first-load budget clearance.
+
+**Full trace:** [Wolf server-authoritative replication QA](changes/ANIM-024/wolf_authority_replication_verified_20261121.md), local `wolf_net_march_perf_pair_verified.json` SHA256 `262B245F6345530D1E7FBB36EF0548F5F112D7326C61BF41820E4EB4752A8A44`. Release: **ANIM-024 still draft/blocked**. Use actual high-fidelity moving game level, original assets, Windows min spec, fixed Seed/viewport/quality, authoritative inputs and actual two-client D3D12 gameplay for production FPS gate.
