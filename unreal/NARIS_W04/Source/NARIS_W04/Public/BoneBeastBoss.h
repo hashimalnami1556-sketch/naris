@@ -23,6 +23,7 @@ public:
 
     virtual void BeginPlay() override;
     virtual void Tick(float DeltaSeconds) override;
+    virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="NARIS|Boss")
     TObjectPtr<UBoneBeastCombatComponent> CombatPresentation;
@@ -139,19 +140,30 @@ public:
     FNarisBossEvent OnBossEvent;
 
 protected:
-    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="NARIS|Boss")
+    UPROPERTY(ReplicatedUsing=OnRep_CurrentHealth, VisibleAnywhere, BlueprintReadOnly, Category="NARIS|Boss")
     float CurrentHealth = 0.f;
 
-    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="NARIS|Boss")
+    UPROPERTY(ReplicatedUsing=OnRep_CurrentPhase, VisibleAnywhere, BlueprintReadOnly, Category="NARIS|Boss")
     ENarisBossPhase CurrentPhase = ENarisBossPhase::Phase1;
 
-    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="NARIS|Boss")
+    UPROPERTY(Replicated, VisibleAnywhere, BlueprintReadOnly, Category="NARIS|Boss")
     bool bEncounterActive = false;
 
-    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="NARIS|Boss")
+    UPROPERTY(Replicated, VisibleAnywhere, BlueprintReadOnly, Category="NARIS|Boss")
     bool bEncounterComplete = false;
 
 private:
+    UFUNCTION()
+    void OnRep_CurrentHealth();
+
+    UFUNCTION()
+    void OnRep_CurrentPhase();
+
+#if !UE_BUILD_SHIPPING
+    bool bBossNetProbeApplied = false;
+    float NextBossNetProbeLogTime = 0.f;
+#endif
+
     FName PendingAttackId = NAME_None;
     float PendingAttackDamage = 0.f;
     float LastAttackRequestTime = -1000.f;
