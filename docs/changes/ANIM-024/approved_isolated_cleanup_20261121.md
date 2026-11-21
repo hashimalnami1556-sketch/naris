@@ -38,3 +38,9 @@
 **State:** cleanup PASS, storage immediate blocker mitigated. **ANIM-024 as a whole remains DRAFT / DO NOT MERGE** due missing true 87-bone character approval, ten named production Montages, gameplay animation replication and full representative graphics QA.
 
 Reference: [Epic BuildCookRun and packaging](https://dev.epicgames.com/documentation/en-us/unreal-engine/build-operations-cooking-packaging-deploying-and-running-projects-in-unreal-engine), [Epic Derived Data Cache](https://dev.epicgames.com/documentation/en-us/unreal-engine/using-derived-data-cache-in-unreal-engine).
+
+## Follow-on cleanup after WolfLink review cook (same user authorization)
+
+A subsequent actual ANIM-024 WolfLink review Cook created another `InputReviewProject\Saved\StagedBuilds\Windows`. The staging directory contained **47 files, 885,451,001 byte entries**, every file identical by relative path, byte length and SHA256 to the new retained `PackageReview_WolfLinkReview\Windows`. The staging copy was removed, reporting an additional **0.825 GiB** freed in that separate pass. Exact local audit: `cleanup_wolflink_staged_duplicate_20261121.json` (`deleted=true`, `hash_mismatches=[]`, `new_package_retained=true`).
+
+The subsequent test also generated a new isolated `PackageReview_WolfLinkReview` archive and rebuild caches, so **do not add this 0.825 GiB to the initial 6.931 GiB and label the total an ongoing net disk increase**. The new archive is retained as an improving review asset, with [visual/build/network/performance findings](wolflink_prototype_review_20261121.md). Original `W04_Prototype.umap` SHA256 remained unchanged. Production source, user files and prior known-good package are protected.
