@@ -36,7 +36,16 @@ void ABoneBeastBoss::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLi
 
 void ABoneBeastBoss::OnRep_CurrentHealth()
 {
-    EmitBossEvent(TEXT("DamageTaken"));
+    // First replication is a state snapshot, not an attack. Do not play
+    // hit-react / damage effects when the boss first becomes relevant.
+    const bool bReplicatedDamage =
+        LastReplicatedHealth >= 0.f && CurrentHealth < LastReplicatedHealth;
+    LastReplicatedHealth = CurrentHealth;
+    if (bReplicatedDamage)
+    {
+        EmitBossEvent(TEXT("DamageTaken"));
+    }
+
 #if !UE_BUILD_SHIPPING
     if (FParse::Param(FCommandLine::Get(), TEXT("NarisBossNetProbe")))
     {
@@ -54,6 +63,26 @@ void ABoneBeastBoss::OnRep_CurrentPhase()
         PhasePresentation->SetAuthoritativePhase(CurrentPhase);
     }
     EmitBossEvent(TEXT("PhaseTransition"));
+}
+
+void ABoneBeastBoss::OnRep_EncounterActive()
+{
+    if (bEncounterActive)
+    {
+        EmitBossEvent(TEXT("EncounterStarted"));
+    }
+    else if (!bEncounterComplete)
+    {
+        EmitBossEvent(TEXT("EncounterReset"));
+    }
+}
+
+void ABoneBeastBoss::OnRep_EncounterComplete()
+{
+    if (bEncounterComplete)
+    {
+        EmitBossEvent(TEXT("EncounterComplete"));
+    }
 }
 
 void ABoneBeastBoss::BeginPlay()
