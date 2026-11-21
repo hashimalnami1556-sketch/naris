@@ -8,6 +8,7 @@ from pathlib import Path
 BASE = Path(__file__).resolve().parents[2] / "unreal/NARIS_W04/Source/NARIS_W04"
 H = (BASE / "Public/BoneBeastBoss.h").read_text(encoding="utf8")
 CPP = (BASE / "Private/BoneBeastBoss.cpp").read_text(encoding="utf8")
+ARENA_CPP = (BASE / "Private/NarisBossArenaController.cpp").read_text(encoding="utf8")
 
 
 def body(classname: str, method: str) -> str:
@@ -57,6 +58,29 @@ class BossNetworkAuthority(unittest.TestCase):
     def test_boss_damage_mutation_happens_only_after_authority_check(self):
         src = body("ABoneBeastBoss", "ApplyDamageToEncounter")
         self.assertLess(src.index("if (!HasAuthority())"), src.index("CurrentHealth = FMath::Max("))
+
+    def test_initial_health_repnotify_does_not_emit_false_hit(self):
+        # Initial state sync is not combat damage. Only a real decrease from
+        # a previously observed replicated HP may generate DamageTaken FX.
+        source = body("ABoneBeastBoss", "OnRep_CurrentHealth")
+        self.assertIn("LastReplicatedHealth", H)
+        self.assertIn("LastReplicatedHealth >= 0.f && CurrentHealth < LastReplicatedHealth", source)
+        self.assertIn("LastReplicatedHealth = CurrentHealth;", source)
+        self.assertLess(source.index("LastReplicatedHealth >= 0.f && CurrentHealth < LastReplicatedHealth"),
+                        source.index('EmitBossEvent(TEXT("DamageTaken"));'))
+
+    def test_encounter_state_repnotify_notifies_client_arena(self):
+        for name in ("Active", "Complete"):
+            with self.subTest(field=name):
+                self.assertIn(f"ReplicatedUsing=OnRep_Encounter{name}", H)
+                self.assertIn(f"void ABoneBeastBoss::OnRep_Encounter{name}()", CPP)
+        active = body("ABoneBeastBoss", "OnRep_EncounterActive")
+        complete = body("ABoneBeastBoss", "OnRep_EncounterComplete")
+        self.assertIn('EmitBossEvent(TEXT("EncounterStarted"));', active)
+        self.assertIn('EmitBossEvent(TEXT("EncounterReset"));', active)
+        self.assertIn('EmitBossEvent(TEXT("EncounterComplete"));', complete)
+        self.assertIn('EventName == TEXT("EncounterReset")', ARENA_CPP)
+        self.assertIn('SetArenaClosed(false);', ARENA_CPP)
 
     def test_nonshipping_qa_hp_probe_tracks_real_server_and_client_snapshots(self):
         init = body("ABoneBeastBoss", "BeginPlay")
