@@ -98,7 +98,15 @@ void ACelestialWolf::BeginPlay()
         bBonded = true;
         Mode = ENarisWolfMode::Attack;
         AttackAcquireRadius = FMath::Max(AttackAcquireRadius, 2500.f);
-        bImmediateSmokeAttackImpact = !FParse::Param(FCommandLine::Get(), TEXT("NarisWolfNetProbeMontageOnce"));
+        if (FParse::Param(FCommandLine::Get(), TEXT("NarisWolfNetProbeMontageOnce")))
+        {
+            // No synthetic impact: the authored Bite Montage notify must fire.
+            bImmediateSmokeAttackImpact = false;
+        }
+        else
+        {
+            bImmediateSmokeAttackImpact = true;
+        }
         ForceNetUpdate();
     }
 #endif
