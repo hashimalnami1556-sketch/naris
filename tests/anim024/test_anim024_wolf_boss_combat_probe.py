@@ -63,6 +63,25 @@ class WolfBossAttackFlowProbe(unittest.TestCase):
         self.assertIn("ApplyDamageToEncounter(18.f)", tick)
         self.assertIn("HasAuthority()", tick)
 
+    def test_opt_in_montage_uses_real_bite_asset_and_disables_smoke_hit(self):
+        begin = method_body(WOLF, "BeginPlay")
+        request = method_body(WOLF, "RequestAttack")
+        self.assertIn("NarisWolfNetProbeMontageOnce", begin)
+        self.assertIn("bImmediateSmokeAttackImpact = false", begin)
+        self.assertIn("NarisWolfNetProbeMontageOnce", request)
+        self.assertIn("AM_Wolf_Bite.AM_Wolf_Bite", request)
+        self.assertIn("Montage_Play(", request)
+        self.assertIn("NARIS_WOLF_COMBAT_PROBE event=ServerMontagePlay", request)
+        self.assertIn("CancelAttack();", request)
+
+    def test_montage_notify_fires_auth_only_impact(self):
+        notify = (ROOT / "NarisWolfAttackImpactNotify.cpp").read_text(encoding="utf8")
+        self.assertIn("NarisWolfNetProbeMontageOnce", notify)
+        self.assertIn("NARIS_WOLF_COMBAT_PROBE event=MontageNotify", notify)
+        self.assertIn("Wolf->CommitAttackImpact();", notify)
+        impact = method_body(WOLF, "CommitAttackImpact")
+        self.assertIn("!HasAuthority()", impact)
+
     def test_real_wolf_request_still_checks_active_boss_and_authority(self):
         request = method_body(WOLF, "RequestAttack")
         self.assertIn("!HasAuthority()", request)
