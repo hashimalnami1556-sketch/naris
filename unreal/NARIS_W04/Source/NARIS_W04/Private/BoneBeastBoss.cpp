@@ -50,8 +50,8 @@ void ABoneBeastBoss::OnRep_CurrentHealth()
     if (FParse::Param(FCommandLine::Get(), TEXT("NarisBossNetProbe")))
     {
         UE_LOG(LogTemp, Display,
-            TEXT("NARIS_BOSS_NET_PROBE event=OnRep_CurrentHealth authority=%d hp=%.2f"),
-            HasAuthority() ? 1 : 0, CurrentHealth);
+            TEXT("NARIS_BOSS_NET_PROBE event=OnRep_CurrentHealth authority=%d hp=%.2f damagefx=%d"),
+            HasAuthority() ? 1 : 0, CurrentHealth, bReplicatedDamage ? 1 : 0);
     }
 #endif
 }
@@ -75,6 +75,14 @@ void ABoneBeastBoss::OnRep_EncounterActive()
     {
         EmitBossEvent(TEXT("EncounterReset"));
     }
+#if !UE_BUILD_SHIPPING
+    if (FParse::Param(FCommandLine::Get(), TEXT("NarisBossNetProbe")))
+    {
+        UE_LOG(LogTemp, Display,
+            TEXT("NARIS_BOSS_NET_PROBE event=OnRep_EncounterActive authority=%d active=%d"),
+            HasAuthority() ? 1 : 0, bEncounterActive ? 1 : 0);
+    }
+#endif
 }
 
 void ABoneBeastBoss::OnRep_EncounterComplete()
@@ -83,6 +91,14 @@ void ABoneBeastBoss::OnRep_EncounterComplete()
     {
         EmitBossEvent(TEXT("EncounterComplete"));
     }
+#if !UE_BUILD_SHIPPING
+    if (FParse::Param(FCommandLine::Get(), TEXT("NarisBossNetProbe")))
+    {
+        UE_LOG(LogTemp, Display,
+            TEXT("NARIS_BOSS_NET_PROBE event=OnRep_EncounterComplete authority=%d complete=%d"),
+            HasAuthority() ? 1 : 0, bEncounterComplete ? 1 : 0);
+    }
+#endif
 }
 
 void ABoneBeastBoss::BeginPlay()
