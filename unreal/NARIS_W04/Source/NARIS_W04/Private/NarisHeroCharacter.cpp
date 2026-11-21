@@ -429,6 +429,12 @@ void ANarisHeroCharacter::PreviousEssence()
 
 void ANarisHeroCharacter::CycleCompanionMode()
 {
+    if (!HasAuthority())
+    {
+        ServerCycleCompanionMode();
+        return;
+    }
+
     if (!GetWorld())
     {
         return;
@@ -444,12 +450,49 @@ void ANarisHeroCharacter::CycleCompanionMode()
     }
 }
 
+void ANarisHeroCharacter::ServerCycleCompanionMode_Implementation()
+{
+    CycleCompanionMode();
+}
+
 void ANarisHeroCharacter::Interact()
 {
-    if (Interaction)
+    if (!Interaction)
     {
-        Interaction->Interact();
+        return;
     }
+
+    // A placed Wolf is owned by the server, not the client. Route its
+    // interaction through this player-owned Hero, and revalidate proximity
+    // in the authoritative world before any campaign/save-state mutation.
+    if (ACelestialWolf* Wolf = Cast<ACelestialWolf>(Interaction->FindNearestInteractable()))
+    {
+        if (!HasAuthority())
+        {
+            ServerInteractWithWolf(Wolf);
+            return;
+        }
+    }
+
+    // Preserve existing non-Wolf interaction behavior unchanged.
+    Interaction->Interact();
+}
+
+void ANarisHeroCharacter::ServerInteractWithWolf_Implementation(ACelestialWolf* Wolf)
+{
+    if (!HasAuthority() || !IsValid(Wolf) || !Interaction)
+    {
+        return;
+    }
+
+    // Re-evaluate target and distance on the server (Radius in the
+    // Interaction component); never trust the client-supplied Actor alone.
+    if (Interaction->FindNearestInteractable() != Wolf)
+    {
+        return;
+    }
+
+    Interaction->Interact();
 }
 
 void ANarisHeroCharacter::SetSprinting(bool bSprint)
