@@ -9,6 +9,9 @@
 #include "Kismet/GameplayStatics.h"
 #include "NarisPresentationComponent.h"
 #include "NarisRuntimeSubsystem.h"
+#include "Net/UnrealNetwork.h"
+#include "Misc/CommandLine.h"
+#include "Misc/Parse.h"
 
 ABoneBeastBoss::ABoneBeastBoss()
 {
@@ -22,9 +25,62 @@ ABoneBeastBoss::ABoneBeastBoss()
         CreateDefaultSubobject<UNarisPresentationComponent>(TEXT("Presentation"));
 }
 
+void ABoneBeastBoss::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+    Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+    DOREPLIFETIME(ABoneBeastBoss, CurrentHealth);
+    DOREPLIFETIME(ABoneBeastBoss, CurrentPhase);
+    DOREPLIFETIME(ABoneBeastBoss, bEncounterActive);
+    DOREPLIFETIME(ABoneBeastBoss, bEncounterComplete);
+}
+
+void ABoneBeastBoss::OnRep_CurrentHealth()
+{
+    EmitBossEvent(TEXT("DamageTaken"));
+#if !UE_BUILD_SHIPPING
+    if (FParse::Param(FCommandLine::Get(), TEXT("NarisBossNetProbe")))
+    {
+        UE_LOG(LogTemp, Display,
+            TEXT("NARIS_BOSS_NET_PROBE event=OnRep_CurrentHealth authority=%d hp=%.2f"),
+            HasAuthority() ? 1 : 0, CurrentHealth);
+    }
+#endif
+}
+
+void ABoneBeastBoss::OnRep_CurrentPhase()
+{
+    if (PhasePresentation)
+    {
+        PhasePresentation->SetAuthoritativePhase(CurrentPhase);
+    }
+    EmitBossEvent(TEXT("PhaseTransition"));
+}
+
 void ABoneBeastBoss::BeginPlay()
 {
     Super::BeginPlay();
+
+    // A simulated proxy must never restore local progress and override the
+    // authoritative server's encounter state; it receives state through replication.
+    if (!HasAuthority())
+    {
+        return;
+    }
+
+#if !UE_BUILD_SHIPPING
+    // Isolated non-shipping two-client replication probe. No quest/unlock
+    // writes and no defeat/autosave: leaves the boss at >0 health.
+    if (FParse::Param(FCommandLine::Get(), TEXT("NarisBossNetProbe")))
+    {
+        CurrentHealth = GetConfiguredMaxHealth();
+        CurrentPhase = ENarisBossPhase::Phase1;
+        bEncounterActive = true;
+        bEncounterComplete = false;
+        bAutoAttack = false;
+        ForceNetUpdate();
+        return;
+    }
+#endif
 
     if (!GetWorld())
     {
@@ -59,6 +115,39 @@ void ABoneBeastBoss::BeginPlay()
 void ABoneBeastBoss::Tick(float DeltaSeconds)
 {
     Super::Tick(DeltaSeconds);
+
+#if !UE_BUILD_SHIPPING
+    if (GetWorld() && FParse::Param(FCommandLine::Get(), TEXT("NarisBossNetProbe")))
+    {
+        const float Now = GetWorld()->GetTimeSeconds();
+        if (Now >= NextBossNetProbeLogTime)
+        {
+            NextBossNetProbeLogTime = Now + 1.f;
+            UE_LOG(LogTemp, Display,
+                TEXT("NARIS_BOSS_NET_PROBE event=Tick authority=%d hp=%.2f active=%d complete=%d phase=%d"),
+                HasAuthority() ? 1 : 0, CurrentHealth, bEncounterActive ? 1 : 0,
+                bEncounterComplete ? 1 : 0, static_cast<int32>(CurrentPhase));
+        }
+
+        // Probe after clients have joined; direct damage is intentionally
+        // server-only and far below the boss's current HP. No completion/save.
+        if (HasAuthority() && !bBossNetProbeApplied && Now >= 12.f)
+        {
+            bBossNetProbeApplied = true;
+            const float Before = CurrentHealth;
+            ApplyDamageToEncounter(18.f);
+            UE_LOG(LogTemp, Display,
+                TEXT("NARIS_BOSS_NET_PROBE event=ServerDamage authority=1 before=%.2f after=%.2f"),
+                Before, CurrentHealth);
+            ForceNetUpdate();
+        }
+    }
+#endif
+
+    if (!HasAuthority())
+    {
+        return;
+    }
 
     if (!bAutoAttack
         || !bEncounterActive
@@ -127,6 +216,11 @@ FText ABoneBeastBoss::GetInteractionPrompt_Implementation() const
 
 bool ABoneBeastBoss::TryStartEncounter(AActor* InstigatorActor)
 {
+    if (!HasAuthority())
+    {
+        return false;
+    }
+
     if (bEncounterComplete)
     {
         return false;
@@ -138,6 +232,11 @@ bool ABoneBeastBoss::TryStartEncounter(AActor* InstigatorActor)
 
 void ABoneBeastBoss::StartEncounter()
 {
+    if (!HasAuthority())
+    {
+        return;
+    }
+
     const float MaxHealth = GetConfiguredMaxHealth();
     if (MaxHealth <= 0.f || bEncounterActive || bEncounterComplete)
     {
@@ -172,6 +271,7 @@ void ABoneBeastBoss::StartEncounter()
     CurrentPhase = ENarisBossPhase::Phase1;
     bEncounterActive = true;
     bEncounterComplete = false;
+    ForceNetUpdate();
     PendingAttackId = NAME_None;
     PendingAttackDamage = 0.f;
     LastAttackRequestTime = -1000.f;
@@ -186,6 +286,11 @@ void ABoneBeastBoss::StartEncounter()
 
 void ABoneBeastBoss::ResetEncounter()
 {
+    if (!HasAuthority())
+    {
+        return;
+    }
+
     if (bEncounterComplete)
     {
         return;
@@ -194,6 +299,7 @@ void ABoneBeastBoss::ResetEncounter()
     CurrentHealth = GetConfiguredMaxHealth();
     CurrentPhase = ENarisBossPhase::Phase1;
     bEncounterActive = false;
+    ForceNetUpdate();
     CancelAttack();
 
     if (PhasePresentation)
@@ -206,6 +312,11 @@ void ABoneBeastBoss::ResetEncounter()
 
 void ABoneBeastBoss::ApplyDamageToEncounter(float Damage)
 {
+    if (!HasAuthority())
+    {
+        return;
+    }
+
     if (!bEncounterActive
         || bEncounterComplete
         || CurrentPhase == ENarisBossPhase::Dead
@@ -215,6 +326,7 @@ void ABoneBeastBoss::ApplyDamageToEncounter(float Damage)
     }
 
     CurrentHealth = FMath::Max(0.f, CurrentHealth - Damage);
+    ForceNetUpdate();
     EmitBossEvent(TEXT("DamageTaken"));
 
     if (CurrentHealth <= 0.f)
@@ -239,6 +351,11 @@ void ABoneBeastBoss::ApplyDamageToEncounter(float Damage)
 
 void ABoneBeastBoss::CompleteEncounter()
 {
+    if (!HasAuthority())
+    {
+        return;
+    }
+
     if (bEncounterComplete
         || CurrentPhase != ENarisBossPhase::Dead
         || !GetWorld())
@@ -274,6 +391,7 @@ void ABoneBeastBoss::CompleteEncounter()
     }
 
     bEncounterComplete = true;
+    ForceNetUpdate();
     EmitBossEvent(TEXT("EncounterComplete"));
 
     if (bCompleteDemoOnDefeat)
@@ -289,6 +407,11 @@ void ABoneBeastBoss::CompleteEncounter()
 
 bool ABoneBeastBoss::RequestPhaseAttack()
 {
+    if (!HasAuthority())
+    {
+        return false;
+    }
+
     switch (CurrentPhase)
     {
         case ENarisBossPhase::Phase1:
@@ -304,6 +427,11 @@ bool ABoneBeastBoss::RequestPhaseAttack()
 
 bool ABoneBeastBoss::RequestAttack(FName AttackId, float Damage)
 {
+    if (!HasAuthority())
+    {
+        return false;
+    }
+
     if (!bEncounterActive
         || bEncounterComplete
         || CurrentPhase == ENarisBossPhase::Dead
@@ -336,6 +464,11 @@ bool ABoneBeastBoss::RequestAttack(FName AttackId, float Damage)
 
 bool ABoneBeastBoss::CommitAttackImpact(AActor* TargetActor)
 {
+    if (!HasAuthority())
+    {
+        return false;
+    }
+
     if (!bEncounterActive
         || bEncounterComplete
         || PendingAttackId.IsNone()
@@ -373,12 +506,22 @@ bool ABoneBeastBoss::CommitAttackImpact(AActor* TargetActor)
 
 void ABoneBeastBoss::CancelAttack()
 {
+    if (!HasAuthority())
+    {
+        return;
+    }
+
     PendingAttackId = NAME_None;
     PendingAttackDamage = 0.f;
 }
 
 void ABoneBeastBoss::EvaluatePhase()
 {
+    if (!HasAuthority())
+    {
+        return;
+    }
+
     if (CurrentPhase == ENarisBossPhase::Dead)
     {
         return;
