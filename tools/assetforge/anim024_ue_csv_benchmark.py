@@ -101,8 +101,13 @@ def summarize_csv_text(text: str, *, warmup_frames: int = 60) -> dict:
                 if k.startswith("[") and k.endswith("]"):
                     metadata[k[1:-1]] = raw[offset + 1]
             continue
-        if len(raw) != len(fields):
-            raise ValueError(f"CSV frame row {line_number} has {len(raw)} columns, expected {len(fields)}")
+        # UE 5.7 can append one late dynamic profiling counter after the
+        # original header. Verified on a real 240-frame capture: starting
+        # at frame 94, trailing width grew 215→216 while FrameTime/GPUTime
+        # retained their original numeric indices. Reject any truncation
+        # or more than one unannounced counter, rather than guessing indices.
+        if len(raw) not in (len(fields), len(fields) + 1):
+            raise ValueError(f"CSV frame row {line_number} has {len(raw)} columns, expected {len(fields)} or {len(fields)+1}")
         values = {}
         for field in numeric_fields:
             try:
