@@ -136,7 +136,8 @@ void ANarisBossArenaController::HandleBossEvent(FName EventName)
     }
 
     if (EventName == TEXT("EncounterComplete")
-        || EventName == TEXT("EncounterRestoredComplete"))
+        || EventName == TEXT("EncounterRestoredComplete")
+        || EventName == TEXT("EncounterReset"))
     {
         SetArenaClosed(false);
         return;
