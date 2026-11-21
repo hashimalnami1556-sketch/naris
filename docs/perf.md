@@ -82,3 +82,22 @@ Real raw before CSV SHA256 `408C64E64C0BFD22FA6FD9DF15EAF4AF82A122503B868535B469
 Raw BEFORE CSV SHA256 `5D9B745E712ADD4865BF52B4801B0E7DE44FAE598787EE3F057C1CCC5D2604D8`; AFTER `22BC8073B117F3886AB72E07B3FBDE8005F06006A197849705AA09DBA894032A`. Local `wolf_client_commands_perf_pair_verified.json` SHA256 `8F1AB9184ACBC01F66110AF7791609D41C47EAA9747DDEBD5B21C06FEEE280F5`. **Uncontrolled single pass; no gameplay/min-spec FPS claim**, and not a GPU-active 2-client benchmark. Actual same-camera before/after 1920×1080 screenshots were **byte-identical**; zero-pixel diff (no art changes), not a moving attack screenshot.
 
 **QA gates:** NARIS_W04Editor / NARIS_W04 Win64 Development builds and UAT BuildCookRun **PASS**, 510 cooked packages; Project.Maps.PIE **Success with 13 existing warnings, 0 errors, exit 0**; GitHub source suite **101 discovered / 99 passed / 2 skipped**. Full [client-owned Wolf RPC test evidence](changes/ANIM-024/wolf_client_owned_rpc_live_20261121.md). ANIM-024 remains **DRAFT / NO MERGE** due missing positive interaction/SaveGame, actual montage combat, 87-bone source/10 Montages and 13 content warnings.
+
+## ANIM-024, 2026-11-21 — near-range client Interact method path and test-map-only performance
+
+**Real network:** one Win64 Development listen server + two cooked clients on localhost:17935 using NEW isolated `W04_Prototype_ANIM024_WolfButtonReview`, copied from WolfLinkReview and moving **only PlayerStart from x=−400 to x=1650cm**, **150cm** from existing Wolf x=1800cm (original map and old clone remain SHA-identical to baseline). Client1 opt-in QA `NarisWolfNetProbeInputButton` called gameplay Hero `Interact()`; **server emitted `ServerInteractAccepted authority=1`** after target nearest/radius validation; client1 `CycleCompanionMode`, server accepted with authority, **both clients replicated Mode=Guard**. Server explicit `-NarisWolfNetProbeNoSave` prevents actual quest/companion persistence. **No hardware input or positive campaign bond, no actual combat**. [Strict 14-check evidence](changes/ANIM-024/wolf_positive_interact_method_review_20261121.md).
+
+Actual packaged D3D12 new test map, requested 1920x1080 and fixed `BugItGo 1100 0 180 -10 0 0`, 240 CSV frames, first 60 discarded, 180 samples:
+
+| New QA map counter | Actual observed |
+| --- | ---: |
+| Mean `FrameTime` | 5.66648 ms |
+| FrameTime p95 | 6.01942 ms |
+| FrameTime p99 | 6.75630 ms |
+| Derived `1000 / mean(FrameTime)` | 176.476 FPS-equivalent |
+| Mean GPUTime | 5.28366 ms |
+| Mean `GPUMem/LocalUsedMB` | 714.682 MB |
+
+**Not comparable to earlier WolfLink map:** previously FrameTime 5.57992ms, but PlayerStart and initialization geometry changed in a different local QA map. Numeric cross-map differences (**+0.08656ms**, **−2.738 FPS-equivalent**, **+2.731MB**) have confounders; **authoritative performance Δ=N/A**, not a performance regression or game FPS claim. One-pass single-player benchmark, physical backbuffer and fixed Seed/actual gameplay animation not certified, no 2-client GPU FPS.
+
+Raw after CSV SHA256 **`4159A36B63999268EC15FF0F64E4EC4A24033CEBDFaf2841e6bbb36b9281fcde`**, local before/after comparison report SHA256 **`A2EE92B28323FEC15F585CDC611892FEF64EADAF4D02F4C19F15C12C301D4075`**. 1920×1080 fixed-camera screenshot new map differs from old by wide floor/viewport coverage (expected different spawn/camera setup), so image diff is **not zero**. Actual PIE `Project.Maps.PIE` **success 13 warnings / 0 errors**, Build Editor/Game and UAT CookArchive **pass**. Full report [Wolf positive client interaction](changes/ANIM-024/wolf_positive_interact_method_review_20261121.md). Production release FPS, RAM, VRAM and multiplayer combat performance still BLOCKED.
