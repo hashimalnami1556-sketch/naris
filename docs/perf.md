@@ -65,3 +65,20 @@ This is an **observational one-pass tiny DEV map comparison**, *not* the release
 Real raw before CSV SHA256 `408C64E64C0BFD22FA6FD9DF15EAF4AF82A122503B868535B469A800A70D22D8`; after CSV SHA256 `5D9B745E712ADD4865BF52B4801B0E7DE44FAE598787EE3F057C1CCC5D2604D8`. 1 pass each, full rendered framebuffer and same Seed/animation phase not independently certified. **No claim of +0.75 gameplay FPS** because both samples use static DEV Benchmark with menu pause, not two-client real gameplay rendering. No representative VRAM/RAM/first-load budget clearance.
 
 **Full trace:** [Wolf server-authoritative replication QA](changes/ANIM-024/wolf_authority_replication_verified_20261121.md), local `wolf_net_march_perf_pair_verified.json` SHA256 `262B245F6345530D1E7FBB36EF0548F5F112D7326C61BF41820E4EB4752A8A44`. Release: **ANIM-024 still draft/blocked**. Use actual high-fidelity moving game level, original assets, Windows min spec, fixed Seed/viewport/quality, authoritative inputs and actual two-client D3D12 gameplay for production FPS gate.
+
+## ANIM-024, 2026-11-21 — client-owned Hero RPC evidence and single-pass DEV A/B
+
+**Real network quality:** After earlier server + 2-client Wolf movement QA passed, final Win64 Development isolated `PackageReview_WolfClientCommands` tested **one listen server + two clients on loopback 127.0.0.1:17934**. Client1 (the only instance with developer `-NarisWolfNetProbeInput`) sent Wolf interaction RPC: server **rejected** invalid/non-nearest-or-out-of-range target, proving server validation. Client1 invoked the normal `CycleCompanionMode()` method from a one-shot source probe; server received `ServerCycleMode` with authority=1; **both clients received `OnRep_Mode mode=1` (Guard)** after initial Follow=0. No attack/damage, full gamepad/key action or positive quest bonding tested. Strict local `wolf_client_commands_gate_verified.json` gate PASS, SHA256 `A30D3A0F1CF2F5C9D4A4B22C743A0487FFC34F1B672C8B76E14F4D92198D07AC`. Server-only `-NarisWolfNetProbeNoSave` prevents QA valid-interaction mutation.
+
+**Real D3D12 single-player paused developer map benchmark**, same `BugItGo 1100 0 180 -10 0 0` camera / requested 1920×1080 CLI, 240 samples per run, first 60 frames excluded (180 analyzed):
+
+| Metric | Before input-RPC test source | After input-RPC test source | Observed after − before |
+| --- | ---: | ---: | ---: |
+| Mean `FrameTime` | 5.56408 ms | 5.57992 ms | **+0.01584 ms** |
+| Derived `1000 / mean(FrameTime)` FPS-equivalent | 179.724 | 179.214 | −0.510 equivalent |
+| Mean `GPUTime` | 5.26875 ms | 5.28018 ms | +0.01143 ms |
+| Mean `GPUMem/LocalUsedMB` | 714.932 MB | 711.951 MB | −2.981 MB |
+
+Raw BEFORE CSV SHA256 `5D9B745E712ADD4865BF52B4801B0E7DE44FAE598787EE3F057C1CCC5D2604D8`; AFTER `22BC8073B117F3886AB72E07B3FBDE8005F06006A197849705AA09DBA894032A`. Local `wolf_client_commands_perf_pair_verified.json` SHA256 `8F1AB9184ACBC01F66110AF7791609D41C47EAA9747DDEBD5B21C06FEEE280F5`. **Uncontrolled single pass; no gameplay/min-spec FPS claim**, and not a GPU-active 2-client benchmark. Actual same-camera before/after 1920×1080 screenshots were **byte-identical**; zero-pixel diff (no art changes), not a moving attack screenshot.
+
+**QA gates:** NARIS_W04Editor / NARIS_W04 Win64 Development builds and UAT BuildCookRun **PASS**, 510 cooked packages; Project.Maps.PIE **Success with 13 existing warnings, 0 errors, exit 0**; GitHub source suite **101 discovered / 99 passed / 2 skipped**. Full [client-owned Wolf RPC test evidence](changes/ANIM-024/wolf_client_owned_rpc_live_20261121.md). ANIM-024 remains **DRAFT / NO MERGE** due missing positive interaction/SaveGame, actual montage combat, 87-bone source/10 Montages and 13 content warnings.
