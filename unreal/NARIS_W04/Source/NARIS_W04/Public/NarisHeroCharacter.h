@@ -6,6 +6,7 @@
 #include "NarisHeroCharacter.generated.h"
 
 class AController;
+class ACelestialWolf;
 class UNarisCombatComponent;
 class UNarisEnergyComponent;
 class UNarisLockOnComponent;
@@ -179,6 +180,14 @@ protected:
     void StopSprinting();
 
 private:
+    // Client-owned Hero RPCs: a placed Wolf is server-owned and cannot
+    // receive meaningful client→server RPCs directly.
+    UFUNCTION(Server, Reliable)
+    void ServerInteractWithWolf(ACelestialWolf* Wolf);
+
+    UFUNCTION(Server, Reliable)
+    void ServerCycleCompanionMode();
+
     bool ApplyAttackToLockedTarget(float Damage, float PoiseDamage);
     void QueueAttack(ENarisAttackKind AttackKind);
     void HandleDeath();
