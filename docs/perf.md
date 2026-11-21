@@ -32,3 +32,19 @@ These are **goals**, not a claim about measured playable game quality. A small t
 Measure representative Ashen Forest and combat levels using a fixed Seed, display mode/back-buffer resolution and graphics scalability profile. Record warmup excluded consistently across runs; retain **paired** raw CSV files, logged RHI, screenshot, GPU driver/VRAM and machine spec. Include motion/AI/2-client replication and compare 1st-percentile frame times, GPU/CPU bottlenecks and process working-set. Archive numerical evidence and visual before/after/diff/GIF before merge. A passing compilation, UAT archive or source-only CI is **not** a performance clearance.
 
 The ANIM-024 development PR remains **DRAFT / DO NOT MERGE** until the required original source characters, Montage-notify assets, gameplay animation and network quality gates are met.
+
+## ANIM-024, 2026-11-21 — Wolf mesh link (one-pass DEV A/B, NOT production certification)
+
+After recovering disk space, an isolated `W04_Prototype` was duplicated to `W04_Prototype_ANIM024_WolfLinkReview`, with one existing Wolf V9 `SkeletalMesh` and `ABP_CelestialWolf` added to the clone. Original map/source bytes unchanged; same `BugItGo 1100 0 180 -10 0 0` camera and CLI flags were used for actual packaged D3D12 `-benchmark` / `csvprofile frames=240` runs, each 240 samples. The 180 frames after first 60 were compared:
+
+| Sample | Before no Wolf | After visible Wolf | After − before |
+| --- | ---: | ---: | ---: |
+| Mean FrameTime | 5.38737ms | 5.58739ms | **+0.20002ms** |
+| FrameTime p99 | 5.73096ms | 6.43283ms | +0.70187ms |
+| `1000 / mean(FrameTime)` equivalent | 185.619 | 178.974 | **−6.645** (NOT actual interactive FPS delta) |
+| Mean GPUTime | 5.08903ms | 5.28820ms | +0.19917ms |
+| `GPUMem/LocalUsedMB` mean | 709.397MB | 711.929MB | +2.532MB |
+
+Real before CSV SHA256 `728BB94115094D4D120DFD012A14593DAC8795648EE5318F81E69C15E72514B8`; after CSV SHA256 `408C64E64C0BFD22FA6FD9DF15EAF4AF82A122503B868535B469A800A70D22D8`. Full [ANIM-024 WolfLink review](changes/ANIM-024/wolflink_prototype_review_20261121.md). The first CSV started with 215 columns and added one dynamic late profiling counter after frame 93; a regression test and one-column fail-closed parser fix were committed.
+
+This is an **observational one-pass tiny DEV map comparison**, *not* the release performance gate. Rendering back-buffer resolution was not independently verified, Seed and animation phase were not pinned, shader cache/temperatures were not aligned, and both were `-benchmark` sessions. Gameplay replication was only a login smoke, and BoneBeast/hero/AAA effects remained absent. No credible full-game `ΔFPS`, `ΔVRAM` or 60fps production certification yet.
