@@ -76,6 +76,16 @@ class WolfServerAuthorityContract(unittest.TestCase):
         self.assertIn("ServerCycleCompanionMode();", body(HERO_CPP, "ANarisHeroCharacter", "CycleCompanionMode"))
         self.assertIn("ServerCycleCompanionMode_Implementation", HERO_CPP)
 
+    def test_unpaused_network_movement_probe_uses_character_movement_only_in_non_shipping(self):
+        # A deterministic opt-in moving destination lets us verify *ongoing*
+        # server->client movement after players joined, rather than only the
+        # initially replicated world position at join time.
+        follow = body(WOLF_CPP, "ACelestialWolf", "TickFollow")
+        self.assertIn("#if !UE_BUILD_SHIPPING", follow)
+        self.assertIn("NarisWolfNetProbeMarch", follow)
+        self.assertIn("MoveTowards(ProbeDestination", follow)
+        self.assertIn("#endif", follow)
+
     def test_debug_netprobe_emits_actual_authority_state_only_when_opted_in(self):
         self.assertIn("NarisWolfNetProbe", WOLF_CPP)
         self.assertIn("NARIS_WOLF_NET_PROBE", WOLF_CPP)
