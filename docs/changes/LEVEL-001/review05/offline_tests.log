@@ -1,0 +1,31 @@
+test_concave_roof_triangulation_preserves_area (LEVEL001_footprint_tests.GeodataMeshTests.test_concave_roof_triangulation_preserves_area) ... ok
+test_missing_material_info_must_not_claim_photorealism (LEVEL001_footprint_tests.GeodataMeshTests.test_missing_material_info_must_not_claim_photorealism) ... ok
+test_real_osm_id_and_footprint_are_exported_to_glb (LEVEL001_footprint_tests.GeodataMeshTests.test_real_osm_id_and_footprint_are_exported_to_glb) ... ok
+test_actual_forward_vector_now_points_downward (LEVEL001_sunfix_report_tests.ActualUnrealSunFixTests.test_actual_forward_vector_now_points_downward) ... ok
+test_mobility_matches_dynamic_twilight (LEVEL001_sunfix_report_tests.ActualUnrealSunFixTests.test_mobility_matches_dynamic_twilight) ... ok
+test_review_was_saved_and_rollback_exists (LEVEL001_sunfix_report_tests.ActualUnrealSunFixTests.test_review_was_saved_and_rollback_exists) ... ok
+test_shipping_and_source_claims_remain_safe (LEVEL001_sunfix_report_tests.ActualUnrealSunFixTests.test_shipping_and_source_claims_remain_safe) ... ok
+test_inside_and_clearance_of_buildings (LEVEL001_safe_spawn_tests.SpawnTests.test_inside_and_clearance_of_buildings) ... ok
+test_produces_repeatable_unobstructed_road_spawn (LEVEL001_safe_spawn_tests.SpawnTests.test_produces_repeatable_unobstructed_road_spawn) ... ok
+test_rejects_no_safe_road (LEVEL001_safe_spawn_tests.SpawnTests.test_rejects_no_safe_road) ... ok
+test_axes_point_outwards_for_ccw_ring (LEVEL001_facade_v4_tests.FacadeV4Tests.test_axes_point_outwards_for_ccw_ring) ... ok
+test_creates_review_glb_and_selects_real_source_ids (LEVEL001_facade_v4_tests.FacadeV4Tests.test_creates_review_glb_and_selects_real_source_ids) ... ok
+test_projections_are_small_and_materials_have_no_external_urls (LEVEL001_facade_v4_tests.FacadeV4Tests.test_projections_are_small_and_materials_have_no_external_urls) ... ok
+test_refuses_overwrite_and_is_repeatable (LEVEL001_facade_v4_tests.FacadeV4Tests.test_refuses_overwrite_and_is_repeatable) ... ok
+test_rendered_blender_evidence_is_not_falsely_ue (LEVEL001_review04_asset_gate_tests.Review04AssetGate.test_rendered_blender_evidence_is_not_falsely_ue) ... ok
+test_review_only_unreal_installer_has_protective_gate (LEVEL001_review04_asset_gate_tests.Review04AssetGate.test_review_only_unreal_installer_has_protective_gate) ... ok
+test_three_materials_and_three_meshes (LEVEL001_review04_asset_gate_tests.Review04AssetGate.test_three_materials_and_three_meshes) ... ok
+test_v4_integrity_and_provenance (LEVEL001_review04_asset_gate_tests.Review04AssetGate.test_v4_integrity_and_provenance) ... ok
+test_deterministic_binary_and_exact_license (LEVEL001_facade_v5_tests.ProjectedRawashinV5Tests.test_deterministic_binary_and_exact_license) ... ok
+test_glb_is_valid_with_materials_and_no_external_images (LEVEL001_facade_v5_tests.ProjectedRawashinV5Tests.test_glb_is_valid_with_materials_and_no_external_images) ... ok
+test_oriel_is_actually_projected_and_proportional (LEVEL001_facade_v5_tests.ProjectedRawashinV5Tests.test_oriel_is_actually_projected_and_proportional) ... ok
+test_too_small_or_unlicensed_footprints_rejected (LEVEL001_facade_v5_tests.ProjectedRawashinV5Tests.test_too_small_or_unlicensed_footprints_rejected) ... ok
+test_authentic_gis_and_glb_metadata (LEVEL001_review05_asset_gate_tests.RawashinV5Gate.test_authentic_gis_and_glb_metadata) ... ok
+test_locked_camera_before_after_render_pair (LEVEL001_review05_asset_gate_tests.RawashinV5Gate.test_locked_camera_before_after_render_pair) ... ok
+test_original_levels_remain_exact (LEVEL001_review05_asset_gate_tests.RawashinV5Gate.test_original_levels_remain_exact) ... ok
+test_unreal_import_cannot_bypass_safety (LEVEL001_review05_asset_gate_tests.RawashinV5Gate.test_unreal_import_cannot_bypass_safety) ... ok
+
+----------------------------------------------------------------------
+Ran 26 tests in 0.354s
+
+OK
