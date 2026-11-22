@@ -1,0 +1,19 @@
+{
+  "schema": "naris.level001.review04.blender_preview",
+  "renderer": "BLENDER_WORKBENCH",
+  "render_is_unreal": false,
+  "before": "C:\\Users\\Admin\\NARIS\\Saved\\GIS\\Jeddah\\LEVEL001_AlBalad_Footprints_Review04\\Preview\\before_gis_v3_overview.png",
+  "after": "C:\\Users\\Admin\\NARIS\\Saved\\GIS\\Jeddah\\LEVEL001_AlBalad_Footprints_Review04\\Preview\\after_detail_v4_overview.png",
+  "street": "C:\\Users\\Admin\\NARIS\\Saved\\GIS\\Jeddah\\LEVEL001_AlBalad_Footprints_Review04\\Preview\\after_detail_v4_street_perspective.png",
+  "source_gis_v3_original_unchanged": true,
+  "building_osm_id_street_view": 1266283904,
+  "view_location_blender_m": [
+    -5.402718947751308,
+    36.5292879672848,
+    8
+  ],
+  "mesh_count_baseline": 3,
+  "mesh_count_overlay": 3,
+  "engine_replication_tested": false,
+  "production_approved": false
+}
