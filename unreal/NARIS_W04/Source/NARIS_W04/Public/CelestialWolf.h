@@ -135,6 +135,12 @@ public:
     virtual FText GetInteractionPrompt_Implementation() const override;
 
 private:
+    // Server-origin cosmetic playback. In the isolated QA flow this is called
+    // only after the authoritative Bite Montage starts successfully; clients
+    // never gain permission to apply damage from this RPC.
+    UFUNCTION(NetMulticast, Reliable)
+    void MulticastPlayBiteMontageQA();
+
     UFUNCTION()
     void OnRep_Mode();
 
