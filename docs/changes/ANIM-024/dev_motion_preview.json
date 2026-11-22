@@ -1,0 +1,107 @@
+{
+  "id": "ANIM-024-DEV-MOTION-PREVIEW",
+  "date": "2026-11-18",
+  "status": "DEV_ONLY_OFFLINE_PREVIEW",
+  "source": {
+    "name": "NARIS_CHAR023_HeroWithoutWeapon_REVIEW.glb",
+    "sha256": "2fc95a46ba69f23c4365390bea277f185bc83e187286140d56d22aa080e0780d",
+    "derived_from": "CHAR-023 original-geometry review; 18-joint skin plus original Idle"
+  },
+  "output": {
+    "name": "NARIS_ANIM024_DEV_MOTION_PREVIEW_ONLY.glb",
+    "sha256": "b5dc669cb81b81f93f3b7c2131446437823d0d5ae1cc5a4be85d47d2eb1a0015",
+    "clips_total": 8,
+    "original_unchanged": true,
+    "original_binary_prefix_preserved": true,
+    "original_skeleton_and_materials_unchanged": true
+  },
+  "new_technical_clips": [
+    {
+      "name": "DEV_ONLY_Walk_InPlace",
+      "duration_seconds": 1,
+      "frames": 31,
+      "channels": 12,
+      "loop": true
+    },
+    {
+      "name": "DEV_ONLY_Run_InPlace",
+      "duration_seconds": 0.8,
+      "frames": 25,
+      "channels": 12,
+      "loop": true
+    },
+    {
+      "name": "DEV_ONLY_LightAttack_Preview",
+      "duration_seconds": 0.8,
+      "frames": 25,
+      "channels": 7,
+      "loop": false
+    },
+    {
+      "name": "DEV_ONLY_Dodge_Preview",
+      "duration_seconds": 0.7,
+      "frames": 22,
+      "channels": 8,
+      "loop": false
+    },
+    {
+      "name": "DEV_ONLY_Block_Preview",
+      "duration_seconds": 0.8,
+      "frames": 25,
+      "channels": 5,
+      "loop": false
+    },
+    {
+      "name": "DEV_ONLY_Jump_Preview",
+      "duration_seconds": 0.9,
+      "frames": 28,
+      "channels": 7,
+      "loop": false
+    },
+    {
+      "name": "DEV_ONLY_Death_Preview",
+      "duration_seconds": 1.2,
+      "frames": 37,
+      "channels": 10,
+      "loop": false
+    }
+  ],
+  "qa": {
+    "tdd_red": "Missing module anim024_dev_motion",
+    "local_unit_tests": "14/14 passed (13 original generator contracts, 1 audit false-positive regression)",
+    "independent_gltf_loader": "Trimesh loaded preview GLB successfully",
+    "preview": "CPU-rendered original skinned mesh; 7 before/after rows and 4-second walk/run MP4 at 12 FPS, 520x706",
+    "max_joint_coordinate_range_source_units": {
+      "walk_left_foot": 0.2905,
+      "walk_right_foot": 0.2905,
+      "run_left_foot": 0.4193,
+      "run_right_foot": 0.4193
+    },
+    "warning": "Foot joint ranges are NOT measured foot sliding. Foot IK and ground contacts NOT tested",
+    "ci": "GitHub source tests pass at run 44394276179. Original GLB not stored in CI and integration class skips",
+    "red_coverage_check": "Run 44393657820 reproduced DEV_ONLY false-positive; fixed at 37243e5cd6aa60c7e6a42e779065d081f6d2395d"
+  },
+  "external_handoff": {
+    "filename": "NARIS_ANIM024_DEV_MOTION_PREVIEW_AND_QA.zip",
+    "bytes": 6937536,
+    "sha256": "5d23b8004fa797d6a2f891c460c2e1fc8f7f5b5e763e1d3b4ce633391a9d687b",
+    "zip_crc": "PASS",
+    "files": 15
+  },
+  "gates": {
+    "production_animation_quality": "FAIL_NOT_AUTHORED",
+    "retargeter": "NOT_CREATED",
+    "blends": "NOT_CREATED",
+    "attack_notify": "NOT_CREATED",
+    "foot_ik": "NOT_CREATED",
+    "unreal_editor_import": "NOT_RUN",
+    "PIE": "NOT_RUN",
+    "network_server_two_clients": "NOT_RUN",
+    "BuildCookRun": "NOT_RUN",
+    "fps_ram": "NOT_MEASURED",
+    "visual_approval": "DEV_PREVIEW_ONLY"
+  },
+  "release_approved": false,
+  "merge_allowed": false,
+  "rollback": "Discard derived GLB, software previews and tool branch; original source, UE art and gameplay untouched."
+}

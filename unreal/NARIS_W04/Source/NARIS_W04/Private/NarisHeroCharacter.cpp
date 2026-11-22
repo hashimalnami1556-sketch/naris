@@ -23,6 +23,8 @@
 #include "NarisSwimmingComponent.h"
 #include "NarisWeatherGameplayComponent.h"
 #include "TimerManager.h"
+#include "Misc/CommandLine.h"
+#include "Misc/Parse.h"
 
 ANarisHeroCharacter::ANarisHeroCharacter()
 {
@@ -56,6 +58,60 @@ ANarisHeroCharacter::ANarisHeroCharacter()
 void ANarisHeroCharacter::Tick(float DeltaSeconds)
 {
     Super::Tick(DeltaSeconds);
+
+#if !UE_BUILD_SHIPPING
+    // Explicit developer-only, one-shot input probe, executed by the local
+    // client-owned Hero after possession. No gameplay save or gate is changed.
+    if (!HasAuthority() && IsLocallyControlled() && GetWorld()
+        && FParse::Param(FCommandLine::Get(), TEXT("NarisWolfNetProbeInput")))
+    {
+        const float Now = GetWorld()->GetTimeSeconds();
+        if (NetWolfProbePhase == 0)
+        {
+            NetWolfProbeStartTime = Now;
+            NetWolfProbePhase = 1;
+        }
+        else if (NetWolfProbePhase == 1 && Now >= NetWolfProbeStartTime + 2.f)
+        {
+            // Invoke the *actual* player-owned Server RPC with a replicated
+            // placed Wolf. The server, not this client, validates range.
+            ACelestialWolf* Wolf = nullptr;
+            for (TActorIterator<ACelestialWolf> It(GetWorld()); It; ++It)
+            {
+                Wolf = *It;
+                break;
+            }
+            if (IsValid(Wolf))
+            {
+                if (FParse::Param(FCommandLine::Get(), TEXT("NarisWolfNetProbeInputButton")))
+                {
+                    // Exercise the SAME Interact() method bound to user input,
+                    // but trigger once via explicit QA CLI, not keyboard hardware.
+                    // Server is separately started with -NarisWolfNetProbeNoSave.
+                    UE_LOG(LogTemp, Display, TEXT("NARIS_WOLF_NET_PROBE event=ClientInteractButton authority=0"));
+                    Interact();
+                }
+                else
+                {
+                    UE_LOG(LogTemp, Display, TEXT("NARIS_WOLF_NET_PROBE event=ClientInteractRequest actor=%s authority=0"),
+                        *Wolf->GetName());
+                    ServerInteractWithWolf(Wolf);
+                }
+            }
+            else
+            {
+                UE_LOG(LogTemp, Warning, TEXT("NARIS_WOLF_NET_PROBE event=ClientInteractRequest missing_wolf=1"));
+            }
+            NetWolfProbePhase = 2;
+        }
+        else if (NetWolfProbePhase == 2 && Now >= NetWolfProbeStartTime + 4.f)
+        {
+            UE_LOG(LogTemp, Display, TEXT("NARIS_WOLF_NET_PROBE event=ClientCycleMode authority=0"));
+            CycleCompanionMode();
+            NetWolfProbePhase = 3;
+        }
+    }
+#endif
 
     if (Combat && Combat->Health <= 0.f && !bDeathHandled)
     {
@@ -429,6 +485,12 @@ void ANarisHeroCharacter::PreviousEssence()
 
 void ANarisHeroCharacter::CycleCompanionMode()
 {
+    if (!HasAuthority())
+    {
+        ServerCycleCompanionMode();
+        return;
+    }
+
     if (!GetWorld())
     {
         return;
@@ -444,12 +506,74 @@ void ANarisHeroCharacter::CycleCompanionMode()
     }
 }
 
+void ANarisHeroCharacter::ServerCycleCompanionMode_Implementation()
+{
+#if !UE_BUILD_SHIPPING
+    if (FParse::Param(FCommandLine::Get(), TEXT("NarisWolfNetProbe")))
+    {
+        UE_LOG(LogTemp, Display, TEXT("NARIS_WOLF_NET_PROBE event=ServerCycleMode authority=%d"), HasAuthority() ? 1 : 0);
+    }
+#endif
+    CycleCompanionMode();
+}
+
 void ANarisHeroCharacter::Interact()
 {
-    if (Interaction)
+    if (!Interaction)
     {
-        Interaction->Interact();
+        return;
     }
+
+    // A placed Wolf is owned by the server, not the client. Route its
+    // interaction through this player-owned Hero, and revalidate proximity
+    // in the authoritative world before any campaign/save-state mutation.
+    if (ACelestialWolf* Wolf = Cast<ACelestialWolf>(Interaction->FindNearestInteractable()))
+    {
+        if (!HasAuthority())
+        {
+            ServerInteractWithWolf(Wolf);
+            return;
+        }
+    }
+
+    // Preserve existing non-Wolf interaction behavior unchanged.
+    Interaction->Interact();
+}
+
+void ANarisHeroCharacter::ServerInteractWithWolf_Implementation(ACelestialWolf* Wolf)
+{
+    if (!HasAuthority() || !IsValid(Wolf) || !Interaction)
+    {
+        return;
+    }
+
+    // Re-evaluate target and distance on the server (Radius in the
+    // Interaction component); never trust the client-supplied Actor alone.
+    if (Interaction->FindNearestInteractable() != Wolf)
+    {
+#if !UE_BUILD_SHIPPING
+        if (FParse::Param(FCommandLine::Get(), TEXT("NarisWolfNetProbe")))
+        {
+            UE_LOG(LogTemp, Display, TEXT("NARIS_WOLF_NET_PROBE event=ServerInteractRejected authority=1 reason=not_nearest_or_out_of_range"));
+        }
+#endif
+        return;
+    }
+
+#if !UE_BUILD_SHIPPING
+    if (FParse::Param(FCommandLine::Get(), TEXT("NarisWolfNetProbe")))
+    {
+        UE_LOG(LogTemp, Display, TEXT("NARIS_WOLF_NET_PROBE event=ServerInteractAccepted authority=1"));
+    }
+    // In explicit QA mode, test the real ownership / target validation
+    // but do not write companion, quest or autosave state.
+    if (FParse::Param(FCommandLine::Get(), TEXT("NarisWolfNetProbeNoSave")))
+    {
+        return;
+    }
+#endif
+
+    Interaction->Interact();
 }
 
 void ANarisHeroCharacter::SetSprinting(bool bSprint)

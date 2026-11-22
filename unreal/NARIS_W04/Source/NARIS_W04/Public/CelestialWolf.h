@@ -36,11 +36,12 @@ public:
 
     virtual void BeginPlay() override;
     virtual void Tick(float DeltaSeconds) override;
+    virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="NARIS|Presentation")
     TObjectPtr<UNarisPresentationComponent> Presentation;
 
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Companion")
+    UPROPERTY(ReplicatedUsing=OnRep_Mode, EditAnywhere, BlueprintReadWrite, Category="Companion")
     ENarisWolfMode Mode = ENarisWolfMode::Guard;
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Companion|Movement")
@@ -91,7 +92,7 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Companion")
     bool bAutoSave = true;
 
-    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Companion")
+    UPROPERTY(ReplicatedUsing=OnRep_Bonded, VisibleAnywhere, BlueprintReadOnly, Category="Companion")
     bool bBonded = false;
 
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Companion|Track")
@@ -134,6 +135,19 @@ public:
     virtual FText GetInteractionPrompt_Implementation() const override;
 
 private:
+    // Server-origin cosmetic playback. In the isolated QA flow this is called
+    // only after the authoritative Bite Montage starts successfully; clients
+    // never gain permission to apply damage from this RPC.
+    UFUNCTION(NetMulticast, Reliable)
+    void MulticastPlayBiteMontageQA();
+
+    UFUNCTION()
+    void OnRep_Mode();
+
+    UFUNCTION()
+    void OnRep_Bonded();
+
+    float NextNetProbeLogTime = 0.f;
     FVector GuardAnchor = FVector::ZeroVector;
     float LastAttackTime = -1000.f;
     float LastEchoPulseTime = -1000.f;
