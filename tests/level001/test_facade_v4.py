@@ -2,6 +2,8 @@
 import hashlib, json, struct, tempfile, unittest
 from pathlib import Path
 from unittest.mock import patch
+import sys
+sys.path.insert(0,str(Path(__file__).resolve().parents[2]/'tools'/'level001'))
 import LEVEL001_facade_v4 as art
 
 class FacadeV4Tests(unittest.TestCase):
