@@ -150,6 +150,28 @@ void ACelestialWolf::SetMode(ENarisWolfMode NewMode)
     }
 }
 
+void ACelestialWolf::MulticastPlayBiteMontageQA_Implementation()
+{
+#if !UE_BUILD_SHIPPING
+    // Server already played the authoritative Montage in RequestAttack.
+    // The multicast only gives simulated proxies a matching visual timeline.
+    if (HasAuthority())
+    {
+        return;
+    }
+
+    static const TCHAR* BitePath =
+        TEXT("/Game/NARIS/W04/Characters/WolfPresentationV9/Combat/AM_Wolf_Bite.AM_Wolf_Bite");
+    UAnimMontage* Bite = LoadObject<UAnimMontage>(nullptr, BitePath);
+    UAnimInstance* Instance = GetMesh() ? GetMesh()->GetAnimInstance() : nullptr;
+    const float Duration = (Bite && Instance) ? Instance->Montage_Play(Bite) : 0.f;
+    UE_LOG(LogTemp, Display,
+        TEXT("NARIS_WOLF_COMBAT_PROBE event=ClientMontagePlay authority=%d valid_asset=%d valid_anim_instance=%d duration=%.3f"),
+        HasAuthority() ? 1 : 0, IsValid(Bite) ? 1 : 0,
+        IsValid(Instance) ? 1 : 0, Duration);
+#endif
+}
+
 void ACelestialWolf::OnRep_Mode()
 {
     OnModeChanged.Broadcast(Mode);
@@ -489,6 +511,10 @@ bool ACelestialWolf::RequestAttack(ABoneBeastBoss* Target)
             SetMode(ENarisWolfMode::Guard);
             return false;
         }
+        // Server must start the real Montage before requesting client
+        // cosmetic playback; no client-side authority to deal damage.
+        MulticastPlayBiteMontageQA();
+
         // The existing NarisWolfAttackImpactNotify on AM_Wolf_Bite is now the
         // ONLY path to CommitAttackImpact. No instant smoke fallback.
         return true;
@@ -509,6 +535,13 @@ bool ACelestialWolf::CommitAttackImpact()
     // apply damage locally: only the server owns the authoritative hit.
     if (!HasAuthority())
     {
+#if !UE_BUILD_SHIPPING
+        if (FParse::Param(FCommandLine::Get(), TEXT("NarisWolfNetProbe")))
+        {
+            UE_LOG(LogTemp, Display,
+                TEXT("NARIS_WOLF_COMBAT_PROBE event=ClientImpactRejected authority=0"));
+        }
+#endif
         return false;
     }
 
