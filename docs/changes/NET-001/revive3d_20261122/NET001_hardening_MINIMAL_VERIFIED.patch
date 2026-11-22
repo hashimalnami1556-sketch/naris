@@ -1,0 +1,230 @@
+--- a/Source/NARIS/Multiplayer/NarisCoopCharacter.h
++++ b/Source/NARIS/Multiplayer/NarisCoopCharacter.h
+@@ -55,8 +55,20 @@
+     void SyncReplicatedState();
+     bool TryReviveNearby();
+     void CompleteRevive(ANarisCoopCharacter* Reviver);
+     void EnterDownedState();
++    // Server-side revive rules; preserve the existing 260cm radius and 40% healing.
++    UPROPERTY(EditDefaultsOnly, Category="NARIS|Coop|Revive", meta=(ClampMin="0.0"))
++    float MaxReviveDistance = 260.f;
++    UPROPERTY(EditDefaultsOnly, Category="NARIS|Coop|Revive")
++    bool bReviveRequiresLineOfSight = true;
++    UPROPERTY(EditDefaultsOnly, Category="NARIS|Coop|Revive", meta=(ClampMin="0.0"))
++    float ReviveCooldownSeconds = 2.f;
++    UPROPERTY(EditDefaultsOnly, Category="NARIS|Coop|Revive", meta=(ClampMin="0.0"))
++    float ReviveAttemptCooldownSeconds = 0.25f;
++    // Deliberately server-only: client HUD never decides revive acceptance.
++    float LastReviveAttemptTime = -1000.f;
++    float LastSuccessfulReviveTime = -1000.f;
+     UPROPERTY(EditDefaultsOnly, Category="NARIS|Coop") float BleedOutSeconds = 25.f;
+     void CoopMoveForward(float Value);
+     void CoopMoveRight(float Value);
+     void CoopTurn(float Value);
+@@ -78,5 +90,5 @@
+     void CoopStanceWarrior();
+     void CoopStanceMage();
+     void CoopStanceShadow();
+ };
+-
++
+--- a/Source/NARIS/Multiplayer/NarisCoopCharacter.cpp
++++ b/Source/NARIS/Multiplayer/NarisCoopCharacter.cpp
+@@ -3,8 +3,10 @@
+ #include "Components/InputComponent.h"
+ #include "Components/SkeletalMeshComponent.h"
+ #include "GameFramework/CharacterMovementComponent.h"
+ #include "EngineUtils.h"
++#include "Engine/World.h"
++#include "CollisionQueryParams.h"
+ #include "NarisCoopGameState.h"
+ #include "NarisCoopPlayerState.h"
+ #include "Net/UnrealNetwork.h"
+ 
+@@ -125,24 +127,42 @@
+ }
+ 
+ bool ANarisCoopCharacter::TryReviveNearby()
+ {
+-    if (!HasAuthority() || !GetWorld()) return false;
++    // A client must request an interaction on its owned pawn; all checks run on the server.
++    UWorld* World = GetWorld();
++    if (!HasAuthority() || !World || bDowned || Health <= 0.f) return false;
++
++    const float Now = World->GetTimeSeconds();
++    if (Now - LastReviveAttemptTime < ReviveAttemptCooldownSeconds ||
++        Now - LastSuccessfulReviveTime < ReviveCooldownSeconds) return false;
++    // Throttle attempts, including requests for out-of-range or occluded targets.
++    LastReviveAttemptTime = Now;
++
+     ANarisCoopCharacter* Best = nullptr;
+-    float BestDist = 260.f;
+-    for (TActorIterator<ANarisCoopCharacter> It(GetWorld()); It; ++It)
++    float BestDistSquared = FMath::Square(FMath::Max(0.f, MaxReviveDistance));
++    const FVector Start = GetActorLocation() + FVector(0.f, 0.f, 50.f);
++    for (TActorIterator<ANarisCoopCharacter> It(World); It; ++It)
+     {
+         ANarisCoopCharacter* Candidate = *It;
+-        if (!IsValid(Candidate) || Candidate == this || !Candidate->bDowned) continue;
+-        const float Dist = FVector::Dist(GetActorLocation(), Candidate->GetActorLocation());
+-        if (Dist < BestDist)
++        if (!IsValid(Candidate) || Candidate == this ||
++            !Candidate->bDowned || Candidate->Health <= 0.f) continue;
++        const float DistSquared = FVector::DistSquared(GetActorLocation(), Candidate->GetActorLocation());
++        if (DistSquared >= BestDistSquared) continue; // Existing strict 260cm upper bound.
++        if (bReviveRequiresLineOfSight)
+         {
+-            Best = Candidate;
+-            BestDist = Dist;
++            FCollisionQueryParams Params(SCENE_QUERY_STAT(NarisReviveLOS), false);
++            Params.AddIgnoredActor(this);
++            Params.AddIgnoredActor(Candidate);
++            const FVector End = Candidate->GetActorLocation() + FVector(0.f, 0.f, 50.f);
++            if (World->LineTraceTestByChannel(Start, End, ECC_Visibility, Params)) continue;
+         }
++        Best = Candidate;
++        BestDistSquared = DistSquared;
+     }
+     if (!Best) return false;
+-    Best->CompleteRevive(this);
++    LastSuccessfulReviveTime = Now;
++    Best->CompleteRevive(this); // Health/Downed remain authoritative replicated state.
+     return true;
+ }
+ 
+ void ANarisCoopCharacter::CompleteRevive(ANarisCoopCharacter* Reviver)
+@@ -314,5 +334,5 @@
+     if (!MotionLibrary.IsValidIndex(Index) || !MotionLibrary[Index]) return;
+     GetMesh()->PlayAnimation(MotionLibrary[Index].Get(), bLoop);
+     ActiveAnimation = MotionLibrary[Index];
+ }
+-
++
+--- a/Source/NARIS/Tests/NarisCoopTests.cpp
++++ b/Source/NARIS/Tests/NarisCoopTests.cpp
+@@ -9,8 +9,12 @@
+ #include "UObject/UnrealType.h"
+ #include "Engine/Engine.h"
+ #include "Engine/World.h"
+ #include "Engine/DamageEvents.h"
++#include "Engine/StaticMeshActor.h"
++#include "Components/StaticMeshComponent.h"
++#include "Engine/StaticMesh.h"
++#include "CollisionQueryParams.h"
+ 
+ IMPLEMENT_SIMPLE_AUTOMATION_TEST(FNarisCoopCharacterReplication,
+     "NARIS.Coop.Character.ReplicationDefaults",
+     EAutomationTestFlags::EditorContext | EAutomationTestFlags::EngineFilter)
+@@ -154,6 +158,109 @@
+     Reviver->Destroy();
+     Downed->Destroy();
+     return true;
+ }
++
++static UWorld* Net001EditorTestWorld()
++{
++    if (GEngine) for (const FWorldContext& Context : GEngine->GetWorldContexts())
++        if (Context.World() && Context.WorldType == EWorldType::Editor) return Context.World();
++    return nullptr;
++}
++
++IMPLEMENT_SIMPLE_AUTOMATION_TEST(FNarisNet001DownedReviver,
++    "NARIS.Coop.Character.ReviveRejectsDownedReviver",
++    EAutomationTestFlags::EditorContext | EAutomationTestFlags::EngineFilter)
++bool FNarisNet001DownedReviver::RunTest(const FString& Parameters)
++{
++    UWorld* W=Net001EditorTestWorld();
++    if (!W) { AddError(TEXT("No editor world")); return false; }
++    auto* A=W->SpawnActor<ANarisCoopCharacter>(FVector(0,0,200),FRotator::ZeroRotator);
++    auto* B=W->SpawnActor<ANarisCoopCharacter>(FVector(100,0,200),FRotator::ZeroRotator);
++    if (!A || !B) { if(A)A->Destroy();if(B)B->Destroy();return false; }
++    FDamageEvent D;
++    A->TakeDamage(10000.f,D,nullptr,B);
++    B->TakeDamage(10000.f,D,nullptr,A);
++    TestTrue(TEXT("Reviver downed"),A->IsDowned());
++    TestFalse(TEXT("Downed reviver rejected"),A->TryReviveTeammate());
++    TestTrue(TEXT("Teammate still downed"),B->IsDowned());
++    A->Destroy();B->Destroy();return true;
++}
++
++IMPLEMENT_SIMPLE_AUTOMATION_TEST(FNarisNet001DeadTarget,
++    "NARIS.Coop.Character.ReviveRejectsDeadTarget",
++    EAutomationTestFlags::EditorContext | EAutomationTestFlags::EngineFilter)
++bool FNarisNet001DeadTarget::RunTest(const FString& Parameters)
++{
++    UWorld* W=Net001EditorTestWorld();
++    if (!W) { AddError(TEXT("No editor world")); return false; }
++    auto* A=W->SpawnActor<ANarisCoopCharacter>(FVector(0,0,200),FRotator::ZeroRotator);
++    auto* B=W->SpawnActor<ANarisCoopCharacter>(FVector(100,0,200),FRotator::ZeroRotator);
++    if (!A || !B) { if(A)A->Destroy();if(B)B->Destroy();return false; }
++    B->TakeDamage(10000.f,FDamageEvent(),nullptr,A);
++    FFloatProperty* HP=FindFProperty<FFloatProperty>(ANarisCharacter::StaticClass(),TEXT("Health"));
++    TestNotNull(TEXT("Health reflected"),HP);
++    if (HP) HP->SetPropertyValue_InContainer(B,0.f);
++    TestTrue(TEXT("Downed flag stale"),B->IsDowned());
++    TestFalse(TEXT("Zero-health target rejected"),A->TryReviveTeammate());
++    TestTrue(TEXT("Health stays zero"),B->GetHealthValue()<=0.f);
++    A->Destroy();B->Destroy();return true;
++}
++
++IMPLEMENT_SIMPLE_AUTOMATION_TEST(FNarisNet001RejectsWall,
++    "NARIS.Coop.Character.ReviveRejectsThroughWall",
++    EAutomationTestFlags::EditorContext | EAutomationTestFlags::EngineFilter)
++bool FNarisNet001RejectsWall::RunTest(const FString& Parameters)
++{
++    UWorld* W=Net001EditorTestWorld();
++    if (!W) { AddError(TEXT("No editor world")); return false; }
++    auto* A=W->SpawnActor<ANarisCoopCharacter>(FVector(0,0,200),FRotator::ZeroRotator);
++    auto* B=W->SpawnActor<ANarisCoopCharacter>(FVector(200,0,200),FRotator::ZeroRotator);
++    auto* Wall=W->SpawnActor<AStaticMeshActor>(FVector(100,0,200),FRotator::ZeroRotator);
++    UStaticMesh* Cube=LoadObject<UStaticMesh>(nullptr,TEXT("/Engine/BasicShapes/Cube.Cube"));
++    if (!A || !B || !Wall || !Cube) {
++        AddError(TEXT("Missing test actor or engine cube"));
++        if(A)A->Destroy();if(B)B->Destroy();if(Wall)Wall->Destroy();return false;
++    }
++    UStaticMeshComponent* M=Wall->GetStaticMeshComponent();
++    M->SetMobility(EComponentMobility::Movable);
++    M->SetStaticMesh(Cube);
++    Wall->SetActorScale3D(FVector(0.2f,4.f,4.f));
++    M->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
++    M->SetCollisionResponseToAllChannels(ECR_Ignore);
++    M->SetCollisionResponseToChannel(ECC_Visibility,ECR_Block);
++    FCollisionQueryParams Q(SCENE_QUERY_STAT(NarisReviveTestWall),false);
++    Q.AddIgnoredActor(A);Q.AddIgnoredActor(B);
++    TestTrue(TEXT("Wall must block trace"),W->LineTraceTestByChannel(
++        A->GetActorLocation()+FVector(0,0,50),B->GetActorLocation()+FVector(0,0,50),
++        ECC_Visibility,Q));
++    B->TakeDamage(10000.f,FDamageEvent(),nullptr,A);
++    TestFalse(TEXT("Obstructed revival rejected"),A->TryReviveTeammate());
++    TestTrue(TEXT("Blocked teammate stays downed"),B->IsDowned());
++    Wall->Destroy();A->Destroy();B->Destroy();return true;
++}
++
++IMPLEMENT_SIMPLE_AUTOMATION_TEST(FNarisNet001ReviveCooldown,
++    "NARIS.Coop.Character.ReviveRespectsCooldown",
++    EAutomationTestFlags::EditorContext | EAutomationTestFlags::EngineFilter)
++bool FNarisNet001ReviveCooldown::RunTest(const FString& Parameters)
++{
++    UWorld* W=Net001EditorTestWorld();
++    if (!W) { AddError(TEXT("No editor world")); return false; }
++    auto* A=W->SpawnActor<ANarisCoopCharacter>(FVector(0,0,200),FRotator::ZeroRotator);
++    auto* B=W->SpawnActor<ANarisCoopCharacter>(FVector(100,0,200),FRotator::ZeroRotator);
++    auto* C=W->SpawnActor<ANarisCoopCharacter>(FVector(0,210,200),FRotator::ZeroRotator);
++    if (!A || !B || !C) {
++        if(A)A->Destroy();if(B)B->Destroy();if(C)C->Destroy();return false;
++    }
++    FDamageEvent D;
++    B->TakeDamage(10000.f,D,nullptr,A);
++    C->TakeDamage(10000.f,D,nullptr,A);
++    TestTrue(TEXT("First revive succeeds"),A->TryReviveTeammate());
++    TestFalse(TEXT("Immediate second attempt denied"),A->TryReviveTeammate());
++    TestFalse(TEXT("Closer player revived"),B->IsDowned());
++    TestTrue(TEXT("Other player still downed"),C->IsDowned());
++    A->Destroy();B->Destroy();C->Destroy();return true;
++}
++
+ #endif
+-
++
+
+[executed on device: AsusRog (81c43ddb-199e-4bc1-9944-e3faf018908f)]
