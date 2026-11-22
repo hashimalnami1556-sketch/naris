@@ -82,6 +82,33 @@ class WolfBossAttackFlowProbe(unittest.TestCase):
         impact = method_body(WOLF, "CommitAttackImpact")
         self.assertIn("!HasAuthority()", impact)
 
+    def test_nonshipping_server_notifies_clients_to_play_bite_montage(self):
+        header = (ROOT.parent / "Public" / "CelestialWolf.h").read_text(encoding="utf8")
+        request = method_body(WOLF, "RequestAttack")
+        self.assertIn("UFUNCTION(NetMulticast, Reliable)", header)
+        self.assertIn("MulticastPlayBiteMontageQA", header)
+        self.assertIn("MulticastPlayBiteMontageQA();", request)
+        self.assertLess(request.index("if (Duration <= 0.f)"), request.index("MulticastPlayBiteMontageQA();"))
+        self.assertIn("NarisWolfNetProbeMontageOnce", request)
+
+    def test_multicast_playback_runs_on_simulated_clients_only_with_no_damage(self):
+        multicast = method_body(WOLF, "MulticastPlayBiteMontageQA_Implementation")
+        self.assertIn("if (HasAuthority())", multicast)
+        self.assertIn("return;", multicast)
+        self.assertIn("AM_Wolf_Bite.AM_Wolf_Bite", multicast)
+        self.assertIn("Montage_Play(", multicast)
+        self.assertIn("NARIS_WOLF_COMBAT_PROBE event=ClientMontagePlay", multicast)
+        self.assertNotIn("ApplyDamageToEncounter", multicast)
+        self.assertNotIn("CommitAttackImpact", multicast)
+
+    def test_client_notify_logs_nonshipping_before_rejected_authoritative_damage(self):
+        notify = (ROOT / "NarisWolfAttackImpactNotify.cpp").read_text(encoding="utf8")
+        self.assertIn("NarisWolfNetProbe", notify)
+        self.assertIn("Wolf->HasAuthority() ? 1 : 0", notify)
+        self.assertIn("Wolf->CommitAttackImpact();", notify)
+        impact = method_body(WOLF, "CommitAttackImpact")
+        self.assertLess(impact.index("!HasAuthority()"), impact.index("Target->ApplyDamageToEncounter"))
+
     def test_real_wolf_request_still_checks_active_boss_and_authority(self):
         request = method_body(WOLF, "RequestAttack")
         self.assertIn("!HasAuthority()", request)
