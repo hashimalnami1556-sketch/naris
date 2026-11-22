@@ -36,3 +36,7 @@
 
 **Provenance:** `Gallery_20261122/UIFlow/ui-flow-receipt.json` and logs are stored on the user's AsusRog. Each image here corresponds to a captured local Unreal frame. This media-only review branch is not a PR, feature merge, production release, or proof of stable FPS.
 
+
+## تنزيل جميع الصور
+
+[تنزيل ملف ZIP: 14 صورة منفردة + لوحتا معاينة](NARIS_Screenshots_20261122.zip)
