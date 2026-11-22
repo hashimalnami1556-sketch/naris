@@ -141,3 +141,22 @@ Generated cook staging duplicate of **47 SHA256-matching files / 885,591,365 byt
 | Mean GPU local used | 713.926MB | 711.386MB | −2.540MB |
 
 **NOT a controlled isolated Montage performance comparison.** The baseline is an earlier same-map Boss-only code stage, not the later Wolf instant-hit code stage (its CSV was previously rejected due variable-width rows 226–229); multiple source changes span the A/B. Actual newest CSV had **240 valid, uniform 223-column frames** and passed the strict parser. One static dev pass each, no fixed Seed/temporal pose, temperature/background load, active network rendering or min-spec QA. Thus **production FPS/VRAM change = N/A; FPS release gate open**. Before raw CSV SHA `171DA607A9DB24A05B620799C55C9EE8FD72FC034E51DEDCCADED5EC755FB31D`; after SHA `95A949B80E07E161F4BF5AE246471A0BD6553AF75DA3BFED4702C075C7DC07B7`; local pair report SHA `57EA96E3F0F684973C0EE4B1917E8CBC3A8293CF5F246F6200B80889CBE6494B`. Static 1920×1080 before/after render byte-identical SHA `0A1720D2DF521D720A38C927363826805D1FFDAAD104706E65921845E486817E`, black diff; not animated evidence. Hash-verified **47 duplicate cook staging files, 885,596,485 bytes** freed 0.825 GiB staging only; retained new/prior archives.
+
+## ANIM-024 — 2026-11-22: real two-client Wolf Bite Montage and authored Notify playback
+
+**Actual packaged 1 listen + 2 clients, UE5.7.4 Win64 Development:** The server and **each simulated client** separately executed the existing `AM_Wolf_Bite` Montage (successful `Montage_Play duration=0.183`), fired `NarisWolfAttackImpactNotify`, but each client immediately logged `ClientImpactRejected authority=0`. Exactly **one server-only damage event** reduced Bone Beast `100→82`, and both clients received the live HP update. Independent **27/27 network assertions PASS**, QA `wolf_client_montage_gate_20261122.json` SHA256 `d80332545297c08b7f72ae29e89d2f9f1114774ecc5f6e4ed74ea2a458a5442d`. The `NetMulticast, Reliable` cosmetic command is **nonshipping, opt-in QA**, not production design. Actual client **rendered** animation and collision hitbox still **UNVERIFIED**. [Full real evidence](changes/ANIM-024/wolf_client_bite_multicast_20261122.md).
+
+**Latest post-change static single-run D3D12** (same QA map and nominal fixed camera, 240 frames/60 discarded):
+
+| Metric | Observed latest isolated snapshot |
+| --- | ---: |
+| Mean FrameTime | **15.25136ms** |
+| Derived FPS-equivalent (not measured gameplay FPS) | **65.568** |
+| Mean GPUTime | **14.40953ms** |
+| Mean local GPU memory | **714.96MB** |
+
+Valid uniformly formatted 240-row CSV SHA256 `dd19848064bb104d7482fd57ddb533097fd774db2a612f0b5a9459354de3a1db`. Earlier 21 Nov single static snapshot had mean FrameTime **5.73375ms**, difference +**9.51761ms** but **different-day/session run and uncontrolled load/seed/caches/animation phase**; causality **N/A**, no certified new source regression or release margin. Production desktop 60FPS, true two-client visual game FPS and minimum-spec thresholds **NOT certified**. Required: repeated controlled 1080p tests with fixed Seed, GPU thermal/cache state, target hardware and actual active gameplay.
+
+Real `HighResShot 1920×1080` after SHA256 `6835B7D183657498FCA6F8A532E4E7C69BC11B5EBD231A38538E49BAEF534BC6` vs previous screenshot `0A1720D2DF521D720A38C927363826805D1FFDAAD104706E65921845E486817E`; **nonzero** pixel-diff bbox (0,427,1920,1080). This does **not** prove authored asset edits or render quality. The before/after/diff files and log hashes are recorded in [actual QA report](changes/ANIM-024/wolf_client_bite_multicast_20261122.md).
+
+Build Editor/Game Development **PASS**, CookPakArchive **PASS**, `Project.Maps.PIE` **Success 13 existing warnings, 0 errors**. **47 generated staged files/885,614,981 bytes** deleted only after verifying per-file relative SHA256 equality to the preserved package, +0.825GiB space from that staging duplicate (not total net savings). Earlier archives preserved.
