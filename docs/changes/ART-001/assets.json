@@ -1,0 +1,75 @@
+{
+  "change_id": "ART-001",
+  "date": "2026-11-25",
+  "provider": "Adobe Firefly via Adobe Creative Cloud image_instruct_edit",
+  "requested_resolution": "4MP",
+  "seed": null,
+  "approval_status": "concept",
+  "source_reference": "https://www.figma.com/design/lYSmWwGHXCEXODKpG9bpJH",
+  "existing_ui_reference_assets": [
+    {
+      "asset_id": "urn:aaid:sc:AP:db8bc15c-f256-480b-9308-a9dbe6b31880",
+      "role": "Main menu visual reference"
+    },
+    {
+      "asset_id": "urn:aaid:sc:AP:57b2e069-f03e-41a3-b0ca-8983f15ed60f",
+      "role": "Bilingual inventory/equipment reference"
+    },
+    {
+      "asset_id": "urn:aaid:sc:AP:b0a0997b-5a8b-4139-b9d1-46a11c7d6a1c",
+      "role": "Bilingual settings reference"
+    },
+    {
+      "asset_id": "urn:aaid:sc:AP:e442fa55-0af3-48c4-9728-6f1c024481f1",
+      "role": "World-selection reference"
+    },
+    {
+      "asset_id": "urn:aaid:sc:AP:6e8cee8b-8359-4c4a-b401-eaedec958b39",
+      "role": "Gameplay HUD reference"
+    },
+    {
+      "asset_id": "urn:aaid:sc:AP:297ec9c6-0beb-4385-b433-e099dc431c67",
+      "role": "Visual production board / art-direction reference"
+    }
+  ],
+  "assets": [
+    {
+      "asset_id": "NARIS-W04-UI-MENUART-0001",
+      "name": "Ashen Oath Main Menu Key Art",
+      "source_asset": "urn:aaid:sc:AP:743ec5f4-e5bf-4909-a283-0d15012c8421",
+      "output_asset": "urn:aaid:sc:AP:5e3414fe-ddee-4f5a-bbde-173afe99c77c",
+      "status": "concept",
+      "prompt": "Recompose this existing CALL OF NARIS title key art only. Preserve the same illustrated painterly style, Ashen Vessel identity, armor, mask, cloak, Flame Relic Sword, palette and world. Move the full character silhouette into the RIGHT 30 percent of the image, with the bell-gate as the center-right landmark. Make the LEFT 42 percent a clean, atmospheric, low-detail dark forest and mist area with no bright objects, suitable for a vertical game-menu panel. Keep the same art style and avoid photorealism. Do not add any UI, text, logo, watermark, new characters or gore."
+    },
+    {
+      "asset_id": "NARIS-W04-ENV-LAND-0001",
+      "name": "Ashen Forest Waystone Vista",
+      "source_asset": "urn:aaid:sc:AP:e999f6bd-bdb9-48ba-a8b6-cfbb4e6b38c5",
+      "output_asset": "urn:aaid:sc:AP:1181cb3c-267b-417f-a6ed-1783bff9ad43",
+      "status": "concept",
+      "prompt": "Keep this exact Ashen Forest environment composition, bridge, trees, ruined arch, Waystone and painterly NARIS style unchanged. Add one small, clearly readable pale-cyan Memory Crystal hovering just above the existing central Waystone obelisk on the left-middle of the bridge. It should be a modest gameplay landmark, not a giant glowing beacon: faceted crystal, restrained aether-blue glow, a few subtle runic particles, matching the existing brushwork and lighting. Preserve navigable ground, bridge geometry and depth. Do not add a character, UI, text, logo, watermark, extra structures or photorealism."
+    },
+    {
+      "asset_id": "NARIS-W04-BOS-ARENA-0001",
+      "name": "Bone Beast Arena Key Art",
+      "source_asset": "urn:aaid:sc:AP:dd2a5fe8-80e1-4557-a2ee-4a16721d2709",
+      "output_asset": "urn:aaid:sc:AP:9c4bcf3f-b970-4d22-a738-756a1ed70247",
+      "status": "concept",
+      "prompt": "Create a new single 16:9 CALL OF NARIS W04 Bone Beast boss-encounter concept from this exact enemy reference sheet. IMPORTANT: use ONLY the quadruped skeletal creature at the FAR LEFT of the source sheet as the Bone Beast reference. Preserve its four-legged animal anatomy, long low body, exposed ribcage, bone plates and original creature silhouette. Do NOT use the central humanoid armored enemy, do NOT create a bipedal demon, and do NOT add human torso or human legs. Place the quadruped Bone Beast in a broad ruined Ashen Forest arena with a small Ashen Vessel for scale, clear floor and a readable lunging/telegraph pose. Keep the same painterly illustrated NARIS concept-art style, cool slate mist, ash forest and restrained ember accents. No UI, no text, no logo, no watermark, no blood or gore."
+    }
+  ],
+  "rejected_variants": [
+    {
+      "asset_id": "urn:aaid:sc:AP:94c398e1-804d-4e49-a156-140b8b86d37b",
+      "reason": "First boss edit incorrectly selected a bipedal humanoid; rejected in favor of the quadruped source silhouette."
+    },
+    {
+      "figma_nodes": [
+        "15:2",
+        "15:3",
+        "15:4"
+      ],
+      "reason": "Earlier photorealistic V6 generated art drifts from the existing painterly NARIS art direction; not approved for production."
+    }
+  ]
+}
