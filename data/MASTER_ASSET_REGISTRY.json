@@ -1123,6 +1123,39 @@
       "source": "data/materials/W04_ASHEN_FOREST_MATERIAL_LIBRARY_v1.json",
       "engine_target": "Unreal Material Instance",
       "notes": "Material library id: MAT_W04_WHISPER_LAKE_01"
+    },
+    {
+      "id": "NARIS-W04-UI-MENUART-0001",
+      "name": "Ashen Oath Main Menu Key Art",
+      "domain": "UI",
+      "type": "MENUART",
+      "world": "W04",
+      "status": "concept",
+      "source": "Adobe_Firefly_edit_2026-11-25",
+      "engine_target": "Unreal",
+      "notes": "Style-matched menu background concept derived from existing NARIS Adobe character concept. Adobe output asset: urn:aaid:sc:AP:5e3414fe-ddee-4f5a-bbde-173afe99c77c. Not approved or imported."
+    },
+    {
+      "id": "NARIS-W04-ENV-LAND-0001",
+      "name": "Ashen Forest Waystone Vista",
+      "domain": "ENV",
+      "type": "LAND",
+      "world": "W04",
+      "status": "concept",
+      "source": "Adobe_Firefly_edit_2026-11-25",
+      "engine_target": "Unreal",
+      "notes": "Painterly W04 bridge/Waystone vista with a small Memory Crystal landmark. References NARIS-W04-ENV-KIT-0001, NARIS-W04-PRP-WAYSTONE-0001 and NARIS-W04-PRP-MEMORYCRYSTAL-0001. Adobe output asset: urn:aaid:sc:AP:1181cb3c-267b-417f-a6ed-1783bff9ad43. Concept only; not a runtime map."
+    },
+    {
+      "id": "NARIS-W04-BOS-ARENA-0001",
+      "name": "Bone Beast Arena Key Art",
+      "domain": "BOS",
+      "type": "ARENA",
+      "world": "W04",
+      "status": "concept",
+      "source": "Adobe_Firefly_edit_2026-11-25",
+      "engine_target": "Unreal",
+      "notes": "Painterly boss-arena concept using NARIS-W04-ENM-BONEBEAST-0001 as source; quadruped silhouette selected from the existing enemy sheet. Adobe output asset: urn:aaid:sc:AP:9c4bcf3f-b970-4d22-a738-756a1ed70247. Not a mesh, rig, animation or playable arena."
     }
   ]
 }
